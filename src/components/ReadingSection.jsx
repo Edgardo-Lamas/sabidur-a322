@@ -59,7 +59,7 @@ const ReadingSection = ({ article }) => {
                                 </div>
                             </div>
                             <a
-                                href={article.pdfUrl}
+                                href={`${import.meta.env.BASE_URL}${article.pdfUrl}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="btn-gold flex items-center gap-2 whitespace-nowrap"

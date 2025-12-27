@@ -16,7 +16,7 @@ const HeroGrid = () => {
                     className="lg:col-span-2 lg:row-span-2 relative overflow-hidden group rounded-sm shadow-xl"
                 >
                     <img
-                        src={main.image}
+                        src={`${import.meta.env.BASE_URL}${main.image}`}
                         alt={main.title}
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
@@ -47,7 +47,7 @@ const HeroGrid = () => {
                         className="relative overflow-hidden group rounded-sm shadow-lg h-full"
                     >
                         <img
-                            src={item.image}
+                            src={`${import.meta.env.BASE_URL}${item.image}`}
                             alt={item.title}
                             className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         />

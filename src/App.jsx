@@ -16,7 +16,7 @@ const ScrollToTop = () => {
 };
 
 function App() {
-  const basename = import.meta.env.MODE === 'production' ? '/sabidur-a322/' : '';
+  const basename = import.meta.env.BASE_URL;
 
   return (
     <Router basename={basename}>

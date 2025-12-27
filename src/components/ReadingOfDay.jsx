@@ -12,7 +12,7 @@ const ReadingOfDay = () => {
             {/* Background Image with Overlay */}
             <div className="absolute inset-0 z-0">
                 <img
-                    src={dailyReading.backgroundImage}
+                    src={`${import.meta.env.BASE_URL}${dailyReading.backgroundImage}`}
                     alt="Fondo lectura"
                     className="w-full h-full object-cover"
                 />

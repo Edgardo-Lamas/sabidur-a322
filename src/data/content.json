@@ -7,7 +7,7 @@
             "excerpt": "Un estudio profundo sobre los primeros cinco libros de la Biblia y su importancia en el canon sagrado.",
             "date": "2025-12-27",
             "slug": "la-tora-editada",
-            "pdfUrl": "/pdf/ La TORA editada.pdf"
+            "pdfUrl": "pdf/ La TORA editada.pdf"
         },
         {
             "id": 2,
@@ -16,7 +16,7 @@
             "excerpt": "Explorando la reverencia y el asombro que el creyente debe tener ante la santidad y majestad del Creador.",
             "date": "2025-12-27",
             "slug": "temor-a-dios",
-            "pdfUrl": "/pdf/El Temor a Dios.pdf"
+            "pdfUrl": "pdf/El Temor a Dios.pdf"
         },
         {
             "id": 3,
@@ -25,7 +25,7 @@
             "excerpt": "Una reflexión bíblica sobre la lucha contra el pecado en la vida del cristiano y la gracia sustentadora de Dios.",
             "date": "2025-12-27",
             "slug": "creyente-puede-pecar",
-            "pdfUrl": "/pdf/El creyente puede pecar.pdf"
+            "pdfUrl": "pdf/El creyente puede pecar.pdf"
         },
         {
             "id": 4,
@@ -34,7 +34,7 @@
             "excerpt": "Un recorrido por el testimonio de aquellos que sufrieron por causa de la fe a lo largo de los siglos.",
             "date": "2025-12-27",
             "slug": "historia-persecuciones",
-            "pdfUrl": "/pdf/Historia de persescuciones.pdf"
+            "pdfUrl": "pdf/Historia de persescuciones.pdf"
         },
         {
             "id": 5,
@@ -43,7 +43,7 @@
             "excerpt": "Entendiendo la naturaleza de las bendiciones divinas desde una perspectiva bíblica y reformada.",
             "date": "2025-12-27",
             "slug": "bendicion-de-dios",
-            "pdfUrl": "/pdf/La Bendicion de Dios.pdf"
+            "pdfUrl": "pdf/La Bendicion de Dios.pdf"
         },
         {
             "id": 6,
@@ -52,7 +52,7 @@
             "excerpt": "Cómo cultivar una vida de oración que sea fiel al modelo y a las promesas de las Escrituras.",
             "date": "2025-12-27",
             "slug": "oracion-biblica",
-            "pdfUrl": "/pdf/La oracion biblica.pdf"
+            "pdfUrl": "pdf/La oracion biblica.pdf"
         },
         {
             "id": 7,
@@ -61,7 +61,7 @@
             "excerpt": "Estableciendo fundamentos sólidos para la fe y la práctica en un mundo de verdades relativas.",
             "date": "2025-12-27",
             "slug": "principios-convicciones",
-            "pdfUrl": "/pdf/Principios y Convicciónes.pdf"
+            "pdfUrl": "pdf/Principios y Convicciónes.pdf"
         },
         {
             "id": 8,
@@ -70,7 +70,7 @@
             "excerpt": "Un análisis de la doctrina de la elección soberana y su consuelo para el pueblo de Dios.",
             "date": "2025-12-27",
             "slug": "teologia-eleccion",
-            "pdfUrl": "/pdf/Teologia de la eleccion.pdf"
+            "pdfUrl": "pdf/Teologia de la eleccion.pdf"
         },
         {
             "id": 9,
@@ -79,7 +79,7 @@
             "excerpt": "La historia y relevancia de la traducción al griego del Antiguo Testamento para la iglesia primitiva.",
             "date": "2025-12-27",
             "slug": "septuaginta-final",
-            "pdfUrl": "/pdf/septuaginta final.pdf"
+            "pdfUrl": "pdf/septuaginta final.pdf"
         }
     ],
     "social": {
@@ -88,9 +88,8 @@
         "instagram": "https://instagram.com/sabiduria322"
     },
     "hero": {
-        "youtubeTitle": "Último Video: Hijos de Dios sujetos a Gobernantes humanos",
-        "youtubeUrl": "https://www.youtube.com/embed/Vw86HBr3log",
-        "youtubeId": "Vw86HBr3log"
+        "youtubeTitle": "Gobernantes: Su Deber y Nuestra Responsabilidad",
+        "youtubeUrl": "https://www.youtube.com/embed/Vw86HBr3log"
     },
     "dailyReading": {
         "title": "La Lectura de Hoy",

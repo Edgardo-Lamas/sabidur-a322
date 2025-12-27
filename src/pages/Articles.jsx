@@ -47,8 +47,8 @@ const Articles = () => {
                                 key={cat}
                                 onClick={() => setSelectedCategory(cat)}
                                 className={`whitespace-nowrap px-4 py-2 text-sm font-medium border transition-colors ${selectedCategory === cat
-                                        ? 'bg-sabiduria-gold text-white border-sabiduria-gold'
-                                        : 'border-sabiduria-gray/10 hover:border-sabiduria-gold hover:text-sabiduria-gold'
+                                    ? 'bg-sabiduria-gold text-white border-sabiduria-gold'
+                                    : 'border-sabiduria-gray/10 hover:border-sabiduria-gold hover:text-sabiduria-gold'
                                     }`}
                             >
                                 {cat}
@@ -78,7 +78,7 @@ const Articles = () => {
                                     <div className="flex items-center gap-4">
                                         {article.pdfUrl && (
                                             <a
-                                                href={article.pdfUrl}
+                                                href={`${import.meta.env.BASE_URL}${article.pdfUrl}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="text-sabiduria-gray hover:text-sabiduria-gold transition-colors p-1"

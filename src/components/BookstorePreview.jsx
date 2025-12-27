@@ -38,7 +38,7 @@ const BookstorePreview = () => {
                         >
                             <div className="sm:w-1/2 relative overflow-hidden h-80 sm:h-auto">
                                 <img
-                                    src={book.image}
+                                    src={`${import.meta.env.BASE_URL}${book.image}`}
                                     alt={book.title}
                                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
