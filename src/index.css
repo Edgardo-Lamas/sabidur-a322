@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --color-sabiduria-bg: #F9F9F7;
+  --color-sabiduria-navy: #1A1D23;
+  --color-sabiduria-gold: #C5A059;
+  --color-sabiduria-gray: #5A5A5A;
+
+  --font-serif: "Lora", "Playfair Display", serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-sabiduria-bg text-sabiduria-navy font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .btn-gold {
+    @apply bg-sabiduria-gold text-white px-6 py-2 rounded-sm hover:opacity-90 transition-all font-medium;
+  }
+
+  .blockquote-gold {
+    @apply border-l-4 border-sabiduria-gold pl-6 py-4 my-8 italic text-sabiduria-navy bg-white/50;
+  }
+}

@@ -1,0 +1,36 @@
+{
+    "articles": [
+        {
+            "id": 1,
+            "category": "Exégesis",
+            "title": "La Soberanía de Dios en la Providencia",
+            "excerpt": "Un análisis profundo sobre cómo el Creador sostiene y gobierna todas las cosas para Su gloria.",
+            "date": "2025-12-25",
+            "slug": "soberania-de-dios-providencia",
+            "pdfUrl": "/pdfs/soberania-de-dios.pdf"
+        },
+        {
+            "id": 2,
+            "category": "Teología Reformada",
+            "title": "Las Cinco Solas de la Reforma",
+            "excerpt": "Explorando los pilares fundamentales que rescataron la pureza del Evangelio en el siglo XVI.",
+            "date": "2025-12-20",
+            "slug": "cinco-solas-reforma",
+            "pdfUrl": "/pdfs/cinco-solas.pdf"
+        },
+        {
+            "id": 3,
+            "category": "Bosquejos",
+            "title": "Sermón: El Salmo 23 y el Buen Pastor",
+            "excerpt": "Un bosquejo detallado para la predicación expositiva de uno de los pasajes más amados de la Escritura.",
+            "date": "2025-12-15",
+            "slug": "bosquejo-salmo-23",
+            "pdfUrl": "/pdfs/bosquejo-salmo-23.pdf"
+        }
+    ],
+    "hero": {
+        "youtubeTitle": "Último Video: La Justificación por la Fe",
+        "youtubeUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        "youtubeId": "dQw4w9WgXcQ"
+    }
+}
