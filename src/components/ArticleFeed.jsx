@@ -22,7 +22,7 @@ const ArticleFeed = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {content.articles.map((article) => (
+                    {content.articles.slice(0, 3).map((article) => (
                         <article key={article.id} className="group cursor-pointer">
                             <div className="border-b border-sabiduria-gray/10 pb-6 h-full flex flex-col">
                                 <span className="text-xs uppercase tracking-tighter text-sabiduria-gray font-medium mb-3">
