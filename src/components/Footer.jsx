@@ -1,6 +1,7 @@
 import React from 'react';
-import { Facebook, Twitter, Youtube, Instagram, Mail, Heart } from 'lucide-react';
+import { Facebook, Youtube, Instagram, Mail, Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import content from '../data/content.json';
 
 const Footer = () => {
     return (
@@ -16,10 +17,9 @@ const Footer = () => {
                             Dedicados a la proclamación de la herencia reformada y la exégesis rigurosa de las Sagradas Escrituras para la gloria de Dios.
                         </p>
                         <div className="flex gap-4">
-                            <a href="#" className="hover:text-sabiduria-gold transition-colors"><Facebook size={20} /></a>
-                            <a href="#" className="hover:text-sabiduria-gold transition-colors"><Twitter size={20} /></a>
-                            <a href="#" className="hover:text-sabiduria-gold transition-colors"><Youtube size={20} /></a>
-                            <a href="#" className="hover:text-sabiduria-gold transition-colors"><Instagram size={20} /></a>
+                            <a href={content.social.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-sabiduria-gold transition-colors" title="Facebook"><Facebook size={20} /></a>
+                            <a href={content.social.youtube} target="_blank" rel="noopener noreferrer" className="hover:text-sabiduria-gold transition-colors" title="YouTube"><Youtube size={20} /></a>
+                            <a href={content.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-sabiduria-gold transition-colors" title="Instagram"><Instagram size={20} /></a>
                         </div>
                     </div>
 
