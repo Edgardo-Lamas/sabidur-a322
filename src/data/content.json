@@ -97,7 +97,7 @@
         "verse": "Lámpara es a mis pies tu palabra, y lumbrera a mi camino.",
         "reference": "Salmo 119:105",
         "link": "/lectura-hoy",
-        "backgroundImage": "/img/fondo declaracion fe.jpg"
+        "backgroundImage": "img/fondo declaracion fe.jpg"
     },
     "featuredTopics": [
         {
@@ -132,7 +132,7 @@
             "title": "La Institución de la Religión Cristiana",
             "author": "Juan Calvino",
             "price": "25.00",
-            "image": "/img/libros fondo.jpg",
+            "image": "img/libros fondo.jpg",
             "link": "https://example.com/buy-calvino"
         },
         {
@@ -140,7 +140,7 @@
             "title": "Por la Causa del Evangelio",
             "author": "Varios Autores",
             "price": "15.00",
-            "image": "/img/Recursos libros.jpg",
+            "image": "img/Recursos libros.jpg",
             "link": "https://example.com/buy-evangelio"
         }
     ],
@@ -148,7 +148,7 @@
         "main": {
             "title": "La Soberanía de Dios en Todo",
             "category": "Teología",
-            "image": "/img/carousel/img 1.png",
+            "image": "img/carousel/img 1.png",
             "link": "/articulo/la-soberania-de-dios"
         },
         "side": [
@@ -156,28 +156,28 @@
                 "id": 1,
                 "title": "Estudio: Libro de Romanos",
                 "category": "Bosquejos",
-                "image": "/img/romanos fn.jpg",
+                "image": "img/romanos fn.jpg",
                 "link": "/bosquejos/romanos"
             },
             {
                 "id": 2,
                 "title": "Último Video: Gobernantes",
                 "category": "Multimedia",
-                "image": "/img/youtube (2).png",
+                "image": "img/youtube (2).png",
                 "link": "/multimedia"
             },
             {
                 "id": 3,
                 "title": "Confesión de Fe",
                 "category": "Doctrina",
-                "image": "/img/fondo declaracion fe.jpg",
+                "image": "img/fondo declaracion fe.jpg",
                 "link": "/acerca-de"
             },
             {
                 "id": 4,
                 "title": "Biblioteca Digital",
                 "category": "E-books",
-                "image": "/img/portada eBooks.png",
+                "image": "img/portada eBooks.png",
                 "link": "/ebooks"
             }
         ]
