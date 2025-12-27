@@ -2,30 +2,84 @@
     "articles": [
         {
             "id": 1,
-            "category": "Exégesis",
-            "title": "La Soberanía de Dios en la Providencia",
-            "excerpt": "Un análisis profundo sobre cómo el Creador sostiene y gobierna todas las cosas para Su gloria.",
-            "date": "2025-12-25",
-            "slug": "soberania-de-dios-providencia",
-            "pdfUrl": "/pdfs/soberania-de-dios.pdf"
+            "category": "Estudios Bíblicos",
+            "title": "La Torá Editada",
+            "excerpt": "Un estudio profundo sobre los primeros cinco libros de la Biblia y su importancia en el canon sagrado.",
+            "date": "2025-12-27",
+            "slug": "la-tora-editada",
+            "pdfUrl": "/pdf/ La TORA editada.pdf"
         },
         {
             "id": 2,
-            "category": "Teología Reformada",
-            "title": "Las Cinco Solas de la Reforma",
-            "excerpt": "Explorando los pilares fundamentales que rescataron la pureza del Evangelio en el siglo XVI.",
-            "date": "2025-12-20",
-            "slug": "cinco-solas-reforma",
-            "pdfUrl": "/pdfs/cinco-solas.pdf"
+            "category": "Teología",
+            "title": "El Temor a Dios",
+            "excerpt": "Explorando la reverencia y el asombro que el creyente debe tener ante la santidad y majestad del Creador.",
+            "date": "2025-12-27",
+            "slug": "temor-a-dios",
+            "pdfUrl": "/pdf/El Temor a Dios.pdf"
         },
         {
             "id": 3,
-            "category": "Bosquejos",
-            "title": "Sermón: El Salmo 23 y el Buen Pastor",
-            "excerpt": "Un bosquejo detallado para la predicación expositiva de uno de los pasajes más amados de la Escritura.",
-            "date": "2025-12-15",
-            "slug": "bosquejo-salmo-23",
-            "pdfUrl": "/pdfs/bosquejo-salmo-23.pdf"
+            "category": "Vida Cristiana",
+            "title": "El Creyente Puede Pecar",
+            "excerpt": "Una reflexión bíblica sobre la lucha contra el pecado en la vida del cristiano y la gracia sustentadora de Dios.",
+            "date": "2025-12-27",
+            "slug": "creyente-puede-pecar",
+            "pdfUrl": "/pdf/El creyente puede pecar.pdf"
+        },
+        {
+            "id": 4,
+            "category": "Historia",
+            "title": "Historia de Persecuciones",
+            "excerpt": "Un recorrido por el testimonio de aquellos que sufrieron por causa de la fe a lo largo de los siglos.",
+            "date": "2025-12-27",
+            "slug": "historia-persecuciones",
+            "pdfUrl": "/pdf/Historia de persescuciones.pdf"
+        },
+        {
+            "id": 5,
+            "category": "Teología",
+            "title": "La Bendición de Dios",
+            "excerpt": "Entendiendo la naturaleza de las bendiciones divinas desde una perspectiva bíblica y reformada.",
+            "date": "2025-12-27",
+            "slug": "bendicion-de-dios",
+            "pdfUrl": "/pdf/La Bendicion de Dios.pdf"
+        },
+        {
+            "id": 6,
+            "category": "Vida Cristiana",
+            "title": "La Oración Bíblica",
+            "excerpt": "Cómo cultivar una vida de oración que sea fiel al modelo y a las promesas de las Escrituras.",
+            "date": "2025-12-27",
+            "slug": "oracion-biblica",
+            "pdfUrl": "/pdf/La oracion biblica.pdf"
+        },
+        {
+            "id": 7,
+            "category": "Doctrina",
+            "title": "Principios y Convicciones",
+            "excerpt": "Estableciendo fundamentos sólidos para la fe y la práctica en un mundo de verdades relativas.",
+            "date": "2025-12-27",
+            "slug": "principios-convicciones",
+            "pdfUrl": "/pdf/Principios y Convicciónes.pdf"
+        },
+        {
+            "id": 8,
+            "category": "Teología Reformada",
+            "title": "Teología de la Elección",
+            "excerpt": "Un análisis de la doctrina de la elección soberana y su consuelo para el pueblo de Dios.",
+            "date": "2025-12-27",
+            "slug": "teologia-eleccion",
+            "pdfUrl": "/pdf/Teologia de la eleccion.pdf"
+        },
+        {
+            "id": 9,
+            "category": "Estudios Bíblicos",
+            "title": "La Septuaginta Final",
+            "excerpt": "La historia y relevancia de la traducción al griego del Antiguo Testamento para la iglesia primitiva.",
+            "date": "2025-12-27",
+            "slug": "septuaginta-final",
+            "pdfUrl": "/pdf/septuaginta final.pdf"
         }
     ],
     "hero": {
