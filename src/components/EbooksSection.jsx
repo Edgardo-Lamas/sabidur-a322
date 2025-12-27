@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, Download, TabletCloud } from 'lucide-react';
+import { BookOpen, Download, Tablet } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const EbooksSection = () => {
@@ -50,7 +50,7 @@ const EbooksSection = () => {
                             </div>
                             <div className="flex items-start gap-4">
                                 <div className="p-2 bg-sabiduria-bg rounded-sm text-sabiduria-gold">
-                                    <TabletCloud size={20} />
+                                    <Tablet size={20} />
                                 </div>
                                 <p className="text-sabiduria-navy font-medium">Formatos Kindle y PDF</p>
                             </div>
