@@ -16,8 +16,10 @@ const ScrollToTop = () => {
 };
 
 function App() {
+  const basename = import.meta.env.MODE === 'production' ? '/sabidur-a322/' : '';
+
   return (
-    <Router>
+    <Router basename={basename}>
       <ScrollToTop />
       <div className="flex flex-col min-h-screen bg-sabiduria-bg">
         <Navbar />
