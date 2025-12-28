@@ -13,7 +13,7 @@ const Hero = () => {
                             Escudriñando las <span className="italic">Escrituras</span> con Sabiduría
                         </h1>
                         <p className="text-lg md:text-xl text-sabiduria-gray max-w-2xl mb-10 leading-relaxed">
-                            Recursos de teología reformada, exégesis bíblica y bosquejos homiléticos para la edificación de la Iglesia de Cristo.
+                            Recursos de teología sistematica, exégesis bíblica y bosquejos homiléticos para la edificación de la Iglesia de Cristo.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                             <button className="btn-gold px-8 py-3 text-lg">

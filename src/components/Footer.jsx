@@ -11,10 +11,10 @@ const Footer = () => {
                     {/* Brand Column */}
                     <div className="col-span-1 lg:col-span-1">
                         <Link to="/" className="text-2xl font-serif font-bold tracking-tight mb-6 block">
-                            Sabiduría <span className="text-sabiduria-gold">322</span>
+                            Sabiduría para el <span className="text-sabiduria-gold">Corazón</span>
                         </Link>
                         <p className="text-sabiduria-gray brightness-150 mb-8 leading-relaxed">
-                            Dedicados a la proclamación de la herencia reformada y la exégesis rigurosa de las Sagradas Escrituras para la gloria de Dios.
+                            Dedicados a la proclamación del evangelio de Cristo por medio de la enseñanza biblica y la exégesis rigurosa de las Sagradas Escrituras para la gloria de Dios.
                         </p>
                         <div className="flex gap-4">
                             <a href={content.social.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-sabiduria-gold transition-colors" title="Facebook"><Facebook size={20} /></a>
@@ -54,7 +54,7 @@ const Footer = () => {
                 {/* Bottom Bar */}
                 <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
                     <p className="text-sm text-sabiduria-gray brightness-110">
-                        © {new Date().getFullYear()} Sabiduría 322. Todos los derechos reservados.
+                        © {new Date().getFullYear()} Sabiduría para el Corazon. Todos los derechos reservados.
                     </p>
                     <Link
                         to="/donaciones"

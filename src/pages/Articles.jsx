@@ -25,7 +25,7 @@ const Articles = () => {
                         Biblioteca de Artículos
                     </h1>
                     <p className="text-xl text-sabiduria-gray max-w-3xl leading-relaxed">
-                        Explora nuestra colección de ensayos teológicos, estudios exegéticos y reflexiones sobre la fe reformada.
+                        Explora nuestra colección de ensayos teológicos, estudios exegéticos y reflexiones sobre las verdades biblicas.
                     </p>
                 </div>
 

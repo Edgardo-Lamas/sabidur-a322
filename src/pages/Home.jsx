@@ -42,9 +42,9 @@ const Home = () => {
             {/* Donation Secondary CTA */}
             <section className="bg-sabiduria-navy py-24 text-white">
                 <div className="max-w-4xl mx-auto px-4 text-center">
-                    <h2 className="text-4xl font-serif font-bold mb-8">Apoye la Difusión de la Verdad Reformada</h2>
+                    <h2 className="text-4xl font-serif font-bold mb-8">Apoye la Difusión de las Verdades Eternas</h2>
                     <p className="text-sabiduria-gray brightness-150 text-xl mb-12 leading-relaxed">
-                        Sabiduría 322 es un ministerio que se sostiene gracias a las donaciones voluntarias de sus lectores. Su apoyo nos permite seguir creando recursos teológicos de alta calidad y acceso gratuito.
+                        Sabiduría para el Corazon es un ministerio que se sostiene gracias a las donaciones voluntarias de sus lectores. Su apoyo nos permite seguir creando recursos teológicos de alta calidad y acceso gratuito.
                     </p>
                     <button className="btn-gold px-12 py-5 text-lg uppercase tracking-widest font-bold">
                         Realizar una Donación (PayPal)

@@ -19,7 +19,7 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="text-2xl font-serif font-bold text-sabiduria-navy tracking-tight">
-              Sabiduría <span className="text-sabiduria-gold">322</span>
+              Sabiduría para el <span className="text-sabiduria-gold">Corazón</span>
             </Link>
           </div>
 
