@@ -6,10 +6,12 @@ import ArticleFeed from '../components/ArticleFeed';
 import EbooksSection from '../components/EbooksSection';
 import BookstorePreview from '../components/BookstorePreview';
 import Hero from '../components/Hero'; // Repurposed for Video section
+import SEO from '../components/SEO';
 
 const Home = () => {
     return (
         <main className="bg-white">
+            <SEO />
             <HeroGrid />
             <TopicsBar />
 

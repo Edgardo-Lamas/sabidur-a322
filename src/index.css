@@ -4,7 +4,7 @@
   --color-sabiduria-bg: #F9F9F7;
   --color-sabiduria-navy: #1A1D23;
   --color-sabiduria-gold: #C5A059;
-  --color-sabiduria-gray: #5A5A5A;
+  --color-sabiduria-gray: #4A4A4A;
 
   --font-serif: "Lora", "Playfair Display", serif;
   --font-sans: "Inter", system-ui, sans-serif;
@@ -12,7 +12,8 @@
 
 @layer base {
   body {
-    @apply bg-sabiduria-bg text-sabiduria-navy font-sans antialiased;
+    background-color: var(--color-sabiduria-bg);
+    color: var(--color-sabiduria-navy);
   }
 
   h1,
@@ -21,7 +22,17 @@
   h4,
   h5,
   h6 {
-    @apply font-serif;
+    font-family: var(--font-serif);
+    color: var(--color-sabiduria-navy);
+    line-height: 1.2;
+  }
+
+  blockquote {
+    border-left: 4px solid var(--color-sabiduria-gold);
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: var(--color-sabiduria-navy);
   }
 }
 

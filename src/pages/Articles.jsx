@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, Search, FileText } from 'lucide-react';
+import SEO from '../components/SEO';
+import Breadcrumbs from '../components/Breadcrumbs';
 import content from '../data/content.json';
 
 const Articles = () => {
@@ -17,10 +19,17 @@ const Articles = () => {
     const categories = ['Todos', ...new Set(content.articles.map(a => a.category))];
 
     return (
-        <main className="bg-sabiduria-bg min-h-screen py-16 md:py-24">
+        <main className="bg-sabiduria-bg min-h-screen py-8 md:py-16">
+            <SEO
+                title="Biblioteca de Artículos"
+                description="Explora nuestra colección de ensayos teológicos, estudios exegéticos y reflexiones."
+                url="/articulos"
+            />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <Breadcrumbs />
+
                 {/* Header */}
-                <div className="mb-16 border-b border-sabiduria-gray/10 pb-12">
+                <div className="mb-16 border-b border-sabiduria-gray/10 pb-12 mt-8">
                     <h1 className="text-4xl md:text-5xl font-serif text-sabiduria-navy mb-6">
                         Biblioteca de Artículos
                     </h1>

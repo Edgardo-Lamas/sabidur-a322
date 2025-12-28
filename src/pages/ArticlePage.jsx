@@ -1,6 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import ReadingSection from '../components/ReadingSection';
+import SEO from '../components/SEO';
+import Breadcrumbs from '../components/Breadcrumbs';
 import content from '../data/content.json';
 
 const ArticlePage = () => {
@@ -22,7 +24,17 @@ const ArticlePage = () => {
     }
 
     return (
-        <main>
+        <main className="bg-white min-h-screen">
+            <SEO
+                title={article.title}
+                description={article.excerpt}
+                image={article.image}
+                url={`/articulo/${article.slug}`}
+                type="article"
+            />
+            <div className="max-w-4xl mx-auto px-4 pt-8">
+                <Breadcrumbs title={article.title} />
+            </div>
             <ReadingSection article={article} />
         </main>
     );
