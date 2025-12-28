@@ -7,7 +7,7 @@
             "excerpt": "Un estudio profundo sobre los primeros cinco libros de la Biblia y su importancia en el canon sagrado.",
             "date": "2025-12-27",
             "slug": "la-tora-editada",
-            "pdfUrl": "pdf/ La TORA editada.pdf",
+            "pdfUrl": "pdf/La-Tora-Editada.pdf",
             "image": "img/article1.jpg"
         },
         {
@@ -17,7 +17,7 @@
             "excerpt": "Explorando la reverencia y el asombro que el creyente debe tener ante la santidad y majestad del Creador.",
             "date": "2025-12-27",
             "slug": "temor-a-dios",
-            "pdfUrl": "pdf/El Temor a Dios.pdf"
+            "pdfUrl": "pdf/El-Temor-a-Dios.pdf"
         },
         {
             "id": 3,
@@ -26,7 +26,7 @@
             "excerpt": "Una reflexión bíblica sobre la lucha contra el pecado en la vida del cristiano y la gracia sustentadora de Dios.",
             "date": "2025-12-27",
             "slug": "creyente-puede-pecar",
-            "pdfUrl": "pdf/El creyente puede pecar.pdf"
+            "pdfUrl": "pdf/El-Creyente-Puede-Pecar.pdf"
         },
         {
             "id": 4,
@@ -35,7 +35,7 @@
             "excerpt": "Un recorrido por el testimonio de aquellos que sufrieron por causa de la fe a lo largo de los siglos.",
             "date": "2025-12-27",
             "slug": "historia-persecuciones",
-            "pdfUrl": "pdf/Historia de persescuciones.pdf"
+            "pdfUrl": "pdf/Historia-de-Persecuciones.pdf"
         },
         {
             "id": 5,
@@ -44,7 +44,7 @@
             "excerpt": "Entendiendo la naturaleza de las bendiciones divinas desde una perspectiva bíblica y reformada.",
             "date": "2025-12-27",
             "slug": "bendicion-de-dios",
-            "pdfUrl": "pdf/La Bendicion de Dios.pdf"
+            "pdfUrl": "pdf/La-Bendicion-de-Dios.pdf"
         },
         {
             "id": 6,
@@ -53,7 +53,7 @@
             "excerpt": "Cómo cultivar una vida de oración que sea fiel al modelo y a las promesas de las Escrituras.",
             "date": "2025-12-27",
             "slug": "oracion-biblica",
-            "pdfUrl": "pdf/La oracion biblica.pdf"
+            "pdfUrl": "pdf/La-Oracion-Biblica.pdf"
         },
         {
             "id": 7,
@@ -62,7 +62,7 @@
             "excerpt": "Estableciendo fundamentos sólidos para la fe y la práctica en un mundo de verdades relativas.",
             "date": "2025-12-27",
             "slug": "principios-convicciones",
-            "pdfUrl": "pdf/Principios y Convicciónes.pdf"
+            "pdfUrl": "pdf/Principios-y-Convicciones.pdf"
         },
         {
             "id": 8,
@@ -71,7 +71,7 @@
             "excerpt": "Un análisis de la doctrina de la elección soberana y su consuelo para el pueblo de Dios.",
             "date": "2025-12-27",
             "slug": "teologia-eleccion",
-            "pdfUrl": "pdf/Teologia de la eleccion.pdf"
+            "pdfUrl": "pdf/Teologia-de-la-Eleccion.pdf"
         },
         {
             "id": 9,
@@ -80,7 +80,7 @@
             "excerpt": "La historia y relevancia de la traducción al griego del Antiguo Testamento para la iglesia primitiva.",
             "date": "2025-12-27",
             "slug": "septuaginta-final",
-            "pdfUrl": "pdf/septuaginta final.pdf"
+            "pdfUrl": "pdf/Septuaginta-Final.pdf"
         }
     ],
     "social": {
@@ -100,7 +100,7 @@
         "verse": "Lámpara es a mis pies tu palabra, y lumbrera a mi camino.",
         "reference": "Salmo 119:105",
         "link": "/lectura-hoy",
-        "backgroundImage": "img/fondo declaracion fe.jpg"
+        "backgroundImage": "img/fondo-declaracion-fe.jpg"
     },
     "featuredTopics": [
         {
@@ -135,7 +135,7 @@
             "title": "La Institución de la Religión Cristiana",
             "author": "Juan Calvino",
             "price": "25.00",
-            "image": "img/libros fondo.jpg",
+            "image": "img/libros-fondo.jpg",
             "link": "https://example.com/buy-calvino"
         },
         {
@@ -143,7 +143,7 @@
             "title": "Por la Causa del Evangelio",
             "author": "Varios Autores",
             "price": "15.00",
-            "image": "img/Recursos libros.jpg",
+            "image": "img/Recursos-libros.jpg",
             "link": "https://example.com/buy-evangelio"
         }
     ],
@@ -151,7 +151,7 @@
         "main": {
             "title": "La Soberanía de Dios en Todo",
             "category": "Teología",
-            "image": "img/carousel/img 1.png",
+            "image": "img/carousel/img-1.png",
             "link": "/articulo/la-soberania-de-dios"
         },
         "side": [
@@ -159,28 +159,28 @@
                 "id": 1,
                 "title": "Estudio: Libro de Romanos",
                 "category": "Bosquejos",
-                "image": "img/romanos fn.jpg",
+                "image": "img/romanos-fn.jpg",
                 "link": "/bosquejos/romanos"
             },
             {
                 "id": 2,
                 "title": "Último Video: Gobernantes",
                 "category": "Multimedia",
-                "image": "img/youtube (2).png",
+                "image": "img/youtube-2.png",
                 "link": "/multimedia"
             },
             {
                 "id": 3,
                 "title": "Confesión de Fe",
                 "category": "Doctrina",
-                "image": "img/fondo declaracion fe.jpg",
+                "image": "img/fondo-declaracion-fe.jpg",
                 "link": "/acerca-de"
             },
             {
                 "id": 4,
                 "title": "Biblioteca Digital",
                 "category": "E-books",
-                "image": "img/portada eBooks.png",
+                "image": "img/portada-eBooks.png",
                 "link": "/ebooks"
             }
         ]

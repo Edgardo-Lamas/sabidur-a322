@@ -17,7 +17,7 @@ const EbooksSection = () => {
                     >
                         <div className="absolute -inset-4 bg-sabiduria-gold/10 rounded-full blur-3xl opacity-50" />
                         <img
-                            src={`${import.meta.env.BASE_URL}img/portada eBooks.png`}
+                            src={`${import.meta.env.BASE_URL}img/portada-eBooks.png`}
                             alt="Biblioteca de eBooks"
                             className="relative z-10 w-full h-auto drop-shadow-2xl rounded-sm transition-transform duration-500 hover:scale-[1.02]"
                         />
