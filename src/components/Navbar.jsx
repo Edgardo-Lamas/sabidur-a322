@@ -36,10 +36,10 @@ const Navbar = () => {
             ))}
             <Link
               to="/donaciones"
-              className="btn-gold flex items-center gap-2 text-sm uppercase tracking-wider"
+              className="px-6 py-2 border-2 border-sabiduria-gold text-sabiduria-gold hover:bg-sabiduria-gold hover:text-white font-bold text-sm uppercase tracking-widest transition-all rounded-sm flex items-center gap-2"
             >
-              <Heart size={16} />
-              Donaciones
+              <Heart size={16} className="fill-current" />
+              Apoyar
             </Link>
           </div>
 
@@ -74,7 +74,7 @@ const Navbar = () => {
               onClick={() => setIsOpen(false)}
               className="block px-3 py-4 text-sabiduria-gold font-bold uppercase text-sm border-t border-sabiduria-gray/10"
             >
-              Donaciones
+              Apoyar
             </Link>
           </div>
         </div>

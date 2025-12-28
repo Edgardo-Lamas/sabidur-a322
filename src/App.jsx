@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import ArticlePage from './pages/ArticlePage';
 import Articles from './pages/Articles';
+import Donations from './pages/Donations';
 
 // ScrollToTop component to ensure page starts at top on route change
 const ScrollToTop = () => {
@@ -30,7 +31,7 @@ function App() {
             <Route path="/articulo/:slug" element={<ArticlePage />} />
             <Route path="/bosquejos" element={<div className="py-20 text-center font-serif text-3xl">Próximamente: Bosquejos Homiléticos</div>} />
             <Route path="/ebooks" element={<div className="py-20 text-center font-serif text-3xl">Próximamente: Biblioteca Digital</div>} />
-            <Route path="/donaciones" element={<div className="py-20 text-center font-serif text-3xl">Página de Donaciones</div>} />
+            <Route path="/donaciones" element={<Donations />} />
           </Routes>
         </div>
         <Footer />
