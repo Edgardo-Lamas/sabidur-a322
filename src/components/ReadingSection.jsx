@@ -21,7 +21,7 @@ const ReadingSection = ({ article }) => {
                 </header>
 
                 {/* Content Placeholder */}
-                <div className="prose prose-lg max-w-none text-sabiduria-navy leading-relaxed font-sans">
+                <div className="prose prose-lg max-w-[65ch] mx-auto text-sabiduria-navy leading-[1.8] font-sans">
                     <p className="mb-8 first-letter:text-5xl first-letter:font-serif first-letter:mr-3 first-letter:float-left first-letter:text-sabiduria-navy">
                         {article.excerpt} Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
                     </p>

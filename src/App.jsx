@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import ArticlePage from './pages/ArticlePage';
 import Articles from './pages/Articles';
 import Donations from './pages/Donations';
+import ScrollToTopButton from './components/ScrollToTopButton';
 
 // ScrollToTop component to ensure page starts at top on route change
 const ScrollToTop = () => {
@@ -36,6 +37,7 @@ function App() {
         </div>
         <Footer />
       </div>
+      <ScrollToTopButton />
     </Router>
   );
 }
