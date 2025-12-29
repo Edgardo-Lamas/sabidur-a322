@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, Heart } from 'lucide-react';
+import AnimatedButton from './ui/AnimatedButton';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,13 +35,16 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-            <Link
+            <AnimatedButton
+              as="link"
               to="/donaciones"
-              className="px-6 py-2 border-2 border-sabiduria-gold text-sabiduria-gold hover:bg-sabiduria-gold hover:text-white font-bold text-sm uppercase tracking-widest transition-all rounded-sm flex items-center gap-2"
+              variant="outline"
+              pulse={true}
+              className="text-sm"
             >
               <Heart size={16} className="fill-current" />
               Apoyar
-            </Link>
+            </AnimatedButton>
           </div>
 
           {/* Mobile Menu Button */}

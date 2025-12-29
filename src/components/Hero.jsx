@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Youtube, PlayCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import AnimatedButton from './ui/AnimatedButton';
 import content from '../data/content.json';
 
 const Hero = () => {
@@ -48,13 +49,13 @@ const Hero = () => {
                         </div>
 
                         <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                            <button className="btn-gold px-6 py-2.5 text-sm uppercase tracking-widest font-bold">
+                            <AnimatedButton variant="gold" className="px-6 py-2.5 text-sm">
                                 Suscribirse al Canal
-                            </button>
-                            <button className="flex items-center justify-center gap-2 text-sabiduria-navy text-sm font-bold uppercase tracking-widest hover:text-sabiduria-gold transition-colors">
+                            </AnimatedButton>
+                            <AnimatedButton variant="ghost" className="text-sm">
                                 <PlayCircle size={20} />
                                 Ver en YouTube
-                            </button>
+                            </AnimatedButton>
                         </div>
                     </div>
 

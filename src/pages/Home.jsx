@@ -7,6 +7,7 @@ import EbooksSection from '../components/EbooksSection';
 import BookstorePreview from '../components/BookstorePreview';
 import Hero from '../components/Hero'; // Repurposed for Video section
 import SEO from '../components/SEO';
+import AnimatedButton from '../components/ui/AnimatedButton';
 
 const Home = () => {
     return (
@@ -48,9 +49,9 @@ const Home = () => {
                     <p className="text-sabiduria-gray brightness-150 text-xl mb-12 leading-relaxed">
                         Sabiduría para el Corazon es un ministerio que se sostiene gracias a las donaciones voluntarias de sus lectores. Su apoyo nos permite seguir creando recursos teológicos de alta calidad y acceso gratuito.
                     </p>
-                    <button className="btn-gold px-12 py-5 text-lg uppercase tracking-widest font-bold">
+                    <AnimatedButton variant="gold" className="px-12 py-5 text-lg">
                         Realizar una Donación (PayPal)
-                    </button>
+                    </AnimatedButton>
                 </div>
             </section>
         </main>

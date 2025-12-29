@@ -1,6 +1,7 @@
 import React from 'react';
 import SEO from '../components/SEO';
 import { Heart, CreditCard } from 'lucide-react';
+import AnimatedButton from '../components/ui/AnimatedButton';
 
 const Donations = () => {
     return (
@@ -50,15 +51,17 @@ const Donations = () => {
 
                 {/* Donation Buttons */}
                 <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
-                    <a
-                        href="https://www.paypal.com/donate" // Placeholder URL
+                    <AnimatedButton
+                        as="a"
+                        href="https://www.paypal.com/donate"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full sm:w-auto btn-gold px-8 py-4 text-center items-center justify-center flex gap-2 font-bold tracking-widest uppercase hover:scale-105 transition-transform shadow-lg shadow-sabiduria-gold/20"
+                        variant="gold"
+                        className="w-full sm:w-auto px-8 py-4 shadow-lg shadow-sabiduria-gold/20"
                     >
                         <Heart size={20} className="fill-current" />
                         Donar con PayPal
-                    </a>
+                    </AnimatedButton>
 
                     <button
                         disabled
