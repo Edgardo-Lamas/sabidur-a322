@@ -1,8 +1,11 @@
-import React from 'react';
-import { Youtube, PlayCircle } from 'lucide-react';
+import React, { useState } from 'react';
+import { Youtube, PlayCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import content from '../data/content.json';
 
 const Hero = () => {
+    const [isExpanded, setIsExpanded] = useState(false);
+
     return (
         <section className="bg-sabiduria-bg py-16 md:py-24 overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -15,9 +18,35 @@ const Hero = () => {
                         <h1 className="text-3xl md:text-4xl font-serif font-bold text-sabiduria-navy leading-tight mb-6">
                             {content.hero.title}
                         </h1>
-                        <div className="text-base md:text-lg text-sabiduria-navy/80 max-w-2xl mb-8 leading-[1.8] whitespace-pre-line text-justify font-sans border-l-2 border-sabiduria-gold/30 pl-6">
-                            {content.hero.description}
+
+                        <div className="relative mb-8 text-left">
+                            <motion.div
+                                layout
+                                initial={false}
+                                animate={{ height: "auto" }}
+                                transition={{ duration: 0.4, ease: "easeInOut" }}
+                                className={`text-base md:text-lg text-sabiduria-navy/80 leading-[1.8] whitespace-pre-line font-sans border-l-2 border-sabiduria-gold/30 pl-6 ${!isExpanded ? 'line-clamp-[12] overflow-hidden' : ''}`}
+                            >
+                                {content.hero.description}
+                            </motion.div>
+
+                            <motion.button
+                                layout
+                                onClick={() => setIsExpanded(!isExpanded)}
+                                className="mt-4 flex items-center gap-2 text-sabiduria-gold text-xs font-bold uppercase tracking-widest hover:text-sabiduria-navy transition-colors pl-6"
+                            >
+                                {isExpanded ? (
+                                    <>
+                                        Leer menos <ChevronUp size={16} />
+                                    </>
+                                ) : (
+                                    <>
+                                        Leer más <ChevronDown size={16} />
+                                    </>
+                                )}
+                            </motion.button>
                         </div>
+
                         <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                             <button className="btn-gold px-6 py-2.5 text-sm uppercase tracking-widest font-bold">
                                 Suscribirse al Canal
