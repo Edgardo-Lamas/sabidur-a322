@@ -1,4 +1,5 @@
 import React from 'react';
+import HeroGrid from '../components/HeroGrid';
 import TopicsBar from '../components/TopicsBar';
 import ReadingOfDay from '../components/ReadingOfDay';
 import ArticleFeed from '../components/ArticleFeed';
@@ -7,16 +8,13 @@ import BookstorePreview from '../components/BookstorePreview';
 import Hero from '../components/Hero'; // Repurposed for Video section
 import SEO from '../components/SEO';
 import AnimatedButton from '../components/ui/AnimatedButton';
-import MinistryAbout from '../components/MinistryAbout';
 
 const Home = () => {
     return (
         <main className="bg-white">
             <SEO />
-            <Hero />
+            <HeroGrid />
             <TopicsBar />
-
-            <MinistryAbout />
 
             <section className="py-12">
                 <ArticleFeed />
@@ -26,6 +24,20 @@ const Home = () => {
 
             <section className="bg-sabiduria-bg">
                 <EbooksSection />
+            </section>
+
+            <section className="py-24">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="mb-12">
+                        <span className="text-sabiduria-gold text-xs font-bold uppercase tracking-[0.3em] mb-4 block">
+                            Estudio Destacado
+                        </span>
+                        <h2 className="text-4xl font-serif font-bold text-sabiduria-navy">
+                            Última Enseñanza en Video
+                        </h2>
+                    </div>
+                </div>
+                <Hero />
             </section>
 
             <BookstorePreview />
