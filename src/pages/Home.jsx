@@ -1,5 +1,4 @@
 import React from 'react';
-import HeroGrid from '../components/HeroGrid';
 import TopicsBar from '../components/TopicsBar';
 import ReadingOfDay from '../components/ReadingOfDay';
 import ArticleFeed from '../components/ArticleFeed';
@@ -14,7 +13,7 @@ const Home = () => {
     return (
         <main className="bg-white">
             <SEO />
-            <HeroGrid />
+            <Hero />
             <TopicsBar />
 
             <MinistryAbout />
@@ -27,20 +26,6 @@ const Home = () => {
 
             <section className="bg-sabiduria-bg">
                 <EbooksSection />
-            </section>
-
-            <section className="py-24">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="mb-12">
-                        <span className="text-sabiduria-gold text-xs font-bold uppercase tracking-[0.3em] mb-4 block">
-                            Estudio Destacado
-                        </span>
-                        <h2 className="text-4xl font-serif font-bold text-sabiduria-navy">
-                            Última Enseñanza en Video
-                        </h2>
-                    </div>
-                </div>
-                <Hero />
             </section>
 
             <BookstorePreview />
