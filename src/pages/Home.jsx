@@ -8,6 +8,7 @@ import BookstorePreview from '../components/BookstorePreview';
 import Hero from '../components/Hero'; // Repurposed for Video section
 import SEO from '../components/SEO';
 import AnimatedButton from '../components/ui/AnimatedButton';
+import MinistryAbout from '../components/MinistryAbout';
 
 const Home = () => {
     return (
@@ -15,6 +16,8 @@ const Home = () => {
             <SEO />
             <HeroGrid />
             <TopicsBar />
+
+            <MinistryAbout />
 
             <section className="py-12">
                 <ArticleFeed />
