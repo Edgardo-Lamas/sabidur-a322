@@ -266,8 +266,8 @@ const BibliaFlow = () => {
                     {/* Timer */}
                     {!isAnswered && (
                         <div className={`flex items-center gap-2 px-4 py-2 rounded-xl font-black text-xl transition-all ${timeLeft <= 5 ? 'bg-red-500/20 text-red-400 animate-pulse' :
-                                timeLeft <= 10 ? 'bg-yellow-500/20 text-yellow-400' :
-                                    'bg-cyan-500/10 text-cyan-400'
+                            timeLeft <= 10 ? 'bg-yellow-500/20 text-yellow-400' :
+                                'bg-cyan-500/10 text-cyan-400'
                             }`}>
                             <Clock size={20} />
                             <span>{timeLeft}s</span>
@@ -362,14 +362,23 @@ const BibliaFlow = () => {
                                 <p className="text-slate-400 text-sm">Respuestas correctas</p>
                             </div>
 
-                            {isPerfect && (
-                                <div className="bg-yellow-400/10 border border-yellow-400/30 p-4 rounded-xl mb-6">
+                            {/* Rewards Summary */}
+                            <div className="bg-green-500/10 border border-green-500/30 p-4 rounded-xl mb-6 space-y-3">
+                                <div className="flex items-center justify-center gap-2 text-green-400 font-bold">
+                                    <span>💰 +{isPerfect ? levelConfig.bonusCredits * 2 : levelConfig.bonusCredits} créditos</span>
+                                </div>
+                                {isPerfect && (
                                     <div className="flex items-center justify-center gap-2 text-yellow-400 font-bold">
-                                        <Heart fill="currentColor" size={20} />
+                                        <Heart fill="currentColor" size={18} />
                                         <span>+1 VIDA EXTRA</span>
                                     </div>
+                                )}
+                                <div className="border-t border-white/10 pt-3 mt-3">
+                                    <div className="text-yellow-400 font-black text-xl">
+                                        Total: $ {currency}
+                                    </div>
                                 </div>
-                            )}
+                            </div>
 
                             <button
                                 onClick={continueToNextLevel}
