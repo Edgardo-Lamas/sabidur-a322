@@ -9,6 +9,7 @@ import Donations from './pages/Donations';
 import Store from './pages/Store';
 import ProductPage from './pages/ProductPage';
 import Youth from './pages/Youth';
+import Bosquejos from './pages/Bosquejos';
 import ScrollToTopButton from './components/ScrollToTopButton';
 
 // ScrollToTop component to ensure page starts at top on route change
@@ -36,7 +37,7 @@ function App() {
             <Route path="/tienda" element={<Store />} />
             <Route path="/tienda/:slug" element={<ProductPage />} />
             <Route path="/adolescentes" element={<Youth />} />
-            <Route path="/bosquejos" element={<div className="py-20 text-center font-serif text-3xl">Próximamente: Bosquejos Homiléticos</div>} />
+            <Route path="/bosquejos" element={<Bosquejos />} />
             <Route path="/ebooks" element={<div className="py-20 text-center font-serif text-3xl">Próximamente: Biblioteca Digital</div>} />
             <Route path="/donaciones" element={<Donations />} />
           </Routes>
