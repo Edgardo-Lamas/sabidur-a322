@@ -1,59 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
     Sparkles, ChevronRight, Heart, Trophy, Mountain,
-    Zap, Download, Lock
+    Zap, Download, Lock, Star, Award, Clock
 } from 'lucide-react';
+import questionsData from '../data/questions.json';
 
-const QUESTIONS_DATA = [
-    {
-        id: 1,
-        question: "¿Quién derribó las murallas de Jericó?",
-        options: ["Gedeón", "Josué", "David", "Sansón"],
-        correctIndex: 1,
-        category: "Héroes",
-        explanation: "Fue Josué siguiendo las instrucciones de Dios (Josué 6)."
-    },
-    {
-        id: 2,
-        question: "¿Qué instrumento tocaba David?",
-        options: ["Flauta", "Trompeta", "Arpa", "Tambor"],
-        correctIndex: 2,
-        category: "Música",
-        explanation: "David era un hábil arpista (1 Samuel 16)."
-    },
-    {
-        id: 3,
-        question: "Completa: 'Lámpara es a mis pies tu...'",
-        options: ["Amor", "Palabra", "Espíritu", "Verdad"],
-        correctIndex: 1,
-        category: "Sabiduría",
-        explanation: "Salmos 119:105."
-    },
-    {
-        id: 4,
-        question: "¿Quién escribió más Salmos?",
-        options: ["Salomón", "Moisés", "David", "Asaf"],
-        correctIndex: 2,
-        category: "Música",
-        explanation: "Al rey David se le atribuye la mayoría."
-    },
-    {
-        id: 5,
-        question: "¿Dónde fue el milagro del vino?",
-        options: ["Nazaret", "Capernaum", "Caná", "Jerusalén"],
-        correctIndex: 2,
-        category: "Milagros",
-        explanation: "En las bodas de Caná (Juan 2)."
-    },
-    {
-        id: 6,
-        question: "¿Libro más largo de la Biblia?",
-        options: ["Génesis", "Isaías", "Salmos", "Apocalipsis"],
-        correctIndex: 2,
-        category: "Curiosidades",
-        explanation: "Salmos tiene 150 capítulos."
-    }
-];
+// Level configuration
+const LEVELS = {
+    1: { name: 'Inicial', difficulty: 'easy', questionsPerLevel: 15, minToPass: 12, bonusCredits: 50, color: 'from-green-400 to-emerald-500', timePerQuestion: 30 },
+    2: { name: 'Medio', difficulty: 'medium', questionsPerLevel: 15, minToPass: 12, bonusCredits: 75, color: 'from-yellow-400 to-orange-500', timePerQuestion: 30 },
+    3: { name: 'Difícil', difficulty: 'hard', questionsPerLevel: 15, minToPass: 12, bonusCredits: 100, color: 'from-orange-500 to-red-500', timePerQuestion: 25 },
+    4: { name: 'Experto', difficulty: 'expert', questionsPerLevel: 15, minToPass: 12, bonusCredits: 150, color: 'from-purple-500 to-pink-500', timePerQuestion: 20 }
+};
+
+// Filter questions by difficulty (all current questions are 'easy')
+const getQuestionsByDifficulty = (difficulty) => {
+    const questions = questionsData.questions.filter(q => (q.difficulty || 'easy') === difficulty);
+    // If no questions for this difficulty, fall back to all questions
+    return questions.length > 0 ? questions : questionsData.questions;
+};
 
 const UNLOCKABLES = [
     { id: 'bg_sunset', type: 'bg', cost: 100, color: 'from-orange-400 to-rose-500' },
@@ -87,6 +52,8 @@ const BibliaFlow = () => {
     const [score, setScore] = useState(0);
     const [currency, setCurrency] = useState(150);
     const [lives, setLives] = useState(3);
+    const [currentLevel, setCurrentLevel] = useState(1);
+    const [correctAnswers, setCorrectAnswers] = useState(0);
     const [gameQuestions, setGameQuestions] = useState([]);
     const [currentQIndex, setCurrentQIndex] = useState(0);
     const [selectedOptionId, setSelectedOptionId] = useState(null);
@@ -94,9 +61,34 @@ const BibliaFlow = () => {
     const [unlockedItems, setUnlockedItems] = useState(['bg_sunset', 'bg_ocean', 'bg_forest']);
     const [canvasBg, setCanvasBg] = useState({ type: 'bg', value: 'from-indigo-500 to-purple-600' });
     const [canvasText, setCanvasText] = useState("Lámpara es a mis pies tu palabra");
+    const [levelResult, setLevelResult] = useState(null); // 'passed', 'perfect', 'failed'
+    const [timeLeft, setTimeLeft] = useState(30);
+    const timerRef = useRef(null);
 
-    const startGame = () => {
-        const prepared = QUESTIONS_DATA.map(q => ({
+    // Timer effect
+    useEffect(() => {
+        if (screen === 'game' && !isAnswered && timeLeft > 0) {
+            timerRef.current = setTimeout(() => {
+                setTimeLeft(t => t - 1);
+            }, 1000);
+        } else if (screen === 'game' && !isAnswered && timeLeft === 0) {
+            // Time's up - count as wrong answer
+            handleTimeOut();
+        }
+        return () => clearTimeout(timerRef.current);
+    }, [screen, timeLeft, isAnswered]);
+
+    const handleTimeOut = () => {
+        setIsAnswered(true);
+        setSelectedOptionId(-1); // No option selected
+        setLives(l => l - 1);
+    };
+
+    const startGame = (level = 1) => {
+        const levelConfig = LEVELS[level];
+        const questions = getQuestionsByDifficulty(levelConfig.difficulty);
+
+        const prepared = questions.map(q => ({
             ...q,
             shuffledOptions: shuffleArray(
                 q.options.map((opt, i) => ({
@@ -106,12 +98,19 @@ const BibliaFlow = () => {
                 }))
             )
         }));
-        setGameQuestions(shuffleArray(prepared));
+
+        // Take only the required number of questions for this level
+        const shuffled = shuffleArray(prepared).slice(0, levelConfig.questionsPerLevel);
+
+        setGameQuestions(shuffled);
+        setCurrentLevel(level);
         setScore(0);
-        setLives(3);
+        setCorrectAnswers(0);
         setCurrentQIndex(0);
         setIsAnswered(false);
         setSelectedOptionId(null);
+        setLevelResult(null);
+        setTimeLeft(levelConfig.timePerQuestion);
         setScreen('game');
     };
 
@@ -122,6 +121,7 @@ const BibliaFlow = () => {
         if (opt.isCorrect) {
             setScore(s => s + 50);
             setCurrency(c => c + 20);
+            setCorrectAnswers(c => c + 1);
         } else {
             setLives(l => l - 1);
         }
@@ -135,13 +135,53 @@ const BibliaFlow = () => {
     };
 
     const handleNext = () => {
-        if (lives === 0 || currentQIndex === gameQuestions.length - 1) {
-            setScreen('results');
+        const levelConfig = LEVELS[currentLevel];
+        const isLastQuestion = currentQIndex === gameQuestions.length - 1;
+        const isGameOver = lives === 0;
+
+        if (isGameOver) {
+            setLevelResult('failed');
+            setScreen('levelResult');
+            return;
+        }
+
+        if (isLastQuestion) {
+            // Check if passed the level
+            if (correctAnswers + (isAnswered && selectedOptionId !== null ? 1 : 0) >= levelConfig.minToPass) {
+                const finalCorrect = correctAnswers;
+                const isPerfect = finalCorrect === levelConfig.questionsPerLevel;
+
+                if (isPerfect) {
+                    setLives(l => l + 1); // Bonus life for perfect score
+                    setCurrency(c => c + levelConfig.bonusCredits * 2); // Double bonus
+                    setLevelResult('perfect');
+                } else {
+                    setCurrency(c => c + levelConfig.bonusCredits);
+                    setLevelResult('passed');
+                }
+            } else {
+                setLevelResult('failed');
+            }
+            setScreen('levelResult');
         } else {
             setCurrentQIndex(c => c + 1);
             setIsAnswered(false);
             setSelectedOptionId(null);
+            setTimeLeft(LEVELS[currentLevel].timePerQuestion);
         }
+    };
+
+    const continueToNextLevel = () => {
+        if (currentLevel < 4) {
+            startGame(currentLevel + 1);
+        } else {
+            setScreen('victory');
+        }
+    };
+
+    const retryLevel = () => {
+        setLives(3);
+        startGame(currentLevel);
     };
 
     // HOME SCREEN
@@ -155,17 +195,30 @@ const BibliaFlow = () => {
                     <h1 className="text-5xl md:text-7xl font-black mb-4 tracking-tighter bg-gradient-to-r from-white via-indigo-200 to-purple-400 text-transparent bg-clip-text">
                         BIBLIA FLOW
                     </h1>
-                    <p className="text-slate-400 text-lg font-medium">
+                    <p className="text-slate-400 text-lg font-medium mb-6">
                         Desafía tu conocimiento y crea arte épico.
                     </p>
+
+                    {/* Stats */}
+                    <div className="flex justify-center gap-6 mt-4">
+                        <div className="flex items-center gap-2">
+                            <Heart className="text-rose-500" fill="currentColor" size={20} />
+                            <span className="font-bold">{lives}</span>
+                        </div>
+                        <div className="text-yellow-400 font-bold">
+                            $ {currency}
+                        </div>
+                    </div>
                 </div>
+
                 <button
-                    onClick={startGame}
+                    onClick={() => startGame(1)}
                     className="group relative bg-indigo-600 px-16 py-6 rounded-2xl font-black text-2xl hover:bg-indigo-500 transition-all mb-6 shadow-[0_0_40px_rgba(79,70,229,0.4)] active:scale-95 flex items-center gap-3"
                 >
-                    EMPEZAR
+                    EMPEZAR NIVEL 1
                     <ChevronRight className="transition-transform group-hover:translate-x-1" />
                 </button>
+
                 <button
                     onClick={() => setScreen('studio')}
                     className="bg-white/5 border border-white/10 px-8 py-3 rounded-xl font-bold hover:bg-white/10 transition-colors"
@@ -179,46 +232,80 @@ const BibliaFlow = () => {
     // GAME SCREEN
     if (screen === 'game') {
         const q = gameQuestions[currentQIndex];
+        const levelConfig = LEVELS[currentLevel];
+        const progress = ((currentQIndex + 1) / levelConfig.questionsPerLevel) * 100;
 
         return (
             <div className="bg-slate-900 text-white p-4 flex flex-col items-center min-h-[600px] rounded-3xl border border-white/10 shadow-2xl">
+                {/* Level Header */}
+                <div className={`w-full max-w-2xl bg-gradient-to-r ${levelConfig.color} p-3 rounded-xl mb-4 mt-2`}>
+                    <div className="flex justify-between items-center text-white">
+                        <span className="font-black text-sm uppercase tracking-wider">
+                            NIVEL {currentLevel}: {levelConfig.name}
+                        </span>
+                        <span className="font-bold text-sm">
+                            {currentQIndex + 1} / {levelConfig.questionsPerLevel}
+                        </span>
+                    </div>
+                    {/* Progress Bar */}
+                    <div className="w-full bg-black/30 rounded-full h-2 mt-2">
+                        <div
+                            className="bg-white h-2 rounded-full transition-all duration-300"
+                            style={{ width: `${progress}%` }}
+                        />
+                    </div>
+                </div>
+
                 {/* Stats Bar */}
-                <div className="w-full max-w-2xl flex justify-between mb-8 bg-black/30 p-5 rounded-2xl border border-white/5 mt-4">
+                <div className="w-full max-w-2xl flex justify-between items-center mb-6 bg-black/30 p-4 rounded-2xl border border-white/5">
                     <div className="flex items-center gap-2">
                         <Heart className="text-rose-500" fill="currentColor" />
                         <span className="font-black text-xl">{lives}</span>
                     </div>
+
+                    {/* Timer */}
+                    {!isAnswered && (
+                        <div className={`flex items-center gap-2 px-4 py-2 rounded-xl font-black text-xl transition-all ${timeLeft <= 5 ? 'bg-red-500/20 text-red-400 animate-pulse' :
+                                timeLeft <= 10 ? 'bg-yellow-500/20 text-yellow-400' :
+                                    'bg-cyan-500/10 text-cyan-400'
+                            }`}>
+                            <Clock size={20} />
+                            <span>{timeLeft}s</span>
+                        </div>
+                    )}
+
+                    <div className="flex items-center gap-2">
+                        <Star className="text-green-400" fill="currentColor" />
+                        <span className="font-black text-xl">{correctAnswers}</span>
+                        <span className="text-slate-400 text-sm">/ {levelConfig.minToPass}</span>
+                    </div>
                     <div className="bg-yellow-400/10 text-yellow-400 px-4 py-1 rounded-full border border-yellow-400/20 font-bold">
                         $ {currency}
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <Trophy className="text-yellow-400" />
-                        <span className="font-black text-xl">{score}</span>
                     </div>
                 </div>
 
                 {/* Question Card */}
-                <div className="w-full max-w-2xl bg-slate-800/50 backdrop-blur-sm p-10 rounded-[2.5rem] border border-white/10 shadow-2xl">
+                <div className="w-full max-w-2xl bg-slate-800/50 backdrop-blur-sm p-8 rounded-[2rem] border border-white/10 shadow-2xl">
                     <span className="text-xs font-black uppercase tracking-widest text-indigo-400 mb-2 block">
                         {q?.category}
                     </span>
-                    <h2 className="text-3xl font-bold mb-10 leading-tight">
+                    <h2 className="text-2xl md:text-3xl font-bold mb-8 leading-tight text-white">
                         {q?.question}
                     </h2>
 
                     {/* Options */}
-                    <div className="grid gap-4">
+                    <div className="grid gap-3">
                         {q?.shuffledOptions.map(o => (
                             <button
                                 key={o.id}
                                 onClick={() => handleAnswer(o)}
-                                className={`p-5 rounded-2xl text-left border-2 font-bold text-lg transition-all ${selectedOptionId === null
-                                        ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-indigo-500'
-                                        : o.isCorrect
-                                            ? 'bg-green-500/20 border-green-500'
-                                            : o.id === selectedOptionId
-                                                ? 'bg-red-500/20 border-red-500'
-                                                : 'opacity-40 border-transparent'
+                                className={`p-4 rounded-xl text-left border-2 font-bold text-base transition-all ${selectedOptionId === null
+                                    ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-indigo-500'
+                                    : o.isCorrect
+                                        ? 'bg-green-500/20 border-green-500'
+                                        : o.id === selectedOptionId
+                                            ? 'bg-red-500/20 border-red-500'
+                                            : 'opacity-40 border-transparent'
                                     }`}
                             >
                                 {o.text}
@@ -228,15 +315,15 @@ const BibliaFlow = () => {
 
                     {/* Explanation & Continue */}
                     {isAnswered && (
-                        <div className="mt-8 text-center border-t border-white/10 pt-8">
-                            <p className="text-slate-300 text-lg mb-8 italic">
+                        <div className="mt-6 text-center border-t border-white/10 pt-6">
+                            <p className="text-slate-300 text-base mb-6 italic">
                                 "{q.explanation}"
                             </p>
                             <button
                                 onClick={handleNext}
-                                className="w-full py-5 bg-white text-slate-900 font-black rounded-2xl hover:bg-indigo-50 shadow-lg active:scale-95 transition-all"
+                                className="w-full py-4 bg-white text-slate-900 font-black rounded-xl hover:bg-indigo-50 shadow-lg active:scale-95 transition-all"
                             >
-                                CONTINUAR
+                                {currentQIndex === gameQuestions.length - 1 ? 'VER RESULTADO' : 'CONTINUAR'}
                             </button>
                         </div>
                     )}
@@ -245,29 +332,123 @@ const BibliaFlow = () => {
         );
     }
 
-    // RESULTS SCREEN
-    if (screen === 'results') {
+    // LEVEL RESULT SCREEN
+    if (screen === 'levelResult') {
+        const levelConfig = LEVELS[currentLevel];
+        const isPerfect = levelResult === 'perfect';
+        const isPassed = levelResult === 'passed' || isPerfect;
+
         return (
             <div className="bg-slate-900 text-white flex flex-col items-center justify-center p-6 min-h-[600px] rounded-3xl border border-white/10 shadow-2xl">
-                <div className="bg-white/5 p-12 rounded-[3rem] text-center border border-white/10 shadow-2xl max-w-md w-full">
-                    <Trophy size={80} className="text-yellow-400 mx-auto mb-6" />
-                    <h2 className="text-5xl font-black mb-4 uppercase tracking-tighter">
-                        ¡ÉPICO!
-                    </h2>
-                    <div className="text-7xl font-black text-indigo-400 mb-10">
-                        {score} <span className="text-2xl text-slate-500">pts</span>
-                    </div>
-                    <button
-                        onClick={() => setScreen('studio')}
-                        className="w-full py-5 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl font-black text-xl mb-4 hover:opacity-90 shadow-lg active:scale-95 transition-all"
-                    >
-                        IR AL ESTUDIO 🎨
-                    </button>
+                <div className="bg-white/5 p-10 rounded-[3rem] text-center border border-white/10 shadow-2xl max-w-md w-full">
+                    {isPassed ? (
+                        <>
+                            {isPerfect ? (
+                                <Award size={80} className="text-yellow-400 mx-auto mb-6" />
+                            ) : (
+                                <Trophy size={80} className="text-green-400 mx-auto mb-6" />
+                            )}
+                            <h2 className="text-4xl font-black mb-2 uppercase tracking-tighter text-white">
+                                {isPerfect ? '¡PERFECTO!' : '¡NIVEL COMPLETADO!'}
+                            </h2>
+                            <p className={`text-lg font-bold mb-4 ${isPerfect ? 'text-yellow-400' : 'text-green-400'}`}>
+                                Nivel {currentLevel}: {levelConfig.name}
+                            </p>
+
+                            <div className="bg-black/30 p-4 rounded-2xl mb-6">
+                                <div className="text-3xl font-black text-white mb-2">
+                                    {correctAnswers} / {levelConfig.questionsPerLevel}
+                                </div>
+                                <p className="text-slate-400 text-sm">Respuestas correctas</p>
+                            </div>
+
+                            {isPerfect && (
+                                <div className="bg-yellow-400/10 border border-yellow-400/30 p-4 rounded-xl mb-6">
+                                    <div className="flex items-center justify-center gap-2 text-yellow-400 font-bold">
+                                        <Heart fill="currentColor" size={20} />
+                                        <span>+1 VIDA EXTRA</span>
+                                    </div>
+                                </div>
+                            )}
+
+                            <button
+                                onClick={continueToNextLevel}
+                                className={`w-full py-5 bg-gradient-to-r ${currentLevel < 4 ? LEVELS[currentLevel + 1].color : 'from-indigo-600 to-purple-600'} rounded-2xl font-black text-xl mb-4 hover:opacity-90 shadow-lg active:scale-95 transition-all`}
+                            >
+                                {currentLevel < 4 ? `SIGUIENTE: NIVEL ${currentLevel + 1}` : 'VER VICTORIA'}
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <div className="text-6xl mb-6">😔</div>
+                            <h2 className="text-4xl font-black mb-2 uppercase tracking-tighter text-red-400">
+                                ¡NIVEL NO SUPERADO!
+                            </h2>
+                            <p className="text-slate-400 mb-4">
+                                Necesitabas {levelConfig.minToPass} correctas, obtuviste {correctAnswers}
+                            </p>
+
+                            <div className="bg-black/30 p-4 rounded-2xl mb-6">
+                                <div className="text-3xl font-black text-red-400 mb-2">
+                                    {correctAnswers} / {levelConfig.questionsPerLevel}
+                                </div>
+                                <p className="text-slate-400 text-sm">Respuestas correctas</p>
+                            </div>
+
+                            <button
+                                onClick={retryLevel}
+                                className="w-full py-5 bg-indigo-600 rounded-2xl font-black text-xl mb-4 hover:bg-indigo-500 shadow-lg active:scale-95 transition-all"
+                            >
+                                REINTENTAR NIVEL {currentLevel}
+                            </button>
+                        </>
+                    )}
+
                     <button
                         onClick={() => setScreen('home')}
                         className="text-slate-400 font-bold hover:text-white transition-colors"
                     >
                         VOLVER AL INICIO
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
+    // VICTORY SCREEN
+    if (screen === 'victory') {
+        return (
+            <div className="bg-slate-900 text-white flex flex-col items-center justify-center p-6 min-h-[600px] rounded-3xl border border-white/10 shadow-2xl">
+                <div className="bg-gradient-to-br from-yellow-400/20 to-purple-600/20 p-12 rounded-[3rem] text-center border border-yellow-400/30 shadow-2xl max-w-md w-full">
+                    <div className="text-7xl mb-6">🏆</div>
+                    <h2 className="text-5xl font-black mb-4 uppercase tracking-tighter bg-gradient-to-r from-yellow-400 to-purple-400 text-transparent bg-clip-text">
+                        ¡LEYENDA!
+                    </h2>
+                    <p className="text-xl text-slate-300 mb-8">
+                        Has completado todos los niveles de Biblia Flow
+                    </p>
+
+                    <div className="bg-black/30 p-4 rounded-2xl mb-8">
+                        <div className="text-4xl font-black text-yellow-400 mb-2">
+                            $ {currency}
+                        </div>
+                        <p className="text-slate-400 text-sm">Créditos totales</p>
+                    </div>
+
+                    <button
+                        onClick={() => setScreen('studio')}
+                        className="w-full py-5 bg-gradient-to-r from-yellow-400 to-orange-500 text-slate-900 rounded-2xl font-black text-xl mb-4 hover:opacity-90 shadow-lg active:scale-95 transition-all"
+                    >
+                        IR AL ESTUDIO 🎨
+                    </button>
+                    <button
+                        onClick={() => {
+                            setLives(3);
+                            setScreen('home');
+                        }}
+                        className="text-slate-400 font-bold hover:text-white transition-colors"
+                    >
+                        JUGAR DE NUEVO
                     </button>
                 </div>
             </div>
@@ -307,8 +488,8 @@ const BibliaFlow = () => {
                                         key={item.id}
                                         onClick={() => unlocked ? setCanvasBg({ type: item.type, value: item.url || item.color }) : unlockItem(item)}
                                         className={`h-24 rounded-2xl overflow-hidden relative border-2 transition-all ${unlocked
-                                                ? (isActive ? 'border-indigo-500 scale-95 shadow-lg shadow-indigo-500/20' : 'border-transparent hover:border-white/20')
-                                                : 'opacity-40 border-slate-700'
+                                            ? (isActive ? 'border-indigo-500 scale-95 shadow-lg shadow-indigo-500/20' : 'border-transparent hover:border-white/20')
+                                            : 'opacity-40 border-slate-700'
                                             }`}
                                     >
                                         {item.type === 'img' ? (

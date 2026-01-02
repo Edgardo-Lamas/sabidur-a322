@@ -1,0 +1,2074 @@
+{
+    "questions": [
+        {
+            "id": 1,
+            "question": "¿Quién creó los cielos y la tierra según la Biblia?",
+            "options": [
+                "Moisés",
+                "Dios",
+                "Abraham",
+                "Adán"
+            ],
+            "correctIndex": 1,
+            "category": "Creación",
+            "explanation": "En el principio Dios creó los cielos y la tierra (Génesis 1:1)."
+        },
+        {
+            "id": 2,
+            "question": "¿En qué libro de la Biblia se encuentra la creación?",
+            "options": [
+                "Éxodo",
+                "Salmos",
+                "Génesis",
+                "Juan"
+            ],
+            "correctIndex": 2,
+            "category": "Libros",
+            "explanation": "El relato de la creación está en Génesis capítulos 1 y 2."
+        },
+        {
+            "id": 3,
+            "question": "¿Quién fue el primer hombre creado por Dios?",
+            "options": [
+                "Noé",
+                "Abraham",
+                "Moisés",
+                "Adán"
+            ],
+            "correctIndex": 3,
+            "category": "Personajes",
+            "explanation": "Dios formó al hombre del polvo de la tierra (Génesis 2:7)."
+        },
+        {
+            "id": 4,
+            "question": "¿Quién fue la primera mujer según la Biblia?",
+            "options": [
+                "Sara",
+                "Eva",
+                "Rebeca",
+                "María"
+            ],
+            "correctIndex": 1,
+            "category": "Personajes",
+            "explanation": "Eva fue formada de la costilla de Adán (Génesis 2:22)."
+        },
+        {
+            "id": 5,
+            "question": "¿Qué árbol estaba prohibido en el Edén?",
+            "options": [
+                "Árbol de la vida",
+                "Árbol del olivo",
+                "Árbol del conocimiento del bien y del mal",
+                "Árbol del higo"
+            ],
+            "correctIndex": 2,
+            "category": "Creación",
+            "explanation": "Dios prohibió comer del árbol del conocimiento del bien y del mal (Génesis 2:17)."
+        },
+        {
+            "id": 6,
+            "question": "¿Quién construyó el arca?",
+            "options": [
+                "Abraham",
+                "Moisés",
+                "Noé",
+                "David"
+            ],
+            "correctIndex": 2,
+            "category": "Personajes",
+            "explanation": "Noé construyó el arca siguiendo las instrucciones de Dios (Génesis 6:14)."
+        },
+        {
+            "id": 7,
+            "question": "¿Cuántos días duró la creación según Génesis?",
+            "options": [
+                "5",
+                "6",
+                "7",
+                "10"
+            ],
+            "correctIndex": 1,
+            "category": "Creación",
+            "explanation": "Dios creó todo en 6 días y descansó el séptimo (Génesis 2:2)."
+        },
+        {
+            "id": 8,
+            "question": "¿Quién fue llamado 'amigo de Dios'?",
+            "options": [
+                "Moisés",
+                "David",
+                "Abraham",
+                "Isaac"
+            ],
+            "correctIndex": 2,
+            "category": "Personajes",
+            "explanation": "Abraham fue llamado amigo de Dios (Santiago 2:23)."
+        },
+        {
+            "id": 9,
+            "question": "¿Qué señal dio Dios a Noé después del diluvio?",
+            "options": [
+                "Una nube",
+                "Un arco iris",
+                "Una estrella",
+                "Una paloma"
+            ],
+            "correctIndex": 1,
+            "category": "Símbolos",
+            "explanation": "El arco iris es señal del pacto de Dios con Noé (Génesis 9:13)."
+        },
+        {
+            "id": 10,
+            "question": "¿Quién guió al pueblo de Israel fuera de Egipto?",
+            "options": [
+                "Josué",
+                "Aarón",
+                "Moisés",
+                "Jacob"
+            ],
+            "correctIndex": 2,
+            "category": "Personajes",
+            "explanation": "Moisés guió al pueblo de Israel fuera de Egipto (Éxodo 3:10)."
+        },
+        {
+            "id": 11,
+            "question": "¿En qué monte recibió Moisés los Diez Mandamientos?",
+            "options": [
+                "Sinaí",
+                "Carmelo",
+                "Horeb",
+                "Sion"
+            ],
+            "correctIndex": 0,
+            "category": "Lugares",
+            "explanation": "Los Diez Mandamientos fueron entregados en el Monte Sinaí (Éxodo 19:20)."
+        },
+        {
+            "id": 12,
+            "question": "¿Cuántos mandamientos entregó Dios a Moisés?",
+            "options": [
+                "5",
+                "7",
+                "10",
+                "12"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "explanation": "Dios entregó los Diez Mandamientos (Éxodo 20:1-17)."
+        },
+        {
+            "id": 13,
+            "question": "¿Quién derrotó al gigante Goliat?",
+            "options": [
+                "Saúl",
+                "David",
+                "Jonatán",
+                "Samuel"
+            ],
+            "correctIndex": 1,
+            "category": "Personajes",
+            "explanation": "David derrotó a Goliat con una honda (1 Samuel 17:50)."
+        },
+        {
+            "id": 14,
+            "question": "¿Qué arma usó David contra Goliat?",
+            "options": [
+                "Espada",
+                "Lanza",
+                "Honda",
+                "Arco"
+            ],
+            "correctIndex": 2,
+            "category": "Personajes",
+            "explanation": "David usó una honda y una piedra (1 Samuel 17:49)."
+        },
+        {
+            "id": 15,
+            "question": "¿Quién fue el rey más sabio de Israel?",
+            "options": [
+                "Saúl",
+                "David",
+                "Salomón",
+                "Roboam"
+            ],
+            "correctIndex": 2,
+            "category": "Reyes",
+            "explanation": "Salomón pidió sabiduría a Dios y fue el más sabio (1 Reyes 3:12)."
+        },
+        {
+            "id": 16,
+            "question": "¿Qué pidió Salomón a Dios?",
+            "options": [
+                "Riquezas",
+                "Poder",
+                "Sabiduría",
+                "Larga vida"
+            ],
+            "correctIndex": 2,
+            "category": "Reyes",
+            "explanation": "Salomón pidió sabiduría para gobernar (1 Reyes 3:9)."
+        },
+        {
+            "id": 17,
+            "question": "¿Quién escribió muchos de los Salmos?",
+            "options": [
+                "Moisés",
+                "Salomón",
+                "David",
+                "Isaías"
+            ],
+            "correctIndex": 2,
+            "category": "Libros",
+            "explanation": "David escribió la mayoría de los Salmos."
+        },
+        {
+            "id": 18,
+            "question": "¿Qué libro sigue a los Salmos?",
+            "options": [
+                "Proverbios",
+                "Job",
+                "Eclesiastés",
+                "Cantares"
+            ],
+            "correctIndex": 0,
+            "category": "Libros",
+            "explanation": "Proverbios sigue a Salmos en el orden bíblico."
+        },
+        {
+            "id": 19,
+            "question": "¿Quién fue tragado por un gran pez?",
+            "options": [
+                "Elías",
+                "Jonás",
+                "Eliseo",
+                "Jeremías"
+            ],
+            "correctIndex": 1,
+            "category": "Profetas",
+            "explanation": "Jonás fue tragado por un gran pez (Jonás 1:17)."
+        },
+        {
+            "id": 20,
+            "question": "¿Cuántos días estuvo Jonás en el pez?",
+            "options": [
+                "1",
+                "2",
+                "3",
+                "7"
+            ],
+            "correctIndex": 2,
+            "category": "Profetas",
+            "explanation": "Jonás estuvo tres días y tres noches en el pez (Jonás 1:17)."
+        },
+        {
+            "id": 21,
+            "question": "¿Quién fue llevado al cielo en un carro de fuego?",
+            "options": [
+                "Moisés",
+                "Elías",
+                "Eliseo",
+                "Isaías"
+            ],
+            "correctIndex": 1,
+            "category": "Profetas",
+            "explanation": "Elías fue llevado al cielo en un carro de fuego (2 Reyes 2:11)."
+        },
+        {
+            "id": 22,
+            "question": "¿En qué ciudad nació Jesús?",
+            "options": [
+                "Nazaret",
+                "Jerusalén",
+                "Belén",
+                "Galilea"
+            ],
+            "correctIndex": 2,
+            "category": "Jesús",
+            "explanation": "Jesús nació en Belén de Judea (Mateo 2:1)."
+        },
+        {
+            "id": 23,
+            "question": "¿Quién fue la madre de Jesús?",
+            "options": [
+                "Marta",
+                "Isabel",
+                "María",
+                "Ana"
+            ],
+            "correctIndex": 2,
+            "category": "Jesús",
+            "explanation": "María fue la madre de Jesús (Lucas 1:31)."
+        },
+        {
+            "id": 24,
+            "question": "¿Quién anunció a María que tendría a Jesús?",
+            "options": [
+                "Miguel",
+                "Gabriel",
+                "Rafael",
+                "Uriel"
+            ],
+            "correctIndex": 1,
+            "category": "Jesús",
+            "explanation": "El ángel Gabriel anunció a María (Lucas 1:26)."
+        },
+        {
+            "id": 25,
+            "question": "¿Qué oficio tenía José, el padre terrenal de Jesús?",
+            "options": [
+                "Pastor",
+                "Carpintero",
+                "Pescador",
+                "Agricultor"
+            ],
+            "correctIndex": 1,
+            "category": "Jesús",
+            "explanation": "José era carpintero (Mateo 13:55)."
+        },
+        {
+            "id": 26,
+            "question": "¿Cuántos evangelios hay?",
+            "options": [
+                "2",
+                "3",
+                "4",
+                "5"
+            ],
+            "correctIndex": 2,
+            "category": "Libros",
+            "explanation": "Hay cuatro evangelios: Mateo, Marcos, Lucas y Juan."
+        },
+        {
+            "id": 27,
+            "question": "¿Cuál es el primer evangelio?",
+            "options": [
+                "Marcos",
+                "Mateo",
+                "Lucas",
+                "Juan"
+            ],
+            "correctIndex": 1,
+            "category": "Libros",
+            "explanation": "Mateo es el primer evangelio en el orden del Nuevo Testamento."
+        },
+        {
+            "id": 28,
+            "question": "¿Quién bautizó a Jesús?",
+            "options": [
+                "Pedro",
+                "Juan el Bautista",
+                "Andrés",
+                "Pablo"
+            ],
+            "correctIndex": 1,
+            "category": "Jesús",
+            "explanation": "Juan el Bautista bautizó a Jesús en el río Jordán (Mateo 3:13)."
+        },
+        {
+            "id": 29,
+            "question": "¿Qué descendió sobre Jesús en su bautismo?",
+            "options": [
+                "Fuego",
+                "Paloma",
+                "Luz",
+                "Viento"
+            ],
+            "correctIndex": 1,
+            "category": "Jesús",
+            "explanation": "El Espíritu Santo descendió como paloma (Mateo 3:16)."
+        },
+        {
+            "id": 30,
+            "question": "¿Cuántos discípulos tuvo Jesús?",
+            "options": [
+                "10",
+                "11",
+                "12",
+                "70"
+            ],
+            "correctIndex": 2,
+            "category": "Jesús",
+            "explanation": "Jesús tuvo 12 discípulos (Mateo 10:1-4)."
+        },
+        {
+            "id": 31,
+            "question": "¿En qué parte de la Biblia se relata principalmente la vida de Jesús?",
+            "options": [
+                "Génesis",
+                "Salmos",
+                "Evangelios",
+                "Hechos"
+            ],
+            "correctIndex": 2,
+            "category": "Libros",
+            "difficulty": "medium",
+            "explanation": "Los cuatro Evangelios (Mateo, Marcos, Lucas y Juan) relatan la vida de Jesús."
+        },
+        {
+            "id": 32,
+            "question": "¿Qué significa literalmente la palabra 'evangelio'?",
+            "options": [
+                "Ley eterna",
+                "Buenas noticias",
+                "Palabra sagrada",
+                "Promesa futura"
+            ],
+            "correctIndex": 1,
+            "category": "Doctrina",
+            "difficulty": "medium",
+            "explanation": "Evangelio viene del griego 'euangelion' que significa buenas noticias."
+        },
+        {
+            "id": 33,
+            "question": "¿Quién escribió la mayoría de las cartas del Nuevo Testamento?",
+            "options": [
+                "Pedro",
+                "Juan",
+                "Pablo",
+                "Santiago"
+            ],
+            "correctIndex": 2,
+            "category": "Libros",
+            "difficulty": "medium",
+            "explanation": "Pablo escribió 13 de las 21 epístolas del Nuevo Testamento."
+        },
+        {
+            "id": 34,
+            "question": "Según Efesios 2:8–9, la salvación es por:",
+            "options": [
+                "Obras",
+                "Méritos personales",
+                "Gracia por medio de la fe",
+                "Obediencia a la ley"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "medium",
+            "explanation": "Por gracia sois salvos por medio de la fe, y esto no de vosotros, pues es don de Dios."
+        },
+        {
+            "id": 35,
+            "question": "¿Qué es una parábola?",
+            "options": [
+                "Una profecía futura",
+                "Una ley ceremonial",
+                "Una historia con enseñanza espiritual",
+                "Un milagro público"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "medium",
+            "explanation": "Las parábolas son historias terrenales con significado celestial que Jesús usaba para enseñar."
+        },
+        {
+            "id": 36,
+            "question": "¿Cuál era el oficio de Pedro antes de seguir a Jesús?",
+            "options": [
+                "Carpintero",
+                "Recaudador de impuestos",
+                "Pescador",
+                "Fariseo"
+            ],
+            "correctIndex": 2,
+            "category": "Personajes",
+            "difficulty": "medium",
+            "explanation": "Pedro era pescador en el mar de Galilea (Mateo 4:18)."
+        },
+        {
+            "id": 37,
+            "question": "¿En qué libro se relata el inicio de la iglesia cristiana?",
+            "options": [
+                "Romanos",
+                "Hechos",
+                "Apocalipsis",
+                "Hebreos"
+            ],
+            "correctIndex": 1,
+            "category": "Libros",
+            "difficulty": "medium",
+            "explanation": "Hechos de los Apóstoles narra el nacimiento y expansión de la iglesia primitiva."
+        },
+        {
+            "id": 38,
+            "question": "En la Biblia, arrepentimiento significa principalmente:",
+            "options": [
+                "Sentirse culpable",
+                "Pedir perdón públicamente",
+                "Cambiar de mente y dirección",
+                "Cumplir rituales"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "medium",
+            "explanation": "El arrepentimiento bíblico (metanoia) implica un cambio de mente que lleva a un cambio de vida."
+        },
+        {
+            "id": 39,
+            "question": "¿Qué representa el bautismo según el Nuevo Testamento?",
+            "options": [
+                "Un requisito para salvación",
+                "Una tradición judía",
+                "Identificación con la muerte y resurrección de Cristo",
+                "Un acto simbólico sin significado"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "medium",
+            "explanation": "El bautismo simboliza nuestra unión con Cristo en su muerte y resurrección (Romanos 6:4)."
+        },
+        {
+            "id": 40,
+            "question": "¿Quién negó a Jesús tres veces?",
+            "options": [
+                "Juan",
+                "Judas",
+                "Pedro",
+                "Tomás"
+            ],
+            "correctIndex": 2,
+            "category": "Personajes",
+            "difficulty": "medium",
+            "explanation": "Pedro negó conocer a Jesús tres veces antes del canto del gallo (Lucas 22:54-62)."
+        },
+        {
+            "id": 41,
+            "question": "¿Cuál de estos NO es fruto del Espíritu?",
+            "options": [
+                "Amor",
+                "Paciencia",
+                "Riqueza",
+                "Dominio propio"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "medium",
+            "explanation": "Los frutos del Espíritu están en Gálatas 5:22-23; la riqueza no es uno de ellos."
+        },
+        {
+            "id": 42,
+            "question": "¿Qué libro del Antiguo Testamento relata el exilio en Babilonia?",
+            "options": [
+                "Josué",
+                "Ester",
+                "Daniel",
+                "Rut"
+            ],
+            "correctIndex": 2,
+            "category": "Libros",
+            "difficulty": "medium",
+            "explanation": "Daniel vivió durante el exilio babilónico y sirvió en la corte del rey."
+        },
+        {
+            "id": 43,
+            "question": "Cuando Jesús decía 'Yo soy', estaba afirmando:",
+            "options": [
+                "Una metáfora poética",
+                "Su identidad divina",
+                "Una enseñanza cultural",
+                "Una comparación simbólica"
+            ],
+            "correctIndex": 1,
+            "category": "Jesús",
+            "difficulty": "medium",
+            "explanation": "El 'Yo soy' (ego eimi) es el nombre de Dios revelado a Moisés (Éxodo 3:14)."
+        },
+        {
+            "id": 44,
+            "question": "¿A quién escribió Pablo la carta a los Romanos?",
+            "options": [
+                "A una persona específica",
+                "A la iglesia en Roma",
+                "A los apóstoles",
+                "A los judíos de Jerusalén"
+            ],
+            "correctIndex": 1,
+            "category": "Libros",
+            "difficulty": "medium",
+            "explanation": "Pablo escribió a los creyentes que formaban la iglesia en Roma."
+        },
+        {
+            "id": 45,
+            "question": "¿Qué significa que Jesús sea 'el Cordero de Dios'?",
+            "options": [
+                "Que fue un maestro humilde",
+                "Que era pacífico",
+                "Que murió como sacrificio por el pecado",
+                "Que cumplía la ley mosaica"
+            ],
+            "correctIndex": 2,
+            "category": "Jesús",
+            "difficulty": "medium",
+            "explanation": "El Cordero de Dios es el sacrificio perfecto por los pecados del mundo (Juan 1:29)."
+        },
+        {
+            "id": 46,
+            "question": "Según Jesús, ¿cuál era el principal problema de los fariseos?",
+            "options": [
+                "Ignoraban la ley",
+                "Eran pobres",
+                "Su hipocresía religiosa",
+                "No ayunaban"
+            ],
+            "correctIndex": 2,
+            "category": "Jesús",
+            "difficulty": "medium",
+            "explanation": "Jesús confrontó la hipocresía de los fariseos en Mateo 23."
+        },
+        {
+            "id": 47,
+            "question": "¿Qué libro enseña que la fe sin obras está muerta?",
+            "options": [
+                "Hebreos",
+                "Gálatas",
+                "Santiago",
+                "Tito"
+            ],
+            "correctIndex": 2,
+            "category": "Libros",
+            "difficulty": "medium",
+            "explanation": "Santiago 2:26 dice que la fe sin obras está muerta."
+        },
+        {
+            "id": 48,
+            "question": "¿Qué ocurrió en Pentecostés?",
+            "options": [
+                "La resurrección",
+                "La ascensión",
+                "La venida del Espíritu Santo",
+                "La conversión de Pablo"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "medium",
+            "explanation": "En Pentecostés el Espíritu Santo descendió sobre los discípulos (Hechos 2)."
+        },
+        {
+            "id": 49,
+            "question": "¿Qué es una epístola?",
+            "options": [
+                "Un libro profético",
+                "Un poema",
+                "Una carta doctrinal",
+                "Un evangelio"
+            ],
+            "correctIndex": 2,
+            "category": "Libros",
+            "difficulty": "medium",
+            "explanation": "Las epístolas son cartas apostólicas dirigidas a iglesias o personas."
+        },
+        {
+            "id": 50,
+            "question": "¿Quién escribió el libro de Apocalipsis?",
+            "options": [
+                "Pedro",
+                "Pablo",
+                "Juan",
+                "Lucas"
+            ],
+            "correctIndex": 2,
+            "category": "Libros",
+            "difficulty": "medium",
+            "explanation": "El apóstol Juan escribió Apocalipsis mientras estaba exiliado en Patmos."
+        },
+        {
+            "id": 51,
+            "question": "¿Qué representa la Cena del Señor?",
+            "options": [
+                "Una comida simbólica sin sentido",
+                "Un acto cultural judío",
+                "El sacrificio de Cristo recordado",
+                "Una obligación semanal"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "medium",
+            "explanation": "La Cena del Señor conmemora el sacrificio de Cristo (1 Corintios 11:23-26)."
+        },
+        {
+            "id": 52,
+            "question": "¿Quién fue llamado 'varón conforme al corazón de Dios'?",
+            "options": [
+                "Saúl",
+                "Salomón",
+                "David",
+                "Samuel"
+            ],
+            "correctIndex": 2,
+            "category": "Personajes",
+            "difficulty": "medium",
+            "explanation": "David fue descrito así en Hechos 13:22."
+        },
+        {
+            "id": 53,
+            "question": "Según Proverbios, la sabiduría comienza con:",
+            "options": [
+                "El conocimiento",
+                "La experiencia",
+                "El temor del Señor",
+                "La edad"
+            ],
+            "correctIndex": 2,
+            "category": "Sabiduría",
+            "difficulty": "medium",
+            "explanation": "El temor del Señor es el principio de la sabiduría (Proverbios 9:10)."
+        },
+        {
+            "id": 54,
+            "question": "¿Quién traicionó a Jesús?",
+            "options": [
+                "Pedro",
+                "Tomás",
+                "Judas Iscariote",
+                "Barrabás"
+            ],
+            "correctIndex": 2,
+            "category": "Personajes",
+            "difficulty": "medium",
+            "explanation": "Judas Iscariote traicionó a Jesús por 30 piezas de plata (Mateo 26:14-16)."
+        },
+        {
+            "id": 55,
+            "question": "¿Qué significa 'justificación'?",
+            "options": [
+                "Ser hecho perfecto",
+                "Ser declarado justo por Dios",
+                "No pecar más",
+                "Cumplir la ley"
+            ],
+            "correctIndex": 1,
+            "category": "Doctrina",
+            "difficulty": "medium",
+            "explanation": "La justificación es el acto divino de declarar justo al pecador por la fe en Cristo."
+        },
+        {
+            "id": 56,
+            "question": "¿En qué libro aparecen los Diez Mandamientos?",
+            "options": [
+                "Génesis",
+                "Levítico",
+                "Éxodo",
+                "Deuteronomio"
+            ],
+            "correctIndex": 2,
+            "category": "Libros",
+            "difficulty": "medium",
+            "explanation": "Los Diez Mandamientos se encuentran en Éxodo 20:1-17."
+        },
+        {
+            "id": 57,
+            "question": "¿Cuál es el enfoque principal del Sermón del Monte?",
+            "options": [
+                "Política",
+                "Moral del Reino de Dios",
+                "Ley ceremonial",
+                "Profecía futura"
+            ],
+            "correctIndex": 1,
+            "category": "Jesús",
+            "difficulty": "medium",
+            "explanation": "El Sermón del Monte (Mateo 5-7) enseña los valores del Reino de Dios."
+        },
+        {
+            "id": 58,
+            "question": "¿Qué libro es principalmente de adoración y poesía?",
+            "options": [
+                "Isaías",
+                "Salmos",
+                "Proverbios",
+                "Job"
+            ],
+            "correctIndex": 1,
+            "category": "Libros",
+            "difficulty": "medium",
+            "explanation": "Los Salmos son el himnario y libro de oración de Israel."
+        },
+        {
+            "id": 59,
+            "question": "¿Qué hizo Jesús antes de comenzar su ministerio público?",
+            "options": [
+                "Fue coronado rey",
+                "Ayunó y fue tentado",
+                "Escribió cartas",
+                "Reunió discípulos"
+            ],
+            "correctIndex": 1,
+            "category": "Jesús",
+            "difficulty": "medium",
+            "explanation": "Jesús ayunó 40 días y fue tentado en el desierto (Mateo 4:1-11)."
+        },
+        {
+            "id": 60,
+            "question": "¿Cuál es el mayor mandamiento según Jesús?",
+            "options": [
+                "Amar la ley",
+                "Amar al prójimo solamente",
+                "Amar a Dios sobre todas las cosas",
+                "Obedecer sin preguntar"
+            ],
+            "correctIndex": 2,
+            "category": "Jesús",
+            "difficulty": "medium",
+            "explanation": "Amarás al Señor tu Dios con todo tu corazón (Mateo 22:37-38)."
+        },
+        {
+            "id": 61,
+            "question": "¿Quién fue el primer mártir cristiano?",
+            "options": [
+                "Pedro",
+                "Esteban",
+                "Pablo",
+                "Santiago"
+            ],
+            "correctIndex": 1,
+            "category": "Personajes",
+            "difficulty": "medium",
+            "explanation": "Esteban fue apedreado por su testimonio de Cristo (Hechos 7:54-60)."
+        },
+        {
+            "id": 62,
+            "question": "¿Qué significa 'discípulo'?",
+            "options": [
+                "Alumno comprometido",
+                "Líder religioso",
+                "Maestro",
+                "Profeta"
+            ],
+            "correctIndex": 0,
+            "category": "Doctrina",
+            "difficulty": "medium",
+            "explanation": "Discípulo significa aprendiz o seguidor de un maestro."
+        },
+        {
+            "id": 63,
+            "question": "¿Qué libro enfatiza la fe y la perseverancia?",
+            "options": [
+                "Romanos",
+                "Hebreos",
+                "Gálatas",
+                "Efesios"
+            ],
+            "correctIndex": 1,
+            "category": "Libros",
+            "difficulty": "medium",
+            "explanation": "Hebreos exhorta a perseverar en la fe mirando a Cristo."
+        },
+        {
+            "id": 64,
+            "question": "¿Qué enseña Jesús sobre el perdón?",
+            "options": [
+                "Que es opcional",
+                "Que solo Dios perdona",
+                "Que debemos perdonar como fuimos perdonados",
+                "Que es solo emocional"
+            ],
+            "correctIndex": 2,
+            "category": "Jesús",
+            "difficulty": "medium",
+            "explanation": "Debemos perdonar como Dios nos perdonó (Mateo 6:14-15)."
+        },
+        {
+            "id": 65,
+            "question": "¿Qué significa 'gracia'?",
+            "options": [
+                "Justicia perfecta",
+                "Favor inmerecido",
+                "Recompensa",
+                "Disciplina"
+            ],
+            "correctIndex": 1,
+            "category": "Doctrina",
+            "difficulty": "medium",
+            "explanation": "La gracia es el favor inmerecido de Dios hacia los pecadores."
+        },
+        {
+            "id": 66,
+            "question": "¿En qué carta se encuentra el capítulo del amor (1 Corintios 13)?",
+            "options": [
+                "Romanos",
+                "1 Corintios",
+                "Gálatas",
+                "Filipenses"
+            ],
+            "correctIndex": 1,
+            "category": "Libros",
+            "difficulty": "medium",
+            "explanation": "1 Corintios 13 es conocido como el capítulo del amor."
+        },
+        {
+            "id": 67,
+            "question": "¿Quién fue conocido por su sabiduría?",
+            "options": [
+                "David",
+                "Salomón",
+                "Moisés",
+                "Josué"
+            ],
+            "correctIndex": 1,
+            "category": "Personajes",
+            "difficulty": "medium",
+            "explanation": "Salomón pidió sabiduría a Dios y fue el hombre más sabio (1 Reyes 3:12)."
+        },
+        {
+            "id": 68,
+            "question": "Según la Biblia, la verdad:",
+            "options": [
+                "Es relativa",
+                "Depende de la cultura",
+                "Está en Dios",
+                "Cambia con el tiempo"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "medium",
+            "explanation": "Jesús dijo: Yo soy el camino, la verdad y la vida (Juan 14:6)."
+        },
+        {
+            "id": 69,
+            "question": "Según 2 Timoteo 3:16, la Escritura es útil para:",
+            "options": [
+                "Informar historia",
+                "Entretenimiento espiritual",
+                "Enseñar y formar al creyente",
+                "Reemplazar la conciencia"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "medium",
+            "explanation": "Toda la Escritura es útil para enseñar, redargüir, corregir e instruir en justicia."
+        },
+        {
+            "id": 70,
+            "question": "¿Quién fue tragado por un gran pez?",
+            "options": [
+                "Elías",
+                "Jonás",
+                "Noé",
+                "Jeremías"
+            ],
+            "correctIndex": 1,
+            "category": "Profetas",
+            "difficulty": "medium",
+            "explanation": "Jonás fue tragado por un gran pez cuando huía de Dios (Jonás 1:17)."
+        },
+        {
+            "id": 71,
+            "question": "¿Qué significa que el ser humano fue creado a imagen y semejanza de Dios?",
+            "options": [
+                "Que posee apariencia física divina",
+                "Que refleja atributos morales y relacionales de Dios",
+                "Que es igual a Dios en poder",
+                "Que no puede pecar"
+            ],
+            "correctIndex": 1,
+            "category": "Doctrina",
+            "difficulty": "hard",
+            "explanation": "La imagen de Dios se refiere a atributos morales, racionales y relacionales, no físicos."
+        },
+        {
+            "id": 72,
+            "question": "¿Qué libro bíblico enseña que el justo vivirá por la fe?",
+            "options": [
+                "Génesis",
+                "Habacuc",
+                "Proverbios",
+                "Levítico"
+            ],
+            "correctIndex": 1,
+            "category": "Profetas",
+            "difficulty": "hard",
+            "explanation": "Habacuc 2:4 dice 'el justo por su fe vivirá', citado en Romanos 1:17."
+        },
+        {
+            "id": 73,
+            "question": "¿Cómo se llama el pacto que Dios hizo con Abraham?",
+            "options": [
+                "Pacto mosaico",
+                "Pacto davídico",
+                "Pacto abrahámico",
+                "Pacto eterno"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "hard",
+            "explanation": "El pacto abrahámico incluye las promesas de tierra, descendencia y bendición (Génesis 12, 15, 17)."
+        },
+        {
+            "id": 74,
+            "question": "¿Qué función cumplía el sumo sacerdote en Israel?",
+            "options": [
+                "Gobernar políticamente",
+                "Enseñar la ley",
+                "Interceder por el pueblo ante Dios",
+                "Escribir las Escrituras"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "hard",
+            "explanation": "El sumo sacerdote era el mediador entre Dios y el pueblo, especialmente en el Día de Expiación."
+        },
+        {
+            "id": 75,
+            "question": "¿Qué libro del Nuevo Testamento presenta a Jesús como Sumo Sacerdote?",
+            "options": [
+                "Romanos",
+                "Hebreos",
+                "Gálatas",
+                "Apocalipsis"
+            ],
+            "correctIndex": 1,
+            "category": "Libros",
+            "difficulty": "hard",
+            "explanation": "Hebreos presenta a Cristo como Sumo Sacerdote según el orden de Melquisedec."
+        },
+        {
+            "id": 76,
+            "question": "¿Qué significa el término 'expiación'?",
+            "options": [
+                "Enseñanza moral",
+                "Castigo eterno",
+                "Pago o cobertura del pecado",
+                "Cambio de conducta"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "hard",
+            "explanation": "La expiación es la satisfacción de la justicia divina mediante el sacrificio."
+        },
+        {
+            "id": 77,
+            "question": "¿Qué evento marcó el inicio del nuevo pacto?",
+            "options": [
+                "El nacimiento de Jesús",
+                "El bautismo de Jesús",
+                "La muerte de Cristo",
+                "Pentecostés"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "hard",
+            "explanation": "La muerte de Cristo inauguró el nuevo pacto con su sangre (Lucas 22:20)."
+        },
+        {
+            "id": 78,
+            "question": "¿Qué libro enfatiza la soberanía de Dios sobre las naciones?",
+            "options": [
+                "Rut",
+                "Ester",
+                "Daniel",
+                "Cantares"
+            ],
+            "correctIndex": 2,
+            "category": "Libros",
+            "difficulty": "hard",
+            "explanation": "Daniel muestra cómo Dios controla el ascenso y caída de los imperios."
+        },
+        {
+            "id": 79,
+            "question": "¿Qué significa la palabra 'redención' en sentido bíblico?",
+            "options": [
+                "Cambio de religión",
+                "Mejora moral",
+                "Liberación mediante un precio pagado",
+                "Perdón emocional"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "hard",
+            "explanation": "Redención implica ser comprado de la esclavitud del pecado mediante la sangre de Cristo."
+        },
+        {
+            "id": 80,
+            "question": "¿Cuál fue el propósito principal de la Ley mosaica?",
+            "options": [
+                "Salvar al pueblo",
+                "Mostrar el carácter santo de Dios y el pecado humano",
+                "Reemplazar la fe",
+                "Unificar políticamente a Israel"
+            ],
+            "correctIndex": 1,
+            "category": "Doctrina",
+            "difficulty": "hard",
+            "explanation": "La Ley revela la santidad de Dios y nuestra incapacidad de cumplirla (Romanos 3:20)."
+        },
+        {
+            "id": 81,
+            "question": "¿Qué profeta anunció el nuevo pacto?",
+            "options": [
+                "Isaías",
+                "Jeremías",
+                "Ezequiel",
+                "Daniel"
+            ],
+            "correctIndex": 1,
+            "category": "Profetas",
+            "difficulty": "hard",
+            "explanation": "Jeremías 31:31-34 anuncia el nuevo pacto que Dios haría con su pueblo."
+        },
+        {
+            "id": 82,
+            "question": "¿Qué significa 'justificación' en términos bíblicos?",
+            "options": [
+                "Transformación interior",
+                "Declaración legal de justicia",
+                "Proceso de santificación",
+                "Obediencia perfecta"
+            ],
+            "correctIndex": 1,
+            "category": "Doctrina",
+            "difficulty": "hard",
+            "explanation": "La justificación es un acto forense donde Dios declara justo al pecador."
+        },
+        {
+            "id": 83,
+            "question": "¿Cuál es la diferencia principal entre justificación y santificación?",
+            "options": [
+                "Una es emocional y la otra espiritual",
+                "Una es instantánea y la otra progresiva",
+                "Una es opcional",
+                "Ambas son iguales"
+            ],
+            "correctIndex": 1,
+            "category": "Doctrina",
+            "difficulty": "hard",
+            "explanation": "La justificación es un acto único; la santificación es un proceso continuo."
+        },
+        {
+            "id": 84,
+            "question": "¿Qué libro del Antiguo Testamento aborda profundamente el problema del sufrimiento?",
+            "options": [
+                "Salmos",
+                "Proverbios",
+                "Job",
+                "Eclesiastés"
+            ],
+            "correctIndex": 2,
+            "category": "Libros",
+            "difficulty": "hard",
+            "explanation": "Job explora el misterio del sufrimiento del justo."
+        },
+        {
+            "id": 85,
+            "question": "¿Qué doctrina afirma que Dios es uno en esencia y tres en personas?",
+            "options": [
+                "Encarnación",
+                "Trinidad",
+                "Expiación",
+                "Elección"
+            ],
+            "correctIndex": 1,
+            "category": "Doctrina",
+            "difficulty": "hard",
+            "explanation": "La Trinidad es la doctrina de un Dios en tres personas: Padre, Hijo y Espíritu Santo."
+        },
+        {
+            "id": 86,
+            "question": "¿Qué significa que Cristo sea llamado el 'segundo Adán'?",
+            "options": [
+                "Que fue creado como Adán",
+                "Que corrigió el fracaso del primer Adán",
+                "Que fue menos humano",
+                "Que no sufrió tentación"
+            ],
+            "correctIndex": 1,
+            "category": "Jesús",
+            "difficulty": "hard",
+            "explanation": "Cristo, el segundo Adán, trajo vida donde el primero trajo muerte (Romanos 5:12-21)."
+        },
+        {
+            "id": 87,
+            "question": "¿Qué libro enseña que Cristo es la cabeza de la Iglesia?",
+            "options": [
+                "Colosenses",
+                "Filemón",
+                "Tito",
+                "Judas"
+            ],
+            "correctIndex": 0,
+            "category": "Libros",
+            "difficulty": "hard",
+            "explanation": "Colosenses 1:18 declara que Cristo es la cabeza del cuerpo, la Iglesia."
+        },
+        {
+            "id": 88,
+            "question": "¿Qué práctica espiritual enseñó Jesús en el Sermón del Monte?",
+            "options": [
+                "Legalismo",
+                "Hipocresía religiosa",
+                "Oración sincera",
+                "Ritualismo"
+            ],
+            "correctIndex": 2,
+            "category": "Jesús",
+            "difficulty": "hard",
+            "explanation": "Jesús enseñó a orar en secreto con sinceridad, no para ser visto (Mateo 6:5-6)."
+        },
+        {
+            "id": 89,
+            "question": "¿Qué significa 'escatología'?",
+            "options": [
+                "Estudio de la Iglesia",
+                "Estudio del pecado",
+                "Estudio de las últimas cosas",
+                "Estudio de los ángeles"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "hard",
+            "explanation": "La escatología estudia los eventos finales: segunda venida, juicio, eternidad."
+        },
+        {
+            "id": 90,
+            "question": "¿Qué evento confirmó públicamente la identidad de Jesús como Hijo de Dios?",
+            "options": [
+                "Su nacimiento",
+                "Sus milagros",
+                "Su resurrección",
+                "Su enseñanza"
+            ],
+            "correctIndex": 2,
+            "category": "Jesús",
+            "difficulty": "hard",
+            "explanation": "La resurrección es la prueba definitiva de la divinidad de Jesús (Romanos 1:4)."
+        },
+        {
+            "id": 91,
+            "question": "¿Qué carta enfatiza la supremacía de Cristo sobre toda la creación?",
+            "options": [
+                "Gálatas",
+                "Efesios",
+                "Colosenses",
+                "Filipenses"
+            ],
+            "correctIndex": 2,
+            "category": "Libros",
+            "difficulty": "hard",
+            "explanation": "Colosenses 1:15-20 presenta a Cristo como supremo sobre toda la creación."
+        },
+        {
+            "id": 92,
+            "question": "¿Qué es la conciencia según Romanos 2?",
+            "options": [
+                "La voz de la cultura",
+                "La ley escrita en el corazón",
+                "La tradición religiosa",
+                "La opinión personal"
+            ],
+            "correctIndex": 1,
+            "category": "Doctrina",
+            "difficulty": "hard",
+            "explanation": "Romanos 2:15 dice que los gentiles tienen la ley escrita en sus corazones."
+        },
+        {
+            "id": 93,
+            "question": "¿Qué significa 'herejía'?",
+            "options": [
+                "Diferencia cultural",
+                "Error doctrinal grave",
+                "Falta de conocimiento",
+                "Pecado moral"
+            ],
+            "correctIndex": 1,
+            "category": "Doctrina",
+            "difficulty": "hard",
+            "explanation": "Una herejía es una desviación seria de la doctrina bíblica esencial."
+        },
+        {
+            "id": 94,
+            "question": "¿Qué función cumple el Espíritu Santo en la vida del creyente?",
+            "options": [
+                "Solo consolar",
+                "Convencer de pecado y guiar a la verdad",
+                "Reemplazar la Escritura",
+                "Dar prosperidad"
+            ],
+            "correctIndex": 1,
+            "category": "Doctrina",
+            "difficulty": "hard",
+            "explanation": "El Espíritu convence de pecado, justicia y juicio, y guía a toda verdad (Juan 16:8-13)."
+        },
+        {
+            "id": 95,
+            "question": "¿Qué libro enfatiza que Dios es soberano incluso sobre el mal?",
+            "options": [
+                "Rut",
+                "Ester",
+                "Job",
+                "Amós"
+            ],
+            "correctIndex": 2,
+            "category": "Libros",
+            "difficulty": "hard",
+            "explanation": "Job muestra que nada escapa al control soberano de Dios, ni siquiera Satanás."
+        },
+        {
+            "id": 96,
+            "question": "¿Qué enseñanza central contiene Romanos 8?",
+            "options": [
+                "Legalismo",
+                "Condenación",
+                "Vida en el Espíritu",
+                "Ritual judío"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "hard",
+            "explanation": "Romanos 8 enseña sobre la vida en el Espíritu y la seguridad del creyente."
+        },
+        {
+            "id": 97,
+            "question": "¿Qué práctica distingue a la iglesia primitiva?",
+            "options": [
+                "Poder político",
+                "Comunión y perseverancia",
+                "Riqueza material",
+                "Templos grandes"
+            ],
+            "correctIndex": 1,
+            "category": "Iglesia",
+            "difficulty": "hard",
+            "explanation": "Hechos 2:42 describe a la iglesia perseverando en la doctrina, comunión y oración."
+        },
+        {
+            "id": 98,
+            "question": "¿Qué significa 'canon bíblico'?",
+            "options": [
+                "Interpretación oficial",
+                "Lista de libros inspirados",
+                "Traducción antigua",
+                "Comentario teológico"
+            ],
+            "correctIndex": 1,
+            "category": "Doctrina",
+            "difficulty": "hard",
+            "explanation": "El canon es la lista de libros reconocidos como Escritura inspirada."
+        },
+        {
+            "id": 99,
+            "question": "¿Qué libro enseña que la fe mira lo que no se ve?",
+            "options": [
+                "Hebreos",
+                "Santiago",
+                "Romanos",
+                "Gálatas"
+            ],
+            "correctIndex": 0,
+            "category": "Libros",
+            "difficulty": "hard",
+            "explanation": "Hebreos 11:1 define la fe como certeza de lo que no se ve."
+        },
+        {
+            "id": 100,
+            "question": "¿Qué enseña Jesús sobre el discipulado?",
+            "options": [
+                "Es solo para líderes",
+                "Es opcional",
+                "Implica negarse a uno mismo",
+                "Es solo conocimiento"
+            ],
+            "correctIndex": 2,
+            "category": "Jesús",
+            "difficulty": "hard",
+            "explanation": "Jesús dijo que seguirle implica negarse a uno mismo y tomar la cruz (Lucas 9:23)."
+        },
+        {
+            "id": 101,
+            "question": "¿Qué significa 'revelación general'?",
+            "options": [
+                "La Biblia",
+                "La predicación",
+                "Dios revelado en la creación y conciencia",
+                "Visiones proféticas"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "hard",
+            "explanation": "La revelación general es cómo Dios se da a conocer a través de la naturaleza y conciencia (Romanos 1:20)."
+        },
+        {
+            "id": 102,
+            "question": "¿Qué libro enfatiza la santidad práctica del creyente?",
+            "options": [
+                "Judas",
+                "1 Pedro",
+                "Hebreos",
+                "Tito"
+            ],
+            "correctIndex": 1,
+            "category": "Libros",
+            "difficulty": "hard",
+            "explanation": "1 Pedro llama a los creyentes a ser santos en toda su manera de vivir (1:15-16)."
+        },
+        {
+            "id": 103,
+            "question": "¿Qué doctrina enseña que Dios elige soberanamente para salvación?",
+            "options": [
+                "Libre albedrío",
+                "Justificación",
+                "Elección",
+                "Santificación"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "hard",
+            "explanation": "La doctrina de la elección enseña que Dios escogió a los suyos antes de la fundación del mundo (Efesios 1:4)."
+        },
+        {
+            "id": 104,
+            "question": "¿Qué papel cumple la Ley para el creyente según Gálatas?",
+            "options": [
+                "Salvar",
+                "Condenar eternamente",
+                "Guiar hacia Cristo",
+                "Reemplazar la gracia"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "hard",
+            "explanation": "La Ley fue nuestro ayo para llevarnos a Cristo (Gálatas 3:24)."
+        },
+        {
+            "id": 105,
+            "question": "¿Qué libro aborda la tensión entre fe y razón?",
+            "options": [
+                "Proverbios",
+                "Eclesiastés",
+                "Job",
+                "Habacuc"
+            ],
+            "correctIndex": 3,
+            "category": "Libros",
+            "difficulty": "hard",
+            "explanation": "Habacuc lucha con entender los caminos de Dios, pero concluye confiando por fe."
+        },
+        {
+            "id": 106,
+            "question": "¿Qué significa 'vida eterna' en el Evangelio de Juan?",
+            "options": [
+                "Solo duración infinita",
+                "Recompensa futura",
+                "Relación presente con Dios",
+                "Vida después de la muerte únicamente"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "hard",
+            "explanation": "La vida eterna es conocer a Dios y a Jesucristo (Juan 17:3), una relación que comienza ahora."
+        },
+        {
+            "id": 107,
+            "question": "¿Qué práctica espiritual combate la autosuficiencia?",
+            "options": [
+                "Ayuno",
+                "Debate",
+                "Activismo",
+                "Tradición"
+            ],
+            "correctIndex": 0,
+            "category": "Doctrina",
+            "difficulty": "hard",
+            "explanation": "El ayuno expresa dependencia de Dios y no de las fuerzas propias."
+        },
+        {
+            "id": 108,
+            "question": "¿Qué libro enfatiza la perseverancia en medio de la persecución?",
+            "options": [
+                "Apocalipsis",
+                "Marcos",
+                "Hechos",
+                "Judas"
+            ],
+            "correctIndex": 0,
+            "category": "Libros",
+            "difficulty": "hard",
+            "explanation": "Apocalipsis fue escrito para fortalecer a creyentes perseguidos a permanecer fieles."
+        },
+        {
+            "id": 109,
+            "question": "¿Qué verdad enseña la doctrina de la encarnación?",
+            "options": [
+                "Dios dejó de ser Dios",
+                "Jesús fue solo hombre",
+                "Dios se hizo hombre sin dejar de ser Dios",
+                "Jesús fue creado"
+            ],
+            "correctIndex": 2,
+            "category": "Jesús",
+            "difficulty": "hard",
+            "explanation": "La encarnación es el misterio de que el Hijo eterno asumió naturaleza humana."
+        },
+        {
+            "id": 110,
+            "question": "¿Qué actitud condena Jesús con más frecuencia?",
+            "options": [
+                "Ignorancia",
+                "Hipocresía",
+                "Pobreza",
+                "Debilidad"
+            ],
+            "correctIndex": 1,
+            "category": "Jesús",
+            "difficulty": "hard",
+            "explanation": "Jesús confrontó repetidamente la hipocresía religiosa de los líderes (Mateo 23)."
+        },
+        {
+            "id": 111,
+            "question": "¿Qué afirma la doctrina de la simplicidad divina?",
+            "options": [
+                "Que Dios es simple de entender",
+                "Que Dios está compuesto de partes",
+                "Que los atributos de Dios no se dividen ni se contradicen",
+                "Que Dios cambia según el tiempo"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "La simplicidad divina enseña que Dios es uno, sin partes; sus atributos son idénticos a su esencia."
+        },
+        {
+            "id": 112,
+            "question": "¿Qué texto bíblico afirma claramente la inspiración plenaria de la Escritura?",
+            "options": [
+                "Salmo 19:1",
+                "Juan 1:1",
+                "2 Timoteo 3:16",
+                "Hebreos 1:1"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "2 Timoteo 3:16 afirma que toda la Escritura es inspirada por Dios (theopneustos)."
+        },
+        {
+            "id": 113,
+            "question": "¿Cuál fue el principal error del arrianismo?",
+            "options": [
+                "Negar la humanidad de Cristo",
+                "Negar la Trinidad",
+                "Negar la deidad plena de Cristo",
+                "Negar la resurrección"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "El arrianismo enseñaba que Cristo fue creado y no era plenamente Dios."
+        },
+        {
+            "id": 114,
+            "question": "¿Qué concilio afirmó oficialmente la deidad de Cristo?",
+            "options": [
+                "Concilio de Trento",
+                "Concilio de Nicea",
+                "Concilio de Calcedonia",
+                "Concilio de Jerusalén"
+            ],
+            "correctIndex": 1,
+            "category": "Historia",
+            "difficulty": "expert",
+            "explanation": "El Concilio de Nicea (325 d.C.) afirmó que Cristo es 'de la misma sustancia' que el Padre."
+        },
+        {
+            "id": 115,
+            "question": "¿Qué enseña Romanos 5 sobre Adán y Cristo?",
+            "options": [
+                "Ambos fueron profetas",
+                "Ambos pecaron",
+                "Uno trajo muerte y el otro vida",
+                "Ambos fallaron"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "Romanos 5:12-21 presenta el contraste entre Adán (muerte) y Cristo (vida)."
+        },
+        {
+            "id": 116,
+            "question": "¿Qué significa que la justificación sea 'forense'?",
+            "options": [
+                "Que es emocional",
+                "Que es experimental",
+                "Que es una declaración legal",
+                "Que es progresiva"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "Forense significa que Dios declara legalmente justo al pecador, es un veredicto judicial."
+        },
+        {
+            "id": 117,
+            "question": "¿Qué distingue al nuevo pacto del antiguo?",
+            "options": [
+                "El tipo de sacrificios",
+                "La ausencia de ley",
+                "La obra interna del Espíritu",
+                "El templo físico"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "El nuevo pacto se caracteriza por la obra interna del Espíritu (Jeremías 31:33, Ezequiel 36:26-27)."
+        },
+        {
+            "id": 118,
+            "question": "¿Qué libro desarrolla con mayor profundidad la doctrina del sacerdocio de Cristo?",
+            "options": [
+                "Romanos",
+                "Gálatas",
+                "Hebreos",
+                "Apocalipsis"
+            ],
+            "correctIndex": 2,
+            "category": "Libros",
+            "difficulty": "expert",
+            "explanation": "Hebreos presenta extensamente a Cristo como Sumo Sacerdote según el orden de Melquisedec."
+        },
+        {
+            "id": 119,
+            "question": "¿Qué significa que la Biblia sea 'suficiente'?",
+            "options": [
+                "Que no necesita interpretación",
+                "Que contiene todo lo necesario para la fe y la vida cristiana",
+                "Que reemplaza toda experiencia",
+                "Que elimina la razón"
+            ],
+            "correctIndex": 1,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "La suficiencia de la Escritura significa que contiene todo lo necesario para conocer a Dios y vivir para Él."
+        },
+        {
+            "id": 120,
+            "question": "¿Qué texto enseña la incapacidad espiritual del ser humano sin Cristo?",
+            "options": [
+                "Salmo 23",
+                "Romanos 3:10-12",
+                "Proverbios 1",
+                "Mateo 7"
+            ],
+            "correctIndex": 1,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "Romanos 3:10-12 declara que no hay justo, ni aun uno; nadie busca a Dios por sí mismo."
+        },
+        {
+            "id": 121,
+            "question": "¿Qué doctrina explica cómo Dios gobierna todo sin anular la responsabilidad humana?",
+            "options": [
+                "Predestinación absoluta",
+                "Compatibilismo bíblico",
+                "Libre albedrío puro",
+                "Determinismo filosófico"
+            ],
+            "correctIndex": 1,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "El compatibilismo afirma que la soberanía de Dios y la responsabilidad humana coexisten bíblicamente."
+        },
+        {
+            "id": 122,
+            "question": "¿Qué herejía afirmaba que Jesús solo parecía humano?",
+            "options": [
+                "Arianismo",
+                "Pelagianismo",
+                "Docetismo",
+                "Gnosticismo"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "El docetismo negaba la verdadera humanidad de Cristo, afirmando que solo parecía tener cuerpo."
+        },
+        {
+            "id": 123,
+            "question": "¿Qué enseña Efesios 1 sobre la salvación?",
+            "options": [
+                "Que depende del esfuerzo humano",
+                "Que es incierta",
+                "Que es parte del plan eterno de Dios",
+                "Que es solo futura"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "Efesios 1 enseña que Dios nos escogió antes de la fundación del mundo según su propósito eterno."
+        },
+        {
+            "id": 124,
+            "question": "¿Qué es la santificación progresiva?",
+            "options": [
+                "La declaración inicial de justicia",
+                "La perfección instantánea",
+                "El crecimiento continuo en obediencia",
+                "El perdón de pecados"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "La santificación progresiva es el proceso continuo por el cual el creyente crece en semejanza a Cristo."
+        },
+        {
+            "id": 125,
+            "question": "¿Qué libro enfatiza que la fe verdadera produce obediencia?",
+            "options": [
+                "Romanos",
+                "Santiago",
+                "Hebreos",
+                "Judas"
+            ],
+            "correctIndex": 1,
+            "category": "Libros",
+            "difficulty": "expert",
+            "explanation": "Santiago enseña que la fe sin obras está muerta; la fe genuina se demuestra en acciones."
+        },
+        {
+            "id": 126,
+            "question": "¿Qué significa que Cristo sea mediador?",
+            "options": [
+                "Que fue solo maestro",
+                "Que conecta a Dios y al hombre",
+                "Que reemplaza al Espíritu",
+                "Que gobierna políticamente"
+            ],
+            "correctIndex": 1,
+            "category": "Jesús",
+            "difficulty": "expert",
+            "explanation": "Cristo es el único mediador entre Dios y los hombres (1 Timoteo 2:5)."
+        },
+        {
+            "id": 127,
+            "question": "¿Qué doctrina afirma que Dios conoce y decreta el futuro?",
+            "options": [
+                "Presciencia pasiva",
+                "Teísmo abierto",
+                "Soberanía divina",
+                "Deísmo"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "La soberanía divina afirma que Dios gobierna todas las cosas según su voluntad y propósito."
+        },
+        {
+            "id": 128,
+            "question": "¿Qué libro enseña que la iglesia es el cuerpo de Cristo?",
+            "options": [
+                "Hechos",
+                "Efesios",
+                "Tito",
+                "Hebreos"
+            ],
+            "correctIndex": 1,
+            "category": "Libros",
+            "difficulty": "expert",
+            "explanation": "Efesios presenta la metáfora de la iglesia como cuerpo de Cristo con Él como cabeza."
+        },
+        {
+            "id": 129,
+            "question": "¿Qué significa 'escándalo' en el contexto bíblico?",
+            "options": [
+                "Ofensa cultural",
+                "Tentación que hace caer",
+                "Debate público",
+                "Juicio social"
+            ],
+            "correctIndex": 1,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "Skandalon en griego significa piedra de tropiezo o tentación que hace caer."
+        },
+        {
+            "id": 130,
+            "question": "¿Qué evento confirma la victoria final de Cristo?",
+            "options": [
+                "Su nacimiento",
+                "Su enseñanza",
+                "Su resurrección",
+                "Su ministerio"
+            ],
+            "correctIndex": 2,
+            "category": "Jesús",
+            "difficulty": "expert",
+            "explanation": "La resurrección es la prueba de que Cristo venció el pecado, la muerte y Satanás."
+        },
+        {
+            "id": 131,
+            "question": "¿Qué doctrina fue central en la Reforma Protestante?",
+            "options": [
+                "Tradición apostólica",
+                "Justificación por la fe",
+                "Autoridad papal",
+                "Méritos humanos"
+            ],
+            "correctIndex": 1,
+            "category": "Historia",
+            "difficulty": "expert",
+            "explanation": "La justificación por la fe sola (sola fide) fue la doctrina central de la Reforma."
+        },
+        {
+            "id": 132,
+            "question": "¿Qué significa 'sola Scriptura'?",
+            "options": [
+                "Solo leer la Biblia",
+                "La Biblia como autoridad suprema",
+                "Rechazar la historia",
+                "Ignorar la iglesia"
+            ],
+            "correctIndex": 1,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "Sola Scriptura significa que la Biblia es la autoridad final y suprema en fe y práctica."
+        },
+        {
+            "id": 133,
+            "question": "¿Qué libro enfatiza la perseverancia de los santos?",
+            "options": [
+                "Hebreos",
+                "Gálatas",
+                "Filemón",
+                "Tito"
+            ],
+            "correctIndex": 0,
+            "category": "Libros",
+            "difficulty": "expert",
+            "explanation": "Hebreos exhorta repetidamente a perseverar en la fe hasta el fin."
+        },
+        {
+            "id": 134,
+            "question": "¿Qué enseña Juan 1 sobre Jesús?",
+            "options": [
+                "Que fue creado",
+                "Que fue profeta",
+                "Que es eterno y divino",
+                "Que fue adoptado"
+            ],
+            "correctIndex": 2,
+            "category": "Jesús",
+            "difficulty": "expert",
+            "explanation": "Juan 1:1-3 declara que el Verbo era Dios, estaba con Dios y todo fue hecho por Él."
+        },
+        {
+            "id": 135,
+            "question": "¿Qué doctrina explica la imputación del pecado de Adán?",
+            "options": [
+                "Expiación",
+                "Cabeza federal",
+                "Santificación",
+                "Regeneración"
+            ],
+            "correctIndex": 1,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "La doctrina de la cabeza federal enseña que Adán representaba a toda la humanidad."
+        },
+        {
+            "id": 136,
+            "question": "¿Qué es la regeneración?",
+            "options": [
+                "Cambio externo",
+                "Educación cristiana",
+                "Nuevo nacimiento espiritual",
+                "Disciplina moral"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "La regeneración es el acto soberano de Dios que da vida espiritual al pecador muerto."
+        },
+        {
+            "id": 137,
+            "question": "¿Qué libro presenta a Cristo como Rey victorioso?",
+            "options": [
+                "Marcos",
+                "Lucas",
+                "Apocalipsis",
+                "Hechos"
+            ],
+            "correctIndex": 2,
+            "category": "Libros",
+            "difficulty": "expert",
+            "explanation": "Apocalipsis presenta a Cristo como Rey de reyes y Señor de señores, victorioso sobre todo."
+        },
+        {
+            "id": 138,
+            "question": "¿Qué significa 'temor de Dios' en la Biblia?",
+            "options": [
+                "Miedo paralizante",
+                "Respeto reverente",
+                "Castigo constante",
+                "Ignorancia espiritual"
+            ],
+            "correctIndex": 1,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "El temor de Dios es asombro reverente ante su majestad y santidad, no terror servil."
+        },
+        {
+            "id": 139,
+            "question": "¿Qué doctrina enseña que la salvación no se pierde?",
+            "options": [
+                "Libre albedrío",
+                "Perseverancia de los santos",
+                "Salvación condicional",
+                "Justificación futura"
+            ],
+            "correctIndex": 1,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "La perseverancia de los santos enseña que los verdaderamente salvos permanecerán hasta el fin."
+        },
+        {
+            "id": 140,
+            "question": "¿Qué libro aborda la tensión entre fe y obras?",
+            "options": [
+                "Romanos",
+                "Gálatas",
+                "Santiago",
+                "Hebreos"
+            ],
+            "correctIndex": 2,
+            "category": "Libros",
+            "difficulty": "expert",
+            "explanation": "Santiago aborda cómo la fe genuina se manifiesta en obras, complementando a Pablo."
+        },
+        {
+            "id": 141,
+            "question": "¿Qué significa que la revelación sea 'progresiva'?",
+            "options": [
+                "Que cambia",
+                "Que se contradice",
+                "Que Dios revela su plan gradualmente",
+                "Que es incompleta"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "Revelación progresiva significa que Dios reveló su plan de salvación gradualmente a través de la historia."
+        },
+        {
+            "id": 142,
+            "question": "¿Qué doctrina afirma que Cristo murió en lugar del pecador?",
+            "options": [
+                "Influencia moral",
+                "Expiación sustitutiva",
+                "Ejemplo ético",
+                "Universalismo"
+            ],
+            "correctIndex": 1,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "La expiación sustitutiva enseña que Cristo murió en nuestro lugar, llevando nuestro castigo."
+        },
+        {
+            "id": 143,
+            "question": "¿Qué error afirma que el hombre puede salvarse sin la gracia?",
+            "options": [
+                "Calvinismo",
+                "Arminianismo",
+                "Pelagianismo",
+                "Deísmo"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "El pelagianismo niega el pecado original y afirma que el hombre puede salvarse por esfuerzo propio."
+        },
+        {
+            "id": 144,
+            "question": "¿Qué libro enfatiza la santidad de Dios?",
+            "options": [
+                "Génesis",
+                "Isaías",
+                "Rut",
+                "Ester"
+            ],
+            "correctIndex": 1,
+            "category": "Libros",
+            "difficulty": "expert",
+            "explanation": "Isaías presenta la santidad de Dios de manera prominente: 'Santo, Santo, Santo' (Isaías 6:3)."
+        },
+        {
+            "id": 145,
+            "question": "¿Qué significa 'glorificación'?",
+            "options": [
+                "Obediencia diaria",
+                "Perdón inicial",
+                "Estado final del creyente sin pecado",
+                "Bautismo"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "La glorificación es el estado final donde el creyente es liberado completamente del pecado."
+        },
+        {
+            "id": 146,
+            "question": "¿Qué doctrina enseña que Dios se hizo hombre?",
+            "options": [
+                "Trinidad",
+                "Encarnación",
+                "Justificación",
+                "Elección"
+            ],
+            "correctIndex": 1,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "La encarnación es la doctrina de que el Hijo eterno asumió naturaleza humana en Jesús."
+        },
+        {
+            "id": 147,
+            "question": "¿Qué libro enfatiza la vigilancia espiritual?",
+            "options": [
+                "Proverbios",
+                "Judas",
+                "Apocalipsis",
+                "Hebreos"
+            ],
+            "correctIndex": 3,
+            "category": "Libros",
+            "difficulty": "expert",
+            "explanation": "Hebreos advierte repetidamente contra el endurecimiento y la apostasía, llamando a la vigilancia."
+        },
+        {
+            "id": 148,
+            "question": "¿Qué enseña Mateo 28:18-20?",
+            "options": [
+                "El juicio final",
+                "La oración",
+                "La Gran Comisión",
+                "El fin del mundo"
+            ],
+            "correctIndex": 2,
+            "category": "Jesús",
+            "difficulty": "expert",
+            "explanation": "La Gran Comisión es el mandato de hacer discípulos a todas las naciones."
+        },
+        {
+            "id": 149,
+            "question": "¿Qué doctrina afirma que el Espíritu mora en el creyente?",
+            "options": [
+                "Inspiración",
+                "Regeneración",
+                "Morada del Espíritu",
+                "Santificación"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "La morada del Espíritu enseña que el Espíritu Santo habita permanentemente en cada creyente."
+        },
+        {
+            "id": 150,
+            "question": "¿Cuál es el fin último de la salvación?",
+            "options": [
+                "Prosperidad",
+                "Bienestar emocional",
+                "La gloria de Dios",
+                "La perfección humana"
+            ],
+            "correctIndex": 2,
+            "category": "Doctrina",
+            "difficulty": "expert",
+            "explanation": "El fin último de la salvación es la gloria de Dios (Efesios 1:6, 12, 14)."
+        }
+    ]
+}

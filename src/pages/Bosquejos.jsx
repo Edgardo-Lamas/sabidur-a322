@@ -7,31 +7,36 @@ const bosquejos = [
     {
         id: 1,
         title: 'La diferencia entre leer la Biblia y entenderla',
-        description: 'Un recorrido por la importancia de la comprensión profunda de las Escrituras.',
+        description: 'Un llamado a pasar de la lectura superficial a la comprensión espiritual que transforma la vida.',
+        passage: 'Nehemías 8:1–8',
         file: 'Bosquejos & Guias/la_diferencia_entre_leeer_la_Biblia_y_entenderla.pdf',
     },
     {
         id: 2,
         title: 'La palabra de Dios y la vida cotidiana',
-        description: 'Cómo integrar la Palabra en cada aspecto de nuestra vida diaria.',
+        description: 'Cómo la Escritura informa, corrige y orienta las decisiones diarias del creyente.',
+        passage: 'Salmo 119:105',
         file: 'Bosquejos & Guias/La_palabra_de_Dios_y_la_vida_cotidiana.pdf',
     },
     {
         id: 3,
         title: 'Cuando la fe se vuelve costumbre',
-        description: 'Reflexión sobre el peligro de la rutina espiritual y cómo renovar nuestra fe.',
+        description: 'Una reflexión sobre el peligro de la rutina espiritual y la pérdida de sensibilidad al Evangelio.',
+        passage: 'Apocalipsis 2:1–5',
         file: 'Bosquejos & Guias/Cuando_la_Fe_se_vuelve_costumbre.pdf',
     },
     {
         id: 4,
         title: 'Discernir en tiempos de muchas voces',
-        description: 'Herramientas bíblicas para distinguir la verdad en medio del ruido.',
+        description: 'La necesidad de probar todo a la luz de la verdad bíblica en medio de confusión y relativismo.',
+        passage: '1 Juan 4:1',
         file: 'Bosquejos & Guias/Discernir_en_tiempos_de_muchas_voces.pdf',
     },
     {
         id: 5,
         title: 'Por qué es importante pensar bien lo que creo',
-        description: 'La relación entre fe y pensamiento crítico fundamentado en la Escritura.',
+        description: 'La responsabilidad del creyente de examinar y afirmar su fe con convicción y fundamento bíblico.',
+        passage: 'Romanos 12:1–2',
         file: 'Bosquejos & Guias/porque_es_importante_pensar_bien_lo_que_creo.pdf',
     },
 ];
@@ -62,7 +67,7 @@ const Bosquejos = () => {
                                 No buscan agotar los temas, sino ofrecer una estructura clara que ayude a leer, pensar y profundizar con calma.
                             </p>
                             <p>
-                                Cada bosquejo propone un recorrido sencillo por la Escritura, invitando a detenerse, discernir y aplicar lo aprendido a la vida diaria.
+                                Cada bosquejo propone un recorrido sencillo por la Escritura, invitando a detenerse, discernir y aplicar lo aprendido a la vida diaria. Estos bosquejos están pensados para el estudio personal, la enseñanza en grupos pequeños y el acompañamiento pastoral.
                             </p>
                         </div>
                         {/* Image - Right Side */}
@@ -91,8 +96,11 @@ const Bosquejos = () => {
                                     <h2 className="text-xl font-serif text-sabiduria-navy group-hover:text-sabiduria-gold transition-colors leading-tight mb-2">
                                         {bosquejo.title}
                                     </h2>
-                                    <p className="text-sabiduria-gray text-sm leading-relaxed mb-4">
+                                    <p className="text-sabiduria-gray text-sm leading-relaxed">
                                         {bosquejo.description}
+                                    </p>
+                                    <p className="text-sabiduria-gold/80 text-sm italic mb-4">
+                                        Basado en: {bosquejo.passage}
                                     </p>
                                     <a
                                         href={`${import.meta.env.BASE_URL}${bosquejo.file}`}
