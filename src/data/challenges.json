@@ -2,23 +2,145 @@
     "challenges": [
         {
             "id": 1,
-            "title": "Desafío de ejemplo",
-            "intro": "Antes de responder, leé el texto con atención y meditá en su significado profundo.",
-            "passage": "Texto bíblico extendido aquí. Este campo contendrá el pasaje completo para leer.",
-            "reference": "Referencia bíblica (ej: 2 Timoteo 3:14-17)",
+            "title": "Justificados por la fe",
+            "intro": "Leé el pasaje con atención. No respondas apurado. El texto explica cómo una persona puede estar en paz con Dios.",
+            "reference": "Romanos 3:21–28",
+            "passage": "Pero ahora, aparte de la ley, se ha manifestado la justicia de Dios, testificada por la ley y por los profetas; la justicia de Dios por medio de la fe en Jesucristo, para todos los que creen en él. Porque no hay diferencia, por cuanto todos pecaron, y están destituidos de la gloria de Dios, siendo justificados gratuitamente por su gracia, mediante la redención que es en Cristo Jesús, a quien Dios puso como propiciación por medio de la fe en su sangre, para manifestar su justicia, a causa de haber pasado por alto, en su paciencia, los pecados pasados, con la mira de manifestar en este tiempo su justicia, a fin de que él sea el justo, y el que justifica al que es de la fe de Jesús. ¿Dónde, pues, está la jactancia? Queda excluida. ¿Por cuál ley? ¿Por la de las obras? No, sino por la ley de la fe. Concluimos, pues, que el hombre es justificado por fe sin las obras de la ley.",
             "questions": [
                 {
                     "id": 1,
-                    "question": "Pregunta de ejemplo sobre el pasaje",
+                    "question": "Según el texto, ¿por qué todos necesitan ser justificados?",
                     "options": [
-                        "Opción A",
-                        "Opción B",
-                        "Opción C",
-                        "Opción D"
+                        "Porque nadie cumple perfectamente la ley",
+                        "Porque todos pecaron y están destituidos de la gloria de Dios",
+                        "Porque Dios decidió cambiar las reglas",
+                        "Porque la ley dejó de existir"
                     ],
-                    "correctIndex": 0,
-                    "feedbackCorrecto": "Correcto. El texto afirma...",
-                    "feedbackIncorrecto": "El pasaje enseña algo más profundo..."
+                    "correctIndex": 1,
+                    "feedbackCorrecto": "Correcto. El problema no es solo moral, es espiritual: todos estamos alejados de la gloria de Dios.",
+                    "feedbackIncorrecto": "El texto es claro: el motivo es universal y profundo, todos han pecado."
+                },
+                {
+                    "id": 2,
+                    "question": "¿Sobre qué base declara Dios justo al pecador?",
+                    "options": [
+                        "Por sus buenas obras",
+                        "Por su sinceridad",
+                        "Por la fe en Jesucristo y su obra redentora",
+                        "Por pertenecer a un pueblo religioso"
+                    ],
+                    "correctIndex": 2,
+                    "feedbackCorrecto": "Así es. La justificación no se gana, se recibe por fe en Cristo.",
+                    "feedbackIncorrecto": "El texto excluye toda jactancia humana. La base es Cristo, no el esfuerzo personal."
+                },
+                {
+                    "id": 3,
+                    "question": "¿Qué verdad protege la doctrina de la justificación por la fe?",
+                    "options": [
+                        "Que el pecado no importa",
+                        "Que Dios baja su estándar",
+                        "Que la salvación es un regalo de gracia",
+                        "Que la ley es inútil"
+                    ],
+                    "correctIndex": 2,
+                    "feedbackCorrecto": "Correcto. La gracia exalta la justicia de Dios y humilla el orgullo humano.",
+                    "feedbackIncorrecto": "La justificación no elimina la justicia de Dios, la manifiesta plenamente."
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "title": "Si Cristo no resucitó",
+            "intro": "Este pasaje conecta la fe cristiana con un hecho histórico. Leé con atención el razonamiento del apóstol Pablo.",
+            "reference": "1 Corintios 15:12–20",
+            "passage": "Pero si se predica de Cristo que resucitó de los muertos, ¿cómo dicen algunos entre vosotros que no hay resurrección de muertos? Porque si no hay resurrección de muertos, tampoco Cristo resucitó. Y si Cristo no resucitó, vana es entonces nuestra predicación, vana es también vuestra fe... Mas ahora Cristo ha resucitado de los muertos; primicias de los que durmieron es hecho.",
+            "questions": [
+                {
+                    "id": 1,
+                    "question": "¿Qué afirma Pablo que ocurriría si Cristo no hubiera resucitado?",
+                    "options": [
+                        "La iglesia tendría que cambiar su mensaje",
+                        "La fe cristiana sería inútil",
+                        "Solo los apóstoles estarían equivocados",
+                        "La resurrección sería simbólica"
+                    ],
+                    "correctIndex": 1,
+                    "feedbackCorrecto": "Exacto. Sin resurrección, el cristianismo pierde su fundamento.",
+                    "feedbackIncorrecto": "Pablo va más lejos: sin resurrección, la fe misma se derrumba."
+                },
+                {
+                    "id": 2,
+                    "question": "¿Cómo presenta Pablo la resurrección de Cristo?",
+                    "options": [
+                        "Como una experiencia espiritual",
+                        "Como una metáfora de esperanza",
+                        "Como un hecho histórico esencial",
+                        "Como una tradición judía"
+                    ],
+                    "correctIndex": 2,
+                    "feedbackCorrecto": "Correcto. La fe cristiana se apoya en un hecho real, no solo en ideas.",
+                    "feedbackIncorrecto": "El texto insiste en la realidad histórica, no en un símbolo."
+                },
+                {
+                    "id": 3,
+                    "question": "¿Qué significa que Cristo sea las 'primicias'?",
+                    "options": [
+                        "Que fue el primero en resucitar",
+                        "Que su resurrección garantiza la de los creyentes",
+                        "Que fue el más importante",
+                        "Que volvió a morir después"
+                    ],
+                    "correctIndex": 1,
+                    "feedbackCorrecto": "Así es. Su resurrección es promesa y garantía de la nuestra.",
+                    "feedbackIncorrecto": "Las primicias señalan algo mayor que viene después."
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "title": "Muertos en delitos y pecados",
+            "intro": "Este texto describe la condición humana sin Dios y la intervención de su gracia.",
+            "reference": "Efesios 2:1–5",
+            "passage": "Y él os dio vida a vosotros, cuando estabais muertos en vuestros delitos y pecados, en los cuales anduvisteis en otro tiempo... Pero Dios, que es rico en misericordia, por su gran amor con que nos amó, aun estando nosotros muertos en pecados, nos dio vida juntamente con Cristo.",
+            "questions": [
+                {
+                    "id": 1,
+                    "question": "¿Cómo describe Pablo la condición del ser humano sin Cristo?",
+                    "options": [
+                        "Débil espiritualmente",
+                        "Confundido moralmente",
+                        "Muerto en delitos y pecados",
+                        "Ignorante de la verdad"
+                    ],
+                    "correctIndex": 2,
+                    "feedbackCorrecto": "Correcto. El problema es más profundo que una debilidad: es muerte espiritual.",
+                    "feedbackIncorrecto": "El texto usa un lenguaje fuerte para mostrar la gravedad del pecado."
+                },
+                {
+                    "id": 2,
+                    "question": "¿Qué motivó la acción salvadora de Dios?",
+                    "options": [
+                        "La mejora del ser humano",
+                        "Las buenas obras futuras",
+                        "Su misericordia y gran amor",
+                        "El arrepentimiento previo"
+                    ],
+                    "correctIndex": 2,
+                    "feedbackCorrecto": "Exacto. La salvación nace del carácter de Dios, no del mérito humano.",
+                    "feedbackIncorrecto": "El texto destaca el amor y la misericordia de Dios como causa."
+                },
+                {
+                    "id": 3,
+                    "question": "¿Qué enseña este pasaje sobre la gracia?",
+                    "options": [
+                        "Que ayuda al esfuerzo humano",
+                        "Que completa lo que falta",
+                        "Que da vida a quien estaba muerto",
+                        "Que recompensa al obediente"
+                    ],
+                    "correctIndex": 2,
+                    "feedbackCorrecto": "Así es. La gracia no mejora al muerto, le da vida.",
+                    "feedbackIncorrecto": "La imagen es radical: la gracia actúa donde no hay vida."
                 }
             ]
         }
