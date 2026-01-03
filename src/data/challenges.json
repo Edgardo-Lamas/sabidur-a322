@@ -1,0 +1,26 @@
+{
+    "challenges": [
+        {
+            "id": 1,
+            "title": "Desafío de ejemplo",
+            "intro": "Antes de responder, leé el texto con atención y meditá en su significado profundo.",
+            "passage": "Texto bíblico extendido aquí. Este campo contendrá el pasaje completo para leer.",
+            "reference": "Referencia bíblica (ej: 2 Timoteo 3:14-17)",
+            "questions": [
+                {
+                    "id": 1,
+                    "question": "Pregunta de ejemplo sobre el pasaje",
+                    "options": [
+                        "Opción A",
+                        "Opción B",
+                        "Opción C",
+                        "Opción D"
+                    ],
+                    "correctIndex": 0,
+                    "feedbackCorrecto": "Correcto. El texto afirma...",
+                    "feedbackIncorrecto": "El pasaje enseña algo más profundo..."
+                }
+            ]
+        }
+    ]
+}

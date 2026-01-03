@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
     Sparkles, ChevronRight, Heart, Trophy, Mountain,
-    Zap, Download, Lock, Star, Award, Clock
+    Zap, Download, Lock, Star, Award, Clock, BookOpen
 } from 'lucide-react';
 import questionsData from '../data/questions.json';
+import challengesData from '../data/challenges.json';
 
 // Level configuration
 const LEVELS = {
-    1: { name: 'Inicial', difficulty: 'easy', questionsPerLevel: 15, minToPass: 12, bonusCredits: 50, color: 'from-green-400 to-emerald-500', timePerQuestion: 30 },
-    2: { name: 'Medio', difficulty: 'medium', questionsPerLevel: 15, minToPass: 12, bonusCredits: 75, color: 'from-yellow-400 to-orange-500', timePerQuestion: 30 },
-    3: { name: 'Difícil', difficulty: 'hard', questionsPerLevel: 15, minToPass: 12, bonusCredits: 100, color: 'from-orange-500 to-red-500', timePerQuestion: 25 },
-    4: { name: 'Experto', difficulty: 'expert', questionsPerLevel: 15, minToPass: 12, bonusCredits: 150, color: 'from-purple-500 to-pink-500', timePerQuestion: 20 }
+    1: { name: 'Inicial', difficulty: 'easy', questionsPerLevel: 15, minToPass: 12, bonusCredits: 50, color: 'from-green-400 to-emerald-500', timePerQuestion: 30, pointsPerCorrect: 1 },
+    2: { name: 'Medio', difficulty: 'medium', questionsPerLevel: 15, minToPass: 12, bonusCredits: 75, color: 'from-yellow-400 to-orange-500', timePerQuestion: 30, pointsPerCorrect: 2 },
+    3: { name: 'Difícil', difficulty: 'hard', questionsPerLevel: 15, minToPass: 12, bonusCredits: 100, color: 'from-orange-500 to-red-500', timePerQuestion: 25, pointsPerCorrect: 3 },
+    4: { name: 'Experto', difficulty: 'expert', questionsPerLevel: 15, minToPass: 12, bonusCredits: 150, color: 'from-purple-500 to-pink-500', timePerQuestion: 20, pointsPerCorrect: 5 }
 };
 
 // Filter questions by difficulty (all current questions are 'easy')
@@ -64,6 +65,13 @@ const BibliaFlow = () => {
     const [levelResult, setLevelResult] = useState(null); // 'passed', 'perfect', 'failed'
     const [timeLeft, setTimeLeft] = useState(30);
     const timerRef = useRef(null);
+
+    // Challenge state
+    const [currentChallenge, setCurrentChallenge] = useState(null);
+    const [challengeQIndex, setChallengeQIndex] = useState(0);
+    const [challengeAnswered, setChallengeAnswered] = useState(false);
+    const [challengeSelectedId, setChallengeSelectedId] = useState(null);
+    const [challengeScore, setChallengeScore] = useState(0);
 
     // Timer effect
     useEffect(() => {
@@ -119,7 +127,8 @@ const BibliaFlow = () => {
         setSelectedOptionId(opt.id);
         setIsAnswered(true);
         if (opt.isCorrect) {
-            setScore(s => s + 50);
+            const levelConfig = LEVELS[currentLevel];
+            setScore(s => s + levelConfig.pointsPerCorrect);
             setCurrency(c => c + 20);
             setCorrectAnswers(c => c + 1);
         } else {
@@ -426,6 +435,8 @@ const BibliaFlow = () => {
 
     // VICTORY SCREEN
     if (screen === 'victory') {
+        const hasChallenge = challengesData.challenges && challengesData.challenges.length > 0;
+
         return (
             <div className="bg-slate-900 text-white flex flex-col items-center justify-center p-6 min-h-[600px] rounded-3xl border border-white/10 shadow-2xl">
                 <div className="bg-gradient-to-br from-yellow-400/20 to-purple-600/20 p-12 rounded-[3rem] text-center border border-yellow-400/30 shadow-2xl max-w-md w-full">
@@ -444,6 +455,16 @@ const BibliaFlow = () => {
                         <p className="text-slate-400 text-sm">Créditos totales</p>
                     </div>
 
+                    {hasChallenge && (
+                        <button
+                            onClick={() => setScreen('challengeIntro')}
+                            className="w-full py-5 bg-gradient-to-r from-amber-700 to-amber-900 text-amber-100 rounded-2xl font-bold text-lg mb-4 hover:opacity-90 shadow-lg active:scale-95 transition-all border border-amber-600/30 flex items-center justify-center gap-3"
+                        >
+                            <BookOpen size={24} />
+                            EL DESAFÍO SUPREMO
+                        </button>
+                    )}
+
                     <button
                         onClick={() => setScreen('studio')}
                         className="w-full py-5 bg-gradient-to-r from-yellow-400 to-orange-500 text-slate-900 rounded-2xl font-black text-xl mb-4 hover:opacity-90 shadow-lg active:scale-95 transition-all"
@@ -458,6 +479,218 @@ const BibliaFlow = () => {
                         className="text-slate-400 font-bold hover:text-white transition-colors"
                     >
                         JUGAR DE NUEVO
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
+    // CHALLENGE INTRO SCREEN (Transition)
+    if (screen === 'challengeIntro') {
+        const challenge = challengesData.challenges[0]; // First challenge
+
+        const startChallenge = () => {
+            setCurrentChallenge(challenge);
+            setChallengeQIndex(0);
+            setChallengeAnswered(false);
+            setChallengeSelectedId(null);
+            setChallengeScore(0);
+            setScreen('challengeReading');
+        };
+
+        return (
+            <div className="bg-gradient-to-b from-amber-950 to-slate-950 text-amber-100 flex flex-col items-center justify-center p-8 min-h-[600px] rounded-3xl border border-amber-900/30 shadow-2xl">
+                <div className="max-w-lg text-center">
+                    <div className="inline-block p-6 bg-amber-900/20 rounded-full mb-8 border border-amber-800/30">
+                        <BookOpen size={64} className="text-amber-400" />
+                    </div>
+
+                    <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6 text-amber-200">
+                        El Desafío Supremo
+                    </h1>
+
+                    <p className="text-lg text-amber-300/80 mb-8 leading-relaxed font-light">
+                        Este no es un quiz de velocidad. Es un ejercicio de lectura profunda y discernimiento bíblico.
+                    </p>
+
+                    <div className="bg-amber-900/20 border border-amber-800/30 p-6 rounded-2xl mb-8">
+                        <p className="text-amber-200/90 italic font-serif text-lg leading-relaxed">
+                            "Bienaventurado el que lee, y los que oyen las palabras de esta profecía, y guardan las cosas en ella escritas."
+                        </p>
+                        <p className="text-amber-400/60 text-sm mt-3">— Apocalipsis 1:3</p>
+                    </div>
+
+                    <button
+                        onClick={startChallenge}
+                        className="px-12 py-5 bg-amber-800/40 text-amber-100 rounded-2xl font-bold text-lg hover:bg-amber-800/60 transition-all border border-amber-700/40 active:scale-95"
+                    >
+                        COMENZAR LECTURA
+                    </button>
+
+                    <button
+                        onClick={() => setScreen('victory')}
+                        className="block mx-auto mt-6 text-amber-500/60 hover:text-amber-400 transition-colors text-sm"
+                    >
+                        Volver
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
+    // CHALLENGE READING SCREEN
+    if (screen === 'challengeReading' && currentChallenge) {
+        return (
+            <div className="bg-gradient-to-b from-amber-950 to-slate-950 text-amber-100 flex flex-col items-center p-8 min-h-[600px] rounded-3xl border border-amber-900/30 shadow-2xl overflow-y-auto">
+                <div className="max-w-2xl w-full">
+                    <div className="text-center mb-8">
+                        <span className="text-xs font-bold uppercase tracking-[0.3em] text-amber-500/60">
+                            {currentChallenge.reference}
+                        </span>
+                        <h2 className="text-2xl font-serif font-bold mt-2 text-amber-200">
+                            {currentChallenge.title}
+                        </h2>
+                    </div>
+
+                    {currentChallenge.intro && (
+                        <div className="bg-amber-900/20 border border-amber-800/30 p-4 rounded-xl mb-8 text-center">
+                            <p className="text-amber-300/80 italic">
+                                {currentChallenge.intro}
+                            </p>
+                        </div>
+                    )}
+
+                    <div className="bg-slate-900/50 border border-amber-900/20 p-8 rounded-2xl mb-8">
+                        <p className="text-lg text-amber-100/90 leading-relaxed font-serif whitespace-pre-wrap">
+                            {currentChallenge.passage}
+                        </p>
+                    </div>
+
+                    <button
+                        onClick={() => setScreen('challengeQuestion')}
+                        className="w-full py-5 bg-amber-800/40 text-amber-100 rounded-2xl font-bold text-lg hover:bg-amber-800/60 transition-all border border-amber-700/40 active:scale-95"
+                    >
+                        HE TERMINADO DE LEER
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
+    // CHALLENGE QUESTION SCREEN
+    if (screen === 'challengeQuestion' && currentChallenge) {
+        const q = currentChallenge.questions[challengeQIndex];
+        const isLastQuestion = challengeQIndex === currentChallenge.questions.length - 1;
+
+        const handleChallengeAnswer = (optIndex) => {
+            if (challengeAnswered) return;
+            setChallengeSelectedId(optIndex);
+            setChallengeAnswered(true);
+            if (optIndex === q.correctIndex) {
+                setChallengeScore(s => s + 10);
+                setScore(s => s + 10);
+                setCurrency(c => c + 30);
+            }
+        };
+
+        const handleChallengeNext = () => {
+            if (isLastQuestion) {
+                setScreen('challengeComplete');
+            } else {
+                setChallengeQIndex(i => i + 1);
+                setChallengeAnswered(false);
+                setChallengeSelectedId(null);
+            }
+        };
+
+        const isCorrect = challengeSelectedId === q.correctIndex;
+
+        return (
+            <div className="bg-gradient-to-b from-amber-950 to-slate-950 text-amber-100 flex flex-col items-center p-6 min-h-[600px] rounded-3xl border border-amber-900/30 shadow-2xl">
+                <div className="max-w-2xl w-full">
+                    {/* Progress */}
+                    <div className="text-center mb-6">
+                        <span className="text-xs font-bold uppercase tracking-[0.2em] text-amber-500/60">
+                            Pregunta {challengeQIndex + 1} de {currentChallenge.questions.length}
+                        </span>
+                    </div>
+
+                    {/* Question */}
+                    <div className="bg-slate-900/50 border border-amber-900/20 p-8 rounded-2xl mb-6">
+                        <h3 className="text-xl font-serif text-amber-100 leading-relaxed">
+                            {q.question}
+                        </h3>
+                    </div>
+
+                    {/* Options */}
+                    <div className="space-y-3 mb-6">
+                        {q.options.map((opt, idx) => (
+                            <button
+                                key={idx}
+                                onClick={() => handleChallengeAnswer(idx)}
+                                disabled={challengeAnswered}
+                                className={`w-full p-4 rounded-xl text-left font-medium transition-all border ${challengeSelectedId === null
+                                        ? 'bg-amber-900/20 border-amber-800/30 hover:bg-amber-800/30 hover:border-amber-700/50'
+                                        : idx === q.correctIndex
+                                            ? 'bg-green-900/30 border-green-600/50 text-green-300'
+                                            : idx === challengeSelectedId
+                                                ? 'bg-red-900/30 border-red-600/50 text-red-300'
+                                                : 'opacity-40 border-transparent'
+                                    }`}
+                            >
+                                {opt}
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* Feedback */}
+                    {challengeAnswered && (
+                        <div className={`p-6 rounded-xl mb-6 border ${isCorrect ? 'bg-green-900/20 border-green-800/30' : 'bg-amber-900/20 border-amber-800/30'}`}>
+                            <p className={`text-base leading-relaxed ${isCorrect ? 'text-green-300' : 'text-amber-200'}`}>
+                                {isCorrect ? (q.feedbackCorrecto || 'Correcto.') : (q.feedbackIncorrecto || 'Revisa el pasaje nuevamente.')}
+                            </p>
+                        </div>
+                    )}
+
+                    {/* Continue */}
+                    {challengeAnswered && (
+                        <button
+                            onClick={handleChallengeNext}
+                            className="w-full py-4 bg-amber-800/40 text-amber-100 rounded-xl font-bold hover:bg-amber-800/60 transition-all border border-amber-700/40 active:scale-95"
+                        >
+                            {isLastQuestion ? 'VER RESULTADO' : 'SIGUIENTE'}
+                        </button>
+                    )}
+                </div>
+            </div>
+        );
+    }
+
+    // CHALLENGE COMPLETE SCREEN
+    if (screen === 'challengeComplete') {
+        return (
+            <div className="bg-gradient-to-b from-amber-950 to-slate-950 text-amber-100 flex flex-col items-center justify-center p-8 min-h-[600px] rounded-3xl border border-amber-900/30 shadow-2xl">
+                <div className="max-w-md text-center">
+                    <div className="text-6xl mb-6">📖</div>
+                    <h2 className="text-3xl font-serif font-bold mb-4 text-amber-200">
+                        Desafío Completado
+                    </h2>
+                    <p className="text-amber-300/80 mb-8">
+                        Has terminado este ejercicio de lectura y discernimiento.
+                    </p>
+
+                    <div className="bg-amber-900/20 border border-amber-800/30 p-6 rounded-2xl mb-8">
+                        <div className="text-4xl font-black text-amber-300 mb-2">
+                            +{challengeScore} puntos
+                        </div>
+                        <p className="text-amber-500/60 text-sm">En este desafío</p>
+                    </div>
+
+                    <button
+                        onClick={() => setScreen('victory')}
+                        className="w-full py-5 bg-amber-800/40 text-amber-100 rounded-2xl font-bold hover:bg-amber-800/60 transition-all border border-amber-700/40"
+                    >
+                        CONTINUAR
                     </button>
                 </div>
             </div>
