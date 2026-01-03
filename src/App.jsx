@@ -12,6 +12,8 @@ import Youth from './pages/Youth';
 import Bosquejos from './pages/Bosquejos';
 import Ensayos from './pages/Ensayos';
 import Meditaciones from './pages/Meditaciones';
+import ParaElCorazon from './pages/ParaElCorazon';
+import Preguntar from './pages/Preguntar';
 import TextPage from './pages/TextPage';
 import ScrollToTopButton from './components/ScrollToTopButton';
 
@@ -43,6 +45,10 @@ function App() {
             <Route path="/meditacion/:slug" element={<TextPage textType="meditacion" />} />
             <Route path="/bosquejos" element={<Bosquejos />} />
             <Route path="/bosquejo/:slug" element={<TextPage textType="bosquejo" />} />
+            <Route path="/para-el-corazon" element={<ParaElCorazon />} />
+            <Route path="/para-el-corazon/:slug" element={<TextPage textType="paraElCorazon" />} />
+            <Route path="/preguntar" element={<Preguntar />} />
+            <Route path="/preguntar/:slug" element={<TextPage textType="preguntar" />} />
             <Route path="/tienda" element={<Store />} />
             <Route path="/tienda/:slug" element={<ProductPage />} />
             <Route path="/adolescentes" element={<Youth />} />

@@ -5,16 +5,16 @@ import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import content from '../data/content.json';
 
-const Meditaciones = () => {
-    // Obtener meditaciones del contenido
-    const meditaciones = content.textos?.meditaciones || [];
+const Preguntar = () => {
+    // Obtener contenidos de "Preguntar"
+    const preguntas = content.textos?.preguntar || [];
 
     return (
         <main className="bg-sabiduria-bg min-h-screen py-8 md:py-16">
             <SEO
-                title="Meditaciones"
-                description="Pausas para el alma. Breves reflexiones que invitan al silencio y la oración."
-                url="/meditaciones"
+                title="Preguntar"
+                description="Preguntas abiertas, provocativas y existenciales sobre la fe y la vida."
+                url="/preguntar"
             />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <Breadcrumbs />
@@ -22,59 +22,52 @@ const Meditaciones = () => {
                 {/* Header con imagen */}
                 <div className="mb-16 border-b border-sabiduria-gray/10 pb-12 mt-8">
                     <h1 className="text-4xl md:text-5xl font-serif text-sabiduria-navy mb-8">
-                        Meditaciones
+                        Preguntar
                     </h1>
                     <div className="flex flex-col md:flex-row gap-8 items-center">
                         {/* Text - Left Side */}
                         <div className="text-lg text-sabiduria-gray leading-relaxed space-y-4 md:w-1/2 text-justify">
                             <p>
-                                Pausas para el alma. Breves reflexiones que invitan al silencio,
-                                la contemplación y la oración.
+                                Preguntas abiertas, provocativas y existenciales sobre la fe y la vida.
                             </p>
                             <p>
-                                Cada meditación busca llevarte a un encuentro más profundo con Dios a través de Su Palabra.
+                                Un espacio para explorar las grandes interrogantes que nos desafían a pensar más profundamente sobre Dios, el hombre y el propósito de nuestra existencia.
                             </p>
                         </div>
                         {/* Image - Right Side */}
                         <div className="md:w-1/2">
                             <img
-                                src={`${import.meta.env.BASE_URL}Meditaciones/img-meditaciones.png`}
-                                alt="Meditaciones - Sabiduría para el Corazón"
+                                src={`${import.meta.env.BASE_URL}Preguntar/img_preguntar.png`}
+                                alt="Preguntar - Sabiduría para el Corazón"
                                 className="w-full h-auto object-cover shadow-md"
                             />
                         </div>
                     </div>
                 </div>
 
-                {/* Meditations List - Clean, spacious */}
-                {meditaciones.length > 0 ? (
+                {/* Content List */}
+                {preguntas.length > 0 ? (
                     <div className="space-y-8">
-                        {meditaciones.map((meditacion) => (
+                        {preguntas.map((item) => (
                             <article
-                                key={meditacion.id}
-                                className="group bg-white p-10 border border-sabiduria-gray/5 hover:border-sabiduria-gold/20 transition-all shadow-sm text-center"
+                                key={item.id}
+                                className="group bg-white p-10 border border-sabiduria-gray/5 hover:border-sabiduria-gold/20 transition-all shadow-sm"
                             >
                                 <h2 className="text-2xl md:text-3xl font-serif text-sabiduria-navy group-hover:text-sabiduria-gold transition-colors leading-tight mb-4">
-                                    <Link to={`/meditacion/${meditacion.slug}`}>{meditacion.title}</Link>
+                                    <Link to={`/preguntar/${item.slug}`}>{item.title}</Link>
                                 </h2>
 
-                                {meditacion.mainPassage && (
-                                    <p className="text-sabiduria-gray italic mb-4 max-w-xl mx-auto">
-                                        "{meditacion.mainPassage.substring(0, 100)}..."
-                                    </p>
-                                )}
-
-                                {meditacion.passageReference && (
-                                    <p className="text-sabiduria-gold text-sm font-semibold mb-6">
-                                        {meditacion.passageReference}
+                                {item.excerpt && (
+                                    <p className="text-sabiduria-gray mb-6 leading-relaxed max-w-3xl">
+                                        {item.excerpt}
                                     </p>
                                 )}
 
                                 <Link
-                                    to={`/meditacion/${meditacion.slug}`}
+                                    to={`/preguntar/${item.slug}`}
                                     className="inline-flex items-center gap-2 text-sabiduria-navy font-bold text-sm uppercase tracking-widest group-hover:gap-3 transition-all"
                                 >
-                                    Meditar <ChevronRight size={16} />
+                                    Leer <ChevronRight size={16} />
                                 </Link>
                             </article>
                         ))}
@@ -85,7 +78,7 @@ const Meditaciones = () => {
                             Próximamente
                         </p>
                         <p className="text-sabiduria-gray">
-                            Estamos preparando meditaciones para esta sección.
+                            Estamos preparando contenido para esta sección.
                         </p>
                     </div>
                 )}
@@ -94,4 +87,4 @@ const Meditaciones = () => {
     );
 };
 
-export default Meditaciones;
+export default Preguntar;
