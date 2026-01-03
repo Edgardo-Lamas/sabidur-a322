@@ -72,6 +72,7 @@ const BibliaFlow = () => {
     const [challengeAnswered, setChallengeAnswered] = useState(false);
     const [challengeSelectedId, setChallengeSelectedId] = useState(null);
     const [challengeScore, setChallengeScore] = useState(0);
+    const [challengesCompleted, setChallengesCompleted] = useState(0); // 0 = none, 1 = first done, etc.
 
     // Timer effect
     useEffect(() => {
@@ -487,9 +488,12 @@ const BibliaFlow = () => {
 
     // CHALLENGE INTRO SCREEN (Transition)
     if (screen === 'challengeIntro') {
-        const challenge = challengesData.challenges[0]; // First challenge
+        const availableChallenges = challengesData.challenges;
+        const nextChallengeIndex = challengesCompleted;
+        const nextChallenge = availableChallenges[nextChallengeIndex];
+        const allCompleted = challengesCompleted >= availableChallenges.length;
 
-        const startChallenge = () => {
+        const startChallenge = (challenge) => {
             setCurrentChallenge(challenge);
             setChallengeQIndex(0);
             setChallengeAnswered(false);
@@ -500,7 +504,7 @@ const BibliaFlow = () => {
 
         return (
             <div className="bg-gradient-to-b from-amber-950 to-slate-950 text-amber-100 flex flex-col items-center justify-center p-8 min-h-[600px] rounded-3xl border border-amber-900/30 shadow-2xl">
-                <div className="max-w-lg text-center">
+                <div className="max-w-lg w-full text-center">
                     <div className="inline-block p-6 bg-amber-900/20 rounded-full mb-8 border border-amber-800/30">
                         <BookOpen size={64} className="text-amber-400" />
                     </div>
@@ -509,30 +513,72 @@ const BibliaFlow = () => {
                         El Desafío Supremo
                     </h1>
 
-                    <p className="text-lg text-amber-300/80 mb-8 leading-relaxed font-light">
-                        Este no es un quiz de velocidad. Es un ejercicio de lectura profunda y discernimiento bíblico.
-                    </p>
+                    {allCompleted ? (
+                        <>
+                            <div className="bg-green-900/20 border border-green-700/30 p-6 rounded-2xl mb-8">
+                                <div className="text-4xl mb-4">🏆</div>
+                                <p className="text-green-300 font-bold text-xl mb-2">¡Todos los desafíos completados!</p>
+                                <p className="text-green-400/70">Has demostrado discernimiento bíblico.</p>
+                            </div>
+                            <button
+                                onClick={() => setScreen('victory')}
+                                className="w-full py-5 bg-amber-800/40 text-amber-100 rounded-2xl font-bold hover:bg-amber-800/60 transition-all border border-amber-700/40"
+                            >
+                                VOLVER
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <p className="text-lg text-amber-300/80 mb-6 leading-relaxed font-light">
+                                Desafío {nextChallengeIndex + 1} de {availableChallenges.length}
+                            </p>
 
-                    <div className="bg-amber-900/20 border border-amber-800/30 p-6 rounded-2xl mb-8">
-                        <p className="text-amber-200/90 italic font-serif text-lg leading-relaxed">
-                            "Bienaventurado el que lee, y los que oyen las palabras de esta profecía, y guardan las cosas en ella escritas."
-                        </p>
-                        <p className="text-amber-400/60 text-sm mt-3">— Apocalipsis 1:3</p>
-                    </div>
+                            {/* Challenge List */}
+                            <div className="space-y-3 mb-8">
+                                {availableChallenges.map((ch, idx) => {
+                                    const isCompleted = idx < challengesCompleted;
+                                    const isCurrent = idx === nextChallengeIndex;
+                                    const isLocked = idx > nextChallengeIndex;
 
-                    <button
-                        onClick={startChallenge}
-                        className="px-12 py-5 bg-amber-800/40 text-amber-100 rounded-2xl font-bold text-lg hover:bg-amber-800/60 transition-all border border-amber-700/40 active:scale-95"
-                    >
-                        COMENZAR LECTURA
-                    </button>
+                                    return (
+                                        <div
+                                            key={ch.id}
+                                            className={`p-4 rounded-xl border text-left flex items-center gap-4 ${isCompleted ? 'bg-green-900/20 border-green-700/30' :
+                                                isCurrent ? 'bg-amber-800/30 border-amber-600/40' :
+                                                    'bg-slate-900/50 border-slate-700/30 opacity-50'
+                                                }`}
+                                        >
+                                            <div className="text-2xl">
+                                                {isCompleted ? '✅' : isLocked ? '🔒' : '📖'}
+                                            </div>
+                                            <div className="flex-1">
+                                                <p className={`font-bold ${isCompleted ? 'text-green-300' : isCurrent ? 'text-amber-200' : 'text-slate-400'}`}>
+                                                    {ch.title}
+                                                </p>
+                                                <p className={`text-sm ${isCompleted ? 'text-green-400/60' : isCurrent ? 'text-amber-400/60' : 'text-slate-500'}`}>
+                                                    {ch.reference}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
 
-                    <button
-                        onClick={() => setScreen('victory')}
-                        className="block mx-auto mt-6 text-amber-500/60 hover:text-amber-400 transition-colors text-sm"
-                    >
-                        Volver
-                    </button>
+                            <button
+                                onClick={() => startChallenge(nextChallenge)}
+                                className="w-full py-5 bg-amber-800/40 text-amber-100 rounded-2xl font-bold text-lg hover:bg-amber-800/60 transition-all border border-amber-700/40 active:scale-95"
+                            >
+                                COMENZAR: {nextChallenge.title.toUpperCase()}
+                            </button>
+
+                            <button
+                                onClick={() => setScreen('victory')}
+                                className="block mx-auto mt-6 text-amber-500/60 hover:text-amber-400 transition-colors text-sm"
+                            >
+                                Volver
+                            </button>
+                        </>
+                    )}
                 </div>
             </div>
         );
@@ -630,12 +676,12 @@ const BibliaFlow = () => {
                                 onClick={() => handleChallengeAnswer(idx)}
                                 disabled={challengeAnswered}
                                 className={`w-full p-4 rounded-xl text-left font-medium transition-all border ${challengeSelectedId === null
-                                        ? 'bg-amber-900/20 border-amber-800/30 hover:bg-amber-800/30 hover:border-amber-700/50'
-                                        : idx === q.correctIndex
-                                            ? 'bg-green-900/30 border-green-600/50 text-green-300'
-                                            : idx === challengeSelectedId
-                                                ? 'bg-red-900/30 border-red-600/50 text-red-300'
-                                                : 'opacity-40 border-transparent'
+                                    ? 'bg-amber-900/20 border-amber-800/30 hover:bg-amber-800/30 hover:border-amber-700/50'
+                                    : idx === q.correctIndex
+                                        ? 'bg-green-900/30 border-green-600/50 text-green-300'
+                                        : idx === challengeSelectedId
+                                            ? 'bg-red-900/30 border-red-600/50 text-red-300'
+                                            : 'opacity-40 border-transparent'
                                     }`}
                             >
                                 {opt}
@@ -668,6 +714,15 @@ const BibliaFlow = () => {
 
     // CHALLENGE COMPLETE SCREEN
     if (screen === 'challengeComplete') {
+        const handleContinue = () => {
+            // Mark this challenge as completed
+            const completedIndex = challengesData.challenges.findIndex(c => c.id === currentChallenge.id);
+            if (completedIndex >= challengesCompleted) {
+                setChallengesCompleted(completedIndex + 1);
+            }
+            setScreen('challengeIntro');
+        };
+
         return (
             <div className="bg-gradient-to-b from-amber-950 to-slate-950 text-amber-100 flex flex-col items-center justify-center p-8 min-h-[600px] rounded-3xl border border-amber-900/30 shadow-2xl">
                 <div className="max-w-md text-center">
@@ -675,6 +730,9 @@ const BibliaFlow = () => {
                     <h2 className="text-3xl font-serif font-bold mb-4 text-amber-200">
                         Desafío Completado
                     </h2>
+                    <p className="text-xl text-amber-300 font-bold mb-2">
+                        {currentChallenge?.title}
+                    </p>
                     <p className="text-amber-300/80 mb-8">
                         Has terminado este ejercicio de lectura y discernimiento.
                     </p>
@@ -687,7 +745,7 @@ const BibliaFlow = () => {
                     </div>
 
                     <button
-                        onClick={() => setScreen('victory')}
+                        onClick={handleContinue}
                         className="w-full py-5 bg-amber-800/40 text-amber-100 rounded-2xl font-bold hover:bg-amber-800/60 transition-all border border-amber-700/40"
                     >
                         CONTINUAR
