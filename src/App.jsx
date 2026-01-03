@@ -10,6 +10,9 @@ import Store from './pages/Store';
 import ProductPage from './pages/ProductPage';
 import Youth from './pages/Youth';
 import Bosquejos from './pages/Bosquejos';
+import Ensayos from './pages/Ensayos';
+import Meditaciones from './pages/Meditaciones';
+import TextPage from './pages/TextPage';
 import ScrollToTopButton from './components/ScrollToTopButton';
 
 // ScrollToTop component to ensure page starts at top on route change
@@ -34,10 +37,15 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/articulos" element={<Articles />} />
             <Route path="/articulo/:slug" element={<ArticlePage />} />
+            <Route path="/ensayos" element={<Ensayos />} />
+            <Route path="/ensayo/:slug" element={<TextPage textType="ensayo" />} />
+            <Route path="/meditaciones" element={<Meditaciones />} />
+            <Route path="/meditacion/:slug" element={<TextPage textType="meditacion" />} />
+            <Route path="/bosquejos" element={<Bosquejos />} />
+            <Route path="/bosquejo/:slug" element={<TextPage textType="bosquejo" />} />
             <Route path="/tienda" element={<Store />} />
             <Route path="/tienda/:slug" element={<ProductPage />} />
             <Route path="/adolescentes" element={<Youth />} />
-            <Route path="/bosquejos" element={<Bosquejos />} />
             <Route path="/ebooks" element={<div className="py-20 text-center font-serif text-3xl">Próximamente: Biblioteca Digital</div>} />
             <Route path="/donaciones" element={<Donations />} />
           </Routes>
@@ -50,3 +58,4 @@ function App() {
 }
 
 export default App;
+

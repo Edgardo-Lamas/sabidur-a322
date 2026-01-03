@@ -30,12 +30,28 @@ const Articles = () => {
 
                 {/* Header */}
                 <div className="mb-16 border-b border-sabiduria-gray/10 pb-12 mt-8">
-                    <h1 className="text-4xl md:text-5xl font-serif text-sabiduria-navy mb-6">
+                    <h1 className="text-4xl md:text-5xl font-serif text-sabiduria-navy mb-8">
                         Biblioteca de Artículos
                     </h1>
-                    <p className="text-xl text-sabiduria-gray max-w-3xl leading-relaxed">
-                        Explora nuestra colección de ensayos teológicos, estudios exegéticos y reflexiones sobre las verdades biblicas.
-                    </p>
+                    <div className="flex flex-col md:flex-row gap-8 items-center">
+                        {/* Text - Left Side */}
+                        <div className="text-lg text-sabiduria-gray leading-relaxed space-y-4 md:w-1/2 text-justify">
+                            <p>
+                                Explora nuestra colección de ensayos teológicos, estudios exegéticos y reflexiones sobre las verdades bíblicas.
+                            </p>
+                            <p>
+                                Cada artículo ha sido preparado con el propósito de edificar, instruir y fortalecer la fe del creyente a través de un estudio profundo de la Palabra de Dios.
+                            </p>
+                        </div>
+                        {/* Image - Right Side */}
+                        <div className="md:w-1/2">
+                            <img
+                                src={`${import.meta.env.BASE_URL}pdf/Articulos.png`}
+                                alt="Biblioteca de Artículos"
+                                className="w-full h-auto object-cover shadow-md"
+                            />
+                        </div>
+                    </div>
                 </div>
 
                 {/* Filter/Search Bar */}
