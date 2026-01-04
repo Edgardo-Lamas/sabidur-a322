@@ -7,7 +7,7 @@ import content from '../data/content.json';
 
 const ArticlePage = () => {
     const { slug } = useParams();
-    const article = content.articles.find((a) => a.slug === slug);
+    const article = (content.textos?.articulos || []).find((a) => a.slug === slug);
 
     if (!article) {
         return (

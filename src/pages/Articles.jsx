@@ -9,14 +9,21 @@ const Articles = () => {
     const [searchTerm, setSearchTerm] = React.useState('');
     const [selectedCategory, setSelectedCategory] = React.useState('Todos');
 
-    const filteredArticles = content.articles.filter((article) => {
+    // Use only HTML articles from textos.articulos (PDFs are being phased out)
+    const allArticles = (content.textos?.articulos || []).map(a => ({
+        ...a,
+        category: a.category || 'Teología Sistemática',
+        date: a.date || '2025-01-01'
+    }));
+
+    const filteredArticles = allArticles.filter((article) => {
         const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
             article.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
         const matchesCategory = selectedCategory === 'Todos' || article.category === selectedCategory;
         return matchesSearch && matchesCategory;
     });
 
-    const categories = ['Todos', ...new Set(content.articles.map(a => a.category))];
+    const categories = ['Todos', ...new Set(allArticles.map(a => a.category))];
 
     return (
         <main className="bg-sabiduria-bg min-h-screen py-8 md:py-16">

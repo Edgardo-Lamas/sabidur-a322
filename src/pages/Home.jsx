@@ -5,7 +5,7 @@ import ReadingOfDay from '../components/ReadingOfDay';
 import ArticleFeed from '../components/ArticleFeed';
 import EbooksSection from '../components/EbooksSection';
 import BookstorePreview from '../components/BookstorePreview';
-import Hero from '../components/Hero'; // Repurposed for Video section
+import YouTubeHighlight from '../components/YouTubeHighlight';
 import SEO from '../components/SEO';
 import AnimatedButton from '../components/ui/AnimatedButton';
 
@@ -26,18 +26,18 @@ const Home = () => {
                 <EbooksSection />
             </section>
 
-            <section className="py-24">
+            <section className="py-24 bg-sabiduria-bg">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="mb-12">
+                    <div className="mb-12 text-center">
                         <span className="text-sabiduria-gold text-xs font-bold uppercase tracking-[0.3em] mb-4 block">
-                            Estudio Destacado
+                            Desde Nuestro Canal
                         </span>
                         <h2 className="text-4xl font-serif font-bold text-sabiduria-navy">
-                            Última Enseñanza en Video
+                            Video Más Visto
                         </h2>
                     </div>
                 </div>
-                <Hero />
+                <YouTubeHighlight />
             </section>
 
             <BookstorePreview />
