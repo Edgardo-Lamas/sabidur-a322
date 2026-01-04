@@ -797,6 +797,8 @@
     },
     "biblioteca": {
         "documentos": [],
-        "libros": []
+        "consulta": [],
+        "cuaderno": [],
+        "ebooks": []
     }
 }
