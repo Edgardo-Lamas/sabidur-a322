@@ -43,7 +43,7 @@ const ReadingSection = ({ article }) => {
                 </header>
 
                 {/* Content */}
-                <div className="prose prose-lg max-w-[65ch] mx-auto text-sabiduria-navy leading-[1.8] font-sans">
+                <div className="prose prose-lg max-w-[65ch] mx-auto text-sabiduria-navy leading-[1.8] font-sans text-justify">
                     {article.content ? (
                         <div dangerouslySetInnerHTML={{ __html: article.content }} />
                     ) : (
