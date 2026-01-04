@@ -1,12 +1,34 @@
 import React from 'react';
-import { FileText, Download, Heart } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { FileText, Download, Heart, ArrowLeft } from 'lucide-react';
 
 const ReadingSection = ({ article }) => {
     if (!article) return null;
 
     return (
-        <article className="bg-sabiduria-bg min-h-screen py-16 md:py-24">
-            <div className="max-w-3xl mx-auto px-4 sm:px-6">
+        <article className="bg-sabiduria-bg min-h-screen">
+            {/* Cover Image */}
+            <div className="w-full h-64 md:h-80 lg:h-96 overflow-hidden">
+                <img
+                    src={`${import.meta.env.BASE_URL}img/portada-articulo.jpg`}
+                    alt="Portada del artículo"
+                    className="w-full h-full object-cover"
+                    style={{ objectPosition: 'center 65%' }}
+                />
+            </div>
+
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12 md:py-16">
+                {/* Back Button */}
+                <div className="mb-8">
+                    <Link
+                        to="/articulos"
+                        className="inline-flex items-center gap-2 text-sabiduria-navy hover:text-sabiduria-gold font-medium transition-colors"
+                    >
+                        <ArrowLeft size={18} />
+                        Volver a Artículos
+                    </Link>
+                </div>
+
                 {/* Header */}
                 <header className="mb-12 text-center">
                     <span className="text-sabiduria-gold uppercase tracking-widest text-sm font-bold mb-4 block">
