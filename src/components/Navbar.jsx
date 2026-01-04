@@ -12,7 +12,7 @@ const Navbar = () => {
     { name: 'Inicio', path: '/' },
     { name: 'Tienda', path: '/tienda' },
     { name: 'Adolescentes', path: '/adolescentes' },
-    { name: 'E-books', path: '/ebooks' },
+    { name: 'Biblioteca', path: '/biblioteca' },
   ];
 
   const textosSubmenu = [

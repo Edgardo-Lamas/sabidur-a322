@@ -15,6 +15,7 @@ import Meditaciones from './pages/Meditaciones';
 import ParaElCorazon from './pages/ParaElCorazon';
 import Preguntar from './pages/Preguntar';
 import TextPage from './pages/TextPage';
+import Biblioteca from './pages/Biblioteca';
 import ScrollToTopButton from './components/ScrollToTopButton';
 
 // ScrollToTop component to ensure page starts at top on route change
@@ -52,7 +53,7 @@ function App() {
             <Route path="/tienda" element={<Store />} />
             <Route path="/tienda/:slug" element={<ProductPage />} />
             <Route path="/adolescentes" element={<Youth />} />
-            <Route path="/ebooks" element={<div className="py-20 text-center font-serif text-3xl">Próximamente: Biblioteca Digital</div>} />
+            <Route path="/biblioteca" element={<Biblioteca />} />
             <Route path="/donaciones" element={<Donations />} />
           </Routes>
         </div>

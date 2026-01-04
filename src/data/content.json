@@ -794,5 +794,9 @@
                 "pdfUrl": ""
             }
         ]
+    },
+    "biblioteca": {
+        "documentos": [],
+        "libros": []
     }
 }
