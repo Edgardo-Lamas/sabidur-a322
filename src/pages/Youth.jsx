@@ -7,30 +7,36 @@ const Youth = () => {
     return (
         <>
             <SEO
-                title="Adolescentes - Biblia Flow"
-                description="Espacio interactivo para adolescentes: juega trivia bíblica, crea postales personalizadas y descubre recursos diseñados para jóvenes."
-                keywords="adolescentes cristianos, trivia bíblica, juegos bíblicos, jóvenes, recursos juveniles"
+                title="Sabiduría para la Juventud"
+                description="Textos y desafíos bíblicos para crecer en la fe. Recursos pensados para jóvenes."
+                keywords="juventud cristiana, jóvenes, fe, biblia, recursos juveniles, sabiduría"
             />
 
             <div className="min-h-screen bg-sabiduria-bg">
                 {/* Hero Section */}
-                <section className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 text-white py-20 md:py-28 overflow-hidden">
-                    {/* Animated Background Pattern */}
-                    <div className="absolute inset-0 opacity-10">
-                        <div className="absolute top-10 left-10 w-32 h-32 bg-white rounded-full blur-3xl animate-pulse"></div>
-                        <div className="absolute bottom-20 right-20 w-40 h-40 bg-yellow-300 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-                        <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-cyan-300 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-                    </div>
+                <section
+                    className="relative py-20 md:py-28 bg-cover bg-center"
+                    style={{ backgroundImage: `url(${import.meta.env.BASE_URL}img/juventud-hero.jpg)` }}
+                >
+                    {/* Dark Overlay */}
+                    <div className="absolute inset-0 bg-sabiduria-navy/70"></div>
 
-                    <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <div className="inline-block p-4 bg-white/10 rounded-2xl mb-6 backdrop-blur-sm">
-                            <Sparkles size={48} className="text-yellow-300" />
-                        </div>
-                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight tracking-tight">
-                            Espacio <span className="text-yellow-300">Adolescentes</span>
+                    <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                        <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-white mb-4 leading-tight tracking-tight">
+                            Sabiduría para la <span className="text-sabiduria-gold">Juventud</span>
                         </h1>
-                        <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed font-medium">
-                            Descubre la Palabra de Dios de forma interactiva. Juega, aprende y crea contenido épico.
+                        <p className="text-base md:text-lg text-white/80 max-w-xl mx-auto leading-relaxed font-serif">
+                            Textos y desafíos bíblicos para crecer en la fe
+                        </p>
+                    </div>
+                </section>
+
+                {/* Introductory Text Section */}
+                <section className="py-12 md:py-16 bg-sabiduria-bg">
+                    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                        <p className="text-lg md:text-xl text-sabiduria-navy/90 font-serif leading-relaxed">
+                            Este espacio está pensado para adolescentes que desean leer, preguntar y crecer en la fe cristiana.
+                            Aquí encontrarás desafíos y recursos que buscan ayudarte a pensar la Biblia con honestidad, profundidad y esperanza.
                         </p>
                     </div>
                 </section>
@@ -39,14 +45,14 @@ const Youth = () => {
                 <section className="py-16 md:py-20">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-12">
-                            <div className="inline-flex items-center gap-3 bg-indigo-100 text-indigo-700 px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider mb-4">
+                            <div className="inline-flex items-center gap-3 bg-sabiduria-gold/10 text-sabiduria-gold px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider mb-4 border border-sabiduria-gold/20">
                                 <Gamepad2 size={20} />
                                 Juego Interactivo
                             </div>
-                            <h2 className="text-4xl md:text-5xl font-serif font-bold text-sabiduria-navy mb-4">
+                            <h2 className="text-4xl md:text-5xl font-heading font-bold text-sabiduria-navy mb-4 tracking-tight">
                                 Biblia Flow
                             </h2>
-                            <p className="text-lg text-sabiduria-gray max-w-2xl mx-auto">
+                            <p className="text-lg text-sabiduria-gray max-w-2xl mx-auto font-serif leading-relaxed">
                                 Pon a prueba tu conocimiento bíblico y desbloquea fondos épicos para crear postales personalizadas.
                             </p>
                         </div>
@@ -59,46 +65,46 @@ const Youth = () => {
                 {/* Coming Soon Sections */}
                 <section className="py-16 bg-white border-t border-sabiduria-navy/10">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h2 className="text-3xl md:text-4xl font-serif font-bold text-sabiduria-navy text-center mb-12">
+                        <h2 className="text-3xl md:text-4xl font-heading font-bold text-sabiduria-navy text-center mb-12 tracking-tight">
                             Próximamente
                         </h2>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {/* Devotionals */}
-                            <div className="bg-gradient-to-br from-purple-50 to-indigo-50 p-8 rounded-2xl border border-indigo-100 hover:shadow-xl transition-all">
-                                <div className="inline-block p-3 bg-indigo-600 rounded-xl mb-4">
-                                    <BookHeart size={32} className="text-white" />
+                            <div className="bg-white p-8 rounded-xl border border-sabiduria-gray/10 hover:border-sabiduria-gold/30 hover:shadow-lg transition-all">
+                                <div className="inline-block p-3 bg-sabiduria-gold/10 rounded-lg mb-4 border border-sabiduria-gold/20">
+                                    <BookHeart size={28} className="text-sabiduria-gold" />
                                 </div>
-                                <h3 className="text-2xl font-serif font-bold text-sabiduria-navy mb-3">
+                                <h3 className="text-xl font-heading font-semibold text-sabiduria-navy mb-3">
                                     Devocionales Diarios
                                 </h3>
-                                <p className="text-sabiduria-gray leading-relaxed">
+                                <p className="text-sabiduria-gray leading-relaxed font-serif">
                                     Lecturas bíblicas y reflexiones diseñadas específicamente para adolescentes.
                                 </p>
                             </div>
 
                             {/* Articles */}
-                            <div className="bg-gradient-to-br from-pink-50 to-rose-50 p-8 rounded-2xl border border-rose-100 hover:shadow-xl transition-all">
-                                <div className="inline-block p-3 bg-rose-600 rounded-xl mb-4">
-                                    <Zap size={32} className="text-white" />
+                            <div className="bg-white p-8 rounded-xl border border-sabiduria-gray/10 hover:border-sabiduria-gold/30 hover:shadow-lg transition-all">
+                                <div className="inline-block p-3 bg-sabiduria-gold/10 rounded-lg mb-4 border border-sabiduria-gold/20">
+                                    <Zap size={28} className="text-sabiduria-gold" />
                                 </div>
-                                <h3 className="text-2xl font-serif font-bold text-sabiduria-navy mb-3">
+                                <h3 className="text-xl font-heading font-semibold text-sabiduria-navy mb-3">
                                     Artículos para Jóvenes
                                 </h3>
-                                <p className="text-sabiduria-gray leading-relaxed">
+                                <p className="text-sabiduria-gray leading-relaxed font-serif">
                                     Contenido relevante sobre fe, vida cristiana y temas que te importan.
                                 </p>
                             </div>
 
                             {/* Resources */}
-                            <div className="bg-gradient-to-br from-cyan-50 to-blue-50 p-8 rounded-2xl border border-cyan-100 hover:shadow-xl transition-all">
-                                <div className="inline-block p-3 bg-cyan-600 rounded-xl mb-4">
-                                    <Sparkles size={32} className="text-white" />
+                            <div className="bg-white p-8 rounded-xl border border-sabiduria-gray/10 hover:border-sabiduria-gold/30 hover:shadow-lg transition-all">
+                                <div className="inline-block p-3 bg-sabiduria-gold/10 rounded-lg mb-4 border border-sabiduria-gold/20">
+                                    <Sparkles size={28} className="text-sabiduria-gold" />
                                 </div>
-                                <h3 className="text-2xl font-serif font-bold text-sabiduria-navy mb-3">
+                                <h3 className="text-xl font-heading font-semibold text-sabiduria-navy mb-3">
                                     Recursos Descargables
                                 </h3>
-                                <p className="text-sabiduria-gray leading-relaxed">
+                                <p className="text-sabiduria-gray leading-relaxed font-serif">
                                     Guías de estudio, wallpapers, y materiales para compartir con amigos.
                                 </p>
                             </div>
@@ -107,19 +113,19 @@ const Youth = () => {
                 </section>
 
                 {/* CTA Section */}
-                <section className="py-20 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+                <section className="py-16 bg-sabiduria-navy text-white">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <h2 className="text-4xl md:text-5xl font-black mb-6">
+                        <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6 tracking-tight">
                             ¿Tienes ideas para esta sección?
                         </h2>
-                        <p className="text-xl text-white/90 mb-8">
+                        <p className="text-lg text-white/80 mb-8 leading-relaxed font-serif">
                             Queremos crear contenido que realmente te ayude. Contáctanos y cuéntanos qué te gustaría ver aquí.
                         </p>
                         <a
                             href="mailto:contacto@sabiduria322.com"
-                            className="inline-block bg-white text-indigo-600 px-10 py-4 rounded-2xl font-black text-lg hover:bg-indigo-50 transition-all shadow-2xl"
+                            className="inline-block bg-sabiduria-gold text-sabiduria-navy px-8 py-3 rounded-sm font-bold hover:bg-sabiduria-gold/90 transition-all"
                         >
-                            ENVIAR SUGERENCIAS
+                            Enviar Sugerencias
                         </a>
                     </div>
                 </section>

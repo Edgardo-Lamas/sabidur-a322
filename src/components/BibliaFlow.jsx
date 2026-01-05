@@ -197,16 +197,16 @@ const BibliaFlow = () => {
     // HOME SCREEN
     if (screen === 'home') {
         return (
-            <div className="bg-slate-900 text-white flex flex-col items-center justify-center p-8 text-center rounded-3xl overflow-hidden min-h-[600px] border border-white/10 shadow-2xl">
-                <div className="bg-white/5 p-10 rounded-[2.5rem] border border-white/10 backdrop-blur-xl mb-10 shadow-inner">
-                    <div className="inline-block p-4 bg-indigo-600/20 rounded-2xl mb-4">
-                        <Sparkles size={48} className="text-indigo-400" />
+            <div className="bg-sabiduria-navy text-white flex flex-col items-center justify-center p-8 text-center rounded-xl overflow-hidden min-h-[550px] border border-sabiduria-gray/20 shadow-md">
+                <div className="bg-white/5 p-10 rounded-2xl border border-white/10 mb-10">
+                    <div className="inline-block p-4 bg-sabiduria-gold/20 rounded-xl mb-4">
+                        <Sparkles size={40} className="text-sabiduria-gold" />
                     </div>
-                    <h1 className="text-5xl md:text-7xl font-black mb-4 tracking-tighter bg-gradient-to-r from-white via-indigo-200 to-purple-400 text-transparent bg-clip-text">
+                    <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4 tracking-tight text-white">
                         BIBLIA FLOW
                     </h1>
-                    <p className="text-slate-400 text-lg font-medium mb-6">
-                        Desafía tu conocimiento y crea arte épico.
+                    <p className="text-white/70 text-base font-serif mb-6">
+                        Desafía tu conocimiento bíblico y crece en tu fe.
                     </p>
 
                     {/* Stats */}
@@ -223,7 +223,7 @@ const BibliaFlow = () => {
 
                 <button
                     onClick={() => startGame(1)}
-                    className="group relative bg-indigo-600 px-16 py-6 rounded-2xl font-black text-2xl hover:bg-indigo-500 transition-all mb-6 shadow-[0_0_40px_rgba(79,70,229,0.4)] active:scale-95 flex items-center gap-3"
+                    className="group relative bg-sabiduria-gold text-sabiduria-navy px-12 py-5 rounded-lg font-heading font-bold text-xl hover:bg-sabiduria-gold/90 transition-all mb-6 shadow-md active:scale-95 flex items-center gap-3"
                 >
                     EMPEZAR NIVEL 1
                     <ChevronRight className="transition-transform group-hover:translate-x-1" />
@@ -231,7 +231,7 @@ const BibliaFlow = () => {
 
                 <button
                     onClick={() => setScreen('studio')}
-                    className="bg-white/5 border border-white/10 px-8 py-3 rounded-xl font-bold hover:bg-white/10 transition-colors"
+                    className="bg-white/5 border border-white/10 px-8 py-3 rounded-lg font-heading font-semibold hover:bg-white/10 transition-colors"
                 >
                     ESTUDIO CREATIVO
                 </button>
@@ -246,7 +246,7 @@ const BibliaFlow = () => {
         const progress = ((currentQIndex + 1) / levelConfig.questionsPerLevel) * 100;
 
         return (
-            <div className="bg-slate-900 text-white p-4 flex flex-col items-center min-h-[600px] rounded-3xl border border-white/10 shadow-2xl">
+            <div className="bg-sabiduria-navy text-white p-6 flex flex-col items-center min-h-[550px] rounded-xl border border-sabiduria-gray/20 shadow-md">
                 {/* Level Header */}
                 <div className={`w-full max-w-2xl bg-gradient-to-r ${levelConfig.color} p-3 rounded-xl mb-4 mt-2`}>
                     <div className="flex justify-between items-center text-white">
@@ -295,11 +295,11 @@ const BibliaFlow = () => {
                 </div>
 
                 {/* Question Card */}
-                <div className="w-full max-w-2xl bg-slate-800/50 backdrop-blur-sm p-8 rounded-[2rem] border border-white/10 shadow-2xl">
-                    <span className="text-xs font-black uppercase tracking-widest text-indigo-400 mb-2 block">
+                <div className="w-full max-w-2xl bg-white/5 p-8 rounded-xl border border-white/10 shadow-sm">
+                    <span className="text-xs font-heading font-bold uppercase tracking-widest text-sabiduria-gold mb-2 block">
                         {q?.category}
                     </span>
-                    <h2 className="text-2xl md:text-3xl font-bold mb-8 leading-tight text-white">
+                    <h2 className="text-xl md:text-2xl font-heading font-semibold mb-8 leading-tight text-white">
                         {q?.question}
                     </h2>
 
@@ -331,7 +331,7 @@ const BibliaFlow = () => {
                             </p>
                             <button
                                 onClick={handleNext}
-                                className="w-full py-4 bg-white text-slate-900 font-black rounded-xl hover:bg-indigo-50 shadow-lg active:scale-95 transition-all"
+                                className="w-full py-4 bg-sabiduria-gold text-sabiduria-navy font-heading font-bold rounded-lg hover:bg-sabiduria-gold/90 shadow-sm active:scale-95 transition-all"
                             >
                                 {currentQIndex === gameQuestions.length - 1 ? 'VER RESULTADO' : 'CONTINUAR'}
                             </button>
@@ -349,27 +349,27 @@ const BibliaFlow = () => {
         const isPassed = levelResult === 'passed' || isPerfect;
 
         return (
-            <div className="bg-slate-900 text-white flex flex-col items-center justify-center p-6 min-h-[600px] rounded-3xl border border-white/10 shadow-2xl">
-                <div className="bg-white/5 p-10 rounded-[3rem] text-center border border-white/10 shadow-2xl max-w-md w-full">
+            <div className="bg-sabiduria-navy text-white flex flex-col items-center justify-center p-6 min-h-[550px] rounded-xl border border-sabiduria-gray/20 shadow-md">
+                <div className="bg-white/5 p-10 rounded-2xl text-center border border-white/10 max-w-md w-full">
                     {isPassed ? (
                         <>
                             {isPerfect ? (
-                                <Award size={80} className="text-yellow-400 mx-auto mb-6" />
+                                <Award size={64} className="text-sabiduria-gold mx-auto mb-6" />
                             ) : (
-                                <Trophy size={80} className="text-green-400 mx-auto mb-6" />
+                                <Trophy size={64} className="text-green-400 mx-auto mb-6" />
                             )}
-                            <h2 className="text-4xl font-black mb-2 uppercase tracking-tighter text-white">
-                                {isPerfect ? '¡PERFECTO!' : '¡NIVEL COMPLETADO!'}
+                            <h2 className="text-3xl font-heading font-bold mb-2 uppercase tracking-tight text-white">
+                                {isPerfect ? '¡Perfecto!' : '¡Nivel Completado!'}
                             </h2>
-                            <p className={`text-lg font-bold mb-4 ${isPerfect ? 'text-yellow-400' : 'text-green-400'}`}>
+                            <p className={`text-base font-serif mb-4 ${isPerfect ? 'text-sabiduria-gold' : 'text-green-400'}`}>
                                 Nivel {currentLevel}: {levelConfig.name}
                             </p>
 
-                            <div className="bg-black/30 p-4 rounded-2xl mb-6">
-                                <div className="text-3xl font-black text-white mb-2">
+                            <div className="bg-black/20 p-4 rounded-xl mb-6">
+                                <div className="text-2xl font-heading font-bold text-white mb-2">
                                     {correctAnswers} / {levelConfig.questionsPerLevel}
                                 </div>
-                                <p className="text-slate-400 text-sm">Respuestas correctas</p>
+                                <p className="text-white/60 text-sm font-serif">Respuestas correctas</p>
                             </div>
 
                             {/* Rewards Summary */}
@@ -392,42 +392,42 @@ const BibliaFlow = () => {
 
                             <button
                                 onClick={continueToNextLevel}
-                                className={`w-full py-5 bg-gradient-to-r ${currentLevel < 4 ? LEVELS[currentLevel + 1].color : 'from-indigo-600 to-purple-600'} rounded-2xl font-black text-xl mb-4 hover:opacity-90 shadow-lg active:scale-95 transition-all`}
+                                className="w-full py-4 bg-sabiduria-gold text-sabiduria-navy rounded-lg font-heading font-bold text-lg mb-4 hover:bg-sabiduria-gold/90 shadow-sm active:scale-95 transition-all"
                             >
-                                {currentLevel < 4 ? `SIGUIENTE: NIVEL ${currentLevel + 1}` : 'VER VICTORIA'}
+                                {currentLevel < 4 ? `Siguiente: Nivel ${currentLevel + 1}` : 'Ver Victoria'}
                             </button>
                         </>
                     ) : (
                         <>
                             <div className="text-6xl mb-6">😔</div>
-                            <h2 className="text-4xl font-black mb-2 uppercase tracking-tighter text-red-400">
-                                ¡NIVEL NO SUPERADO!
+                            <h2 className="text-3xl font-heading font-bold mb-2 uppercase tracking-tight text-red-400">
+                                Nivel no superado
                             </h2>
-                            <p className="text-slate-400 mb-4">
+                            <p className="text-white/60 font-serif mb-4">
                                 Necesitabas {levelConfig.minToPass} correctas, obtuviste {correctAnswers}
                             </p>
 
-                            <div className="bg-black/30 p-4 rounded-2xl mb-6">
-                                <div className="text-3xl font-black text-red-400 mb-2">
+                            <div className="bg-black/20 p-4 rounded-xl mb-6">
+                                <div className="text-2xl font-heading font-bold text-red-400 mb-2">
                                     {correctAnswers} / {levelConfig.questionsPerLevel}
                                 </div>
-                                <p className="text-slate-400 text-sm">Respuestas correctas</p>
+                                <p className="text-white/60 text-sm font-serif">Respuestas correctas</p>
                             </div>
 
                             <button
                                 onClick={retryLevel}
-                                className="w-full py-5 bg-indigo-600 rounded-2xl font-black text-xl mb-4 hover:bg-indigo-500 shadow-lg active:scale-95 transition-all"
+                                className="w-full py-4 bg-sabiduria-gold text-sabiduria-navy rounded-lg font-heading font-bold text-lg mb-4 hover:bg-sabiduria-gold/90 shadow-sm active:scale-95 transition-all"
                             >
-                                REINTENTAR NIVEL {currentLevel}
+                                Reintentar Nivel {currentLevel}
                             </button>
                         </>
                     )}
 
                     <button
                         onClick={() => setScreen('home')}
-                        className="text-slate-400 font-bold hover:text-white transition-colors"
+                        className="text-white/60 font-heading font-semibold hover:text-white transition-colors"
                     >
-                        VOLVER AL INICIO
+                        Volver al inicio
                     </button>
                 </div>
             </div>
@@ -439,47 +439,47 @@ const BibliaFlow = () => {
         const hasChallenge = challengesData.challenges && challengesData.challenges.length > 0;
 
         return (
-            <div className="bg-slate-900 text-white flex flex-col items-center justify-center p-6 min-h-[600px] rounded-3xl border border-white/10 shadow-2xl">
-                <div className="bg-gradient-to-br from-yellow-400/20 to-purple-600/20 p-12 rounded-[3rem] text-center border border-yellow-400/30 shadow-2xl max-w-md w-full">
-                    <div className="text-7xl mb-6">🏆</div>
-                    <h2 className="text-5xl font-black mb-4 uppercase tracking-tighter bg-gradient-to-r from-yellow-400 to-purple-400 text-transparent bg-clip-text">
-                        ¡LEYENDA!
+            <div className="bg-sabiduria-navy text-white flex flex-col items-center justify-center p-6 min-h-[550px] rounded-xl border border-sabiduria-gray/20 shadow-md">
+                <div className="bg-white/5 p-10 rounded-2xl text-center border border-white/10 max-w-md w-full">
+                    <div className="text-6xl mb-6">🏆</div>
+                    <h2 className="text-4xl font-heading font-bold mb-4 tracking-tight text-sabiduria-gold">
+                        ¡Felicidades!
                     </h2>
-                    <p className="text-xl text-slate-300 mb-8">
+                    <p className="text-lg text-white/80 font-serif mb-8">
                         Has completado todos los niveles de Biblia Flow
                     </p>
 
-                    <div className="bg-black/30 p-4 rounded-2xl mb-8">
-                        <div className="text-4xl font-black text-yellow-400 mb-2">
+                    <div className="bg-black/20 p-4 rounded-xl mb-8">
+                        <div className="text-3xl font-heading font-bold text-sabiduria-gold mb-2">
                             $ {currency}
                         </div>
-                        <p className="text-slate-400 text-sm">Créditos totales</p>
+                        <p className="text-white/60 text-sm font-serif">Créditos totales</p>
                     </div>
 
                     {hasChallenge && (
                         <button
                             onClick={() => setScreen('challengeIntro')}
-                            className="w-full py-5 bg-gradient-to-r from-amber-700 to-amber-900 text-amber-100 rounded-2xl font-bold text-lg mb-4 hover:opacity-90 shadow-lg active:scale-95 transition-all border border-amber-600/30 flex items-center justify-center gap-3"
+                            className="w-full py-4 bg-sabiduria-navy border border-sabiduria-gold/30 text-sabiduria-gold rounded-lg font-heading font-semibold text-base mb-4 hover:bg-sabiduria-gold/10 transition-all flex items-center justify-center gap-3"
                         >
-                            <BookOpen size={24} />
-                            EL DESAFÍO SUPREMO
+                            <BookOpen size={20} />
+                            El Desafío Supremo
                         </button>
                     )}
 
                     <button
                         onClick={() => setScreen('studio')}
-                        className="w-full py-5 bg-gradient-to-r from-yellow-400 to-orange-500 text-slate-900 rounded-2xl font-black text-xl mb-4 hover:opacity-90 shadow-lg active:scale-95 transition-all"
+                        className="w-full py-4 bg-sabiduria-gold text-sabiduria-navy rounded-lg font-heading font-bold text-lg mb-4 hover:bg-sabiduria-gold/90 shadow-sm active:scale-95 transition-all"
                     >
-                        IR AL ESTUDIO 🎨
+                        Ir al Estudio 🎨
                     </button>
                     <button
                         onClick={() => {
                             setLives(3);
                             setScreen('home');
                         }}
-                        className="text-slate-400 font-bold hover:text-white transition-colors"
+                        className="text-white/60 font-heading font-semibold hover:text-white transition-colors"
                     >
-                        JUGAR DE NUEVO
+                        Jugar de nuevo
                     </button>
                 </div>
             </div>
