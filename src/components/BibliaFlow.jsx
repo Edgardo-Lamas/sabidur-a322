@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
     Sparkles, ChevronRight, Heart, Trophy, Mountain,
-    Zap, Download, Lock, Star, Award, Clock, BookOpen
+    Zap, Download, Lock, Star, Award, Clock, BookOpen,
+    Info, X
 } from 'lucide-react';
 import questionsData from '../data/questions.json';
 import challengesData from '../data/challenges.json';
@@ -65,6 +66,9 @@ const BibliaFlow = () => {
     const [levelResult, setLevelResult] = useState(null); // 'passed', 'perfect', 'failed'
     const [timeLeft, setTimeLeft] = useState(30);
     const timerRef = useRef(null);
+
+    // Challenge state
+    const [showHelp, setShowHelp] = useState(false);
 
     // Challenge state
     const [currentChallenge, setCurrentChallenge] = useState(null);
@@ -197,7 +201,112 @@ const BibliaFlow = () => {
     // HOME SCREEN
     if (screen === 'home') {
         return (
-            <div className="bg-sabiduria-navy text-white flex flex-col items-center justify-center p-8 text-center rounded-xl overflow-hidden min-h-[550px] border border-sabiduria-gray/20 shadow-md">
+            <div className="bg-sabiduria-navy text-white flex flex-col items-center justify-center p-8 text-center rounded-xl overflow-hidden min-h-[550px] border border-sabiduria-gray/20 shadow-md relative">
+
+                {/* Botón de Ayuda - Discreto, sobrio */}
+                <button
+                    onClick={() => setShowHelp(true)}
+                    className="absolute top-4 right-4 p-2 text-white/50 hover:text-sabiduria-gold transition-colors"
+                    title="Ayuda"
+                >
+                    <Info size={18} />
+                </button>
+
+                {/* Modal de Ayuda - Estilo contemplativo y pastoral */}
+                {showHelp && (
+                    <div
+                        className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-6"
+                        onClick={() => setShowHelp(false)}
+                    >
+                        <div
+                            className="bg-white rounded-xl max-w-lg w-full shadow-lg max-h-[85vh] overflow-y-auto"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            {/* Header */}
+                            <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100 sticky top-0 bg-white">
+                                <h2 className="text-lg font-heading font-semibold text-sabiduria-navy">
+                                    ¿Cómo funciona este desafío?
+                                </h2>
+                                <button
+                                    onClick={() => setShowHelp(false)}
+                                    className="text-gray-400 hover:text-gray-600 transition-colors"
+                                >
+                                    <X size={18} />
+                                </button>
+                            </div>
+
+                            {/* Contenido */}
+                            <div className="px-6 py-6">
+                                <div className="space-y-5 text-sabiduria-navy/80 font-serif text-[15px] leading-relaxed text-justify">
+                                    <p>
+                                        Este espacio propone desafíos bíblicos pensados para ayudarte a crecer en el
+                                        conocimiento de las Escrituras de manera progresiva y reflexiva.
+                                    </p>
+
+                                    {/* Niveles */}
+                                    <div>
+                                        <h3 className="font-heading font-semibold text-sabiduria-navy mb-2">Los niveles</h3>
+                                        <ul className="space-y-1 text-[14px]">
+                                            <li>• <strong>Nivel 1 – Inicial:</strong> preguntas introductorias, 30 segundos para responder.</li>
+                                            <li>• <strong>Nivel 2 – Medio:</strong> preguntas de mayor reflexión, 30 segundos.</li>
+                                            <li>• <strong>Nivel 3 – Difícil:</strong> preguntas que requieren atención al texto, 25 segundos.</li>
+                                            <li>• <strong>Nivel 4 – Experto:</strong> preguntas profundas, 20 segundos.</li>
+                                        </ul>
+                                        <p className="mt-2 text-[14px]">Para avanzar al siguiente nivel, necesitas alcanzar un porcentaje mínimo de respuestas correctas.</p>
+                                    </div>
+
+                                    {/* Desafío Supremo */}
+                                    <div>
+                                        <h3 className="font-heading font-semibold text-sabiduria-navy mb-2">El Desafío Supremo</h3>
+                                        <p className="text-[14px]">
+                                            Al completar los 4 niveles, se desbloquea <em>El Desafío Supremo</em>: lecturas bíblicas
+                                            más extensas con preguntas de discernimiento y comprensión profunda.
+                                        </p>
+                                    </div>
+
+                                    {/* Vidas */}
+                                    <div>
+                                        <h3 className="font-heading font-semibold text-sabiduria-navy mb-2">Las vidas</h3>
+                                        <ul className="space-y-1 text-[14px]">
+                                            <li>• Comienzas con <strong>3 vidas</strong>.</li>
+                                            <li>• Pierdes una vida con cada respuesta incorrecta o si se agota el tiempo.</li>
+                                            <li>• Si logras un <strong>puntaje perfecto</strong>, ganas una vida extra.</li>
+                                            <li>• Si pierdes todas las vidas, puedes reiniciar el nivel.</li>
+                                        </ul>
+                                    </div>
+
+                                    {/* Créditos */}
+                                    <div>
+                                        <h3 className="font-heading font-semibold text-sabiduria-navy mb-2">Los créditos</h3>
+                                        <ul className="space-y-1 text-[14px]">
+                                            <li>• Ganas <strong>20 créditos</strong> por cada respuesta correcta.</li>
+                                            <li>• Al completar un nivel recibes un bono adicional según la dificultad.</li>
+                                            <li>• Con puntaje perfecto, el bono se duplica.</li>
+                                        </ul>
+                                    </div>
+
+                                    {/* Premios */}
+                                    <div>
+                                        <h3 className="font-heading font-semibold text-sabiduria-navy mb-2">Estudio Creativo (premios)</h3>
+                                        <p className="text-[14px] mb-2">
+                                            Con los créditos acumulados puedes desbloquear fondos para crear imágenes con versículos:
+                                        </p>
+                                        <ul className="space-y-1 text-[14px]">
+                                            <li>• <strong>Fondos de color:</strong> 100 créditos cada uno.</li>
+                                            <li>• <strong>Imagen de montaña:</strong> 400 créditos.</li>
+                                            <li>• <strong>Imagen de estrellas:</strong> 600 créditos.</li>
+                                        </ul>
+                                    </div>
+
+                                    <p className="text-sabiduria-navy font-medium italic pt-2 border-t border-gray-100">
+                                        Este no es un juego para ganar, sino un ejercicio para aprender y afirmar la fe.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
                 <div className="bg-white/5 p-10 rounded-2xl border border-white/10 mb-10">
                     <div className="inline-block p-4 bg-sabiduria-gold/20 rounded-xl mb-4">
                         <Sparkles size={40} className="text-sabiduria-gold" />
