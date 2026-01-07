@@ -52,7 +52,7 @@ const Store = () => {
                             <span className="text-sabiduria-gold text-xs font-bold uppercase tracking-[0.3em] mb-4 block">
                                 Literatura Bíblica de Calidad
                             </span>
-                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 leading-tight">
+                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 leading-tight text-white">
                                 Tienda de Recursos
                             </h1>
                             <p className="text-lg md:text-xl text-white/80 leading-relaxed font-sans">
