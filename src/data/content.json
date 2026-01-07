@@ -796,9 +796,231 @@
         ]
     },
     "biblioteca": {
-        "documentos": [],
-        "consulta": [],
+        "documentos": [
+            {
+                "id": 1,
+                "titulo": "La Torá",
+                "subtitulo": "Los Cinco Libros de Moisés",
+                "descripcion": "La Torá comprende los primeros cinco libros de las Sagradas Escrituras: Génesis, Éxodo, Levítico, Números y Deuteronomio. Estos libros constituyen el fundamento de toda la revelación bíblica, narrando desde la creación del mundo hasta la preparación del pueblo de Israel para entrar en la tierra prometida. Este documento presenta un estudio profundo sobre la formación, estructura y significado teológico de estos textos sagrados, invitando al lector a detenerse con reverencia ante las palabras que Dios habló por medio de Moisés.",
+                "pdfUrl": "pdf/La-Tora-Editada.pdf",
+                "categoria": "Estudio Bíblico"
+            },
+            {
+                "id": 2,
+                "titulo": "La Septuaginta",
+                "subtitulo": "La Traducción Griega del Antiguo Testamento",
+                "descripcion": "La Septuaginta (LXX) es la antigua traducción griega del Antiguo Testamento hebreo, realizada en Alejandría entre los siglos III y II a.C. Esta versión fue la Biblia de la iglesia primitiva y es frecuentemente citada por los autores del Nuevo Testamento. El presente documento explora la historia, el propósito y la relevancia de esta traducción, ofreciendo al estudiante de las Escrituras una comprensión más profunda del mundo textual que rodeaba a los apóstoles y primeros cristianos.",
+                "pdfUrl": "pdf/Septuaginta-Final.pdf",
+                "categoria": "Estudio Bíblico"
+            }
+        ],
+        "consulta": [
+            {
+                "id": 1,
+                "categoria": "Teología Sistemática y Doctrina",
+                "libros": [
+                    {
+                        "autor": "Louis Berkhof",
+                        "titulo": "Teología Sistemática",
+                        "frase": "Obra clásica para comprender de manera ordenada las doctrinas centrales de la fe cristiana."
+                    },
+                    {
+                        "autor": "Herman Bavinck",
+                        "titulo": "Dogmática Cristiana",
+                        "frase": "Referencia profunda y reflexiva de la teología reformada en diálogo con la historia."
+                    },
+                    {
+                        "autor": "Charles Ryrie",
+                        "titulo": "Teología Básica",
+                        "frase": "Introducción clara y accesible a los principales temas de la teología cristiana."
+                    },
+                    {
+                        "autor": "Wayne Grudem",
+                        "titulo": "Teología Sistemática",
+                        "frase": "Manual contemporáneo ampliamente utilizado para el estudio ordenado de la doctrina bíblica."
+                    },
+                    {
+                        "autor": "J. I. Packer",
+                        "titulo": "Hacia el conocimiento de Dios",
+                        "frase": "Una invitación a conocer a Dios no solo con la mente, sino también con el corazón."
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "categoria": "Comentarios Bíblicos",
+                "libros": [
+                    {
+                        "autor": "Matthew Henry",
+                        "titulo": "Comentario Bíblico",
+                        "frase": "Clásico devocional y exegético que acompaña la lectura reflexiva de toda la Escritura."
+                    },
+                    {
+                        "autor": "William MacDonald",
+                        "titulo": "Comentario al Nuevo Testamento",
+                        "frase": "Comentario claro y pastoral, útil tanto para estudio personal como para enseñanza."
+                    },
+                    {
+                        "autor": "William Barclay",
+                        "titulo": "Comentario al Nuevo Testamento",
+                        "frase": "Exposición accesible con riqueza histórica y cultural del mundo del Nuevo Testamento."
+                    },
+                    {
+                        "autor": "Charles Spurgeon",
+                        "titulo": "El Tesoro de David",
+                        "frase": "Meditaciones profundas sobre los Salmos desde una espiritualidad viva y reverente."
+                    },
+                    {
+                        "autor": "John Stott",
+                        "titulo": "Comentarios y estudios bíblicos",
+                        "frase": "Exposición bíblica equilibrada, fiel al texto y sensible al contexto contemporáneo."
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "categoria": "Vida Cristiana y Espiritualidad",
+                "libros": [
+                    {
+                        "autor": "C. S. Lewis",
+                        "titulo": "Mero Cristianismo",
+                        "frase": "Defensa razonada de la fe cristiana, escrita con claridad y profundidad intelectual."
+                    },
+                    {
+                        "autor": "A. W. Tozer",
+                        "titulo": "El conocimiento del Dios Santo",
+                        "frase": "Llamado reverente a redescubrir la santidad y grandeza de Dios."
+                    },
+                    {
+                        "autor": "Andrew Murray",
+                        "titulo": "Esperando en Dios",
+                        "frase": "Guía espiritual para cultivar la paciencia, la oración y la dependencia del Señor."
+                    },
+                    {
+                        "autor": "John Piper",
+                        "titulo": "Sed de Dios",
+                        "frase": "Invitación apasionada a buscar la satisfacción suprema en la gloria de Dios."
+                    },
+                    {
+                        "autor": "Charles Stanley",
+                        "titulo": "Cómo escuchar la voz de Dios",
+                        "frase": "Orientación práctica para discernir la guía del Señor en la vida diaria."
+                    }
+                ]
+            },
+            {
+                "id": 4,
+                "categoria": "Historia de la Iglesia y Biografías",
+                "libros": [
+                    {
+                        "autor": "Flavio Josefo",
+                        "titulo": "Guerras de los Judíos",
+                        "frase": "Testimonio histórico clave para comprender el contexto del mundo bíblico."
+                    },
+                    {
+                        "autor": "Justo L. González",
+                        "titulo": "Historia del Cristianismo",
+                        "frase": "Recorrido panorámico por veinte siglos de historia de la iglesia cristiana."
+                    },
+                    {
+                        "autor": "John Foxe",
+                        "titulo": "El Libro de los Mártires",
+                        "frase": "Relatos que preservan la memoria del testimonio fiel de la iglesia a lo largo de los siglos."
+                    },
+                    {
+                        "autor": "Roland Bainton",
+                        "titulo": "Lutero: Biografía",
+                        "frase": "Vida y pensamiento del reformador que cambió la historia de la iglesia."
+                    },
+                    {
+                        "autor": "Arnold Dallimore",
+                        "titulo": "Spurgeon: Biografía",
+                        "frase": "La vida del príncipe de los predicadores, modelo de pasión y fidelidad pastoral."
+                    }
+                ]
+            },
+            {
+                "id": 5,
+                "categoria": "Hermenéutica y Herramientas de Estudio",
+                "libros": [
+                    {
+                        "autor": "Bernard Ramm",
+                        "titulo": "Hermenéutica Bíblica",
+                        "frase": "Fundamentos para interpretar correctamente las Escrituras con rigor y reverencia."
+                    },
+                    {
+                        "autor": "Josh McDowell",
+                        "titulo": "Más que un carpintero",
+                        "frase": "Defensa accesible de la fe cristiana, ideal para responder preguntas fundamentales."
+                    },
+                    {
+                        "autor": "Neil Lightfoot",
+                        "titulo": "Cómo nos llegó la Biblia",
+                        "frase": "Introducción a la historia del texto bíblico, su transmisión y preservación."
+                    },
+                    {
+                        "autor": "Varios autores",
+                        "titulo": "Compendios de estudio bíblico",
+                        "frase": "Herramientas de referencia para el estudio organizado de las Escrituras."
+                    }
+                ]
+            },
+            {
+                "id": 6,
+                "categoria": "Liderazgo y Ministerio Cristiano",
+                "libros": [
+                    {
+                        "autor": "John Maxwell",
+                        "titulo": "Liderazgo cristiano",
+                        "frase": "Principios bíblicos aplicados al desarrollo del liderazgo en la iglesia."
+                    },
+                    {
+                        "autor": "John MacArthur",
+                        "titulo": "El arte de aconsejar bíblicamente",
+                        "frase": "Guía pastoral para el cuidado de almas fundamentado en las Escrituras."
+                    },
+                    {
+                        "autor": "Haddon Robinson",
+                        "titulo": "La predicación bíblica",
+                        "frase": "Manual clásico de homilética para una predicación fiel y efectiva."
+                    },
+                    {
+                        "autor": "Varios autores",
+                        "titulo": "Manuales de ministerio pastoral",
+                        "frase": "Recursos formativos para quienes sirven en el ministerio de la iglesia."
+                    }
+                ]
+            }
+        ],
         "cuaderno": [],
-        "ebooks": []
+        "ebooks": [
+            {
+                "id": 1,
+                "titulo": "La Necesidad del Momento",
+                "autor": "Dawson Trotman",
+                "descripcion": "Un llamado urgente a la multiplicación espiritual. Dawson Trotman, fundador de los Navegantes, presenta en este breve pero profundo escrito la importancia de invertir nuestra vida en discipular a otros, transmitiendo la fe de generación en generación como lo hicieron los primeros cristianos.",
+                "imagenUrl": "ebooks/La-Necesidad-del-Momento/La-Necesidad-del-Momento.jpg",
+                "pdfUrl": "ebooks/La-Necesidad-del-Momento/La-Necesidad-Del-Momento-TrotmanParaLectura.pdf",
+                "categoria": "Discipulado"
+            },
+            {
+                "id": 2,
+                "titulo": "Nacido para Multiplicarse",
+                "autor": "Dawson Trotman",
+                "descripcion": "Continuando con el tema de la reproducción espiritual, este texto nos desafía a comprender que todo creyente ha sido llamado a multiplicarse espiritualmente. No se trata de un don especial, sino de la esencia misma de la vida cristiana: hacer discípulos que hagan discípulos.",
+                "imagenUrl": "ebooks/Nacido-para-Multiplicarse/Nacido-para-Multiplicarse.jpg",
+                "pdfUrl": "ebooks/Nacido-para-Multiplicarse/Nacido-para-Multiplicarse.pdf",
+                "categoria": "Discipulado"
+            },
+            {
+                "id": 3,
+                "titulo": "Historia de la Iglesia: Era de la Reforma",
+                "autor": "Varios autores",
+                "descripcion": "Un recorrido por uno de los períodos más transformadores de la historia cristiana. Este material presenta los acontecimientos, personajes y doctrinas que definieron la Reforma Protestante del siglo XVI, movimiento que buscó devolver a la Iglesia a las fuentes bíblicas de la fe.",
+                "imagenUrl": "ebooks/Historia-de-la-Iglesia/Historia-de-la-Iglesia.png",
+                "pdfUrl": "ebooks/Historia-de-la-Iglesia/Historia-de-la-Iglesia-Era-de-la-Reforma.pdf",
+                "categoria": "Historia de la Iglesia"
+            }
+        ]
     }
 }
