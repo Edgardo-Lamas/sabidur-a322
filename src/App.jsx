@@ -16,6 +16,7 @@ import ParaElCorazon from './pages/ParaElCorazon';
 import Preguntar from './pages/Preguntar';
 import TextPage from './pages/TextPage';
 import Biblioteca from './pages/Biblioteca';
+import BibliotecaConsulta from './pages/BibliotecaConsulta';
 import ScrollToTopButton from './components/ScrollToTopButton';
 
 // ScrollToTop component to ensure page starts at top on route change
@@ -54,6 +55,7 @@ function App() {
             <Route path="/tienda/:slug" element={<ProductPage />} />
             <Route path="/adolescentes" element={<Youth />} />
             <Route path="/biblioteca" element={<Biblioteca />} />
+            <Route path="/biblioteca/consulta" element={<BibliotecaConsulta />} />
             <Route path="/donaciones" element={<Donations />} />
           </Routes>
         </div>

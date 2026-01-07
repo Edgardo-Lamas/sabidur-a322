@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Book, Download, FileText, BookOpen, GraduationCap, Bookmark } from 'lucide-react';
 import content from '../data/content.json';
 
@@ -245,13 +246,13 @@ const Biblioteca = () => {
 
                             {/* Botón hacia landing page */}
                             <div className="text-center mt-16 mb-6">
-                                <a
-                                    href="/biblioteca/consulta"
+                                <Link
+                                    to="/biblioteca/consulta"
                                     className="inline-flex items-center gap-3 px-8 py-4 border-2 border-sabiduria-gold/60 text-sabiduria-gold rounded-md hover:bg-[#F5F0E8] hover:border-sabiduria-gold transition-all duration-500 ease-out group"
                                 >
                                     <span className="text-lg">📚</span>
                                     <span className="font-serif text-lg tracking-wide">Ver la Biblioteca Completa</span>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     ) : (
