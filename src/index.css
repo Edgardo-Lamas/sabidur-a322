@@ -262,4 +262,105 @@
     font-style: italic;
     color: var(--color-accent-blue);
   }
+
+  /* ========================================
+     AUTHORSHIP FOOTER - Estilo Ligonier
+     ======================================== */
+  .authorship-footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border-light);
+    text-align: center;
+  }
+
+  .authorship-footer p {
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    color: var(--color-sabiduria-gray);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .authorship-footer .author-name {
+    font-weight: 600;
+    color: var(--color-sabiduria-navy);
+    font-size: 0.9375rem;
+  }
+
+  .authorship-footer .website-link {
+    font-style: italic;
+    color: var(--color-sabiduria-gold);
+    margin-top: 0.25rem;
+  }
+
+  /* ========================================
+     RECOMMENDED READINGS - Estilo Ligonier
+     ======================================== */
+  .recommended-readings {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .recommended-readings h3 {
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-sabiduria-navy);
+    margin-bottom: 1.5rem;
+  }
+
+  .recommended-readings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .recommended-card {
+    display: block;
+    text-decoration: none;
+    background: var(--color-sabiduria-navy);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease;
+  }
+
+  .recommended-card:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    transform: translateY(-3px);
+    background: #242830;
+  }
+
+  .recommended-card-content {
+    padding: 1.25rem;
+  }
+
+  .recommended-card-category {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--color-sabiduria-gold);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  .recommended-card-title {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    line-height: 1.4;
+  }
+
+  .recommended-card-title::after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 2px;
+    background: var(--color-sabiduria-gold);
+    margin-top: 0.75rem;
+  }
 }

@@ -1,9 +1,81 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FileText, Download, Heart, ArrowLeft } from 'lucide-react';
+import content from '../data/content.json';
+
+/**
+ * AuthorshipFooter - Sección de autoría estilo Ligonier
+ */
+const AuthorshipFooter = () => (
+    <div className="authorship-footer">
+        <p className="author-name">Preparado por Sabiduría para el Corazón</p>
+        <p className="website-link">www.sabiduriaparaelcorazon.com</p>
+    </div>
+);
+
+/**
+ * RecommendedReadings - Sección de lecturas recomendadas estilo Ligonier
+ */
+const RecommendedReadings = ({ articles, baseRoute = '/articulo' }) => {
+    if (!articles || articles.length === 0) return null;
+
+    return (
+        <div className="recommended-readings">
+            <h3>Lecturas Recomendadas</h3>
+            <div className="recommended-readings-grid">
+                {articles.slice(0, 3).map((article, index) => (
+                    <Link
+                        key={index}
+                        to={`${baseRoute}/${article.slug}`}
+                        className="recommended-card"
+                    >
+                        <div className="recommended-card-content">
+                            {article.category && (
+                                <span className="recommended-card-category">
+                                    {article.category}
+                                </span>
+                            )}
+                            <h4 className="recommended-card-title">
+                                {article.title}
+                            </h4>
+                        </div>
+                    </Link>
+                ))}
+            </div>
+        </div>
+    );
+};
+
+/**
+ * Gets related articles based on same category or random from all articles
+ */
+const getRelatedArticles = (currentArticle) => {
+    const allArticles = content.textos?.articulos || [];
+
+    // Filter out current article and find same category
+    const sameCategory = allArticles.filter(
+        a => a.slug !== currentArticle.slug && a.category === currentArticle.category
+    );
+
+    // If we have enough from same category, use those
+    if (sameCategory.length >= 3) {
+        return sameCategory.slice(0, 3);
+    }
+
+    // Otherwise, add other articles to fill
+    const otherArticles = allArticles.filter(
+        a => a.slug !== currentArticle.slug && a.category !== currentArticle.category
+    );
+
+    return [...sameCategory, ...otherArticles].slice(0, 3);
+};
 
 const ReadingSection = ({ article }) => {
     if (!article) return null;
+
+    // Get related articles automatically
+    const relatedArticles = article.relatedArticles || getRelatedArticles(article);
+
 
     return (
         <article className="bg-sabiduria-bg min-h-screen">
@@ -86,6 +158,23 @@ const ReadingSection = ({ article }) => {
                         <button className="btn-gold px-12 py-4 text-xl flex items-center gap-3">
                             <Heart size={20} /> Donar al Ministerio
                         </button>
+                    </div>
+
+                    {/* Recommended Readings - Ligonier Style */}
+                    <RecommendedReadings articles={relatedArticles} />
+
+                    {/* Authorship Footer - Ligonier Style */}
+                    <AuthorshipFooter />
+
+                    {/* Bottom Back Button */}
+                    <div className="mt-12 pt-8 border-t border-sabiduria-gray/10">
+                        <Link
+                            to="/articulos"
+                            className="inline-flex items-center gap-2 text-sabiduria-navy hover:text-sabiduria-gold font-medium transition-colors"
+                        >
+                            <ArrowLeft size={18} />
+                            Volver a Artículos
+                        </Link>
                     </div>
                 </div>
             </div>
