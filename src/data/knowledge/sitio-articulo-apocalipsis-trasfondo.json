@@ -1,0 +1,57 @@
+{
+    "id": "articulo-apocalipsis-trasfondo",
+    "categoria": "Contenido del Sitio",
+    "tipo": "articulo",
+    "tema": "Apocalipsis: Trasfondo Histórico",
+    "autor": "Sabiduría para el Corazón",
+    "fecha": "2026-01-04",
+    "nivel": "basico",
+    "subtemas": [
+        "Apocalipsis",
+        "persecución",
+        "Roma",
+        "Domiciano",
+        "Juan"
+    ],
+    "referencias_clave": "Apocalipsis 1:17-18, Apocalipsis 2:10, Apocalipsis 21:1-4",
+    "contenido": {
+        "resumen": "Un estudio del contexto histórico del libro de Apocalipsis: la persecución de los cristianos bajo Roma, el emperador Domiciano, y el propósito consolador de este libro profético. Los cristianos eran perseguidos principalmente porque se negaban a adorar al emperador y a los dioses romanos.",
+        "puntos_principales": [
+            {
+                "titulo": "Razones de la Persecución",
+                "descripcion": "Los cristianos practicaban un monoteísmo estricto, sus reuniones eran en secreto (generando desconfianza), la Eucaristía fue malinterpretada como canibalismo, rechazaban prácticas paganas, y la conversión de mujeres y esclavos perturbaba la estructura social tradicional."
+            },
+            {
+                "titulo": "El Emperador Domiciano",
+                "descripcion": "Tito Flavio Domiciano fue emperador romano del 81 al 96 d.C. Se veía a sí mismo como un dios y exigía ser adorado. Bajo su reinado, las persecuciones se volvieron más sistemáticas. Los cristianos eran arrestados, torturados y ejecutados por su fe."
+            },
+            {
+                "titulo": "El Apóstol Juan en Patmos",
+                "descripcion": "Juan fue exiliado a la isla de Patmos durante el reinado de Domiciano como castigo por su testimonio de Jesucristo. Según la tradición (no bíblica), Domiciano ordenó que Juan fuera arrojado en un caldero de aceite hirviendo, pero salió ileso."
+            },
+            {
+                "titulo": "Propósito del Libro de Apocalipsis",
+                "descripcion": "Consolar a los creyentes mostrando que Dios tiene el control, fortalecer la fe con exhortaciones a las siete iglesias, revelar la soberanía de Dios sobre la historia, ofrecer esperanza escatológica del triunfo de Cristo, y llamar al arrepentimiento."
+            }
+        ],
+        "aplicaciones_practicas": [
+            "Encontrar consuelo en que Dios tiene el control absoluto, sin importar las circunstancias",
+            "Ser fieles hasta la muerte, sabiendo que hay corona de vida (Apocalipsis 2:10)",
+            "Mantener la esperanza en la promesa de cielos nuevos y tierra nueva (Apocalipsis 21:1-4)",
+            "Perseverar en la fe, reteniendo lo que tenemos (Apocalipsis 3:11)"
+        ],
+        "referencias_biblicas": [
+            "Apocalipsis 1:17-18",
+            "Apocalipsis 2:10",
+            "Apocalipsis 3:11",
+            "Apocalipsis 4:11",
+            "Apocalipsis 9:20-21",
+            "Apocalipsis 19:6",
+            "Apocalipsis 21:1-4",
+            "Apocalipsis 22:12",
+            "Apocalipsis 22:17",
+            "Hechos 7:54-60",
+            "Hechos 8:1-3"
+        ]
+    }
+}

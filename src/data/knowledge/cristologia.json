@@ -1,0 +1,85 @@
+{
+    "id": "cristologia",
+    "categoria": "Cristología",
+    "tema": "Jesucristo",
+    "subtemas": [
+        "deidad",
+        "humanidad",
+        "unión hipostática",
+        "obra redentora"
+    ],
+    "referencias_clave": "Hebreos 1:1-3, Mateo 20:28, Tito 2:14, Gálatas 2:21",
+    "nivel": "basico",
+    "contenido": {
+        "definicion": "La Cristología es la disciplina teológica que estudia la persona y obra de Jesucristo. Charles Hodge la sintetiza así: El Hijo eterno de Dios se hizo hombre tomando para Si un verdadero cuerpo y un alma racional, y así era y sigue siendo Dios y hombre en dos naturalezas distintas y una persona para siempre. Esta profunda verdad no se fundamenta en la especulación humana, sino en la autoridad inquebrantable de la Biblia, la cual es la única fuente fiable para conocer a Cristo.",
+        "fundamento_biblico": [
+            {
+                "pasaje": "Mateo 19:4-5",
+                "explicacion": "Jesús toma un comentario narrativo del autor de Génesis 2:24 y lo atribuye directamente a el Creador, demostrando que para Él, el texto de la Escritura es la voz de Dios."
+            },
+            {
+                "pasaje": "Hebreos 1:1-2",
+                "explicacion": "El autor sagrado afirma que Dios habló en el pasado a través de los profetas y, en estos últimos días, nos ha hablado por medio de su Hijo."
+            },
+            {
+                "pasaje": "Hebreos 3:7",
+                "explicacion": "Una cita del Salmo 95 se introduce con la fórmula Como el Espíritu Santo dice..., atribuyendo las palabras del salmista directamente a la tercera persona de la Trinidad."
+            }
+        ],
+        "aspectos_clave": [
+            {
+                "titulo": "La Plena Deidad y Humanidad de Cristo",
+                "descripcion": "Los escritores sagrados atribuyen a Jesucristo atributos que son propios tanto de Dios como del hombre. En Hebreos 1, al Hijo encarnado se le atribuye la creación y el sostenimiento del universo (actos divinos), pero también que efectuó la purificación de nuestros pecados por medio de sí mismo (su muerte sacrificial, acto humano). Cristo poseía todos los atributos esenciales de la divinidad y, simultáneamente, todos los atributos esenciales de la humanidad."
+            },
+            {
+                "titulo": "La Unión Hipostática: Dos Naturalezas en Una Persona",
+                "descripcion": "En la única persona de Cristo coexisten dos naturalezas, la divina y la humana, de forma íntegra pero distinta, sin mezclarse, confundirse ni anularse. Los atributos de una naturaleza no se transfieren a la otra. La persona de Cristo es el sujeto de ambas naturalezas, pero cada una retiene sus propiedades."
+            },
+            {
+                "titulo": "La Obra Redentora como Único Mediador",
+                "descripcion": "La encarnación fue un acto voluntario y soberano de Dios para la redención del hombre. El Hijo de Dios vino al mundo con un propósito definido: salvar a Su pueblo de sus pecados. La obra de Cristo es una redención integral que nos libera tanto de la maldición de la ley como del poder del pecado. Su muerte fue un rescate, un acto de sustitución, y un sacrificio que sirve como satisfacción a la justicia divina. Jesús dijo que vino a dar su vida como rescate por muchos (Mateo 20:28; Marcos 10:45)."
+            }
+        ],
+        "aplicacion_practica": [
+            {
+                "titulo": "Consuelo y Seguridad",
+                "descripcion": "El conocimiento de la doble naturaleza de Cristo es fuente de consuelo y fortaleza. Al saber que es plenamente humano, podemos confiar en que Él se compadece de nuestras debilidades. Al reconocer que es plenamente Dios, tenemos la certeza de que su sacrificio fue de un valor infinito, suficiente y perfecto para asegurar nuestra salvación eterna."
+            },
+            {
+                "titulo": "Fundamento para el Perdón",
+                "descripcion": "La verdad de que la muerte de Cristo fue un rescate que satisfizo plenamente la justicia divina es el único fundamento sólido para el perdón de nuestros pecados. No dependemos de nuestros méritos, sino de la obra consumada de Cristo."
+            },
+            {
+                "titulo": "Poder para una Vida Nueva",
+                "descripcion": "La obra de Cristo es también la fuente de nuestro poder para vivir una vida nueva, liberados de la esclavitud del pecado, como nos recuerda Gálatas 1:4: Cristo se dio a sí mismo por nuestros pecados para librarnos del presente siglo malo."
+            }
+        ],
+        "preguntas_frecuentes": [
+            {
+                "pregunta": "Si Jesús es Dios, ¿cómo pudo morir en la cruz?",
+                "respuesta": "La respuesta se encuentra en la doctrina de la unión hipostática: las dos naturalezas de Cristo permanecen distintas en una sola persona. La muerte es la separación del alma y el cuerpo, un evento que solo puede afectar a una naturaleza creada y finita. Por lo tanto, la muerte de Cristo fue un suceso que experimentó en su naturaleza humana. Charles Hodge aclara que la purificación de los pecados es porque la referencia es a Su naturaleza humana, por cuanto sólo murió Su cuerpo."
+            },
+            {
+                "pregunta": "¿Era necesaria la encarnación de Cristo si el hombre no hubiera pecado?",
+                "respuesta": "No. La Biblia presenta la encarnación como la respuesta soberana y amorosa de Dios al problema del pecado humano. Charles Hodge afirma que la idea de una encarnación sin la caída es contraria a las más claras enseñanzas de la Biblia. El propósito de que el Hijo se hiciera carne fue rescatar a la humanidad de su estado de perdición."
+            },
+            {
+                "pregunta": "¿Por qué la muerte de Cristo fue la única manera de obtener el perdón?",
+                "respuesta": "Dios es amor, pero también es perfectamente justo. Su justicia requiere que el pecado sea castigado. El apóstol Pablo argumenta en Gálatas 2:21 que si la justicia hubiera podido ser alcanzada de otra manera, Cristo... murió en vano. La muerte de Cristo fue una satisfacción a la justicia de Dios, donde su infinito amor proveyó el sacrificio que su perfecta justicia demandaba (1 Juan 4:10)."
+            }
+        ],
+        "referencias_biblicas": [
+            "Génesis 2:24",
+            "Salmo 95",
+            "Mateo 19:4-5",
+            "Mateo 20:28",
+            "Marcos 10:45",
+            "Gálatas 1:4",
+            "Gálatas 2:21",
+            "Tito 2:14",
+            "Hebreos 1:1-2",
+            "Hebreos 3:7",
+            "1 Juan 4:10"
+        ]
+    }
+}

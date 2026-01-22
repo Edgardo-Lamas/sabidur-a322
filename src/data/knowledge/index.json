@@ -1,0 +1,331 @@
+{
+    "version": "1.1",
+    "fecha_actualizacion": "2026-01-08",
+    "total_documentos": 31,
+    "estado": "COMPLETO",
+    "categorias": [
+        {
+            "id": "intro-teologia",
+            "nombre": "Introducción a la Teología",
+            "descripcion": "Fundamentos del estudio teológico",
+            "documentos": 1
+        },
+        {
+            "id": "revelacion",
+            "nombre": "Revelación",
+            "descripcion": "La comunicación divina",
+            "documentos": 1
+        },
+        {
+            "id": "bibliologia",
+            "nombre": "Bibliología",
+            "descripcion": "Doctrina de la Biblia",
+            "documentos": 1
+        },
+        {
+            "id": "teologia-propia",
+            "nombre": "Teología Propia",
+            "descripcion": "Doctrina de Dios",
+            "documentos": 2
+        },
+        {
+            "id": "cristologia",
+            "nombre": "Cristología",
+            "descripcion": "Doctrina de Cristo",
+            "documentos": 1
+        },
+        {
+            "id": "pneumatologia",
+            "nombre": "Pneumatología",
+            "descripcion": "Doctrina del Espíritu Santo",
+            "documentos": 1
+        },
+        {
+            "id": "angelologia",
+            "nombre": "Angelología",
+            "descripcion": "Doctrina de los Ángeles",
+            "documentos": 1
+        },
+        {
+            "id": "demonologia",
+            "nombre": "Demonología",
+            "descripcion": "Doctrina de Satanás y los Demonios",
+            "documentos": 1
+        },
+        {
+            "id": "antropologia",
+            "nombre": "Antropología",
+            "descripcion": "Doctrina del Hombre",
+            "documentos": 1
+        },
+        {
+            "id": "hamartiologia",
+            "nombre": "Hamartiología",
+            "descripcion": "Doctrina del Pecado",
+            "documentos": 1
+        },
+        {
+            "id": "soteriologia",
+            "nombre": "Soteriología",
+            "descripcion": "Doctrina de la Salvación",
+            "documentos": 3
+        },
+        {
+            "id": "eclesiologia",
+            "nombre": "Eclesiología",
+            "descripcion": "Doctrina de la Iglesia",
+            "documentos": 1
+        },
+        {
+            "id": "escatologia",
+            "nombre": "Escatología",
+            "descripcion": "Doctrina de las Últimas Cosas",
+            "documentos": 1
+        },
+        {
+            "id": "sitio-articulos",
+            "nombre": "Artículos del Sitio",
+            "descripcion": "Contenido de artículos publicados en Sabiduría para el Corazón",
+            "documentos": 9
+        },
+        {
+            "id": "sitio-ensayos",
+            "nombre": "Ensayos del Sitio",
+            "descripcion": "Ensayos teológicos y reflexiones publicadas en el sitio",
+            "documentos": 5
+        },
+        {
+            "id": "sitio-meditaciones",
+            "nombre": "Meditaciones del Sitio",
+            "descripcion": "Meditaciones devocionales para edificación espiritual",
+            "documentos": 1
+        }
+    ],
+    "documentos_teologia_sistematica": [
+        {
+            "id": "intro-teologia",
+            "archivo": "intro-teologia.json",
+            "tema": "Introducción a la Teología",
+            "categoria": "Introducción a la Teología",
+            "nivel": "basico"
+        },
+        {
+            "id": "revelacion",
+            "archivo": "revelacion.json",
+            "tema": "La Revelación Divina",
+            "categoria": "Revelación",
+            "nivel": "basico"
+        },
+        {
+            "id": "bibliologia",
+            "archivo": "bibliologia.json",
+            "tema": "La Biblia: Origen, Naturaleza y Autoridad",
+            "categoria": "Bibliología",
+            "nivel": "basico"
+        },
+        {
+            "id": "teologia-propia-atributos",
+            "archivo": "teologia-propia-atributos.json",
+            "tema": "Atributos de Dios",
+            "categoria": "Teología Propia",
+            "nivel": "basico"
+        },
+        {
+            "id": "trinidad",
+            "archivo": "trinidad.json",
+            "tema": "La Trinidad",
+            "categoria": "Teología Propia",
+            "nivel": "basico"
+        },
+        {
+            "id": "cristologia",
+            "archivo": "cristologia.json",
+            "tema": "Jesucristo",
+            "categoria": "Cristología",
+            "nivel": "basico"
+        },
+        {
+            "id": "pneumatologia",
+            "archivo": "pneumatologia.json",
+            "tema": "El Espíritu Santo",
+            "categoria": "Pneumatología",
+            "nivel": "basico"
+        },
+        {
+            "id": "angelologia",
+            "archivo": "angelologia.json",
+            "tema": "Los Ángeles",
+            "categoria": "Angelología",
+            "nivel": "basico"
+        },
+        {
+            "id": "demonologia",
+            "archivo": "demonologia.json",
+            "tema": "Satanás y los Demonios",
+            "categoria": "Demonología",
+            "nivel": "basico"
+        },
+        {
+            "id": "antropologia",
+            "archivo": "antropologia.json",
+            "tema": "El Hombre",
+            "categoria": "Antropología",
+            "nivel": "basico"
+        },
+        {
+            "id": "hamartiologia-pecado",
+            "archivo": "hamartiologia-pecado.json",
+            "tema": "Doctrina del Pecado",
+            "categoria": "Hamartiología",
+            "nivel": "basico"
+        },
+        {
+            "id": "soteriologia-justificacion",
+            "archivo": "soteriologia-justificacion.json",
+            "tema": "Justificación",
+            "categoria": "Soteriología",
+            "nivel": "basico"
+        },
+        {
+            "id": "soteriologia-santificacion",
+            "archivo": "soteriologia-santificacion.json",
+            "tema": "Santificación",
+            "categoria": "Soteriología",
+            "nivel": "basico"
+        },
+        {
+            "id": "soteriologia-glorificacion",
+            "archivo": "soteriologia-glorificacion.json",
+            "tema": "Glorificación",
+            "categoria": "Soteriología",
+            "nivel": "basico"
+        },
+        {
+            "id": "eclesiologia",
+            "archivo": "eclesiologia.json",
+            "tema": "La Iglesia",
+            "categoria": "Eclesiología",
+            "nivel": "basico"
+        },
+        {
+            "id": "escatologia",
+            "archivo": "escatologia.json",
+            "tema": "Las Últimas Cosas",
+            "categoria": "Escatología",
+            "nivel": "basico"
+        }
+    ],
+    "documentos_sitio": {
+        "articulos": [
+            {
+                "id": "articulo-teologia-eleccion",
+                "archivo": "sitio-articulo-teologia-eleccion.json",
+                "tema": "La Teología de la Elección: La Gracia Soberana de Dios",
+                "nivel": "intermedio"
+            },
+            {
+                "id": "articulo-principios-eternos",
+                "archivo": "sitio-articulo-principios-eternos.json",
+                "tema": "Principios Eternos y Principios Temporales",
+                "nivel": "basico"
+            },
+            {
+                "id": "articulo-perdon-diario",
+                "archivo": "sitio-articulo-perdon-diario.json",
+                "tema": "Todos los Días Necesito Su Perdón",
+                "nivel": "basico"
+            },
+            {
+                "id": "articulo-apocalipsis-trasfondo",
+                "archivo": "sitio-articulo-apocalipsis-trasfondo.json",
+                "tema": "Apocalipsis: Trasfondo Histórico",
+                "nivel": "basico"
+            },
+            {
+                "id": "articulo-bendicion-dios",
+                "archivo": "sitio-articulo-bendicion-dios.json",
+                "tema": "La Bendición de Dios",
+                "nivel": "basico"
+            },
+            {
+                "id": "articulo-todos-somos-teologos",
+                "archivo": "sitio-articulo-todos-somos-teologos.json",
+                "tema": "Todos Somos Teólogos",
+                "nivel": "basico"
+            },
+            {
+                "id": "articulo-hermeneutica",
+                "archivo": "sitio-articulo-hermeneutica.json",
+                "tema": "Hermenéutica y Lenguaje en la Comprensión de las Escrituras",
+                "nivel": "intermedio"
+            },
+            {
+                "id": "articulo-oracion-biblica",
+                "archivo": "sitio-articulo-oracion-biblica.json",
+                "tema": "La Oración Según la Biblia",
+                "nivel": "basico"
+            },
+            {
+                "id": "articulo-temor-jehova",
+                "archivo": "sitio-articulo-temor-jehova.json",
+                "tema": "El Temor de Jehová: Fundamento de la Sabiduría",
+                "nivel": "basico"
+            }
+        ],
+        "ensayos": [
+            {
+                "id": "ensayo-opinion-conviccion",
+                "archivo": "sitio-ensayo-opinion-conviccion.json",
+                "tema": "De la Opinión a la Convicción",
+                "nivel": "basico"
+            },
+            {
+                "id": "ensayo-autoridad-escritura",
+                "archivo": "sitio-ensayo-autoridad-escritura.json",
+                "tema": "La Autoridad de la Escritura",
+                "nivel": "intermedio"
+            },
+            {
+                "id": "ensayo-pecado-esperanza",
+                "archivo": "sitio-ensayo-pecado-esperanza.json",
+                "tema": "El Pecado: Realidad, Impacto y Esperanza",
+                "nivel": "intermedio"
+            },
+            {
+                "id": "ensayo-salvacion-gracia",
+                "archivo": "sitio-ensayo-salvacion-gracia.json",
+                "tema": "La Salvación: Gracia que Transforma",
+                "nivel": "intermedio"
+            },
+            {
+                "id": "ensayo-creer-comprender",
+                "archivo": "sitio-ensayo-creer-comprender.json",
+                "tema": "Creer No Es Lo Mismo Que Comprender",
+                "nivel": "intermedio"
+            }
+        ],
+        "meditaciones": [
+            {
+                "id": "meditacion-silencio-dios",
+                "archivo": "sitio-meditacion-silencio-dios.json",
+                "tema": "El Silencio de Dios",
+                "nivel": "basico"
+            }
+        ]
+    },
+    "estadisticas": {
+        "total_pasajes_biblicos": 200,
+        "total_preguntas_frecuentes": 32,
+        "niveles": {
+            "basico": 25,
+            "intermedio": 6,
+            "avanzado": 0
+        },
+        "por_tipo": {
+            "teologia_sistematica": 16,
+            "articulos_sitio": 9,
+            "ensayos_sitio": 5,
+            "meditaciones_sitio": 1
+        }
+    }
+}

@@ -1,0 +1,57 @@
+{
+    "id": "articulo-perdon-diario",
+    "categoria": "Contenido del Sitio",
+    "tipo": "articulo",
+    "tema": "Todos los Días Necesito Su Perdón",
+    "autor": "Sabiduría para el Corazón",
+    "fecha": "2026-01-04",
+    "nivel": "basico",
+    "subtemas": [
+        "confesión",
+        "pecado",
+        "perdón",
+        "santificación",
+        "vida cristiana"
+    ],
+    "referencias_clave": "1 Juan 1:8-9, 1 Juan 3:8-9, Romanos 8:13",
+    "contenido": {
+        "resumen": "El verdadero cristiano no es el que nunca falla, sino el que reconoce su pecado y corre al Padre con humildad. Ser cristiano no significa que dejamos de pecar; significa que ahora luchamos contra el pecado. El pecado está ahí, queriendo arrastrarnos, pero Dios no se cansa de perdonar al que viene con un corazón sincero.",
+        "puntos_principales": [
+            {
+                "titulo": "La Lucha Constante Contra el Pecado",
+                "descripcion": "Cuando venimos a Cristo, Él nos perdona y nos hace una nueva criatura. Pero todavía vivimos en un cuerpo con una carne que tiene deseos contrarios a Dios. Por eso, aunque hayamos nacido de nuevo, vamos a seguir sintiendo tentaciones y fallando. Lo importante no es si caemos, sino qué hacemos después de caer."
+            },
+            {
+                "titulo": "El Perdón Diario del Creyente",
+                "descripcion": "1 Juan 1:9 no está hablando del perdón para salvación (eso ya lo recibiste), sino del perdón diario necesario para mantener la comunión con el Padre. Así como nos bañamos todos los días, también necesitamos confesar nuestros pecados todos los días."
+            },
+            {
+                "titulo": "El Nacido de Dios No Practica el Pecado",
+                "descripcion": "1 Juan 3:9 no dice que el creyente nunca peca, sino que no vive en un estilo de vida caracterizado por el pecado. El verbo griego 'hamartanei' está en presente continuo, indicando acción habitual. Un nacido de nuevo puede caer, pero no persiste en el pecado sin arrepentimiento."
+            },
+            {
+                "titulo": "Cristo Vino a Deshacer las Obras del Diablo",
+                "descripcion": "1 Juan 3:8 declara que el Hijo de Dios apareció para destruir el poder, el engaño y el dominio de Satanás. Cristo no solo vino para perdonar nuestros pecados, sino también para darnos libertad para que ya no vivamos como esclavos del pecado."
+            }
+        ],
+        "aplicaciones_practicas": [
+            "Confesar el pecado inmediatamente, sin encubrirlo (Salmo 32:5)",
+            "Pedir a Dios que examine el corazón y revele pecados ocultos (Salmo 139:23-24)",
+            "Hacer morir las obras de la carne por el Espíritu, diariamente (Romanos 8:13)",
+            "Despojarse del pecado que asedia y correr con paciencia (Hebreos 12:1)"
+        ],
+        "referencias_biblicas": [
+            "1 Juan 1:8-9",
+            "1 Juan 3:8-9",
+            "Salmo 32:5",
+            "Salmo 139:23-24",
+            "Proverbios 28:13",
+            "Romanos 8:13",
+            "Gálatas 5:17",
+            "Hebreos 12:1",
+            "1 Pedro 1:23",
+            "Romanos 7",
+            "Juan 11:44"
+        ]
+    }
+}

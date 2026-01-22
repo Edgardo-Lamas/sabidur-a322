@@ -1,0 +1,88 @@
+{
+    "id": "revelacion",
+    "categoria": "Revelación",
+    "tema": "La Revelación Divina",
+    "subtemas": [
+        "revelación general",
+        "revelación especial",
+        "autoridad",
+        "propósito"
+    ],
+    "referencias_clave": "Hebreos 1:1-2, Romanos 1:20, Romanos 2:12-15, Hechos 4:24-25",
+    "nivel": "basico",
+    "contenido": {
+        "definicion": "La doctrina de la revelación es el punto de partida fundamental para toda la teología cristiana. Sin la auto-revelación de Dios, cualquier intento humano de conocerle sería fútil. La fe cristiana no se basa en un descubrimiento humano, sino en una comunicación divina. Teológicamente, la revelación es una actividad divina, no un logro humano. En el acto de la revelación, Dios es tanto el agente como el objeto: Él es quien se da a conocer y, al mismo tiempo, es el contenido de ese conocimiento. Es el acto soberano por el cual Dios comunica sus secretos a la humanidad.",
+        "fundamento_biblico": [
+            {
+                "pasaje": "Hebreos 1:1-2",
+                "explicacion": "Dios, que muchas veces y de distintas maneras habló a nuestros antepasados por medio de los profetas, en estos días finales nos ha hablado por medio de su Hijo. La revelación progresiva culmina en Cristo."
+            },
+            {
+                "pasaje": "Hechos 4:24-25",
+                "explicacion": "La iglesia primitiva cita el Salmo 2:1-2 y afirma que fue Dios quien habló por medio del Espíritu Santo, en labios de David. La autoría humana no anula la autoría divina."
+            },
+            {
+                "pasaje": "Romanos 2:12-15",
+                "explicacion": "La ley moral de Dios está escrita en los corazones de todas las personas, como lo atestigua su propia conciencia. Este testimonio interno los deja sin excusa ante Dios."
+            }
+        ],
+        "aspectos_clave": [
+            {
+                "titulo": "Revelación General",
+                "descripcion": "Se refiere al conocimiento que todo ser humano recibe sobre la existencia y la ley de Dios a través del orden creado y de la conciencia. Pablo argumenta que la creación misma da testimonio del poder eterno y la deidad de Dios (Romanos 1), haciendo a cada individuo inexcusable ante Él."
+            },
+            {
+                "titulo": "Revelación Especial",
+                "descripcion": "Es la comunicación directa, verbal y proposicional de Dios, cuyo propósito principal es dar a conocer el camino de la salvación. Esta revelación encuentra su forma definitiva y su registro autoritativo en las Sagradas Escrituras. Es especial porque fue dada a personas específicas en momentos específicos y preservada para la Iglesia."
+            },
+            {
+                "titulo": "La Autoridad Suprema de las Escrituras",
+                "descripcion": "La Biblia contiene todas las revelaciones de Dios necesarias para ser la única regla de fe y práctica para la Iglesia. Esto excluye la autoridad de tradiciones no escritas, decretos eclesiásticos o cualquier pronunciamiento humano. Dios dice lo que las Sagradas Escrituras dicen."
+            },
+            {
+                "titulo": "El Propósito Redentor de la Revelación",
+                "descripcion": "El propósito no es meramente satisfacer la curiosidad intelectual. Su fin es eminentemente práctico y redentor: dar a conocer el camino de la salvación. Cristo vino para salvar a Su pueblo de sus pecados."
+            },
+            {
+                "titulo": "La Naturaleza Proposicional y Verbal",
+                "descripcion": "La revelación de Dios es proposicional en sustancia y verbal en forma. Dios se revela comunicando verdades inteligibles a través del lenguaje humano. Los eventos históricos solo revelan a Dios cuando van acompañados de una palabra divina que los interpreta."
+            }
+        ],
+        "aplicacion_practica": [
+            {
+                "titulo": "Fundamento de la Fe y la Confianza",
+                "descripcion": "La fe cristiana no se apoya en la sabiduría humana, sino en el testimonio y la autoridad de Dios revelados en su Palabra. Saber que nuestras creencias están ancladas en lo que Dios mismo ha dicho proporciona una seguridad inquebrantable."
+            },
+            {
+                "titulo": "Base para la Relación con Dios",
+                "descripcion": "Es la revelación de un Dios personal, que se comunica y se interesa en la humanidad, lo que hace posible una relación genuina con Él. Porque sabemos que Él es un Dios que oye, podemos orar. Porque actúa, podemos confiar."
+            },
+            {
+                "titulo": "Guía para la Vida y la Santidad",
+                "descripcion": "La revelación de Dios en las Escrituras sirve como regla de fe y práctica. Nos muestra no solo lo que debemos creer, sino también cómo debemos vivir para Él."
+            }
+        ],
+        "preguntas_frecuentes": [
+            {
+                "pregunta": "¿Cómo puede un Dios infinito ser conocido por la mente finita del ser humano?",
+                "respuesta": "No podemos conocer a Dios de manera exhaustiva, pero sí de manera verdadera. La teología clásica explica tres vías: la vía de negación (negamos de Dios toda limitación), la vía de eminencia (le atribuimos toda excelencia en grado infinito) y la vía de causalidad (reconocemos en Él a la Causa Primera). Este conocimiento es posible porque el ser humano es portador de la imagen de Dios."
+            },
+            {
+                "pregunta": "¿No es la revelación simplemente la interpretación humana de eventos históricos?",
+                "respuesta": "No. La historia por sí sola es muda en cuanto a su significado redentor. Un éxodo es una migración, una crucifixión es una ejecución, y una tumba vacía es un misterio. Es la palabra profética e interpretativa de Dios la que inviste a estos eventos de significado salvífico. Los eventos y la palabra interpretativa son inseparables."
+            }
+        ],
+        "referencias_biblicas": [
+            "Salmo 2:1",
+            "Isaías 6:9",
+            "Romanos 1",
+            "Romanos 2",
+            "Romanos 2:12-15",
+            "Hechos 4:24-25",
+            "Hechos 17:29",
+            "Hechos 28:25",
+            "Tito 2:14",
+            "Hebreos 1:1-2"
+        ]
+    }
+}

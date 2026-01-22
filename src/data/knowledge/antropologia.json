@@ -1,0 +1,86 @@
+{
+    "id": "antropologia",
+    "categoria": "Antropología",
+    "tema": "El Hombre",
+    "subtemas": [
+        "creación",
+        "imagen de Dios",
+        "naturaleza",
+        "dignidad y caída"
+    ],
+    "referencias_clave": "Génesis 1:26-27, Salmos 8:4-6, Eclesiastés 7:29, Romanos 5:12",
+    "nivel": "basico",
+    "contenido": {
+        "definicion": "Desde la perspectiva de la teología sistemática, el ser humano se define como una criatura única, creada directamente por Dios, que se distingue de todas las demás formas de vida por su naturaleza espiritual, intelectual y moral. El hombre no es simplemente el pináculo de la vida animal, sino que posee una mente, dotada de una vida de un orden mucho más elevado. Esta naturaleza superior incluye una dimensión moral inherente, pues por la constitución de nuestra naturaleza tenemos un sentido de bien y mal. Sin embargo, el aspecto más definitorio y que fundamenta su dignidad es que el hombre es portador de la imagen de Dios y, por lo tanto, linaje de Dios. Es esta semejanza con su Creador lo que lo eleva y le confiere un propósito trascendente.",
+        "fundamento_biblico": [
+            {
+                "pasaje": "Génesis 1:26-27",
+                "explicacion": "Este es el texto fundacional de la antropología bíblica. Establece que la esencia del ser humano reside en ser creado a imagen y semejanza de Dios (Imago Dei). Esta imagen no es una semejanza física, sino una correspondencia en las capacidades espirituales, intelectuales y morales."
+            },
+            {
+                "pasaje": "Salmos 8:4-6",
+                "explicacion": "Este salmo captura la paradoja de la condición humana: su pequeñez en la vastedad del cosmos y, simultáneamente, su posición exaltada. Ser coronado de gloria y honra refleja la dignidad otorgada por Dios en virtud de la Imago Dei."
+            },
+            {
+                "pasaje": "Eclesiastés 7:29",
+                "explicacion": "Este versículo afirma la bondad original del hombre en su creación. La rectitud no era una meta a alcanzar, sino su condición inicial. La condición caída actual es el resultado de la propia rebelión de la humanidad."
+            },
+            {
+                "pasaje": "Romanos 5:12",
+                "explicacion": "Este pasaje es clave para la doctrina de la caída y el pecado original. La condición pecaminosa de la humanidad es un estado universal heredado del primer hombre. El pecado de Adán tuvo consecuencias para toda la raza, introduciendo la muerte espiritual y física."
+            }
+        ],
+        "aspectos_clave": [
+            {
+                "titulo": "La Creación Directa del Hombre",
+                "descripcion": "La doctrina bíblica afirma que el hombre no es el producto de un proceso evolutivo no dirigido, sino una creación especial y directa de Dios. Existe una distinción fundamental e insalvable entre la vida animal y la vida humana, y la primera nunca podría originar la vida intelectual o espiritual del hombre."
+            },
+            {
+                "titulo": "La Imagen de Dios (Imago Dei)",
+                "descripcion": "Ser portador de la imagen de Dios es la característica que distingue fundamentalmente al ser humano del resto de la creación. No se trata de una semejanza física, sino de una correspondencia en las capacidades espirituales, intelectuales, morales y relacionales. Somos hijos de Dios, y por tanto somos semejantes a Él."
+            },
+            {
+                "titulo": "La Naturaleza del Hombre",
+                "descripcion": "El ser humano posee una naturaleza dual, compuesta de un cuerpo material y un alma inmaterial. Sin embargo, su esencia radica en su vida espiritual e intelectual. Parte integral de esta naturaleza es su capacidad moral, la cual incluye la facultad innata de discernir entre el bien y el mal."
+            },
+            {
+                "titulo": "La Dignidad Original y la Caída",
+                "descripcion": "Aunque creado recto y en comunión con Dios, el ser humano cayó de su estado original a través del pecado. Esta caída resultó en lo que se conoce como pecado original, una corrupción inherente que se hereda y afecta a toda la humanidad. Los hombres son una raza caída, envueltos en un estado de culpa y contaminación, del que no se pueden liberar a sí mismos."
+            }
+        ],
+        "aplicacion_practica": [
+            {
+                "titulo": "Reconocimiento de la Necesidad de Salvación",
+                "descripcion": "La comprensión de nuestra condición como una raza caída y nuestra total incapacidad de volver a Dios por nuestros propios esfuerzos nos conduce a nuestra absoluta necesidad de la redención que solo se encuentra en Cristo. La antropología bíblica, al diagnosticar la gravedad de nuestra enfermedad espiritual, nos lleva a valorar la cura ofrecida en el Evangelio."
+            },
+            {
+                "titulo": "Fundamento de la Dignidad Humana",
+                "descripcion": "El hecho de que cada ser humano, sin importar su condición, etnia, capacidad o estatus, ha sido creado a imagen de Dios, otorga un valor y una dignidad inherentes a toda vida. Esta verdad debe moldear nuestras interacciones, llevándonos a tratar a cada persona con respeto y amor."
+            },
+            {
+                "titulo": "Base para la Relación con Dios",
+                "descripcion": "Nuestra naturaleza fue diseñada para la comunión con nuestro Creador. Nuestra naturaleza religiosa demanda la relación con Dios. Por lo tanto, la oración, la confianza y la dependencia no son actividades opcionales, sino la respuesta natural de una criatura que encuentra su propósito en Aquel que le dio el ser."
+            }
+        ],
+        "preguntas_frecuentes": [
+            {
+                "pregunta": "¿Si los hombres nacen con una naturaleza pecaminosa (pecado original), son responsables de sus pecados?",
+                "respuesta": "Sí. La teología reformada sostiene que la responsabilidad moral no depende del origen de nuestras disposiciones, sino de su naturaleza. Charles Hodge explica que el carácter moral de las disposiciones depende de su naturaleza y no de su origen. Un alma sujeta a disposiciones pecaminosas es verdaderamente pecaminosa y, por tanto, responsable ante Dios."
+            },
+            {
+                "pregunta": "¿El ser humano tiene realmente libre albedrío?",
+                "respuesta": "Sí, el libre albedrío es un hecho innegable de la conciencia humana. Tenemos que creer en nuestra existencia y en nuestro libre albedrío como una ley impuesta a nuestra naturaleza. La dificultad surge al reconciliar esta libertad con la soberanía de Dios. Sin embargo, una acción puede ser cierta en cuanto a su acaecimiento (desde la perspectiva de Dios) y, sin embargo, completamente libre en el modo de su producción por parte del agente humano."
+            },
+            {
+                "pregunta": "¿No es el hombre simplemente un animal más evolucionado?",
+                "respuesta": "No. Desde la perspectiva bíblica, esta idea es insostenible. Existe una sima infranqueable entre la vida animal y la vida intelectual o espiritual del hombre. La vida animal nunca origina ni se desarrolla en la vida espiritual. La distinción no es de grado, sino de clase. El ser humano es una creación única, portador de la imagen de Dios."
+            }
+        ],
+        "referencias_biblicas": [
+            "Génesis 1:26-27",
+            "Salmos 8:4-6",
+            "Eclesiastés 7:29",
+            "Romanos 5:12"
+        ]
+    }
+}

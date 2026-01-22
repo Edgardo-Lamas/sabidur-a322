@@ -1,0 +1,80 @@
+{
+    "id": "intro-teologia",
+    "categoria": "Introducción a la Teología",
+    "tema": "Introducción a la Teología",
+    "subtemas": [
+        "definición",
+        "propósito",
+        "método",
+        "fuentes"
+    ],
+    "referencias_clave": "Romanos 11:33-36, 2 Timoteo 3:16-17, Juan 17:3",
+    "nivel": "basico",
+    "contenido": {
+        "definicion": "La teología es el estudio sistemático y ordenado del conocimiento de Dios. La Teología Sistemática, también llamada Dogmática, se ocupa de los dogmas o doctrinas que han sido aceptadas por la Iglesia a lo largo de la historia. Un dogma no es una simple opinión, sino una convicción de verdad bien fundada, una verdad formulada que se deriva directamente de la revelación de Dios sobre sí mismo. El propósito último de este estudio no es meramente académico, sino profundamente relacional y existencial. Como lo expresó Jesucristo, la vida eterna consiste precisamente en este conocimiento: Y esta es la vida eterna: que te conozcan a ti, el único Dios verdadero, y a Jesucristo, a quien has enviado (Juan 17:3).",
+        "fundamento_biblico": [
+            {
+                "pasaje": "2 Timoteo 3:16-17",
+                "explicacion": "Toda la Escritura es inspirada por Dios, y útil para enseñar, para redargüir, para corregir, para instruir en justicia, a fin de que el hombre de Dios sea perfecto, enteramente preparado para toda buena obra. Establece la inspiración divina, la autoridad y la suficiencia de toda la Escritura."
+            },
+            {
+                "pasaje": "Romanos 11:33-36",
+                "explicacion": "¡Oh profundidad de las riquezas de la sabiduría y de la ciencia de Dios! ¡Cuán insondables son sus juicios, e inescrutables sus caminos!... Porque de él, y por él, y para él, son todas las cosas. Esta doxología de Pablo invita al creyente a una exploración humilde y reverente de los decretos y obras de un Dios cuya sabiduría es infinita."
+            },
+            {
+                "pasaje": "Juan 17:3",
+                "explicacion": "Y esta es la vida eterna: que te conozcan a ti, el único Dios verdadero, y a Jesucristo, a quien has enviado. El objetivo final de la fe es un conocimiento personal y salvífico de Dios Padre y de Jesucristo."
+            }
+        ],
+        "aspectos_clave": [
+            {
+                "titulo": "La Autoridad y Naturaleza de las Escrituras",
+                "descripcion": "La doctrina de la inspiración bíblica afirma que la Biblia es, en su totalidad y hasta en sus mismas palabras, la Palabra de Dios. Esto se conoce como inspiración plenaria (todas sus partes) y verbal (las palabras, no solo los conceptos). El Espíritu Santo guió a los autores de tal manera que el resultado es exactamente lo que Dios quería comunicar."
+            },
+            {
+                "titulo": "La Naturaleza de Dios",
+                "descripcion": "La Escritura revela a Dios a través de sus atributos: la Autoexistencia (Dios existe por sí mismo), la Infinitud (no conoce límites), y la Omnipotencia (El Shaddai - Dios Todopoderoso). Contemplar estos atributos enciende nuestra adoración y fundamenta nuestra confianza en Él."
+            },
+            {
+                "titulo": "La Persona y Obra de Cristo",
+                "descripcion": "La doctrina central del cristianismo es la persona de Jesucristo. En Él se unieron de manera perfecta dos naturalezas, la divina y la humana, en una sola persona. Solo como verdadero hombre podía morir en nuestro lugar, y solo como verdadero Dios su sacrificio podía tener un valor infinito para satisfacer la justicia divina."
+            }
+        ],
+        "aplicacion_practica": [
+            {
+                "titulo": "Adoración y Confianza",
+                "descripcion": "Una teología correcta nos enseña quién es Aquel en quien confiamos: un Dios soberano, sabio, bueno y fiel. Conocer sus atributos nos permite adorarlo por quién es y confiar en Él con mayor seguridad en medio de las pruebas."
+            },
+            {
+                "titulo": "Santificación",
+                "descripcion": "La teología nos enseña que hemos sido redimidos para ser un pueblo celoso de buenas obras. Comprender la profundidad de nuestra depravación y la suficiencia de la gracia de Cristo nos motiva a buscar una vida de santidad."
+            },
+            {
+                "titulo": "Conocimiento y Fe",
+                "descripcion": "La fe salvadora contiene un elemento intelectual fundamental, llamado notitia, que es un reconocimiento positivo y aceptación de la verdad revelada en la Palabra de Dios. La teología sistemática nos ayuda a articular y afirmar el contenido de nuestra fe."
+            }
+        ],
+        "preguntas_frecuentes": [
+            {
+                "pregunta": "Si la Biblia fue escrita por hombres, ¿cómo puede ser la Palabra infalible de Dios?",
+                "respuesta": "El Espíritu Santo predominó sobre las actividades mentales de los escritores de tal manera que el producto final fue tanto un verdadero pronunciamiento divino como humano. Dios no dictó las palabras anulando la personalidad del escritor; más bien, utilizó sus estilos y contextos. La supervisión divina fue tan completa que constituyó una influencia que impedía todo error."
+            },
+            {
+                "pregunta": "¿Se contradicen los escritores de la Biblia?",
+                "respuesta": "Un estudio cuidadoso que respeta el contexto histórico, el género literario y los matices del lenguaje original revela una profunda y sobrenatural coherencia. Las aparentes discrepancias, al ser investigadas, a menudo se convierten en fuentes de comprensión más profunda."
+            },
+            {
+                "pregunta": "¿No es la teología demasiado complicada y solo para pastores?",
+                "respuesta": "Aunque contiene profundidades que pueden ser exploradas durante toda una vida, su mensaje central es accesible para todos. La clave no es la capacidad intelectual, sino la disposición del corazón. El conocimiento de Dios es un llamado y un privilegio para cada creyente que se acerca a las Escrituras con humildad."
+            }
+        ],
+        "referencias_biblicas": [
+            "Juan 17:3",
+            "Hechos 17:29",
+            "Romanos 11:33-36",
+            "Gálatas 3:16",
+            "Gálatas 3:29",
+            "2 Timoteo 3:16-17"
+        ]
+    }
+}

@@ -1,0 +1,92 @@
+{
+    "id": "eclesiologia",
+    "categoria": "Eclesiología",
+    "tema": "La Iglesia",
+    "subtemas": [
+        "naturaleza",
+        "fundamento",
+        "ordenanzas",
+        "misión"
+    ],
+    "referencias_clave": "Mateo 16:18, Hechos 2:42-47, Efesios 1:22-23, 1 Corintios 12:12-27",
+    "nivel": "basico",
+    "contenido": {
+        "definicion": "La eclesiología, o doctrina de la Iglesia, abarca la doble realidad de la Iglesia: su naturaleza divina como organismo espiritual e invisible, unido a Cristo, y su expresión humana como institución visible, manifestada en las congregaciones locales. Como organismo espiritual e invisible, la Iglesia es un cuerpo vivo, unido y animado por el Espíritu Santo, que abarca a la totalidad de los creyentes de todos los tiempos y lugares, unidos espiritualmente a Cristo como su Cabeza. Como institución visible, la Iglesia se manifiesta en congregaciones locales organizadas donde creyentes profesantes se reúnen para la adoración, la enseñanza de la Palabra, la comunión y el servicio.",
+        "fundamento_biblico": [
+            {
+                "pasaje": "Mateo 16:18",
+                "explicacion": "Cristo se revela como el fundador divino de una comunidad que tendrá una existencia histórica y perseverante. La roca no es un hombre, sino la confesión de fe en Cristo, el fundamento espiritual sobre el cual se edifica una estructura indestructible."
+            },
+            {
+                "pasaje": "Hechos 2:42-47",
+                "explicacion": "Este pasaje ofrece el primer retrato de la vida de la iglesia visible. Las prácticas externas —doctrina, comunión, ordenanzas y oración— son la expresión tangible de una realidad espiritual subyacente: la obra del Espíritu Santo que une a los creyentes como un organismo vivo."
+            },
+            {
+                "pasaje": "Efesios 1:22-23",
+                "explicacion": "La metáfora de la Iglesia como cuerpo de Cristo une perfectamente sus dos naturalezas. Cristo es la Cabeza soberana y divina (realidad invisible), que gobierna y nutre un cuerpo compuesto por miembros reales en el mundo (expresión visible)."
+            },
+            {
+                "pasaje": "1 Corintios 12:12-27",
+                "explicacion": "Pablo desarrolla la analogía del cuerpo para ilustrar la unidad en la diversidad. La unidad es una realidad espiritual, obrada por un solo Espíritu (organismo invisible), mientras que la diversidad se manifiesta en los dones y funciones de cada miembro dentro de la congregación local (institución visible)."
+            }
+        ],
+        "aspectos_clave": [
+            {
+                "titulo": "La Iglesia como Comunidad del Pacto",
+                "descripcion": "La Iglesia es el pueblo del nuevo pacto, la heredera espiritual de las promesas de redención hechas a Abraham y al Israel del Antiguo Testamento. En este pacto de gracia, Dios promete ser nuestro Dios y nosotros su pueblo. La teología reformada entiende que la comunidad visible incluye no solo a los creyentes profesantes, sino también a sus hijos, continuando la línea del pacto (Gálatas 3:29)."
+            },
+            {
+                "titulo": "Las Ordenanzas de la Iglesia",
+                "descripcion": "Las ordenanzas son actos simbólicos externos, instituidos por Cristo mismo. El Bautismo es la señal y el sello del pacto de gracia, simbolizando la purificación del pecado y la unión con Cristo. La Cena del Señor es un memorial del sacrificio de Cristo y una proclamación de su muerte hasta que Él venga. También es un medio de gracia que fortalece la fe y fomenta la comunión con Cristo y con su pueblo."
+            },
+            {
+                "titulo": "La Misión de la Iglesia",
+                "descripcion": "El propósito principal de la Iglesia es glorificar a Dios. Esta misión se cumple a través de tres funciones: Adoración (ofrecer a Dios la alabanza que merece), Edificación (edificar a los creyentes en la fe mediante la enseñanza de la Palabra), y Evangelización (proclamar el evangelio a todas las naciones según Mateo 28:19)."
+            }
+        ],
+        "aplicacion_practica": [
+            {
+                "titulo": "Fomenta el Crecimiento Espiritual",
+                "descripcion": "Como organismo divino, la Iglesia es el contexto diseñado por Dios para la madurez espiritual. Este crecimiento se nutre a través de la predicación expositiva de la Palabra, la disciplina bíblica y el discipulado mutuo, medios por los cuales somos retados, corregidos y animados a crecer en la semejanza de Cristo."
+            },
+            {
+                "titulo": "Provee Comunión y Apoyo",
+                "descripcion": "La iglesia es una familia espiritual, la manifestación visible de nuestra unidad invisible en Cristo. Es el lugar donde los creyentes encuentran aliento en las pruebas, corrección amorosa en el error y ayuda práctica en tiempos de necesidad. En la comunión de los santos, nadie está solo."
+            },
+            {
+                "titulo": "Crea un Testimonio Colectivo",
+                "descripcion": "La unidad y el amor sacrificial entre los miembros de la iglesia local son la evidencia visible de una realidad espiritual invisible. Jesús dijo: En esto conocerán todos que sois mis discípulos, si tuviereis amor los unos con los otros (Juan 13:35). Nuestra vida en común valida el mensaje que proclamamos."
+            },
+            {
+                "titulo": "Ofrece un Contexto para el Servicio",
+                "descripcion": "Como cuerpo de Cristo, cada creyente es un miembro dotado por el Espíritu. La iglesia local es el escenario visible donde esos dones espirituales pueden ser descubiertos, desarrollados y puestos al servicio del cuerpo para la edificación de otros y la gloria de Dios."
+            }
+        ],
+        "preguntas_frecuentes": [
+            {
+                "pregunta": "¿Cuál es la diferencia entre la iglesia local y la iglesia universal?",
+                "respuesta": "La iglesia universal (o invisible) corresponde a la Iglesia como organismo espiritual. Está compuesta por la totalidad de los redimidos de todas las épocas y lugares, unidos espiritualmente a Cristo. Su membresía se define por la regeneración y la fe genuina. La iglesia local (o visible) es la Iglesia como institución, la congregación de creyentes profesantes y sus hijos en un lugar específico, definida por la profesión de fe pública y la participación en las ordenanzas."
+            },
+            {
+                "pregunta": "¿Es obligatorio pertenecer a una iglesia para ser salvo?",
+                "respuesta": "La salvación se recibe únicamente por la gracia, a través de la fe en Jesucristo, no por la membresía en una organización eclesiástica. Sin embargo, el Nuevo Testamento enseña que el deseo de unirse a una comunidad visible es una consecuencia natural para el cristiano genuino. La Biblia no concibe la idea de un cristiano solitario. La iglesia local es el contexto diseñado por Dios para el crecimiento, el servicio y el testimonio colectivo."
+            },
+            {
+                "pregunta": "¿Por qué Cristo es llamado la cabeza de la Iglesia?",
+                "respuesta": "Este título, usado en pasajes como Efesios 1:22-23, significa que Cristo posee la autoridad suprema y soberana sobre la Iglesia. Él la gobierna subjetivamente, mediante su Espíritu que opera en la iglesia, y objetivamente, por la Palabra de Dios. Toda autoridad humana dentro de la iglesia es delegada, ministerial y debe someterse a la autoridad de Cristo y su Palabra."
+            }
+        ],
+        "referencias_biblicas": [
+            "Ezequiel 36:25",
+            "Mateo 16:18",
+            "Mateo 28:19",
+            "Juan 13:35",
+            "Hechos 2:42-47",
+            "1 Corintios 12:12-27",
+            "Gálatas 3:29",
+            "Efesios 1:22-23",
+            "Tito 2:14",
+            "Hebreos 10:22"
+        ]
+    }
+}

@@ -1,0 +1,95 @@
+{
+    "id": "bibliologia",
+    "categoria": "Bibliología",
+    "tema": "La Biblia: Origen, Naturaleza y Autoridad",
+    "subtemas": [
+        "inspiración",
+        "inerrancia",
+        "canon",
+        "iluminación"
+    ],
+    "referencias_clave": "2 Timoteo 3:16-17, Hebreos 3:7, Mateo 19:4-5, Hechos 4:24-25",
+    "nivel": "basico",
+    "contenido": {
+        "definicion": "La Biblia no es un simple libro entre muchos, sino la revelación verbal y divina de Dios a la humanidad. Se presenta como la Palabra de Dios escrita, un testimonio autoritativo y fidedigno de Su naturaleza, Sus propósitos y Su obra redentora en la historia. Comprender su naturaleza teológica es el fundamento de toda la doctrina y vida cristiana, ya que establece a las Sagradas Escrituras como la única regla infalible de fe y práctica para la Iglesia a lo largo de todas las generaciones.",
+        "fundamento_biblico": [
+            {
+                "pasaje": "Mateo 19:4-5",
+                "explicacion": "Jesús cita Génesis 2:24 (un comentario narrativo, no cita directa de Dios) y lo atribuye a el que los hizo al principio, demostrando que incluso la narrativa bíblica es vista como discurso divino."
+            },
+            {
+                "pasaje": "Hechos 4:24-25",
+                "explicacion": "La iglesia primitiva afirma que fue Dios quien habló por medio del Espíritu Santo, en labios de David. La autoría humana de David no anula la autoría divina del Espíritu."
+            },
+            {
+                "pasaje": "Hebreos 3:7",
+                "explicacion": "El autor introduce una cita del Salmo 95 con la frase Como el Espíritu Santo dice..., presentándolo como una voz presente y activa que habla a la comunidad a través del texto antiguo."
+            },
+            {
+                "pasaje": "Hechos 1:8, 2:32",
+                "explicacion": "Los apóstoles fueron testigos autorizados cuyo mensaje es el testimonio de Dios, fuente normativa del conocimiento sobre Dios y Su plan redentor."
+            }
+        ],
+        "aspectos_clave": [
+            {
+                "titulo": "La Inspiración Divina",
+                "descripcion": "La inspiración es la obra sobrenatural del Espíritu Santo que supervisó a los autores humanos para que registraran sin error la revelación de Dios. Esta doctrina, conocida como inspiración verbal y plenaria, afirma que la guía del Espíritu se extendió no solo a los conceptos, sino a las palabras mismas de los escritos originales."
+            },
+            {
+                "titulo": "La Inerrancia e Infalibilidad",
+                "descripcion": "Infalibilidad: la Escritura no desorienta; es una guía segura y confiable. Inerrancia: los manuscritos originales están libres de todo error en todo lo que afirman. La autoridad divina del texto depende de su veracidad total."
+            },
+            {
+                "titulo": "El Canon de la Escritura",
+                "descripcion": "El canon se refiere a la colección de 66 libros que la Iglesia ha reconocido como divinamente inspirados. Este reconocimiento no confiere autoridad a los libros, sino que reconoce la autoridad inherente que poseen por su origen divino. El canon protestante no incluye los libros apócrifos."
+            },
+            {
+                "titulo": "La Iluminación del Espíritu Santo",
+                "descripcion": "Mientras que la inspiración se refiere a la producción de la Escritura, la iluminación se refiere a Su obra en la comprensión de la misma. Es el ministerio del Espíritu Santo que capacita al lector para que la Palabra escrita se convierta en una palabra viva y transformadora."
+            }
+        ],
+        "aplicacion_practica": [
+            {
+                "titulo": "Fundamento para la Salvación",
+                "descripcion": "Es a través del testimonio de las Escrituras que una persona llega al conocimiento salvador de Jesucristo. La fe descansa firmemente en el testimonio autoritativo que Dios da de Su Hijo en Su Palabra."
+            },
+            {
+                "titulo": "Guía para la Santidad",
+                "descripcion": "La Biblia es la herramienta principal que Dios utiliza para santificar al creyente, revelando el propósito de la obra redentora de Cristo quien se dio a sí mismo por nosotros para redimirnos de toda iniquidad (Tito 2:14)."
+            },
+            {
+                "titulo": "Fuente de Salud Espiritual",
+                "descripcion": "Las Escrituras son el alimento esencial para el alma, un libro para ser leído, marcado, aprendido e interiormente digerido para promover la salud del alma."
+            },
+            {
+                "titulo": "Base para la Oración y la Confianza",
+                "descripcion": "La doctrina de la providencia, revelada en la Escritura, fundamenta toda religión práctica. Porque la Biblia nos revela a un Dios soberano y presente, Él se convierte en el objeto de nuestra oración y la base de nuestra confianza."
+            }
+        ],
+        "preguntas_frecuentes": [
+            {
+                "pregunta": "Si la Biblia fue escrita por hombres, ¿cómo puede ser la Palabra de Dios?",
+                "respuesta": "Esta se responde con la doctrina de la doble autoría. El Espíritu Santo obró a través de las personalidades, estilos literarios y conocimientos de los escritores. De este modo, las palabras son simultáneamente plenamente humanas y plenamente divinas."
+            },
+            {
+                "pregunta": "¿Contiene la Biblia errores o contradicciones?",
+                "respuesta": "La doctrina de la inerrancia afirma que los manuscritos originales están libres de todo error. Las copias y traducciones posteriores pueden contener variantes textuales menores (que no afectan ninguna doctrina esencial). Las aparentes discrepancias a menudo se resuelven mediante una exégesis gramático-histórica cuidadosa."
+            },
+            {
+                "pregunta": "¿Por qué las Biblias protestantes tienen menos libros que las católicas?",
+                "respuesta": "Los libros adicionales son los Apócrifos. Nunca fueron aceptados en el canon hebreo del Antiguo Testamento. Los reformadores no los consideraron autoritativos para establecer doctrina, aunque son de valor histórico."
+            }
+        ],
+        "referencias_biblicas": [
+            "Génesis 2:24",
+            "Salmo 2:1-2",
+            "Salmo 95:7ss",
+            "Mateo 19:4-5",
+            "Hechos 1:8",
+            "Hechos 2:32",
+            "Hechos 4:24-25",
+            "Tito 2:14",
+            "Hebreos 3:7"
+        ]
+    }
+}

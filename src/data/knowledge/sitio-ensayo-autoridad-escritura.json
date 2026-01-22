@@ -1,0 +1,46 @@
+{
+    "id": "ensayo-autoridad-escritura",
+    "categoria": "Contenido del Sitio",
+    "tipo": "ensayo",
+    "tema": "La Autoridad de la Escritura y su Lugar en la Vida Cristiana",
+    "autor": "Sabiduría para el Corazón",
+    "fecha": "2026-01-03",
+    "nivel": "intermedio",
+    "subtemas": [
+        "autoridad bíblica",
+        "revelación",
+        "inspiración",
+        "vida cristiana"
+    ],
+    "referencias_clave": "Juan 17:17, Hebreos 4:12, 2 Timoteo 3:16-17",
+    "contenido": {
+        "resumen": "Afirmar que la Sagrada Escritura posee 'autoridad' es plantear una pregunta que resuena en el corazón mismo de la fe. No es una cuestión meramente académica, sino una verdad que define la naturaleza de la vida cristiana cotidiana. Su peso no reside en una imposición externa, sino en la naturaleza misma de lo que es: la Palabra viva de un Dios verdadero.",
+        "puntos_principales": [
+            {
+                "titulo": "El Origen de la Autoridad",
+                "descripcion": "La autoridad no es arbitraria ni una construcción eclesiástica posterior; se deriva de su origen divino. La revelación es la acción por la cual Dios se da a conocer; la inspiración es el método por el cual esa verdad es registrada. Hebreos 4:12: 'La palabra de Dios es viva y eficaz, más cortante que toda espada de dos filos'."
+            },
+            {
+                "titulo": "El Propósito Pastoral",
+                "descripcion": "2 Timoteo 3:16-17 revela las funciones formativas (enseñar, instruir en justicia) y correctivas (redargüir, corregir) de la autoridad bíblica. El resultado final es práctico: 'que el hombre de Dios sea perfecto, enteramente preparado para toda buena obra'."
+            },
+            {
+                "titulo": "La Experiencia de la Autoridad",
+                "descripcion": "La autoridad no se impone a la fuerza, sino que es reconocida por la fe que el Espíritu Santo suscita en el corazón. La Palabra crea conciencia de nuestra necesidad y nos prepara para recibir la gracia que ella misma ofrece."
+            }
+        ],
+        "aplicaciones_practicas": [
+            "Someterse a la Escritura como autoridad suprema, no como código frío sino como voz del Padre",
+            "Usar la Palabra para formación y corrección diaria",
+            "Reconocer que escuchar la Escritura es aprender a vivir bajo una autoridad que libera"
+        ],
+        "referencias_biblicas": [
+            "Juan 17:17",
+            "Hebreos 4:12",
+            "2 Timoteo 3:16-17",
+            "Romanos 7:23",
+            "Romanos 8:2",
+            "Romanos 4:5"
+        ]
+    }
+}

@@ -17,6 +17,8 @@ import Preguntar from './pages/Preguntar';
 import TextPage from './pages/TextPage';
 import Biblioteca from './pages/Biblioteca';
 import BibliotecaConsulta from './pages/BibliotecaConsulta';
+import HiloDelTiempo from './pages/HiloDelTiempo';
+import SedymModulo3 from './pages/SedymModulo3';
 import ScrollToTopButton from './components/ScrollToTopButton';
 
 // ScrollToTop component to ensure page starts at top on route change
@@ -43,6 +45,8 @@ function App() {
             <Route path="/articulo/:slug" element={<ArticlePage />} />
             <Route path="/ensayos" element={<Ensayos />} />
             <Route path="/ensayo/:slug" element={<TextPage textType="ensayo" />} />
+            <Route path="/estudio/hilo-del-tiempo" element={<HiloDelTiempo />} />
+            <Route path="/estudio/sedym-modulo-3" element={<SedymModulo3 />} />
             <Route path="/meditaciones" element={<Meditaciones />} />
             <Route path="/meditacion/:slug" element={<TextPage textType="meditacion" />} />
             <Route path="/bosquejos" element={<Bosquejos />} />

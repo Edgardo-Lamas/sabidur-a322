@@ -1,0 +1,50 @@
+{
+    "id": "ensayo-creer-comprender",
+    "categoria": "Contenido del Sitio",
+    "tipo": "ensayo",
+    "tema": "Creer No Es Lo Mismo Que Comprender",
+    "autor": "Sabiduría para el Corazón",
+    "fecha": "2026-01-03",
+    "nivel": "intermedio",
+    "subtemas": [
+        "fe",
+        "razón",
+        "misterios",
+        "Trinidad",
+        "Encarnación"
+    ],
+    "referencias_clave": "Romanos 4:5, Marcos 12:30, 1 Timoteo 3:16",
+    "contenido": {
+        "resumen": "La distinción entre confiar en el mapa —la fe— y conocer el territorio —la comprensión— no es un mero matiz teológico; define la naturaleza misma de nuestra jornada espiritual. La fe es la respuesta inicial del corazón a la revelación divina; la comprensión es el esfuerzo posterior y continuo de la mente por procesar lo que el corazón ya ha creído.",
+        "puntos_principales": [
+            {
+                "titulo": "Fe como Fundamento",
+                "descripcion": "La vida cristiana se inicia con un acto de confianza, no de comprensión exhaustiva. La justificación es 'para aquel que no obra, sino que cree' (Romanos 4:5). Pero hay que diferenciar entre una fe asumida (heredada, superficial) y una fe comprendida (examinada, apropiada personalmente)."
+            },
+            {
+                "titulo": "Imperativo de la Comprensión",
+                "descripcion": "Marcos 12:30 manda amar a Dios también con toda la mente. Una fe que rehúye el pensamiento es vulnerable a la herejía, superficial y espiritualmente frágil, e incapaz de dialogar con una cultura escéptica."
+            },
+            {
+                "titulo": "Los Grandes Misterios",
+                "descripcion": "La Trinidad: Dios es uno en ser y sustancia, poseyendo tres distinciones personales. La Encarnación: unión de dos naturalezas (divina y humana) en una persona. Soberanía y voluntad humana: la fe abraza ambas verdades sin pretender resolver el nudo teológico."
+            },
+            {
+                "titulo": "Vivir en la Tensión",
+                "descripcion": "La madurez espiritual no consiste en resolver todas las dudas, sino en aprender a vivir con honestidad y reverencia dentro de la tensión entre lo que la revelación nos pide creer y lo que nuestra razón finita puede asimilar."
+            }
+        ],
+        "aplicaciones_practicas": [
+            "No temer las preguntas, sino usarlas para profundizar en la verdad",
+            "Ver el estudio teológico como forma de adoración (amar a Dios con la mente)",
+            "Abrazar los misterios con reverencia, no exigiendo comprenderlo todo",
+            "Desarrollar una fe robusta que pueda soportar crisis y dudas"
+        ],
+        "referencias_biblicas": [
+            "Romanos 4:5",
+            "Marcos 12:30",
+            "1 Timoteo 3:16",
+            "Deuteronomio 6:4-5"
+        ]
+    }
+}

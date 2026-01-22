@@ -1,0 +1,56 @@
+{
+    "id": "articulo-principios-eternos",
+    "categoria": "Contenido del Sitio",
+    "tipo": "articulo",
+    "tema": "Principios Eternos y Principios Temporales: El Fundamento de Toda Convicción",
+    "autor": "Sabiduría para el Corazón",
+    "fecha": "2026-01-04",
+    "nivel": "basico",
+    "subtemas": [
+        "principios bíblicos",
+        "convicciones",
+        "vida cristiana",
+        "Daniel"
+    ],
+    "referencias_clave": "Mateo 4:10, Romanos 12:2, Daniel 3:17-18",
+    "contenido": {
+        "resumen": "Un principio bíblico es una verdad moral o espiritual revelada por Dios en su Palabra que trasciende el tiempo, la cultura y las circunstancias. Es una expresión del carácter inmutable de Dios, y por lo tanto, no cambia ni pierde vigencia. Las convicciones no nacen de la emoción ni de la experiencia, sino de principios sólidos arraigados en la verdad de Dios.",
+        "puntos_principales": [
+            {
+                "titulo": "Qué es un Principio Bíblico",
+                "descripcion": "Una verdad que trasciende el tiempo, la cultura y las circunstancias. No depende de modas, gobiernos o emociones. Ejemplos: adorar solo a Dios (Mateo 4:10), transformarse por la renovación del entendimiento (Romanos 12:2), obedecer a Dios antes que a los hombres (Hechos 5:29)."
+            },
+            {
+                "titulo": "Principios del Mundo vs. Principios de Dios",
+                "descripcion": "Los principios del mundo son normas moldeadas por la cultura, el pecado y el relativismo. Son cambiantes y opuestos a Dios. Ejemplos: 'Sigue tu corazón', 'Lo importante es ser feliz', 'Cada uno tiene su verdad'. Tienen apariencia de sabiduría pero conducen a la confusión."
+            },
+            {
+                "titulo": "El Ejemplo de los Jóvenes Hebreos",
+                "descripcion": "Sadrac, Mesac y Abed-nego tenían convicciones formadas desde pequeños en los caminos del Señor. Aunque Babilonia cambió sus nombres, no pudieron cambiar sus corazones. Respondieron: 'Nuestro Dios puede librarnos... y si no, sepas, oh rey, que no serviremos a tus dioses' (Daniel 3:17-18)."
+            },
+            {
+                "titulo": "El Hombre de Doble Ánimo",
+                "descripcion": "Santiago 1:8 describe al 'dipsychos' (de dos almas), alguien que no ha tomado una decisión firme hacia Dios. Vive indeciso, vacilante, acomodándose a las circunstancias. Es fácilmente influenciable porque no tiene una brújula interior basada en la verdad."
+            }
+        ],
+        "aplicaciones_practicas": [
+            "Volver a la Palabra para formar convicciones firmes",
+            "Decidir vivir no por lo que sentimos, sino por lo que Dios dijo",
+            "Pedir a Dios un corazón unido: 'Une mi corazón para que tema tu nombre' (Salmo 86:11)",
+            "Renovar la mente por la Palabra, no por las redes sociales"
+        ],
+        "referencias_biblicas": [
+            "Mateo 4:10",
+            "Romanos 12:2",
+            "Hechos 5:29",
+            "Colosenses 2:8",
+            "Éxodo 20:3",
+            "Santiago 1:8",
+            "Daniel 3:17-18",
+            "Daniel 3:25",
+            "Proverbios 23:23",
+            "Salmo 86:11",
+            "Mateo 7:24-25"
+        ]
+    }
+}

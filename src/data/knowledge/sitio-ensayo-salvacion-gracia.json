@@ -1,0 +1,54 @@
+{
+    "id": "ensayo-salvacion-gracia",
+    "categoria": "Contenido del Sitio",
+    "tipo": "ensayo",
+    "tema": "La Salvación: Gracia que Transforma",
+    "autor": "Sabiduría para el Corazón",
+    "fecha": "2026-01-03",
+    "nivel": "intermedio",
+    "subtemas": [
+        "salvación",
+        "gracia",
+        "justificación",
+        "regeneración",
+        "santificación"
+    ],
+    "referencias_clave": "Efesios 2:8-10, Romanos 5:1-11, Tito 3:4-7",
+    "contenido": {
+        "resumen": "La salvación no es un logro que se alcanza, sino un don que se recibe. Es una obra que se fundamenta no en nuestro obrar, sino en nuestro creer. Lejos de ser un mero evento puntual o una declaración legal abstracta, es una gracia divina que inicia, sustenta y consuma una transformación integral y permanente en la vida del creyente.",
+        "puntos_principales": [
+            {
+                "titulo": "La Condición Humana",
+                "descripcion": "Estábamos 'muertos en transgresiones y pecados'. Como un cuerpo sin vida no puede resucitarse, un alma muerta en pecado no puede generar vida espiritual. Es en este punto de desesperanza donde se manifestó la bondad de Dios."
+            },
+            {
+                "titulo": "Naturaleza de la Gracia",
+                "descripcion": "Efesios 2:8-9: 'Por gracia sois salvos por medio de la fe... no por obras, para que nadie se gloríe'. La exclusión de las obras es absoluta. Si dependiera de nuestro esfuerzo, tendríamos motivos para jactarnos."
+            },
+            {
+                "titulo": "Justificación y Reconciliación",
+                "descripcion": "Romanos 5:1: 'Justificados por la fe, tenemos paz para con Dios'. La obra de Cristo satisfizo todas las demandas de la justicia de Dios. Fuimos reconciliados con Dios por la muerte de su Hijo cuando éramos sus enemigos."
+            },
+            {
+                "titulo": "Regeneración y Renovación",
+                "descripcion": "Tito 3:5: 'Nos salvó por el lavamiento de la regeneración y por la renovación en el Espíritu Santo'. La regeneración es el cambio interior por el que el alma pasa de muerte a vida. Es un nuevo nacimiento que nos convierte en hijos de Dios."
+            },
+            {
+                "titulo": "Evidencia de la Gracia",
+                "descripcion": "Efesios 2:10: 'Somos hechura suya, creados en Cristo Jesús para buenas obras'. La salvación no es meramente un perdón; es una nueva creación. La vida transformada es fruto inevitable de la gracia."
+            }
+        ],
+        "aplicaciones_practicas": [
+            "Descansar en la gracia, no en el esfuerzo propio",
+            "Vivir las buenas obras como evidencia, no como causa de salvación",
+            "Gloriarse solo en el Señor, nunca en méritos propios"
+        ],
+        "referencias_biblicas": [
+            "Efesios 2:8-10",
+            "Romanos 5:1-11",
+            "Tito 3:4-7",
+            "Gálatas 5:16-26",
+            "Colosenses 3:12-13"
+        ]
+    }
+}

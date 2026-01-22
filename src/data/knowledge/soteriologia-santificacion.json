@@ -1,0 +1,89 @@
+{
+    "id": "soteriologia-santificacion",
+    "categoria": "Soteriología",
+    "tema": "Santificación",
+    "subtemas": [
+        "separación",
+        "progreso",
+        "obra del Espíritu",
+        "responsabilidad humana"
+    ],
+    "referencias_clave": "Juan 17:17, 1 Tesalonicenses 5:23, Hebreos 10:10, Tito 2:14",
+    "nivel": "basico",
+    "contenido": {
+        "definicion": "La santificación es una doctrina central en la soteriología que describe la obra continua y progresiva de Dios para conformar a los redimidos a la imagen de Su Hijo. Es imperativo distinguirla de la justificación. La justificación es un acto forense o legal de Dios, instantáneo y definitivo, que cambia el estatus del creyente ante Él. En contraste, la santificación es una obra transformativa o renovadora, subsecuente a la justificación, que cambia el carácter interno del creyente, haciéndolo progresivamente más santo en su ser y conducta. La santificación es la operación divina mediante la cual Dios, a través de su Espíritu, produce de manera especial en el hombre la cualidad subjetiva de santidad.",
+        "fundamento_biblico": [
+            {
+                "pasaje": "Tito 2:14",
+                "explicacion": "Cristo se dio a sí mismo por nosotros para redimirnos de toda iniquidad y purificar para sí un pueblo propio, celoso de buenas obras. La santificación no es una ocurrencia tardía, sino el objetivo de la redención."
+            },
+            {
+                "pasaje": "1 Pedro 1:18-19",
+                "explicacion": "La redención, efectuada por la sangre preciosa de Cristo, tiene como resultado la liberación de una vana manera de vivir. Este rescate es una emancipación del dominio del pecado."
+            },
+            {
+                "pasaje": "Gálatas 1:3-4",
+                "explicacion": "Jesucristo se dio a sí mismo por nuestros pecados para librarnos del presente siglo malo. El sacrificio de Cristo tiene un propósito práctico: arrancar al creyente de la esfera de influencia del sistema mundano."
+            },
+            {
+                "pasaje": "Juan 17:17",
+                "explicacion": "Santifícalos en tu verdad; tu palabra es verdad. La Palabra de Dios es el medio a través del cual el Espíritu Santo ilumina, convence y transforma el corazón del creyente."
+            },
+            {
+                "pasaje": "Hebreos 10:10",
+                "explicacion": "Somos santificados mediante la ofrenda del cuerpo de Jesucristo hecha una vez para siempre. Revela el aspecto posicional o definitivo de la santificación."
+            }
+        ],
+        "aspectos_clave": [
+            {
+                "titulo": "Una Obra de la Gracia Divina, Recibida por Fe",
+                "descripcion": "En contraposición a la herejía pelagiana, la teología reformada afirma que la santificación es una obra de la gracia soberana de Dios. La gracia no es una mera influencia externa, sino un poder interno y renovador de Dios que actúa directamente sobre la voluntad del hombre."
+            },
+            {
+                "titulo": "Fundamentada en la Justificación",
+                "descripcion": "La santificación se edifica sobre el fundamento inamovible de la justificación. La declaración legal que responde al desafío ¿Quién acusará a los escogidos de Dios? es la precondición sobre la cual el Espíritu Santo realiza Su obra progresiva."
+            },
+            {
+                "titulo": "Implica una Liberación del Poder del Pecado",
+                "descripcion": "La obra redentora de Cristo logra una doble liberación: de la maldición de la ley (la culpa) y del poder del pecado (la esclavitud). Una vez reconciliado con Dios, el Espíritu Santo comienza a desmantelar el dominio del pecado."
+            }
+        ],
+        "aplicacion_practica": [
+            {
+                "titulo": "La Lucha Continua contra el Pecado",
+                "descripcion": "La santificación práctica no es la erradicación inmediata del pecado, sino una guerra declarada contra él. El apóstol Pablo exclamó: ¡Miserable de mí! ¿quién me librará de este cuerpo de muerte? (Romanos 7:24). La vida santificada es un campo de batalla donde el creyente, empoderado por el Espíritu, se opone activamente a su naturaleza pecaminosa."
+            },
+            {
+                "titulo": "El Desarrollo de una Conducta Ética",
+                "descripcion": "La obra interna del Espíritu se manifiesta externamente en una conducta que se alinea con los mandatos de las Escrituras. Esta obediencia no es un medio para ganar la salvación, sino el fruto natural de una vida transformada."
+            },
+            {
+                "titulo": "Unión con Cristo como Motivación",
+                "descripcion": "El motivo teológico más profundo para una vida santa es la unión vital del creyente con Cristo. Esta unión espiritual es tan real e íntima que excluye cualquier otra unión incompatible con ella (1 Corintios 6:15-19)."
+            }
+        ],
+        "preguntas_frecuentes": [
+            {
+                "pregunta": "¿Es lo mismo santificación que religiosidad?",
+                "respuesta": "No, son conceptos fundamentalmente distintos. La religiosidad se enfoca en la observancia externa de reglas. La verdadera santificación es una obra interna del Espíritu que transforma el corazón, ocupándose no solo de las acciones, sino también de los pensamientos y deseos."
+            },
+            {
+                "pregunta": "¿Se puede perder la santificación?",
+                "respuesta": "La seguridad de la santificación es una conclusión teológica derivada del carácter inmutable de Dios. La obra que Él inicia, Él la llevará a su consumación. No es un estado que dependa del esfuerzo humano para mantenerse, sino una obra continua de la gracia de Dios."
+            }
+        ],
+        "referencias_biblicas": [
+            "Juan 17:17",
+            "1 Corintios 1:2",
+            "1 Corintios 6:15-19",
+            "Gálatas 1:3-4",
+            "Efesios 5:26",
+            "1 Tesalonicenses 5:23",
+            "Tito 2:14",
+            "Hebreos 10:10",
+            "Hebreos 13:12",
+            "1 Pedro 1:18-19",
+            "Romanos 7:24"
+        ]
+    }
+}

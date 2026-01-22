@@ -1,0 +1,43 @@
+{
+    "id": "ensayo-opinion-conviccion",
+    "categoria": "Contenido del Sitio",
+    "tipo": "ensayo",
+    "tema": "De la Opinión a la Convicción",
+    "autor": "Sabiduría para el Corazón",
+    "fecha": "2026-01-03",
+    "nivel": "basico",
+    "subtemas": [
+        "convicciones",
+        "verdad",
+        "posmodernismo",
+        "fe"
+    ],
+    "referencias_clave": "Juan 17:17, Romanos 12:2, 2 Timoteo 3:16-17",
+    "contenido": {
+        "resumen": "Vivimos en tiempos donde las opiniones abundan y las convicciones escasean. La cultura posmoderna nos ha entrenado para decir 'yo siento' en lugar de 'esto es verdad'. Pero el cristiano está llamado a algo más profundo. La convicción bíblica no nace del consenso ni de la preferencia personal, sino del encuentro con la Palabra de Dios.",
+        "puntos_principales": [
+            {
+                "titulo": "El Problema Contemporáneo",
+                "descripcion": "La cultura posmoderna ha reemplazado 'esto es verdad' por 'yo siento'. Pero el cristiano está llamado a algo más profundo que las meras opiniones fluctuantes."
+            },
+            {
+                "titulo": "El Origen de las Convicciones",
+                "descripcion": "La convicción bíblica surge del encuentro con la Palabra de Dios, que no cambia según las modas ni se adapta a nuestros caprichos. 'Santifícalos en tu verdad; tu palabra es verdad' (Juan 17:17)."
+            },
+            {
+                "titulo": "Humildad y Firmeza",
+                "descripcion": "No se trata de terquedad ni de arrogancia intelectual. Se trata de descansar en aquello que Dios ha revelado, con humildad pero también con firmeza."
+            }
+        ],
+        "aplicaciones_practicas": [
+            "Fundamentar nuestras convicciones en la Palabra, no en opiniones o sentimientos",
+            "Distinguir entre lo que 'sentimos' y lo que 'es verdad'",
+            "Desarrollar una fe informada, meditada y abrazada con todo el corazón"
+        ],
+        "referencias_biblicas": [
+            "Juan 17:17",
+            "Romanos 12:2",
+            "2 Timoteo 3:16-17"
+        ]
+    }
+}

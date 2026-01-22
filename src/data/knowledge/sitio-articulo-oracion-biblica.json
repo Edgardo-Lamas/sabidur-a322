@@ -1,0 +1,59 @@
+{
+    "id": "articulo-oracion-biblica",
+    "categoria": "Contenido del Sitio",
+    "tipo": "articulo",
+    "tema": "La Oración Según la Biblia: Hablando con Dios de Verdad",
+    "autor": "Sabiduría para el Corazón",
+    "fecha": "2026-01-04",
+    "nivel": "basico",
+    "subtemas": [
+        "oración",
+        "vida cristiana",
+        "comunión con Dios",
+        "Padrenuestro"
+    ],
+    "referencias_clave": "Filipenses 4:6-7, Mateo 6:5-13, Hebreos 4:16",
+    "contenido": {
+        "resumen": "La oración no es un rito, sino una relación. No es una fórmula para conseguir lo que quiero, sino una forma de expresar confianza y dependencia en un Dios que ya me conoce, me ama y desea escucharme. La oración es la expresión más simple de fe: cuando oro, le estoy diciendo a Dios: 'Dependo de Ti'.",
+        "puntos_principales": [
+            {
+                "titulo": "Qué Es la Oración",
+                "descripcion": "Es hablar con Dios con sinceridad y fe, desde el corazón, con respeto y confianza. Filipenses 4:6: 'Sean conocidas vuestras peticiones delante de Dios en toda oración y ruego, con acción de gracias'. Oramos no porque Dios ignore lo que nos pasa, sino porque Él quiere que le contemos todo."
+            },
+            {
+                "titulo": "Qué NO Es la Oración",
+                "descripcion": "No es repetir palabras sin sentido (Mateo 6:7). No es manipular a Dios para obtener algo. No es una práctica mística o mágica. No es necesario gritar (Ana oró en silencio - 1 Samuel 1:13). No es solo para pedir cosas (incluye adorar, agradecer, confesar)."
+            },
+            {
+                "titulo": "Por Qué Orar si Dios Ya lo Sabe Todo",
+                "descripcion": "La oración no cambia a Dios: nos cambia a nosotros. Orar demuestra confianza y fe (Proverbios 3:5-6). Fortalece nuestra relación con Dios. Jesús nos dio el ejemplo: 'Él se apartaba a lugares desiertos, y oraba' (Lucas 5:16)."
+            },
+            {
+                "titulo": "El Modelo del Padrenuestro",
+                "descripcion": "'Padre nuestro' - reconocer a quién nos dirigimos. 'Santificado sea tu nombre' - adoración. 'Venga tu reino, hágase tu voluntad' - disposición a obedecer. 'El pan nuestro' - pedir lo necesario. 'Perdónanos' - confesión. 'No nos dejes caer en tentación' - protección espiritual."
+            }
+        ],
+        "aplicaciones_practicas": [
+            "Orar con humildad, no con orgullo (Lucas 18:9-14)",
+            "Orar con fe, no dudando (Santiago 1:6)",
+            "Orar con agradecimiento, incluso antes de recibir respuesta",
+            "Orar en el nombre de Jesús, basándose en lo que Él hizo en la cruz",
+            "Orar sin cesar, manteniendo una actitud de comunión constante (1 Tesalonicenses 5:17)"
+        ],
+        "referencias_biblicas": [
+            "Filipenses 4:6-7",
+            "Mateo 6:5-13",
+            "Lucas 22:42",
+            "1 Samuel 1:13",
+            "Proverbios 3:5-6",
+            "Lucas 5:16",
+            "Salmo 51:17",
+            "Juan 4:21-24",
+            "1 Tesalonicenses 5:17",
+            "Santiago 1:6",
+            "1 Juan 1:9",
+            "Mateo 26:41",
+            "Hebreos 4:16"
+        ]
+    }
+}

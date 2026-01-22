@@ -1,0 +1,97 @@
+{
+    "id": "escatologia",
+    "categoria": "Escatología",
+    "tema": "Las Últimas Cosas",
+    "subtemas": [
+        "segunda venida",
+        "resurrección",
+        "juicio",
+        "esperanza cristiana"
+    ],
+    "referencias_clave": "Juan 14:1-3, 1 Tesalonicenses 4:13-18, Apocalipsis 21:1-5, Hebreos 9:27",
+    "nivel": "basico",
+    "contenido": {
+        "definicion": "La teología escatológica es la rama específica que se ocupa de las doctrinas relacionadas con las últimas cosas (del griego éskhatos, que significa último). Su tarea es sistematizar la enseñanza bíblica sobre los eventos finales de la historia, el destino final de la humanidad y la consumación del Reino de Dios. El término Las Últimas Cosas se refiere al conjunto de eventos futuros profetizados en la Escritura que marcan la culminación del plan de redención de Dios: La Segunda Venida de Cristo (su regreso personal, visible y glorioso), La Resurrección de los Muertos (la levantada corporal tanto de justos como de injustos), El Juicio Final (la evaluación definitiva de toda la humanidad), y El Estado Eterno (el destino final de los redimidos en los cielos nuevos y la tierra nueva).",
+        "fundamento_biblico": [
+            {
+                "pasaje": "Juan 14:1-3",
+                "explicacion": "En este pasaje, el Señor Jesús ofrece su promesa personal de regresar para llevar a sus discípulos a la morada celestial que ha preparado para ellos, estableciendo así el fundamento de la esperanza cristiana en su regreso personal."
+            },
+            {
+                "pasaje": "1 Tesalonicenses 4:13-18",
+                "explicacion": "El apóstol Pablo brinda consuelo a los creyentes describiendo con claridad el orden de los eventos en la segunda venida, donde los muertos en Cristo resucitarán primero y luego, junto a los creyentes vivos, serán arrebatados para encontrarse con el Señor."
+            },
+            {
+                "pasaje": "Apocalipsis 21:1-5",
+                "explicacion": "El apóstol Juan describe su visión culminante de un cielo nuevo y una tierra nueva, el estado eterno donde Dios morará con su pueblo y enjugará toda lágrima, eliminando para siempre la muerte, el llanto y el dolor."
+            },
+            {
+                "pasaje": "Hebreos 9:27",
+                "explicacion": "Este versículo establece el principio divino e ineludible de que a la muerte le sigue un juicio, afirmando que cada ser humano deberá rendir cuentas ante Dios."
+            }
+        ],
+        "aspectos_clave": [
+            {
+                "titulo": "La Segunda Venida de Cristo",
+                "descripcion": "La certeza del regreso de Cristo es una verdad fundamental de la fe. No es una posibilidad, sino una promesa divina. El propio Señor Jesús enseñó sobre su venida en gloria, afirmando que los ángeles lo acompañarán (Mateo 25:31). Este evento es el cumplimiento glorioso de las promesas de Dios, la consumación de su plan redentor para el mundo."
+            },
+            {
+                "titulo": "La Resurrección de los Muertos",
+                "descripcion": "La doctrina de la resurrección es corporal, no meramente espiritual. Se fundamenta en el testimonio apostólico, que proclamaba la resurrección de Cristo como un hecho histórico y como la primicia y garantía de la resurrección de los creyentes (Hechos 2:32). El estado en la resurrección será transformado; los redimidos serán como los ángeles en el cielo (Mateo 22:30)."
+            },
+            {
+                "titulo": "El Juicio Final",
+                "descripcion": "La Escritura enseña la inevitabilidad del juicio para todos los seres humanos. Los apóstoles testificaron que Cristo fue designado por Dios como Juez de vivos y muertos (Hechos 10:42). Este juicio no será arbitrario, sino justo, y resultará en la separación final y eterna entre los justos y los injustos (Mateo 13:39)."
+            },
+            {
+                "titulo": "La Esperanza Cristiana y el Estado Eterno",
+                "descripcion": "El destino final de los creyentes es una vida eterna de gozo en la presencia plena de Dios. La visión de Apocalipsis 21 describe esta realidad como un estado sin pecado, sufrimiento, llanto ni muerte. Es el cumplimiento de la promesa: He aquí, yo hago nuevas todas las cosas. Esta esperanza se fundamenta en el amor infinito de Dios."
+            }
+        ],
+        "aplicacion_practica": [
+            {
+                "titulo": "Consuelo en el Sufrimiento",
+                "descripcion": "La promesa de la resurrección y de un futuro donde Dios enjugará toda lágrima (Apocalipsis 21:4) ofrece un consuelo real y una perspectiva eterna frente a las pruebas, el dolor y la pérdida en esta vida. Saber que el sufrimiento es temporal y que nos espera una gloria eterna nos sostiene."
+            },
+            {
+                "titulo": "Motivación para la Santidad",
+                "descripcion": "La certeza del regreso de Cristo y del juicio final es un poderoso motivador para vivir una vida de pureza y obediencia. La bienaventuranza de ver a Dios está reservada para los de limpio corazón. La esperanza de su venida nos llama a ser hallados por Él en paz, sin mancha e irreprensibles."
+            },
+            {
+                "titulo": "Urgencia en la Misión",
+                "descripcion": "La realidad del juicio venidero (Hebreos 9:27) infunde un sentido de urgencia a la Gran Comisión. La maravillosa oferta de salvación en Cristo impulsa a la Iglesia a predicar el evangelio a todas las naciones. Comprendemos que las decisiones tomadas en esta vida tienen consecuencias eternas."
+            },
+            {
+                "titulo": "Firmeza y Confianza",
+                "descripcion": "La soberanía de Dios sobre la historia, manifestada en su plan revelado para el futuro, otorga al creyente una confianza inquebrantable. A pesar del caos y la incertidumbre del mundo, sabemos que Dios tiene el control. Esta verdad nos permite vivir sin temor."
+            }
+        ],
+        "preguntas_frecuentes": [
+            {
+                "pregunta": "¿Qué sucede con los creyentes que mueren antes de que Cristo regrese?",
+                "respuesta": "Las almas de los creyentes que mueren van inmediatamente a la presencia del Señor. No se encuentran en un estado de sueño inconsciente, sino en comunión con Cristo. En la segunda venida, sus cuerpos serán resucitados en gloria y se reunirán con sus almas. Pablo afirma que los muertos en Cristo resucitarán primero (1 Tesalonicenses 4:16)."
+            },
+            {
+                "pregunta": "¿Será el cielo un lugar físico o solo un estado espiritual?",
+                "respuesta": "La esperanza bíblica es mucho más gloriosa que una existencia puramente etérea. Apocalipsis 21:1-5 describe la promesa de un cielo nuevo y una tierra nueva. Esto apunta a una creación renovada, tangible y perfeccionada, donde Dios mismo habitará corporalmente con su pueblo redimido en un universo restaurado a su gloria original."
+            },
+            {
+                "pregunta": "¿Por qué es tan importante la doctrina de la resurrección del cuerpo?",
+                "respuesta": "Es una doctrina central por varias razones: (1) Sigue el patrón de la resurrección de Cristo; su cuerpo resucitado es la primicia de la nuestra. (2) Afirma la bondad de la creación original de Dios; creó al ser humano como unidad de cuerpo y alma. (3) Demuestra la victoria total de Cristo sobre el pecado y la muerte. La redención que Cristo logró nos libera de la culpa del pecado, de su poder y de sus consecuencias finales, incluyendo la muerte física."
+            }
+        ],
+        "referencias_biblicas": [
+            "1 Tesalonicenses 4:13-18",
+            "Apocalipsis 21:1-5",
+            "Apocalipsis 21:4",
+            "Hechos 2:32",
+            "Hechos 10:42",
+            "Hebreos 1:1",
+            "Hebreos 9:27",
+            "Juan 14:1-3",
+            "Mateo 13:39",
+            "Mateo 22:30",
+            "Mateo 25:31"
+        ]
+    }
+}

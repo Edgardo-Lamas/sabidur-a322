@@ -1,0 +1,75 @@
+{
+    "id": "soteriologia-justificacion",
+    "categoria": "Soteriología",
+    "tema": "Justificación",
+    "subtemas": [
+        "acto judicial",
+        "imputación",
+        "fe",
+        "paz con Dios"
+    ],
+    "referencias_clave": "Romanos 3:21-26, Romanos 5:1, Gálatas 2:16, 2 Corintios 5:21",
+    "nivel": "basico",
+    "contenido": {
+        "definicion": "La justificación es el acto judicial de Dios por el cual, en base a la obra redentora de Jesucristo, declara justo al pecador que cree. No es un proceso mediante el cual Dios hace justo al pecador de manera inherente, sino una declaración legal que cambia su estatus ante la ley divina. Esta doctrina, redescubierta con poder durante la Reforma Protestante, se resume en el principio de que nuestra justicia se encuentra extra nos (fuera de nosotros). La base de nuestra confianza y nuestro título a la vida eterna no radica en lo que somos o hacemos, sino exclusivamente en lo que Cristo es y ha hecho por nosotros. Este acto es declarativo y legal, un veredicto emitido desde el tribunal celestial. La justificación no es la infusión de una justicia interior, sino la imputación de una justicia exterior, la de Cristo.",
+        "fundamento_biblico": [
+            {
+                "pasaje": "Romanos 3:21-26",
+                "explicacion": "Pablo establece que la justicia de Dios se ha manifestado independientemente de la ley. Esta justicia se recibe a través de la fe en Jesucristo. Todos han pecado, pero son justificados gratuitamente por su gracia, mediante la redención que es en Cristo Jesús. La muerte sacrificial de Cristo es presentada como una propiciación (hilasmos), lo que permite a Dios ser simultáneamente el justo, y el que justifica al que es de la fe de Jesús."
+            },
+            {
+                "pasaje": "Romanos 5:1",
+                "explicacion": "Articula el resultado principal de la justificación: la paz con Dios. Justificados, pues, por la fe, tenemos paz para con Dios por medio de nuestro Señor Jesucristo. Al ser declarados justos, la hostilidad causada por el pecado es removida."
+            },
+            {
+                "pasaje": "Gálatas 2:16",
+                "explicacion": "Pablo presenta una antítesis inequívoca: la justificación no se obtiene por las obras de la ley, sino por la fe de Jesucristo. Por cuanto por las obras de la ley nadie será justificado."
+            }
+        ],
+        "aspectos_clave": [
+            {
+                "titulo": "Un Acto Declarativo y Forense",
+                "descripcion": "La justificación no es un cambio en la naturaleza interna del pecador. Es un veredicto legal emitido por Dios en su rol de Juez Supremo. Es un acto instantáneo y completo en el que Dios declara que el pecador creyente ya no está bajo condenación."
+            },
+            {
+                "titulo": "La Imputación de la Justicia de Cristo",
+                "descripcion": "La doble imputación: nuestros pecados fueron legalmente imputados a la cuenta de Cristo en la cruz, y su perfecta justicia es imputada a la cuenta del creyente. Como enseña 2 Corintios 5:21: Al que no conoció pecado, por nosotros lo hizo pecado, para que nosotros fuésemos hechos justicia de Dios en él."
+            },
+            {
+                "titulo": "Recibida Únicamente por Medio de la Fe",
+                "descripcion": "La fe es el único instrumento divinamente designado para recibir el don gratuito de la justificación. No es una obra que hacemos para ganar la justificación, sino la mano vacía que se extiende para recibir lo que Dios ofrece gratuitamente en Cristo. Este es el principio de Sola Fide."
+            }
+        ],
+        "aplicacion_practica": [
+            {
+                "titulo": "Paz con Dios",
+                "descripcion": "Al ser declarados justos, la guerra entre el pecador y Dios llega a su fin. El creyente ya no se acerca a Dios con temor a la condenación, sino con la confianza de un hijo aceptado."
+            },
+            {
+                "titulo": "Seguridad de Salvación",
+                "descripcion": "La justificación proporciona una base objetiva y segura para la confianza en la salvación eterna. ¿Quién acusará a los escogidos de Dios? Dios es el que justifica (Romanos 8:33-34)."
+            },
+            {
+                "titulo": "Fundamento para la Santificación",
+                "descripcion": "La justificación es el fundamento legal para la santificación. Somos liberados de la ley como sistema de condenación para poder servir a Dios en santidad, no por temor al castigo, sino por amor y gratitud."
+            }
+        ],
+        "preguntas_frecuentes": [
+            {
+                "pregunta": "¿Es lo mismo justificación que perdón?",
+                "respuesta": "No son lo mismo, aunque están íntimamente relacionados. El perdón puede ser entendido como el acto negativo de Dios, donde Él remite la deuda del pecado. La justificación incluye el perdón pero va más allá: Dios no solo nos absuelve de la culpa, sino que nos declara positivamente justos, acreditando a nuestra cuenta la justicia perfecta de Cristo."
+            },
+            {
+                "pregunta": "¿Se puede perder la justificación?",
+                "respuesta": "Desde la perspectiva evangélica conservadora, la respuesta es no. La justificación es un acto único, instantáneo y declarativo de Dios, basado enteramente en la obra consumada y perfecta de Cristo. Si pudiera perderse por nuestro pecado, su fundamento ya no sería la gracia de Dios sino nuestras propias obras fluctuantes."
+            }
+        ],
+        "referencias_biblicas": [
+            "Romanos 3:21-26",
+            "Romanos 5:1",
+            "Gálatas 2:16",
+            "2 Corintios 5:21",
+            "Romanos 8:33-34"
+        ]
+    }
+}

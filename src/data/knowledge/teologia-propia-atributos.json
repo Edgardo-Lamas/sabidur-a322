@@ -1,0 +1,106 @@
+{
+    "id": "teologia-propia-atributos",
+    "categoria": "Teología Propia",
+    "tema": "Atributos de Dios",
+    "subtemas": [
+        "atributos comunicables",
+        "atributos incomunicables",
+        "santidad",
+        "amor"
+    ],
+    "referencias_clave": "Salmos 115:3, Jeremías 32:17, Mateo 5:8, 1 Juan 4:10, Romanos 8:28",
+    "nivel": "basico",
+    "contenido": {
+        "definicion": "El estudio de los atributos de Dios, tarea central de la Teología Propia, no es un mero ejercicio académico, sino el fundamento de toda adoración genuina, confianza inquebrantable y vida piadosa. Los atributos de Dios son facetas de su ser unitario. Debido a la perfecta simplicidad de Dios, es imposible que Sus atributos difieran entre sí en la realidad. Son las perfecciones infinitas y esenciales de la naturaleza divina que Él nos revela en Su Palabra y en Sus obras. La teología clásica ha delineado tres vías para formar nuestra idea de Dios: la vía de negación (negamos toda limitación), la vía de eminencia (le atribuimos toda excelencia en grado sublime) y la vía de causalidad (reconocemos en Él la Causa Primera).",
+        "fundamento_biblico": [
+            {
+                "pasaje": "Hebreos 1:1-2",
+                "explicacion": "Dios, habiendo hablado muchas veces y de muchas maneras en otro tiempo a los padres por los profetas, en estos postreros días nos ha hablado por el Hijo. Establece el principio de la revelación divina progresiva que culmina en Cristo."
+            },
+            {
+                "pasaje": "Hechos 1:8 y 2:32",
+                "explicacion": "Los apóstoles fueron designados por Cristo como testigos autorizados. Su testimonio, inspirado por el Espíritu Santo, es la fuente normativa de conocimiento sobre Dios y Su plan redentor."
+            },
+            {
+                "pasaje": "Romanos 1:20",
+                "explicacion": "Porque las cosas invisibles de él, su eterno poder y deidad, se hacen claramente visibles desde la creación del mundo. Fundamenta la doctrina de la revelación general."
+            }
+        ],
+        "aspectos_clave": [
+            {
+                "titulo": "Atributos Incomunicables: La Majestad Única de Dios",
+                "descripcion": "Resaltan la trascendencia y grandeza inigualable de Dios, distinguiéndolo de manera absoluta de toda la creación. Son perfecciones que Dios no comparte con sus criaturas."
+            },
+            {
+                "titulo": "Omnipotencia (El Shaddai)",
+                "descripcion": "Dios es todopoderoso y puede ejecutar todo lo que está en Su voluntad (Salmos 115:3; Jeremías 32:17). Nada es demasiado difícil para Él. Sin embargo, Su omnipotencia siempre opera en armonía con Su carácter: Dios no puede mentir (Números 23:19), no puede ser tentado por el mal (Santiago 1:13) ni puede negarse a sí mismo (2 Timoteo 2:13)."
+            },
+            {
+                "titulo": "Infinitud",
+                "descripcion": "Dios no conoce límites y es inconmensurable. Trasciende todas las limitaciones del espacio y del tiempo. Conceptos como cantidad, tamaño o grado no se le pueden aplicar. Mientras que todo en la creación es finito, Dios simplemente es."
+            },
+            {
+                "titulo": "Atributos Comunicables: El Carácter Moral de Dios",
+                "descripcion": "Revelan el carácter moral y relacional de Dios, perfecciones que Él ha impreso de forma finita en la humanidad como portadora de Su imagen. Nos llaman a reflejar Su carácter."
+            },
+            {
+                "titulo": "Santidad",
+                "descripcion": "La perfección moral fundamental que lo distingue de toda criatura y de todo pecado. Es Su pureza absoluta y majestad moral. La bienaventuranza prometida por Cristo está ligada a ella: Bienaventurados los de limpio corazón, porque ellos verán a Dios (Mateo 5:8)."
+            },
+            {
+                "titulo": "Amor",
+                "descripcion": "Una perfección infinita y esencial de Su naturaleza que lo mueve a darse a Sí mismo y buscar el bien de Sus criaturas. Su máxima expresión: En esto consiste el amor: no en que nosotros hayamos amado a Dios, sino en que él nos amó a nosotros, y envió a su Hijo en propiciación por nuestros pecados (1 Juan 4:10)."
+            }
+        ],
+        "aplicacion_practica": [
+            {
+                "titulo": "Confianza en Su Soberanía",
+                "descripcion": "La omnipotencia divina, unida a Su infinita sabiduría, se convierte en ancla para el alma en medio de las pruebas. Saber que nuestro Padre celestial controla todas las circunstancias para el bien de quienes le aman (Romanos 8:28) nos libera de la ansiedad."
+            },
+            {
+                "titulo": "Motivación para la Santidad",
+                "descripcion": "La contemplación de la santidad absoluta de Dios nos confronta con nuestra pecaminosidad y nos impulsa a buscar una vida que le honre. La santidad divina es una invitación a crecer en piedad a través del poder del Espíritu Santo."
+            },
+            {
+                "titulo": "Seguridad en Su Amor",
+                "descripcion": "Descansar en el conocimiento del amor inmutable de Dios, demostrado en el sacrificio de Cristo, proporciona seguridad profunda e inquebrantable. Este amor no depende de nuestro desempeño."
+            },
+            {
+                "titulo": "Fundamento para la Adoración",
+                "descripcion": "Un entendimiento más profundo del ser de Dios enriquece radicalmente nuestra adoración. Contemplar Su infinidad nos humilla, meditar en Su santidad nos purifica. Adoramos a Dios no solo por lo que hace, sino por quién es."
+            }
+        ],
+        "preguntas_frecuentes": [
+            {
+                "pregunta": "Si Dios es todopoderoso, ¿significa que puede hacer cualquier cosa, incluso algo ilógico o contrario a Su carácter?",
+                "respuesta": "No. La omnipotencia de Dios siempre opera en perfecta armonía con sus otras perfecciones. Su poder no es una capacidad arbitraria, sino el poder de Su ser perfecto. Dios no puede mentir, pecar, cambiar o negarse a sí mismo, porque tales acciones serían contrarias a Su naturaleza inmutable y santa."
+            },
+            {
+                "pregunta": "¿Por qué la Biblia describe a Dios con emociones humanas como la ira si Él es inmutable?",
+                "respuesta": "La Biblia utiliza figuras de dicción como el antropopatismo, que atribuye emociones humanas a Dios para hacerse entender. Cuando la Escritura habla de la ira de Dios, describe Su santa oposición al pecado. Cuando menciona Su arrepentimiento, describe un cambio en Su proceder hacia la humanidad, pero no implica un cambio en Su ser, carácter o propósito eterno."
+            },
+            {
+                "pregunta": "¿Cómo podemos conocer verdaderamente a un Dios que es infinito y trascendente?",
+                "respuesta": "Aunque no podemos conocerlo de manera exhaustiva, sí podemos conocerlo de manera verdadera y personal. Esto es posible porque: 1) Dios se ha revelado en Su Palabra, y 2) El ser humano fue creado a imagen de Dios y, a pesar de la caída, está capacitado por el Espíritu Santo para recibir y responder a esta revelación."
+            }
+        ],
+        "referencias_biblicas": [
+            "Génesis 18:14",
+            "Números 23:19",
+            "Salmos 115:3",
+            "Jeremías 32:17",
+            "Mateo 5:8",
+            "Lucas 1:37",
+            "Hechos 1:8",
+            "Hechos 2:32",
+            "Hechos 17:29",
+            "Romanos 1:20",
+            "Romanos 8:28",
+            "2 Timoteo 2:13",
+            "Hebreos 1:1-2",
+            "Hebreos 6:18",
+            "Santiago 1:13",
+            "1 Juan 4:10"
+        ]
+    }
+}

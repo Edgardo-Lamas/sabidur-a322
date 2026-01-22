@@ -117,6 +117,66 @@ const Ensayos = () => {
                         </p>
                     </div>
                 )}
+
+                {/* Estudios Especiales Section */}
+                <section className="mt-16 pt-12 border-t border-sabiduria-gray/20">
+                    <h2 className="text-2xl font-serif text-sabiduria-navy mb-6">
+                        Estudios de Formación
+                    </h2>
+                    <p className="text-sabiduria-gray mb-8 max-w-2xl">
+                        Materiales de estudio profundo para la formación cristiana. Cursos estructurados con enseñanzas prácticas y teológicas.
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <article className="group bg-white p-8 border border-sabiduria-gray/5 hover:border-sabiduria-gold/30 transition-all shadow-sm">
+                            <div className="flex items-start gap-4">
+                                <div className="w-12 h-12 bg-sabiduria-gold/10 rounded-sm flex items-center justify-center flex-shrink-0">
+                                    <span className="text-sabiduria-gold font-serif text-xl font-bold">HT</span>
+                                </div>
+                                <div className="flex-1">
+                                    <span className="text-xs uppercase tracking-widest text-sabiduria-gold font-bold mb-2 block">
+                                        Estudio Bíblico
+                                    </span>
+                                    <h3 className="text-xl font-serif text-sabiduria-navy group-hover:text-sabiduria-gold transition-colors mb-2">
+                                        <Link to="/estudio/hilo-del-tiempo">El Hilo del Tiempo</Link>
+                                    </h3>
+                                    <p className="text-sabiduria-gray text-sm mb-4">
+                                        Serie de ensayos sobre el valor teológico de las cronologías bíblicas como testimonio del diseño soberano de Dios en la historia.
+                                    </p>
+                                    <Link
+                                        to="/estudio/hilo-del-tiempo"
+                                        className="text-sabiduria-navy font-bold text-sm uppercase tracking-widest flex items-center gap-1 group-hover:gap-2 transition-all"
+                                    >
+                                        Ver estudio <ChevronRight size={16} />
+                                    </Link>
+                                </div>
+                            </div>
+                        </article>
+                        <article className="group bg-white p-8 border border-sabiduria-gray/5 hover:border-sabiduria-gold/30 transition-all shadow-sm">
+                            <div className="flex items-start gap-4">
+                                <div className="w-12 h-12 bg-sabiduria-gold/10 rounded-sm flex items-center justify-center flex-shrink-0">
+                                    <span className="text-sabiduria-gold font-serif text-xl font-bold">M3</span>
+                                </div>
+                                <div className="flex-1">
+                                    <span className="text-xs uppercase tracking-widest text-sabiduria-gold font-bold mb-2 block">
+                                        Curso de Formación
+                                    </span>
+                                    <h3 className="text-xl font-serif text-sabiduria-navy group-hover:text-sabiduria-gold transition-colors mb-2">
+                                        <Link to="/estudio/sedym-modulo-3">SEDYM Módulo 3</Link>
+                                    </h3>
+                                    <p className="text-sabiduria-gray text-sm mb-4">
+                                        Curso sobre liderazgo en células, doctrina de la Iglesia, autoridad espiritual, consejería bíblica y consolidación.
+                                    </p>
+                                    <Link
+                                        to="/estudio/sedym-modulo-3"
+                                        className="text-sabiduria-navy font-bold text-sm uppercase tracking-widest flex items-center gap-1 group-hover:gap-2 transition-all"
+                                    >
+                                        Ver estudio <ChevronRight size={16} />
+                                    </Link>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </section>
             </div>
         </main>
     );

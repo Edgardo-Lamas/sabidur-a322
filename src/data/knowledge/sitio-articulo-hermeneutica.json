@@ -1,0 +1,59 @@
+{
+    "id": "articulo-hermeneutica",
+    "categoria": "Contenido del Sitio",
+    "tipo": "articulo",
+    "tema": "El Rol Crucial del Lenguaje y la Hermenéutica en la Comprensión de las Escrituras",
+    "autor": "Sabiduría para el Corazón",
+    "fecha": "2026-01-04",
+    "nivel": "intermedio",
+    "subtemas": [
+        "hermenéutica",
+        "exégesis",
+        "hebreo",
+        "griego",
+        "interpretación bíblica"
+    ],
+    "referencias_clave": "Romanos 10:4, Gálatas 6:2,5, Efesios 2:8-9",
+    "contenido": {
+        "resumen": "El camino hacia una comprensión profunda y fiel de las Escrituras se cimienta sobre dos pilares fundamentales: el dominio de los lenguajes originales (hebreo y griego koiné) y la aplicación rigurosa de la ciencia de la hermenéutica. Estas disciplinas no son meros ejercicios académicos, sino herramientas esenciales para escuchar la Palabra de Dios con mayor claridad.",
+        "puntos_principales": [
+            {
+                "titulo": "La Doble Naturaleza de las Escrituras",
+                "descripcion": "La Biblia es, en todas sus partes, la Palabra de Dios, pero nos llega a través de autores humanos. El Espíritu Santo no suprimió la personalidad de los escritores. Su origen divino exige reverencia; su composición humana demanda análisis riguroso."
+            },
+            {
+                "titulo": "El Hebreo del Antiguo Testamento",
+                "descripcion": "Los escribas judíos multiplicaban las copias contando las letras de cada página para asegurar transcripción idéntica. Palabras como 'jamal' (conmoverse, perdonar) y 'mitsvah' (mandato) contienen riqueza teológica que a menudo se pierde en traducción."
+            },
+            {
+                "titulo": "El Griego Koiné del Nuevo Testamento",
+                "descripcion": "Su claridad y precisión lo hacían apto para expresar conceptos teológicos complejos. Los matices gramaticales son cruciales: el imperfecto denota acción en proceso, el aoristo indica acción puntual completada. La Septuaginta (LXX) es herramienta indispensable para el trasfondo conceptual."
+            },
+            {
+                "titulo": "El Método Histórico-Gramatical",
+                "descripcion": "Su principio fundamental es descubrir el significado que el autor original pretendía comunicar. Incluye: crítica textual (establecer el texto original), análisis contextual (contexto inmediato, del libro y de toda la Escritura), y análisis literario (comprender los géneros)."
+            },
+            {
+                "titulo": "La Analogía de la Fe",
+                "descripcion": "La Escritura interpreta a la Escritura. Dado que la Biblia tiene un único Autor divino, no puede contradecirse. Los pasajes oscuros deben ser interpretados a la luz de pasajes claros. Ejemplo: Romanos 2:6-7 debe leerse junto con Romanos 3 y Efesios 2:8-9."
+            }
+        ],
+        "aplicaciones_practicas": [
+            "Estudiar el contexto antes de interpretar un pasaje aislado",
+            "Considerar el género literario (ley, historia, poesía, profecía, parábola, apocalíptica)",
+            "Usar herramientas como concordancias y comentarios para acceder a los idiomas originales",
+            "Depender de la iluminación del Espíritu Santo en el estudio"
+        ],
+        "referencias_biblicas": [
+            "Romanos 10:4",
+            "Gálatas 6:2,5",
+            "Isaías 1:2",
+            "Romanos 2:6-7",
+            "Romanos 3",
+            "Efesios 2:8-9",
+            "Marcos 9:38",
+            "1 Reyes 14:15",
+            "Salmos 90:11"
+        ]
+    }
+}

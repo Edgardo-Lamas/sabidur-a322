@@ -1,0 +1,53 @@
+{
+    "id": "articulo-todos-somos-teologos",
+    "categoria": "Contenido del Sitio",
+    "tipo": "articulo",
+    "tema": "Todos Somos Teólogos: La Responsabilidad de Pensar Correctamente Acerca de Dios",
+    "autor": "Sabiduría para el Corazón",
+    "fecha": "2026-01-04",
+    "nivel": "basico",
+    "subtemas": [
+        "teología",
+        "conocimiento de Dios",
+        "estudio bíblico",
+        "doctrinas"
+    ],
+    "referencias_clave": "Efesios 4:13-14, Oseas 4:6, 1 Pedro 3:15",
+    "contenido": {
+        "resumen": "Toda persona es un teólogo. La pregunta no es si somos teólogos, sino si nuestra teología es buena o mala, verdadera o falsa, bíblica o errada. La teología es el pensamiento disciplinado acerca de Dios y Su relación con el universo. El rechazo a la teología formal no nos convierte en personas sin teología; simplemente nos condena a tener una teología pobre.",
+        "puntos_principales": [
+            {
+                "titulo": "La Crisis Contemporánea",
+                "descripcion": "Hoy la palabra 'teología' evoca imágenes de aulas polvorientas y debates estériles. Se establece un falso dilema entre conocer acerca de Dios y conocer a Dios, como si el intelecto fuera enemigo del corazón. Esta separación entre fe y conocimiento teológico es artificial y peligrosa."
+            },
+            {
+                "titulo": "Mitos Sobre la Teología",
+                "descripcion": "Mito 1: 'La teología es solo para pastores' - El mandato de 2 Pedro 3:18 es universal. Mito 2: 'Lo importante es amar a Dios, no conocerlo' - No podemos amar verdaderamente a un Dios cuyos atributos no conocemos. Mito 3: 'La doctrina divide' - Lo que verdaderamente divide es el error doctrinal."
+            },
+            {
+                "titulo": "El Mandato Bíblico",
+                "descripcion": "Oseas 4:6: 'Mi pueblo fue destruido porque le faltó conocimiento'. Los bereanos eran 'más nobles' porque escudriñaban las Escrituras diariamente (Hechos 17:11). Pablo ora para que los creyentes sean 'llenos del conocimiento de su voluntad' (Colosenses 1:9-10)."
+            },
+            {
+                "titulo": "Meta del Estudio Teológico",
+                "descripcion": "No es información, es transformación. Juan 17:17: 'Santifícalos en tu verdad'. La madurez espiritual no se mide por la intensidad de las emociones, sino por la profundidad de nuestro conocimiento de Cristo que se traduce en una vida que refleja Su carácter."
+            }
+        ],
+        "aplicaciones_practicas": [
+            "Asumir responsabilidad personal por lo que creemos acerca de Dios",
+            "Pasar de ser consumidor pasivo a estudiante activo de la Palabra",
+            "Cultivar la disciplina de pensar correctamente acerca de Dios como acto de adoración",
+            "Estar preparados para dar razón de la esperanza que hay en nosotros (1 Pedro 3:15)"
+        ],
+        "referencias_biblicas": [
+            "Efesios 4:13-14",
+            "2 Pedro 3:18",
+            "1 Pedro 3:15",
+            "Oseas 4:6",
+            "Hechos 17:10-12",
+            "Colosenses 1:9-10",
+            "Juan 17:17",
+            "Mateo 24"
+        ]
+    }
+}

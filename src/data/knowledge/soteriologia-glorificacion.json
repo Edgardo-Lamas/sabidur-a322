@@ -1,0 +1,80 @@
+{
+    "id": "soteriologia-glorificacion",
+    "categoria": "Soteriología",
+    "tema": "Glorificación",
+    "subtemas": [
+        "consumación de la salvación",
+        "resurrección",
+        "cuerpo glorificado",
+        "esperanza futura"
+    ],
+    "referencias_clave": "Romanos 8:30, Filipenses 3:20-21, 1 Corintios 15:42-54, 1 Juan 3:2",
+    "nivel": "basico",
+    "contenido": {
+        "definicion": "La glorificación es la etapa final y culminante de la obra redentora de Dios en el creyente, en la cual este es liberado por completo del poder y la presencia del pecado, restaurado perfectamente a la imagen de Dios, y dotado de un cuerpo resucitado para habitar en un estado de perfecta bienaventuranza y comunión eterna con Dios. Esta definición se deriva de la confluencia de varias verdades fundamentales: la meta final de la redención (presentar a su pueblo como una Iglesia gloriosa, sin mancha ni arruga), la esperanza de vida eterna (bienaventurada inmortalidad), y la consumación de la restauración a la imagen de Dios.",
+        "fundamento_biblico": [
+            {
+                "pasaje": "Salmo 16:10 y 49:14-15",
+                "explicacion": "Estos salmos expresan la confianza del justo en que Dios no abandonará su alma en el Sheol, sino que lo redimirá de su poder para llevarlo a una bienaventurada inmortalidad."
+            },
+            {
+                "pasaje": "Gálatas 3:29",
+                "explicacion": "Establece que los creyentes en Cristo son el verdadero linaje de Abraham y herederos según la promesa. Esta herencia implica la posesión de una herencia eterna y futura."
+            },
+            {
+                "pasaje": "Hechos 1:8; 2:32; 3:15; 5:32",
+                "explicacion": "Los apóstoles se presentan como testigos de la resurrección de Cristo. Este evento histórico es el pilar que fundamenta toda la esperanza cristiana de una resurrección y vida futura."
+            }
+        ],
+        "aspectos_clave": [
+            {
+                "titulo": "La Victoria Definitiva sobre el Pecado y la Muerte",
+                "descripcion": "La redención nos libera tanto de la maldición de la ley (la pena por el pecado) como del poder del pecado. La muerte y resurrección de Cristo es la garantía de esta victoria final. Si Cristo venció a la muerte, aquellos unidos a Él por la fe también participarán de su victoria."
+            },
+            {
+                "titulo": "La Restauración Plena a la Imagen de Dios",
+                "descripcion": "El ser humano fue creado a imagen de Dios (Hechos 17:29). El pecado desfiguró esa imagen, pero no la destruyó. La glorificación es ese estado final en el que el creyente reflejará la imagen de Dios de manera plena y perfecta, sin la corrupción del pecado."
+            },
+            {
+                "titulo": "La Transición a la Bienaventuranza Eterna",
+                "descripcion": "La esperanza central del justo no era permanecer en el Sheol, sino ser librado de él. Esta liberación conduce a un estado de perfecta bienaventuranza, una existencia consciente, bendita y de comunión en la presencia de Dios. La glorificación representa la entrada definitiva y corporal a esta bienaventuranza eterna."
+            }
+        ],
+        "aplicacion_practica": [
+            {
+                "titulo": "Consuelo y Esperanza en Medio del Sufrimiento",
+                "descripcion": "La certeza de una redención final y una bienaventurada inmortalidad provee al creyente una perspectiva eterna que lo sostiene en medio de las pruebas. Saber que el sufrimiento presente es temporal y que nos aguarda una gloria incorruptible nos permite perseverar con esperanza."
+            },
+            {
+                "titulo": "Motivación para una Vida de Santidad",
+                "descripcion": "Comprender que el propósito final de Dios es presentarnos ante sí mismo como una Iglesia gloriosa, sin mancha ni arruga debe ser un poderoso incentivo para la santidad personal. Esta doctrina nos motiva a luchar contra el pecado con la mirada puesta en la gloria venidera."
+            },
+            {
+                "titulo": "Firmeza ante la Muerte",
+                "descripcion": "La resurrección de Cristo es un hecho histórico que transforma radicalmente nuestra perspectiva sobre la muerte. Para el creyente, la muerte ya no es el fin ni una entrada a la oscuridad, sino el umbral hacia la vida eterna."
+            }
+        ],
+        "preguntas_frecuentes": [
+            {
+                "pregunta": "¿Se basa nuestra esperanza de la vida eterna en nuestras buenas obras o méritos?",
+                "respuesta": "No, de ninguna manera. La doctrina protestante de la justificación establece que nuestra aceptación ante Dios y nuestro título a la vida eterna no se fundamentan en nada que esté dentro de nosotros. Nuestra confianza y esperanza descansan exclusivamente en lo que Cristo es y ha hecho por nosotros. Nuestra justicia está fuera de nosotros (extra nos), en la persona y obra de Jesucristo."
+            },
+            {
+                "pregunta": "¿Por qué podemos confiar en que las promesas bíblicas sobre el futuro son verdaderas?",
+                "respuesta": "Podemos confiar en ellas porque confiamos en Dios mismo. Las Escrituras son la Palabra de Dios infalible e inerrante. Si aceptamos que la Biblia es el testimonio fidedigno de un Dios que no puede mentir (Números 23:19; Hebreos 6:18), entonces sus promesas son tan seguras como su propio carácter."
+            }
+        ],
+        "referencias_biblicas": [
+            "Gálatas 3:29",
+            "Hechos 1:8",
+            "Hechos 2:32",
+            "Hechos 3:15",
+            "Hechos 5:32",
+            "Hechos 17:29",
+            "Hebreos 6:18",
+            "Números 23:19",
+            "Salmo 16:10",
+            "Salmo 49:14-15"
+        ]
+    }
+}
