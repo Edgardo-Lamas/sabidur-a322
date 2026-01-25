@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Download, ChevronDown, ChevronUp, Book } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import ShareButtons from './ShareButtons';
 
 /**
  * AuthorshipFooter - Sección de autoría estilo Ligonier
@@ -51,6 +52,7 @@ const RecommendedReadings = ({ articles, baseRoute = '/articulo' }) => {
  */
 export const ArticleTemplate = ({ text }) => {
     const { title, author, date, content, biblicalReferences, pdfUrl } = text;
+    const location = useLocation();
 
     return (
         <article className="text-article max-w-3xl mx-auto px-4 py-12">
@@ -109,6 +111,9 @@ export const ArticleTemplate = ({ text }) => {
                 </div>
             )}
 
+            {/* Share Buttons */}
+            <ShareButtons title={title} url={location.pathname} />
+
             {/* Recommended Readings - Ligonier Style */}
             {text.relatedArticles && (
                 <RecommendedReadings articles={text.relatedArticles} />
@@ -127,6 +132,7 @@ export const ArticleTemplate = ({ text }) => {
 export const EssayTemplate = ({ text }) => {
     const { title, author, date, content, biblicalReferences, pdfUrl } = text;
     const [refsExpanded, setRefsExpanded] = useState(false);
+    const location = useLocation();
 
     return (
         <article className="text-essay max-w-3xl mx-auto px-4 py-16">
@@ -185,6 +191,9 @@ export const EssayTemplate = ({ text }) => {
                     </a>
                 </div>
             )}
+
+            {/* Share Buttons */}
+            <ShareButtons title={title} url={location.pathname} />
 
             {/* Recommended Readings - Ligonier Style */}
             {text.relatedArticles && (
