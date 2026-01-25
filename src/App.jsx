@@ -19,6 +19,7 @@ import Biblioteca from './pages/Biblioteca';
 import BibliotecaConsulta from './pages/BibliotecaConsulta';
 import HiloDelTiempo from './pages/HiloDelTiempo';
 import SedymModulo3 from './pages/SedymModulo3';
+import DeclaracionDeFe from './pages/DeclaracionDeFe';
 import ScrollToTopButton from './components/ScrollToTopButton';
 
 // ScrollToTop component to ensure page starts at top on route change
@@ -60,6 +61,7 @@ function App() {
             <Route path="/adolescentes" element={<Youth />} />
             <Route path="/biblioteca" element={<Biblioteca />} />
             <Route path="/biblioteca/consulta" element={<BibliotecaConsulta />} />
+            <Route path="/declaracion-de-fe" element={<DeclaracionDeFe />} />
             <Route path="/donaciones" element={<Donations />} />
           </Routes>
         </div>
