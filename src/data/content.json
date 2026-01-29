@@ -774,6 +774,57 @@
             }
         ]
     },
+    "estudios": [
+        {
+            "id": 1,
+            "slug": "dios-el-mas-justo",
+            "title": "Dios: El Más Justo — Un Atributo Esencial del Carácter Divino",
+            "metaDescription": "Un estudio profundo sobre la justicia de Dios como atributo esencial de su carácter. Exploramos cómo la justicia divina se manifiesta en las Escrituras y cómo impacta nuestra vida de fe.",
+            "introText": "<p class='first-letter:text-5xl first-letter:font-serif first-letter:mr-3 first-letter:float-left'>La justicia de Dios es uno de los atributos más gloriosos y, a la vez, más malentendidos del carácter divino. Cuando las Escrituras declaran que Dios es justo, no están simplemente afirmando que Él actúa correctamente según algún estándar externo, sino que Él mismo es el estándar absoluto de toda rectitud. La justicia no es algo que Dios posee; es algo que Dios es.</p><p>En un mundo donde el concepto de justicia ha sido relativizado y distorsionado, es imperativo que los creyentes regresen a las Escrituras para entender lo que significa que nuestro Dios sea «el más justo». Este estudio nos invita a contemplar este atributo fundamental y a considerar sus implicaciones prácticas para nuestra vida cotidiana.</p><p>A lo largo de este estudio, examinaremos las bases bíblicas de la justicia divina, su relación con otros atributos de Dios como su amor y misericordia, y cómo esta verdad debe transformar nuestra manera de vivir, adorar y relacionarnos con los demás.</p>",
+            "youtubeId": "cQq-xdPGbdg",
+            "author": "Sabiduría para el Corazón",
+            "videoDuration": "PT15M30S",
+            "timestamps": [
+                {
+                    "time": "0:00",
+                    "label": "Introducción"
+                },
+                {
+                    "time": "2:15",
+                    "label": "La justicia como atributo esencial"
+                },
+                {
+                    "time": "6:30",
+                    "label": "Justicia y misericordia en la cruz"
+                },
+                {
+                    "time": "11:45",
+                    "label": "Aplicaciones prácticas"
+                }
+            ],
+            "sections": [
+                {
+                    "id": "justicia-atributo-esencial",
+                    "title": "La Justicia como Atributo Esencial",
+                    "content": "<p>La justicia de Dios no es una cualidad adquirida ni un comportamiento aprendido; es la esencia misma de su ser. El Salmo 89:14 declara: <span class='biblical-inline'>«Justicia y juicio son el cimiento de tu trono»</span>. Esto significa que todo lo que Dios hace, piensa y decreta brota de un fundamento de perfecta rectitud.</p><p>Los teólogos reformados han distinguido tradicionalmente entre la <strong>justicia rectoral</strong> de Dios (su gobierno justo del universo) y su <strong>justicia distributiva</strong> (la aplicación correcta de recompensas y castigos). Ambas expresiones de la justicia divina revelan un Dios que no puede tolerar el mal ni dejar el pecado sin castigo.</p>"
+                },
+                {
+                    "id": "justicia-misericordia-cruz",
+                    "title": "Justicia y Misericordia: Una Tensión Resuelta en la Cruz",
+                    "content": "<p>Una de las preguntas más profundas de la teología es: ¿cómo puede un Dios justo perdonar al pecador? Si Dios es perfectamente justo, ¿no debería castigar todo pecado? Y si perdona, ¿no compromete su justicia?</p><p>La respuesta gloriosa del evangelio es que en la cruz de Cristo, la justicia y la misericordia de Dios se encuentran perfectamente. <span class='biblical-inline'>«A quien no conoció pecado, por nosotros lo hizo pecado, para que nosotros fuésemos hechos justicia de Dios en él»</span> (2 Corintios 5:21).</p><p>Cristo llevó el castigo que merecíamos, satisfaciendo plenamente las demandas de la justicia divina. Así, Dios puede ser a la vez <strong>justo</strong> (porque el pecado fue castigado) y <strong>justificador</strong> (porque podemos ser perdonados) de aquellos que creen en Jesús (Romanos 3:26).</p>"
+                },
+                {
+                    "id": "implicaciones-practicas",
+                    "title": "Implicaciones Prácticas para el Creyente",
+                    "content": "<p>Comprender que Dios es el más justo tiene profundas implicaciones para nuestra vida diaria:</p><ul><li><strong>Nos libra del temor:</strong> Si nuestros pecados han sido cubiertos por la sangre de Cristo, no tenemos que temer el juicio divino.</li><li><strong>Nos llama a la santidad:</strong> Un Dios justo no puede pasar por alto el pecado en sus hijos. Somos llamados a reflejar su carácter.</li><li><strong>Nos consuela en la injusticia:</strong> Cuando enfrentamos situaciones injustas, podemos confiar en que Dios, el Juez justo, enderezará todas las cosas.</li><li><strong>Nos impulsa a actuar con justicia:</strong> Como hijos de un Dios justo, estamos llamados a promover la justicia en nuestras relaciones y en la sociedad.</li></ul>"
+                }
+            ],
+            "reflection": "Padre celestial, te doy gracias porque Tú eres el Juez justo de toda la tierra. Gracias porque en Cristo, tu justicia y tu misericordia se unieron para mi salvación. Ayúdame a vivir de manera que refleje tu carácter justo en todas mis acciones. Cuando enfrente injusticias, dame paz al saber que Tú enderezarás todas las cosas. En el nombre de Jesús, Amén.",
+            "estudiosRelacionados": [],
+            "ctaText": "Explorar más estudios bíblicos",
+            "ctaLink": "/biblioteca"
+        }
+    ],
     "textos": {
         "articulos": [
             {

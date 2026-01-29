@@ -20,6 +20,7 @@ import BibliotecaConsulta from './pages/BibliotecaConsulta';
 import HiloDelTiempo from './pages/HiloDelTiempo';
 import SedymModulo3 from './pages/SedymModulo3';
 import DeclaracionDeFe from './pages/DeclaracionDeFe';
+import EstudioPage from './pages/EstudioPage';
 import ScrollToTopButton from './components/ScrollToTopButton';
 
 // ScrollToTop component to ensure page starts at top on route change
@@ -48,6 +49,7 @@ function App() {
             <Route path="/ensayo/:slug" element={<TextPage textType="ensayo" />} />
             <Route path="/estudio/hilo-del-tiempo" element={<HiloDelTiempo />} />
             <Route path="/estudio/sedym-modulo-3" element={<SedymModulo3 />} />
+            <Route path="/estudio/:slug" element={<EstudioPage />} />
             <Route path="/meditaciones" element={<Meditaciones />} />
             <Route path="/meditacion/:slug" element={<TextPage textType="meditacion" />} />
             <Route path="/bosquejos" element={<Bosquejos />} />
