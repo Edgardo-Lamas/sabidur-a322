@@ -694,6 +694,86 @@
             }
         ]
     },
+    "heroVideos": {
+        "rotationDays": 5,
+        "videos": [
+            {
+                "id": 1,
+                "title": "¿Por qué la Iglesia ya no habla de Santidad?",
+                "youtubeId": "TwqyhAPy8tY"
+            },
+            {
+                "id": 2,
+                "title": "El valor de los pequeñitos para Dios",
+                "youtubeId": "Xzkp9Ei0nHc"
+            },
+            {
+                "id": 3,
+                "title": "El Contentamiento",
+                "youtubeId": "-PgqvH6olPc"
+            },
+            {
+                "id": 4,
+                "title": "Hijos de Dios sujetos a Gobernantes",
+                "youtubeId": "Vw86HBr3log"
+            },
+            {
+                "id": 5,
+                "title": "Glorificando a Dios con nuestras Profesiones",
+                "youtubeId": "58fEMQR0-kI"
+            },
+            {
+                "id": 6,
+                "title": "El más Justo",
+                "youtubeId": "cQq-xdPGbdg"
+            },
+            {
+                "id": 7,
+                "title": "Predicadores Fieles",
+                "youtubeId": "UtQv7kcAZek"
+            },
+            {
+                "id": 8,
+                "title": "La Motivación para la Obra Misionera",
+                "youtubeId": "LJ4UTPLAqOs"
+            },
+            {
+                "id": 9,
+                "title": "La Esencia del Discipulado",
+                "youtubeId": "Qf_jA4dk7vI"
+            },
+            {
+                "id": 10,
+                "title": "La Disciplina para el Premio Eterno",
+                "youtubeId": "vbN1JxVkRq0"
+            },
+            {
+                "id": 11,
+                "title": "Conociendo a Dios, El más Paciente",
+                "youtubeId": "1hPAkMkvzjc"
+            },
+            {
+                "id": 12,
+                "title": "Confía en el Señor en la Tormenta",
+                "youtubeId": "Mc3nBdCIiJ0"
+            },
+            {
+                "id": 13,
+                "title": "Cómo trabajar en mi Corazón",
+                "youtubeId": "d1M_wQjEOsE"
+            },
+            {
+                "id": 14,
+                "title": "El día del Juicio se acerca",
+                "youtubeId": "__RiwxeBu4Q"
+            },
+            {
+                "id": 15,
+                "title": "El Pecado Imperdonable",
+                "youtubeId": "4X_cAo6w4tE"
+            }
+        ]
+    },
     "textos": {
         "articulos": [
             {

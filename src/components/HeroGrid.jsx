@@ -5,10 +5,32 @@ import { BookOpen, Video, Library } from 'lucide-react';
 import content from '../data/content.json';
 
 const HeroGrid = () => {
-    const { main, side, identity } = content.heroGrid;
+    const { main, side } = content.heroGrid;
+    const { videos, rotationDays } = content.heroVideos;
 
-    // Filtrar solo 3 cards para el mini-grid
-    const miniCards = side.slice(0, 3);
+    // Calcular qué video mostrar basado en el día del año y rotación cada X días
+    const now = new Date();
+    const start = new Date(now.getFullYear(), 0, 0);
+    const diff = now - start;
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay);
+    const videoIndex = Math.floor((dayOfYear - 1) / rotationDays) % videos.length;
+    const currentVideo = videos[videoIndex];
+
+    // Crear la card de video dinámicamente
+    const videoCard = {
+        id: 'video',
+        title: currentVideo.title,
+        category: "Video",
+        image: `https://img.youtube.com/vi/${currentVideo.youtubeId}/maxresdefault.jpg`,
+        link: `https://www.youtube.com/watch?v=${currentVideo.youtubeId}`,
+        isExternal: true
+    };
+
+    // Filtrar las cards originales (sin la de video) y agregar la card de video dinámica
+    const otherCards = side.filter(card => card.id !== 2);
+    const miniCards = [otherCards[0], videoCard, otherCards[1]].slice(0, 3);
+
 
     return (
         <section className="relative bg-sabiduria-navy overflow-hidden">
@@ -117,31 +139,48 @@ const HeroGrid = () => {
 
                         {/* Mini Grid - 3 Cards */}
                         <div className="grid grid-cols-3 gap-3">
-                            {miniCards.map((item, index) => (
-                                <motion.div
-                                    key={item.id}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.3 + (index * 0.1) }}
-                                    className="relative overflow-hidden group rounded-sm shadow-lg aspect-square"
-                                >
-                                    <img
-                                        src={`${import.meta.env.BASE_URL}${item.image}`}
-                                        alt={item.title}
-                                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                    />
-                                    <div className="absolute inset-0 bg-sabiduria-navy/70 group-hover:bg-sabiduria-navy/50 transition-colors" />
-                                    <div className="absolute inset-0 flex flex-col justify-end p-3">
-                                        <span className="text-sabiduria-gold text-[9px] font-bold uppercase tracking-tight mb-1 block">
-                                            {item.category}
-                                        </span>
-                                        <h4 className="text-xs sm:text-sm font-serif font-bold text-white leading-tight group-hover:text-sabiduria-gold transition-colors line-clamp-2">
-                                            {item.title}
-                                        </h4>
-                                    </div>
-                                    <Link to={item.link} className="absolute inset-0 z-10" aria-label={`Ver ${item.title}`} />
-                                </motion.div>
-                            ))}
+                            {miniCards.map((item, index) => {
+                                // Determinar si la imagen es una URL externa
+                                const imageUrl = item.image.startsWith('http')
+                                    ? item.image
+                                    : `${import.meta.env.BASE_URL}${item.image}`;
+
+                                return (
+                                    <motion.div
+                                        key={item.id}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.3 + (index * 0.1) }}
+                                        className="relative overflow-hidden group rounded-sm shadow-lg aspect-square"
+                                    >
+                                        <img
+                                            src={imageUrl}
+                                            alt={item.title}
+                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                        />
+                                        <div className="absolute inset-0 bg-sabiduria-navy/70 group-hover:bg-sabiduria-navy/50 transition-colors" />
+                                        <div className="absolute inset-0 flex flex-col justify-end p-3">
+                                            <span className="text-sabiduria-gold text-[9px] font-bold uppercase tracking-tight mb-1 block">
+                                                {item.category}
+                                            </span>
+                                            <h4 className="text-xs sm:text-sm font-serif font-bold text-white leading-tight group-hover:text-sabiduria-gold transition-colors line-clamp-2">
+                                                {item.title}
+                                            </h4>
+                                        </div>
+                                        {item.isExternal ? (
+                                            <a
+                                                href={item.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="absolute inset-0 z-10"
+                                                aria-label={`Ver ${item.title}`}
+                                            />
+                                        ) : (
+                                            <Link to={item.link} className="absolute inset-0 z-10" aria-label={`Ver ${item.title}`} />
+                                        )}
+                                    </motion.div>
+                                );
+                            })}
                         </div>
                     </motion.div>
                 </div>
