@@ -5,14 +5,25 @@ import { Quote } from 'lucide-react';
 import content from '../data/content.json';
 
 const ReadingOfDay = () => {
-    const { dailyReading } = content;
+    const { dailyReadings, dailyReadingConfig } = content;
+
+    // Calcular el día del año (1-366)
+    const now = new Date();
+    const start = new Date(now.getFullYear(), 0, 0);
+    const diff = now - start;
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay);
+
+    // Seleccionar la lectura del día usando rotación cíclica (módulo 50)
+    const readingIndex = (dayOfYear - 1) % dailyReadings.length;
+    const todaysReading = dailyReadings[readingIndex];
 
     return (
         <section className="relative py-24 overflow-hidden">
             {/* Background Image with Overlay */}
             <div className="absolute inset-0 z-0">
                 <img
-                    src={`${import.meta.env.BASE_URL}${dailyReading.backgroundImage}`}
+                    src={`${import.meta.env.BASE_URL}${dailyReadingConfig.backgroundImage}`}
                     alt="Fondo lectura"
                     className="w-full h-full object-cover"
                 />
@@ -36,7 +47,7 @@ const ReadingOfDay = () => {
                     viewport={{ once: true }}
                     className="text-sabiduria-gold text-xs font-bold uppercase tracking-[0.3em] mb-6"
                 >
-                    {dailyReading.title}
+                    {dailyReadingConfig.title}
                 </motion.h2>
 
                 <motion.blockquote
@@ -46,7 +57,7 @@ const ReadingOfDay = () => {
                     transition={{ delay: 0.2 }}
                     className="text-3xl md:text-5xl font-serif font-bold text-white mb-10 leading-tight italic"
                 >
-                    "{dailyReading.verse}"
+                    "{todaysReading.verse}"
                 </motion.blockquote>
 
                 <motion.p
@@ -56,7 +67,7 @@ const ReadingOfDay = () => {
                     transition={{ delay: 0.4 }}
                     className="text-sabiduria-gray brightness-150 font-serif text-xl mb-12"
                 >
-                    — {dailyReading.reference}
+                    — {todaysReading.reference}
                 </motion.p>
 
                 <motion.div
@@ -66,7 +77,7 @@ const ReadingOfDay = () => {
                     transition={{ delay: 0.6 }}
                 >
                     <Link
-                        to={dailyReading.link}
+                        to={dailyReadingConfig.link}
                         className="btn-gold px-12 py-4"
                     >
                         LEER DEVOCIONAL

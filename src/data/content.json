@@ -86,10 +86,260 @@
         "youtubeTitle": "Compasión sin Límites - Sabiduría para el Corazón",
         "youtubeUrl": "https://www.youtube.com/embed/gqXb77xb1cc"
     },
-    "dailyReading": {
+    "dailyReadings": [
+        {
+            "id": 1,
+            "verse": "Grande es Dios, y su grandeza es imposible de medir completamente.",
+            "reference": "Job 36:26"
+        },
+        {
+            "id": 2,
+            "verse": "Dios obra con poder y nadie puede enseñarle ni cuestionar su camino.",
+            "reference": "Job 36:22–23"
+        },
+        {
+            "id": 3,
+            "verse": "Aun cuando Dios nos confronta, Él sigue siendo justo y soberano.",
+            "reference": "Job 40:2"
+        },
+        {
+            "id": 4,
+            "verse": "Todo pertenece a Dios; nadie puede reclamar nada como propio delante de Él.",
+            "reference": "Job 41:11"
+        },
+        {
+            "id": 5,
+            "verse": "La salvación pertenece al Señor; su bendición está sobre su pueblo.",
+            "reference": "Salmo 3:8"
+        },
+        {
+            "id": 6,
+            "verse": "Señor, nuestro Dios, cuán glorioso es tu nombre en toda la tierra.",
+            "reference": "Salmo 8:9"
+        },
+        {
+            "id": 7,
+            "verse": "Dios aconseja y guía aun en lo profundo del corazón.",
+            "reference": "Salmo 16:7"
+        },
+        {
+            "id": 8,
+            "verse": "Algunos confían en recursos humanos; nosotros confiamos en el nombre del Señor.",
+            "reference": "Salmo 20:7"
+        },
+        {
+            "id": 9,
+            "verse": "La comunión íntima del Señor es para los que le temen.",
+            "reference": "Salmo 25:14"
+        },
+        {
+            "id": 10,
+            "verse": "El Señor es mi luz y mi salvación; no temeré.",
+            "reference": "Salmo 27:1"
+        },
+        {
+            "id": 11,
+            "verse": "Hay un final de paz para el hombre íntegro.",
+            "reference": "Salmo 37:37"
+        },
+        {
+            "id": 12,
+            "verse": "Hacer la voluntad de Dios es el deleite del corazón.",
+            "reference": "Salmo 40:8"
+        },
+        {
+            "id": 13,
+            "verse": "Dios no desprecia un corazón quebrantado y humillado.",
+            "reference": "Salmo 51:17"
+        },
+        {
+            "id": 14,
+            "verse": "En Dios confiamos; no tememos lo que el hombre pueda hacer.",
+            "reference": "Salmo 56:11"
+        },
+        {
+            "id": 15,
+            "verse": "Dios es nuestra fortaleza y motivo de alabanza.",
+            "reference": "Salmo 59:17"
+        },
+        {
+            "id": 16,
+            "verse": "Enséñanos a contar bien nuestros días para vivir con sabiduría.",
+            "reference": "Salmo 90:12"
+        },
+        {
+            "id": 17,
+            "verse": "Bendice, alma mía, al Señor, y no olvides ninguno de sus beneficios.",
+            "reference": "Salmo 103:1"
+        },
+        {
+            "id": 18,
+            "verse": "Recordar los beneficios de Dios fortalece la fe.",
+            "reference": "Salmo 103:2"
+        },
+        {
+            "id": 19,
+            "verse": "La Palabra de Dios sostiene aun en medio de la aflicción.",
+            "reference": "Salmo 119:92"
+        },
+        {
+            "id": 20,
+            "verse": "Amar la ley del Señor es señal de un corazón transformado.",
+            "reference": "Salmo 119:97"
+        },
+        {
+            "id": 21,
+            "verse": "La Palabra de Dios es más dulce que la miel.",
+            "reference": "Salmo 119:103"
+        },
+        {
+            "id": 22,
+            "verse": "Somos formados de forma maravillosa por el Creador.",
+            "reference": "Salmo 139:14"
+        },
+        {
+            "id": 23,
+            "verse": "Una generación contará a otra las obras poderosas del Señor.",
+            "reference": "Salmo 145:4"
+        },
+        {
+            "id": 24,
+            "verse": "Las obras de Dios proclaman su grandeza.",
+            "reference": "Salmo 145:6"
+        },
+        {
+            "id": 25,
+            "verse": "El Señor se complace en los que le temen y esperan en su misericordia.",
+            "reference": "Salmo 147:11"
+        },
+        {
+            "id": 26,
+            "verse": "El temor del Señor es el principio de la sabiduría.",
+            "reference": "Proverbios 1:7"
+        },
+        {
+            "id": 27,
+            "verse": "El que escucha a Dios vivirá confiado y en paz.",
+            "reference": "Proverbios 1:33"
+        },
+        {
+            "id": 28,
+            "verse": "Sobre toda cosa guardada, guarda tu corazón.",
+            "reference": "Proverbios 4:23"
+        },
+        {
+            "id": 29,
+            "verse": "La misericordia y la verdad apartan el mal.",
+            "reference": "Proverbios 16:6"
+        },
+        {
+            "id": 30,
+            "verse": "El caballo se alista para la batalla, pero la victoria es del Señor.",
+            "reference": "Proverbios 21:31"
+        },
+        {
+            "id": 31,
+            "verse": "Más vale el buen nombre que muchas riquezas.",
+            "reference": "Proverbios 22:1"
+        },
+        {
+            "id": 32,
+            "verse": "Instruir en el camino correcto deja huellas para toda la vida.",
+            "reference": "Proverbios 22:6"
+        },
+        {
+            "id": 33,
+            "verse": "Aplicar el corazón a la instrucción es señal de sabiduría.",
+            "reference": "Proverbios 23:12"
+        },
+        {
+            "id": 34,
+            "verse": "Cuando los justos prosperan, hay motivo de alegría.",
+            "reference": "Proverbios 28:12"
+        },
+        {
+            "id": 35,
+            "verse": "Los caminos de Dios son más altos que nuestra comprensión.",
+            "reference": "Eclesiastés 11:5"
+        },
+        {
+            "id": 36,
+            "verse": "Temer a Dios y guardar sus mandamientos es el todo del hombre.",
+            "reference": "Eclesiastés 12:13"
+        },
+        {
+            "id": 37,
+            "verse": "Dios traerá toda obra a juicio, aun lo oculto.",
+            "reference": "Eclesiastés 12:14"
+        },
+        {
+            "id": 38,
+            "verse": "Aun las naciones reconocerán la gloria del Señor.",
+            "reference": "Isaías 25:3"
+        },
+        {
+            "id": 39,
+            "verse": "Hermosos son los pies de los que anuncian buenas nuevas.",
+            "reference": "Isaías 52:7"
+        },
+        {
+            "id": 40,
+            "verse": "Busquen al Señor mientras puede ser hallado.",
+            "reference": "Isaías 55:6"
+        },
+        {
+            "id": 41,
+            "verse": "El Señor es amplio en perdón para el que se vuelve a Él.",
+            "reference": "Isaías 55:7"
+        },
+        {
+            "id": 42,
+            "verse": "Los caminos de Dios son más altos que los nuestros.",
+            "reference": "Isaías 55:9"
+        },
+        {
+            "id": 43,
+            "verse": "Somos barro en manos del alfarero eterno.",
+            "reference": "Isaías 64:8"
+        },
+        {
+            "id": 44,
+            "verse": "Dios invita a clamar para revelar cosas grandes y ocultas.",
+            "reference": "Jeremías 33:3"
+        },
+        {
+            "id": 45,
+            "verse": "Las misericordias del Señor se renuevan cada mañana.",
+            "reference": "Lamentaciones 3:22"
+        },
+        {
+            "id": 46,
+            "verse": "El Señor es bueno, es refugio en el día de la angustia.",
+            "reference": "Nahúm 1:7"
+        },
+        {
+            "id": 47,
+            "verse": "Estad quietos, y conoced que yo soy Dios.",
+            "reference": "Salmo 46:10"
+        },
+        {
+            "id": 48,
+            "verse": "La oración del justo puede mucho.",
+            "reference": "Santiago 5:16"
+        },
+        {
+            "id": 49,
+            "verse": "Toda buena dádiva y todo don perfecto desciende de lo alto.",
+            "reference": "Santiago 1:17"
+        },
+        {
+            "id": 50,
+            "verse": "Lámpara es a mis pies tu palabra, y lumbrera a mi camino.",
+            "reference": "Salmo 119:105"
+        }
+    ],
+    "dailyReadingConfig": {
         "title": "La Lectura de Hoy",
-        "verse": "Lámpara es a mis pies tu palabra, y lumbrera a mi camino.",
-        "reference": "Salmo 119:105",
         "link": "/lectura-hoy",
         "backgroundImage": "img/fondo-declaracion-fe.jpg"
     },
@@ -763,6 +1013,19 @@
                     "Salmo 10",
                     "Salmo 13",
                     "Salmo 109"
+                ],
+                "pdfUrl": ""
+            },
+            {
+                "id": 7,
+                "title": "Jabes: Un paréntesis que revela el corazón de Dios",
+                "slug": "jabes-parentesis-que-revela-el-corazon-de-dios",
+                "author": "Sabiduría para el Corazón",
+                "date": "2026-01-28",
+                "excerpt": "En medio de largas genealogías de 1 Crónicas, Dios hace una pausa para mostrarnos algo que las listas, por sí solas, no pueden mostrar: el peso eterno de una relación viva con Él.",
+                "content": "<h2>Introducción: Cuando Dios interrumpe las listas</h2><p class='first-letter:text-5xl first-letter:font-serif first-letter:mr-3 first-letter:float-left'>En 1 Crónicas, el lector avanza por largas genealogías: nombres, hijos, linajes, herencias. Es un ritmo casi administrativo. La historia del pueblo se ordena como un archivo: quién viene de quién, a qué familia pertenece cada uno, qué lugar ocupa en la estructura del pacto.</p><p>Y de pronto, sin aviso, Dios hace una pausa.</p><p>Entre nombres que apenas conocemos, aparece un hombre llamado Jabes. No con una hazaña militar. No con un cargo político. No con un largo relato biográfico. Aparece con una oración.</p><p>Ese paréntesis no es accidental. Es teológico. Es literario. Es pastoral.</p><p>Dios interrumpe las listas para mostrarnos algo que las listas, por sí solas, no pueden mostrar: <strong>el peso eterno de una relación viva con Él</strong>.</p><hr/><h2>Un hombre dentro del sistema, pero no reducido al sistema</h2><p>Las genealogías representan lo que recibimos sin elegir:</p><ul><li>Nuestro linaje</li><li>Nuestra historia previa</li><li>Nuestra herencia</li><li>Nuestros límites iniciales</li></ul><p>Jabes está dentro de ese sistema. No es un rebelde contra el orden de Dios. No rompe el marco del pacto. No desprecia su lugar en la historia de Judá.</p><p>Pero su oración revela algo decisivo: <strong>su identidad no está agotada por su genealogía</strong>.</p><p>En otras palabras: Jabes no niega su historia, pero tampoco deja que su historia sea la última palabra.</p><p>Ahí comienza a revelarse el corazón del pasaje.</p><hr/><h2>Un nombre marcado por dolor, un corazón que busca bendición</h2><p>El texto nos dice que Jabes fue llamado así por causa del dolor. Su nombre carga memoria de sufrimiento. Su identidad pública está asociada, desde el inicio, con una historia difícil.</p><p>No sabemos los detalles. Pero sí sabemos esto: <strong>Jabes no convierte su herida en resignación. Tampoco en amargura. La convierte en oración.</strong></p><p>Cuando dice: «¡Oh, si me dieras bendición!», no está pidiendo un lujo. Está pidiendo que su vida no quede definida por el dolor con el que comenzó.</p><p>No es un grito de codicia. Es un clamor por favor divino.</p><p>Implícitamente está diciendo:</p><blockquote class='blockquote-gold'>«No quiero que mi origen determine mi destino. Solo tu bendición puede redefinir mi historia.»</blockquote><p>Aquí no hay arrogancia. Hay hambre espiritual.</p><hr/><h2>Ensancha mi territorio: más que tierra, espacio para vivir bajo tu favor</h2><p>Para un israelita, el territorio no es solo geografía. Es:</p><ul><li>Herencia</li><li>Seguridad</li><li>Futuro</li><li>Lugar dentro del pueblo</li></ul><p>Cuando Jabes pide expansión, no está pidiendo independencia. Está pidiendo <strong>amplitud bajo la autoridad de Dios</strong>.</p><p>No dice: «Voy a tomar más.» Dice: «Dame tú más.»</p><p>Es una oración que reconoce límites presentes, pero que cree que esos límites no son definitivos cuando Dios está involucrado.</p><p>Es el lenguaje de alguien que no se conforma con una vida espiritualmente estrecha.</p><hr/><h2>Tu mano conmigo: más importante que los resultados</h2><p>Jabes no solo quiere bendición. Quiere presencia.</p><p>En la Biblia, la mano de Dios representa:</p><ul><li>Poder</li><li>Dirección</li><li>Protección</li><li>Intervención activa</li></ul><p>Esto revela una teología madura: <strong>no basta con recibir cosas buenas si Dios no camina con nosotros en ellas</strong>.</p><p>Aquí Jabes confiesa, sin decirlo:</p><blockquote class='blockquote-gold'>«No confío en poder sostener lo que pido si tu mano no me acompaña.»</blockquote><p>Esto no es autosuficiencia espiritual. Es dependencia consciente.</p><hr/><h2>Líbrame del mal: la conciencia del mundo caído</h2><p>Esta frase revela que Jabes no es ingenuo. Sabe que:</p><ul><li>La bendición trae exposición</li><li>La expansión trae riesgo</li><li>El mal es real</li></ul><p>No solo teme el dolor externo. Teme ser dañado, corrompido, destruido.</p><p>Aquí hay una oración por integridad, no solo por prosperidad.</p><p>Es como si dijera:</p><blockquote class='blockquote-gold'>«Guárdame para que lo que reciba no se convierta en mi ruina.»</blockquote><p>Esta es una espiritualidad sobria. Profunda. Realista.</p><hr/><h2>Una oración que revela formación espiritual</h2><p>El texto no nos dice cuántos años oró Jabes antes de este momento. No nos dice si era un líder, un anciano, o un hombre común.</p><p>Pero el contenido de su oración revela algo claro: <strong>esta no es una oración teológicamente improvisada</strong>.</p><p>Muestra:</p><ul><li>Conocimiento del carácter de Dios</li><li>Comprensión del pacto</li><li>Confianza en el acceso</li><li>Dependencia consciente</li><li>Temor realista del mal</li></ul><p>Esto no suele nacer de la indiferencia espiritual. Refleja un corazón formado dentro de la fe de Israel.</p><hr/><h2>Por qué Dios lo recuerda</h2><p>En una lista donde casi todos son solo nombres, Jabes es recordado por una conversación con Dios.</p><p>No por su linaje.<br/>No por su cargo.<br/>No por su poder.</p><p><strong>Sino por su oración.</strong></p><p>Esto revela una teología poderosa:</p><p><strong>Dios no solo registra genealogías. Dios responde a personas.</strong></p><p>El paréntesis nos enseña que, dentro de las grandes estructuras de la historia redentora, Dios sigue mirando corazones individuales que claman conforme a su carácter.</p><hr/><h2>El mensaje para el lector: cuando Dios hace pausas</h2><p>Este paréntesis no es solo biografía antigua. Es mensaje para cada generación:</p><ul><li>El linaje importa, pero no lo es todo.</li><li>La historia recibida importa, pero no define completamente.</li><li>La oración alineada con el pacto tiene peso eterno.</li><li>Un hombre puede ser invisible en la tierra y, sin embargo, señalado por Dios.</li></ul><p>En medio de listas, Dios recuerda oraciones.<br/>En medio de estructuras, Dios responde a corazones.</p><p>Y en medio de historias marcadas por dolor, Dios abre espacio para nuevas narrativas.</p><hr/><h2>Conclusión: Un nombre, una oración, una interrupción eterna</h2><p>Jabes no cambia la estructura del libro. No altera el curso político de Judá. No funda una dinastía.</p><p>Pero su oración abre una ventana.</p><p>Una ventana que nos permite ver que, para Dios, <strong>una relación viva pesa más que un nombre bien ubicado en una lista</strong>.</p><p>Dios hace pausas en las genealogías para recordarnos que, aunque somos parte de una historia más grande, Él sigue escuchando historias personales.</p><p class='text-center text-xl font-serif italic text-sabiduria-gold mt-12'>Y a veces, una sola oración basta para que un nombre deje de ser solo un nombre y se convierta en testimonio.</p>",
+                "biblicalReferences": [
+                    "1 Crónicas 4:9-10"
                 ],
                 "pdfUrl": ""
             }

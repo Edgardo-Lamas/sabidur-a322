@@ -29,17 +29,16 @@ const Breadcrumbs = ({ title }) => {
                     const isLast = index === pathnames.length - 1;
                     const routeTo = `/${pathnames.slice(0, index + 1).join('/')}`;
 
-                    // Skip the 'articulo' prefix in visualization if we have a specific title
-                    if (name === 'articulo' && title) return null;
+                    // Skip the 'articulo' or 'ensayo' prefix in visualization if we have a specific title
+                    if ((name === 'articulo' || name === 'ensayo') && title) return null;
+
+                    // Skip the last segment (slug) if we have a title - we'll show the title instead
+                    if (isLast && title) return null;
 
                     return (
                         <li key={name} className="flex items-center">
                             <ChevronRight size={14} className="text-sabiduria-gold mx-1" />
-                            {isLast && title ? (
-                                <Link to={routeTo} className="hover:text-sabiduria-gold transition-colors">
-                                    {routeName}
-                                </Link>
-                            ) : isLast ? (
+                            {isLast ? (
                                 <span className="text-sabiduria-gold font-bold">{routeName.replace(/-/g, ' ')}</span>
                             ) : (
                                 <Link to={routeTo} className="hover:text-sabiduria-gold transition-colors">
