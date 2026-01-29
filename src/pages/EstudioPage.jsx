@@ -6,6 +6,7 @@ import { ArrowLeft, Download, BookOpen, Play, List, Clock } from 'lucide-react';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ShareButtons from '../components/ShareButtons';
+import NewsletterForm from '../components/NewsletterForm';
 import content from '../data/content.json';
 
 /**
@@ -327,6 +328,20 @@ const EstudioPage = () => {
                         </div>
                     </motion.section>
                 )}
+
+                {/* Formulario de Suscripción */}
+                <motion.section
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.6 }}
+                    className="mb-16"
+                >
+                    <NewsletterForm
+                        title="¿Te bendijo este estudio?"
+                        description="Recibe nuevos estudios bíblicos y reflexiones doctrinales directamente en tu correo. Sin spam, solo contenido que edifica tu fe."
+                        buttonText="Suscribirse al boletín"
+                    />
+                </motion.section>
 
                 {/* PDF y CTA */}
                 <motion.section

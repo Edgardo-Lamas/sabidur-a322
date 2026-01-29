@@ -820,7 +820,69 @@
                 }
             ],
             "reflection": "Padre celestial, te doy gracias porque Tú eres el Juez justo de toda la tierra. Gracias porque en Cristo, tu justicia y tu misericordia se unieron para mi salvación. Ayúdame a vivir de manera que refleje tu carácter justo en todas mis acciones. Cuando enfrente injusticias, dame paz al saber que Tú enderezarás todas las cosas. En el nombre de Jesús, Amén.",
-            "estudiosRelacionados": [],
+            "estudiosRelacionados": [
+                "confia-en-el-senor-en-la-tormenta"
+            ],
+            "ctaText": "Explorar más estudios bíblicos",
+            "ctaLink": "/biblioteca"
+        },
+        {
+            "id": 2,
+            "slug": "confia-en-el-senor-en-la-tormenta",
+            "title": "Confía en el Señor en la Tormenta — Fe en Medio de las Pruebas",
+            "metaDescription": "Un estudio profundo sobre Mateo 14:22-33. Descubre cómo Jesús enseña a sus discípulos a confiar en Él cuando las tormentas de la vida amenazan con hundirnos.",
+            "introText": "<p class='first-letter:text-5xl first-letter:font-serif first-letter:mr-3 first-letter:float-left'>La vida del creyente no está exenta de tormentas. De hecho, las Escrituras revelan que los discípulos más cercanos a Jesús experimentaron algunas de las pruebas más intensas. En Mateo 14:22-33, encontramos uno de los episodios más conmovedores del ministerio de Cristo: los discípulos en medio de una tempestad, y Jesús caminando hacia ellos sobre las aguas.</p><p>Este pasaje, ubicado en la etapa final del ministerio del Señor en Galilea, no es simplemente un relato de un milagro asombroso. Es una lección profunda sobre la naturaleza de la fe, los límites de nuestra confianza humana, y la fidelidad inquebrantable de Cristo cuando todo parece derrumbarse a nuestro alrededor.</p><p>A través de este estudio, examinaremos el contexto histórico del pasaje, las lecciones teológicas que emergen de cada detalle, y las aplicaciones prácticas para nuestra vida como seguidores de Cristo en un mundo lleno de incertidumbre.</p>",
+            "youtubeId": "Mc3nBdCIiJ0",
+            "author": "Sabiduría para el Corazón",
+            "videoDuration": "PT18M45S",
+            "timestamps": [
+                {
+                    "time": "0:00",
+                    "label": "Introducción y contexto"
+                },
+                {
+                    "time": "3:30",
+                    "label": "Cristo envía a los discípulos a la tormenta"
+                },
+                {
+                    "time": "8:15",
+                    "label": "Jesús camina sobre las aguas"
+                },
+                {
+                    "time": "12:00",
+                    "label": "La fe de Pedro"
+                },
+                {
+                    "time": "15:30",
+                    "label": "Aplicaciones para hoy"
+                }
+            ],
+            "sections": [
+                {
+                    "id": "tormenta-permitida",
+                    "title": "La Tormenta Permitida por Cristo",
+                    "content": "<p>Un detalle crucial del pasaje que frecuentemente pasamos por alto es que <strong>Jesús envió a sus discípulos al mar</strong>. <span class='biblical-inline'>«En seguida Jesús hizo a sus discípulos entrar en la barca e ir delante de él a la otra ribera»</span> (Mateo 14:22). Los discípulos no desobedecieron; estaban exactamente donde Cristo les había mandado estar. Y sin embargo, se encontraron en medio de una tormenta feroz.</p><p>Esta verdad transforma nuestra perspectiva sobre las pruebas. No todas las tormentas son consecuencia del pecado o la desobediencia. A veces, Dios permite que entremos en aguas turbulentas precisamente porque tiene algo que enseñarnos que solo podemos aprender en medio del viento y las olas.</p><p>Los teólogos reformados han señalado que Dios usa las pruebas como instrumentos de santificación. Como escribió Tomás Watson: <em>«La aflicción es el diamante negro con el que Dios graba la imagen de Cristo en nosotros»</em>.</p>"
+                },
+                {
+                    "id": "jesus-sobre-las-aguas",
+                    "title": "Jesús Camina Sobre las Aguas: La Soberanía Divina Manifestada",
+                    "content": "<p>A la cuarta vigilia de la noche (entre las 3 y las 6 de la madrugada), cuando la situación parecía más desesperada, <span class='biblical-inline'>«Jesús vino a ellos andando sobre el mar»</span> (Mateo 14:25). Este milagro no es simplemente una demostración de poder sobrenatural; es una declaración teológica profunda.</p><p>En el Antiguo Testamento, el dominio sobre las aguas era una prerrogativa exclusiva de Yahvé. <span class='biblical-inline'>«Solo él extiende los cielos, y anda sobre las olas del mar»</span> (Job 9:8). Al caminar sobre las aguas, Jesús está reclamando para sí la identidad divina. Los discípulos estaban ante el Dios encarnado.</p><p>Además, las palabras <span class='biblical-inline'>«¡Tened ánimo; yo soy, no temáis!»</span> (Mateo 14:27) contienen el nombre divino «Yo Soy» (egō eimi), el mismo que Dios usó para revelarse a Moisés. Cristo no solo calma tormentas; Él es el Señor de toda la creación.</p>"
+                },
+                {
+                    "id": "fe-de-pedro",
+                    "title": "La Fe de Pedro: Victoria y Fracaso",
+                    "content": "<p>La respuesta de Pedro es fascinante. Con una mezcla de fe audaz y quizás imprudencia, pide caminar sobre las aguas hacia Jesús. Y lo logra—por un momento. <span class='biblical-inline'>«Pero al ver el fuerte viento, tuvo miedo; y comenzando a hundirse, dio voces, diciendo: ¡Señor, sálvame!»</span> (Mateo 14:30).</p><p>Pedro ilustra una verdad vital: <strong>nuestra fe permanece mientras nuestros ojos están puestos en Cristo, pero comienza a fallar cuando nos enfocamos en las circunstancias</strong>. El viento no había cambiado; lo que cambió fue el enfoque de Pedro.</p><p>Sin embargo, debemos notar que Pedro clamó a la Persona correcta. Su oración fue breve pero efectiva: «¡Señor, sálvame!». Y la respuesta de Jesús fue inmediata: <span class='biblical-inline'>«Al momento Jesús, extendiendo la mano, asió de él»</span> (Mateo 14:31). Cristo no rechaza a los que vienen a Él con fe débil; Él extiende su mano y los sostiene.</p>"
+                },
+                {
+                    "id": "aplicaciones-practicas",
+                    "title": "Aplicaciones para el Creyente Hoy",
+                    "content": "<p>Este pasaje nos deja lecciones transformadoras para nuestra vida cotidiana:</p><ul><li><strong>Las tormentas no son evidencia de abandono divino:</strong> Estar en la voluntad de Dios no garantiza una vida sin pruebas. Los discípulos estaban obedeciendo a Cristo y aun así enfrentaron la tormenta.</li><li><strong>Cristo siempre viene a nosotros:</strong> Aunque pareciera demorar, Jesús nunca abandona a los suyos. Él vino a los discípulos en el momento preciso, y viene a nosotros en nuestras noches más oscuras.</li><li><strong>Mantén tus ojos en Cristo:</strong> La fe que mira a Jesús permanece firme. La fe que se distrae con las olas comienza a hundirse. ¿Hacia dónde está dirigida tu mirada hoy?</li><li><strong>No hay clamor demasiado desesperado:</strong> «¡Señor, sálvame!» es una oración perfectamente válida. Cristo responde al grito del corazón quebrantado.</li></ul>"
+                }
+            ],
+            "reflection": "Señor Jesús, reconozco que muchas veces mis ojos se han apartado de Ti para mirar las olas amenazantes de mis circunstancias. Perdóname por dudar de tu presencia cuando las tormentas de la vida me rodean. Ayúdame a mantener mi mirada fija en Ti, sabiendo que Tú caminas sobre las aguas de mis mayores temores. Cuando comience a hundirme, extiende tu mano y sostenme, como lo hiciste con Pedro. En tu nombre oro, Amén.",
+            "estudiosRelacionados": [
+                "dios-el-mas-justo"
+            ],
             "ctaText": "Explorar más estudios bíblicos",
             "ctaLink": "/biblioteca"
         }
