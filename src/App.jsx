@@ -21,6 +21,8 @@ import HiloDelTiempo from './pages/HiloDelTiempo';
 import SedymModulo3 from './pages/SedymModulo3';
 import DeclaracionDeFe from './pages/DeclaracionDeFe';
 import EstudioPage from './pages/EstudioPage';
+import TeologiaBasica from './pages/TeologiaBasica';
+import TeologiaBasicaTema from './pages/TeologiaBasicaTema';
 import ScrollToTopButton from './components/ScrollToTopButton';
 
 // ScrollToTop component to ensure page starts at top on route change
@@ -64,6 +66,8 @@ function App() {
             <Route path="/biblioteca" element={<Biblioteca />} />
             <Route path="/biblioteca/consulta" element={<BibliotecaConsulta />} />
             <Route path="/declaracion-de-fe" element={<DeclaracionDeFe />} />
+            <Route path="/teologia-basica" element={<TeologiaBasica />} />
+            <Route path="/teologia-basica/:slug" element={<TeologiaBasicaTema />} />
             <Route path="/donaciones" element={<Donations />} />
           </Routes>
         </div>
