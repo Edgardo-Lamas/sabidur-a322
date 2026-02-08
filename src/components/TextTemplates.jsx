@@ -135,10 +135,12 @@ export const EssayTemplate = ({ text }) => {
     const location = useLocation();
 
     return (
-        <article className="text-essay max-w-3xl mx-auto px-4 py-16">
+        <article className="max-w-4xl mx-auto px-4 py-16">
             {/* Header - Centrado */}
             <header className="mb-12 text-center">
-                <h1>{title}</h1>
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-sabiduria-navy mb-6 font-heading">
+                    {title}
+                </h1>
                 <div className="text-sm text-sabiduria-gray opacity-80">
                     {author && <span>{author}</span>}
                     {author && date && <span className="mx-2">·</span>}
@@ -153,9 +155,9 @@ export const EssayTemplate = ({ text }) => {
                 </div>
             </header>
 
-            {/* Content */}
+            {/* Content - Estilo Teología Básica (Justificado, Serif, Estilos ricos) */}
             <div
-                className="prose prose-lg max-w-none"
+                className="teologia-content"
                 dangerouslySetInnerHTML={{ __html: content }}
             />
 
