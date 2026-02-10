@@ -24,6 +24,7 @@ import EstudioPage from './pages/EstudioPage';
 import TeologiaBasica from './pages/TeologiaBasica';
 import TeologiaBasicaTema from './pages/TeologiaBasicaTema';
 import ScrollToTopButton from './components/ScrollToTopButton';
+import ChatSpurgeon from './components/ChatSpurgeon';
 
 // ScrollToTop component to ensure page starts at top on route change
 const ScrollToTop = () => {
@@ -74,6 +75,7 @@ function App() {
         <Footer />
       </div>
       <ScrollToTopButton />
+      <ChatSpurgeon />
     </Router>
   );
 }

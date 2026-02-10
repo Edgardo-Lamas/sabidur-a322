@@ -4,15 +4,46 @@ import { motion } from 'framer-motion';
 import { BookOpen, ChevronRight, GraduationCap } from 'lucide-react';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
-import content from '../data/content.json';
+import { supabase } from '../lib/supabase';
 
 /**
  * TeologiaBasica - Página índice del curso de Teología Básica
  * Muestra los 12 capítulos como módulos de un curso estructurado
  */
 const TeologiaBasica = () => {
-    const { teologiaBasica } = content;
-    const capitulos = teologiaBasica?.capitulos || [];
+    const [teologiaConfig, setTeologiaConfig] = React.useState(null);
+    const [capitulos, setCapitulos] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // Fetch context from site_config
+                const { data: configData } = await supabase
+                    .from('site_config')
+                    .select('value')
+                    .eq('key', 'teologiaBasica')
+                    .single();
+
+                if (configData) setTeologiaConfig(configData.value);
+
+                // Fetch chapters
+                const { data: chaptersData, error } = await supabase
+                    .from('teologia_basica')
+                    .select('id, slug, title, description, order_index')
+                    .order('order_index', { ascending: true });
+
+                if (error) throw error;
+                setCapitulos(chaptersData || []);
+            } catch (err) {
+                console.error('Error fetching theology data:', err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <main className="bg-sabiduria-bg min-h-screen">
@@ -53,22 +84,22 @@ const TeologiaBasica = () => {
 
                         {/* Title */}
                         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-white mb-4">
-                            {teologiaBasica?.titulo}
+                            {teologiaConfig?.titulo || 'Teología Básica'}
                         </h1>
 
                         {/* Subtitle */}
                         <p className="text-xl sm:text-2xl text-sabiduria-gold/90 font-heading mb-6">
-                            {teologiaBasica?.subtitulo}
+                            {teologiaConfig?.subtitulo}
                         </p>
 
                         {/* Description */}
                         <p className="text-lg text-white/70 max-w-3xl mx-auto leading-relaxed mb-8">
-                            {teologiaBasica?.descripcion}
+                            {teologiaConfig?.descripcion}
                         </p>
 
                         {/* Author */}
                         <p className="text-sm text-white/50 italic">
-                            {teologiaBasica?.autor}
+                            {teologiaConfig?.autor}
                         </p>
 
                         {/* Progress indicator */}
@@ -87,50 +118,56 @@ const TeologiaBasica = () => {
 
             {/* Chapters Grid */}
             <section className="max-w-6xl mx-auto px-4 py-16">
-                <div className="grid gap-4 md:gap-6">
-                    {capitulos.map((capitulo, index) => (
-                        <motion.article
-                            key={capitulo.id}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4, delay: index * 0.05 }}
-                        >
-                            <Link
-                                to={`/teologia-basica/${capitulo.slug}`}
-                                className="group block bg-white border border-sabiduria-gray/10 hover:border-sabiduria-gold/30 transition-all duration-300 hover:shadow-lg"
+                {loading ? (
+                    <div className="flex justify-center py-20">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-sabiduria-gold"></div>
+                    </div>
+                ) : (
+                    <div className="grid gap-4 md:gap-6">
+                        {capitulos.map((capitulo, index) => (
+                            <motion.article
+                                key={capitulo.id}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.4, delay: index * 0.05 }}
                             >
-                                <div className="flex items-stretch">
-                                    {/* Chapter Number */}
-                                    <div className="flex-shrink-0 w-20 sm:w-24 bg-sabiduria-navy group-hover:bg-sabiduria-gold transition-colors duration-300 flex items-center justify-center">
-                                        <span className="text-2xl sm:text-3xl font-serif font-bold text-white">
-                                            {capitulo.numero}
-                                        </span>
-                                    </div>
-
-                                    {/* Content */}
-                                    <div className="flex-grow p-5 sm:p-6 flex items-center justify-between">
-                                        <div className="flex-grow pr-4">
-                                            <h2 className="text-lg sm:text-xl font-serif font-bold text-sabiduria-navy group-hover:text-sabiduria-gold transition-colors mb-1">
-                                                {capitulo.titulo}
-                                            </h2>
-                                            <p className="text-sm text-sabiduria-gray line-clamp-1">
-                                                {capitulo.descripcion}
-                                            </p>
+                                <Link
+                                    to={`/teologia-basica/${capitulo.slug}`}
+                                    className="group block bg-white border border-sabiduria-gray/10 hover:border-sabiduria-gold/30 transition-all duration-300 hover:shadow-lg"
+                                >
+                                    <div className="flex items-stretch">
+                                        {/* Chapter Number */}
+                                        <div className="flex-shrink-0 w-20 sm:w-24 bg-sabiduria-navy group-hover:bg-sabiduria-gold transition-colors duration-300 flex items-center justify-center">
+                                            <span className="text-2xl sm:text-3xl font-serif font-bold text-white">
+                                                {capitulo.numero}
+                                            </span>
                                         </div>
 
-                                        {/* Arrow */}
-                                        <div className="flex-shrink-0">
-                                            <ChevronRight
-                                                size={24}
-                                                className="text-sabiduria-gray/30 group-hover:text-sabiduria-gold group-hover:translate-x-1 transition-all"
-                                            />
+                                        {/* Content */}
+                                        <div className="flex-grow p-5 sm:p-6 flex items-center justify-between">
+                                            <div className="flex-grow pr-4">
+                                                <h2 className="text-lg sm:text-xl font-serif font-bold text-sabiduria-navy group-hover:text-sabiduria-gold transition-colors mb-1">
+                                                    {capitulo.titulo}
+                                                </h2>
+                                                <p className="text-sm text-sabiduria-gray line-clamp-1">
+                                                    {capitulo.descripcion}
+                                                </p>
+                                            </div>
+
+                                            {/* Arrow */}
+                                            <div className="flex-shrink-0">
+                                                <ChevronRight
+                                                    size={24}
+                                                    className="text-sabiduria-gray/30 group-hover:text-sabiduria-gold group-hover:translate-x-1 transition-all"
+                                                />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </Link>
-                        </motion.article>
-                    ))}
-                </div>
+                                </Link>
+                            </motion.article>
+                        ))}
+                    </div>
+                )}
             </section>
 
             {/* CTA Section */}

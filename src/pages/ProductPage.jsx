@@ -5,26 +5,69 @@ import CheckoutButton from '../components/CheckoutButton';
 import ProductCard from '../components/ProductCard';
 import Breadcrumbs from '../components/Breadcrumbs';
 import SEO from '../components/SEO';
-import content from '../data/content.json';
+import { supabase } from '../lib/supabase';
 
 const ProductPage = () => {
     const { slug } = useParams();
     const navigate = useNavigate();
+    const [product, setProduct] = React.useState(null);
+    const [relatedProducts, setRelatedProducts] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
+    const [storeConfig, setStoreConfig] = React.useState({});
 
-    // Find the product
-    const product = content.products?.find(p => p.slug === slug);
-
-    // Scroll to top on mount
     useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [slug]);
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                // Fetch store config
+                const { data: configData } = await supabase
+                    .from('site_config')
+                    .select('value')
+                    .eq('key', 'storeConfig')
+                    .single();
 
-    // Redirect if product not found
-    useEffect(() => {
-        if (!product) {
-            navigate('/tienda');
-        }
-    }, [product, navigate]);
+                if (configData) setStoreConfig(configData.value);
+
+                // Fetch current product
+                const { data: prodData, error: prodError } = await supabase
+                    .from('productos')
+                    .select('*')
+                    .eq('slug', slug)
+                    .single();
+
+                if (prodError || !prodData) {
+                    navigate('/tienda');
+                    return;
+                }
+                setProduct(prodData);
+
+                // Fetch related products (same category, excluding current product)
+                const { data: relData } = await supabase
+                    .from('productos')
+                    .select('*')
+                    .eq('category', prodData.category)
+                    .neq('id', prodData.id)
+                    .limit(4);
+
+                setRelatedProducts(relData || []);
+            } catch (err) {
+                console.error('Error fetching product:', err.message);
+                navigate('/tienda');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, [slug, navigate]);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-sabiduria-bg">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-sabiduria-gold"></div>
+            </div>
+        );
+    }
 
     if (!product) {
         return null;
@@ -33,17 +76,12 @@ const ProductPage = () => {
     const formatPrice = (price) => {
         return new Intl.NumberFormat('es-AR', {
             style: 'currency',
-            currency: content.storeConfig.currency || 'ARS',
+            currency: storeConfig.currency || 'ARS',
             minimumFractionDigits: 0
         }).format(price);
     };
 
-    const category = content.productCategories?.find(cat => cat.id === product.category);
-
-    // Get related products (same category, excluding current product)
-    const relatedProducts = content.products
-        ?.filter(p => p.category === product.category && p.id !== product.id)
-        .slice(0, 4) || [];
+    const categoryName = product.category;
 
     const breadcrumbItems = [
         { label: 'Inicio', path: '/' },
@@ -171,14 +209,23 @@ const ProductPage = () => {
                                             <FileText className="text-sabiduria-gold mt-1 flex-shrink-0" size={20} />
                                             <div>
                                                 <span className="text-sm font-bold text-sabiduria-navy">Categoría:</span>
-                                                <span className="text-sm text-sabiduria-gray ml-2">{category?.name}</span>
+                                                <span className="text-sm text-sabiduria-gray ml-2">{categoryName}</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Checkout Button */}
-                                <CheckoutButton product={product} />
+                                {product.checkout_url && (
+                                    <a
+                                        href={product.checkout_url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="w-full text-center py-5 bg-sabiduria-navy text-white font-bold tracking-[0.2em] text-sm uppercase hover:bg-sabiduria-gold transition-all duration-300 shadow-xl shadow-sabiduria-navy/10"
+                                    >
+                                        ADQUIRIR EJEMPLAR
+                                    </a>
+                                )}
                             </div>
                         </div>
                     </div>

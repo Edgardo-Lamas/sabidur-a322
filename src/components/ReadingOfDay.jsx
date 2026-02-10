@@ -2,10 +2,40 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Quote } from 'lucide-react';
-import content from '../data/content.json';
+import { supabase } from '../lib/supabase';
 
 const ReadingOfDay = () => {
-    const { dailyReadings, dailyReadingConfig } = content;
+    const [dailyReadings, setDailyReadings] = React.useState([]);
+    const [config, setConfig] = React.useState(null);
+    const [loading, setLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // Fetch readings
+                const { data: readingsData } = await supabase
+                    .from('lecturas_diarias')
+                    .select('*');
+
+                if (readingsData) setDailyReadings(readingsData);
+
+                // Fetch config
+                const { data: configData } = await supabase
+                    .from('site_config')
+                    .select('value')
+                    .eq('key', 'dailyReadingConfig')
+                    .single();
+
+                if (configData) setConfig(configData.value);
+            } catch (err) {
+                console.error('Error fetching daily reading:', err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     // Calcular el día del año (1-366)
     const now = new Date();
@@ -14,16 +44,21 @@ const ReadingOfDay = () => {
     const oneDay = 1000 * 60 * 60 * 24;
     const dayOfYear = Math.floor(diff / oneDay);
 
-    // Seleccionar la lectura del día usando rotación cíclica (módulo 50)
-    const readingIndex = (dayOfYear - 1) % dailyReadings.length;
-    const todaysReading = dailyReadings[readingIndex];
+    // Seleccionar la lectura del día usando rotación cíclica
+    const todaysReading = dailyReadings.length > 0
+        ? dailyReadings[(dayOfYear - 1) % dailyReadings.length]
+        : null;
+
+    if (loading || !todaysReading || !config) {
+        return <div className="py-24 bg-sabiduria-navy h-96 animate-pulse" />;
+    }
 
     return (
         <section className="relative py-24 overflow-hidden">
             {/* Background Image with Overlay */}
             <div className="absolute inset-0 z-0">
                 <img
-                    src={`${import.meta.env.BASE_URL}${dailyReadingConfig.backgroundImage}`}
+                    src={`${import.meta.env.BASE_URL}${config.backgroundImage}`}
                     alt="Fondo lectura"
                     className="w-full h-full object-cover"
                 />
@@ -47,7 +82,7 @@ const ReadingOfDay = () => {
                     viewport={{ once: true }}
                     className="text-sabiduria-gold text-xs font-bold uppercase tracking-[0.3em] mb-6"
                 >
-                    {dailyReadingConfig.title}
+                    {config.title}
                 </motion.h2>
 
                 <motion.blockquote
@@ -77,7 +112,7 @@ const ReadingOfDay = () => {
                     transition={{ delay: 0.6 }}
                 >
                     <Link
-                        to={dailyReadingConfig.link}
+                        to={config.link}
                         className="btn-gold px-12 py-4"
                     >
                         LEER DEVOCIONAL

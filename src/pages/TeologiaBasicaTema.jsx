@@ -6,7 +6,7 @@ import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ShareButtons from '../components/ShareButtons';
 import NewsletterForm from '../components/NewsletterForm';
-import content from '../data/content.json';
+import { supabase } from '../lib/supabase';
 
 /**
  * TeologiaBasicaTema - Página individual para cada capítulo del curso
@@ -14,14 +14,53 @@ import content from '../data/content.json';
  */
 const TeologiaBasicaTema = () => {
     const { slug } = useParams();
-    const { teologiaBasica } = content;
-    const capitulos = teologiaBasica?.capitulos || [];
-    const capituloIndex = capitulos.findIndex((c) => c.slug === slug);
-    const capitulo = capitulos[capituloIndex];
+    const [capitulo, setCapitulo] = React.useState(null);
+    const [allCapitulos, setAllCapitulos] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        const fetchCapitulo = async () => {
+            setLoading(true);
+            try {
+                // Fetch current chapter
+                const { data: capData, error: capError } = await supabase
+                    .from('teologia_basica')
+                    .select('*')
+                    .eq('slug', slug)
+                    .single();
+
+                if (capError) throw capError;
+                setCapitulo(capData);
+
+                // Fetch all chapters for navigation
+                const { data: allData } = await supabase
+                    .from('teologia_basica')
+                    .select('slug, title, order_index')
+                    .order('order_index', { ascending: true });
+
+                setAllCapitulos(allData || []);
+            } catch (err) {
+                console.error('Error fetching chapter:', err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchCapitulo();
+    }, [slug]);
 
     // Navegación
-    const prevCap = capituloIndex > 0 ? capitulos[capituloIndex - 1] : null;
-    const nextCap = capituloIndex < capitulos.length - 1 ? capitulos[capituloIndex + 1] : null;
+    const capituloIndex = allCapitulos.findIndex((c) => c.slug === slug);
+    const prevCap = capituloIndex > 0 ? allCapitulos[capituloIndex - 1] : null;
+    const nextCap = capituloIndex < allCapitulos.length - 1 ? allCapitulos[capituloIndex + 1] : null;
+
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-sabiduria-bg">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-sabiduria-gold"></div>
+            </div>
+        );
+    }
 
     if (!capitulo) {
         return (
@@ -73,22 +112,22 @@ const TeologiaBasicaTema = () => {
                     {/* Chapter indicator */}
                     <div className="flex items-center gap-3 mb-6">
                         <span className="inline-flex items-center justify-center w-12 h-12 bg-sabiduria-navy text-white font-serif font-bold text-xl rounded-full">
-                            {capitulo.numero}
+                            Capítulo {capitulo.order_index} de {allCapitulos.length}
                         </span>
                         <div>
                             <span className="text-sabiduria-gold text-xs font-bold uppercase tracking-[0.2em]">
-                                Capítulo {capitulo.numero} de {capitulos.length}
+                                Capítulo {capitulo.order_index} de {allCapitulos.length}
                             </span>
                             <div className="flex items-center gap-2 mt-1">
                                 {/* Progress bar */}
                                 <div className="w-32 h-1 bg-sabiduria-navy/10 rounded-full overflow-hidden">
                                     <div
                                         className="h-full bg-sabiduria-gold transition-all duration-500"
-                                        style={{ width: `${(capitulo.numero / capitulos.length) * 100}%` }}
+                                        style={{ width: `${(capitulo.order_index / allCapitulos.length) * 100}%` }}
                                     />
                                 </div>
                                 <span className="text-xs text-sabiduria-gray">
-                                    {Math.round((capitulo.numero / capitulos.length) * 100)}%
+                                    {Math.round((capitulo.order_index / allCapitulos.length) * 100)}%
                                 </span>
                             </div>
                         </div>
@@ -96,7 +135,7 @@ const TeologiaBasicaTema = () => {
 
                     {/* Title */}
                     <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-sabiduria-navy leading-tight mb-4">
-                        {capitulo.titulo}
+                        {capitulo.title}
                     </h1>
 
                     {/* Description */}

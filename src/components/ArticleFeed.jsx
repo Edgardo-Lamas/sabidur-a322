@@ -1,17 +1,40 @@
 import React from 'react';
 import { ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import content from '../data/content.json';
+import { supabase } from '../lib/supabase';
 
 const ArticleFeed = () => {
     const [selectedCategory, setSelectedCategory] = React.useState('Todos');
+    const [articles, setArticles] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
 
     // Define exact categories requested
     const categories = ['Todos', 'Exégesis', 'Bosquejos', 'Teología Sistemática', 'E-books / Recursos'];
 
+    React.useEffect(() => {
+        const fetchArticles = async () => {
+            setLoading(true);
+            try {
+                const { data, error } = await supabase
+                    .from('articulos')
+                    .select('*')
+                    .order('date', { ascending: false });
+
+                if (error) throw error;
+                setArticles(data || []);
+            } catch (err) {
+                console.error('Error fetching articles:', err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchArticles();
+    }, []);
+
     const filteredArticles = selectedCategory === 'Todos'
-        ? content.articles
-        : content.articles.filter(article => article.category === selectedCategory);
+        ? articles
+        : articles.filter(article => article.category === selectedCategory);
 
     return (
         <section className="py-20 md:py-28">
@@ -32,8 +55,8 @@ const ArticleFeed = () => {
                                     key={cat}
                                     onClick={() => setSelectedCategory(cat)}
                                     className={`text-sm md:text-base font-serif italic transition-colors relative ${selectedCategory === cat
-                                            ? 'text-sabiduria-gold font-medium'
-                                            : 'text-sabiduria-navy/60 hover:text-sabiduria-navy'
+                                        ? 'text-sabiduria-gold font-medium'
+                                        : 'text-sabiduria-navy/60 hover:text-sabiduria-navy'
                                         }`}
                                 >
                                     {cat}
@@ -50,7 +73,11 @@ const ArticleFeed = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 min-h-[500px]">
-                    {filteredArticles.length > 0 ? (
+                    {loading ? (
+                        <div className="col-span-3 flex justify-center py-20">
+                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-sabiduria-gold"></div>
+                        </div>
+                    ) : filteredArticles.length > 0 ? (
                         filteredArticles.slice(0, 3).map((article, index) => (
                             <article key={article.id} className="group flex flex-col items-start animate-fade-in-up">
                                 {/* Decorative line for first item or specific style could go here, but keeping it clean */}

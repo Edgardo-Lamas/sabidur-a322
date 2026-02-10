@@ -3,27 +3,43 @@ import { Link } from 'react-router-dom';
 import { ChevronRight, Search, FileText } from 'lucide-react';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
-import content from '../data/content.json';
+import { supabase } from '../lib/supabase';
 
 const Articles = () => {
     const [searchTerm, setSearchTerm] = React.useState('');
     const [selectedCategory, setSelectedCategory] = React.useState('Todos');
+    const [articles, setArticles] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
 
-    // Use only HTML articles from textos.articulos (PDFs are being phased out)
-    const allArticles = (content.textos?.articulos || []).map(a => ({
-        ...a,
-        category: a.category || 'Teología Sistemática',
-        date: a.date || '2025-01-01'
-    }));
+    React.useEffect(() => {
+        const fetchArticles = async () => {
+            setLoading(true);
+            try {
+                const { data, error } = await supabase
+                    .from('articulos')
+                    .select('*')
+                    .order('date', { ascending: false });
 
-    const filteredArticles = allArticles.filter((article) => {
+                if (error) throw error;
+                setArticles(data || []);
+            } catch (err) {
+                console.error('Error fetching articles:', err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchArticles();
+    }, []);
+
+    const filteredArticles = articles.filter((article) => {
         const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            article.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+            (article.excerpt || '').toLowerCase().includes(searchTerm.toLowerCase());
         const matchesCategory = selectedCategory === 'Todos' || article.category === selectedCategory;
         return matchesSearch && matchesCategory;
     });
 
-    const categories = ['Todos', ...new Set(allArticles.map(a => a.category))];
+    const categories = ['Todos', ...new Set(articles.map(a => a.category))];
 
     return (
         <main className="bg-sabiduria-bg min-h-screen py-8 md:py-16">
@@ -90,7 +106,11 @@ const Articles = () => {
                 </div>
 
                 {/* Article Grid */}
-                {filteredArticles.length > 0 ? (
+                {loading ? (
+                    <div className="flex justify-center py-20">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-sabiduria-gold"></div>
+                    </div>
+                ) : filteredArticles.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                         {filteredArticles.map((article) => (
                             <article key={article.id} className="group flex flex-col h-full bg-white p-8 border border-sabiduria-gray/5 hover:border-sabiduria-gold/20 transition-all shadow-sm">
@@ -108,9 +128,9 @@ const Articles = () => {
                                         {new Date(article.date).toLocaleDateString('es-ES', { month: 'short', year: 'numeric' })}
                                     </span>
                                     <div className="flex items-center gap-4">
-                                        {article.pdfUrl && (
+                                        {article.pdf_url && (
                                             <a
-                                                href={`${import.meta.env.BASE_URL}${article.pdfUrl}`}
+                                                href={`${import.meta.env.BASE_URL}${article.pdf_url}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="text-sabiduria-gray hover:text-sabiduria-gold transition-colors p-1"

@@ -3,11 +3,42 @@ import { useParams } from 'react-router-dom';
 import ReadingSection from '../components/ReadingSection';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
-import content from '../data/content.json';
+import { supabase } from '../lib/supabase';
 
 const ArticlePage = () => {
     const { slug } = useParams();
-    const article = (content.textos?.articulos || []).find((a) => a.slug === slug);
+    const [article, setArticle] = React.useState(null);
+    const [loading, setLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        const fetchArticle = async () => {
+            setLoading(true);
+            try {
+                const { data, error } = await supabase
+                    .from('articulos')
+                    .select('*')
+                    .eq('slug', slug)
+                    .single();
+
+                if (error) throw error;
+                setArticle(data);
+            } catch (err) {
+                console.error('Error fetching article:', err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchArticle();
+    }, [slug]);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-sabiduria-bg">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-sabiduria-gold"></div>
+            </div>
+        );
+    }
 
     if (!article) {
         return (

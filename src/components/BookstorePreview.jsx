@@ -1,9 +1,32 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ShoppingBag, Star } from 'lucide-react';
-import content from '../data/content.json';
+import { Star, ShoppingBag } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 
 const BookstorePreview = () => {
+    const [books, setBooks] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        const fetchBooks = async () => {
+            try {
+                const { data, error } = await supabase
+                    .from('productos')
+                    .select('*')
+                    .eq('featured', true)
+                    .limit(2);
+
+                if (error) throw error;
+                setBooks(data || []);
+            } catch (err) {
+                console.error('Error fetching books:', err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchBooks();
+    }, []);
     return (
         <section className="bg-sabiduria-bg py-24">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -28,7 +51,11 @@ const BookstorePreview = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    {content.bookstore.map((book) => (
+                    {loading ? (
+                        <div className="col-span-2 flex justify-center py-20">
+                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-sabiduria-gold"></div>
+                        </div>
+                    ) : books.map((book) => (
                         <motion.div
                             key={book.id}
                             initial={{ opacity: 0, y: 30 }}
@@ -58,7 +85,7 @@ const BookstorePreview = () => {
                                     </p>
                                 </div>
                                 <a
-                                    href={book.link}
+                                    href={book.checkout_url || '#'}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="w-full text-center py-4 bg-sabiduria-navy text-white font-bold tracking-widest text-xs uppercase hover:bg-sabiduria-gold transition-colors duration-300"

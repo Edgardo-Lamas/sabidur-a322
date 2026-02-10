@@ -7,7 +7,7 @@ import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ShareButtons from '../components/ShareButtons';
 import NewsletterForm from '../components/NewsletterForm';
-import content from '../data/content.json';
+import { supabase } from '../lib/supabase';
 
 /**
  * EstudioPage - Página dinámica para estudios con video de YouTube
@@ -16,8 +16,50 @@ import content from '../data/content.json';
  */
 const EstudioPage = () => {
     const { slug } = useParams();
-    const estudios = content.estudios || [];
-    const estudio = estudios.find((e) => e.slug === slug);
+    const [estudio, setEstudio] = React.useState(null);
+    const [estudiosRelacionados, setEstudiosRelacionados] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                // Fetch current study
+                const { data: estData, error: estError } = await supabase
+                    .from('estudios_biblicos')
+                    .select('*')
+                    .eq('slug', slug)
+                    .single();
+
+                if (estError) throw estError;
+                setEstudio(estData);
+
+                // Fetch related studies if they exist in the record
+                if (estData.estudios_relacionados && estData.estudios_relacionados.length > 0) {
+                    const { data: relData } = await supabase
+                        .from('estudios_biblicos')
+                        .select('slug, title, youtube_id')
+                        .in('slug', estData.estudios_relacionados);
+
+                    setEstudiosRelacionados(relData || []);
+                }
+            } catch (err) {
+                console.error('Error fetching study:', err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, [slug]);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-sabiduria-bg">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-sabiduria-gold"></div>
+            </div>
+        );
+    }
 
     if (!estudio) {
         return (
@@ -44,20 +86,15 @@ const EstudioPage = () => {
     // Generar URLs y datos para SEO
     const siteUrl = 'https://edgardo-lamas.github.io/sabidur-a322';
     const pageUrl = `${siteUrl}/estudio/${estudio.slug}`;
-    const ogImage = `https://img.youtube.com/vi/${estudio.youtubeId}/maxresdefault.jpg`;
-    const videoUrl = `https://www.youtube.com/watch?v=${estudio.youtubeId}`;
-
-    // Obtener estudios relacionados
-    const estudiosRelacionados = (estudio.estudiosRelacionados || [])
-        .map(slug => estudios.find(e => e.slug === slug))
-        .filter(Boolean);
+    const ogImage = `https://img.youtube.com/vi/${estudio.youtube_id}/maxresdefault.jpg`;
+    const videoUrl = `https://www.youtube.com/watch?v=${estudio.youtube_id}`;
 
     // Schema.org JSON-LD
     const articleSchema = {
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": estudio.title,
-        "description": estudio.metaDescription,
+        "description": estudio.meta_description,
         "image": ogImage,
         "author": {
             "@type": "Organization",
@@ -82,12 +119,12 @@ const EstudioPage = () => {
         "@context": "https://schema.org",
         "@type": "VideoObject",
         "name": estudio.title,
-        "description": estudio.metaDescription,
+        "description": estudio.meta_description,
         "thumbnailUrl": ogImage,
         "uploadDate": estudio.date || new Date().toISOString().split('T')[0],
-        "duration": estudio.videoDuration || "PT10M",
+        "duration": estudio.video_duration || "PT10M",
         "contentUrl": videoUrl,
-        "embedUrl": `https://www.youtube.com/embed/${estudio.youtubeId}`,
+        "embedUrl": `https://www.youtube.com/embed/${estudio.youtube_id}`,
         "publisher": {
             "@type": "Organization",
             "name": "Sabiduría para el Corazón"
@@ -98,7 +135,7 @@ const EstudioPage = () => {
         <main className="bg-sabiduria-bg min-h-screen">
             <SEO
                 title={estudio.title}
-                description={estudio.metaDescription}
+                description={estudio.meta_description}
                 image={ogImage}
                 url={`/estudio/${estudio.slug}`}
                 type="article"
@@ -189,7 +226,7 @@ const EstudioPage = () => {
                 >
                     <div
                         className="text-sabiduria-navy/80 leading-relaxed text-lg text-justify"
-                        dangerouslySetInnerHTML={{ __html: estudio.introText }}
+                        dangerouslySetInnerHTML={{ __html: estudio.intro_text }}
                     />
                 </motion.section>
 
@@ -209,7 +246,7 @@ const EstudioPage = () => {
                         </div>
                         <div className="relative w-full aspect-video">
                             <iframe
-                                src={`https://www.youtube.com/embed/${estudio.youtubeId}`}
+                                src={`https://www.youtube.com/embed/${estudio.youtube_id}`}
                                 title={estudio.title}
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
@@ -312,7 +349,7 @@ const EstudioPage = () => {
                                 >
                                     <div className="aspect-video relative overflow-hidden">
                                         <img
-                                            src={`https://img.youtube.com/vi/${relacionado.youtubeId}/mqdefault.jpg`}
+                                            src={`https://img.youtube.com/vi/${relacionado.youtube_id}/mqdefault.jpg`}
                                             alt={relacionado.title}
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                         />
@@ -352,9 +389,9 @@ const EstudioPage = () => {
                 >
                     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                         {/* Botón PDF */}
-                        {estudio.pdfUrl && (
+                        {estudio.pdf_url && (
                             <a
-                                href={`${import.meta.env.BASE_URL}${estudio.pdfUrl}`}
+                                href={`${import.meta.env.BASE_URL}${estudio.pdf_url}`}
                                 download
                                 className="inline-flex items-center gap-2 bg-sabiduria-navy text-white px-6 py-3 font-bold text-sm uppercase tracking-wider hover:bg-sabiduria-navy/90 transition-all"
                             >
@@ -364,13 +401,13 @@ const EstudioPage = () => {
                         )}
 
                         {/* CTA Configurable */}
-                        {estudio.ctaLink && (
+                        {estudio.cta_link && (
                             <Link
-                                to={estudio.ctaLink}
+                                to={estudio.cta_link}
                                 className="inline-flex items-center gap-2 bg-sabiduria-gold text-sabiduria-navy px-6 py-3 font-bold text-sm uppercase tracking-wider hover:bg-sabiduria-gold/90 transition-all"
                             >
                                 <BookOpen size={18} />
-                                {estudio.ctaText || 'Explorar más contenido'}
+                                {estudio.cta_text || 'Explorar más contenido'}
                             </Link>
                         )}
                     </div>

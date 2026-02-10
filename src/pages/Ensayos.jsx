@@ -3,13 +3,32 @@ import { Link } from 'react-router-dom';
 import { ChevronRight, Search } from 'lucide-react';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
-import content from '../data/content.json';
+import { supabase } from '../lib/supabase';
 
 const Ensayos = () => {
     const [searchTerm, setSearchTerm] = React.useState('');
+    const [ensayos, setEnsayos] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
 
-    // Obtener ensayos del contenido
-    const ensayos = content.textos?.ensayos || [];
+    React.useEffect(() => {
+        const fetchEnsayos = async () => {
+            try {
+                const { data, error } = await supabase
+                    .from('ensayos')
+                    .select('*')
+                    .order('date', { ascending: false });
+
+                if (error) throw error;
+                setEnsayos(data || []);
+            } catch (err) {
+                console.error('Error fetching essays:', err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchEnsayos();
+    }, []);
 
     const filteredEnsayos = ensayos.filter((ensayo) =>
         ensayo.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -70,7 +89,11 @@ const Ensayos = () => {
                 )}
 
                 {/* Essays Grid */}
-                {filteredEnsayos.length > 0 ? (
+                {loading ? (
+                    <div className="flex justify-center py-20">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-sabiduria-gold"></div>
+                    </div>
+                ) : filteredEnsayos.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                         {filteredEnsayos.map((ensayo) => (
                             <article
@@ -144,30 +167,6 @@ const Ensayos = () => {
                                     </p>
                                     <Link
                                         to="/estudio/hilo-del-tiempo"
-                                        className="text-sabiduria-navy font-bold text-sm uppercase tracking-widest flex items-center gap-1 group-hover:gap-2 transition-all"
-                                    >
-                                        Ver estudio <ChevronRight size={16} />
-                                    </Link>
-                                </div>
-                            </div>
-                        </article>
-                        <article className="group bg-white p-8 border border-sabiduria-gray/5 hover:border-sabiduria-gold/30 transition-all shadow-sm">
-                            <div className="flex items-start gap-4">
-                                <div className="w-12 h-12 bg-sabiduria-gold/10 rounded-sm flex items-center justify-center flex-shrink-0">
-                                    <span className="text-sabiduria-gold font-serif text-xl font-bold">M3</span>
-                                </div>
-                                <div className="flex-1">
-                                    <span className="text-xs uppercase tracking-widest text-sabiduria-gold font-bold mb-2 block">
-                                        Curso de Formación
-                                    </span>
-                                    <h3 className="text-xl font-serif text-sabiduria-navy group-hover:text-sabiduria-gold transition-colors mb-2">
-                                        <Link to="/estudio/sedym-modulo-3">SEDYM Módulo 3</Link>
-                                    </h3>
-                                    <p className="text-sabiduria-gray text-sm mb-4">
-                                        Curso sobre liderazgo en células, doctrina de la Iglesia, autoridad espiritual, consejería bíblica y consolidación.
-                                    </p>
-                                    <Link
-                                        to="/estudio/sedym-modulo-3"
                                         className="text-sabiduria-navy font-bold text-sm uppercase tracking-widest flex items-center gap-1 group-hover:gap-2 transition-all"
                                     >
                                         Ver estudio <ChevronRight size={16} />
