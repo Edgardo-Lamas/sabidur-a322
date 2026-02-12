@@ -1,0 +1,235 @@
+{
+    "name": "Agente Spurgeon - Chat RAG",
+    "nodes": [
+        {
+            "parameters": {
+                "httpMethod": "POST",
+                "path": "chat",
+                "responseMode": "responseNode",
+                "options": {}
+            },
+            "name": "Webhook Chat",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 2,
+            "position": [
+                200,
+                300
+            ],
+            "webhookId": "spurgeon-chat"
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://api.openai.com/v1/embeddings",
+                "sendHeaders": true,
+                "headerParameters": {
+                    "parameters": [
+                        {
+                            "name": "Authorization",
+                            "value": "Bearer TU_OPENAI_API_KEY"
+                        },
+                        {
+                            "name": "Content-Type",
+                            "value": "application/json"
+                        }
+                    ]
+                },
+                "sendBody": true,
+                "specifyBody": "json",
+                "jsonBody": "={{ JSON.stringify({ model: 'text-embedding-3-small', input: $json.body.question }) }}"
+            },
+            "name": "Generar Embedding",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                440,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://ywqpwsgoitmxrnfryvww.supabase.co/rest/v1/rpc/match_document_sections",
+                "sendHeaders": true,
+                "headerParameters": {
+                    "parameters": [
+                        {
+                            "name": "apikey",
+                            "value": "TU_SUPABASE_ANON_KEY"
+                        },
+                        {
+                            "name": "Authorization",
+                            "value": "Bearer TU_SUPABASE_ANON_KEY"
+                        },
+                        {
+                            "name": "Content-Type",
+                            "value": "application/json"
+                        }
+                    ]
+                },
+                "sendBody": true,
+                "specifyBody": "json",
+                "jsonBody": "={{ JSON.stringify({ query_embedding: $json.data[0].embedding, match_threshold: 0.3, match_count: 5 }) }}"
+            },
+            "name": "Buscar en RAG",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                680,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "mode": "runOnceForAllItems",
+                "jsCode": "const webhookData = $('Webhook Chat').first().json;\nconst question = webhookData.body.question;\nconst results = $input.all();\n\nlet context = '';\nconst sources = [];\n\nfor (const item of results) {\n  const data = item.json;\n  if (data && data.content) {\n    const title = data.metadata?.title || 'Sin título';\n    const source = data.metadata?.source || 'contenido';\n    context += `--- ${title} (${source}) ---\\n${data.content}\\n\\n`;\n    if (!sources.find(s => s.title === title)) {\n      sources.push({ title, source });\n    }\n  }\n}\n\nif (!context) {\n  context = 'No se encontró contexto relevante en la base de conocimiento.';\n}\n\nconst systemPrompt = `Eres el \"Agente Spurgeon\", el asistente teológico de Sabiduría para el Corazón. Tu misión es ayudar a los visitantes del sitio con preguntas sobre la fe cristiana, la Biblia y la teología reformada.\n\nINSTRUCCIONES:\n- Respondé basándote EXCLUSIVAMENTE en el contexto proporcionado del sitio.\n- Si la información no está en el contexto, decilo con honestidad y sugerí explorar el sitio.\n- Usá un tono pastoral, cálido pero teológicamente preciso y sobrio.\n- Citá las fuentes cuando sea posible (título del artículo o ensayo).\n- Mantené las respuestas concisas (máximo 3-4 párrafos).\n- Siempre señalá que la autoridad final es la Escritura.\n- Respondé en español.`;\n\nreturn [{\n  json: {\n    systemPrompt,\n    question,\n    context: context.trim(),\n    sources\n  }\n}];"
+            },
+            "name": "Construir Prompt",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                920,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://api.openai.com/v1/chat/completions",
+                "sendHeaders": true,
+                "headerParameters": {
+                    "parameters": [
+                        {
+                            "name": "Authorization",
+                            "value": "Bearer TU_OPENAI_API_KEY"
+                        },
+                        {
+                            "name": "Content-Type",
+                            "value": "application/json"
+                        }
+                    ]
+                },
+                "sendBody": true,
+                "specifyBody": "json",
+                "jsonBody": "={{ JSON.stringify({ model: 'gpt-4o-mini', messages: [{ role: 'system', content: $json.systemPrompt }, { role: 'user', content: 'Contexto del sitio:\\n' + $json.context + '\\n\\nPregunta del usuario: ' + $json.question }], temperature: 0.7, max_tokens: 1000 }) }}"
+            },
+            "name": "Respuesta GPT",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                1160,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "mode": "runOnceForAllItems",
+                "jsCode": "const gptResponse = $json.choices[0].message.content;\nconst sources = $('Construir Prompt').first().json.sources;\n\nreturn [{\n  json: {\n    reply: gptResponse,\n    sources: sources\n  }\n}];"
+            },
+            "name": "Formatear Respuesta",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                1400,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "respondWith": "firstIncomingItem",
+                "options": {
+                    "responseHeaders": {
+                        "entries": [
+                            {
+                                "name": "Access-Control-Allow-Origin",
+                                "value": "*"
+                            }
+                        ]
+                    }
+                }
+            },
+            "name": "Responder",
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1.1,
+            "position": [
+                1640,
+                300
+            ]
+        }
+    ],
+    "connections": {
+        "Webhook Chat": {
+            "main": [
+                [
+                    {
+                        "node": "Generar Embedding",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Generar Embedding": {
+            "main": [
+                [
+                    {
+                        "node": "Buscar en RAG",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Buscar en RAG": {
+            "main": [
+                [
+                    {
+                        "node": "Construir Prompt",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Construir Prompt": {
+            "main": [
+                [
+                    {
+                        "node": "Respuesta GPT",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Respuesta GPT": {
+            "main": [
+                [
+                    {
+                        "node": "Formatear Respuesta",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Formatear Respuesta": {
+            "main": [
+                [
+                    {
+                        "node": "Responder",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "settings": {
+        "executionOrder": "v1"
+    },
+    "pinData": {},
+    "staticData": null,
+    "tags": [],
+    "triggerCount": 0
+}

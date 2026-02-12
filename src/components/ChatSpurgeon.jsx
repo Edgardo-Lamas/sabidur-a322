@@ -1,13 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, X, Send, Sparkles, User, Info } from 'lucide-react';
+import { MessageSquare, X, Send, Sparkles, User, Info, BookOpen } from 'lucide-react';
+
+const N8N_WEBHOOK_URL = 'http://localhost:5678/webhook/chat';
+const SPURGEON_AVATAR = `${import.meta.env.BASE_URL}images/spurgeon-avatar.png`;
 
 const ChatSpurgeon = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([
         {
             role: 'assistant',
-            content: 'Bienvenido. Soy el Agente Spurgeon. Estoy aquí para acompañar su reflexión bíblica y estudio teológico con sobriedad y cuidado. ¿En qué tema o pasaje desea profundizar hoy?',
+            content: 'Bienvenido, soy el Agente Spurgeon, estoy aquí para acompañar su estudio teológico. ¿Qué tema o pasaje desea profundizar?',
             timestamp: new Date()
         }
     ]);
@@ -25,25 +28,41 @@ const ChatSpurgeon = () => {
         e.preventDefault();
         if (!input.trim()) return;
 
-        const userMessage = { role: 'user', content: input, timestamp: new Date() };
+        const question = input.trim();
+        const userMessage = { role: 'user', content: question, timestamp: new Date() };
         setMessages(prev => [...prev, userMessage]);
         setInput('');
         setIsTyping(true);
 
-        // Aquí se conectará con el Webhook de n8n en el futuro
         try {
-            // Simulando respuesta para desarrollo visual
-            setTimeout(() => {
-                const assistantMessage = {
-                    role: 'assistant',
-                    content: 'He recibido su consulta. Estoy reflexionando en los principios bíblicos y contenidos de Sabiduría para el Corazón para ofrecerle un marco de discernimiento responsable.',
-                    timestamp: new Date()
-                };
-                setMessages(prev => [...prev, assistantMessage]);
-                setIsTyping(false);
-            }, 1500);
+            const response = await fetch(N8N_WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error del servidor: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            const assistantMessage = {
+                role: 'assistant',
+                content: data.reply || 'No pude encontrar una respuesta relevante. Intente reformular su pregunta.',
+                sources: data.sources || [],
+                timestamp: new Date()
+            };
+            setMessages(prev => [...prev, assistantMessage]);
         } catch (error) {
             console.error('Error al contactar al Agente:', error);
+            const errorMessage = {
+                role: 'assistant',
+                content: 'Disculpe, hubo un inconveniente al procesar su consulta. Por favor, intente nuevamente en unos momentos.',
+                timestamp: new Date()
+            };
+            setMessages(prev => [...prev, errorMessage]);
+        } finally {
             setIsTyping(false);
         }
     };
@@ -57,9 +76,9 @@ const ChatSpurgeon = () => {
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0, opacity: 0 }}
                         onClick={() => setIsOpen(true)}
-                        className="w-16 h-16 bg-sabiduria-navy text-sabiduria-gold rounded-full shadow-2xl flex items-center justify-center hover:bg-sabiduria-gold hover:text-sabiduria-navy transition-all duration-300 group"
+                        className="w-16 h-16 rounded-full shadow-2xl overflow-hidden hover:ring-2 hover:ring-sabiduria-gold transition-all duration-300 group"
                     >
-                        <MessageSquare size={28} className="group-hover:scale-110 transition-transform" />
+                        <img src={SPURGEON_AVATAR} alt="Agente Spurgeon" className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
                     </motion.button>
                 )}
             </AnimatePresence>
@@ -75,8 +94,8 @@ const ChatSpurgeon = () => {
                         {/* Header */}
                         <div className="bg-sabiduria-navy p-4 flex items-center justify-between">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-sm bg-sabiduria-gold/20 flex items-center justify-center">
-                                    <Sparkles className="text-sabiduria-gold" size={20} />
+                                <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+                                    <img src={SPURGEON_AVATAR} alt="Spurgeon" className="w-full h-full object-cover" />
                                 </div>
                                 <div>
                                     <h3 className="text-white font-serif font-bold text-lg leading-tight">Agente Spurgeon</h3>
@@ -110,15 +129,33 @@ const ChatSpurgeon = () => {
                                     className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                                 >
                                     <div className={`flex gap-3 max-w-[85%] ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
-                                        <div className={`w-8 h-8 rounded-sm flex-shrink-0 flex items-center justify-center ${msg.role === 'user' ? 'bg-sabiduria-navy text-white' : 'bg-sabiduria-gold text-sabiduria-navy'
-                                            }`}>
-                                            {msg.role === 'user' ? <User size={16} /> : <Sparkles size={16} />}
-                                        </div>
+                                        {msg.role === 'user' ? (
+                                            <div className="w-8 h-8 rounded-sm flex-shrink-0 flex items-center justify-center bg-sabiduria-navy text-white">
+                                                <User size={16} />
+                                            </div>
+                                        ) : (
+                                            <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
+                                                <img src={SPURGEON_AVATAR} alt="Spurgeon" className="w-full h-full object-cover" />
+                                            </div>
+                                        )}
                                         <div className={`p-4 rounded-sm text-sm leading-relaxed shadow-sm ${msg.role === 'user'
-                                                ? 'bg-sabiduria-navy text-white'
-                                                : 'bg-white text-sabiduria-navy border border-sabiduria-navy/5'
+                                            ? 'bg-sabiduria-navy text-white'
+                                            : 'bg-white text-sabiduria-navy border border-sabiduria-navy/5'
                                             }`}>
                                             {msg.content}
+                                            {msg.sources && msg.sources.length > 0 && (
+                                                <div className="mt-3 pt-2 border-t border-sabiduria-navy/10">
+                                                    <div className="flex items-center gap-1 mb-1">
+                                                        <BookOpen size={10} className="text-sabiduria-gold" />
+                                                        <span className="text-[10px] uppercase tracking-wider text-sabiduria-navy/40 font-bold">Fuentes</span>
+                                                    </div>
+                                                    {msg.sources.map((src, i) => (
+                                                        <p key={i} className="text-[11px] text-sabiduria-navy/50 italic">
+                                                            {src.title} ({src.source})
+                                                        </p>
+                                                    ))}
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -126,8 +163,8 @@ const ChatSpurgeon = () => {
                             {isTyping && (
                                 <div className="flex justify-start">
                                     <div className="flex gap-3 max-w-[85%]">
-                                        <div className="w-8 h-8 rounded-sm bg-sabiduria-gold text-sabiduria-navy flex items-center justify-center">
-                                            <Sparkles size={16} className="animate-pulse" />
+                                        <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
+                                            <img src={SPURGEON_AVATAR} alt="Spurgeon" className="w-full h-full object-cover animate-pulse" />
                                         </div>
                                         <div className="p-4 rounded-sm bg-white border border-sabiduria-navy/5 shadow-sm">
                                             <div className="flex gap-1">

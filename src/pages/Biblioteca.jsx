@@ -44,13 +44,7 @@ const Biblioteca = () => {
         </div>
     );
 
-    if (loading) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-sabiduria-bg">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-sabiduria-gold"></div>
-            </div>
-        );
-    }
+
 
     return (
         <div className="min-h-screen bg-sabiduria-bg">
