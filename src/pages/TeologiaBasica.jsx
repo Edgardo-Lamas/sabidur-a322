@@ -49,7 +49,7 @@ const TeologiaBasica = () => {
         <main className="bg-sabiduria-bg min-h-screen">
             <SEO
                 title="Teología Básica"
-                description={teologiaBasica?.descripcion}
+                description={teologiaConfig?.descripcion}
                 url="/teologia-basica"
             />
 
@@ -103,12 +103,14 @@ const TeologiaBasica = () => {
                         </p>
 
                         {/* Progress indicator */}
-                        <div className="mt-10 flex items-center justify-center gap-4">
-                            <BookOpen size={20} className="text-sabiduria-gold/70" />
-                            <span className="text-white/70 text-sm">
-                                {capitulos.length} capítulos de estudio
-                            </span>
-                        </div>
+                        {!loading && capitulos.length > 0 && (
+                            <div className="mt-10 flex items-center justify-center gap-4">
+                                <BookOpen size={20} className="text-sabiduria-gold/70" />
+                                <span className="text-white/70 text-sm">
+                                    {capitulos.length} capítulos de estudio
+                                </span>
+                            </div>
+                        )}
                     </motion.div>
                 </div>
 
@@ -139,7 +141,7 @@ const TeologiaBasica = () => {
                                         {/* Chapter Number */}
                                         <div className="flex-shrink-0 w-20 sm:w-24 bg-sabiduria-navy group-hover:bg-sabiduria-gold transition-colors duration-300 flex items-center justify-center">
                                             <span className="text-2xl sm:text-3xl font-serif font-bold text-white">
-                                                {capitulo.numero}
+                                                {capitulo.order_index}
                                             </span>
                                         </div>
 
@@ -147,10 +149,10 @@ const TeologiaBasica = () => {
                                         <div className="flex-grow p-5 sm:p-6 flex items-center justify-between">
                                             <div className="flex-grow pr-4">
                                                 <h2 className="text-lg sm:text-xl font-serif font-bold text-sabiduria-navy group-hover:text-sabiduria-gold transition-colors mb-1">
-                                                    {capitulo.titulo}
+                                                    {capitulo.title}
                                                 </h2>
                                                 <p className="text-sm text-sabiduria-gray line-clamp-1">
-                                                    {capitulo.descripcion}
+                                                    {capitulo.description}
                                                 </p>
                                             </div>
 

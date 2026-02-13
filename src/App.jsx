@@ -23,6 +23,9 @@ import DeclaracionDeFe from './pages/DeclaracionDeFe';
 import EstudioPage from './pages/EstudioPage';
 import TeologiaBasica from './pages/TeologiaBasica';
 import TeologiaBasicaTema from './pages/TeologiaBasicaTema';
+import EstudiosLibros from './pages/EstudiosLibros';
+import LibroEstudioIndex from './pages/LibroEstudioIndex';
+import LibroEstudioCapitulo from './pages/LibroEstudioCapitulo';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import ChatSpurgeon from './components/ChatSpurgeon';
 
@@ -69,6 +72,9 @@ function App() {
             <Route path="/declaracion-de-fe" element={<DeclaracionDeFe />} />
             <Route path="/teologia-basica" element={<TeologiaBasica />} />
             <Route path="/teologia-basica/:slug" element={<TeologiaBasicaTema />} />
+            <Route path="/estudios-libros" element={<EstudiosLibros />} />
+            <Route path="/estudios-libros/:libroSlug" element={<LibroEstudioIndex />} />
+            <Route path="/estudios-libros/:libroSlug/:capituloSlug" element={<LibroEstudioCapitulo />} />
             <Route path="/donaciones" element={<Donations />} />
           </Routes>
         </div>

@@ -87,8 +87,8 @@ const TeologiaBasicaTema = () => {
     return (
         <main className="bg-sabiduria-bg min-h-screen">
             <SEO
-                title={`${capitulo.titulo} | Teología Básica`}
-                description={capitulo.descripcion}
+                title={`${capitulo.title} | Teología Básica`}
+                description={capitulo.description}
                 url={`/teologia-basica/${capitulo.slug}`}
             />
 
@@ -97,7 +97,7 @@ const TeologiaBasicaTema = () => {
                 <Breadcrumbs
                     customItems={[
                         { label: 'Teología Básica', path: '/teologia-basica' },
-                        { label: capitulo.titulo }
+                        { label: capitulo.title }
                     ]}
                 />
             </div>
@@ -140,11 +140,11 @@ const TeologiaBasicaTema = () => {
 
                     {/* Description */}
                     <p className="text-lg text-sabiduria-gray leading-relaxed mb-6">
-                        {capitulo.descripcion}
+                        {capitulo.description}
                     </p>
 
                     <ShareButtons
-                        title={capitulo.titulo}
+                        title={capitulo.title}
                         url={`/teologia-basica/${capitulo.slug}`}
                     />
                 </motion.div>
@@ -159,22 +159,105 @@ const TeologiaBasicaTema = () => {
                     transition={{ duration: 0.5, delay: 0.1 }}
                     className="mb-16"
                 >
-                    {capitulo.content ? (
-                        <div
-                            className="teologia-content"
-                            dangerouslySetInnerHTML={{ __html: capitulo.content }}
-                        />
-                    ) : (
-                        <div className="bg-sabiduria-gold/5 border border-sabiduria-gold/20 p-8 text-center">
-                            <BookOpen size={48} className="text-sabiduria-gold/50 mx-auto mb-4" />
-                            <h2 className="text-xl font-serif font-bold text-sabiduria-navy mb-2">
-                                Contenido en preparación
-                            </h2>
-                            <p className="text-sabiduria-gray">
-                                Este capítulo está siendo preparado. Pronto estará disponible.
-                            </p>
-                        </div>
-                    )}
+                    {(() => {
+                        if (!capitulo.content) {
+                            return (
+                                <div className="bg-sabiduria-gold/5 border border-sabiduria-gold/20 p-8 text-center">
+                                    <BookOpen size={48} className="text-sabiduria-gold/50 mx-auto mb-4" />
+                                    <h2 className="text-xl font-serif font-bold text-sabiduria-navy mb-2">
+                                        Contenido en preparación
+                                    </h2>
+                                    <p className="text-sabiduria-gray">
+                                        Este capítulo está siendo preparado. Pronto estará disponible.
+                                    </p>
+                                </div>
+                            );
+                        }
+
+                        if (typeof capitulo.content === 'string') {
+                            return (
+                                <div
+                                    className="teologia-content"
+                                    dangerouslySetInnerHTML={{ __html: capitulo.content }}
+                                />
+                            );
+                        }
+
+                        // Handle JSON object
+                        const data = capitulo.content.contenido || capitulo.content;
+
+                        return (
+                            <div className="teologia-content space-y-12">
+                                {data.definicion && (
+                                    <div className="bg-white border-l-4 border-sabiduria-gold p-8 shadow-sm">
+                                        <p className="text-xl leading-relaxed text-sabiduria-navy font-serif italic">
+                                            "{data.definicion}"
+                                        </p>
+                                    </div>
+                                )}
+
+                                {data.aspectos_clave && (
+                                    <div className="grid gap-6 md:grid-cols-2">
+                                        {data.aspectos_clave.map((item, i) => (
+                                            <div key={i} className="bg-white p-6 border border-sabiduria-gray/10 rounded-lg shadow-sm">
+                                                <h4 className="text-sabiduria-gold font-bold uppercase tracking-wider text-xs mb-3">{item.titulo || item.title || item.etiqueta}</h4>
+                                                <p className="text-sabiduria-gray text-sm">{item.descripcion || item.description || (typeof item === 'string' ? item : '')}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+
+                                {data.fundamento_biblico && (
+                                    <div className="bg-sabiduria-navy/5 p-8 rounded-xl border border-sabiduria-navy/10">
+                                        <h3 className="text-2xl font-serif font-bold text-sabiduria-navy mb-6 flex items-center gap-2">
+                                            <BookOpen className="text-sabiduria-gold" size={24} />
+                                            Fundamento Bíblico
+                                        </h3>
+                                        <div className="space-y-6">
+                                            {data.fundamento_biblico.map((item, i) => (
+                                                <div key={i} className="border-b border-sabiduria-navy/10 last:border-0 pb-4 last:pb-0">
+                                                    <span className="block text-sabiduria-gold font-bold text-sm mb-1">{item.cita || item.reference}</span>
+                                                    <p className="text-sabiduria-navy/80 italic text-sm">"{item.texto || item.text}"</p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {data.aplicacion_practica && (
+                                    <div className="space-y-8">
+                                        <h3 className="text-2xl font-serif font-bold text-sabiduria-navy mb-6">Aplicación Práctica</h3>
+                                        <div className="grid gap-4">
+                                            {data.aplicacion_practica.map((item, i) => (
+                                                <div key={i} className="flex gap-4 items-start bg-white p-5 border border-sabiduria-gray/10">
+                                                    <div className="w-8 h-8 rounded-full bg-sabiduria-gold/10 text-sabiduria-gold flex items-center justify-center flex-shrink-0 font-bold">
+                                                        {i + 1}
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="font-bold text-sabiduria-navy mb-1">{item.titulo || item.title}</h4>
+                                                        <p className="text-sabiduria-gray text-sm">{item.descripcion || item.description}</p>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {data.referencias_biblicas && (
+                                    <div className="pt-8 border-t border-sabiduria-gray/10">
+                                        <h4 className="text-sm font-bold text-sabiduria-navy uppercase tracking-widest mb-4">Referencias Adicionales</h4>
+                                        <div className="flex flex-wrap gap-2">
+                                            {data.referencias_biblicas.map((ref, i) => (
+                                                <span key={i} className="px-3 py-1 bg-sabiduria-navy/5 text-sabiduria-navy text-xs rounded-full">
+                                                    {ref}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    })()}
                 </motion.section>
 
                 {/* Navigation between chapters */}
@@ -197,7 +280,7 @@ const TeologiaBasicaTema = () => {
                                         Capítulo anterior
                                     </span>
                                     <span className="block text-sm font-serif font-bold text-sabiduria-navy group-hover:text-sabiduria-gold transition-colors line-clamp-1">
-                                        {prevCap.titulo}
+                                        {prevCap.title}
                                     </span>
                                 </div>
                             </Link>
@@ -216,7 +299,7 @@ const TeologiaBasicaTema = () => {
                                         Siguiente capítulo
                                     </span>
                                     <span className="block text-sm font-serif font-bold text-sabiduria-navy group-hover:text-sabiduria-gold transition-colors line-clamp-1">
-                                        {nextCap.titulo}
+                                        {nextCap.title}
                                     </span>
                                 </div>
                                 <ArrowRight size={20} className="text-sabiduria-gray group-hover:text-sabiduria-gold transition-colors flex-shrink-0" />
