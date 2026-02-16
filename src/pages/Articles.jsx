@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ChevronRight, Search, FileText } from 'lucide-react';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
-import { supabase } from '../lib/supabase';
+import data from '../data/content.json';
 
 const Articles = () => {
     const [searchTerm, setSearchTerm] = React.useState('');
@@ -12,16 +12,12 @@ const Articles = () => {
     const [loading, setLoading] = React.useState(true);
 
     React.useEffect(() => {
-        const fetchArticles = async () => {
+        const fetchArticles = () => {
             setLoading(true);
             try {
-                const { data, error } = await supabase
-                    .from('articulos')
-                    .select('*')
-                    .order('date', { ascending: false });
-
-                if (error) throw error;
-                setArticles(data || []);
+                // Cargar desde JSON local
+                const articlesData = data.textos?.articulos || [];
+                setArticles(articlesData);
             } catch (err) {
                 console.error('Error fetching articles:', err.message);
             } finally {

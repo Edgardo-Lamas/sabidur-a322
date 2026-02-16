@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import ReadingSection from '../components/ReadingSection';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
-import { supabase } from '../lib/supabase';
+import data from '../data/content.json';
 
 const ArticlePage = () => {
     const { slug } = useParams();
@@ -11,17 +11,13 @@ const ArticlePage = () => {
     const [loading, setLoading] = React.useState(true);
 
     React.useEffect(() => {
-        const fetchArticle = async () => {
+        const fetchArticle = () => {
             setLoading(true);
             try {
-                const { data, error } = await supabase
-                    .from('articulos')
-                    .select('*')
-                    .eq('slug', slug)
-                    .single();
-
-                if (error) throw error;
-                setArticle(data);
+                // Buscar en JSON local
+                const articles = data.textos?.articulos || [];
+                const foundArticle = articles.find(a => a.slug === slug);
+                setArticle(foundArticle || null);
             } catch (err) {
                 console.error('Error fetching article:', err.message);
             } finally {

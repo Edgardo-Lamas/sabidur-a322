@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ChevronRight, Search } from 'lucide-react';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
-import { supabase } from '../lib/supabase';
+import data from '../data/content.json';
 
 const Ensayos = () => {
     const [searchTerm, setSearchTerm] = React.useState('');
@@ -11,15 +11,11 @@ const Ensayos = () => {
     const [loading, setLoading] = React.useState(true);
 
     React.useEffect(() => {
-        const fetchEnsayos = async () => {
+        const fetchEnsayos = () => {
             try {
-                const { data, error } = await supabase
-                    .from('ensayos')
-                    .select('*')
-                    .order('date', { ascending: false });
-
-                if (error) throw error;
-                setEnsayos(data || []);
+                // Cargar desde JSON local
+                const ensayosData = data.textos?.ensayos || [];
+                setEnsayos(ensayosData);
             } catch (err) {
                 console.error('Error fetching essays:', err.message);
             } finally {
