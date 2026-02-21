@@ -1,0 +1,328 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    31.2357,
+                    30.0444
+                ]
+            },
+            "properties": {
+                "id": "rameses",
+                "nombre": "Ramesés (Gosén)",
+                "pasaje": "Éxodo 12:37",
+                "descripcion": "Punto de partida del Éxodo. Los israelitas, tras la última plaga y la Pascua, salen de la tierra de esclavitud.",
+                "epoca": "exodo",
+                "orden": 1,
+                "tipo": "ciudad"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    32.3300,
+                    30.7500
+                ]
+            },
+            "properties": {
+                "id": "sucot-exodo",
+                "nombre": "Sucot",
+                "pasaje": "Éxodo 12:37",
+                "descripcion": "Primera parada tras salir de Ramesés. El pueblo comienza su marcha hacia la libertad.",
+                "epoca": "exodo",
+                "orden": 2,
+                "tipo": "campamento"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    32.5500,
+                    30.5500
+                ]
+            },
+            "properties": {
+                "id": "etam",
+                "nombre": "Etam",
+                "pasaje": "Éxodo 13:20",
+                "descripcion": "Al borde del desierto. Aquí Dios comienza a guiar al pueblo con columna de nube de día y columna de fuego de noche.",
+                "epoca": "exodo",
+                "orden": 3,
+                "tipo": "campamento"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    32.4000,
+                    30.0000
+                ]
+            },
+            "properties": {
+                "id": "cruce-mar-rojo",
+                "nombre": "Cruce del Mar Rojo",
+                "pasaje": "Éxodo 14:21-31",
+                "descripcion": "Dios divide las aguas del mar. Israel cruza en seco mientras el ejército del faraón es destruido. Acto redentor culminante del Antiguo Testamento.",
+                "epoca": "exodo",
+                "orden": 4,
+                "tipo": "evento"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    33.0000,
+                    29.5000
+                ]
+            },
+            "properties": {
+                "id": "mara",
+                "nombre": "Mara",
+                "pasaje": "Éxodo 15:22-25",
+                "descripcion": "Las aguas son amargas. Dios muestra a Moisés un árbol para endulzarlas, revelándose como Jehová-Rapha: «Yo soy Jehová tu sanador».",
+                "epoca": "exodo",
+                "orden": 5,
+                "tipo": "milagro"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    33.1800,
+                    29.2500
+                ]
+            },
+            "properties": {
+                "id": "elim",
+                "nombre": "Elim",
+                "pasaje": "Éxodo 15:27",
+                "descripcion": "Oasis con doce fuentes de agua y setenta palmeras. Lugar de descanso y provisión divina tras la prueba de Mara.",
+                "epoca": "exodo",
+                "orden": 6,
+                "tipo": "campamento"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    33.5000,
+                    28.8000
+                ]
+            },
+            "properties": {
+                "id": "desierto-sin",
+                "nombre": "Desierto de Sin",
+                "pasaje": "Éxodo 16:1-36",
+                "descripcion": "Dios provee el maná del cielo y las codornices. Comienza la provisión sobrenatural que durará 40 años.",
+                "epoca": "exodo",
+                "orden": 7,
+                "tipo": "milagro"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    33.7000,
+                    28.5000
+                ]
+            },
+            "properties": {
+                "id": "refidim",
+                "nombre": "Refidim",
+                "pasaje": "Éxodo 17:1-16",
+                "descripcion": "Moisés golpea la roca y brota agua. Aquí también Israel vence a Amalec mientras Moisés levanta sus manos en oración.",
+                "epoca": "exodo",
+                "orden": 8,
+                "tipo": "milagro"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    33.9750,
+                    28.5394
+                ]
+            },
+            "properties": {
+                "id": "monte-sinai",
+                "nombre": "Monte Sinaí (Horeb)",
+                "pasaje": "Éxodo 19–20",
+                "descripcion": "Dios desciende en fuego y trueno. Aquí entrega los Diez Mandamientos y establece el pacto con Israel como nación santa.",
+                "epoca": "exodo",
+                "orden": 9,
+                "tipo": "monte"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    33.9750,
+                    28.5394
+                ]
+            },
+            "properties": {
+                "id": "tabernaculo",
+                "nombre": "Sinaí — Construcción del Tabernáculo",
+                "pasaje": "Éxodo 35–40",
+                "descripcion": "En el Sinaí se construye el Tabernáculo según el modelo divino. La gloria de Jehová llena la tienda de reunión.",
+                "epoca": "exodo",
+                "orden": 10,
+                "tipo": "construccion"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    34.4300,
+                    29.9200
+                ]
+            },
+            "properties": {
+                "id": "kibrot-hataava",
+                "nombre": "Kibrot-hataava",
+                "pasaje": "Números 11:31-34",
+                "descripcion": "El pueblo pide carne con codicia. Dios envía codornices pero también juicio. Memorial de la consecuencia de la murmuración.",
+                "epoca": "exodo",
+                "orden": 11,
+                "tipo": "evento"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    34.5500,
+                    30.4000
+                ]
+            },
+            "properties": {
+                "id": "haserot",
+                "nombre": "Haserot",
+                "pasaje": "Números 12:1-16",
+                "descripcion": "María y Aarón murmuran contra Moisés. María es castigada con lepra pero sanada tras la intercesión de Moisés.",
+                "epoca": "exodo",
+                "orden": 12,
+                "tipo": "evento"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    34.7300,
+                    30.9200
+                ]
+            },
+            "properties": {
+                "id": "cades-barnea",
+                "nombre": "Cades-barnea",
+                "pasaje": "Números 13–14",
+                "descripcion": "Se envían los 12 espías a explorar Canaán. Solo Josué y Caleb confían en Dios. El pueblo es sentenciado a 40 años en el desierto.",
+                "epoca": "exodo",
+                "orden": 13,
+                "tipo": "evento"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.4000,
+                    30.3200
+                ]
+            },
+            "properties": {
+                "id": "monte-hor",
+                "nombre": "Monte Hor",
+                "pasaje": "Números 20:22-29",
+                "descripcion": "Aarón muere en la cima del monte Hor. Eleazar, su hijo, hereda el sumo sacerdocio.",
+                "epoca": "exodo",
+                "orden": 14,
+                "tipo": "monte"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.4800,
+                    30.7200
+                ]
+            },
+            "properties": {
+                "id": "serpiente-bronce",
+                "nombre": "Desierto (Serpiente de Bronce)",
+                "pasaje": "Números 21:4-9",
+                "descripcion": "Ante las serpientes ardientes, Dios ordena a Moisés levantar una serpiente de bronce. Quien la mire, vivirá. Prefiguración de Cristo en la cruz (Juan 3:14).",
+                "epoca": "exodo",
+                "orden": 15,
+                "tipo": "milagro"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.7300,
+                    31.7700
+                ]
+            },
+            "properties": {
+                "id": "llanuras-moab",
+                "nombre": "Llanuras de Moab",
+                "pasaje": "Deuteronomio 1:1-5",
+                "descripcion": "Moisés pronuncia sus discursos finales al pueblo de Israel. Recapitulación de la ley y renovación del pacto antes de entrar a Canaán.",
+                "epoca": "exodo",
+                "orden": 16,
+                "tipo": "evento"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.7256,
+                    31.7732
+                ]
+            },
+            "properties": {
+                "id": "monte-nebo",
+                "nombre": "Monte Nebo",
+                "pasaje": "Deuteronomio 34:1-8",
+                "descripcion": "Dios muestra a Moisés toda la tierra prometida desde la cumbre. Moisés muere allí y Dios mismo lo sepulta.",
+                "epoca": "exodo",
+                "orden": 17,
+                "tipo": "monte"
+            }
+        }
+    ]
+}

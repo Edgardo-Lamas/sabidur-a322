@@ -1,0 +1,365 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    46.1053,
+                    30.9626
+                ]
+            },
+            "properties": {
+                "id": "ur-caldeos",
+                "nombre": "Ur de los Caldeos",
+                "pasaje": "Génesis 11:31",
+                "descripcion": "Ciudad natal de Abraham. Dios lo llama a salir de su tierra y de su parentela hacia una tierra que Él le mostraría.",
+                "epoca": "patriarcas",
+                "orden": 1,
+                "tipo": "ciudad",
+                "routeGroup": "llamado-de-abraham"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    39.0142,
+                    36.3489
+                ]
+            },
+            "properties": {
+                "id": "haran",
+                "nombre": "Harán",
+                "pasaje": "Génesis 11:31–12:4",
+                "descripcion": "Abraham se detiene aquí con su padre Taré. Tras la muerte de Taré, Dios renueva el llamado y Abraham parte hacia Canaán.",
+                "epoca": "patriarcas",
+                "orden": 2,
+                "tipo": "ciudad",
+                "routeGroup": "llamado-de-abraham"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.2742,
+                    32.2146
+                ]
+            },
+            "properties": {
+                "id": "siquem",
+                "nombre": "Siquem",
+                "pasaje": "Génesis 12:6-7",
+                "descripcion": "Primer lugar donde Abraham llega en Canaán. Aquí Dios le promete: «A tu descendencia daré esta tierra», y Abraham edifica un altar.",
+                "epoca": "patriarcas",
+                "orden": 3,
+                "tipo": "altar",
+                "routeGroup": "llamado-de-abraham"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.2260,
+                    31.9314
+                ]
+            },
+            "properties": {
+                "id": "betel",
+                "nombre": "Bet-el",
+                "pasaje": "Génesis 12:8",
+                "descripcion": "Abraham planta su tienda entre Bet-el y Hai, y edifica un segundo altar e invoca el nombre de Jehová.",
+                "epoca": "patriarcas",
+                "orden": 4,
+                "tipo": "altar",
+                "routeGroup": "llamado-de-abraham"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.2356,
+                    31.5200
+                ]
+            },
+            "properties": {
+                "id": "hebron-mamre",
+                "nombre": "Hebrón (Encinar de Mamre)",
+                "pasaje": "Génesis 13:18",
+                "descripcion": "Abraham se establece junto al encinar de Mamre. Aquí recibe la visita de los tres ángeles y la promesa del nacimiento de Isaac.",
+                "epoca": "patriarcas",
+                "orden": 5,
+                "tipo": "campamento",
+                "routeGroup": "llamado-de-abraham"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    31.2357,
+                    30.0444
+                ]
+            },
+            "properties": {
+                "id": "egipto-abraham",
+                "nombre": "Egipto",
+                "pasaje": "Génesis 12:10-20",
+                "descripcion": "Abraham desciende a Egipto por causa de una hambruna en Canaán. Aquí se revela tanto su debilidad humana como la protección divina.",
+                "epoca": "patriarcas",
+                "orden": 6,
+                "tipo": "region",
+                "routeGroup": "descenso-a-egipto"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.3936,
+                    31.1905
+                ]
+            },
+            "properties": {
+                "id": "sodoma",
+                "nombre": "Valle de Sidim (Sodoma y Gomorra)",
+                "pasaje": "Génesis 18–19",
+                "descripcion": "Abraham intercede ante Dios por la ciudad de Sodoma. Su destrucción es un testimonio del juicio divino contra el pecado.",
+                "epoca": "patriarcas",
+                "orden": 7,
+                "tipo": "evento",
+                "routeGroup": "vida-en-canaan"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    34.6500,
+                    31.3897
+                ]
+            },
+            "properties": {
+                "id": "gerar",
+                "nombre": "Gerar",
+                "pasaje": "Génesis 20:1-2",
+                "descripcion": "Abraham habita como extranjero en la tierra de Gerar, gobernada por Abimelec.",
+                "epoca": "patriarcas",
+                "orden": 8,
+                "tipo": "ciudad",
+                "routeGroup": "vida-en-canaan"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    34.8400,
+                    31.2500
+                ]
+            },
+            "properties": {
+                "id": "beerseba",
+                "nombre": "Beer-seba",
+                "pasaje": "Génesis 21:31-33",
+                "descripcion": "Abraham planta un árbol tamarisco y allí invoca el nombre de Jehová Dios eterno. Lugar del juramento con Abimelec.",
+                "epoca": "patriarcas",
+                "orden": 9,
+                "tipo": "altar",
+                "routeGroup": "vida-en-canaan"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.2354,
+                    31.7747
+                ]
+            },
+            "properties": {
+                "id": "monte-moria",
+                "nombre": "Monte Moria",
+                "pasaje": "Génesis 22:1-19",
+                "descripcion": "Abraham recibe la prueba suprema: ofrecer a Isaac en sacrificio. Dios provee un carnero y confirma su pacto. Lugar del futuro templo de Salomón.",
+                "epoca": "patriarcas",
+                "orden": 10,
+                "tipo": "monte",
+                "routeGroup": "vida-en-canaan"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.2356,
+                    31.5200
+                ]
+            },
+            "properties": {
+                "id": "cueva-macpela",
+                "nombre": "Cueva de Macpela (Hebrón)",
+                "pasaje": "Génesis 23:1-20",
+                "descripcion": "Abraham compra esta cueva para sepultar a Sara. Es la primera posesión territorial del pueblo de Dios en la tierra prometida.",
+                "epoca": "patriarcas",
+                "orden": 11,
+                "tipo": "sepulcro",
+                "routeGroup": "vida-en-canaan"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.5000,
+                    32.7500
+                ]
+            },
+            "properties": {
+                "id": "peniel",
+                "nombre": "Peniel",
+                "pasaje": "Génesis 32:22-32",
+                "descripcion": "Jacob lucha con el ángel de Jehová junto al río Jaboc. Dios cambia su nombre de Jacob a Israel: «el que lucha con Dios».",
+                "epoca": "patriarcas",
+                "orden": 12,
+                "tipo": "evento",
+                "routeGroup": "ciclo-de-jacob"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.2260,
+                    31.9314
+                ]
+            },
+            "properties": {
+                "id": "betel-jacob",
+                "nombre": "Bet-el (Sueño de Jacob)",
+                "pasaje": "Génesis 28:10-22",
+                "descripcion": "Jacob sueña con una escalera que sube al cielo. Dios le confirma el pacto abrahamico: «En ti y en tu simiente serán benditas todas las familias de la tierra».",
+                "epoca": "patriarcas",
+                "orden": 13,
+                "tipo": "vision",
+                "routeGroup": "ciclo-de-jacob"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.5167,
+                    32.5500
+                ]
+            },
+            "properties": {
+                "id": "sucot-jacob",
+                "nombre": "Sucot",
+                "pasaje": "Génesis 33:17",
+                "descripcion": "Jacob edifica casa e hizo cabañas para su ganado. Primer asentamiento estable tras reconciliarse con Esaú.",
+                "epoca": "patriarcas",
+                "orden": 14,
+                "tipo": "campamento",
+                "routeGroup": "ciclo-de-jacob"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.2742,
+                    32.2146
+                ]
+            },
+            "properties": {
+                "id": "siquem-jacob",
+                "nombre": "Siquem (Altar de Jacob)",
+                "pasaje": "Génesis 33:18-20",
+                "descripcion": "Jacob llega sano a Siquem y compra un terreno donde levanta un altar llamado El-Elohe-Israel: «Dios, el Dios de Israel».",
+                "epoca": "patriarcas",
+                "orden": 15,
+                "tipo": "altar",
+                "routeGroup": "ciclo-de-jacob"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.1860,
+                    31.6160
+                ]
+            },
+            "properties": {
+                "id": "efrata",
+                "nombre": "Efrata (Belén)",
+                "pasaje": "Génesis 35:16-20",
+                "descripcion": "Raquel, esposa de Jacob, muere al dar a luz a Benjamín. Jacob la entierra en el camino de Efrata, la futura Belén.",
+                "epoca": "patriarcas",
+                "orden": 16,
+                "tipo": "sepulcro",
+                "routeGroup": "ciclo-de-jacob"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.2356,
+                    31.5200
+                ]
+            },
+            "properties": {
+                "id": "hebron-jacob",
+                "nombre": "Hebrón (Reunión de Jacob e Isaac)",
+                "pasaje": "Génesis 35:27",
+                "descripcion": "Jacob regresa a Hebrón donde vive Isaac. Aquí se reúne la familia patriarcal, cerrando el ciclo del peregrinaje.",
+                "epoca": "patriarcas",
+                "orden": 17,
+                "tipo": "campamento",
+                "routeGroup": "ciclo-de-jacob"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    31.2357,
+                    30.0444
+                ]
+            },
+            "properties": {
+                "id": "egipto-jose",
+                "nombre": "Egipto (José y Jacob)",
+                "pasaje": "Génesis 46:1-7",
+                "descripcion": "Jacob desciende a Egipto con toda su familia para reunirse con José. Dios le asegura: «No temas descender a Egipto, porque allí yo haré de ti una gran nación».",
+                "epoca": "patriarcas",
+                "orden": 18,
+                "tipo": "region",
+                "routeGroup": "ciclo-de-jacob"
+            }
+        }
+    ]
+}

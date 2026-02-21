@@ -13,6 +13,7 @@ const Navbar = () => {
     { name: 'Tienda', path: '/tienda' },
     { name: 'Sabiduría para la Juventud', path: '/adolescentes' },
     { name: 'Biblioteca', path: '/biblioteca' },
+    { name: 'Mapas', path: '/mapas-biblicos' },
   ];
 
   const textosSubmenu = [

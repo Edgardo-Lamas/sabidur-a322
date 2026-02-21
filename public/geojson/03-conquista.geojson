@@ -1,0 +1,290 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.5150,
+                    31.8700
+                ]
+            },
+            "properties": {
+                "id": "jordan-cruce",
+                "nombre": "Cruce del Jordán",
+                "pasaje": "Josué 3:14-17",
+                "descripcion": "Dios detiene las aguas del Jordán y el pueblo cruza en seco. Se erigen 12 piedras como memorial permanente.",
+                "epoca": "conquista",
+                "orden": 1,
+                "tipo": "evento"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.4600,
+                    31.8400
+                ]
+            },
+            "properties": {
+                "id": "gilgal",
+                "nombre": "Gilgal",
+                "pasaje": "Josué 4:19-20; 5:2-12",
+                "descripcion": "Primer campamento en Canaán. Se celebra la circuncisión y la primera Pascua en la tierra prometida. El maná cesa.",
+                "epoca": "conquista",
+                "orden": 2,
+                "tipo": "campamento"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.4510,
+                    31.8710
+                ]
+            },
+            "properties": {
+                "id": "jerico",
+                "nombre": "Jericó",
+                "pasaje": "Josué 6:1-27",
+                "descripcion": "Primera ciudad conquistada. Los muros caen tras siete días de marcha y al sonido de las trompetas. Victoria sobrenatural por la fe.",
+                "epoca": "conquista",
+                "orden": 3,
+                "tipo": "batalla"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.2490,
+                    31.9230
+                ]
+            },
+            "properties": {
+                "id": "hai",
+                "nombre": "Hai",
+                "pasaje": "Josué 7–8",
+                "descripcion": "Primera derrota por el pecado de Acán. Tras purificar el campamento, Israel conquista Hai con una emboscada ordenada por Dios.",
+                "epoca": "conquista",
+                "orden": 4,
+                "tipo": "batalla"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.2854,
+                    32.1700
+                ]
+            },
+            "properties": {
+                "id": "ebal-gerizim",
+                "nombre": "Montes Ebal y Gerizim",
+                "pasaje": "Josué 8:30-35",
+                "descripcion": "Josué edifica un altar y lee la Ley. Bendiciones desde el Gerizim, maldiciones desde el Ebal. Renovación del pacto en Canaán.",
+                "epoca": "conquista",
+                "orden": 5,
+                "tipo": "altar"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.0997,
+                    31.8579
+                ]
+            },
+            "properties": {
+                "id": "gabaon",
+                "nombre": "Gabaón",
+                "pasaje": "Josué 9–10",
+                "descripcion": "Los gabaonitas engañan a Josué para hacer alianza. Aquí Josué ordena al sol detenerse durante la batalla contra los reyes amorreos.",
+                "epoca": "conquista",
+                "orden": 6,
+                "tipo": "batalla"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    34.7513,
+                    31.6000
+                ]
+            },
+            "properties": {
+                "id": "laquis",
+                "nombre": "Laquis",
+                "pasaje": "Josué 10:31-33",
+                "descripcion": "Ciudad amorreo conquistada durante la campaña del sur. Su caída abre la puerta a la conquista de toda la región meridional.",
+                "epoca": "conquista",
+                "orden": 7,
+                "tipo": "batalla"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.2356,
+                    31.5200
+                ]
+            },
+            "properties": {
+                "id": "hebron-josue",
+                "nombre": "Hebrón",
+                "pasaje": "Josué 10:36-37; 14:13-14",
+                "descripcion": "Conquistada por Josué y luego otorgada a Caleb como herencia por su fidelidad en el episodio de los espías.",
+                "epoca": "conquista",
+                "orden": 8,
+                "tipo": "ciudad"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.4960,
+                    33.1000
+                ]
+            },
+            "properties": {
+                "id": "hazor",
+                "nombre": "Hazor",
+                "pasaje": "Josué 11:1-15",
+                "descripcion": "Capital del norte cananeo. Su rey Jabín lidera la coalición del norte. Josué la destruye completamente en la campaña septentrional.",
+                "epoca": "conquista",
+                "orden": 9,
+                "tipo": "batalla"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.1880,
+                    32.7150
+                ]
+            },
+            "properties": {
+                "id": "megido",
+                "nombre": "Meguido (Valle de Jezreel)",
+                "pasaje": "Jueces 5:19-21",
+                "descripcion": "Escenario de la victoria de Débora y Barac contra Sísara. Las aguas del arroyo Cisón barren al ejército enemigo.",
+                "epoca": "conquista",
+                "orden": 10,
+                "tipo": "batalla"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.1042,
+                    31.6697
+                ]
+            },
+            "properties": {
+                "id": "timnat-sera",
+                "nombre": "Timnat-sera",
+                "pasaje": "Josué 19:49-50; 24:30",
+                "descripcion": "Herencia de Josué en los montes de Efraín. Aquí es sepultado tras su muerte, junto a los límites de su herencia.",
+                "epoca": "conquista",
+                "orden": 11,
+                "tipo": "ciudad"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.2742,
+                    32.2146
+                ]
+            },
+            "properties": {
+                "id": "siquem-josue",
+                "nombre": "Siquem (Discurso final de Josué)",
+                "pasaje": "Josué 24:1-28",
+                "descripcion": "Josué reúne a todo Israel y pronuncia su famosa declaración: «Yo y mi casa serviremos a Jehová». Renovación final del pacto.",
+                "epoca": "conquista",
+                "orden": 12,
+                "tipo": "evento"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    34.9500,
+                    31.7000
+                ]
+            },
+            "properties": {
+                "id": "sora",
+                "nombre": "Zora (Sansón)",
+                "pasaje": "Jueces 13:2-25",
+                "descripcion": "Lugar de nacimiento de Sansón, juez de Israel. El ángel de Jehová anuncia su nacimiento y su llamado como nazareo.",
+                "epoca": "conquista",
+                "orden": 13,
+                "tipo": "ciudad"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.1250,
+                    32.5900
+                ]
+            },
+            "properties": {
+                "id": "monte-tabor",
+                "nombre": "Monte Tabor",
+                "pasaje": "Jueces 4:6-16",
+                "descripcion": "Desde aquí Barac desciende con 10.000 hombres contra el ejército de Sísara, obedeciendo la profecía de Débora.",
+                "epoca": "conquista",
+                "orden": 14,
+                "tipo": "monte"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.3300,
+                    32.0900
+                ]
+            },
+            "properties": {
+                "id": "silo",
+                "nombre": "Silo",
+                "pasaje": "Josué 18:1; 1 Samuel 1–3",
+                "descripcion": "Sede del Tabernáculo durante la época de los Jueces. Aquí Ana ora por un hijo y Samuel crece sirviendo a Jehová.",
+                "epoca": "conquista",
+                "orden": 15,
+                "tipo": "santuario"
+            }
+        }
+    ]
+}

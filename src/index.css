@@ -608,4 +608,38 @@
   .teologia-content a:hover {
     color: var(--color-sabiduria-navy);
   }
+
+  /* ========================================
+     MAPAS BÍBLICOS INTERACTIVOS
+     ======================================== */
+  .map-container-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .map-container-wrapper .leaflet-container {
+    font-family: var(--font-sans);
+    z-index: 1;
+  }
+
+  .map-custom-popup .leaflet-popup-content-wrapper {
+    border-radius: 6px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(197, 160, 89, 0.2);
+  }
+
+  .map-custom-popup .leaflet-popup-tip {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .map-epoch-marker {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  .map-cluster-icon {
+    background: transparent !important;
+    border: none !important;
+  }
 }

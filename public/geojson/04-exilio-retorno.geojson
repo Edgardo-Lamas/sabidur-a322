@@ -1,0 +1,252 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.2137,
+                    31.7683
+                ]
+            },
+            "properties": {
+                "id": "jerusalem-caida",
+                "nombre": "Jerusalén — Caída del Templo",
+                "pasaje": "2 Reyes 25:1-21",
+                "descripcion": "Nabucodonosor destruye Jerusalén y el templo de Salomón en el 586 a.C. El arca del pacto desaparece. Comienza el exilio babilónico.",
+                "epoca": "exilio",
+                "orden": 1,
+                "tipo": "evento"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.0500,
+                    32.6000
+                ]
+            },
+            "properties": {
+                "id": "megido-josias",
+                "nombre": "Meguido (Muerte de Josías)",
+                "pasaje": "2 Reyes 23:29-30",
+                "descripcion": "El piadoso rey Josías muere en batalla contra el faraón Necao. Su muerte marca el inicio del declive final de Judá.",
+                "epoca": "exilio",
+                "orden": 2,
+                "tipo": "batalla"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.5000,
+                    33.5500
+                ]
+            },
+            "properties": {
+                "id": "ribla",
+                "nombre": "Ribla",
+                "pasaje": "2 Reyes 25:6-7",
+                "descripcion": "Cuartel general de Nabucodonosor. Aquí Sedequías es llevado cautivo, sus hijos son ejecutados ante él, y sus ojos son cegados.",
+                "epoca": "exilio",
+                "orden": 3,
+                "tipo": "evento"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    44.4211,
+                    33.3152
+                ]
+            },
+            "properties": {
+                "id": "babilonia",
+                "nombre": "Babilonia",
+                "pasaje": "Daniel 1–6; Salmo 137",
+                "descripcion": "Capital del imperio. Los judíos cautivos lloran junto a los ríos de Babilonia recordando a Sion. Daniel y sus compañeros son probados en la fe.",
+                "epoca": "exilio",
+                "orden": 4,
+                "tipo": "ciudad"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.0000,
+                    32.5000
+                ]
+            },
+            "properties": {
+                "id": "tel-abib",
+                "nombre": "Tel-abib (Río Quebar)",
+                "pasaje": "Ezequiel 1:1-3; 3:15",
+                "descripcion": "Comunidad de exiliados junto al río Quebar donde Ezequiel recibe sus visiones proféticas, incluyendo la gloria de Dios y los huesos secos.",
+                "epoca": "exilio",
+                "orden": 5,
+                "tipo": "comunidad"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    52.6800,
+                    32.6500
+                ]
+            },
+            "properties": {
+                "id": "susa",
+                "nombre": "Susa (Palacio persa)",
+                "pasaje": "Ester 1–10; Nehemías 1:1",
+                "descripcion": "Capital del imperio persa donde Ester se convierte en reina y salva a su pueblo. Nehemías también sirve aquí como copero del rey.",
+                "epoca": "exilio",
+                "orden": 6,
+                "tipo": "palacio"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    52.6800,
+                    32.6500
+                ]
+            },
+            "properties": {
+                "id": "decreto-ciro",
+                "nombre": "Susa — Decreto de Ciro",
+                "pasaje": "Esdras 1:1-4; Isaías 44:28",
+                "descripcion": "Ciro el Grande emite el decreto que permite a los judíos retornar a Jerusalén y reconstruir el templo, cumpliendo la profecía de Isaías.",
+                "epoca": "exilio",
+                "orden": 7,
+                "tipo": "evento"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    44.4211,
+                    33.3152
+                ]
+            },
+            "properties": {
+                "id": "partida-babilonia",
+                "nombre": "Babilonia — Partida de Zorobabel",
+                "pasaje": "Esdras 2:1-2",
+                "descripcion": "Zorobabel lidera la primera caravana de retorno con casi 50.000 personas. Comienza el largo viaje de regreso a la tierra prometida.",
+                "epoca": "exilio",
+                "orden": 8,
+                "tipo": "evento"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.2137,
+                    31.7683
+                ]
+            },
+            "properties": {
+                "id": "templo-reconstruido",
+                "nombre": "Jerusalén — Segundo Templo",
+                "pasaje": "Esdras 3:8-13; 6:14-16",
+                "descripcion": "Zorobabel y Jesúa reconstruyen el templo. Los ancianos lloran recordando la gloria del primero; los jóvenes celebran con gozo.",
+                "epoca": "exilio",
+                "orden": 9,
+                "tipo": "construccion"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    44.4211,
+                    33.3152
+                ]
+            },
+            "properties": {
+                "id": "esdras-partida",
+                "nombre": "Babilonia — Partida de Esdras",
+                "pasaje": "Esdras 7:1-10",
+                "descripcion": "Esdras, sacerdote y escriba, lidera la segunda caravana de retorno. Su misión: restaurar la enseñanza de la Ley de Dios en Jerusalén.",
+                "epoca": "exilio",
+                "orden": 10,
+                "tipo": "evento"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.2137,
+                    31.7683
+                ]
+            },
+            "properties": {
+                "id": "reforma-esdras",
+                "nombre": "Jerusalén — Reforma de Esdras",
+                "pasaje": "Esdras 9–10",
+                "descripcion": "Esdras encuentra que el pueblo se ha mezclado con naciones paganas. Lidera un acto de arrepentimiento nacional y purificación espiritual.",
+                "epoca": "exilio",
+                "orden": 11,
+                "tipo": "evento"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.2137,
+                    31.7683
+                ]
+            },
+            "properties": {
+                "id": "muros-nehemias",
+                "nombre": "Jerusalén — Muros de Nehemías",
+                "pasaje": "Nehemías 2:17-20; 6:15-16",
+                "descripcion": "Nehemías reconstruye los muros de Jerusalén en 52 días a pesar de la oposición. La ciudad es restaurada como símbolo de la fidelidad de Dios.",
+                "epoca": "exilio",
+                "orden": 12,
+                "tipo": "construccion"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.2137,
+                    31.7683
+                ]
+            },
+            "properties": {
+                "id": "lectura-ley",
+                "nombre": "Jerusalén — Lectura de la Ley",
+                "pasaje": "Nehemías 8:1-12",
+                "descripcion": "Esdras lee la Ley ante todo el pueblo reunido. El pueblo llora de convicción pero Nehemías les dice: «El gozo de Jehová es vuestra fuerza».",
+                "epoca": "exilio",
+                "orden": 13,
+                "tipo": "evento"
+            }
+        }
+    ]
+}

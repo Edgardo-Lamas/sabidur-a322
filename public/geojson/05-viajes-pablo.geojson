@@ -1,0 +1,442 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.2137,
+                    31.7683
+                ]
+            },
+            "properties": {
+                "id": "jerusalem-conversion",
+                "nombre": "Jerusalén — Conversión de Pablo",
+                "pasaje": "Hechos 9:26-30; Gálatas 1:18",
+                "descripcion": "Pablo visita Jerusalén tras su conversión y se presenta ante los apóstoles. Bernabé lo avala ante la comunidad.",
+                "epoca": "apostolica",
+                "orden": 1,
+                "tipo": "ciudad"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    36.1600,
+                    36.2000
+                ]
+            },
+            "properties": {
+                "id": "antioquia-siria",
+                "nombre": "Antioquía de Siria",
+                "pasaje": "Hechos 11:25-26; 13:1-3",
+                "descripcion": "Base de operaciones misioneras. Aquí los discípulos son llamados «cristianos» por primera vez. Punto de partida de los tres viajes.",
+                "epoca": "apostolica",
+                "orden": 2,
+                "tipo": "iglesia"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    33.6200,
+                    34.9200
+                ]
+            },
+            "properties": {
+                "id": "salamina",
+                "nombre": "Salamina (Chipre)",
+                "pasaje": "Hechos 13:4-5",
+                "descripcion": "Primera parada del primer viaje misionero. Pablo y Bernabé predican en las sinagogas de la isla de Chipre.",
+                "epoca": "apostolica",
+                "orden": 3,
+                "tipo": "ciudad"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    32.4200,
+                    34.7600
+                ]
+            },
+            "properties": {
+                "id": "pafos",
+                "nombre": "Pafos",
+                "pasaje": "Hechos 13:6-12",
+                "descripcion": "Pablo confronta al mago Elimas y el procónsul Sergio Paulo cree. Primera conversión de un oficial romano.",
+                "epoca": "apostolica",
+                "orden": 4,
+                "tipo": "evento"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    36.5900,
+                    36.4000
+                ]
+            },
+            "properties": {
+                "id": "seleucia",
+                "nombre": "Seleucia",
+                "pasaje": "Hechos 13:4",
+                "descripcion": "Puerto de Antioquía desde donde Pablo zarpa hacia Chipre en su primer viaje misionero.",
+                "epoca": "apostolica",
+                "orden": 5,
+                "tipo": "puerto"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    30.6900,
+                    36.9400
+                ]
+            },
+            "properties": {
+                "id": "perge",
+                "nombre": "Perge (Panfilia)",
+                "pasaje": "Hechos 13:13-14",
+                "descripcion": "Llegada a tierra firme de Asia Menor. Juan Marcos abandona la misión y regresa a Jerusalén.",
+                "epoca": "apostolica",
+                "orden": 6,
+                "tipo": "ciudad"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    31.1700,
+                    38.3500
+                ]
+            },
+            "properties": {
+                "id": "antioquia-pisidia",
+                "nombre": "Antioquía de Pisidia",
+                "pasaje": "Hechos 13:14-52",
+                "descripcion": "Pablo pronuncia su primer gran discurso evangelístico en la sinagoga, proclamando la justificación por la fe en Cristo.",
+                "epoca": "apostolica",
+                "orden": 7,
+                "tipo": "iglesia"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    31.7200,
+                    37.7300
+                ]
+            },
+            "properties": {
+                "id": "iconio",
+                "nombre": "Iconio",
+                "pasaje": "Hechos 14:1-6",
+                "descripcion": "Gran número de judíos y griegos creen, pero la oposición divide la ciudad. Pablo y Bernabé huyen a Listra.",
+                "epoca": "apostolica",
+                "orden": 8,
+                "tipo": "iglesia"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    32.4900,
+                    37.5700
+                ]
+            },
+            "properties": {
+                "id": "listra",
+                "nombre": "Listra",
+                "pasaje": "Hechos 14:8-20",
+                "descripcion": "Pablo sana a un cojo y la multitud quiere adorarlos como dioses. Tras una revuelta, Pablo es apedreado pero sobrevive. Aquí conoce a Timoteo.",
+                "epoca": "apostolica",
+                "orden": 9,
+                "tipo": "evento"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    33.3600,
+                    37.0500
+                ]
+            },
+            "properties": {
+                "id": "derbe",
+                "nombre": "Derbe",
+                "pasaje": "Hechos 14:20-21",
+                "descripcion": "Pablo predica y hace muchos discípulos. Punto más oriental del primer viaje antes de emprender el regreso.",
+                "epoca": "apostolica",
+                "orden": 10,
+                "tipo": "iglesia"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    26.9500,
+                    41.0100
+                ]
+            },
+            "properties": {
+                "id": "filipos",
+                "nombre": "Filipos",
+                "pasaje": "Hechos 16:11-40",
+                "descripcion": "Primera ciudad europea evangelizada. Conversión de Lidia. Pablo y Silas son encarcelados, cantan himnos, y el terremoto abre las puertas.",
+                "epoca": "apostolica",
+                "orden": 11,
+                "tipo": "iglesia"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.9500,
+                    40.6300
+                ]
+            },
+            "properties": {
+                "id": "tesalonica",
+                "nombre": "Tesalónica",
+                "pasaje": "Hechos 17:1-9",
+                "descripcion": "Pablo predica tres sábados en la sinagoga. Algunos judíos y muchos griegos creen, pero la oposición lo obliga a partir de noche.",
+                "epoca": "apostolica",
+                "orden": 12,
+                "tipo": "iglesia"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.4700,
+                    40.5100
+                ]
+            },
+            "properties": {
+                "id": "berea",
+                "nombre": "Berea",
+                "pasaje": "Hechos 17:10-14",
+                "descripcion": "Los bereanos son elogiados por examinar las Escrituras diariamente para verificar la enseñanza de Pablo. Modelo de estudio bíblico.",
+                "epoca": "apostolica",
+                "orden": 13,
+                "tipo": "iglesia"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    23.7275,
+                    37.9838
+                ]
+            },
+            "properties": {
+                "id": "atenas",
+                "nombre": "Atenas",
+                "pasaje": "Hechos 17:16-34",
+                "descripcion": "Pablo predica en el Areópago su famoso discurso al «Dios no conocido». Dialoga con filósofos epicúreos y estoicos.",
+                "epoca": "apostolica",
+                "orden": 14,
+                "tipo": "evento"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.9444,
+                    37.9083
+                ]
+            },
+            "properties": {
+                "id": "corinto",
+                "nombre": "Corinto",
+                "pasaje": "Hechos 18:1-17",
+                "descripcion": "Pablo permanece 18 meses. Funda una iglesia influyente y trabaja como fabricante de tiendas con Aquila y Priscila.",
+                "epoca": "apostolica",
+                "orden": 15,
+                "tipo": "iglesia"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    27.1397,
+                    38.4237
+                ]
+            },
+            "properties": {
+                "id": "efeso",
+                "nombre": "Éfeso",
+                "pasaje": "Hechos 19:1-41",
+                "descripcion": "Pablo enseña durante 2 años en la escuela de Tiranno. Milagros extraordinarios y quema pública de libros de magia. El motín de los plateros.",
+                "epoca": "apostolica",
+                "orden": 16,
+                "tipo": "iglesia"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    29.9553,
+                    40.1885
+                ]
+            },
+            "properties": {
+                "id": "troas",
+                "nombre": "Troas",
+                "pasaje": "Hechos 16:8-10; 20:5-12",
+                "descripcion": "Aquí Pablo recibe la visión del varón macedonio: «Pasa a Macedonia y ayúdanos». El evangelio cruza a Europa. También resucita a Eutico.",
+                "epoca": "apostolica",
+                "orden": 17,
+                "tipo": "vision"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    27.3400,
+                    37.0400
+                ]
+            },
+            "properties": {
+                "id": "mileto",
+                "nombre": "Mileto",
+                "pasaje": "Hechos 20:17-38",
+                "descripcion": "Pablo se despide de los ancianos de Éfeso con un discurso conmovedor. Les advierte sobre los falsos maestros y los encomienda a Dios.",
+                "epoca": "apostolica",
+                "orden": 18,
+                "tipo": "evento"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    34.8800,
+                    32.8200
+                ]
+            },
+            "properties": {
+                "id": "cesarea",
+                "nombre": "Cesarea Marítima",
+                "pasaje": "Hechos 23:23-35; 24–26",
+                "descripcion": "Pablo es llevado preso ante los gobernadores Félix y Festo. Ante el rey Agripa, defiende su fe y apela al César.",
+                "epoca": "apostolica",
+                "orden": 19,
+                "tipo": "ciudad"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    24.9500,
+                    35.5100
+                ]
+            },
+            "properties": {
+                "id": "creta",
+                "nombre": "Creta (Buenos Puertos)",
+                "pasaje": "Hechos 27:7-12",
+                "descripcion": "La nave se detiene en Creta durante el viaje a Roma. Pablo advierte del peligro de continuar, pero no le hacen caso.",
+                "epoca": "apostolica",
+                "orden": 20,
+                "tipo": "puerto"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    14.4088,
+                    35.9375
+                ]
+            },
+            "properties": {
+                "id": "malta",
+                "nombre": "Malta (Naufragio)",
+                "pasaje": "Hechos 28:1-10",
+                "descripcion": "Tras 14 días de tormenta, la nave naufraga en Malta. Pablo es mordido por una víbora sin sufrir daño. Dios le protege para llegar a Roma.",
+                "epoca": "apostolica",
+                "orden": 21,
+                "tipo": "evento"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    14.2500,
+                    40.8500
+                ]
+            },
+            "properties": {
+                "id": "puteoli",
+                "nombre": "Puteoli",
+                "pasaje": "Hechos 28:13-14",
+                "descripcion": "Puerto de llegada a Italia. Pablo encuentra hermanos creyentes que lo reciben y permanece siete días con ellos.",
+                "epoca": "apostolica",
+                "orden": 22,
+                "tipo": "puerto"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    12.4964,
+                    41.9028
+                ]
+            },
+            "properties": {
+                "id": "roma",
+                "nombre": "Roma",
+                "pasaje": "Hechos 28:16-31",
+                "descripcion": "Destino final. Pablo vive dos años bajo arresto domiciliario predicando el reino de Dios «abiertamente y sin impedimento». Desde aquí escribe las Epístolas de la Prisión.",
+                "epoca": "apostolica",
+                "orden": 23,
+                "tipo": "ciudad"
+            }
+        }
+    ]
+}
