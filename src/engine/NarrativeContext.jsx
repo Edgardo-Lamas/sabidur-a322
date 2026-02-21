@@ -7,6 +7,10 @@
  * - Métodos dispatch wrappers (start, next, prev, etc.)
  * - Valores derivados (selectors) inyectados en el contexto
  * - AUTOPLAY: setTimeout encadenado cuando status === 'playing'
+ * - TRANSICIÓN EVENT-DRIVEN:
+ *     transitionTo() → isTransitioning=true → dispatch step
+ *     El adaptador de mapa ejecuta flyTo → map.once('moveend') →
+ *     llama onTransitionComplete() → isTransitioning=false
  *
  * Este provider SOLO gestiona estado narrativo.
  * No tiene conocimiento del mapa, Leaflet, ni DOM.
@@ -29,7 +33,39 @@ const BASE_INTERVAL = 4000;
 // ─── PROVIDER ───
 export const NarrativeProvider = ({ children }) => {
     const [state, dispatch] = useReducer(narrativeReducer, INITIAL_STATE);
-    const timerRef = useRef(null);
+    const autoplayTimerRef = useRef(null);
+
+    // ───────────────────────────────
+    //  TRANSICIÓN EVENT-DRIVEN
+    //
+    //  Flujo completo:
+    //    1. transitionTo(action):
+    //       - isTransitioning = true  (UI hace fade out)
+    //       - dispatch(action)        (currentStepIndex cambia)
+    //
+    //    2. useNarrativeMap detecta currentFeature cambió:
+    //       - flyTo(nuevo punto)
+    //       - map.once('moveend', onTransitionComplete)
+    //
+    //    3. onTransitionComplete():
+    //       - isTransitioning = false (UI hace fade in)
+    //       - Autoplay programa siguiente paso
+    //
+    //  Si no hay mapa conectado, isTransitioning queda en true.
+    //  Por eso el adaptador DEBE llamar onTransitionComplete.
+    // ───────────────────────────────
+    const transitionTo = useCallback((action) => {
+        dispatch({ type: ACTIONS.SET_TRANSITIONING, payload: true });
+        dispatch(action);
+    }, []);
+
+    /**
+     * Debe ser llamado por el adaptador de mapa (useNarrativeMap)
+     * después de que flyTo termine (via map.once('moveend')).
+     */
+    const onTransitionComplete = useCallback(() => {
+        dispatch({ type: ACTIONS.SET_TRANSITIONING, payload: false });
+    }, []);
 
     // ─── Action Creators ───
     const start = useCallback(
@@ -38,15 +74,20 @@ export const NarrativeProvider = ({ children }) => {
         []
     );
 
-    const next = useCallback(
-        () => dispatch({ type: ACTIONS.NEXT }),
-        []
-    );
+    const next = useCallback(() => {
+        if (!selectors.canGoNext(state)) return;
+        transitionTo({ type: ACTIONS.NEXT });
+    }, [state, transitionTo]);
 
-    const prev = useCallback(
-        () => dispatch({ type: ACTIONS.PREV }),
-        []
-    );
+    const prev = useCallback(() => {
+        if (!selectors.canGoPrev(state)) return;
+        transitionTo({ type: ACTIONS.PREV });
+    }, [state, transitionTo]);
+
+    const goTo = useCallback((index) => {
+        if (index === state.currentStepIndex) return;
+        transitionTo({ type: ACTIONS.GO_TO, payload: { index } });
+    }, [state.currentStepIndex, transitionTo]);
 
     const pause = useCallback(
         () => dispatch({ type: ACTIONS.PAUSE }),
@@ -60,11 +101,6 @@ export const NarrativeProvider = ({ children }) => {
 
     const stop = useCallback(
         () => dispatch({ type: ACTIONS.STOP }),
-        []
-    );
-
-    const goTo = useCallback(
-        (index) => dispatch({ type: ACTIONS.GO_TO, payload: { index } }),
         []
     );
 
@@ -84,34 +120,37 @@ export const NarrativeProvider = ({ children }) => {
     }), [state]);
 
     // ─── AUTOPLAY ───
-    // Un solo useEffect con setTimeout encadenado.
-    // Se re-ejecuta cuando cambian: status, speed, canGoNext, currentStepIndex.
-    // Cada re-ejecución limpia el timer anterior y programa el siguiente paso.
+    // setTimeout encadenado. Usa transitionTo para que cada avance
+    // automático pase por el mismo flujo de transición que next/prev/goTo.
+    // Espera a que isTransitioning=false (flyTo completó) antes de programar el siguiente.
     useEffect(() => {
-        // Solo avanzar si: playing + hay siguiente paso
-        if (state.status !== 'playing' || !derived.canGoNext) {
-            // Limpiar cualquier timer residual
-            if (timerRef.current) {
-                clearTimeout(timerRef.current);
-                timerRef.current = null;
+        if (state.status !== 'playing' || !derived.canGoNext || state.isTransitioning) {
+            if (autoplayTimerRef.current) {
+                clearTimeout(autoplayTimerRef.current);
+                autoplayTimerRef.current = null;
             }
             return;
         }
 
-        // Programar el siguiente paso
         const delay = BASE_INTERVAL / state.speed;
-        timerRef.current = setTimeout(() => {
-            dispatch({ type: ACTIONS.NEXT });
+        autoplayTimerRef.current = setTimeout(() => {
+            transitionTo({ type: ACTIONS.NEXT });
         }, delay);
 
-        // Cleanup: se ejecuta al re-render o desmontar
         return () => {
-            if (timerRef.current) {
-                clearTimeout(timerRef.current);
-                timerRef.current = null;
+            if (autoplayTimerRef.current) {
+                clearTimeout(autoplayTimerRef.current);
+                autoplayTimerRef.current = null;
             }
         };
-    }, [state.status, state.speed, state.currentStepIndex, derived.canGoNext]);
+    }, [state.status, state.speed, state.currentStepIndex, state.isTransitioning, derived.canGoNext, transitionTo]);
+
+    // ─── Cleanup al desmontar ───
+    useEffect(() => {
+        return () => {
+            if (autoplayTimerRef.current) clearTimeout(autoplayTimerRef.current);
+        };
+    }, []);
 
     // ─── Context value (estable) ───
     const value = useMemo(() => ({
@@ -128,7 +167,8 @@ export const NarrativeProvider = ({ children }) => {
         stop,
         goTo,
         setSpeed,
-    }), [state, derived, start, next, prev, pause, resume, stop, goTo, setSpeed]);
+        onTransitionComplete,
+    }), [state, derived, start, next, prev, pause, resume, stop, goTo, setSpeed, onTransitionComplete]);
 
     return (
         <NarrativeContext.Provider value={value}>
@@ -136,3 +176,4 @@ export const NarrativeProvider = ({ children }) => {
         </NarrativeContext.Provider>
     );
 };
+

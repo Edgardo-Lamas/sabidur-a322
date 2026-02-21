@@ -30,6 +30,7 @@ export const INITIAL_STATE = {
     currentStepIndex: 0,
     status: 'idle',         // 'idle' | 'playing' | 'paused'
     speed: 1,               // multiplicador de velocidad (0.5, 1, 1.5, 2)
+    isTransitioning: false, // true durante el delay de transición entre pasos
 };
 
 // ─── ACTION TYPES ───
@@ -42,6 +43,7 @@ export const ACTIONS = {
     STOP: 'NARRATIVE_STOP',
     GO_TO: 'NARRATIVE_GO_TO',
     SET_SPEED: 'NARRATIVE_SET_SPEED',
+    SET_TRANSITIONING: 'NARRATIVE_SET_TRANSITIONING',
 };
 
 // ─── REDUCER ───
@@ -95,6 +97,7 @@ export const narrativeReducer = (state, action) => {
                 activeRoute: null,
                 currentStepIndex: 0,
                 status: 'idle',
+                isTransitioning: false,
             };
         }
 
@@ -107,6 +110,10 @@ export const narrativeReducer = (state, action) => {
 
         case ACTIONS.SET_SPEED: {
             return { ...state, speed: action.payload.speed };
+        }
+
+        case ACTIONS.SET_TRANSITIONING: {
+            return { ...state, isTransitioning: action.payload };
         }
 
         default:

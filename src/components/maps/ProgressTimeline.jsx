@@ -2,15 +2,10 @@
  * ProgressTimeline.jsx
  * Línea de tiempo interactiva para el Motor Narrativo Bíblico.
  *
- * Solo presentación — no contiene lógica narrativa.
- * Lee estado via useNarrative() y llama goTo(index) en clicks.
+ * Solo presentación — consume useNarrative().
+ * Segmentos clickeables (goTo), 3 estados visuales, tooltips nativos.
  *
- * Cada segmento tiene 3 estados visuales:
- *   completed  — antes del paso actual (relleno sólido)
- *   active     — paso actual (relleno + escala + pulso)
- *   pending    — después del paso actual (borde sutil)
- *
- * Tooltip nativo vía title (sin dependencias externas).
+ * Alineado al ancho total del layout (sin maxWidth propio).
  */
 import React from 'react';
 import useNarrative from '../../engine/useNarrative';
@@ -29,12 +24,22 @@ const ProgressTimeline = ({ epochColor = '#C5A059' }) => {
     const features = activeRoute.features;
 
     return (
-        <div
-            className="bg-white/95 backdrop-blur-sm border border-sabiduria-gray/10 rounded-sm shadow-md px-3 py-2"
-            style={{ width: '100%', maxWidth: '600px' }}
-        >
+        <div style={{
+            background: 'rgba(255,255,255,0.97)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
+            border: '1px solid rgba(0,0,0,0.06)',
+            borderRadius: '12px',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04)',
+            padding: '14px 24px',
+            width: '100%',
+        }}>
             {/* Segmentos */}
-            <div className="flex items-center gap-1">
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '3px',
+            }}>
                 {features.map((feature, i) => {
                     const props = feature.properties;
                     const isCompleted = i < currentStepIndex;
@@ -46,50 +51,86 @@ const ProgressTimeline = ({ epochColor = '#C5A059' }) => {
                             key={props.id || i}
                             onClick={() => goTo(i)}
                             title={tooltip}
-                            className="relative group flex-1 focus:outline-none"
-                            style={{ minWidth: '8px' }}
+                            style={{
+                                flex: 1,
+                                minWidth: '6px',
+                                position: 'relative',
+                                padding: 0,
+                                border: 'none',
+                                background: 'none',
+                                cursor: 'pointer',
+                                outline: 'none',
+                            }}
                         >
-                            {/* Bar */}
-                            <div
-                                className="h-2 rounded-full transition-all duration-500 ease-out"
-                                style={{
-                                    background: isActive
-                                        ? epochColor
-                                        : isCompleted
-                                            ? `${epochColor}90`
-                                            : '#E5E7EB',
-                                    transform: isActive ? 'scaleY(1.5)' : 'scaleY(1)',
-                                    boxShadow: isActive ? `0 0 8px ${epochColor}50` : 'none',
-                                }}
-                            />
+                            {/* Bar segment */}
+                            <div style={{
+                                height: isActive ? '5px' : '3px',
+                                borderRadius: '4px',
+                                background: isActive
+                                    ? epochColor
+                                    : isCompleted
+                                        ? `${epochColor}70`
+                                        : 'rgba(0,0,0,0.07)',
+                                transition: 'all 500ms ease-out',
+                                boxShadow: isActive ? `0 0 10px ${epochColor}40` : 'none',
+                            }} />
 
-                            {/* Dot on active */}
+                            {/* Active indicator dot */}
                             {isActive && (
-                                <div
-                                    className="absolute -top-1 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-white transition-transform duration-500"
-                                    style={{
-                                        background: epochColor,
-                                        boxShadow: `0 0 0 2px ${epochColor}40, 0 2px 6px rgba(0,0,0,0.2)`,
-                                    }}
-                                />
+                                <div style={{
+                                    position: 'absolute',
+                                    top: '-5px',
+                                    left: '50%',
+                                    transform: 'translateX(-50%)',
+                                    width: '13px',
+                                    height: '13px',
+                                    borderRadius: '50%',
+                                    background: epochColor,
+                                    border: '2.5px solid white',
+                                    boxShadow: `0 0 0 2px ${epochColor}35, 0 2px 8px rgba(0,0,0,0.15)`,
+                                    transition: 'all 500ms ease-out',
+                                }} />
                             )}
-
-                            {/* Hover indicator */}
-                            <div
-                                className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                                style={{ background: epochColor }}
-                            />
                         </button>
                     );
                 })}
             </div>
 
             {/* Labels: first and last */}
-            <div className="flex justify-between mt-1.5">
-                <span className="text-[10px] text-sabiduria-gray truncate max-w-[40%]">
+            <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                marginTop: '10px',
+            }}>
+                <span style={{
+                    fontSize: '0.6875rem',
+                    color: '#8B8B8B',
+                    fontWeight: 500,
+                    maxWidth: '40%',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                }}>
                     {features[0]?.properties.nombre}
                 </span>
-                <span className="text-[10px] text-sabiduria-gray truncate max-w-[40%] text-right">
+                <span style={{
+                    fontSize: '0.6875rem',
+                    fontWeight: 600,
+                    color: epochColor,
+                    opacity: 0.8,
+                }}>
+                    {currentStepIndex + 1} / {totalSteps}
+                </span>
+                <span style={{
+                    fontSize: '0.6875rem',
+                    color: '#8B8B8B',
+                    fontWeight: 500,
+                    maxWidth: '40%',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    textAlign: 'right',
+                }}>
                     {features[features.length - 1]?.properties.nombre}
                 </span>
             </div>

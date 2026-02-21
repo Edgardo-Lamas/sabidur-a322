@@ -9,6 +9,7 @@
  * - Escuchar cambios en currentFeature → flyTo + openPopup
  * - Escuchar status === 'idle' → cerrar popups + resetear vista
  * - Gestionar su propio L.marker (independiente del cluster)
+ * - Llamar onTransitionComplete() después del moveend (event-driven)
  * - Cleanup completo al desmontar
  *
  * No modifica el engine. No usa setInterval.
@@ -19,7 +20,6 @@
  * @param {Object}      options
  * @param {number}      options.flyZoom    — zoom para flyTo (default: 10)
  * @param {number}      options.flyDuration — duración de la animación en segundos
- * @param {number}      options.popupDelay  — ms antes de abrir el popup (esperar flyTo)
  */
 import { useEffect, useRef } from 'react';
 import L from 'leaflet';
@@ -77,25 +77,29 @@ const useNarrativeMap = (map, clusterRef, options = {}) => {
     const {
         flyZoom = 10,
         flyDuration = 1.2,
-        popupDelay = 600,
     } = options;
 
-    const { currentFeature, status, activeRoute } = useNarrative();
+    const { currentFeature, status, activeRoute, onTransitionComplete } = useNarrative();
 
     const markerRef = useRef(null);
-    const popupTimerRef = useRef(null);
     const previousStatusRef = useRef(status);
-    const savedViewRef = useRef(null);  // { center, zoom } antes de entrar al narrative
+    const savedViewRef = useRef(null);
+    const moveendHandlerRef = useRef(null);
+
+    // ─── Helper: limpiar listener moveend anterior ───
+    const cleanupMoveend = () => {
+        if (moveendHandlerRef.current && map) {
+            map.off('moveend', moveendHandlerRef.current);
+            moveendHandlerRef.current = null;
+        }
+    };
 
     // ─── EFECTO: Reaccionar a cambios de feature ───
     useEffect(() => {
         if (!map) return;
 
-        // Cancelar popup pendiente
-        if (popupTimerRef.current) {
-            clearTimeout(popupTimerRef.current);
-            popupTimerRef.current = null;
-        }
+        // Limpiar moveend anterior antes de cualquier cosa
+        cleanupMoveend();
 
         // Si no hay feature activa (idle/stop), limpiar
         if (!currentFeature || status === 'idle') {
@@ -135,10 +139,12 @@ const useNarrativeMap = (map, clusterRef, options = {}) => {
             easeLinearity: 0.25,
         });
 
-        // Crear marker y abrir popup después del flyTo
-        popupTimerRef.current = setTimeout(() => {
-            if (!map) return;
+        // map.once('moveend'): después de que flyTo termine,
+        // crear marker, abrir popup, y señalar fin de transición al engine.
+        const onMoveEnd = () => {
+            moveendHandlerRef.current = null;
 
+            // Crear marker
             const marker = L.marker([lat, lng], {
                 icon: createNarrativeIcon(props.epoca, props.orden),
                 zIndexOffset: 1000,
@@ -154,10 +160,15 @@ const useNarrativeMap = (map, clusterRef, options = {}) => {
             marker.addTo(map);
             marker.openPopup();
             markerRef.current = marker;
-        }, popupDelay);
 
-        // No cleanup aquí — el cleanup se hace al inicio del próximo ciclo
-    }, [map, currentFeature, status, flyZoom, flyDuration, popupDelay]);
+            // Señalar al engine que la transición visual terminó
+            onTransitionComplete();
+        };
+
+        moveendHandlerRef.current = onMoveEnd;
+        map.once('moveend', onMoveEnd);
+
+    }, [map, currentFeature, status, flyZoom, flyDuration, onTransitionComplete]);
 
     // ─── EFECTO: Ocultar/mostrar cluster según estado narrativo ───
     useEffect(() => {
@@ -165,10 +176,8 @@ const useNarrativeMap = (map, clusterRef, options = {}) => {
         const cluster = clusterRef.current;
 
         if (status !== 'idle' && activeRoute) {
-            // Ocultar cluster durante narrative
             if (map.hasLayer(cluster)) map.removeLayer(cluster);
         } else {
-            // Restaurar cluster al salir
             if (!map.hasLayer(cluster)) map.addLayer(cluster);
         }
     }, [map, clusterRef, status, activeRoute]);
@@ -176,10 +185,7 @@ const useNarrativeMap = (map, clusterRef, options = {}) => {
     // ─── CLEANUP AL DESMONTAR ───
     useEffect(() => {
         return () => {
-            if (popupTimerRef.current) {
-                clearTimeout(popupTimerRef.current);
-                popupTimerRef.current = null;
-            }
+            cleanupMoveend();
             destroyMarker(markerRef);
         };
     }, []);
