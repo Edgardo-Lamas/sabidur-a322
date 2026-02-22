@@ -1,0 +1,275 @@
+{
+    "id": "abraham-journey",
+    "title": "Recorrido de Abraham",
+    "subtitle": "Génesis 12–22",
+    "period": "Patriarcas",
+    "sequence": [
+        "Llamado",
+        "Descenso",
+        "Regreso",
+        "Consolidación",
+        "Crisis del valle",
+        "Nacimiento",
+        "Prueba",
+        "Establecimiento"
+    ],
+    "steps": [
+        {
+            "order": 1,
+            "place": "Ur",
+            "period": "Patriarcas",
+            "title": "El origen del llamado",
+            "biblical_reference": "Génesis 11:31",
+            "sequence_phase": "Llamado",
+            "narrative": "Ur era una ciudad antigua, levantada junto a los grandes ríos de Mesopotamia. Sus templos dominaban el horizonte y el comercio fluía entre caravanas y canales. Allí comenzó la historia de un hombre llamado Abram.\n\nNo era un profeta aún. Era parte de una familia establecida dentro de una cultura sofisticada, acostumbrada a dioses visibles y certezas heredadas. En ese escenario seguro, una voz irrumpe sin intermediarios ni templos.\n\nNo se le entrega un mapa. Solo una palabra y una dirección abierta: salir.\n\nLa fe aparece antes que el camino.\n\nY el movimiento comienza antes de conocer el destino."
+        },
+        {
+            "order": 2,
+            "place": "Harán",
+            "period": "Patriarcas",
+            "title": "La estación intermedia",
+            "biblical_reference": "Génesis 11:31–12:4",
+            "sequence_phase": "Llamado",
+            "narrative": "Harán se extendía como punto de paso entre rutas comerciales del norte. No era el origen ni la meta, sino una estación intermedia donde las caravanas descansaban antes de seguir.\n\nAbram llega allí con su padre y su familia. El viaje iniciado en Ur se detiene. La vida vuelve a organizarse: rebaños, tiendas, rutinas. Durante un tiempo, el movimiento parece haberse convertido en asentamiento.\n\nPero la pausa no cancela el llamado.\n\nTras la muerte de su padre, la voz vuelve a interrumpir la estabilidad: dejar la tierra conocida, la parentela, la casa del padre. No se trata solo de desplazamiento geográfico, sino de ruptura con lo que da identidad.\n\nLa promesa aún no tiene territorio visible.\n\nEntonces, esta vez sin mediaciones familiares, Abram parte nuevamente."
+        },
+        {
+            "order": 3,
+            "place": "Siquem",
+            "period": "Patriarcas",
+            "title": "Consolidación del llamado",
+            "biblical_reference": "Génesis 12:6–7",
+            "sequence_phase": "Descenso",
+            "narrative": "Siquem se alzaba entre montes, en el corazón de Canaán. Era una tierra habitada, con ciudades establecidas y pueblos que ya tenían nombre y fronteras.\n\nCuando Abram atraviesa ese territorio, no llega como conquistador ni como propietario. Llega como extranjero.\n\nAllí, por primera vez, la promesa adquiere una forma concreta: \"A tu descendencia daré esta tierra\". No es posesión inmediata. Es anticipación.\n\nAbram responde de la única manera que puede un nómada sin tierra: levanta un altar. No construye murallas ni traza límites. Marca memoria.\n\nLa tierra es prometida antes de ser habitada.\n\nY el recorrido continúa hacia el sur."
+        },
+        {
+            "order": 4,
+            "place": "Betel",
+            "period": "Patriarcas",
+            "title": "El segundo altar",
+            "biblical_reference": "Génesis 12:8",
+            "sequence_phase": "Descenso",
+            "narrative": "Betel se alzaba sobre las colinas centrales de Canaán, en un terreno elevado donde convergían los caminos que bajaban hacia el sur. No era aún un lugar consagrado. Era un paraje de piedra y viento, abierto en todas direcciones.\n\nAbram plantó su tienda entre Betel y Hai, sobre una loma que no pertenecía a ninguna de las dos ciudades. A un lado, el oriente árido y las llanuras distantes. Al otro, las laderas que descendían hacia los valles de occidente.\n\nAllí levantó un segundo altar e invocó el nombre del Señor. No hubo nueva aparición ni nueva palabra. El gesto repite el de Siquem: marcar el paso por la tierra con un acto que no reclama posesión.\n\nDos altares en tierra ajena. Ninguna muralla. Ningún título de propiedad. Solo señales verticales en un recorrido que avanza sin detenerse.\n\nDesde esa altura, el camino hacia el Néguev se abría con claridad."
+        },
+        {
+            "order": 5,
+            "place": "Néguev",
+            "period": "Patriarcas",
+            "title": "Hacia la tierra seca",
+            "biblical_reference": "Génesis 12:9",
+            "sequence_phase": "Descenso",
+            "narrative": "El Néguev se extendía hacia el sur como una franja de tierra seca y horizonte amplio. No ofrecía ciudades prominentes ni centros de comercio, sino espacio abierto, exposición al viento y silencio. Era territorio de paso, donde el paisaje comenzaba a volverse más austero con cada jornada de marcha.\n\nAbram continuó su recorrido en esa dirección, dejando atrás las colinas arboladas de Betel y los valles fértiles del centro de Canaán. No se registra una palabra nueva ni una señal extraordinaria. Solo el desplazamiento constante, paso tras paso, hacia una región cada vez menos fértil.\n\nEl camino descendía entre llanuras pedregosas y cauces secos. Las aldeas se espaciaban. Los pastos se adelgazaban. La tierra prometida no se presentaba como abundancia, sino como travesía.\n\nNingún signo en el paisaje confirmaba el rumbo elegido. Pero la marcha no se detuvo.\n\nY entonces la tierra comenzó a cerrarse bajo el peso del hambre."
+        },
+        {
+            "order": 6,
+            "place": "Egipto",
+            "period": "Patriarcas",
+            "title": "El desvío hacia Egipto",
+            "biblical_reference": "Génesis 12:10–20",
+            "sequence_phase": "Descenso",
+            "narrative": "Egipto se extendía al suroeste como una franja fértil sostenida por el Nilo, en marcado contraste con la sequedad creciente del Néguev. Donde Canaán se endurecía por la escasez, el valle egipcio ofrecía alimento, agua y estabilidad.\n\nLa hambre se hizo severa en la tierra, y Abram descendió hasta allí para residir como extranjero. No era la dirección del llamado original, sino un desvío impuesto por la necesidad. Antes de cruzar la frontera, pidió a Sarai que se presentara como su hermana.\n\nLa casa de Faraón recibió a Sarai, y Abram obtuvo rebaños, siervos y bienes a cambio. Durante un tiempo, la estancia pareció sostenerse sin consecuencias.\n\nPero el arreglo se quebró. Plagas cayeron sobre la casa de Faraón y la verdad salió a la superficie. El patriarca fue confrontado, devuelto y escoltado fuera del territorio egipcio.\n\nEntonces, con más posesiones que al llegar pero sin haber avanzado en la ruta prometida, Abram emprendió el regreso hacia el norte."
+        },
+        {
+            "order": 7,
+            "place": "Betel",
+            "period": "Patriarcas",
+            "title": "El retorno al altar",
+            "biblical_reference": "Génesis 13:1–4",
+            "sequence_phase": "Regreso",
+            "narrative": "Desde Egipto, Abram ascendió nuevamente hacia el Néguev con sus rebaños, su plata y su oro. El camino atravesaba las mismas llanuras secas que había cruzado meses antes, ahora en sentido inverso. La caravana era más numerosa, pero la dirección era la misma.\n\nContinuó hacia el norte hasta llegar al lugar donde había acampado la primera vez, entre Betel y Hai. Las colinas seguían abiertas, el paisaje sin alteraciones. El altar que había levantado antes de descender al sur todavía estaba allí.\n\nAbram volvió a ese sitio y nuevamente invocó el nombre del Señor. No se registra una palabra nueva ni una revelación. Solo el regreso a un punto ya marcado y el gesto repetido sobre la misma piedra.\n\nEl desvío hacia Egipto no había añadido territorio a la promesa. Pero el altar seguía en su lugar.\n\nY desde esa altura, la tierra comenzaba a mostrar nuevas tensiones entre los que la habitaban."
+        },
+        {
+            "order": 8,
+            "place": "Hebrón",
+            "period": "Patriarcas",
+            "title": "El encinar de Mamre",
+            "biblical_reference": "Génesis 13:18",
+            "sequence_phase": "Regreso",
+            "narrative": "Hebrón se extendía en las colinas del sur de Canaán, en una región más elevada y fértil que las llanuras del Néguev. El terreno ondulado ofrecía pastos amplios, y junto al encinar de Mamre, los árboles antiguos daban sombra densa y reparo contra el viento.\n\nTras la separación de Lot, que eligió para sí la llanura del Jordán, Abram desplazó sus tiendas hacia ese sector. El territorio se dividía sin conflicto: uno bajó hacia el valle fértil, el otro subió hacia las colinas.\n\nAllí, junto a los encinares, Abram levantó otro altar. Era el tercero desde su entrada en Canaán. Ninguno reclamaba propiedad. Cada uno señalaba un punto de paso en un recorrido que todavía no tenía título de posesión.\n\nLa tierra seguía siendo habitada por otros. Pero los altares comenzaban a trazar una línea sobre el mapa.\n\nY desde esas colinas, los caminos se abrían hacia el oriente y hacia el sur."
+        },
+        {
+            "order": 9,
+            "place": "Valle de Siddim",
+            "period": "Patriarcas",
+            "title": "La guerra en la llanura",
+            "biblical_reference": "Génesis 14:1–12",
+            "sequence_phase": "Crisis del valle",
+            "narrative": "El valle de Siddim se extendía al sur del mar Salado, en una llanura baja donde varias ciudades habían prosperado entre pozos de asfalto y rutas de comercio. Era una región fértil pero expuesta, rodeada de reinos del oriente que reclamaban tributo sobre las ciudades del valle del Jordán.\n\nAllí estalló un conflicto entre coaliciones de reyes. Cuatro reyes del este marcharon contra cinco de la llanura. Las ciudades fueron derrotadas, sus bienes saqueados y sus habitantes llevados cautivos. Entre ellos estaba Lot, que había elegido asentarse en esa región tras separarse de Abram.\n\nLa guerra no comenzó con Abram, pero lo alcanzó. Desde Hebrón, al recibir la noticia, reunió a trescientos dieciocho hombres nacidos en su casa y salió en persecución hacia el norte.\n\nEl recorrido dejaba de ser solo un itinerario de altares. La tierra donde Abram caminaba era también tierra en disputa.\n\nY la marcha nocturna se dirigió hacia Dan."
+        },
+        {
+            "order": 10,
+            "place": "Dan",
+            "period": "Patriarcas",
+            "title": "La persecución nocturna",
+            "biblical_reference": "Génesis 14:13–16",
+            "sequence_phase": "Crisis del valle",
+            "narrative": "Dan marcaba el extremo norte del territorio, junto a las fuentes que alimentan el Jordán. Era una región de paso entre Canaán y las rutas que conectaban con Damasco y los reinos de más allá. El paisaje cambiaba: más agua, más vegetación, pero también mayor proximidad a potencias extranjeras.\n\nHasta ese límite llegó Abram con sus trescientos dieciocho hombres. La marcha desde Hebrón había cubierto la extensión completa de la tierra, de sur a norte, en línea recta. El avance fue nocturno, dividido en flancos contra la coalición que arrastraba cautivos y botín hacia el oriente.\n\nEl ataque resultó efectivo. Los reyes invasores fueron dispersados y puestos en fuga. Los cautivos fueron liberados y los bienes recuperados. Entre ellos, Lot y su casa.\n\nLa operación no reclamaba territorio. Pero la distancia recorrida abarcaba ya toda la longitud de Canaán.\n\nY la persecución continuó todavía más allá, hasta Hobá, al norte de Damasco."
+        },
+        {
+            "order": 11,
+            "place": "Hobá",
+            "period": "Patriarcas",
+            "title": "El punto más lejano",
+            "biblical_reference": "Génesis 14:15",
+            "sequence_phase": "Crisis del valle",
+            "narrative": "Hobá se encontraba al norte de Damasco, más allá de los límites habituales del territorio de Canaán. Era un punto remoto, situado en las rutas que conectaban con los reinos del norte y del oriente. El paisaje había dejado atrás las colinas conocidas y se abría hacia llanuras dominadas por otras potencias.\n\nHasta allí se extendió la persecución. La coalición derrotada fue dispersada a lo largo del camino, y los cautivos y los bienes tomados en Siddim fueron recuperados. No hubo ocupación ni reclamo de territorio. Cumplido el rescate, el avance se detuvo.\n\nEra el punto más distante que Abram alcanzaría en todo su recorrido. Desde Ur hasta Hobá, la línea del itinerario había cruzado ríos, desiertos y fronteras de reinos.\n\nPero Hobá no era destino. Era límite. Y como tal, marcaba el momento de dar la vuelta.\n\nEl regreso comenzó hacia el sur, en dirección al valle del rey."
+        },
+        {
+            "order": 12,
+            "place": "Valle del Rey",
+            "period": "Patriarcas",
+            "title": "El encuentro en el valle",
+            "biblical_reference": "Génesis 14:17–24",
+            "sequence_phase": "Crisis del valle",
+            "narrative": "El valle del Rey se extendía en las cercanías de Salem, en un punto donde los caminos del sur convergían al regreso de la campaña del norte. Era un terreno abierto y llano, apto para el encuentro entre los que volvían del combate y los que esperaban noticias.\n\nAllí salió al encuentro de Abram el rey de Sodoma. Pero antes de cualquier negociación apareció otra figura: Melquisedec, rey de Salem, sacerdote del Dios Altísimo. Trajo pan y vino, y pronunció una bendición sobre quien regresaba con los cautivos liberados y el botín recuperado.\n\nAbram entregó el diezmo de todo lo recuperado. Luego, ante el rey de Sodoma, rechazó quedarse con los bienes. Ni un hilo ni una correa de sandalia. Solo los aliados recibirían su parte.\n\nEl vencedor no retuvo nada del valle. Devolvió lo que podía haber reclamado y se apartó del pacto que le ofrecían.\n\nY el camino volvió a subir hacia las colinas de Hebrón, donde estaban sus tiendas."
+        },
+        {
+            "order": 13,
+            "place": "Hebrón",
+            "period": "Patriarcas",
+            "title": "La alianza nocturna",
+            "biblical_reference": "Génesis 15",
+            "sequence_phase": "Consolidación",
+            "narrative": "Hebrón permanecía en las colinas del sur, lejos de los valles donde se habían librado batallas recientes. Entre encinares y tiendas, el campamento había vuelto a la quietud. Pero en medio de esa calma llegó una palabra distinta: no sobre desplazamiento, sino sobre descendencia.\n\nAbram señaló lo evidente: no tenía heredero. La respuesta no vino en forma de explicación. Fue llevado fuera de la tienda, de noche, y se le pidió que contara las estrellas. La referencia ya no era un valle ni una frontera, sino una extensión sin número.\n\nLuego se preparó un acto solemne. Animales partidos por la mitad, dispuestos sobre el suelo. Al caer el sol, un sueño profundo y una oscuridad densa. Y entre las piezas, un horno humeante y una antorcha de fuego atravesaron el espacio sin que Abram se moviera.\n\nLa alianza no fue pactada entre iguales. Solo uno de los dos atravesó los símbolos.\n\nY el campamento permaneció en Hebrón, bajo el mismo cielo de la noche anterior."
+        },
+        {
+            "order": 14,
+            "place": "Shur",
+            "period": "Patriarcas",
+            "title": "La fuente en el desierto",
+            "biblical_reference": "Génesis 16:1–14",
+            "sequence_phase": "Consolidación",
+            "narrative": "El camino hacia Shur atravesaba una franja desértica que conducía en dirección a Egipto. Era una ruta expuesta, marcada por pozos dispersos y largas extensiones de arena y piedra. No había ciudades en esa dirección, solo el rastro de caravanas y el silencio del desierto.\n\nDesde el campamento en Hebrón, el conflicto había crecido. Sarai, al no tener hijos, entregó a su sierva Agar a Abram para asegurar descendencia. Pero cuando Agar concibió, la convivencia se quebró. Sarai la afligió, y Agar huyó hacia el sur por el camino que alguna vez la trajo de Egipto.\n\nJunto a una fuente en el desierto, la huida se detuvo. Allí, en un lugar sin altares ni tiendas, recibió una palabra y una promesa sobre el hijo que llevaba. La fuente fue nombrada: Beer-lahai-roi, entre Cades y Bered.\n\nAgar regresó al campamento. No por voluntad propia, sino por instrucción.\n\nY en Hebrón, la tensión entre las tiendas seguía sin resolverse."
+        },
+        {
+            "order": 15,
+            "place": "Encinar de Mamre",
+            "period": "Patriarcas",
+            "title": "Los tres visitantes",
+            "biblical_reference": "Génesis 18:1–15",
+            "sequence_phase": "Nacimiento",
+            "narrative": "El encinar de Mamre ofrecía sombra densa en las colinas cercanas a Hebrón. En las horas más calurosas del día, el campamento permanecía en quietud. Los rebaños descansaban entre los árboles y el paisaje ondulado se extendía sin movimiento hacia el sur y hacia el oriente.\n\nEn ese marco cotidiano aparecieron tres visitantes sobre el camino. Abraham salió a recibirlos con urgencia: agua para los pies, pan amasado con harina fina, un becerro tierno preparado bajo los árboles. No conocía todavía la naturaleza de quienes se detenían frente a su tienda.\n\nDurante la comida llegó un anuncio con fecha precisa: Sara tendría un hijo al año siguiente. Ella escuchó desde la entrada de la tienda y se rió. La distancia entre lo dicho y lo visible era demasiado grande.\n\nCuando los visitantes se levantaron, miraron en dirección al valle del Jordán. La conversación cambió de tono.\n\nY el siguiente tramo del camino apuntó hacia Sodoma."
+        },
+        {
+            "order": 16,
+            "place": "Sodoma",
+            "period": "Patriarcas",
+            "title": "La conversación en la altura",
+            "biblical_reference": "Génesis 18:16–33",
+            "sequence_phase": "Nacimiento",
+            "narrative": "Desde las colinas de Mamre, el terreno desciende hacia el valle del Jordán y la llanura donde se encontraban Sodoma y las ciudades vecinas. A la distancia, la región parecía fértil y estable, sostenida por rutas comerciales y cursos de agua que alimentaban la zona más baja del territorio.\n\nLos visitantes se dirigieron en esa dirección, y Abraham los acompañó un tramo del camino. En ese punto elevado, con la llanura extendida a sus pies, se abrió una conversación distinta. Lo que se anunció no fue una promesa, sino una sentencia sobre las ciudades del valle.\n\nAbraham permaneció de pie en la altura. No descendió. Desde allí preguntó, una vez y otra, si la destrucción alcanzaría también a los justos que hubiera dentro de los muros. La negociación fue descendiendo en números, de cincuenta a diez.\n\nCuando la conversación terminó, los visitantes continuaron cuesta abajo hacia la llanura.\n\nY Abraham regresó a su lugar, mientras el valle quedaba en silencio."
+        },
+        {
+            "order": 17,
+            "place": "Gerar",
+            "period": "Patriarcas",
+            "title": "Tierra filistea",
+            "biblical_reference": "Génesis 20",
+            "sequence_phase": "Nacimiento",
+            "narrative": "Gerar se encontraba en una franja de transición entre el desierto del Néguev y las rutas que bajaban hacia la costa. Era territorio filisteo, con pozos, pasturas y tierra cultivable. Una región apta para asentar rebaños y permanecer sin depender de las lluvias de las colinas.\n\nAbraham se trasladó hacia allí después de dejar las montañas al este del valle. En Gerar, presentó a Sara como su hermana. El rey Abimelec la tomó para su casa. Pero antes de que el daño se consumara, recibió una advertencia nocturna y la devolvió sin haberla tocado.\n\nLa confrontación fue directa. Abimelec reprochó el engaño y exigió explicación. Pero no hubo expulsión. Hubo restitución formal: ovejas, bueyes, siervos, plata y el derecho a habitar donde quisiera dentro del territorio.\n\nLo que en Egipto terminó con escolta hacia la frontera, aquí terminó con un acuerdo de permanencia.\n\nY Abraham se estableció en Beerseba, en el borde del desierto."
+        },
+        {
+            "order": 18,
+            "place": "Néguev",
+            "period": "Patriarcas",
+            "title": "El nacimiento en el desierto",
+            "biblical_reference": "Génesis 21:1–7",
+            "sequence_phase": "Nacimiento",
+            "narrative": "En la región del Néguev, entre Gerar y Beerseba, el campamento de Abraham se extendía sobre terreno seco y abierto. No había murallas ni estructuras permanentes. Solo tiendas, rebaños y los pozos que sostenían la vida cotidiana en el borde del desierto.\n\nAllí, dentro de ese marco provisional, nació Isaac. El anuncio dado bajo los encinares de Mamre se cumplió dentro del plazo señalado. Sara, que se había reído ante lo improbable, ahora sostenía al hijo en sus brazos. Abraham lo circuncidó al octavo día, como había sido establecido.\n\nEl nombre elegido —Isaac, 'risa'— llevaba en sí la memoria de la noche en Mamre, cuando Sara escuchó desde la entrada de la tienda.\n\nNo hubo altar ni desplazamiento inmediato. El campamento permaneció en su sitio, con una presencia nueva entre las tiendas.\n\nY la tierra del Néguev, que hasta entonces había sido solo lugar de paso, comenzó a convertirse en lugar de permanencia."
+        },
+        {
+            "order": 19,
+            "place": "Monte Moriah",
+            "period": "Patriarcas",
+            "title": "El ascenso a Moriah",
+            "biblical_reference": "Génesis 22:1–19",
+            "sequence_phase": "Prueba",
+            "narrative": "Desde Beerseba, Abraham emprendió un trayecto hacia el norte que duraría tres días. La dirección señalada era la tierra de Moriah, un territorio elevado y distante, lejos de los campamentos del Néguev. El camino ascendía entre colinas cada vez más altas, dejando atrás las llanuras secas del sur.\n\nEl viaje fue silencioso. No hubo conflictos en el camino ni encuentros con reyes o extranjeros. Abraham llevaba consigo a Isaac, la leña, el fuego y el cuchillo. La pregunta del hijo —dónde está el cordero— quedó respondida con una frase abierta.\n\nAl tercer día, la elevación fue visible a la distancia. Abraham dejó a los siervos atrás y subió con Isaac hacia la cima. En lo alto levantó un altar, dispuso la leña y ató a su hijo sobre ella.\n\nLa intervención llegó antes del golpe. Un carnero trabado en el matorral ocupó el lugar sobre el altar.\n\nDespués del descenso, Abraham regresó a Beerseba. El monte quedó atrás, pero el lugar fue nombrado."
+        },
+        {
+            "order": 20,
+            "place": "Beerseba",
+            "period": "Patriarcas",
+            "title": "El pozo del juramento",
+            "biblical_reference": "Génesis 21:22–34",
+            "sequence_phase": "Establecimiento",
+            "narrative": "Beerseba se encontraba en el extremo sur del territorio, en una franja de pozos y tránsito caravanero. Era la frontera natural entre la tierra cultivable y el desierto abierto. Hasta allí se habían extendido las rutas de Abraham desde que dejó las colinas de Hebrón.\n\nAbimelec, el rey de Gerar, se presentó en el campamento con el jefe de su ejército y propuso un pacto formal. La negociación giró en torno a un pozo que Abraham había cavado. Entregó siete corderas como testimonio de su derecho sobre el agua, y ambos juraron en ese lugar.\n\nEl nombre Beerseba —'pozo del juramento'— quedó fijado sobre el terreno. No fue un altar lo que marcó ese sitio, sino un pacto entre dos partes con derechos reconocidos.\n\nAbraham plantó allí un tamarisco. No era una tienda que se desmonta ni un altar que señala paso. Era un árbol, con raíces.\n\nY habitó en tierra filistea por mucho tiempo."
+        }
+    ],
+    "structural_map": {
+        "title": "Mapa narrativo estructural del recorrido de Abraham",
+        "subtitle": "Génesis 12–22",
+        "phases": [
+            {
+                "phase": "I. Llamado",
+                "route": "Ur → Harán",
+                "summary": "El recorrido comienza en una ciudad establecida junto a los ríos de Mesopotamia. Una voz interrumpe el orden conocido y señala una dirección sin mapa. La familia parte hacia el norte y se detiene en Harán, donde la marcha se suspende por un tiempo. Tras la muerte de Taré, el llamado se renueva. Abram sale de Harán sin mediaciones familiares. El desplazamiento inicial no tiene destino visible, solo dirección."
+            },
+            {
+                "phase": "II. Descenso",
+                "route": "Siquem → Betel → Néguev → Egipto",
+                "summary": "La entrada en Canaán se produce por Siquem, donde la promesa adquiere por primera vez una forma territorial. En Betel se levanta un segundo altar. El recorrido continúa hacia el sur, atravesando el Néguev hasta alcanzar Egipto, donde el hambre obliga a un desvío fuera de la tierra prometida. El descenso geográfico acompaña un descenso narrativo: en Egipto, Abram presenta a Sarai como su hermana. La estancia termina con expulsión."
+            },
+            {
+                "phase": "III. Regreso",
+                "route": "Egipto → Néguev → Betel → Hebrón",
+                "summary": "El camino de vuelta recorre en sentido inverso las mismas llanuras. Abram regresa a Betel, al altar anterior, y retoma el eje original del itinerario. Tras la separación de Lot — que elige la llanura del Jordán — Abram se desplaza hacia las colinas de Hebrón y se establece junto al encinar de Mamre. Es el tercer altar. La línea de altares comienza a trazar una geografía propia sobre el mapa de Canaán."
+            },
+            {
+                "phase": "IV. Consolidación",
+                "route": "Hebrón — Mamre",
+                "summary": "En Hebrón, el recorrido se detiene por primera vez sin presión externa. Allí se establece la alianza nocturna: animales partidos, oscuridad, un horno humeante y una antorcha de fuego que atraviesan el espacio. La promesa se formaliza. Ya no es solo palabra; es pacto. Paralelamente, la tensión doméstica crece: Agar huye hacia Shur, recibe una palabra junto a una fuente, y regresa al campamento. El territorio sigue siendo ajeno, pero los vínculos se multiplican."
+            },
+            {
+                "phase": "V. Crisis del valle",
+                "route": "Valle de Siddim → Dan → Hobá → Valle del Rey",
+                "summary": "La guerra de los reyes irrumpe desde el oriente. Lot es capturado en Siddim. Abram reúne trescientos dieciocho hombres y persigue a la coalición hasta Dan y más allá, hasta Hobá, al norte de Damasco. Es el punto más distante del recorrido. Al regreso, en el valle del Rey, se cruza con Melquisedec, rey de Salem, y rechaza el botín ofrecido por el rey de Sodoma. La campaña militar traza la extensión completa de la tierra — de sur a norte — sin que ningún tramo sea reclamado como posesión."
+            },
+            {
+                "phase": "VI. Nacimiento",
+                "route": "Gerar → Néguev",
+                "summary": "Tres visitantes llegan al encinar de Mamre y anuncian un nacimiento con fecha. Sara se ríe. Luego la conversación se dirige hacia Sodoma, y las ciudades del valle son destruidas. Abraham se traslada a Gerar, en territorio filisteo, donde el episodio con Abimelec se resuelve por acuerdo y no por expulsión. Isaac nace en la región del Néguev, dentro de un campamento provisional. La promesa deja de ser proyección y se convierte en presencia concreta entre las tiendas."
+            },
+            {
+                "phase": "VII. Prueba",
+                "route": "Monte Moriah",
+                "summary": "Desde Beerseba, Abraham asciende hacia el norte durante tres días. Lleva consigo a Isaac, la leña, el fuego y el cuchillo. En la cima levanta un altar, dispone la leña y ata a su hijo. La intervención llega antes del golpe. Un carnero ocupa el lugar sobre el altar. El monte es nombrado. Es el último altar del recorrido, y el único donde lo ofrecido no fue elegido por el oferente."
+            },
+            {
+                "phase": "VIII. Establecimiento",
+                "route": "Beerseba",
+                "summary": "Abraham regresa a Beerseba. Allí negocia con Abimelec un pacto formal en torno a un pozo. El acuerdo se sella con juramento y siete corderas. El lugar recibe su nombre: pozo del juramento. Abraham planta un tamarisco — no una tienda que se desmonta ni un altar que señala paso, sino un árbol con raíces — y habita en tierra filistea por mucho tiempo."
+            }
+        ],
+        "closing": "El arco se cierra. Desde Ur hasta Beerseba, el recorrido atravesó ríos, desiertos, valles y cimas. Ningún tramo fue poseído. Pero cada parada dejó una marca — un altar, un nombre, un pacto — que fue delineando sobre el mapa la forma futura de una tierra que aún no tenía dueño."
+    },
+    "theological_synthesis": {
+        "title": "Síntesis teológica del recorrido de Abraham",
+        "subtitle": "Génesis 12–22 — Reflexión de cierre",
+        "sections": [
+            {
+                "heading": "La tierra como promesa, no como posesión",
+                "content": "El recorrido de Abraham atraviesa la totalidad de Canaán — de Siquem a Beerseba, de Hebrón a Dan, del Néguev a Moriah — sin que en ningún momento se concrete una posesión territorial efectiva. Abraham no adquiere parcelas, no funda ciudades, no establece fronteras propias. Lo único que posee al final del ciclo es un pozo en Beerseba, reconocido por pacto, y un árbol plantado junto a él.\n\nLa tierra funciona en este bloque como horizonte, no como herencia realizada. La promesa la nombra. Los altares la marcan. Las rutas la recorren. Pero nadie la entrega. Este desfase entre lo prometido y lo poseído no se resuelve dentro de Génesis 12–22; queda abierto como estructura pendiente que atravesará las generaciones siguientes."
+            },
+            {
+                "heading": "El patrón del movimiento: salida, desvío, retorno",
+                "content": "El recorrido no es lineal. Tiene descensos (Egipto, Gerar), retornos (Betel), extensiones forzadas (Dan, Hobá) y un ascenso definitivo (Moriah). Cada desplazamiento responde a una presión distinta: hambre, conflicto, mandato, negociación. Pero en todos los casos, el punto de referencia se mantiene: los altares levantados en las colinas de Canaán.\n\nEl desvío a Egipto no cancela el llamado. La campaña militar no reclama el territorio. La prueba en Moriah no destruye la promesa. Lo que se observa es un patrón de tensión y restitución: cada crisis devuelve al caminante a un eje que no se desplaza aunque él sí lo haga."
+            },
+            {
+                "heading": "Los altares como línea vertebral",
+                "content": "Desde Siquem hasta Moriah, Abraham levanta altares en puntos específicos del territorio. Ninguno de ellos funda una institución ni inaugura un culto organizado. Son marcas de paso — señales verticales en un itinerario horizontal.\n\nEl primer altar (Siquem) responde a una palabra. El segundo (Betel) repite el gesto sin nueva revelación. El tercero (Mamre) acompaña un asentamiento. El altar de Moriah es distinto: no marca territorio, sino entrega. La progresión no es geográfica; es funcional. Los altares van cambiando de naturaleza a medida que cambia la relación entre el caminante y la voz que lo dirige.\n\nAl final del ciclo, lo que marca Beerseba no es un altar, sino un pacto y un árbol. La forma de señalar el terreno ha cambiado."
+            },
+            {
+                "heading": "La promesa y el tiempo",
+                "content": "La promesa aparece en Ur como dirección sin contenido visible. En Siquem adquiere forma territorial. En la alianza nocturna de Hebrón se formaliza con descendencia y fronteras. En Mamre recibe fecha concreta. En el Néguev se cumple con el nacimiento de Isaac.\n\nEste despliegue no es acumulativo sino progresivo: cada etapa añade una capa de definición a lo que en el origen era solo una indicación abierta. Lo que comenzó como \"sal de tu tierra\" termina como un hijo con nombre, un pozo con juramento y una región donde habitar por mucho tiempo.\n\nSin embargo, la resolución no es completa. La tierra sigue sin ser poseída. La descendencia es un solo hijo. Las fronteras del pacto exceden lo visible. La promesa queda inaugurada, no consumada."
+            },
+            {
+                "heading": "Moriah como quiebre estructural",
+                "content": "El ascenso a Moriah ocupa un lugar distinto en la secuencia. No responde a hambre, guerra ni migración. No produce un nuevo desplazamiento geográfico. Es la única escena donde lo que está en juego no es el territorio ni la estancia, sino la continuidad misma de la promesa.\n\nSi Isaac es el cumplimiento del anuncio dado en Mamre, entonces Moriah pone en riesgo todo lo que el recorrido había ido construyendo. El altar de Moriah no marca una estación más; interrumpe la lógica del itinerario. Y la resolución — el carnero, la intervención, el nombre del lugar — no restaura el orden anterior: lo reconfigura.\n\nDespués de Moriah, Abraham no levanta más altares. Planta un árbol."
+            },
+            {
+                "heading": "Transición: el ciclo queda abierto",
+                "content": "El recorrido de Génesis 12–22 no concluye con una llegada definitiva. Beerseba es punto de reposo, no de destino final. Abraham habita en tierra filistea \"por mucho tiempo\", pero no como propietario. El pacto con Abimelec reconoce presencia, no soberanía.\n\nLo que este ciclo produce es una estructura preparatoria: un territorio recorrido pero no conquistado, una descendencia iniciada pero no multiplicada, una promesa formalizada pero no cumplida en su totalidad. El arco narrativo cierra su primer movimiento, pero deja la resolución para la generación que sigue.\n\nIsaac existe. El pozo tiene nombre. El árbol tiene raíces.\n\nLo que viene después ya no será el relato de un caminante, sino el de los que heredan lo que él recorrió."
+            }
+        ]
+    }
+}
