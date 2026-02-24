@@ -158,7 +158,10 @@ const useMarkerCluster = (map, features) => {
          * gracias a removeOutsideVisibleBounds).
          */
         const loadVisibleFeatures = () => {
-            const bounds = map.getBounds().pad(0.3);
+            // Para datasets pequeños (sub-rutas, narrativa) carga todo inmediatamente.
+            // El lazy-loading basado en viewport solo aplica para 50+ features.
+            const isSmallDataset = features.length < 50;
+            const bounds = isSmallDataset ? null : map.getBounds().pad(0.3);
             const batch = [];
 
             for (let i = 0; i < features.length; i++) {
@@ -167,7 +170,7 @@ const useMarkerCluster = (map, features) => {
                 if (loadedIds.has(id)) continue;
 
                 const [lng, lat] = f.geometry.coordinates;
-                if (!bounds.contains([lat, lng])) continue;
+                if (!isSmallDataset && !bounds.contains([lat, lng])) continue;
 
                 // Crear marker con icon cacheado
                 const marker = L.marker([lat, lng], { icon: getEpochIcon(f.properties.epoca) });
@@ -212,6 +215,8 @@ const useMarkerCluster = (map, features) => {
             cleanupAll(markersRef, clusterRef, loadedIdsRef, timerRef, map);
         };
     }, [map, features]);
+
+    return clusterRef;
 };
 
 export default useMarkerCluster;

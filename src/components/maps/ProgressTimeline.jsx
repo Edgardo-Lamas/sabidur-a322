@@ -89,6 +89,7 @@ const ProgressTimeline = ({ epochColor = '#C5A059' }) => {
                                     border: '2.5px solid white',
                                     boxShadow: `0 0 0 2px ${epochColor}35, 0 2px 8px rgba(0,0,0,0.15)`,
                                     transition: 'all 500ms ease-out',
+                                    animation: 'timelineDotPulse 2s ease-in-out infinite',
                                 }} />
                             )}
                         </button>
@@ -96,7 +97,14 @@ const ProgressTimeline = ({ epochColor = '#C5A059' }) => {
                 })}
             </div>
 
-            {/* Labels: first and last */}
+            <style>{`
+            @keyframes timelineDotPulse {
+                0%, 100% { box-shadow: 0 0 0 2px ${epochColor}35, 0 2px 8px rgba(0,0,0,0.15); }
+                50% { box-shadow: 0 0 0 5px ${epochColor}20, 0 2px 8px rgba(0,0,0,0.15); }
+            }
+        `}</style>
+
+        {/* Labels: first and last */}
             <div style={{
                 display: 'flex',
                 justifyContent: 'space-between',

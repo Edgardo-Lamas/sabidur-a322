@@ -19,13 +19,19 @@ import { useState, useMemo, useCallback } from 'react';
 const useRouteEngine = (features, map) => {
     const [activeGroup, setActiveGroup] = useState(null);
 
-    // Grupos disponibles (solo los que existen en los features)
+    // Grupos disponibles, ordenados por el orden mínimo de sus features
     const availableGroups = useMemo(() => {
-        const groups = new Set();
+        const groupMinOrden = new Map();
         features.forEach((f) => {
-            if (f.properties.routeGroup) groups.add(f.properties.routeGroup);
+            const g = f.properties.routeGroup;
+            const orden = f.properties.orden ?? 999;
+            if (g && (!groupMinOrden.has(g) || orden < groupMinOrden.get(g))) {
+                groupMinOrden.set(g, orden);
+            }
         });
-        return [...groups].sort();
+        return [...groupMinOrden.entries()]
+            .sort((a, b) => a[1] - b[1])
+            .map(([g]) => g);
     }, [features]);
 
     // Features filtradas y ordenadas
@@ -74,9 +80,10 @@ const useRouteEngine = (features, map) => {
     );
 
     // Volver al estado general
-    const clearRoute = useCallback(() => {
+    // skipFit=true: solo limpia el grupo sin mover el mapa (útil cuando otro sistema maneja la vista)
+    const clearRoute = useCallback((skipFit = false) => {
         setActiveGroup(null);
-        fitToFeatures(features);
+        if (!skipFit) fitToFeatures(features);
     }, [features, fitToFeatures]);
 
     return {

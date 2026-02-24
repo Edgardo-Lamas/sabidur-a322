@@ -14,7 +14,10 @@
                 "id": "ur-caldeos",
                 "nombre": "Ur de los Caldeos",
                 "pasaje": "Génesis 11:31",
+                "titulo": "El origen del llamado",
                 "descripcion": "Ciudad natal de Abraham. Dios lo llama a salir de su tierra y de su parentela hacia una tierra que Él le mostraría.",
+                "narrativa": "Ur era una ciudad antigua, levantada junto a los grandes ríos de Mesopotamia. Sus templos dominaban el horizonte y el comercio fluía entre caravanas y canales. Allí comenzó la historia de un hombre llamado Abram.\n\nNo era un profeta aún. Era parte de una familia establecida dentro de una cultura sofisticada, acostumbrada a dioses visibles y certezas heredadas. En ese escenario seguro, una voz irrumpe sin intermediarios ni templos.\n\nNo se le entrega un mapa. Solo una palabra y una dirección abierta: salir.\n\nLa fe aparece antes que el camino.\n\nY el movimiento comienza antes de conocer el destino.",
+                "fase": "Llamado",
                 "epoca": "patriarcas",
                 "orden": 1,
                 "tipo": "ciudad",
@@ -34,7 +37,10 @@
                 "id": "haran",
                 "nombre": "Harán",
                 "pasaje": "Génesis 11:31–12:4",
+                "titulo": "La estación intermedia",
                 "descripcion": "Abraham se detiene aquí con su padre Taré. Tras la muerte de Taré, Dios renueva el llamado y Abraham parte hacia Canaán.",
+                "narrativa": "Harán se extendía como punto de paso entre rutas comerciales del norte. No era el origen ni la meta, sino una estación intermedia donde las caravanas descansaban antes de seguir.\n\nAbram llega allí con su padre y su familia. El viaje iniciado en Ur se detiene. La vida vuelve a organizarse: rebaños, tiendas, rutinas. Durante un tiempo, el movimiento parece haberse convertido en asentamiento.\n\nPero la pausa no cancela el llamado.\n\nTras la muerte de su padre, la voz vuelve a interrumpir la estabilidad: dejar la tierra conocida, la parentela, la casa del padre. No se trata solo de desplazamiento geográfico, sino de ruptura con lo que da identidad.\n\nLa promesa aún no tiene territorio visible.\n\nEntonces, esta vez sin mediaciones familiares, Abram parte nuevamente.",
+                "fase": "Llamado",
                 "epoca": "patriarcas",
                 "orden": 2,
                 "tipo": "ciudad",
@@ -54,7 +60,10 @@
                 "id": "siquem",
                 "nombre": "Siquem",
                 "pasaje": "Génesis 12:6-7",
+                "titulo": "Consolidación del llamado",
                 "descripcion": "Primer lugar donde Abraham llega en Canaán. Aquí Dios le promete: «A tu descendencia daré esta tierra», y Abraham edifica un altar.",
+                "narrativa": "Siquem se alzaba entre montes, en el corazón de Canaán. Era una tierra habitada, con ciudades establecidas y pueblos que ya tenían nombre y fronteras.\n\nCuando Abram atraviesa ese territorio, no llega como conquistador ni como propietario. Llega como extranjero.\n\nAllí, por primera vez, la promesa adquiere una forma concreta: \"A tu descendencia daré esta tierra\". No es posesión inmediata. Es anticipación.\n\nAbram responde de la única manera que puede un nómada sin tierra: levanta un altar. No construye murallas ni traza límites. Marca memoria.\n\nLa tierra es prometida antes de ser habitada.\n\nY el recorrido continúa hacia el sur.",
+                "fase": "Descenso",
                 "epoca": "patriarcas",
                 "orden": 3,
                 "tipo": "altar",
@@ -66,7 +75,7 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    35.2260,
+                    35.226,
                     31.9314
                 ]
             },
@@ -74,7 +83,10 @@
                 "id": "betel",
                 "nombre": "Bet-el",
                 "pasaje": "Génesis 12:8",
+                "titulo": "El segundo altar",
                 "descripcion": "Abraham planta su tienda entre Bet-el y Hai, y edifica un segundo altar e invoca el nombre de Jehová.",
+                "narrativa": "Betel se alzaba sobre las colinas centrales de Canaán, en un terreno elevado donde convergían los caminos que bajaban hacia el sur. No era aún un lugar consagrado. Era un paraje de piedra y viento, abierto en todas direcciones.\n\nAbram plantó su tienda entre Betel y Hai, sobre una loma que no pertenecía a ninguna de las dos ciudades. A un lado, el oriente árido y las llanuras distantes. Al otro, las laderas que descendían hacia los valles de occidente.\n\nAllí levantó un segundo altar e invocó el nombre del Señor. No hubo nueva aparición ni nueva palabra. El gesto repite el de Siquem: marcar el paso por la tierra con un acto que no reclama posesión.\n\nDos altares en tierra ajena. Ninguna muralla. Ningún título de propiedad. Solo señales verticales en un recorrido que avanza sin detenerse.\n\nDesde esa altura, el camino hacia el Néguev se abría con claridad.",
+                "fase": "Descenso",
                 "epoca": "patriarcas",
                 "orden": 4,
                 "tipo": "altar",
@@ -87,14 +99,17 @@
                 "type": "Point",
                 "coordinates": [
                     35.2356,
-                    31.5200
+                    31.52
                 ]
             },
             "properties": {
                 "id": "hebron-mamre",
                 "nombre": "Hebrón (Encinar de Mamre)",
                 "pasaje": "Génesis 13:18",
+                "titulo": "El encinar de Mamre",
                 "descripcion": "Abraham se establece junto al encinar de Mamre. Aquí recibe la visita de los tres ángeles y la promesa del nacimiento de Isaac.",
+                "narrativa": "Hebrón se extendía en las colinas del sur de Canaán, en una región más elevada y fértil que las llanuras del Néguev. El terreno ondulado ofrecía pastos amplios, y junto al encinar de Mamre, los árboles antiguos daban sombra densa y reparo contra el viento.\n\nTras la separación de Lot, que eligió para sí la llanura del Jordán, Abram desplazó sus tiendas hacia ese sector. El territorio se dividía sin conflicto: uno bajó hacia el valle fértil, el otro subió hacia las colinas.\n\nAllí, junto a los encinares, Abram levantó otro altar. Era el tercero desde su entrada en Canaán. Ninguno reclamaba propiedad. Cada uno señalaba un punto de paso en un recorrido que todavía no tenía título de posesión.\n\nLa tierra seguía siendo habitada por otros. Pero los altares comenzaban a trazar una línea sobre el mapa.\n\nY desde esas colinas, los caminos se abrían hacia el oriente y hacia el sur.",
+                "fase": "Regreso",
                 "epoca": "patriarcas",
                 "orden": 5,
                 "tipo": "campamento",
@@ -118,7 +133,10 @@
                 "epoca": "patriarcas",
                 "orden": 6,
                 "tipo": "region",
-                "routeGroup": "descenso-a-egipto"
+                "routeGroup": "descenso-a-egipto",
+                "titulo": "El desvío hacia Egipto",
+                "narrativa": "Egipto se extendía al suroeste como una franja fértil sostenida por el Nilo, en marcado contraste con la sequedad creciente del Néguev. Donde Canaán se endurecía por la escasez, el valle egipcio ofrecía alimento, agua y estabilidad.\n\nLa hambre se hizo severa en la tierra, y Abram descendió hasta allí para residir como extranjero. No era la dirección del llamado original, sino un desvío impuesto por la necesidad. Antes de cruzar la frontera, pidió a Sarai que se presentara como su hermana.\n\nLa casa de Faraón recibió a Sarai, y Abram obtuvo rebaños, siervos y bienes a cambio. Durante un tiempo, la estancia pareció sostenerse sin consecuencias.\n\nPero el arreglo se quebró. Plagas cayeron sobre la casa de Faraón y la verdad salió a la superficie. El patriarca fue confrontado, devuelto y escoltado fuera del territorio egipcio.\n\nEntonces, con más posesiones que al llegar pero sin haber avanzado en la ruta prometida, Abram emprendió el regreso hacia el norte.",
+                "fase": "Descenso"
             }
         },
         {
@@ -138,7 +156,10 @@
                 "epoca": "patriarcas",
                 "orden": 7,
                 "tipo": "evento",
-                "routeGroup": "vida-en-canaan"
+                "routeGroup": "vida-en-canaan",
+                "titulo": "La conversación en la altura",
+                "narrativa": "Desde las colinas de Mamre, el terreno desciende hacia el valle del Jordán y la llanura donde se encontraban Sodoma y las ciudades vecinas. A la distancia, la región parecía fértil y estable, sostenida por rutas comerciales y cursos de agua que alimentaban la zona más baja del territorio.\n\nLos visitantes se dirigieron en esa dirección, y Abraham los acompañó un tramo del camino. En ese punto elevado, con la llanura extendida a sus pies, se abrió una conversación distinta. Lo que se anunció no fue una promesa, sino una sentencia sobre las ciudades del valle.\n\nAbraham permaneció de pie en la altura. No descendió. Desde allí preguntó, una vez y otra, si la destrucción alcanzaría también a los justos que hubiera dentro de los muros. La negociación fue descendiendo en números, de cincuenta a diez.\n\nCuando la conversación terminó, los visitantes continuaron cuesta abajo hacia la llanura.\n\nY Abraham regresó a su lugar, mientras el valle quedaba en silencio.",
+                "fase": "Nacimiento"
             }
         },
         {
@@ -146,7 +167,7 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    34.6500,
+                    34.65,
                     31.3897
                 ]
             },
@@ -158,7 +179,10 @@
                 "epoca": "patriarcas",
                 "orden": 8,
                 "tipo": "ciudad",
-                "routeGroup": "vida-en-canaan"
+                "routeGroup": "vida-en-canaan",
+                "titulo": "Tierra filistea",
+                "narrativa": "Gerar se encontraba en una franja de transición entre el desierto del Néguev y las rutas que bajaban hacia la costa. Era territorio filisteo, con pozos, pasturas y tierra cultivable. Una región apta para asentar rebaños y permanecer sin depender de las lluvias de las colinas.\n\nAbraham se trasladó hacia allí después de dejar las montañas al este del valle. En Gerar, presentó a Sara como su hermana. El rey Abimelec la tomó para su casa. Pero antes de que el daño se consumara, recibió una advertencia nocturna y la devolvió sin haberla tocado.\n\nLa confrontación fue directa. Abimelec reprochó el engaño y exigió explicación. Pero no hubo expulsión. Hubo restitución formal: ovejas, bueyes, siervos, plata y el derecho a habitar donde quisiera dentro del territorio.\n\nLo que en Egipto terminó con escolta hacia la frontera, aquí terminó con un acuerdo de permanencia.\n\nY Abraham se estableció en Beerseba, en el borde del desierto.",
+                "fase": "Nacimiento"
             }
         },
         {
@@ -166,8 +190,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    34.8400,
-                    31.2500
+                    34.84,
+                    31.25
                 ]
             },
             "properties": {
@@ -178,7 +202,10 @@
                 "epoca": "patriarcas",
                 "orden": 9,
                 "tipo": "altar",
-                "routeGroup": "vida-en-canaan"
+                "routeGroup": "vida-en-canaan",
+                "titulo": "El pozo del juramento",
+                "narrativa": "Beerseba se encontraba en el extremo sur del territorio, en una franja de pozos y tránsito caravanero. Era la frontera natural entre la tierra cultivable y el desierto abierto. Hasta allí se habían extendido las rutas de Abraham desde que dejó las colinas de Hebrón.\n\nAbimelec, el rey de Gerar, se presentó en el campamento con el jefe de su ejército y propuso un pacto formal. La negociación giró en torno a un pozo que Abraham había cavado. Entregó siete corderas como testimonio de su derecho sobre el agua, y ambos juraron en ese lugar.\n\nEl nombre Beerseba —'pozo del juramento'— quedó fijado sobre el terreno. No fue un altar lo que marcó ese sitio, sino un pacto entre dos partes con derechos reconocidos.\n\nAbraham plantó allí un tamarisco. No era una tienda que se desmonta ni un altar que señala paso. Era un árbol, con raíces.\n\nY habitó en tierra filistea por mucho tiempo.",
+                "fase": "Establecimiento"
             }
         },
         {
@@ -198,7 +225,10 @@
                 "epoca": "patriarcas",
                 "orden": 10,
                 "tipo": "monte",
-                "routeGroup": "vida-en-canaan"
+                "routeGroup": "vida-en-canaan",
+                "titulo": "El ascenso a Moriah",
+                "narrativa": "Desde Beerseba, Abraham emprendió un trayecto hacia el norte que duraría tres días. La dirección señalada era la tierra de Moriah, un territorio elevado y distante, lejos de los campamentos del Néguev. El camino ascendía entre colinas cada vez más altas, dejando atrás las llanuras secas del sur.\n\nEl viaje fue silencioso. No hubo conflictos en el camino ni encuentros con reyes o extranjeros. Abraham llevaba consigo a Isaac, la leña, el fuego y el cuchillo. La pregunta del hijo —dónde está el cordero— quedó respondida con una frase abierta.\n\nAl tercer día, la elevación fue visible a la distancia. Abraham dejó a los siervos atrás y subió con Isaac hacia la cima. En lo alto levantó un altar, dispuso la leña y ató a su hijo sobre ella.\n\nLa intervención llegó antes del golpe. Un carnero trabado en el matorral ocupó el lugar sobre el altar.\n\nDespués del descenso, Abraham regresó a Beerseba. El monte quedó atrás, pero el lugar fue nombrado.",
+                "fase": "Prueba"
             }
         },
         {
@@ -207,7 +237,7 @@
                 "type": "Point",
                 "coordinates": [
                     35.2356,
-                    31.5200
+                    31.52
                 ]
             },
             "properties": {
@@ -218,7 +248,9 @@
                 "epoca": "patriarcas",
                 "orden": 11,
                 "tipo": "sepulcro",
-                "routeGroup": "vida-en-canaan"
+                "routeGroup": "vida-en-canaan",
+                "titulo": "La primera posesión",
+                "fase": "Establecimiento"
             }
         },
         {
@@ -226,8 +258,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    35.5000,
-                    32.7500
+                    35.5,
+                    32.75
                 ]
             },
             "properties": {
@@ -238,7 +270,9 @@
                 "epoca": "patriarcas",
                 "orden": 12,
                 "tipo": "evento",
-                "routeGroup": "ciclo-de-jacob"
+                "routeGroup": "ciclo-de-jacob",
+                "titulo": "La lucha junto al Jaboc",
+                "fase": "Revelación"
             }
         },
         {
@@ -246,7 +280,7 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    35.2260,
+                    35.226,
                     31.9314
                 ]
             },
@@ -258,7 +292,9 @@
                 "epoca": "patriarcas",
                 "orden": 13,
                 "tipo": "vision",
-                "routeGroup": "ciclo-de-jacob"
+                "routeGroup": "ciclo-de-jacob",
+                "titulo": "La escalera al cielo",
+                "fase": "Sueño"
             }
         },
         {
@@ -267,7 +303,7 @@
                 "type": "Point",
                 "coordinates": [
                     35.5167,
-                    32.5500
+                    32.55
                 ]
             },
             "properties": {
@@ -278,7 +314,9 @@
                 "epoca": "patriarcas",
                 "orden": 14,
                 "tipo": "campamento",
-                "routeGroup": "ciclo-de-jacob"
+                "routeGroup": "ciclo-de-jacob",
+                "titulo": "El primer asentamiento",
+                "fase": "Regreso"
             }
         },
         {
@@ -298,7 +336,9 @@
                 "epoca": "patriarcas",
                 "orden": 15,
                 "tipo": "altar",
-                "routeGroup": "ciclo-de-jacob"
+                "routeGroup": "ciclo-de-jacob",
+                "titulo": "El altar de Israel",
+                "fase": "Regreso"
             }
         },
         {
@@ -306,8 +346,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    35.1860,
-                    31.6160
+                    35.186,
+                    31.616
                 ]
             },
             "properties": {
@@ -318,7 +358,9 @@
                 "epoca": "patriarcas",
                 "orden": 16,
                 "tipo": "sepulcro",
-                "routeGroup": "ciclo-de-jacob"
+                "routeGroup": "ciclo-de-jacob",
+                "titulo": "La muerte de Raquel",
+                "fase": "Pérdida"
             }
         },
         {
@@ -327,7 +369,7 @@
                 "type": "Point",
                 "coordinates": [
                     35.2356,
-                    31.5200
+                    31.52
                 ]
             },
             "properties": {
@@ -338,7 +380,9 @@
                 "epoca": "patriarcas",
                 "orden": 17,
                 "tipo": "campamento",
-                "routeGroup": "ciclo-de-jacob"
+                "routeGroup": "ciclo-de-jacob",
+                "titulo": "La reunión patriarcal",
+                "fase": "Cierre"
             }
         },
         {
@@ -358,7 +402,9 @@
                 "epoca": "patriarcas",
                 "orden": 18,
                 "tipo": "region",
-                "routeGroup": "ciclo-de-jacob"
+                "routeGroup": "ciclo-de-jacob",
+                "titulo": "El descenso a Egipto",
+                "fase": "Establecimiento"
             }
         }
     ]

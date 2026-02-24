@@ -18,6 +18,11 @@ const JOURNEYS = [
         zoom: 5,
         puntos: 18,
         imagen: '🏕️',
+        sintesisTeologica: `El viaje de Abraham no es solo un desplazamiento geográfico: es la primera gran escuela de fe en las Escrituras. A través de más de 2.000 kilómetros de obediencia, Dios moldea a un hombre común en el «padre de todos los creyentes» (Romanos 4:11). Cada etapa revela una dimensión nueva del carácter divino: el Dios que llama, el Dios que provee, el Dios que cumple sus promesas contra toda expectativa humana.
+
+La promesa de la tierra, la descendencia y la bendición universal (Génesis 12:1-3) no se cumple de inmediato. Abraham camina entre la promesa y su cumplimiento, aprendiendo que la fe no es la ausencia de espera, sino la certeza de que quien prometió es fiel. El altar que levanta en cada parada es un testimonio silencioso: aquí pasé, aquí creí, aquí el Señor fue suficiente.
+
+El Nuevo Testamento interpreta este recorrido como tipo de la peregrinación cristiana: «Porque esperaba la ciudad de fundamentos sólidos, cuyo arquitecto y constructor es Dios» (Hebreos 11:10). El viaje de Abraham anticipa el de todo creyente que, sin ver todavía el cumplimiento final, avanza en la confianza de que la historia tiene un destino y un Padre que la conduce.`,
     },
     {
         slug: 'el-exodo',

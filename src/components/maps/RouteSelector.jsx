@@ -13,7 +13,7 @@
 import React from 'react';
 import { Route, X, Play } from 'lucide-react';
 
-const RouteSelector = ({ availableGroups, activeGroup, activateRoute, clearRoute, onStartStory, epochColor = '#C5A059' }) => {
+const RouteSelector = ({ availableGroups, activeGroup, activateRoute, clearRoute, onStartStory, onStartNarrative, epochColor = '#C5A059' }) => {
     if (!availableGroups.length) return null;
 
     return (
@@ -39,8 +39,18 @@ const RouteSelector = ({ availableGroups, activeGroup, activateRoute, clearRoute
                             >
                                 {group.replace(/-/g, ' ')}
                             </button>
-                            {/* Botón Story: solo visible cuando el grupo está activo */}
-                            {isActive && onStartStory && (
+                            {isActive && onStartNarrative && (
+                                <button
+                                    onClick={() => onStartNarrative(group)}
+                                    className="px-2 py-1 rounded-sm text-xs font-semibold transition-all flex items-center gap-1"
+                                    style={{ background: epochColor, color: 'white' }}
+                                    title="Recorrido narrativo paso a paso"
+                                >
+                                    📖 Recorrido
+                                </button>
+                            )}
+                            {/* Botón Story: solo visible cuando el grupo está activo y no hay narrative */}
+                            {isActive && onStartStory && !onStartNarrative && (
                                 <button
                                     onClick={() => onStartStory(group)}
                                     className="p-1 rounded-sm transition-all"

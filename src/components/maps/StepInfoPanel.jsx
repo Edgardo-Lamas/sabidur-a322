@@ -6,32 +6,72 @@
  * Usa isTransitioning del engine para fade sincronizado.
  *
  * Jerarquía tipográfica:
+ *   Fase        → Badge de la secuencia narrativa
  *   Título      → Lora, 1.625rem, font-weight 600
  *   Pasaje      → Sans, 0.8125rem, opacity 75%
- *   Descripción → 1rem, line-height 1.7, max-width ~65ch
- *   Contexto    → 0.875rem, fondo sutil + border-left
- *   Teología    → 0.8125rem, expandible
+ *   Narrativa   → 0.9375rem, line-height 1.8, párrafos individuales
+ *   Descripción → fallback si no hay narrativa
  */
-import React, { useState } from 'react';
-import { BookOpen, MapPin, ScrollText, ChevronDown } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { BookOpen, MapPin, ScrollText, ChevronDown, Route } from 'lucide-react';
 import useNarrative from '../../engine/useNarrative';
 import EPOCH_CONFIG from '../../data/maps/epoch-config';
+
+// Distancia en km por la fórmula haversine
+const haversineKm = (lat1, lng1, lat2, lng2) => {
+    const R = 6371;
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLng = (lng2 - lng1) * Math.PI / 180;
+    const a = Math.sin(dLat / 2) ** 2
+        + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLng / 2) ** 2;
+    return R * 2 * Math.asin(Math.sqrt(a));
+};
+
+const fmtKm = (km) => km < 10 ? `${km.toFixed(1)} km` : `${Math.round(km)} km`;
 
 const StepInfoPanel = ({ epochColor: epochColorProp }) => {
     const {
         currentFeature,
         currentStepIndex,
         totalSteps,
+        activeRoute,
         status,
         isTransitioning,
     } = useNarrative();
 
     const [expanded, setExpanded] = useState(false);
+    const scrollRef = useRef(null);
+
+    // Scroll to top when step changes
+    useEffect(() => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollTop = 0;
+        }
+        setExpanded(false);
+    }, [currentStepIndex]);
 
     if (status === 'idle' || !currentFeature) return null;
 
     const props = currentFeature.properties;
     const epochColor = epochColorProp || EPOCH_CONFIG[props.epoca]?.color || '#C5A059';
+    const hasNarrative = !!props.narrativa;
+
+    // Distancia parcial (hasta paso actual) y total de la etapa
+    const routeFeatures = activeRoute?.features || [];
+    let totalDist = 0;
+    let partialDist = 0;
+    for (let i = 1; i < routeFeatures.length; i++) {
+        const [lng1, lat1] = routeFeatures[i - 1].geometry.coordinates;
+        const [lng2, lat2] = routeFeatures[i].geometry.coordinates;
+        const d = haversineKm(lat1, lng1, lat2, lng2);
+        totalDist += d;
+        if (i <= currentStepIndex) partialDist += d;
+    }
+
+    // Split narrative into paragraphs
+    const narrativeParagraphs = hasNarrative
+        ? props.narrativa.split('\n\n').filter(p => p.trim())
+        : [];
 
     return (
         <div
@@ -46,6 +86,9 @@ const StepInfoPanel = ({ epochColor: epochColorProp }) => {
                 opacity: isTransitioning ? 0 : 1,
                 transform: isTransitioning ? 'translateY(6px)' : 'translateY(0)',
                 transition: 'opacity 280ms ease, transform 280ms ease',
+                display: 'flex',
+                flexDirection: 'column',
+                maxHeight: '100%',
             }}
         >
             {/* ─── Header ─── */}
@@ -56,23 +99,9 @@ const StepInfoPanel = ({ epochColor: epochColorProp }) => {
                 justifyContent: 'space-between',
                 background: `${epochColor}0A`,
                 borderBottom: '1px solid rgba(0,0,0,0.04)',
+                flexShrink: 0,
             }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <span style={{
-                        width: '28px',
-                        height: '28px',
-                        borderRadius: '50%',
-                        background: epochColor,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: 'white',
-                        fontSize: '12px',
-                        fontWeight: 700,
-                        letterSpacing: '-0.02em',
-                    }}>
-                        {props.orden || currentStepIndex + 1}
-                    </span>
                     <span style={{
                         fontSize: '11px',
                         fontWeight: 600,
@@ -83,12 +112,75 @@ const StepInfoPanel = ({ epochColor: epochColorProp }) => {
                         Paso {currentStepIndex + 1} de {totalSteps}
                     </span>
                 </div>
-                <MapPin size={14} style={{ color: epochColor, opacity: 0.6 }} />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    {/* Fase badge */}
+                    {props.fase && (
+                        <span style={{
+                            fontSize: '10px',
+                            fontWeight: 600,
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.06em',
+                            padding: '3px 8px',
+                            borderRadius: '4px',
+                            background: `${epochColor}15`,
+                            color: epochColor,
+                        }}>
+                            {props.fase}
+                        </span>
+                    )}
+                    <MapPin size={14} style={{ color: epochColor, opacity: 0.6 }} />
+                </div>
             </div>
 
-            {/* ─── Content ─── */}
-            <div style={{ padding: '24px' }}>
-                {/* Título del lugar */}
+            {/* ─── Distance bar ─── */}
+            {routeFeatures.length > 1 && (
+                <div style={{
+                    padding: '6px 24px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                    fontSize: '0.6875rem',
+                    fontWeight: 500,
+                    color: '#8B8B8B',
+                    letterSpacing: '0.02em',
+                    flexShrink: 0,
+                    borderBottom: '1px solid rgba(0,0,0,0.04)',
+                }}>
+                    <Route size={11} style={{ color: epochColor, opacity: 0.7, flexShrink: 0 }} />
+                    <span style={{ color: epochColor, fontWeight: 600 }}>
+                        {fmtKm(partialDist)} recorridos
+                    </span>
+                    <span style={{ opacity: 0.4 }}>·</span>
+                    <span>{fmtKm(totalDist)} total</span>
+                </div>
+            )}
+
+            {/* ─── Content (scrollable) ─── */}
+            <div
+                ref={scrollRef}
+                style={{
+                    padding: '24px',
+                    overflowY: 'auto',
+                    flex: 1,
+                    minHeight: 0,
+                }}
+            >
+                {/* Subtítulo del paso */}
+                {props.titulo && (
+                    <h4 style={{
+                        fontFamily: "'Lora', serif",
+                        fontSize: '0.875rem',
+                        fontWeight: 400,
+                        fontStyle: 'italic',
+                        color: epochColor,
+                        margin: '0 0 4px',
+                        opacity: 0.85,
+                    }}>
+                        {props.titulo}
+                    </h4>
+                )}
+
+                {/* Nombre del lugar */}
                 <h3 style={{
                     fontFamily: "'Lora', serif",
                     fontSize: '1.625rem',
@@ -116,18 +208,42 @@ const StepInfoPanel = ({ epochColor: epochColorProp }) => {
                     {props.pasaje}
                 </span>
 
-                {/* Texto narrativo */}
-                <p style={{
-                    fontSize: '1rem',
-                    lineHeight: 1.7,
-                    color: '#4A4F5A',
-                    margin: '20px 0 0',
-                    maxWidth: '65ch',
-                    textAlign: 'justify',
-                    hyphens: 'auto',
-                }}>
-                    {props.descripcion}
-                </p>
+                {/* Texto narrativo completo (si existe) */}
+                {hasNarrative ? (
+                    <div style={{ margin: '20px 0 0' }}>
+                        {narrativeParagraphs.map((paragraph, i) => (
+                            <p
+                                key={`${currentStepIndex}-${i}`}
+                                style={{
+                                    fontSize: '0.9375rem',
+                                    lineHeight: 1.8,
+                                    color: '#4A4F5A',
+                                    margin: i === 0 ? '0' : '14px 0 0',
+                                    maxWidth: '65ch',
+                                    textAlign: 'justify',
+                                    hyphens: 'auto',
+                                    animation: 'narrativeFadeIn 400ms ease forwards',
+                                    animationDelay: `${i * 60}ms`,
+                                    opacity: 0,
+                                }}
+                            >
+                                {paragraph}
+                            </p>
+                        ))}
+                    </div>
+                ) : (
+                    <p style={{
+                        fontSize: '1rem',
+                        lineHeight: 1.7,
+                        color: '#4A4F5A',
+                        margin: '20px 0 0',
+                        maxWidth: '65ch',
+                        textAlign: 'justify',
+                        hyphens: 'auto',
+                    }}>
+                        {props.descripcion}
+                    </p>
+                )}
 
                 {/* Contexto histórico (opcional) */}
                 {props.contexto && (
@@ -215,6 +331,20 @@ const StepInfoPanel = ({ epochColor: epochColorProp }) => {
                     </div>
                 )}
             </div>
+
+            {/* CSS Animations */}
+            <style>{`
+                @keyframes narrativeFadeIn {
+                    from {
+                        opacity: 0;
+                        transform: translateY(8px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+            `}</style>
         </div>
     );
 };

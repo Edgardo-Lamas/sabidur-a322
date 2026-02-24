@@ -104,6 +104,20 @@ export const NarrativeProvider = ({ children }) => {
         []
     );
 
+    // ─── Route Starter (puente con MapaBiblico) ───
+    // MapaBiblico registra handleStartNarrative vía setRouteStarter.
+    // NarrativeControlPanel lo invoca vía startRoute(routeId) para
+    // avanzar a la siguiente etapa sin pasar props por NarrativeLayout.
+    const routeStarterRef = useRef(null);
+
+    const setRouteStarter = useCallback((fn) => {
+        routeStarterRef.current = fn;
+    }, []);
+
+    const startRoute = useCallback((routeId) => {
+        routeStarterRef.current?.(routeId);
+    }, []);
+
     const setSpeed = useCallback(
         (speed) => dispatch({ type: ACTIONS.SET_SPEED, payload: { speed } }),
         []
@@ -168,7 +182,10 @@ export const NarrativeProvider = ({ children }) => {
         goTo,
         setSpeed,
         onTransitionComplete,
-    }), [state, derived, start, next, prev, pause, resume, stop, goTo, setSpeed, onTransitionComplete]);
+        // Puente para auto-avance entre etapas
+        setRouteStarter,
+        startRoute,
+    }), [state, derived, start, next, prev, pause, resume, stop, goTo, setSpeed, onTransitionComplete, setRouteStarter, startRoute]);
 
     return (
         <NarrativeContext.Provider value={value}>

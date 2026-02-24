@@ -18,6 +18,8 @@ import useGeoJSON from '../hooks/useGeoJSON';
 import geoJSON from '../services/geoJSONService';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
+import { NarrativeProvider } from '../engine';
+import NarrativeLayout from '../components/maps/NarrativeLayout';
 
 // Lazy load del componente de mapa (code splitting)
 const MapaBiblico = React.lazy(() => import('../components/maps/MapaBiblico'));
@@ -58,6 +60,28 @@ const MapaRecorrido = () => {
     }
 
     const epoch = EPOCH_CONFIG[journey.epoca] || {};
+
+    // Determine if this journey has narrative support
+    const hasNarrative = journey.slug === 'viaje-de-abraham';
+
+    // Wrap map content with NarrativeProvider when narrative is available
+    const MapContent = (
+        <Suspense
+            fallback={
+                <div className="h-full flex items-center justify-center">
+                    <Loader2 size={36} className="animate-spin text-sabiduria-gold" />
+                </div>
+            }
+        >
+            <MapaBiblico
+                features={features}
+                center={journey.center}
+                zoom={journey.zoom}
+                epochColor={epoch.color}
+                narrativeEnabled={hasNarrative}
+            />
+        </Suspense>
+    );
 
     return (
         <main className="bg-sabiduria-bg min-h-screen">
@@ -107,7 +131,7 @@ const MapaRecorrido = () => {
             <section className="max-w-7xl mx-auto px-4 pb-8">
                 <div
                     className="bg-white rounded-lg shadow-lg overflow-hidden border border-sabiduria-gray/10"
-                    style={{ height: 'clamp(400px, 60vh, 700px)' }}
+                    style={{ height: hasNarrative ? 'clamp(500px, 75vh, 850px)' : 'clamp(400px, 60vh, 700px)' }}
                 >
                     {status === 'loading' && (
                         <div className="h-full flex flex-col items-center justify-center gap-3 text-sabiduria-gray">
@@ -133,22 +157,15 @@ const MapaRecorrido = () => {
                         </div>
                     )}
 
-                    {status === 'success' && (
-                        <Suspense
-                            fallback={
-                                <div className="h-full flex items-center justify-center">
-                                    <Loader2 size={36} className="animate-spin text-sabiduria-gold" />
-                                </div>
-                            }
-                        >
-                            <MapaBiblico
-                                features={features}
-                                center={journey.center}
-                                zoom={journey.zoom}
-                                epochColor={epoch.color}
-                            />
-                        </Suspense>
+                    {status === 'success' && hasNarrative && (
+                        <NarrativeProvider>
+                            <NarrativeLayout epoca={journey.epoca} sintesisTeologica={journey.sintesisTeologica}>
+                                {MapContent}
+                            </NarrativeLayout>
+                        </NarrativeProvider>
                     )}
+
+                    {status === 'success' && !hasNarrative && MapContent}
                 </div>
             </section>
 
