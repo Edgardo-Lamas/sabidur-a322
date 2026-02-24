@@ -11,7 +11,10 @@ import content from '../data/content.json';
  */
 const textTypeConfig = {
     articulo: {
-        collection: () => content.textos?.articulos || content.articles || [],
+        collection: () => [
+            ...(content.textos?.articulos || []),
+            ...(content.articles || [])
+        ],
         label: 'Artículo',
         backPath: '/articulos',
         backLabel: 'Volver a Artículos'
