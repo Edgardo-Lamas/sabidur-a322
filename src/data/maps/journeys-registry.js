@@ -32,10 +32,15 @@ El Nuevo Testamento interpreta este recorrido como tipo de la peregrinación cri
             'Sigue los pasos del pueblo de Israel en su liberación de Egipto, su travesía por el Mar Rojo, y su peregrinación por el desierto del Sinaí.',
         epoca: 'exodo',
         geojsonPath: '/geojson/02-exodo.geojson',
-        center: [29.5, 34.0],
+        center: [32.5, 29.8],
         zoom: 6,
-        puntos: 25,
+        puntos: 17,
         imagen: '🔥',
+        sintesisTeologica: `El Éxodo es el acontecimiento fundacional del Antiguo Testamento. Así como la resurrección define al Nuevo, la salida de Egipto define a Israel: su identidad, su ley, su calendario y su esperanza están construidos sobre lo que Dios hizo en aquella noche de Pascua y en los cuarenta años que siguieron.
+
+Dios no libera a un pueblo para dejarlo sin destino. Cada etapa del desierto es una aula: el maná enseña dependencia diaria, las aguas amargas enseñan confianza cuando la providencia decepciona, el Sinaí enseña que la redención antecede a la ley —«Yo soy Jehová tu Dios, que te saqué de Egipto» viene antes de los mandamientos—. El Tabernáculo enseña que Dios quiere morar en medio de su pueblo, no solo sobre él.
+
+La trayectoria de Moisés anticipa la del Mesías: intercede por el pueblo cuando merece juicio, carga el peso de sus fracasos, ve desde lejos lo que no le es dado poseer. La serpiente levantada en el desierto, que Cristo mismo interpretó como imagen de su cruz (Juan 3:14), convierte el Éxodo en profecía: toda liberación visible apunta a una liberación más profunda, de una esclavitud que ningún Faraón impone pero que el corazón humano no puede romper por sí mismo.`,
     },
     {
         slug: 'conquista-de-canaan',

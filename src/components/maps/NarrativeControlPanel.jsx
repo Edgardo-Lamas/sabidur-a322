@@ -19,19 +19,29 @@ import useNarrative from '../../engine/useNarrative';
 
 const SPEED_OPTIONS = [0.5, 1, 1.5, 2];
 
-// Orden y etiquetas legibles de los grupos de ruta
+// Orden y etiquetas legibles de los grupos de ruta — por recorrido
 const ROUTE_ORDER = [
+    // Abraham
     'llamado-de-abraham',
     'descenso-a-egipto',
     'vida-en-canaan',
     'ciclo-de-jacob',
+    // Éxodo
+    'salida-de-egipto',
+    'desierto-sinai',
+    'peregrinacion-desierto',
 ];
 
 const ROUTE_LABELS = {
-    'llamado-de-abraham': 'El llamado de Abraham',
-    'descenso-a-egipto':  'El descenso a Egipto',
-    'vida-en-canaan':     'Vida en Canaán',
-    'ciclo-de-jacob':     'El ciclo de Jacob',
+    // Abraham
+    'llamado-de-abraham':     'El llamado de Abraham',
+    'descenso-a-egipto':      'El descenso a Egipto',
+    'vida-en-canaan':         'Vida en Canaán',
+    'ciclo-de-jacob':         'El ciclo de Jacob',
+    // Éxodo
+    'salida-de-egipto':       'La salida de Egipto',
+    'desierto-sinai':         'El desierto y el Sinaí',
+    'peregrinacion-desierto': 'La peregrinación',
 };
 
 const NarrativeControlPanel = ({ epochColor = '#C5A059', sintesisTeologica }) => {

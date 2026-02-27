@@ -5,323 +5,340 @@
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [
-                    31.2357,
-                    30.0444
-                ]
+                "coordinates": [31.2357, 30.0444]
             },
             "properties": {
                 "id": "rameses",
                 "nombre": "Ramesés (Gosén)",
                 "pasaje": "Éxodo 12:37",
+                "titulo": "La noche de la partida",
                 "descripcion": "Punto de partida del Éxodo. Los israelitas, tras la última plaga y la Pascua, salen de la tierra de esclavitud.",
+                "narrativa": "Ramesés era una ciudad construida por manos que no la poseerían jamás. Sus graneros, sus templos y sus obeliscos habían sido levantados sobre el sudor de un pueblo al que nadie llamaba por su nombre.\n\nDurante generaciones, Israel había nacido y muerto bajo el sol egipcio. Los ladrillos eran el horizonte conocido. El látigo, la medida del tiempo.\n\nPero esa noche, todo cambió.\n\nLa sangre estaba pintada en los dinteles. El cordero había sido comido de prisa, con las sandalias puestas. El ángel cruzó sobre los hogares marcados y el lamento de Egipto llenó la oscuridad.\n\nFaraón, cuyo corazón había resistido diez veces la mano de Dios, convocó a Moisés en la madrugada: «Salid de en medio de mi pueblo vosotros y los hijos de Israel».\n\nSeiscientas mil familias se pusieron en movimiento antes del amanecer.\n\nCuatro siglos de esclavitud terminaron en una noche.",
+                "fase": "Liberación",
                 "epoca": "exodo",
                 "orden": 1,
-                "tipo": "ciudad"
+                "tipo": "ciudad",
+                "routeGroup": "salida-de-egipto"
             }
         },
         {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [
-                    32.3300,
-                    30.7500
-                ]
+                "coordinates": [32.3300, 30.7500]
             },
             "properties": {
                 "id": "sucot-exodo",
                 "nombre": "Sucot",
                 "pasaje": "Éxodo 12:37",
+                "titulo": "El primer campamento libre",
                 "descripcion": "Primera parada tras salir de Ramesés. El pueblo comienza su marcha hacia la libertad.",
+                "narrativa": "Sucot era el primer campamento de un pueblo que aún no sabía caminar libre.\n\nLlevaban consigo el pan sin levadura —no hubo tiempo para que fermentara—, las joyas pedidas a los egipcios, los rebaños que antes habían cuidado para otro. También llevaban los huesos de José, que había pedido ser recordado cuando llegara este día.\n\nSeiscientas mil personas y una multitud de extranjeros mezclados entre ellos. El movimiento era lento, ruidoso, cargado. Las palabras aún contenían el acento de la servidumbre.\n\nPero el horizonte era otro.\n\nDios no los llevó por el camino de los filisteos, aunque era más corto. Habría guerra, y el pueblo podría arrepentirse y volver. El camino elegido era más largo, más profundo. Era una ruta de formación, no de velocidad.\n\nSucot fue la primera pausa: el instante en que un pueblo esclavo comenzó a convertirse en nación peregrina.",
+                "fase": "Liberación",
                 "epoca": "exodo",
                 "orden": 2,
-                "tipo": "campamento"
+                "tipo": "campamento",
+                "routeGroup": "salida-de-egipto"
             }
         },
         {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [
-                    32.5500,
-                    30.5500
-                ]
+                "coordinates": [32.5500, 30.5500]
             },
             "properties": {
                 "id": "etam",
                 "nombre": "Etam",
                 "pasaje": "Éxodo 13:20",
+                "titulo": "Al borde del desierto",
                 "descripcion": "Al borde del desierto. Aquí Dios comienza a guiar al pueblo con columna de nube de día y columna de fuego de noche.",
+                "narrativa": "Etam estaba al borde del desierto. Más allá de sus límites, el paisaje se abría a una extensión sin caminos trazados ni señales reconocibles.\n\nFue allí donde Dios tomó visibilidad.\n\nDe día, una columna de nube. De noche, una columna de fuego. No era una leyenda que se contaría más tarde: era la guía real, presente, que marcaba el ritmo de la marcha. El pueblo no avanzaba cuando quería ni se detenía según su criterio. La columna dictaba el movimiento.\n\nEsta presencia tenía un nombre en la tradición posterior: el Shekinah, la gloria que habita en medio de su pueblo.\n\nNo había brújula ni mapa para lo que estaba por venir. Solo la columna que no se apartaba durante el día ni el fuego que alumbraba la noche.\n\nY el desierto, enorme, esperando al otro lado.",
+                "fase": "Liberación",
                 "epoca": "exodo",
                 "orden": 3,
-                "tipo": "campamento"
+                "tipo": "campamento",
+                "routeGroup": "salida-de-egipto"
             }
         },
         {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [
-                    32.4000,
-                    30.0000
-                ]
+                "coordinates": [32.4000, 30.0000]
             },
             "properties": {
                 "id": "cruce-mar-rojo",
                 "nombre": "Cruce del Mar Rojo",
                 "pasaje": "Éxodo 14:21-31",
+                "titulo": "Las aguas divididas",
                 "descripcion": "Dios divide las aguas del mar. Israel cruza en seco mientras el ejército del faraón es destruido. Acto redentor culminante del Antiguo Testamento.",
+                "narrativa": "Cuando el ejército de Faraón los alcanzó, Israel estaba atrapado entre el agua y las lanzas.\n\nEl miedo fue inmediato. Las voces que acusaban a Moisés de haberlos traído al desierto para morir eran las mismas que habían cantado de alegría al salir de Egipto. El terror deshace la memoria con facilidad.\n\nMoisés respondió con una certeza que no dependía de la situación: «No temáis; estad firmes, y ved la salvación que Jehová hará hoy con vosotros».\n\nEntonces extendió su mano sobre el mar.\n\nUn viento oriental sopló toda la noche. Las aguas se dividieron. El suelo quedó seco.\n\nIsrael cruzó entre dos paredes de agua. El ejército de Faraón los siguió.\n\nCuando el último israelita pisó la orilla opuesta, las aguas volvieron. Los carros, los jinetes, el poderío militar más grande del mundo antiguo, quedaron sepultados bajo el mar.\n\nIsrael vio a los egipcios muertos en la playa.\n\nEntonces creyeron. Y cantaron.",
+                "fase": "Liberación",
                 "epoca": "exodo",
                 "orden": 4,
-                "tipo": "evento"
+                "tipo": "evento",
+                "routeGroup": "salida-de-egipto"
             }
         },
         {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [
-                    33.0000,
-                    29.5000
-                ]
+                "coordinates": [33.0000, 29.5000]
             },
             "properties": {
                 "id": "mara",
                 "nombre": "Mara",
                 "pasaje": "Éxodo 15:22-25",
+                "titulo": "Las aguas amargas",
                 "descripcion": "Las aguas son amargas. Dios muestra a Moisés un árbol para endulzarlas, revelándose como Jehová-Rapha: «Yo soy Jehová tu sanador».",
+                "narrativa": "Tres días en el desierto de Shur sin agua. La euforia del canto junto al mar se había evaporado bajo el sol.\n\nCuando por fin vieron agua, corrieron hacia ella.\n\nEra amarga. No se podía beber.\n\nEl nombre lo decía todo: Mara, amargura. El lugar quedó marcado no por su geografía sino por la decepción que produjo.\n\nEl pueblo clamó contra Moisés. La queja fue el primer ejercicio de la libertad que todavía no sabían usar.\n\nMoisés clamó a Dios. Dios le mostró un árbol. Moisés lo echó en las aguas, y las aguas se endulzaron.\n\nAllí Dios estableció estatutos y ordenanzas, y allí los probó. Luego se reveló con un nombre nuevo: Jehová-Rapha. «Yo soy Jehová tu sanador».\n\nLa primera crisis del desierto no fue resuelta por la habilidad de Moisés sino por la intervención de Dios.\n\nY el camino continuó hacia el sur.",
+                "fase": "Desierto",
                 "epoca": "exodo",
                 "orden": 5,
-                "tipo": "milagro"
+                "tipo": "milagro",
+                "routeGroup": "desierto-sinai"
             }
         },
         {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [
-                    33.1800,
-                    29.2500
-                ]
+                "coordinates": [33.1800, 29.2500]
             },
             "properties": {
                 "id": "elim",
                 "nombre": "Elim",
                 "pasaje": "Éxodo 15:27",
+                "titulo": "El oasis de las doce fuentes",
                 "descripcion": "Oasis con doce fuentes de agua y setenta palmeras. Lugar de descanso y provisión divina tras la prueba de Mara.",
+                "narrativa": "Elim apareció como una respuesta sin palabras.\n\nDespués de la amargura de Mara, después de la queja y el milagro, el camino condujo a un oasis. No uno escaso o marginal, sino doce fuentes de agua y setenta palmeras.\n\nEl número no era casual. En la tradición del Antiguo Testamento, doce era el número de las tribus. Setenta era el número de las naciones. El oasis parecía diseñado para un pueblo entero.\n\nIsrael acampó junto a las aguas.\n\nEl texto no registra quejas en Elim. No hay crisis, no hay confrontación. Solo el descanso que sigue a la prueba.\n\nEn el camino del desierto, la provisión y el descanso no eran el destino final. Eran las pausas necesarias antes de la siguiente etapa de formación.\n\nY la siguiente etapa implicaría aprender a depender de Dios para el pan de cada día.",
+                "fase": "Desierto",
                 "epoca": "exodo",
                 "orden": 6,
-                "tipo": "campamento"
+                "tipo": "campamento",
+                "routeGroup": "desierto-sinai"
             }
         },
         {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [
-                    33.5000,
-                    28.8000
-                ]
+                "coordinates": [33.5000, 28.8000]
             },
             "properties": {
                 "id": "desierto-sin",
                 "nombre": "Desierto de Sin",
                 "pasaje": "Éxodo 16:1-36",
+                "titulo": "El pan del cielo",
                 "descripcion": "Dios provee el maná del cielo y las codornices. Comienza la provisión sobrenatural que durará 40 años.",
+                "narrativa": "El decimoquinto día del segundo mes. La Escritura registra la fecha con precisión, como si la queja también mereciera un lugar en la memoria.\n\nEn el desierto de Sin, entre Elim y el Sinaí, Israel volvió a murmurar. Esta vez era el hambre. Y la nostalgia: «¡Ojalá hubiéramos muerto en Egipto, cuando nos sentábamos junto a las ollas de carne!»\n\nLa esclavitud, al menos, tenía comida.\n\nDios respondió sin reproche inmediato. Enviaría pan del cielo. Cada mañana habría una capa fina sobre el suelo, como escarcha. Cada persona recogería solo lo necesario para ese día. No se podía guardar para el siguiente: el que intentara acumular encontraría gusanos.\n\nLlamaron al pan maná, que en hebreo suena a pregunta: «¿Qué es esto?» El nombre preservó el asombro.\n\nAl atardecer llegaban las codornices.\n\nDurante cuarenta años, mientras Israel caminó por el desierto, el maná estuvo allí cada mañana. Era la gramática de la dependencia diaria.",
+                "fase": "Desierto",
                 "epoca": "exodo",
                 "orden": 7,
-                "tipo": "milagro"
+                "tipo": "milagro",
+                "routeGroup": "desierto-sinai"
             }
         },
         {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [
-                    33.7000,
-                    28.5000
-                ]
+                "coordinates": [33.7000, 28.5000]
             },
             "properties": {
                 "id": "refidim",
                 "nombre": "Refidim",
                 "pasaje": "Éxodo 17:1-16",
+                "titulo": "El agua de la roca y la primera batalla",
                 "descripcion": "Moisés golpea la roca y brota agua. Aquí también Israel vence a Amalec mientras Moisés levanta sus manos en oración.",
+                "narrativa": "En Refidim no había agua.\n\nEl pueblo discutió con Moisés. La tensión llegó al punto de que Moisés temió por su vida: «Un poco más y me apedrearán». Dios le ordenó que tomara su vara —la misma que había dividido el Nilo— y golpeara la roca en Horeb.\n\nDe la roca brotó agua.\n\nEl lugar fue llamado Masá y Meriba: tentación y contienda. Los nombres registraban no solo lo que ocurrió sino la actitud del corazón.\n\nLuego llegó Amalec.\n\nFue la primera batalla de Israel como nación libre. Josué luchó en el valle. Moisés subió a la cima de la colina con la vara de Dios. Cuando sus manos estaban levantadas, Israel prevalecía. Cuando bajaba por el cansancio, Amalec prevalecía.\n\nAarón y Hur sostuvieron sus brazos hasta que el sol se puso.\n\nIsrael venció. Y aprendió que la batalla no se ganaba solo con espadas.",
+                "fase": "Desierto",
                 "epoca": "exodo",
                 "orden": 8,
-                "tipo": "milagro"
+                "tipo": "milagro",
+                "routeGroup": "desierto-sinai"
             }
         },
         {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [
-                    33.9750,
-                    28.5394
-                ]
+                "coordinates": [33.9750, 28.5394]
             },
             "properties": {
                 "id": "monte-sinai",
                 "nombre": "Monte Sinaí (Horeb)",
                 "pasaje": "Éxodo 19–20",
+                "titulo": "La montaña que ardía",
                 "descripcion": "Dios desciende en fuego y trueno. Aquí entrega los Diez Mandamientos y establece el pacto con Israel como nación santa.",
+                "narrativa": "El Sinaí no era un monte ordinario el día en que Israel llegó a su base.\n\nHumo, fuego, truenos, relámpagos. La montaña entera temblaba. El pueblo temblaba también. Se quedaron lejos. El sonido de la trompeta crecía sin instrumento visible que lo produjera.\n\nDios descendió.\n\nIsrael había cruzado el mar, había visto los milagros en el desierto. Pero esto era diferente. Aquí la santidad de Dios se hacía tangible y aterradora. Nadie podía tocar el monte sin morir.\n\nMoisés subió solo.\n\nDe ese encuentro bajaron las palabras que definirían a Israel por todos los siglos: los Diez Mandamientos. No eran una lista de reglas administrativas. Eran la forma del pacto. El lenguaje de la relación entre Dios y su pueblo.\n\nLas primeras palabras fueron un recordatorio de identidad: «Yo soy Jehová tu Dios, que te saqué de la tierra de Egipto, de casa de servidumbre».\n\nAntes del mandamiento, la gracia. Antes de la ley, la redención.",
+                "fase": "El Sinaí",
                 "epoca": "exodo",
                 "orden": 9,
-                "tipo": "monte"
+                "tipo": "monte",
+                "routeGroup": "desierto-sinai"
             }
         },
         {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [
-                    33.9750,
-                    28.5394
-                ]
+                "coordinates": [33.9750, 28.5394]
             },
             "properties": {
                 "id": "tabernaculo",
-                "nombre": "Sinaí — Construcción del Tabernáculo",
+                "nombre": "Sinaí — El Tabernáculo",
                 "pasaje": "Éxodo 35–40",
+                "titulo": "La morada de Dios entre los hombres",
                 "descripcion": "En el Sinaí se construye el Tabernáculo según el modelo divino. La gloria de Jehová llena la tienda de reunión.",
+                "narrativa": "Mientras Moisés estaba en la cima del Sinaí recibiendo las instrucciones del Tabernáculo, Israel construyó un becerro de oro en el valle.\n\nLa distancia entre ambos actos resumía la tensión que definiría toda la historia posterior: la tendencia del pueblo a fabricar su propia versión de Dios cuando la presencia real se demora o se vuelve incómoda.\n\nPero después del juicio y la intercesión, después del perdón que Moisés negoció con su propia existencia como moneda, vino la construcción.\n\nDios no canceló su proyecto. Dio instrucciones precisas: dimensiones, materiales, colores. Bezaleel y Aholiab fueron ungidos con sabiduría artesanal para ejecutar lo que el Espíritu había diseñado.\n\nCuando todo estuvo terminado, la nube cubrió el tabernáculo y la gloria de Dios lo llenó.\n\nMoisés no podía entrar.\n\nDios había vuelto a morar en medio de su pueblo. No en un templo de piedra, sino en una tienda que podía moverse con la caravana. La presencia de Dios era peregrina, como Israel.",
+                "fase": "El Sinaí",
                 "epoca": "exodo",
                 "orden": 10,
-                "tipo": "construccion"
+                "tipo": "construccion",
+                "routeGroup": "desierto-sinai"
             }
         },
         {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [
-                    34.4300,
-                    29.9200
-                ]
+                "coordinates": [34.4300, 29.9200]
             },
             "properties": {
                 "id": "kibrot-hataava",
                 "nombre": "Kibrot-hataava",
                 "pasaje": "Números 11:31-34",
+                "titulo": "La tumba de la codicia",
                 "descripcion": "El pueblo pide carne con codicia. Dios envía codornices pero también juicio. Memorial de la consecuencia de la murmuración.",
+                "narrativa": "El nombre del lugar lo decía todo: Kibrot-hataava significa «sepulcros de la codicia».\n\nEl pueblo había comenzado a despreciar el maná. Lo describían como liviano, como insuficiente. Recordaban los pepinos, los melones, los puerros, las cebollas y los ajos de Egipto. La esclavitud, en el recuerdo, sabía mejor que la libertad en el desierto.\n\nMoisés estaba agotado. Llevaba la carga de ese pueblo como si fuera suya propia. Le dijo a Dios que prefería morir antes que seguir soportando esta miseria.\n\nDios respondió con dos movimientos: designó setenta ancianos para compartir la carga de Moisés, y envió codornices en tal abundancia que cubrieron el campamento en un radio de un día de camino.\n\nPero mientras la carne estaba aún entre los dientes del pueblo, antes de haberla tragado, la ira de Dios se encendió.\n\nLos que habían codiciado quedaron sepultados allí.\n\nEl nombre del lugar quedó como advertencia: no todo deseo que se expresa con intensidad merece ser satisfecho.",
+                "fase": "Peregrinación",
                 "epoca": "exodo",
                 "orden": 11,
-                "tipo": "evento"
+                "tipo": "evento",
+                "routeGroup": "peregrinacion-desierto"
             }
         },
         {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [
-                    34.5500,
-                    30.4000
-                ]
+                "coordinates": [34.5500, 30.4000]
             },
             "properties": {
                 "id": "haserot",
                 "nombre": "Haserot",
                 "pasaje": "Números 12:1-16",
+                "titulo": "La rebelión de María",
                 "descripcion": "María y Aarón murmuran contra Moisés. María es castigada con lepra pero sanada tras la intercesión de Moisés.",
+                "narrativa": "Haserot fue el escenario de una crisis más íntima que las anteriores.\n\nNo era el pueblo anónimo que murmuraba. Eran María y Aarón: la hermana y el hermano de Moisés. Aquellos que lo habían acompañado desde el comienzo, que habían visto los mismos milagros, que compartían la misma sangre y el mismo llamado.\n\nEl pretexto fue la mujer cusita de Moisés. Pero la pregunta real era otra: «¿Solamente por Moisés ha hablado Jehová? ¿No ha hablado también por nosotros?»\n\nLa envidia al liderazgo se disfraza fácilmente de celo teológico.\n\nDios convocó a los tres a la Tienda de reunión. Habló con Aarón y María: Moisés era diferente. Con otros profetas Dios hablaba en visiones y sueños. Con Moisés hablaba cara a cara, claramente.\n\nCuando la nube se apartó, María estaba cubierta de lepra.\n\nAarón reconoció el pecado. Moisés intercedió: «Ruego, oh Dios, que la sanes ahora».\n\nSiete días fuera del campamento. Luego fue restaurada.\n\nIsrael esperó a María antes de seguir.",
+                "fase": "Peregrinación",
                 "epoca": "exodo",
                 "orden": 12,
-                "tipo": "evento"
+                "tipo": "evento",
+                "routeGroup": "peregrinacion-desierto"
             }
         },
         {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [
-                    34.7300,
-                    30.9200
-                ]
+                "coordinates": [34.7300, 30.9200]
             },
             "properties": {
                 "id": "cades-barnea",
                 "nombre": "Cades-barnea",
                 "pasaje": "Números 13–14",
+                "titulo": "Los doce espías y la sentencia",
                 "descripcion": "Se envían los 12 espías a explorar Canaán. Solo Josué y Caleb confían en Dios. El pueblo es sentenciado a 40 años en el desierto.",
+                "narrativa": "Cades-barnea fue el umbral de la tierra prometida. Y el lugar donde Israel decidió no entrar.\n\nDoce espías fueron enviados a explorar Canaán durante cuarenta días. Volvieron con un racimo de uvas tan grande que lo cargaban entre dos. La tierra era real. Era fértil. Era todo lo que Dios había dicho.\n\nDiez dijeron que no podían tomarla. Las ciudades eran amuralladas. Los habitantes, gigantes. En comparación, ellos eran como langostas.\n\nDos —Josué y Caleb— dijeron que podían. Que Dios estaba con ellos. Que no debían temer.\n\nEl pueblo escuchó a los diez.\n\nLa noche fue de llanto y acusación. Querían elegir un capitán que los llevara de regreso a Egipto. Hablaron de apedrear a Josué y a Caleb.\n\nDios pronunció la sentencia: cuarenta años en el desierto. Un año por cada día de exploración. Los que habían salido de Egipto adultos no verían la tierra prometida. Solo sus hijos la heredarían.\n\nCades-barnea fue el momento en que la incredulidad tuvo consecuencias generacionales.",
+                "fase": "Peregrinación",
                 "epoca": "exodo",
                 "orden": 13,
-                "tipo": "evento"
+                "tipo": "evento",
+                "routeGroup": "peregrinacion-desierto"
             }
         },
         {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [
-                    35.4000,
-                    30.3200
-                ]
+                "coordinates": [35.4000, 30.3200]
             },
             "properties": {
                 "id": "monte-hor",
                 "nombre": "Monte Hor",
                 "pasaje": "Números 20:22-29",
+                "titulo": "La muerte de Aarón",
                 "descripcion": "Aarón muere en la cima del monte Hor. Eleazar, su hijo, hereda el sumo sacerdocio.",
+                "narrativa": "El Monte Hor estaba en la frontera de Edom, en el límite de una tierra que Israel había tenido que rodear porque Edom les negó el paso.\n\nDios habló a Moisés con instrucciones precisas: Aarón iba a morir allí. No entraría a la tierra prometida. Junto con el pecado de las aguas de Meriba, la sentencia era clara.\n\nMoisés, Aarón y Eleazar subieron juntos a la cima del monte. A la vista de toda la congregación.\n\nArriba, Moisés quitó las vestiduras sacerdotales de Aarón y las puso sobre Eleazar. La capa, el efod, el pectoral. Cada prenda fue transferida. El sacerdocio continuaba. La persona cambiaba.\n\nAarón murió en la cima del monte.\n\nMoisés y Eleazar bajaron solos.\n\nToda la congregación vio que Aarón había muerto y lo lloró durante treinta días.\n\nFue el segundo de los tres grandes líderes del Éxodo en caer antes de llegar a la meta. La tierra prometida exigiría generaciones nuevas.",
+                "fase": "Peregrinación",
                 "epoca": "exodo",
                 "orden": 14,
-                "tipo": "monte"
+                "tipo": "monte",
+                "routeGroup": "peregrinacion-desierto"
             }
         },
         {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [
-                    35.4800,
-                    30.7200
-                ]
+                "coordinates": [35.4800, 30.7200]
             },
             "properties": {
                 "id": "serpiente-bronce",
-                "nombre": "Desierto (Serpiente de Bronce)",
+                "nombre": "Desierto — Serpiente de Bronce",
                 "pasaje": "Números 21:4-9",
+                "titulo": "Mirar y vivir",
                 "descripcion": "Ante las serpientes ardientes, Dios ordena a Moisés levantar una serpiente de bronce. Quien la mire, vivirá. Prefiguración de Cristo en la cruz (Juan 3:14).",
+                "narrativa": "El camino bordeando Edom era largo y duro. El pueblo se impacientó.\n\nLas quejas volvieron con su formulario conocido: «¿Por qué nos hiciste subir de Egipto para que muramos en este desierto? Pues no hay pan ni agua, y nuestra alma tiene fastidio de este pan tan liviano».\n\nLuego vinieron las serpientes.\n\nLas llamaron ardientes: su veneno quemaba. El campamento se llenó de mordeduras y de muertos.\n\nEl pueblo reconoció el pecado. Pidió a Moisés que intercediera.\n\nDios dio una instrucción que debía resultar extraña: haz una serpiente de bronce y ponla sobre un asta. El que haya sido mordido y la mire, vivirá.\n\nMoisés la hizo. La levantó.\n\nY el que miraba, vivía.\n\nNo era la serpiente la que sanaba. Era la obediencia de mirar hacia donde Dios había señalado.\n\nSiglos después, Jesús lo citó como imagen de sí mismo: «Como Moisés levantó la serpiente en el desierto, así es necesario que el Hijo del Hombre sea levantado, para que todo aquel que en él crea, no se pierda, mas tenga vida eterna» (Juan 3:14-15).",
+                "fase": "Peregrinación",
                 "epoca": "exodo",
                 "orden": 15,
-                "tipo": "milagro"
+                "tipo": "milagro",
+                "routeGroup": "peregrinacion-desierto"
             }
         },
         {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [
-                    35.7300,
-                    31.7700
-                ]
+                "coordinates": [35.7300, 31.7700]
             },
             "properties": {
                 "id": "llanuras-moab",
                 "nombre": "Llanuras de Moab",
                 "pasaje": "Deuteronomio 1:1-5",
+                "titulo": "El discurso final de Moisés",
                 "descripcion": "Moisés pronuncia sus discursos finales al pueblo de Israel. Recapitulación de la ley y renovación del pacto antes de entrar a Canaán.",
+                "narrativa": "Las Llanuras de Moab se extendían frente al Jordán. Al otro lado, Canaán era visible en los días claros.\n\nIsrael acampó allí. Cuarenta años de peregrinación estaban a punto de terminar. Una generación entera había nacido y crecido en el desierto. El Sinaí era para ellos una historia contada por los mayores. El cruce del mar, una memoria heredada.\n\nFue allí donde Moisés habló.\n\nEl libro de Deuteronomio es ese discurso: cuarenta años condensados en palabras. La ley repetida para quienes no la habían escuchado en el Sinaí. Las promesas recordadas para quienes estaban a punto de recibirlas. Las advertencias pronunciadas para los que pronto tendrían tierra, ciudades, cosechas y la tentación permanente de olvidar.\n\n«Cuando hayas comido y te hayas saciado, cuídate de no olvidar a Jehová tu Dios».\n\nMoisés habló sabiendo que no cruzaría. Cada palabra era un legado.\n\nSu tarea había sido llevar al pueblo hasta allí. La siguiente etapa necesitaría otro liderazgo.",
+                "fase": "Peregrinación",
                 "epoca": "exodo",
                 "orden": 16,
-                "tipo": "evento"
+                "tipo": "evento",
+                "routeGroup": "peregrinacion-desierto"
             }
         },
         {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [
-                    35.7256,
-                    31.7732
-                ]
+                "coordinates": [35.7256, 31.7732]
             },
             "properties": {
                 "id": "monte-nebo",
                 "nombre": "Monte Nebo",
                 "pasaje": "Deuteronomio 34:1-8",
+                "titulo": "La tierra vista desde lejos",
                 "descripcion": "Dios muestra a Moisés toda la tierra prometida desde la cumbre. Moisés muere allí y Dios mismo lo sepulta.",
+                "narrativa": "El Monte Nebo era la última parada de Moisés.\n\nDios le dijo: «Sube al Monte Nebo y contempla la tierra de Canaán, que yo doy en posesión a los hijos de Israel. Y morirás en el monte».\n\nMoisés subió desde las llanuras de Moab. Desde la cima, Dios le mostró todo: el Galaad hasta Dan, la tierra de Neftalí, la tierra de Efraín y Manasés, toda la tierra de Judá hasta el mar occidental, el Néguev y la llanura del valle de Jericó hasta Zoar.\n\nEra la tierra prometida a Abraham, a Isaac y a Jacob.\n\nMoisés la vio completa desde lejos.\n\nNo entró.\n\nMurió allí, en Moab, a los ciento veinte años. Su vista no se había oscurecido ni su vigor natural había desaparecido.\n\nDios lo sepultó. Nadie sabe hasta hoy dónde está su sepulcro.\n\nIsrael lloró a Moisés en las llanuras de Moab durante treinta días.\n\nY después Josué se levantó, lleno del espíritu de sabiduría.\n\nEl Éxodo había terminado. La conquista podía comenzar.",
+                "fase": "Peregrinación",
                 "epoca": "exodo",
                 "orden": 17,
-                "tipo": "monte"
+                "tipo": "monte",
+                "routeGroup": "peregrinacion-desierto"
             }
         }
     ]
