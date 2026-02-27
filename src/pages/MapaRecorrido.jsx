@@ -62,7 +62,7 @@ const MapaRecorrido = () => {
     const epoch = EPOCH_CONFIG[journey.epoca] || {};
 
     // Determine if this journey has narrative support
-    const hasNarrative = journey.slug === 'viaje-de-abraham';
+    const hasNarrative = !!journey.narrativa;
 
     // Wrap map content with NarrativeProvider when narrative is available
     const MapContent = (

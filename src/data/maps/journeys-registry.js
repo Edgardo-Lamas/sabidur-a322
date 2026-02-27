@@ -18,6 +18,7 @@ const JOURNEYS = [
         zoom: 5,
         puntos: 18,
         imagen: '🏕️',
+        narrativa: true,
         sintesisTeologica: `El viaje de Abraham no es solo un desplazamiento geográfico: es la primera gran escuela de fe en las Escrituras. A través de más de 2.000 kilómetros de obediencia, Dios moldea a un hombre común en el «padre de todos los creyentes» (Romanos 4:11). Cada etapa revela una dimensión nueva del carácter divino: el Dios que llama, el Dios que provee, el Dios que cumple sus promesas contra toda expectativa humana.
 
 La promesa de la tierra, la descendencia y la bendición universal (Génesis 12:1-3) no se cumple de inmediato. Abraham camina entre la promesa y su cumplimiento, aprendiendo que la fe no es la ausencia de espera, sino la certeza de que quien prometió es fiel. El altar que levanta en cada parada es un testimonio silencioso: aquí pasé, aquí creí, aquí el Señor fue suficiente.
@@ -36,6 +37,7 @@ El Nuevo Testamento interpreta este recorrido como tipo de la peregrinación cri
         zoom: 6,
         puntos: 17,
         imagen: '🔥',
+        narrativa: true,
         sintesisTeologica: `El Éxodo es el acontecimiento fundacional del Antiguo Testamento. Así como la resurrección define al Nuevo, la salida de Egipto define a Israel: su identidad, su ley, su calendario y su esperanza están construidos sobre lo que Dios hizo en aquella noche de Pascua y en los cuarenta años que siguieron.
 
 Dios no libera a un pueblo para dejarlo sin destino. Cada etapa del desierto es una aula: el maná enseña dependencia diaria, las aguas amargas enseñan confianza cuando la providencia decepciona, el Sinaí enseña que la redención antecede a la ley —«Yo soy Jehová tu Dios, que te saqué de Egipto» viene antes de los mandamientos—. El Tabernáculo enseña que Dios quiere morar en medio de su pueblo, no solo sobre él.
