@@ -156,6 +156,20 @@ const useNarrativeMap = (map, clusterRef, options = {}) => {
     const fallbackTimerRef = useRef(null);
     const styleInjectedRef = useRef(false);
 
+    // ─── EFECTO: Recalcular tamaño del mapa al entrar/salir de narrativa ────
+    // NarrativeLayout cambia gap y añade/quita ProgressTimeline cuando la
+    // narrativa se activa o termina. Leaflet no detecta el cambio de tamaño
+    // del contenedor automáticamente, lo que produce un parpadeo en el borde
+    // inferior del mapa. invalidateSize() fuerza el recálculo.
+    useEffect(() => {
+        if (!map) return;
+        // requestAnimationFrame: espera a que el browser haga reflow del DOM
+        const raf = requestAnimationFrame(() => {
+            map.invalidateSize({ animate: false });
+        });
+        return () => cancelAnimationFrame(raf);
+    }, [map, status]); // eslint-disable-line react-hooks/exhaustive-deps
+
     // ─── CSS animations (inyección única) ────────────────────────────────────
     useEffect(() => {
         if (styleInjectedRef.current) return;

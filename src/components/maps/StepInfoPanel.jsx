@@ -147,11 +147,15 @@ const StepInfoPanel = ({ epochColor: epochColorProp }) => {
                     borderBottom: '1px solid rgba(0,0,0,0.04)',
                 }}>
                     <Route size={11} style={{ color: epochColor, opacity: 0.7, flexShrink: 0 }} />
-                    <span style={{ color: epochColor, fontWeight: 600 }}>
-                        {fmtKm(partialDist)} recorridos
-                    </span>
-                    <span style={{ opacity: 0.4 }}>·</span>
-                    <span>{fmtKm(totalDist)} total</span>
+                    {currentStepIndex > 0 && (
+                        <>
+                            <span style={{ color: epochColor, fontWeight: 600 }}>
+                                {fmtKm(partialDist)} recorridos
+                            </span>
+                            <span style={{ opacity: 0.4 }}>·</span>
+                        </>
+                    )}
+                    <span>{fmtKm(totalDist)} total en esta etapa</span>
                 </div>
             )}
 
