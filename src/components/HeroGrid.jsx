@@ -90,11 +90,11 @@ const HeroGrid = () => {
                                 Explorar Estudios
                             </Link>
                             <Link
-                                to="/multimedia"
+                                to="/ensenanzas"
                                 className="inline-flex items-center justify-center gap-2 border border-white/30 text-white px-6 py-3 font-medium text-sm uppercase tracking-wider hover:bg-white/10 hover:border-white/50 transition-all"
                             >
                                 <Video size={18} />
-                                Ver Enseñanzas
+                                Audios
                             </Link>
                             <Link
                                 to="/biblioteca"

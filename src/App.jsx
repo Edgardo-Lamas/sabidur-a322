@@ -29,6 +29,7 @@ import LibroEstudioCapitulo from './pages/LibroEstudioCapitulo';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import MapasBiblicos from './pages/MapasBiblicos';
 import MapaRecorrido from './pages/MapaRecorrido';
+import Ensenanzas from './pages/Ensenanzas';
 import ChatSpurgeon from './components/ChatSpurgeon';
 
 // ScrollToTop component to ensure page starts at top on route change
@@ -79,6 +80,7 @@ function App() {
             <Route path="/estudios-libros/:libroSlug/:capituloSlug" element={<LibroEstudioCapitulo />} />
             <Route path="/mapas-biblicos" element={<MapasBiblicos />} />
             <Route path="/mapas-biblicos/:slug" element={<MapaRecorrido />} />
+            <Route path="/ensenanzas" element={<Ensenanzas />} />
             <Route path="/donaciones" element={<Donations />} />
           </Routes>
         </div>

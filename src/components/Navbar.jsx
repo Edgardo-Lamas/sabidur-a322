@@ -14,6 +14,7 @@ const Navbar = () => {
     { name: 'Sabiduría para la Juventud', path: '/adolescentes' },
     { name: 'Biblioteca', path: '/biblioteca' },
     { name: 'Mapas', path: '/mapas-biblicos' },
+    { name: 'Enseñanzas', path: '/ensenanzas' },
   ];
 
   const textosSubmenu = [
