@@ -16,7 +16,18 @@ const Articles = () => {
             setLoading(true);
             try {
                 // Cargar desde JSON local
-                const articlesData = data.textos?.articulos || [];
+                // textos.articulos primero (tiene prioridad por tener contenido completo);
+                // data.articles agrega los que no tienen equivalente, evitando duplicados.
+                const combined = [
+                    ...(data.textos?.articulos || []),
+                    ...(data.articles || [])
+                ];
+                const seen = new Set();
+                const articlesData = combined.filter(a => {
+                    if (seen.has(a.slug)) return false;
+                    seen.add(a.slug);
+                    return true;
+                });
                 setArticles(articlesData);
             } catch (err) {
                 console.error('Error fetching articles:', err.message);

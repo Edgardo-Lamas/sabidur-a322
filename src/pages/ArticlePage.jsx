@@ -15,7 +15,11 @@ const ArticlePage = () => {
             setLoading(true);
             try {
                 // Buscar en JSON local
-                const articles = data.textos?.articulos || [];
+                // textos.articulos tiene prioridad; data.articles agrega los únicos.
+                const articles = [
+                    ...(data.textos?.articulos || []),
+                    ...(data.articles || [])
+                ];
                 const foundArticle = articles.find(a => a.slug === slug);
                 setArticle(foundArticle || null);
             } catch (err) {
