@@ -442,7 +442,7 @@
      TEOLOGÍA BÁSICA - ESTILOS DE CONTENIDO
      ======================================== */
   .teologia-content {
-    font-family: var(--font-serif);
+    font-family: var(--font-sans);
     font-size: 1.0625rem;
     line-height: 1.9;
     color: var(--color-text-body);

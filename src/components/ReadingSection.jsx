@@ -89,7 +89,7 @@ const ReadingSection = ({ article }) => {
                 />
             </div>
 
-            <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12 md:py-16">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 md:py-16">
                 {/* Back Button */}
                 <div className="mb-8">
                     <Link
@@ -106,7 +106,7 @@ const ReadingSection = ({ article }) => {
                     <span className="text-sabiduria-gold uppercase tracking-widest text-sm font-bold mb-4 block">
                         {article.category}
                     </span>
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-sabiduria-navy leading-tight mb-6">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-sabiduria-navy leading-tight mb-6">
                         {article.title}
                     </h1>
                     <div className="text-sabiduria-gray text-lg italic">
@@ -115,9 +115,9 @@ const ReadingSection = ({ article }) => {
                 </header>
 
                 {/* Content */}
-                <div className="prose prose-lg max-w-[65ch] mx-auto text-sabiduria-navy leading-[1.8] font-sans text-justify">
+                <div className="text-sabiduria-navy leading-[1.8]">
                     {article.content ? (
-                        <div dangerouslySetInnerHTML={{ __html: article.content }} />
+                        <div className="teologia-content" dangerouslySetInnerHTML={{ __html: article.content }} />
                     ) : (
                         <>
                             <p className="mb-8 first-letter:text-5xl first-letter:font-serif first-letter:mr-3 first-letter:float-left first-letter:text-sabiduria-navy">

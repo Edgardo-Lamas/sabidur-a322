@@ -16,10 +16,7 @@ const Articles = () => {
             setLoading(true);
             try {
                 // Cargar desde JSON local
-                const articlesData = [
-                    ...(data.textos?.articulos || []),
-                    ...(data.articles || [])
-                ];
+                const articlesData = data.textos?.articulos || [];
                 setArticles(articlesData);
             } catch (err) {
                 console.error('Error fetching articles:', err.message);
