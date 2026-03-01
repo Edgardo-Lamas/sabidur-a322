@@ -75,10 +75,18 @@ Josué lo resumió en Siquem con la frase que define toda la época: «Escogeos 
             'Recorre la ruta del exilio a Babilonia, los años de cautiverio, y el milagroso retorno bajo los decretos de Ciro y Artajerjes.',
         epoca: 'exilio',
         geojsonPath: '/geojson/04-exilio-retorno.geojson',
-        center: [33.5, 43.0],
+        center: [33.0, 44.0],
         zoom: 5,
-        puntos: 15,
+        puntos: 13,
         imagen: '🏛️',
+        narrativa: true,
+        sintesisTeologica: `El exilio babilónico es la gran crisis de la fe en el Antiguo Testamento. No solo porque perdieron la tierra, el templo y la monarquía —las tres columnas sobre las que descansaba la identidad de Israel— sino porque la pregunta que se planteó fue más profunda: ¿dónde está Dios cuando su propia casa está en llamas? La respuesta que emerge del exilio es una de las más radicales de toda la Escritura: Dios no estaba atado al Templo. Su gloria se desplazó junto con su pueblo hacia Babilonia. Ezequiel la vio sobre un trono de zafiro, junto a un canal de irrigación, lejos de toda geografía sagrada.
+
+El exilio transformó la teología de Israel. Antes del destierro, la presencia divina se asociaba con un lugar: el monte Sion, el Templo, la ciudad de David. Después del destierro, Israel aprendió que Dios es portable. Que su fidelidad no depende de circunstancias favorables. Que el Salmo 137 —con sus arpas colgadas en los sauces y su negativa a cantar en tierra extraña— es también Escritura sagrada, es decir, que el dolor honesto tiene lugar en la conversación con Dios.
+
+El retorno bajo Zorobabel, Esdras y Nehemías no fue simplemente la restauración de lo que existía antes. Fue una reconfiguración completa: sin rey davídico entronizado, sin arca del pacto, con un templo más modesto que hacía llorar a los ancianos que recordaban el primero. Y sin embargo, fue allí donde se sentaron las bases del judaísmo tal como existe hasta hoy: centrado en la Ley, en la enseñanza, en la comunidad que escucha y obedece el texto. La lectura de la Ley en la plaza frente a la puerta de las Aguas es el origen de la sinagoga.
+
+El Nuevo Testamento interpreta el exilio y el retorno como tipo de una liberación más profunda. El mismo lenguaje que los profetas usaron para describir el regreso —«consolad a mi pueblo», «el que venía a liberar a los cautivos»— fue aplicado por Juan el Bautista y por Jesús a sí mismo. El pueblo de Dios sigue en peregrinación, sigue esperando una restauración más completa. «El gozo del Señor es vuestra fuerza» sigue siendo la promesa que sostiene a quienes esperan en tierra extraña.`,
     },
     {
         slug: 'viajes-de-pablo',

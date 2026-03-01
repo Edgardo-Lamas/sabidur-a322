@@ -6,6 +6,29 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    35.0500,
+                    32.6000
+                ]
+            },
+            "properties": {
+                "id": "megido-josias",
+                "nombre": "Meguido — Muerte de Josías",
+                "pasaje": "2 Reyes 23:29-30; 2 Crónicas 35:20-25",
+                "titulo": "La muerte del rey justo",
+                "descripcion": "El piadoso rey Josías muere en batalla contra el faraón Necao. Su muerte marca el inicio del declive final de Judá y el umbral del juicio anunciado por los profetas.",
+                "narrativa": "Josías fue el rey más reformador que tuvo Judá desde David. Cuando encontraron el libro de la Ley en el Templo mientras lo renovaban, él rasgó sus vestidos al oírlo leer. No fue un gesto político. Fue el gesto de alguien que entiende que el texto que acaba de escuchar describe su propia situación con una precisión que duele.\n\nSu reinado fue de restauración: mandó reparar el Templo, derribó los altares a Baal, profanó los lugares altos, quemó los huesos de los sacerdotes idólatras, celebró una Pascua que no se había celebrado así desde los días de los jueces. La profetisa Hulda le había dicho que el juicio sobre Judá vendría, pero no en sus días.\n\nEn el año 609 a.C., el faraón Necao marchó hacia el norte para unirse a los asirios contra Babilonia. Josías salió a interceptarlo en el valle de Meguido. Necao le envió mensajeros: «¿Qué tengo yo que ver contigo, rey de Judá? Yo no vengo contra ti hoy, sino contra la casa que me hace guerra. Dios me ha dicho que me apresure. Deja de oponerte a Dios».\n\nJosías no retrocedió. Se disfrazó y entró en batalla. Los arqueros dispararon contra él desde sus carros. Fue herido de gravedad y mandó que lo retiraran. Murió en Jerusalén.\n\nTodo Judá y Jerusalén hicieron duelo. Jeremías compuso endechas que se cantarían por generaciones. La muerte del rey justo no fue el final del juicio: fue su anuncio. Detrás de Josías no vino otro reformador, sino cuatro reyes débiles en veintitrés años, y al final, el ejército de Babilonia.",
+                "fase": "La Caída",
+                "epoca": "exilio",
+                "orden": 1,
+                "tipo": "batalla",
+                "routeGroup": "caida-de-juda"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     35.2137,
                     31.7683
                 ]
@@ -13,30 +36,15 @@
             "properties": {
                 "id": "jerusalem-caida",
                 "nombre": "Jerusalén — Caída del Templo",
-                "pasaje": "2 Reyes 25:1-21",
-                "descripcion": "Nabucodonosor destruye Jerusalén y el templo de Salomón en el 586 a.C. El arca del pacto desaparece. Comienza el exilio babilónico.",
-                "epoca": "exilio",
-                "orden": 1,
-                "tipo": "evento"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    35.0500,
-                    32.6000
-                ]
-            },
-            "properties": {
-                "id": "megido-josias",
-                "nombre": "Meguido (Muerte de Josías)",
-                "pasaje": "2 Reyes 23:29-30",
-                "descripcion": "El piadoso rey Josías muere en batalla contra el faraón Necao. Su muerte marca el inicio del declive final de Judá.",
+                "pasaje": "2 Reyes 25:1-21; Lamentaciones 1–2",
+                "titulo": "El fin de lo que era",
+                "descripcion": "Nabucodonosor destruye Jerusalén y el Templo de Salomón en el 586 a.C. La ciudad es incendiada, los muros derribados y el pueblo llevado cautivo a Babilonia.",
+                "narrativa": "El sitio duró dieciocho meses. El hambre se apoderó de la ciudad antes de que las tropas de Nabucodonosor pudieran abrir una brecha en el muro. En el mes cuarto del año once de Sedequías, la muralla cedió. Los soldados babilonios entraron y se instalaron en la puerta del medio.\n\nSedequías intentó escapar de noche con sus guerreros, por el camino que bajaba al Arabá. Fue alcanzado en las llanuras de Jericó. Sus hijos fueron ejecutados ante sus ojos. Luego sus ojos fueron vaciados. Lo llevaron encadenado a Babilonia, donde murió en cautiverio.\n\nAl décimo día del mes siguiente, Nabuzaradán, capitán de la guardia, entró en Jerusalén. El Templo fue incendiado. El palacio fue incendiado. Las casas de los nobles fueron incendiadas. Los muros que rodeaban la ciudad fueron derribados por todos lados.\n\nEl arca del pacto desapareció. Los utensilios de bronce, plata y oro fueron llevados a Babilonia. Las columnas que Salomón había fundido, el mar de bronce que sostenían doce bueyes, los capiteles, las fuentes, las paletas: todo fue quebrado en piezas y transportado hacia el norte.\n\nJeremías lo registró sin adornos: «¿Cómo ha quedado solitaria la ciudad populosa? La grande entre las naciones ha venido a ser como viuda». La palabra hebrea que usó para «solitaria» es la misma que describe un desierto. Lo que había sido el ombligo de la historia sagrada era ahora humo y piedras negras.",
+                "fase": "La Caída",
                 "epoca": "exilio",
                 "orden": 2,
-                "tipo": "batalla"
+                "tipo": "evento",
+                "routeGroup": "caida-de-juda"
             }
         },
         {
@@ -44,18 +52,22 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    35.5000,
-                    33.5500
+                    36.7167,
+                    34.3833
                 ]
             },
             "properties": {
                 "id": "ribla",
                 "nombre": "Ribla",
-                "pasaje": "2 Reyes 25:6-7",
-                "descripcion": "Cuartel general de Nabucodonosor. Aquí Sedequías es llevado cautivo, sus hijos son ejecutados ante él, y sus ojos son cegados.",
+                "pasaje": "2 Reyes 25:6-7; Jeremías 39:5-7",
+                "titulo": "El tribunal del conquistador",
+                "descripcion": "Cuartel general de Nabucodonosor sobre el río Orontes en Siria. Aquí Sedequías es llevado cautivo, sus hijos son ejecutados ante él, y sus ojos son cegados.",
+                "narrativa": "Ribla se extendía sobre el río Orontes en el corazón de Siria, en una región fértil que controlaba las rutas entre Mesopotamia y el Mediterráneo. Nabucodonosor la había convertido en su cuartel general de campaña durante las guerras que reorganizaron el mapa del mundo antiguo. Era el lugar donde las decisiones se volvían sentencias.\n\nAllí fue llevado Sedequías, el último rey de Judá. No como huésped ni como vasallo que rinde tributo, sino como prisionero. El texto no registra que hubiera diálogo. El proceso fue sumario y la pena inmediata.\n\nLos hijos de Sedequías fueron ejecutados ante sus ojos. Luego los ojos de Sedequías fueron vaciados. Fue encadenado con grillos de bronce y llevado a Babilonia. Lo último que vio fue la muerte de sus hijos. El resto sería oscuridad y cautiverio hasta el día de su muerte.\n\nJeremías lo había advertido con exactitud: si Sedequías entregaba la ciudad, viviría; si no la entregaba, sería quemada. Sedequías tuvo miedo de los judíos que habían desertado al enemigo, y no entregó. El profeta terminó entre los rescoldos de lo que había predicho.\n\nRibla era el lugar donde los destinos se cerraban. No había apelación ni intercesión posible. Era la demostración más concreta de lo que significa construir un reino sin fundamento en la Palabra.",
+                "fase": "La Caída",
                 "epoca": "exilio",
                 "orden": 3,
-                "tipo": "evento"
+                "tipo": "evento",
+                "routeGroup": "caida-de-juda"
             }
         },
         {
@@ -70,11 +82,15 @@
             "properties": {
                 "id": "babilonia",
                 "nombre": "Babilonia",
-                "pasaje": "Daniel 1–6; Salmo 137",
-                "descripcion": "Capital del imperio. Los judíos cautivos lloran junto a los ríos de Babilonia recordando a Sion. Daniel y sus compañeros son probados en la fe.",
+                "pasaje": "Daniel 1–6; Salmo 137; Jeremías 29:4-7",
+                "titulo": "Junto a los ríos de Babilonia",
+                "descripcion": "Capital del Imperio. Los judíos cautivos lloran junto a los ríos de Babilonia recordando a Sion. Daniel y sus compañeros son probados en la fe. Jeremías les escribe para construir casas y buscar el bienestar de la ciudad.",
+                "narrativa": "Babilonia era la ciudad más grande del mundo antiguo. Sus murallas dobles medían kilómetros de perímetro. El río Éufrates la dividía en dos mitades. Sus jardines colgantes se elevaban sobre terrazas irrigadas artificialmente. Sus templos y su zigurat dominaban el horizonte de la llanura mesopotámica. Era una ciudad construida para impresionar y para durar.\n\nA esa ciudad llegaron los deportados de Judá en varias oleadas: primero los jóvenes de la nobleza en 605 a.C., entre ellos Daniel y sus compañeros; luego el rey Joaquín y diez mil artesanos en 597 a.C.; finalmente los sobrevivientes de la destrucción de Jerusalén en 586 a.C. Israel llegó no como turistas ni como embajadores, sino como botín de guerra y mano de obra cautiva.\n\nAllí, junto a los ríos, se sentaron y lloraron al recordar a Sion. El Salmo 137 es el documento más honesto de toda la literatura del exilio. No busca atenuar el dolor ni reinterpretarlo. Lo registra: allí colgaron sus arpas en los sauces. Los que los habían llevado cautivos pedían canciones de Sion. «¿Cómo cantaremos el cántico del Señor en tierra extraña?»\n\nJeremías les escribió desde Jerusalén una carta que debió sorprenderlos: edificad casas y habitadlas. Plantad huertos. Casad a vuestros hijos. Buscad el bienestar de la ciudad adonde os he hecho llevar. No era una orden de resignarse, sino de vivir. De asentarse sin perderse.\n\nY fue en Babilonia donde la fe se probó de un modo nuevo. Daniel se negó a contaminarse con el alimento real. Sus tres amigos se negaron a postrarse ante la estatua. El Dios que no pudo —o no quiso— proteger su ciudad sí preservó a quienes confiaban en Él en el corazón del enemigo. La presencia divina no dependía de un edificio ni de una geografía.",
+                "fase": "El Exilio",
                 "epoca": "exilio",
                 "orden": 4,
-                "tipo": "ciudad"
+                "tipo": "ciudad",
+                "routeGroup": "caida-de-juda"
             }
         },
         {
@@ -88,12 +104,16 @@
             },
             "properties": {
                 "id": "tel-abib",
-                "nombre": "Tel-abib (Río Quebar)",
-                "pasaje": "Ezequiel 1:1-3; 3:15",
-                "descripcion": "Comunidad de exiliados junto al río Quebar donde Ezequiel recibe sus visiones proféticas, incluyendo la gloria de Dios y los huesos secos.",
+                "nombre": "Tel-abib — Río Quebar",
+                "pasaje": "Ezequiel 1:1-3; 3:15; 37:1-14",
+                "titulo": "Las visiones del profeta",
+                "descripcion": "Comunidad de exiliados junto al canal Quebar donde Ezequiel recibe sus visiones proféticas. La gloria de Dios aparece lejos del Templo. Los huesos secos del valle anticipan la restauración.",
+                "narrativa": "El río Quebar no era el Éufrates sino un canal de irrigación que corría al este de Babilonia, parte del extenso sistema hidráulico que sostenía la agricultura en la llanura mesopotámica. Junto a sus márgenes había comunidades de exiliados organizadas en pequeñas aldeas, con cierta autonomía para vivir, trabajar y reunirse. Tel-abib era una de ellas.\n\nAllí se encontraba Ezequiel cuando los cielos se abrieron. Lo que vio fue de una intensidad sin precedentes en la literatura profética: cuatro seres vivientes con cuatro rostros y cuatro alas, una rueda dentro de otra rueda capaz de moverse en cualquier dirección sin girar, un firmamento cristalino y sobre él, una figura semejante a un hombre sentado sobre un trono de zafiro. Era la gloria de Dios. Lejos de Jerusalén. Lejos del Templo. En medio de los cautivos.\n\nEso era lo más perturbador: que la gloria que había habitado el Templo durante siglos se hubiera desplazado hacia el exilio. Dios no había quedado atado a la tierra de Judá. Estaba en Babilonia, junto a los que lloraban.\n\nDesde Tel-abib, Ezequiel profetizó durante más de veinte años. La visión que más ha resonado en la historia es la del valle lleno de huesos secos. «¿Vivirán estos huesos?» Dios preguntó y el profeta respondió con honestidad: Señor, tú lo sabes. Entonces sopló el viento de los cuatro vientos y los huesos se cubrieron de carne y vivieron.\n\nEra la promesa de una resurrección nacional que todavía no habían visto. Pero el profeta la anunció desde una aldea de exiliados junto a un canal de irrigación, sin templo, sin tierra, sin rey. La Palabra no necesita condiciones favorables para cumplirse.",
+                "fase": "El Exilio",
                 "epoca": "exilio",
                 "orden": 5,
-                "tipo": "comunidad"
+                "tipo": "comunidad",
+                "routeGroup": "caida-de-juda"
             }
         },
         {
@@ -101,37 +121,22 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    52.6800,
-                    32.6500
-                ]
-            },
-            "properties": {
-                "id": "susa",
-                "nombre": "Susa (Palacio persa)",
-                "pasaje": "Ester 1–10; Nehemías 1:1",
-                "descripcion": "Capital del imperio persa donde Ester se convierte en reina y salva a su pueblo. Nehemías también sirve aquí como copero del rey.",
-                "epoca": "exilio",
-                "orden": 6,
-                "tipo": "palacio"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    52.6800,
-                    32.6500
+                    48.7500,
+                    30.4500
                 ]
             },
             "properties": {
                 "id": "decreto-ciro",
-                "nombre": "Susa — Decreto de Ciro",
-                "pasaje": "Esdras 1:1-4; Isaías 44:28",
-                "descripcion": "Ciro el Grande emite el decreto que permite a los judíos retornar a Jerusalén y reconstruir el templo, cumpliendo la profecía de Isaías.",
+                "nombre": "Ecbatana — Decreto de Ciro",
+                "pasaje": "Esdras 1:1-4; Isaías 44:28–45:1",
+                "titulo": "El decreto que cambió la historia",
+                "descripcion": "Ciro el Grande, rey de Persia, emite el decreto que permite a los judíos regresar a su tierra y reconstruir el Templo. La profecía de Isaías, escrita 150 años antes, se cumple con el nombre del rey.",
+                "narrativa": "El año 538 a.C. marcó un giro que ningún analista político habría predicho. El Imperio Babilónico, considerado inexpugnable, había caído ante Ciro el Grande de Persia. Ciro entró en Babilonia prácticamente sin resistencia. Los sacerdotes de Marduk lo recibieron como liberador. El mundo antiguo cambió de dueño en una sola campaña.\n\nEn el primer año de su reinado, Ciro emitió un decreto que permitía a los pueblos deportados por Babilonia regresar a sus tierras y reconstruir sus templos. Era una política deliberada de tolerancia religiosa, opuesta al método babilónico de asimilación forzada. Los dioses de los pueblos vencidos, en lugar de ser llevados a Babilonia como trofeos, serían devueltos a sus lugares de origen.\n\nPara Israel, el decreto era algo más que política imperial. Era profecía cumplida con nombre propio. Isaías había escrito, siglo y medio antes: «Que digo de Ciro: Es mi pastor, y cumplirá todo lo que yo quiero». Había mencionado al rey por nombre, señalando que ordenaría la reconstrucción de Jerusalén. El texto asombró y perturbó a generaciones de lectores judíos que lo recibieron como prueba de que el tiempo de Dios no se mide en décadas.\n\nEl decreto reconocía al Dios del cielo como quien le había dado todos los reinos de la tierra. Que un rey persa hiciera tal declaración fue un escándalo teológico para los adoradores de Marduk y una fuente de asombro para los judíos del exilio.\n\nSetenta años después de la primera deportación, según el número que Jeremías había profetizado, la puerta se abría.",
+                "fase": "El Decreto",
                 "epoca": "exilio",
-                "orden": 7,
-                "tipo": "evento"
+                "orden": 6,
+                "tipo": "evento",
+                "routeGroup": "en-tierra-extrana"
             }
         },
         {
@@ -146,11 +151,38 @@
             "properties": {
                 "id": "partida-babilonia",
                 "nombre": "Babilonia — Partida de Zorobabel",
-                "pasaje": "Esdras 2:1-2",
-                "descripcion": "Zorobabel lidera la primera caravana de retorno con casi 50.000 personas. Comienza el largo viaje de regreso a la tierra prometida.",
+                "pasaje": "Esdras 1:5–2:2; Esdras 8:21-23",
+                "titulo": "La primera caravana",
+                "descripcion": "Zorobabel lidera la primera caravana de retorno con casi 50.000 personas. Comienza el largo viaje de regreso a la tierra prometida. Los vasos sagrados del Templo son devueltos.",
+                "narrativa": "La partida no fue inmediata. El decreto de Ciro abrió la posibilidad del retorno, pero el retorno exigía voluntad, y muchos judíos del exilio ya tenían casa, oficio y familia en Babilonia. Algunos habían prosperado. La decisión de regresar a una ciudad en ruinas, a reedificar sobre escombros y a enfrentar hostilidades regionales, no era obvia.\n\nFueron casi cincuenta mil los que eligieron volver. Zorobabel, nieto del rey Joaquín y descendiente directo de David, encabezó la primera caravana. Con él iba Jesúa, el sumo sacerdote. No había ejército ni escolta militar. Solo personas con sus animales, sus utensilios domésticos y los vasos sagrados que Ciro mandó devolver: los mismos que Nabucodonosor había sacado del Templo de Salomón.\n\nEl texto de Esdras los enumera: treinta fuentes de oro, mil fuentes de plata, veintinueve cuchillos, treinta tazas de oro, cuatrocientas diez tazas de plata. Cinco mil cuatrocientos utensilios en total. Cada uno catalogado, devuelto, transportado de regreso hacia donde pertenecía.\n\nEl viaje desde Babilonia hasta Jerusalén tomaba varios meses. La ruta directa por el desierto era impracticable para una caravana tan grande. Había que subir hacia el norte por el Éufrates, cruzar a Siria y bajar por Canaán. Era el camino más largo, pero el que permitía a cincuenta mil personas llegar vivas.\n\nIsrael salía de Babilonia como había salido de Egipto: no por su propio poder, sino por disposición de Dios en el corazón de un rey extranjero.",
+                "fase": "El Regreso",
+                "epoca": "exilio",
+                "orden": 7,
+                "tipo": "evento",
+                "routeGroup": "en-tierra-extrana"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    52.6800,
+                    32.1900
+                ]
+            },
+            "properties": {
+                "id": "susa",
+                "nombre": "Susa — Palacio persa",
+                "pasaje": "Ester 1–10; Nehemías 1:1-4",
+                "titulo": "La reina que arriesgó todo",
+                "descripcion": "Capital de invierno del Imperio Persa. Aquí Ester se convierte en reina y salva a su pueblo del decreto de exterminio. Aquí también Nehemías, copero del rey, recibe noticias de los muros derruidos de Jerusalén.",
+                "narrativa": "Susa era la capital de invierno del Imperio Persa, rival en magnificencia de Persépolis. Sus palacios estaban decorados con azulejos esmaltados en turquesa y marfil. Sus columnas de piedra sostenían techos que nadie fuera de la realeza podía imaginar. Era el centro del poder que había reorganizado el mundo conocido.\n\nAllí, en el harén del palacio, una joven judía fue elegida como reina sin revelar su origen. El rey Asuero ignoraba que Ester era descendiente de los deportados de Judá, sobrina de Mardoqueo, hija del exilio. Cuando el decreto de exterminio fue firmado por Amán, el destino de todos los judíos dispersos por el imperio quedó en manos de esa mujer.\n\nEl desafío era entrar al rey sin ser convocada, algo que podía costar la vida. Mardoqueo lo expresó sin adornos: «¿Y quién sabe si para esta hora has llegado al reino?». Ester pidió a los judíos que ayunaran tres días por ella. Luego entró. Y el destino del pueblo cambió.\n\nEl libro de Ester no menciona el nombre de Dios ni una sola vez. Pero la providencia opera en cada detalle: la noche de insomnio del rey, el libro de crónicas abierto en la página correcta, el momento exacto en que Mardoqueo fue honrado antes de que Amán pudiera eliminarlo. La historia invisible que mueve la historia visible.\n\nEn ese mismo palacio, años después, Nehemías serviría como copero del rey. Un cargo de confianza absoluta. Y en esas mismas habitaciones de esplendor, recibiría noticias de Jerusalén que lo harían llorar.",
+                "fase": "La Providencia",
                 "epoca": "exilio",
                 "orden": 8,
-                "tipo": "evento"
+                "tipo": "palacio",
+                "routeGroup": "en-tierra-extrana"
             }
         },
         {
@@ -164,12 +196,16 @@
             },
             "properties": {
                 "id": "templo-reconstruido",
-                "nombre": "Jerusalén — Segundo Templo",
-                "pasaje": "Esdras 3:8-13; 6:14-16",
-                "descripcion": "Zorobabel y Jesúa reconstruyen el templo. Los ancianos lloran recordando la gloria del primero; los jóvenes celebran con gozo.",
+                "nombre": "Jerusalén — El Segundo Templo",
+                "pasaje": "Esdras 3:8-13; 6:14-16; Hageo 1:2-9",
+                "titulo": "El templo que hacía llorar",
+                "descripcion": "Zorobabel y Jesúa reconstruyen el Templo. Los ancianos lloran al recordar la gloria del primero; los jóvenes celebran con gozo. La obra se detiene 15 años por oposición y es retomada por la palabra de los profetas Hageo y Zacarías.",
+                "narrativa": "Cuando los primeros retornados llegaron a Jerusalén y vieron los escombros, no se detuvieron en el lamento. Zorobabel y Jesúa levantaron el altar en su lugar original y reanudaron los holocaustos diarios antes de que hubiera un techo bajo el cual ofrecerlos. La adoración no esperó a que las condiciones fueran perfectas.\n\nEn el segundo año después del regreso, comenzaron los cimientos del Templo. Cuando los sacerdotes tocaron las trompetas y los levitas cantaron con címbalos, el pueblo lanzó un gran grito de alabanza al Señor. Pero muchos de los sacerdotes y ancianos que habían visto el primer Templo lloraron a gran voz. Las dos voces se mezclaron de tal manera que no se podía distinguir cuál era de gozo y cuál de llanto.\n\nLuego la obra se detuvo. Los pueblos de la región se opusieron, intimidaron a los trabajadores y sobornaron a consejeros para que bloquearan el proyecto. Durante más de quince años el Templo quedó inconcluso. La gente comenzó a construir sus propias casas artesonadas mientras la casa de Dios permanecía en ruinas.\n\nFue necesaria la intervención de los profetas Hageo y Zacarías para que Zorobabel retomara la obra. Hageo les preguntó con una sola línea: «¿Es para vosotros tiempo de morar en vuestras casas artesonadas, mientras esta casa está desierta?». La pregunta removió la conciencia de los que habían priorizado su propia comodidad.\n\nEl Templo quedó terminado en el año sexto del rey Darío. Los sacerdotes tomaron sus turnos. Los levitas ocuparon sus puestos. Israel celebró la Pascua por primera vez en tierra propia después de setenta años.",
+                "fase": "La Restauración",
                 "epoca": "exilio",
                 "orden": 9,
-                "tipo": "construccion"
+                "tipo": "construccion",
+                "routeGroup": "el-retorno"
             }
         },
         {
@@ -184,11 +220,15 @@
             "properties": {
                 "id": "esdras-partida",
                 "nombre": "Babilonia — Partida de Esdras",
-                "pasaje": "Esdras 7:1-10",
-                "descripcion": "Esdras, sacerdote y escriba, lidera la segunda caravana de retorno. Su misión: restaurar la enseñanza de la Ley de Dios en Jerusalén.",
+                "pasaje": "Esdras 7:1-10; 8:21-23",
+                "titulo": "El sacerdote y la Ley",
+                "descripcion": "Esdras, sacerdote y escriba experto en la Ley de Moisés, lidera la segunda caravana de retorno. Su misión: restaurar la enseñanza de la Ley en Jerusalén. Proclama ayuno antes de partir, sin pedir escolta militar.",
+                "narrativa": "Esdras era sacerdote y escriba, versado en la Ley de Moisés. Vivía en Babilonia, donde existía todavía una comunidad judía significativa, casi ochenta años después del primer retorno bajo Zorobabel. El Templo había sido reconstruido, pero el pueblo que habitaba en Judá había caído en sincretismo y desorden espiritual.\n\nEn el séptimo año del rey Artajerjes, Esdras pidió permiso para regresar a Jerusalén. El rey no solo lo concedió sino que proporcionó plata, oro, trigo, vino, aceite y lo que fuera necesario para el culto del Templo. La carta real reconocía expresamente la sabiduría de Dios que habitaba en la mano de Esdras.\n\nAntes de partir, Esdras convocó a los líderes junto al río Ahava para una preparación espiritual. Allí proclamó ayuno y oración. Su razón fue notable: tenía vergüenza de pedir al rey escolta militar. Había declarado delante del rey que la mano de su Dios era benéfica para quienes lo buscaban. Pedirle ahora soldados habría sido contradecirse.\n\nLa fe no fue un sentimiento sino una decisión logística: no hubo escolta. El texto registra que llegaron sanos a Jerusalén porque la mano de su Dios estaba sobre ellos. Cuatro meses de camino sin ejército. La coherencia entre la declaración y la confianza.\n\nNo era un conquistador militar. Era un maestro. El arma de la segunda restauración no fue la espada sino el texto sagrado que llevaba en la mano.",
+                "fase": "La Restauración",
                 "epoca": "exilio",
                 "orden": 10,
-                "tipo": "evento"
+                "tipo": "evento",
+                "routeGroup": "el-retorno"
             }
         },
         {
@@ -202,12 +242,16 @@
             },
             "properties": {
                 "id": "reforma-esdras",
-                "nombre": "Jerusalén — Reforma de Esdras",
+                "nombre": "Jerusalén — La Reforma de Esdras",
                 "pasaje": "Esdras 9–10",
-                "descripcion": "Esdras encuentra que el pueblo se ha mezclado con naciones paganas. Lidera un acto de arrepentimiento nacional y purificación espiritual.",
+                "titulo": "El arrepentimiento colectivo",
+                "descripcion": "Esdras encuentra que el pueblo se ha mezclado con las naciones paganas. Se sienta aterrado en el suelo, rasgando sus vestidos. Su oración de confesión convoca al pueblo a un arrepentimiento nacional.",
+                "narrativa": "Cuando Esdras llegó a Jerusalén, los príncipes lo informaron de algo que no esperaba: el pueblo de Israel, y aun los sacerdotes y levitas, no se habían separado de los pueblos de las tierras circundantes. Los matrimonios mixtos habían diluido la identidad del pueblo y corrompido el culto. La contaminación no era solo cultural: era el mismo patrón que había precedido al exilio.\n\nEsdras rasgó su manto y su ropa interior, arrancó pelos de su cabeza y su barba, y se sentó atónito hasta la oración de la tarde. No emitió decreto ni convocó asamblea de inmediato. Se sentó en el suelo y dejó que el dolor fuera visible. A veces la primera respuesta de un líder fiel no es una solución sino una expresión honesta del peso de la situación.\n\nLuego oró con las manos extendidas hacia Dios, en una de las confesiones más extensas y honestas del Antiguo Testamento. No diferenció entre su culpa y la del pueblo: «Avergonzado estoy, Dios mío, y me sonrojo de levantar mi rostro hacia ti, porque nuestras iniquidades se han multiplicado sobre nuestra cabeza». El hombre que no había pecado personalmente habló en primera persona plural.\n\nEl pueblo que se reunió alrededor de él también lloró con gran llanto. Los líderes propusieron la resolución: los hombres que se habían casado con mujeres extranjeras disolverían esos matrimonios conforme a la Ley. Era una decisión dolorosa, radical y con consecuencias reales para familias concretas. Pero fue tomada con seriedad por quienes entendían el peso de la identidad del pacto.\n\nNo fue resolución cómoda. Fue cirugía.",
+                "fase": "La Restauración",
                 "epoca": "exilio",
                 "orden": 11,
-                "tipo": "evento"
+                "tipo": "evento",
+                "routeGroup": "el-retorno"
             }
         },
         {
@@ -221,12 +265,16 @@
             },
             "properties": {
                 "id": "muros-nehemias",
-                "nombre": "Jerusalén — Muros de Nehemías",
-                "pasaje": "Nehemías 2:17-20; 6:15-16",
-                "descripcion": "Nehemías reconstruye los muros de Jerusalén en 52 días a pesar de la oposición. La ciudad es restaurada como símbolo de la fidelidad de Dios.",
+                "nombre": "Jerusalén — Los Muros de Nehemías",
+                "pasaje": "Nehemías 1:1–2:20; 4:1-23; 6:15-16",
+                "titulo": "52 días",
+                "descripcion": "Nehemías, copero del rey Artajerjes en Susa, recibe noticias de los muros derruidos y obtiene permiso para reconstruirlos. En 52 días, con trowel en una mano y espada en la otra, el pueblo levanta los muros de Jerusalén.",
+                "narrativa": "Nehemías era el copero del rey Artajerjes en Susa. Un cargo de confianza absoluta: el copero probaba el vino del rey antes de servirlo, garantizando con su vida que no había veneno. Era un judío del exilio que había alcanzado una posición en el corazón del Imperio Persa. Y en su corazón vivía Jerusalén.\n\nCuando un grupo llegó de Judá y le contó que los muros de la ciudad seguían en ruinas y sus puertas quemadas, Nehemías se sentó y lloró. Ayunó y oró durante días. Su oración fue preparación, no evasión: salió de ella con una petición concreta para el rey.\n\nCuando el rey notó su rostro triste y preguntó la causa, Nehemías tuvo miedo. Pero pidió permiso para ir a reconstruir. El rey lo concedió todo, incluyendo cartas para los gobernadores de la región y madera del bosque real para las puertas. Nehemías no subestimó la logística del proyecto.\n\nLlegó a Jerusalén de noche y recorrió los muros en silencio antes de hablar con nadie. Primero observó. Solo después convocó. La obra comenzó con el pueblo organizado por secciones, cada familia reconstruyendo el tramo frente a su propia casa.\n\nSanbalat y Tobías se burlaron, luego amenazaron, luego conspiraron. Nehemías organizó turnos de trabajo y guardia simultáneamente: la mitad trabajaba y la mitad sostenía lanzas. Cada obrero tenía su espada ceñida mientras construía. Los muros quedaron terminados en 52 días. Los enemigos reconocieron que la obra había sido hecha por su Dios.",
+                "fase": "La Restauración",
                 "epoca": "exilio",
                 "orden": 12,
-                "tipo": "construccion"
+                "tipo": "construccion",
+                "routeGroup": "el-retorno"
             }
         },
         {
@@ -240,12 +288,16 @@
             },
             "properties": {
                 "id": "lectura-ley",
-                "nombre": "Jerusalén — Lectura de la Ley",
+                "nombre": "Jerusalén — La Lectura de la Ley",
                 "pasaje": "Nehemías 8:1-12",
-                "descripcion": "Esdras lee la Ley ante todo el pueblo reunido. El pueblo llora de convicción pero Nehemías les dice: «El gozo de Jehová es vuestra fuerza».",
+                "titulo": "El gozo es vuestra fuerza",
+                "descripcion": "Esdras lee la Ley ante todo el pueblo reunido desde el amanecer hasta el mediodía. El pueblo llora de convicción. Nehemías proclama: «El gozo de Jehová es vuestra fuerza». La restauración alcanza su punto más alto.",
+                "narrativa": "En el primer día del mes séptimo, todo el pueblo se reunió como un solo hombre en la plaza frente a la puerta de las Aguas. No fue una convocatoria forzada. Fueron ellos quienes pidieron a Esdras el escriba que trajera el libro de la Ley de Moisés.\n\nEsdras lo trajo ante la asamblea de hombres, mujeres y todos los que podían entender. Era la mañana temprana. Se paró sobre un estrado de madera construido para la ocasión. Cuando abrió el libro, todo el pueblo se puso de pie. Él bendijo al Señor el gran Dios, y todo el pueblo respondió con las manos levantadas: Amén, amén. Luego se inclinaron y adoraron al Señor con el rostro en tierra.\n\nLos levitas ayudaban al pueblo a entender la Ley, poniendo sentido, declarando lo que se leía. Era lectura interpretada, no solo recitada. El texto era antiguo pero el pueblo necesitaba que alguien explicara qué significaba para sus vidas concretas. Así fue desde la mañana hasta el mediodía.\n\nEl pueblo comenzó a llorar al oír las palabras de la Ley. Nehemías, Esdras y los levitas les dijeron: no lloréis ni os entristezcáis. Este día es santo para el Señor. Id, comed manjares, bebed bebidas dulces y enviad porciones a los que no tienen nada preparado. El gozo del Señor es vuestra fuerza.\n\nLa historia había completado su arco: de los ríos de Babilonia donde las arpas colgaban silenciosas en los sauces, a la plaza de Jerusalén donde la Ley se leía en voz alta ante un pueblo que lloraba de convicción y era consolado con gozo. La restauración no era solo de muros y templos. Era de la memoria.",
+                "fase": "La Restauración",
                 "epoca": "exilio",
                 "orden": 13,
-                "tipo": "evento"
+                "tipo": "evento",
+                "routeGroup": "el-retorno"
             }
         }
     ]

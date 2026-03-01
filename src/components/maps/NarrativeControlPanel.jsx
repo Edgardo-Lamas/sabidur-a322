@@ -34,6 +34,10 @@ const ROUTE_ORDER = [
     'cruce-y-centro',
     'campanas-militares',
     'asentamiento-y-jueces',
+    // Exilio y Retorno
+    'caida-de-juda',
+    'en-tierra-extrana',
+    'el-retorno',
 ];
 
 const ROUTE_LABELS = {
@@ -50,6 +54,10 @@ const ROUTE_LABELS = {
     'cruce-y-centro': 'Cruce y campaña central',
     'campanas-militares': 'Las campañas militares',
     'asentamiento-y-jueces': 'Asentamiento y jueces',
+    // Exilio y Retorno
+    'caida-de-juda': 'La caída de Judá',
+    'en-tierra-extrana': 'En tierra extraña',
+    'el-retorno': 'El retorno',
 };
 
 const NarrativeControlPanel = ({ epochColor = '#C5A059', sintesisTeologica }) => {
