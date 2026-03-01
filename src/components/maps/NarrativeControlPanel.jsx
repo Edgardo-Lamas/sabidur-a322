@@ -41,6 +41,9 @@ const ROUTE_ORDER = [
     // Viajes de Pablo I y II
     'primer-viaje',
     'segundo-viaje',
+    // Viajes de Pablo III y Roma
+    'tercer-viaje',
+    'viaje-a-roma',
 ];
 
 const ROUTE_LABELS = {
@@ -64,6 +67,9 @@ const ROUTE_LABELS = {
     // Viajes de Pablo I y II
     'primer-viaje': 'Primer viaje misionero',
     'segundo-viaje': 'Segundo viaje misionero',
+    // Viajes de Pablo III y Roma
+    'tercer-viaje': 'Tercer viaje misionero',
+    'viaje-a-roma': 'El viaje a Roma',
 };
 
 const NarrativeControlPanel = ({ epochColor = '#C5A059', sintesisTeologica }) => {

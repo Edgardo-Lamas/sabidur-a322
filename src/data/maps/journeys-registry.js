@@ -117,10 +117,18 @@ La teología de Pablo no nació en una biblioteca sino en el camino: en las cár
             'Recorre el tercer viaje centrado en Éfeso, el regreso a las iglesias de Macedonia y Grecia, el arresto en Jerusalén y el épico viaje a Roma con naufragio en Malta.',
         epoca: 'apostolica',
         geojsonPath: '/geojson/06-viajes-pablo-iii-roma.geojson',
-        center: [35.0, 22.0],
+        center: [37.0, 24.0],
         zoom: 5,
         puntos: 23,
         imagen: '⚓',
+        narrativa: true,
+        sintesisTeologica: `El tercer viaje misionero de Pablo es el más prolongado y teológicamente denso de todos. Tres años en Éfeso —capital de la provincia de Asia y sede del templo de Artemisa— convirtieron esa ciudad en el centro irradiador del evangelio hacia todo el Mediterráneo oriental. La estrategia fue diferente: no la sinagoga primero, sino el salón de Tirano, donde Pablo enseñó diariamente durante dos años y desde donde «todos los que habitaban en Asia oyeron la palabra del Señor» (Hechos 19:10). Éfeso fue la academia misionera más fructífera del mundo antiguo.
+
+Pero el tercer viaje termina en cadenas. El regreso a Jerusalén —contra los consejos del Espíritu dado a través de Ágabo y la iglesia de Cesarea— no es desobediencia sino vocación. Pablo sabía lo que le esperaba; lo eligió de todos modos. «Ni estimo preciosa mi vida para mí mismo» (Hechos 20:24) es la confesión de alguien que ha comprendido que el martirio no es la derrota del testigo sino su confirmación más elocuente.
+
+El viaje a Roma es la parte más dramática de todo el libro de Hechos. Catorce días de tempestad en el Mediterráneo, la pérdida del barco, el naufragio en Malta, la víbora que no lo mata, los tres meses de espera y, finalmente, la entrada a la capital del Imperio. Pablo no llega a Roma como conquistador ni como turista: llega como prisionero, bajo escolta militar, para apelar al César. Y sin embargo, el libro de Hechos concluye con una imagen de libertad interior imposible de confundir: Pablo predicando en su casa alquilada «sin ningún impedimento» (Hechos 28:31).
+
+La teología de esta sección es la teología de la soberanía sobre el caos. El naufragio no interrumpe el plan de Dios: lo ejecuta. La prisión no silencia al apóstol: le da una audiencia ante gobernadores y reyes que nunca habrían asistido a una reunión de la iglesia. El camino de Pablo a Roma cumple la palabra de Cristo: «Te es necesario testificar también en Roma» (Hechos 23:11). Dios no prometió un camino sin tormentas. Prometió que ninguna tormenta cancelaría el destino.`,
     },
 ];
 

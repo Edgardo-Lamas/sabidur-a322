@@ -1,0 +1,534 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    27.3492,
+                    37.9500
+                ]
+            },
+            "properties": {
+                "id": "efeso-tres-anos",
+                "nombre": "Éfeso — Los tres años",
+                "pasaje": "Hechos 19:1-41",
+                "titulo": "La escuela de Tirano y el alboroto",
+                "descripcion": "El ministerio más largo de Pablo en una sola ciudad. Dos años enseñando en la escuela de Tirano. Milagros extraordinarios. Los hijos de Esceva. Los libros de magia quemados. El alboroto de Demetrio el platero en el teatro de 25.000 personas.",
+                "narrativa": "Éfeso ya no era un destino breve. Pablo entró a la sinagoga y habló con libertad durante tres meses, discutiendo y persuadiendo acerca del reino de Dios. Cuando algunos se endurecieron y hablaron mal del Camino delante de la multitud, Pablo se apartó de ellos y comenzó a discutir cada día en la escuela de un hombre llamado Tirano. Así por espacio de dos años, de modo que todos los que habitaban en Asia, judíos y griegos, oyeron la Palabra del Señor.\n\nDios hacía milagros extraordinarios por mano de Pablo: llevaban a los enfermos pañuelos o delantales que habían tocado su cuerpo, y las enfermedades se iban de ellos y los espíritus malos salían. Pero los siete hijos de Esceva, judíos que ejercían de exorcistas, intentaron usar el nombre de Jesús sin conocerlo. El espíritu respondió: «A Jesús conozco y sé quién es Pablo, pero vosotros ¿quiénes sois?» El hombre endemoniado se lanzó sobre ellos y los venció con tal violencia que huyeron desnudos y heridos. La noticia se difundió por toda Éfeso.\n\nMuchos de los que habían creído venían, confesando y declarando sus hechos. Y muchos de los que habían practicado magia reunieron sus libros y los quemaron delante de todos. Calcularon su valor: cincuenta mil piezas de plata. La renuncia no fue un gesto emocional sino una decisión económica costosa. Quemaron lo que valía dinero porque sabían que ya no podían seguir usándolo.\n\nDemetrio, un platero que hacía templecillos de plata de Artemisa, vio peligrar su negocio. Convocó a los artesanos del gremio y agitó la ciudad. La turba arrastró al teatro a dos compañeros de Pablo, macedonios. El teatro de Éfeso tenía capacidad para 25.000 personas y ese día estuvo lleno. Durante dos horas la multitud gritó: «¡Grande es Artemisa de los efesios!». No todos sabían siquiera por qué estaban allí.\n\nEl secretario de la ciudad calmó a la multitud con argumentos legales y los despidió. Pablo quería entrar al teatro; los discípulos no lo dejaron. Después del alboroto, Pablo llamó a los discípulos, los consoló y partió hacia Macedonia. Tres años en una sola ciudad habían transformado la provincia entera.",
+                "fase": "Asia",
+                "epoca": "apostolica",
+                "orden": 1,
+                "tipo": "ciudad",
+                "routeGroup": "tercer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.9444,
+                    40.6401
+                ]
+            },
+            "properties": {
+                "id": "macedonia-tercer-viaje",
+                "nombre": "Macedonia — Las iglesias de Europa",
+                "pasaje": "Hechos 20:1-2; 2 Corintios 7:5-6",
+                "titulo": "El consuelo en la tribulación",
+                "descripcion": "Pablo recorre Macedonia por segunda vez visitando y confirmando las iglesias de Filipos, Tesalónica y Berea. Es en este período cuando escribe 2 Corintios desde Macedonia, consolado por la llegada de Tito.",
+                "narrativa": "Después del alboroto en Éfeso, Pablo salió hacia Macedonia. No era una huida sino una visita programada: tenía pendiente el recorrido de confirmación que siempre seguía a la plantación. Las iglesias de Filipos, Tesalónica y Berea habían nacido en su segundo viaje y él quería verlas de nuevo.\n\nEl texto de Hechos es breve: cuando los recorrió exhortándoles con abundancia de palabras. Pero la carta de Segunda de Corintios, escrita desde Macedonia en este período, muestra el estado interior de Pablo durante ese tramo. Nuestra carne no tuvo ningún reposo, sino que en todo fuimos atribulados: de fuera, conflictos; de dentro, temores.\n\nEstaba esperando noticias de Corinto con una ansiedad que no ocultó. Había enviado a Tito con una carta difícil —perdida para nosotros, a veces llamada la «carta de las lágrimas»— y esperaba su regreso para saber cómo la habían recibido.\n\nTito llegó. La noticia era buena: el arrepentimiento de la iglesia corintia, su dolor piadoso, su celo. Pablo escribió entonces la segunda carta a los Corintios desde Macedonia, con una transparencia emocional que no tiene paralelo en su correspondencia: les contó que había llorado, que había temido, que Dios que consuela a los humildes lo consoló por la llegada de Tito.\n\nMacedonia fue también el escenario de la colecta para los pobres de Jerusalén. Las iglesias macedonias, en medio de su propia pobreza, dieron con abundancia que sobrepasaba sus fuerzas. Pablo las presentaría como modelo de generosidad en la segunda carta a los Corintios, casi avergonzando a los corintios que tenían más recursos y habían dado menos.",
+                "fase": "Europa",
+                "epoca": "apostolica",
+                "orden": 2,
+                "tipo": "region",
+                "routeGroup": "tercer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.8803,
+                    37.9078
+                ]
+            },
+            "properties": {
+                "id": "corinto-tres-meses",
+                "nombre": "Corinto — Tres meses",
+                "pasaje": "Hechos 20:2-3; Romanos 15:22-29",
+                "titulo": "La carta que cambió la historia",
+                "descripcion": "Pablo pasa tres meses en Grecia, probablemente en Corinto. Es durante este período cuando escribe la carta a los Romanos, la exposición más sistemática del evangelio en toda la Escritura. Una conspiración judía lo obliga a cambiar sus planes de regreso.",
+                "narrativa": "Los tres meses en Grecia fueron probablemente los tres meses más productivos de la historia de la literatura cristiana. Desde Corinto, Pablo dictó la carta a los Romanos a Tercio, su amanuense. Era la iglesia que no había fundado él, en la ciudad que era el centro del poder imperial, y quería presentarles el evangelio con la máxima profundidad que podía reunir.\n\nLa carta a los Romanos no nació de circunstancias tranquilas sino de una pausa en medio de un viaje que él mismo presentía podría ser el último. Pablo sabía que estaba por volver a Jerusalén con la colecta, sabía que los peligros lo esperaban allí, y quería dejar escrito lo que creía antes de que algo lo impidiera.\n\nEscribió desde la casa de Gayo, con saludos de Erasto, el tesorero de la ciudad, y de Cuarto. Es un detalle que humaniza la composición: una carta sobre la justificación por la fe, la elección divina y la gloria futura, dictada en el comedor de un creyente corintio mientras los barcos del Cencreas cargaban mercancías en el puerto.\n\nUna conspiración de los judíos cuando estaba a punto de embarcarse para Siria lo hizo cambiar sus planes. En lugar de navegar directamente, regresó por Macedonia, acompañado de delegados de las iglesias: Sópater de Berea, Aristarco y Segundo de Tesalónica, Gayo de Derbe, Timoteo, Tíquico y Trófimo de Asia.\n\nLlevaban con ellos la colecta de las iglesias gentiles para los pobres de Jerusalén. Pablo la consideraba un acto teológico, no solo caritativo: era la demostración de que los gentiles le debían algo a Israel, que el evangelio no había roto el vínculo sino que lo había profundizado.",
+                "fase": "Europa",
+                "epoca": "apostolica",
+                "orden": 3,
+                "tipo": "ciudad",
+                "routeGroup": "tercer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    26.2700,
+                    39.7633
+                ]
+            },
+            "properties": {
+                "id": "troas-eutico",
+                "nombre": "Troas — Eutico resucita",
+                "pasaje": "Hechos 20:7-12",
+                "titulo": "El joven que cayó dormido",
+                "descripcion": "El primer día de la semana la comunidad se reúne para partir el pan. Pablo habla hasta la medianoche. Eutico, joven sentado en el tercer piso, se queda dormido y cae. Lo recogen muerto. Pablo se echa sobre él y lo abraza: está vivo. La reunión continúa hasta el amanecer.",
+                "narrativa": "El grupo había navegado desde Filipos y llegó a Troas, donde pasaron siete días. El primer día de la semana, los discípulos se reunieron para partir el pan. Había muchas lámparas encendidas en el aposento alto donde estaban congregados. Era el ambiente de una iglesia doméstica de noche: luz de aceite, calor de cuerpos apretados, y Pablo hablando.\n\nPablo hablaba porque iba a partir al día siguiente. Y habló hasta la medianoche. En la ventana estaba sentado un joven llamado Eutico. El nombre significa «el de buena fortuna», aunque esa noche la fortuna pareció desmentirlo. Vencido por el sueño profundo mientras Pablo seguía hablando largo tiempo, cayó del tercer piso abajo y fue levantado muerto.\n\nPablo descendió, se echó sobre él y lo abrazó. No en pánico sino con una calma que el texto no explica. Dijo: No os alarméis, pues está vivo. Subió, partió el pan y comió. Y habló largamente hasta el alba. No retomó la reunión después de un incidente dramático: simplemente continuó como si la interrupción fuera parte del plan.\n\nLuego partieron. Y llevaron al joven vivo, y fueron grandemente consolados. El texto tiene una economía narrativa notable: no hay milagro anunciado, no hay oración registrada, no hay discurso sobre la resurrección. Solo un hombre que sube de nuevo a hablar, parte el pan, y deja al joven vivo detrás de él.\n\nLa reunión del primer día de la semana en Troas es una de las primeras evidencias de la celebración cristiana dominical fuera de Jerusalén. Se reunieron no en sábado sino en el primer día de la semana para partir el pan. La resurrección del domingo había cambiado el calendario de la adoración.",
+                "fase": "Asia",
+                "epoca": "apostolica",
+                "orden": 4,
+                "tipo": "evento",
+                "routeGroup": "tercer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    26.3342,
+                    39.4833
+                ]
+            },
+            "properties": {
+                "id": "assos",
+                "nombre": "Assos",
+                "pasaje": "Hechos 20:13-14",
+                "titulo": "La caminata solitaria",
+                "descripcion": "Mientras los demás van en barco, Pablo decide ir a pie desde Troas hasta Assos. Es la única vez en todo el libro de Hechos donde Pablo deliberadamente se separa del grupo para caminar solo. Los comentaristas ven en ello un momento de oración y preparación.",
+                "narrativa": "El detalle es pequeño pero insistente: los compañeros fueron delante en barco hacia Assos, habiendo ordenado a Pablo que subiese allí, pues él había de ir por tierra. No fue una separación forzada. Fue una decisión de Pablo. En la misma jornada que terminaba con el embarco hacia Mileto, Pablo eligió ir solo a pie.\n\nAssos distaba unos treinta kilómetros de Troas por la ruta terrestre. Era un camino que cruzaba terreno montañoso con vistas al mar Egeo. No era el camino más rápido ni el más cómodo. Era el camino que elegía quien quería tiempo sin compañía.\n\nEl texto no explica el motivo. No lo necesita. Hay momentos en la vida de los apóstoles que los evangelistas registran sin comentario precisamente porque lo que ocurrió en esos momentos no es recuperable en palabras. Pablo acababa de pasar la noche hablando, había visto a un joven caer y levantarse, iba camino a Mileto donde daría el discurso de despedida más personal de su vida.\n\nA veces la preparación para las palabras más importantes requiere el silencio previo. A veces la compañía del ministerio necesita interrumpirse con la soledad de la oración. A veces los pies necesitan suelo firme bajo ellos antes de que la boca pueda decir lo que el corazón tiene que decir.\n\nLlegó a Assos y subió al barco con sus compañeros. La caminata había terminado. El viaje hacia Mileto comenzaba.",
+                "fase": "Asia",
+                "epoca": "apostolica",
+                "orden": 5,
+                "tipo": "ciudad",
+                "routeGroup": "tercer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    26.5500,
+                    39.1000
+                ]
+            },
+            "properties": {
+                "id": "mitilene",
+                "nombre": "Mitilene — La ruta costera",
+                "pasaje": "Hechos 20:14-16",
+                "titulo": "El camino de las islas",
+                "descripcion": "El barco navega por la costa de las islas del Egeo: Mitilene en Lesbos, frente a Quíos, junto a Samos. Pablo quería llegar a Jerusalén para el día de Pentecostés, así que no se detuvo en Éfeso para no perder tiempo.",
+                "narrativa": "La ruta costera del Egeo oriental era una de las más transitadas del Mediterráneo antiguo. Los barcos que navegaban hacia el sur desde Troas pasaban junto a una sucesión de islas grandes, cada una con su puerto y su historia, antes de llegar a los estrechos que conducían hacia el Mediterráneo oriental.\n\nMitilene, en la isla de Lesbos, era una ciudad culta y próspera, famosa por haber producido a Safo y a Alceo siglos antes. Allí pasaron la noche. Al día siguiente navegaron frente a Quíos, una isla de mármol blanco que brillaba bajo el sol del Egeo. Al siguiente, llegaron a Samos, donde el barco hizo escala en Trogilio.\n\nPablo había decidido no detenerse en Éfeso para no perder tiempo en Asia. Quería llegar a Jerusalén para el día de Pentecostés si era posible. Había una urgencia en el itinerario que el texto registra con precisión de viajero experimentado.\n\nEsa urgencia tenía una razón doble. Por un lado, Pentecostés era una de las tres grandes fiestas de peregrinación judía: el templo estaría lleno, la ciudad rebosante, y Pablo quería presentar la colecta de las iglesias gentiles ante la mayor congregación posible de la iglesia de Jerusalén. Por otro lado, los avisos proféticos sobre lo que le esperaba en Jerusalén habían ido acumulándose a lo largo del viaje.\n\nLas islas del Egeo desfilaron a babor. El barco siguió su curso hacia el sur. Mileto se acercaba, y con ella la despedida más dolorosa del viaje.",
+                "fase": "Asia",
+                "epoca": "apostolica",
+                "orden": 6,
+                "tipo": "ciudad",
+                "routeGroup": "tercer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    27.2800,
+                    37.5167
+                ]
+            },
+            "properties": {
+                "id": "mileto-despedida",
+                "nombre": "Mileto — El discurso de despedida",
+                "pasaje": "Hechos 20:17-38",
+                "titulo": "Ya no veréis mi rostro",
+                "descripcion": "Pablo convoca a los ancianos de Éfeso a Mileto. Les da el discurso más personal del libro de Hechos: cómo vivió entre ellos, los peligros que lo esperan, su inocencia de la sangre de todos. Los advierte de los lobos que vendrán. Se arrodillan juntos y lloran. Le abrazan sin poder soltarlo.",
+                "narrativa": "Desde Mileto, Pablo envió a llamar a los ancianos de la iglesia de Éfeso. Cuando llegaron, les dio el único discurso que en el libro de Hechos va dirigido exclusivamente a creyentes, no a quien todavía no ha oído el evangelio. Es el discurso de un pastor que sabe que no volverá.\n\nComenzó con el pasado: Vosotros sabéis cómo me he comportado entre vosotros todo el tiempo. Sirviendo al Señor con toda humildad, con lágrimas y pruebas que me han venido por las asechanzas de los judíos. Enseñando públicamente y por las casas. Protestando a judíos y gentiles acerca del arrepentimiento hacia Dios y de la fe en nuestro Señor Jesucristo. No era un informe de logros sino un testimonio de vida compartida.\n\nLuego el presente: Ahora, he aquí, ligado yo en espíritu, voy a Jerusalén sin saber lo que allá me ha de acontecer, salvo que el Espíritu Santo por todas las ciudades me da testimonio, diciendo que me esperan prisiones y tribulaciones. Y añadió: Pero de ninguna cosa hago caso, ni estimo preciosa mi vida para mí mismo, con tal que acabe mi carrera con gozo.\n\nLuego el futuro: Sé que ninguno de todos vosotros, entre quienes he pasado predicando el reino de Dios, verá más mi rostro. No era una predicción fatalista sino una despedida honesta. Los había amado con el amor que cuesta.\n\nCuando terminó, se arrodilló con todos ellos y oró. Entonces lloraron todos mucho, y echándose al cuello de Pablo, le besaban, doliéndose en gran manera por la palabra que dijo, de que no verían más su rostro. Y le acompañaron al barco. La escena no tiene fondo de música ni narrador que explique su significado. Se sostiene sola.",
+                "fase": "Asia",
+                "epoca": "apostolica",
+                "orden": 7,
+                "tipo": "evento",
+                "routeGroup": "tercer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    27.2833,
+                    36.8833
+                ]
+            },
+            "properties": {
+                "id": "cos",
+                "nombre": "Cos",
+                "pasaje": "Hechos 21:1",
+                "titulo": "La isla del médico",
+                "descripcion": "Parada de una noche en la isla de Cos, famosa en el mundo antiguo como cuna de la medicina y hogar del Asklepeion, el templo de sanación más célebre del Mediterráneo.",
+                "narrativa": "Nos hicimos a la vela, y viniendo derechos, llegamos a Cos. La brevedad del texto esconde el peso de la jornada anterior. Las lágrimas de Mileto todavía estaban frescas, el abrazo de los ancianos de Éfeso todavía resonaba, y el barco ya navegaba hacia el sur.\n\nCos era famosa en el mundo antiguo por una razón que no puede dejar de señalarse: era el lugar de nacimiento de Hipócrates, el padre de la medicina, y sede del Asklepeion más renombrado del Mediterráneo. Peregrinos de toda la cuenca mediterránea llegaban a esa isla buscando sanación. El templo estaba construido en terrazas sobre una colina con vistas al mar, y su método combinaba baños rituales, sueños terapéuticos y cuidado médico.\n\nLucas, el médico que viajaba con Pablo, habría conocido bien la reputación de la isla. Su presencia en el grupo da a la parada en Cos un detalle irónico: el evangelio que traían no prometía la sanación a cambio de un peregrinaje costoso y ritos de incubación, sino que se entregaba libremente a quien escuchaba.\n\nPasaron la noche en Cos y partieron al día siguiente hacia Rodas. La ruta seguía hacia el sur, hacia el extremo de la costa de Asia Menor y el punto donde el Mediterráneo oriental se abría hacia el Levante.",
+                "fase": "Asia",
+                "epoca": "apostolica",
+                "orden": 8,
+                "tipo": "ciudad",
+                "routeGroup": "tercer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    28.2272,
+                    36.4265
+                ]
+            },
+            "properties": {
+                "id": "rodas",
+                "nombre": "Rodas",
+                "pasaje": "Hechos 21:1",
+                "titulo": "La isla del sol",
+                "descripcion": "Rodas, famosa por el Coloso que había guardado su puerto siglos atrás, es otra escala en la ruta costera hacia el sur. El grupo continúa hacia Pátara en la costa de Licia.",
+                "narrativa": "De Cos a Rodas. La isla que había albergado uno de los más famosos colosos del mundo antiguo, una estatua de bronce de Helios de treinta metros de altura que según la leyenda se alzaba a ambos lados de la entrada al puerto. El Coloso había caído en un terremoto dos siglos antes del viaje de Pablo, pero el orgullo de la isla por su pasado seguía siendo palpable en la arquitectura, en los templos y en el orden de sus calles.\n\nRodas era también un centro de navegación y comercio. Su posición estratégica en el extremo sureste del Egeo la hacía escala obligada de las rutas que unían el Mediterráneo oriental con el Adriático. Los barcos mercantes que pasaban por Rodas conectaban Alejandría con Puteoli, Antioquía con Roma.\n\nEl texto registra la parada sin detenerse en detalles. El grupo estaba en tránsito con un destino claro: Jerusalén. Cada isla era una noche y una mañana, el tiempo justo para descansar antes de seguir.\n\nDe Rodas navegaron hacia Pátara, en la costa de Licia. Allí el itinerario cambiaría: encontrarían un barco que cruzaba directamente hacia Fenicia, saltando el largo rodeo por la costa del Mediterráneo oriental. El viaje se aceleraba. Jerusalén estaba cada vez más cerca.",
+                "fase": "Asia",
+                "epoca": "apostolica",
+                "orden": 9,
+                "tipo": "ciudad",
+                "routeGroup": "tercer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    29.3167,
+                    36.3667
+                ]
+            },
+            "properties": {
+                "id": "patara",
+                "nombre": "Pátara",
+                "pasaje": "Hechos 21:1-2",
+                "titulo": "El barco que cruza a Fenicia",
+                "descripcion": "En el puerto de Pátara encuentran un barco que navega directamente hacia Fenicia. Dejan atrás la ruta costera isleña y cruzan el Mediterráneo oriental en rumbo directo hacia Tiro.",
+                "narrativa": "Pátara era el puerto principal de Licia, una región en el extremo suroeste de Asia Menor donde la costa giraba hacia el este y comenzaba el litoral que conducía hacia Siria y el Levante. Era también sede de un oráculo de Apolo famoso en el mundo antiguo, un santuario que rivalizaba con Delfos en reputación.\n\nAllí encontraron un barco que cruzaba a Fenicia. No era la ruta costera que los había llevado de isla en isla desde Troas. Era una travesía de mar abierto, cruzando las aguas al sur de Chipre sin detenerse en la isla. Los grandes barcos mercantes que cargaban grano, aceite y tejidos entre Alejandría y los puertos del Mediterráneo occidental seguían esas rutas directas cuando el viento era favorable.\n\nSubieron al barco y se hicieron a la vela. Habían dejado atrás el Egeo con sus islas y sus recuerdos. Las aguas que ahora cruzaban eran las mismas que Pablo había atravesado en el primer viaje, cuando todo comenzó con una iglesia que oraba y ayunaba y un Espíritu que hablaba.\n\nA la vista quedó Chipre, dejándola a la izquierda. El narrador lo registra como el piloto que ve tierra conocida desde el barco pero no desembarca. Chipre quedó a babor: la isla donde Sergio Paulo había creído, donde Elimas había quedado ciego, donde el ministerio de Pablo había recibido su primer nombre.\n\nEl barco puso proa hacia Tiro.",
+                "fase": "Asia",
+                "epoca": "apostolica",
+                "orden": 10,
+                "tipo": "ciudad",
+                "routeGroup": "tercer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.2000,
+                    33.2667
+                ]
+            },
+            "properties": {
+                "id": "tiro",
+                "nombre": "Tiro",
+                "pasaje": "Hechos 21:3-6",
+                "titulo": "La despedida en la playa",
+                "descripcion": "El barco descarga mercancía en Tiro durante siete días. Los discípulos de Tiro, movidos por el Espíritu, dicen a Pablo que no suba a Jerusalén. Al partir, toda la comunidad con esposas e hijos los acompaña hasta la playa, donde se arrodillan y oran. Es una de las escenas más conmovedoras del viaje.",
+                "narrativa": "El barco tenía que descargar su mercancía en Tiro y el proceso llevaría varios días. Pablo y sus compañeros bajaron del barco y buscaron a los discípulos de la ciudad. Los encontraron. Se quedaron con ellos siete días.\n\nLos discípulos de Tiro le dijeron a Pablo por el Espíritu que no subiese a Jerusalén. Era el mismo aviso que había recibido en otras ciudades: el Espíritu advertía de lo que esperaba en Jerusalén. Pablo los escuchó. Y siguió hacia adelante. No porque ignorara las advertencias, sino porque había resuelto ya que, ligado en espíritu, iba a cumplir el viaje aunque le costara la libertad.\n\nEl texto no señala contradicción. El mismo Espíritu que revelaba las tribulaciones que esperaban a Pablo en Jerusalén también lo impulsaba hacia allá. La voluntad de Dios a veces incluye el sufrimiento como parte del camino, no como señal de que el camino está equivocado.\n\nCuando se cumplieron los días y partieron, todos los discípulos —incluyendo mujeres e hijos— los acompañaron hasta fuera de la ciudad. Se arrodillaron en la playa y oraron. La imagen es poco habitual en el Nuevo Testamento: no una reunión en un aposento alto ni en una sinagoga, sino una comunidad de creyentes de rodillas en la arena mojada, despidiéndose de alguien que saben que camina hacia el peligro.\n\nDespués de saludarnos los unos a los otros, subimos al barco y ellos regresaron a sus casas. La playa de Tiro quedó vacía.",
+                "fase": "Levante",
+                "epoca": "apostolica",
+                "orden": 11,
+                "tipo": "evento",
+                "routeGroup": "tercer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    34.8986,
+                    32.5007
+                ]
+            },
+            "properties": {
+                "id": "cesarea-agabo",
+                "nombre": "Cesarea — La profecía de Agabo",
+                "pasaje": "Hechos 21:8-14",
+                "titulo": "Hágase la voluntad del Señor",
+                "descripcion": "En casa de Felipe el evangelista, el profeta Agabo toma el cinturón de Pablo, se ata las manos y los pies, y anuncia que así lo atarán los judíos en Jerusalén. Todos suplican a Pablo que no vaya. Pablo responde que está dispuesto a morir. Ante su resolución, la comunidad pronuncia: 'Hágase la voluntad del Señor'.",
+                "narrativa": "En Cesarea se hospedaron en casa de Felipe el evangelista, uno de los siete diáconos elegidos en Hechos 6, el mismo que había bautizado al eunuco etíope en el camino del desierto. Tenía cuatro hijas vírgenes que profetizaban. Era una casa con dones activos y una historia larga.\n\nBajó de Judea un profeta llamado Agabo. En Hechos 11 ya había aparecido para anunciar la hambruna que vendría sobre toda la tierra habitada. Ahora tomó el cinturón de Pablo, se ató los pies y las manos con él, y dijo: Esto dice el Espíritu Santo: Así atarán los judíos en Jerusalén al dueño de este cinturón, y le entregarán en manos de los gentiles.\n\nEra la tercera o cuarta vez en el viaje que Pablo recibía un aviso profético sobre lo que le esperaba. Esta vez fue visual, dramático, inequívoco. El gesto de Agabo recordaba a los profetas del Antiguo Testamento que actuaban sus mensajes: Isaías caminó desnudo, Ezequiel cocinó con estiércol, Jeremías rompió una vasija. El mensaje encarnado tiene un impacto diferente al mensaje hablado.\n\nAl oírlo, los que estaban allí le rogaron que no subiese a Jerusalén. Pablo respondió con una pregunta que era también una declaración: ¿Por qué lloráis y quebrantáis mi corazón? Porque yo estoy dispuesto no sólo a ser atado, mas aun a morir en Jerusalén por el nombre del Señor Jesús.\n\nY cuando no le pudieron persuadir, desistieron, diciendo: Hágase la voluntad del Señor. Cuatro palabras que son toda una teología: hay momentos en que la voluntad de Dios incluye el sufrimiento del siervo, y la única respuesta fiel es soltar.",
+                "fase": "Levante",
+                "epoca": "apostolica",
+                "orden": 12,
+                "tipo": "evento",
+                "routeGroup": "tercer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.2137,
+                    31.7683
+                ]
+            },
+            "properties": {
+                "id": "jerusalem-arresto",
+                "nombre": "Jerusalén — El arresto en el Templo",
+                "pasaje": "Hechos 21:15-36",
+                "titulo": "El tercer viaje termina en cadenas",
+                "descripcion": "Jacobo y los ancianos advierten a Pablo sobre los rumores entre los creyentes judíos. Pablo va al templo para una purificación. Siete días después, judíos de Asia lo ven, alborotan a la multitud y lo arrastran fuera del templo. El comandante romano lo rescata de la turba. Comienza el proceso que lo llevará a Roma.",
+                "narrativa": "Pablo llegó a Jerusalén y al día siguiente fue con los otros a ver a Jacobo, y se reunieron todos los ancianos. Relató una por una las cosas que Dios había hecho entre los gentiles por su ministerio. Cuando lo oyeron, glorificaron a Dios.\n\nPero inmediatamente añadieron el problema: Ya ves, hermano, cuántos miles de judíos hay que han creído y todos son celosos de la ley. Y se les ha dicho de ti que enseñas a todos los judíos que están entre los gentiles a apostatar de Moisés, diciéndoles que no circunciden a sus hijos ni observen las costumbres. Propusieron que Pablo se purificara junto a cuatro hombres que tenían un voto, para demostrar que él también observaba la Ley.\n\nPablo accedió. Al séptimo día, cuando la purificación estaba a punto de cumplirse, los judíos de Asia lo vieron en el templo. Alborotaron a toda la multitud con una acusación que mezclaba verdad y mentira: Este es el hombre que por todas partes enseña a todos contra el pueblo y la ley y este lugar. Y además de esto, ha metido a griegos en el templo y ha profanado este santo lugar. Se habían confundido al verlo antes con Trófimo de Éfeso y asumieron que lo había introducido al recinto interior.\n\nLa ciudad entera se llenó de confusión. Tomaron a Pablo, lo arrastraron fuera del templo y en seguida cerraron las puertas. Y procuraban matarle, cuando llegó la nueva al tribuno de la compañía de que toda la ciudad de Jerusalén estaba alborotada.\n\nEl comandante romano bajó corriendo con soldados y centuriones. La turba dejó de golpear a Pablo. Así comenzó la cadena que, a través de interrogatorios, traslados, naufragios y audiencias ante gobernadores y reyes, lo llevaría hasta la ciudad más poderosa del mundo.",
+                "fase": "Jerusalén",
+                "epoca": "apostolica",
+                "orden": 13,
+                "tipo": "evento",
+                "routeGroup": "tercer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    34.8986,
+                    32.5007
+                ]
+            },
+            "properties": {
+                "id": "cesarea-prisionero",
+                "nombre": "Cesarea — La partida como prisionero",
+                "pasaje": "Hechos 27:1-2",
+                "titulo": "Entregado al centurión Julio",
+                "descripcion": "Tras dos años de custodia en Cesarea, comparecencias ante Félix, Festo y el rey Agripa, Pablo apela al César. Es entregado al centurión Julio del batallón Augusto. Aristarco de Tesalónica lo acompaña. También Lucas. Zarpan hacia Roma.",
+                "narrativa": "Dos años habían pasado desde el arresto en el Templo. Pablo había sido trasladado de noche a Cesarea para protegerlo de una conspiración. Había comparecido ante Félix el gobernador, que lo dejó en custodia relativa durante dos años esperando un soborno que Pablo no ofreció. Ante Festo, su sucesor, que quería devolverlo a Jerusalén. Ante el rey Agripa, quien después de escuchar su testimonio le dijo: Por poco me persuades a ser cristiano.\n\nCuando Festo propuso enviarlo a Jerusalén, Pablo pronunció las palabras que cambiarían el itinerario del resto de su vida: Al César apelo. Como ciudadano romano, tenía el derecho de apelar su caso directamente ante el emperador. Festo deliberó con su consejo y respondió: Al César has apelado, al César irás.\n\nCuando se decidió que habíamos de navegar para Italia. El «nosotros» incluye a Lucas, que había viajado con Pablo desde Macedonia. También estaba Aristarco, macedonio de Tesalónica, que había sido arrastrado al teatro durante el alboroto de Éfeso y ahora acompañaba voluntariamente a Pablo en el viaje más peligroso que este emprendería.\n\nEl centurión se llamaba Julio y pertenecía al batallón Augusto. Era un oficial veterano, no indiferente a la humanidad de su prisionero: más tarde le permitiría visitar amigos en Sidón. Habría algo en Pablo que producía ese tipo de respeto en los militares que lo custodiaban.\n\nEl barco zarpó. El proceso jurídico que comenzó con un motín en el Templo de Jerusalén terminaba en una apelación al corazón del Imperio. Pablo no llegó a Roma como misionero sino como prisionero. Pero llegaría.",
+                "fase": "El Viaje",
+                "epoca": "apostolica",
+                "orden": 14,
+                "tipo": "evento",
+                "routeGroup": "viaje-a-roma"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    29.9833,
+                    36.2500
+                ]
+            },
+            "properties": {
+                "id": "mira-licia",
+                "nombre": "Mira de Licia",
+                "pasaje": "Hechos 27:5-6",
+                "titulo": "El barco de grano alejandrino",
+                "descripcion": "En Mira, puerto de Licia, el centurión Julio encuentra un barco alejandrino con destino a Italia. Transfieren a Pablo y los suyos a ese barco. Son los grandes barcos de grano que alimentaban a Roma, capaces de transportar cientos de pasajeros.",
+                "narrativa": "El primer barco los llevó a lo largo de la costa de Asia Menor hasta Mira de Licia. Era una ciudad importante en el sur de Asia Menor, con un teatro excavado en la roca viva del monte y un puerto activo que servía como escala de las rutas entre Oriente y Roma.\n\nAllí el centurión Julio encontró un barco alejandrino que navegaba hacia Italia y los embarcó en él. Los barcos de grano alejandrinos eran los cargueros más grandes del mundo antiguo. Alejandría era el granero del Imperio: el grano del Nilo alimentaba a Roma, y los barcos que lo transportaban eran enormes, construidos para la resistencia más que para la velocidad, capaces de llevar entre 200 y 600 toneladas de carga junto con cientos de pasajeros.\n\nMás tarde en el relato sabremos que había a bordo 276 personas. No solo la tripulación y los presos de Pablo, sino también pasajeros civiles que viajaban hacia Italia. Era el viaje habitual de otoño, cuando la navegación mediterránea comenzaba a ser riesgosa pero los barcos de grano todavía cruzaban antes de que los vientos de invierno cerraran el mar.\n\nPablo era uno más entre los 276. Un prisionero sin equipaje especial, sin rango, sin influencia aparente sobre el capitán o el propietario del barco. Pero llevaba consigo la convicción de que tenía que comparecer ante el César, y esa convicción, aun no comprendida por los demás, determinaría el resultado del viaje para todos.",
+                "fase": "El Viaje",
+                "epoca": "apostolica",
+                "orden": 15,
+                "tipo": "ciudad",
+                "routeGroup": "viaje-a-roma"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    24.8000,
+                    34.9167
+                ]
+            },
+            "properties": {
+                "id": "buenos-puertos",
+                "nombre": "Buenos Puertos — Creta",
+                "pasaje": "Hechos 27:8-12",
+                "titulo": "El consejo ignorado",
+                "descripcion": "El barco llega con dificultad a Buenos Puertos, en la costa sur de Creta. Pablo advierte que el viaje será desastroso si continúan. El centurión escucha al piloto y al dueño del barco, no a Pablo. Deciden navegar hacia el puerto de Fenice para invernar. La decisión costará el barco.",
+                "narrativa": "Después de semanas de navegación difícil, el barco llegó con trabajo a un lugar llamado Buenos Puertos, cerca de la ciudad de Lasea, en la costa sur de Creta. El nombre del puerto era prometedor pero su realidad no: era una bahía abierta, poco adecuada para invernar.\n\nPablo habló. Como prisionero, no tenía autoridad sobre las decisiones del barco, pero tenía la confianza de quien ha cruzado esas aguas muchas veces. Señores, veo que la navegación va a ser con perjuicio y mucha pérdida, no sólo del cargamento y del barco, sino también de nuestras personas.\n\nEl centurión escuchó al piloto y al dueño del barco antes que a Pablo. Era razonable: eran los profesionales de la navegación, mientras que Pablo era un prisionero sin título marítimo. La mayoría acordó que debían intentar llegar a Fenice, un puerto de Creta con mejor protección, para pasar allí el invierno.\n\nDecidieron navegar costeando por el sur de Creta. Soplaba el austro suavemente y creyeron que podían lograrlo. Levaron anclas. Pero no mucho después descargó contra la nave un viento huracanado que se llama Euroclidón.\n\nEl consejo de Pablo fue ignorado una vez. El resultado de ignorarlo afectaría a las 276 personas que viajaban en el barco. Hay momentos en la historia en que la diferencia entre escuchar a la voz correcta y escuchar a la mayoría cuesta el barco entero.",
+                "fase": "El Viaje",
+                "epoca": "apostolica",
+                "orden": 16,
+                "tipo": "evento",
+                "routeGroup": "viaje-a-roma"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    14.4167,
+                    35.9500
+                ]
+            },
+            "properties": {
+                "id": "malta-naufragio",
+                "nombre": "Malta — El naufragio",
+                "pasaje": "Hechos 27:14-44",
+                "titulo": "Ninguno perderá la vida",
+                "descripcion": "Un viento huracanado arrastra el barco durante 14 días. Los marineros arrojan la carga y el aparejo. Pablo anuncia que un ángel le ha dicho que ninguno perecerá. Al amanecer del día 14 el barco encalla y se rompe. Las 276 personas llegan a tierra sanas.",
+                "narrativa": "El Euroclidón era el viento noreste que los marinos mediterráneos temían por encima de todos los demás. Golpeó el barco sin aviso. No podía hacerse frente al viento, así que dejaron correr la nave a donde el viento la llevaba. Pasaron bajo la pequeña isla de Cauda con dificultad. Comenzaron a alijar el barco: primero el cargamento de grano, al día siguiente el aparejo del barco. Todo lo que pesaba fue arrojado al mar.\n\nCatorce días así. Ni sol ni estrellas visibles por muchos días. La tormenta no cedía. Toda esperanza de que se salvaran se perdía ya. Nadie comía. El miedo y el mareo y el agotamiento habían disuelto cualquier orden.\n\nFue entonces cuando Pablo se puso en pie en medio de ellos. Era el preso que había tenido razón sobre el viaje y nadie le había escuchado. No dijo «ya os lo dije». Dijo: Anoche estuvo conmigo el ángel del Dios de quien soy y a quien sirvo, diciendo: Pablo, no temas; es necesario que comparezcas ante el César; y he aquí, Dios te ha concedido todos los que navegan contigo.\n\nQue se salvaran los 276 no fue solo por Pablo. Fue la gracia concedida a Pablo que se extendió a todos los que lo rodeaban. El prisionero se había convertido en el garante de los que lo custodiaban.\n\nAl amanecer del día catorce vieron tierra. No la reconocieron. Intentaron entrar en la bahía pero el barco encalló en un banco de arena. La popa comenzó a romperse bajo la violencia de las olas. Los soldados querían matar a los presos para que no escaparan; el centurión lo impidió por causa de Pablo. Todos llegaron a tierra. No se perdió ninguno.",
+                "fase": "Malta",
+                "epoca": "apostolica",
+                "orden": 17,
+                "tipo": "evento",
+                "routeGroup": "viaje-a-roma"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    14.4167,
+                    35.9700
+                ]
+            },
+            "properties": {
+                "id": "malta-vibora",
+                "nombre": "Malta — La víbora y las curaciones",
+                "pasaje": "Hechos 28:1-10",
+                "titulo": "De asesino a dios en una tarde",
+                "descripcion": "Los isleños muestran una hospitalidad extraordinaria. Pablo junta leña y una víbora se prende de su mano. Los nativos esperan que caiga muerto: 'es un asesino'. Pablo sacude la serpiente al fuego sin daño. Los isleños cambian de opinión: 'es un dios'. Pablo sana al padre de Publio y a muchos más. Permanecen tres meses en la isla.",
+                "narrativa": "La isla se llamaba Malta. Los isleños nos trataron con no poca humanidad, dice el texto con una ternura que suena a gratitud genuina. Encendieron una hoguera y nos recibieron a todos porque llovía y hacía frío. La hospitalidad no fue para los nobles ni para los oficiales: fue para todos.\n\nPablo recogía leña y la echaba al fuego. El apóstol que había predicado en el Areópago y ante reyes recogía leña en una playa fría de Malta. Una víbora salió del calor y se prendió en su mano. Los isleños lo vieron y dijeron: Este hombre es homicida, a quien, escapado del mar, la justicia no deja vivir. La lógica era sólida dentro de su marco: la desgracia persiste porque el culpable merece castigo.\n\nPablo sacudió la víbora en el fuego y no padeció ningún mal. Los isleños esperaban que se hinchara o cayera muerto. Esperaron mucho tiempo. No ocurrió nada. Cambiaron de parecer y dijeron que era un dios.\n\nEn el pueblo de Malta tenía Publio, el hombre principal de la isla, sus tierras. Nos recibió y hospedar tres días amablemente. El padre de Publio estaba en cama enfermo de fiebre y de disentería. Pablo entró a verle, oró, impuso sus manos sobre él y le sanó. Después también los otros enfermos de la isla venían y eran sanados.\n\nTres meses invernaron en la isla. Cuando se hicieron a la vela, los isleños les proveyeron de todo lo necesario. Lo que comenzó como naufragio y frío había terminado como una temporada de sanación y hospitalidad en una isla que nunca había oído el nombre de Jesús.",
+                "fase": "Malta",
+                "epoca": "apostolica",
+                "orden": 18,
+                "tipo": "evento",
+                "routeGroup": "viaje-a-roma"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    15.2900,
+                    37.0692
+                ]
+            },
+            "properties": {
+                "id": "siracusa",
+                "nombre": "Siracusa",
+                "pasaje": "Hechos 28:12",
+                "titulo": "Tres días en Sicilia",
+                "descripcion": "El grupo llega a Siracusa, ciudad principal de Sicilia y una de las más grandes del mundo mediterráneo antiguo, y permanece allí tres días antes de continuar hacia el norte de Italia.",
+                "narrativa": "Siracusa era en el siglo I una de las ciudades más grandes del Mediterráneo, una colonia griega que había sido el centro de una de las mayores civilizaciones del mundo antiguo. Sus teatros, sus templos dorios, su famoso puerto doble que había resistido el asedio de Atenas siglos antes: todo ello era memoria de una grandeza que el Imperio Romano había absorbido sin borrar del todo.\n\nEl barco embarcado en Malta llegó a Siracusa y estuvo allí tres días. El texto no registra ningún episodio significativo. Puede ser que Pablo encontrara allí creyentes —la comunidad cristiana de Siracusa tiene tradiciones muy antiguas— pero Hechos guarda silencio sobre el contenido de esos tres días.\n\nHay algo digno de nota en la economía narrativa del viaje a Roma: a medida que el barco se acerca al destino, el texto se acelera. Las paradas se mencionan con brevedad creciente. La historia sabe que el punto de llegada es Roma, y todo lo que precede es el camino, no el destino.\n\nDe Siracusa rodearon hasta Regio, en el extremo sur de la bota itálica. El Mediterráneo se iba cerrando en el estrecho de Mesina y el continente europeo estaba ya a la vista. Roma esperaba.",
+                "fase": "Italia",
+                "epoca": "apostolica",
+                "orden": 19,
+                "tipo": "ciudad",
+                "routeGroup": "viaje-a-roma"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    15.6500,
+                    38.1167
+                ]
+            },
+            "properties": {
+                "id": "regio",
+                "nombre": "Regio",
+                "pasaje": "Hechos 28:13",
+                "titulo": "El estrecho de Italia",
+                "descripcion": "El barco pasa por Regio, en el extremo sur de Italia. Al día siguiente, con viento del sur, navegan a Puteoli en el golfo de Nápoles, completando la travesía del Mediterráneo.",
+                "narrativa": "Regio era la ciudad en el extremo sur de la península italiana, separada de Sicilia por el estrecho de Mesina. Era el punto donde el Mediterráneo occidental comenzaba, la puerta de entrada a las aguas que conducían hacia el Tirreno y el golfo de Nápoles.\n\nDe Siracusa rodearon y llegaron a Regio. Al día siguiente sopló el viento del sur, y llegaron el segundo día a Puteoli. La navegación fue rápida: el mismo viento que los había detenido durante semanas en la tormenta ahora los empujaba con suavidad hacia el destino.\n\nLa travesía desde Malta hasta Puteoli había durado apenas días una vez que el tiempo mejoró. El Mediterráneo puede ser el más benigno o el más mortal de los mares, a veces en el mismo viaje.\n\nEl estrecho de Mesina que cruzaron junto a Regio tenía su propia mitología: Escila y Caribdis, los monstruos que Homero ubicó en esas aguas. Para los marinos del siglo I eran remolinos y corrientes peligrosas, no monstruos, pero la fama del estrecho era suficientemente antigua para que ningún marinero lo cruzara sin conciencia del riesgo.\n\nLo cruzaron sin incidente. La costa de Italia se extendía a estribor. Puteoli estaba a un día de navegación.",
+                "fase": "Italia",
+                "epoca": "apostolica",
+                "orden": 20,
+                "tipo": "ciudad",
+                "routeGroup": "viaje-a-roma"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    14.1167,
+                    40.8333
+                ]
+            },
+            "properties": {
+                "id": "puteoli",
+                "nombre": "Puteoli",
+                "pasaje": "Hechos 28:13-14",
+                "titulo": "Hermanos en Italia",
+                "descripcion": "En Puteoli, el gran puerto de Roma en el golfo de Nápoles, Pablo encuentra hermanos creyentes que los invitan a quedarse siete días. Era la primera comunidad cristiana que Pablo encontraba en suelo italiano. Luego parten a pie por la Vía Apia hacia Roma.",
+                "narrativa": "Puteoli era el puerto más importante de Italia y el principal punto de entrada de los grandes barcos de grano que llegaban desde Alejandría. El barco mercante alejandrino que los había recogido en Mira de Licia tenía allí su destino. En el siglo I, Puteoli era más activo como puerto que el propio Ostia, y por sus muelles pasaba gran parte del comercio que alimentaba y enriquecía a Roma.\n\nAllí encontramos hermanos. La comunidad cristiana de Puteoli existía antes de que Pablo pisara suelo italiano. No sabemos cómo había llegado el evangelio hasta allí: el comercio mediterráneo era el vehículo natural de toda idea, religión o noticia. Era probable que judíos y gentiles que habían oído el evangelio en otros puertos lo hubieran traído consigo al regresar.\n\nLos hermanos les rogaron que se quedasen con ellos siete días. El centurión Julio, que había mostrado ya una humanidad poco común para un oficial que transporta prisioneros, accedió. Siete días en una comunidad, compartiendo la mesa y la oración, antes del tramo final.\n\nLuego emprendieron la marcha a pie por la Vía Apia. Era la calzada más antigua y más célebre de Roma, construida siglos antes como columna vertebral del poder romano. A lo largo de sus orillas, entre lápidas, pinos y los muros de las villas, Pablo caminó hacia Roma. Prisionero, con un soldado al lado. Y con la certeza de que había sido enviado allá.",
+                "fase": "Italia",
+                "epoca": "apostolica",
+                "orden": 21,
+                "tipo": "ciudad",
+                "routeGroup": "viaje-a-roma"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.0500,
+                    41.4167
+                ]
+            },
+            "properties": {
+                "id": "foro-apio",
+                "nombre": "Foro de Apio — El encuentro en el camino",
+                "pasaje": "Hechos 28:15",
+                "titulo": "Al verlos, dio gracias a Dios",
+                "descripcion": "Los hermanos de Roma, al oír la noticia, salen a recibir a Pablo. Algunos viajan 60 kilómetros hasta el Foro de Apio. Otros 45 kilómetros hasta las Tres Tabernas. Al verlos, Pablo da gracias a Dios y toma ánimo. Es uno de los gestos más simples y más poderosos de todo el libro de Hechos.",
+                "narrativa": "Los hermanos de Roma habían oído las noticias. No se sabe cómo: quizás por carta, quizás por viajeros que llegaron antes en otro barco, quizás por la red de comunicación informal que existía entre las comunidades judías y cristinas a lo largo del Imperio. Pero salieron a su encuentro.\n\nUnos llegaron hasta el Foro de Apio, a unos sesenta kilómetros de Roma. Otros hasta las Tres Tabernas, a unos cuarenta y cinco. Salieron a pie por la Vía Apia hacia el sur, en la dirección contraria a Roma, para encontrar al apóstol antes de que llegara a la ciudad.\n\nCuando Pablo los vio, dio gracias a Dios y cobró aliento. No se registra lo que dijeron. No se necesita. El gesto de salir a recibir a alguien que llega después de un viaje difícil es su propio lenguaje. Pablo había atravesado tormentas, naufragios y dos años de custodia. Había predicado ante gobernadores y reyes sin que nadie saliera a su encuentro. Y aquí, en una calzada romana bajo el sol de otoño, había gente que había caminado sesenta kilómetros para recibirlo.\n\nDio gracias a Dios y tomó ánimo. La traducción no alcanza del todo el verbo griego: fue consolado, reforzado, reanimado. El mismo verbo que Pablo usó en sus cartas para hablar del consuelo que viene de Dios llega aquí encarnado en unos hermanos que caminaron más de lo que era necesario para decirle sin palabras: no llegas solo.\n\nAsí llegaron a Roma.",
+                "fase": "Italia",
+                "epoca": "apostolica",
+                "orden": 22,
+                "tipo": "evento",
+                "routeGroup": "viaje-a-roma"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    12.4964,
+                    41.9028
+                ]
+            },
+            "properties": {
+                "id": "roma-prisionero",
+                "nombre": "Roma — El prisionero que predica libre",
+                "pasaje": "Hechos 28:16-31",
+                "titulo": "Con toda libertad y sin impedimento",
+                "descripcion": "Pablo llega a Roma y vive dos años bajo custodia domiciliaria con un soldado de guardia. Recibe a todos los que vienen a verle. Predica el reino de Dios y enseña acerca del Señor Jesucristo. La última palabra de Hechos es 'sin impedimento'. El prisionero termina más libre que sus guardas.",
+                "narrativa": "Cuando llegamos a Roma, el centurión entregó los presos al prefecto militar, pero a Pablo se le permitió vivir aparte, con un soldado que le custodiase. No en la prisión común sino en una custodia domiciliaria: su propia casa alquilada, con un soldado encadenado a su muñeca, libre para recibir visitas.\n\nTres días después de llegar, convocó a los principales de los judíos. No esperó a que ellos vinieran. Les explicó todo desde el principio: el arresto en Jerusalén, las acusaciones, la apelación al César. Señalaba que no tenía nada contra su pueblo ni contra las costumbres de sus padres. Fijaron un día y vinieron a él muchos a la posada. Y les declaraba y les testificaba el reino de Dios desde la mañana hasta la tarde. Algunos le creyeron. Otros no.\n\nY Pablo vivió dos años completos en su propia casa alquilada, y recibía a todos los que a él venían, predicando el reino de Dios y enseñando acerca del Señor Jesucristo, abiertamente y sin impedimento.\n\nLa última palabra del libro de Hechos en griego es akolytōs: sin impedimento. Es la palabra más inesperada con la que podría terminar la historia de un hombre encadenado a un soldado romano en una casa de alquiler en la capital del Imperio. El prisionero predicaba con más libertad que muchos que estaban libres.\n\nHechos no registra el final del proceso de Pablo ni su muerte. Termina con él predicando. La historia que comenzó en Pentecostés con ciento veinte personas en un aposento alto termina aquí: un hombre, una casa, y todos los que venían a escuchar. La puerta estaba abierta. El evangelio avanzaba. Sin impedimento.",
+                "fase": "Roma",
+                "epoca": "apostolica",
+                "orden": 23,
+                "tipo": "ciudad",
+                "routeGroup": "viaje-a-roma"
+            }
+        }
+    ]
+}
