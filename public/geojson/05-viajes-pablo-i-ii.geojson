@@ -1,0 +1,511 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    36.1600,
+                    36.2021
+                ]
+            },
+            "properties": {
+                "id": "antioquia-envio",
+                "nombre": "Antioquía de Siria — El envío",
+                "pasaje": "Hechos 13:1-3",
+                "titulo": "El Espíritu Santo aparta",
+                "descripcion": "La iglesia de Antioquía, mientras adoraba y ayunaba, recibe la orden del Espíritu: apartar a Bernabé y a Saulo para la obra. Es el primer viaje misionero planificado de la historia cristiana.",
+                "narrativa": "Antioquía era la tercera ciudad más grande del Imperio Romano, después de Roma y Alejandría. Sus calles eran cosmopolitas y ruidosas. Era allí, y no en Jerusalén, donde los creyentes fueron llamados por primera vez «cristianos». La iglesia que había nacido en esa ciudad era tan multicultural como el puerto que la alimentaba: judíos, griegos, sirios, romanos, todos sentados a la misma mesa.\n\nEn la iglesia había profetas y maestros: Bernabé, Simeón el Negro, Lucio de Cirene, Manaén —criado con Herodes el tetrarca— y Saulo. Cinco hombres de orígenes radicalmente diferentes que ministraban juntos sin que ninguno acaparara el protagonismo.\n\nMientras ayunaban y servían al Señor, el Espíritu Santo habló. No a un solo líder, sino a la comunidad reunida en adoración. La orden fue precisa: apartar a Bernabé y a Saulo para la obra para la cual los había llamado. No se especificó en ese momento cuál era la obra. Eso se revelaría en el camino.\n\nLa iglesia ayunó, oró, impuso las manos sobre ellos y los dejó ir. No fue un trámite ni una ceremonia: fue un acto de obediencia colectiva que soltaba a dos de sus mejores. Las iglesias que envían no son las que se empobrecen. Son las que entienden que lo sembrado lejos también les pertenece.\n\nDesde Antioquía salió la primera onda del evangelio hacia el mundo mediterráneo. Todo comenzó con cinco hombres adorando juntos y un Espíritu que hablaba en medio del silencio.",
+                "fase": "Envío",
+                "epoca": "apostolica",
+                "orden": 1,
+                "tipo": "ciudad",
+                "routeGroup": "primer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    35.9167,
+                    36.1167
+                ]
+            },
+            "properties": {
+                "id": "seleucia",
+                "nombre": "Seleucia Pieria",
+                "pasaje": "Hechos 13:4",
+                "titulo": "El puerto de partida",
+                "descripcion": "Puerto costero de Antioquía desde donde Pablo, Bernabé y Juan Marcos se embarcan hacia Chipre. El punto donde la misión deja el suelo sirio y toca el mar.",
+                "narrativa": "Seleucia Pieria era el puerto de Antioquía, una ciudad marítima construida sobre laderas escalonadas que descendían hasta el Mediterráneo. Sus muelles conectaban el comercio sirio con las rutas navales que cruzaban el mar hacia Chipre, Macedonia y Roma. Era el umbral entre el continente y el horizonte abierto.\n\nPablo y Bernabé llegaron allí enviados por el Espíritu Santo, dice el texto con una brevedad que encierra todo el peso teológico de la escena. No bajaron al puerto por iniciativa propia ni porque tuvieran un plan elaborado de antemano. Fueron enviados.\n\nJuan Marcos, sobrino de Bernabé, viajaba con ellos como asistente. Era joven, y lo que le esperaba en las semanas siguientes pondría a prueba su disposición de un modo que él todavía no podía imaginar.\n\nLa travesía hasta Chipre era de un día con viento favorable. El mar estaba entre ellos y la primera escala. Lo que tenían era una misión sin detalles, un compañero de viaje y la certeza de que Aquel que los había enviado conocía el itinerario completo.\n\nDesde este muelle anónimo comenzó la expansión del evangelio hacia el occidente. La mayoría de los imperios se mueven desde el centro hacia la periferia. El evangelio salió de una ciudad provincial, embarcó en un puerto secundario, y terminó en Roma.",
+                "fase": "Envío",
+                "epoca": "apostolica",
+                "orden": 2,
+                "tipo": "ciudad",
+                "routeGroup": "primer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    33.9100,
+                    35.1667
+                ]
+            },
+            "properties": {
+                "id": "salamina-chipre",
+                "nombre": "Salamina — Chipre",
+                "pasaje": "Hechos 13:5",
+                "titulo": "Las sinagogas de la isla",
+                "descripcion": "Primera escala misionera. Pablo y Bernabé predican en las sinagogas de Salamina, la ciudad más grande de Chipre y hogar de origen de Bernabé.",
+                "narrativa": "Chipre era la tierra natal de Bernabé. La isla era conocida por su cobre, su comercio y su comunidad judía dispersa, que había encontrado allí una estabilidad relativa dentro del Imperio. Salamina, en la costa oriental, era el puerto principal y la ciudad más poblada: el punto de entrada natural para cualquier viajero que cruzara desde Siria.\n\nAllí comenzaron predicando en las sinagogas de los judíos. La elección no fue arbitraria. Pablo siempre comenzaba con los judíos de la diáspora: ellos conocían las Escrituras, aguardaban al Mesías, y tenían el marco conceptual necesario para entender que Jesús era el cumplimiento de lo que habían estado leyendo toda la vida. La sinagoga era el puente, no el destino.\n\nJuan Marcos los acompañaba como asistente. El texto no registra los detalles de lo que ocurrió en Salamina: ni conversiones masivas ni oposición violenta. A veces el primer paso de un gran recorrido es simplemente dar el primer paso.\n\nBernabé predicaba en la tierra donde había nacido. Hay algo significativo en eso: la misión no siempre comienza en territorios completamente desconocidos. A veces el Espíritu envía primero al lugar más cercano, donde la familiaridad podría ser tentación de acomodarse pero también puede ser palanca de credibilidad.\n\nDe Salamina cruzaron hacia el occidente, atravesando toda la isla hasta llegar al extremo opuesto, donde la historia daría un giro que nadie esperaba.",
+                "fase": "Chipre",
+                "epoca": "apostolica",
+                "orden": 3,
+                "tipo": "ciudad",
+                "routeGroup": "primer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    32.4100,
+                    34.7700
+                ]
+            },
+            "properties": {
+                "id": "pafos-chipre",
+                "nombre": "Pafos — El mago y el procónsul",
+                "pasaje": "Hechos 13:6-12",
+                "titulo": "Elimas el mago queda ciego",
+                "descripcion": "En Pafos, el procónsul Sergio Paulo desea oír la Palabra. Elimas el mago se opone y Pablo lo hiere con ceguera temporal. El procónsul cree, maravillado por la doctrina del Señor.",
+                "narrativa": "Pafos era la capital administrativa romana de Chipre, sede del procónsul Sergio Paulo. Era también un centro del culto a Afrodita, con uno de los templos más famosos del Mediterráneo. El poder político, la religión pagana y la magia convivían en esa ciudad con la naturalidad que da la costumbre.\n\nSerglio Paulo era un hombre inteligente —así lo describe el texto sin adornos— que quería oír la Palabra de Dios. Convocó a Bernabé y a Saulo. Pero tenía a su lado a Elimas, un mago judío que se presentaba como profeta y que trabajaba para el procónsul como consejero espiritual. Cuando vio que Pablo y Bernabé podían desplazarlo, se interpuso y trató de apartar al procónsul de la fe.\n\nFue en ese momento cuando Saulo, llamado también Pablo desde aquí en adelante, tomó la palabra. Lleno del Espíritu Santo, miró fijamente a Elimas y pronunció sobre él ceguera temporal. «Mano del Señor está contra ti», dijo, y la oscuridad cayó sobre el mago.\n\nEl procónsul vio lo que ocurrió. El texto no dice que creyó por el milagro, sino que creyó asombrado de la doctrina del Señor. El milagro abrió la puerta, pero lo que entró por esa puerta fue la enseñanza.\n\nEste episodio marcó también un cambio sutil pero significativo: desde aquí el texto habla de «Pablo y sus compañeros», no de «Bernabé y Saulo». El liderazgo había dado un paso al frente. La misión tenía un nombre nuevo y una dirección clara: hacia el norte, hacia Asia Menor.",
+                "fase": "Chipre",
+                "epoca": "apostolica",
+                "orden": 4,
+                "tipo": "evento",
+                "routeGroup": "primer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    30.8533,
+                    36.9600
+                ]
+            },
+            "properties": {
+                "id": "perga-pamfilia",
+                "nombre": "Perga de Panfilia",
+                "pasaje": "Hechos 13:13",
+                "titulo": "Juan Marcos abandona",
+                "descripcion": "Pablo y Bernabé llegan a Perga en la costa de Panfilia. Aquí Juan Marcos los deja y regresa a Jerusalén, una decisión que más tarde provocará una ruptura entre Pablo y Bernabé.",
+                "narrativa": "Perga era una ciudad de la costa sur de Asia Menor, en la región de Panfilia. No era un lugar insignificante: tenía un templo a Artemisa que atraía peregrinos de toda la región, un teatro, un estadio y el bullicio propio de una ciudad portuaria mediterránea. Era también el punto donde el terreno comenzaba a subir hacia el interior montañoso de Pisidia.\n\nAllí, Juan Marcos los dejó y regresó a Jerusalén. El texto no explica por qué. Los comentaristas han especulado durante siglos: homesickness, el riesgo creciente, el cambio de liderazgo de Bernabé (su tío) a Pablo, la perspectiva de ascender hacia el interior peligroso en lugar de seguir por la costa. El texto simplemente registra el hecho y sigue adelante.\n\nPablo no lo olvidó. Años después, cuando Bernabé propuso llevarlo de nuevo en el segundo viaje, Pablo se negó con tal firmeza que los dos compañeros se separaron. No fue un desacuerdo teológico sino uno de carácter y confiabilidad. «No era conveniente llevar consigo al que se había apartado de ellos desde Panfilia».\n\nPero el relato tiene final abierto. En su última carta antes de morir, Pablo le escribiría a Timoteo: «Toma a Marcos y tráelo contigo, porque me es útil para el ministerio». La ruptura en Perga no fue la última palabra sobre Juan Marcos.\n\nDe Perga subieron al interior, hacia las elevaciones de Pisidia. El camino era difícil, la altitud considerable, los bandidos frecuentes en esas rutas. Pablo llegaría a Antioquía de Pisidia con alguna dolencia física que él mismo menciona como «tentación en la carne».",
+                "fase": "Asia Menor",
+                "epoca": "apostolica",
+                "orden": 5,
+                "tipo": "ciudad",
+                "routeGroup": "primer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    31.1833,
+                    38.2833
+                ]
+            },
+            "properties": {
+                "id": "antioquia-pisidia",
+                "nombre": "Antioquía de Pisidia",
+                "pasaje": "Hechos 13:14-52",
+                "titulo": "El gran sermón de la sinagoga",
+                "descripcion": "Pablo predica en la sinagoga el sermón más largo registrado en Hechos, recorriendo la historia de Israel hasta Jesús. Casi toda la ciudad se congrega el siguiente sábado. Los judíos los expulsan de la región. Pablo declara: 'Nos volvemos a los gentiles'.",
+                "narrativa": "La sinagoga de Antioquía de Pisidia fue el escenario del primer gran sermón de Pablo en Hechos. Cuando los dirigentes invitaron a los visitantes a hablar, Pablo se puso de pie y comenzó con un gesto: «Varones israelitas, y los que teméis a Dios, oíd». Era el inicio de un recorrido por toda la historia sagrada.\n\nTrazo el hilo desde Egipto hasta David, y de David hasta Jesús. No presentó al Mesías como una novedad sino como el cumplimiento de todo lo que habían estado leyendo. «De la descendencia de éste, conforme a la promesa, Dios levantó a Jesús por Salvador a Israel». La resurrección no fue el punto de cierre del sermón sino su punto de mayor densidad argumentativa: los testigos, el cumplimiento del Salmo 2, las palabras de Isaías.\n\nEl primer sábado, la gente pidió que volvieran a hablar. El siguiente sábado, casi toda la ciudad se congregó. La masividad perturbó a los judíos que los vieron con envidia. Comenzaron a contradecir y a blasfemar.\n\nFue entonces cuando Pablo pronunció la frase que estructuraría toda su estrategia misionera posterior: «Era necesario que se os anunciara primero la Palabra de Dios. Mas puesto que la desecháis y no os juzgáis dignos de la vida eterna, he aquí nos volvemos a los gentiles». No era un abandono sino una redireccion. El evangelio no perdía urgencia; encontraba un cauce nuevo.\n\nLos gentiles se alegraron y glorificaron la Palabra. Pero los judíos influyentes agitaron a las mujeres piadosas de la ciudad y expulsaron a Pablo y Bernabé de su territorio. Ellos sacudieron el polvo de sus pies y se fueron hacia Iconio. El rechazo no los detuvo: los desplazó.",
+                "fase": "Asia Menor",
+                "epoca": "apostolica",
+                "orden": 6,
+                "tipo": "ciudad",
+                "routeGroup": "primer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    32.4872,
+                    37.8667
+                ]
+            },
+            "properties": {
+                "id": "iconio",
+                "nombre": "Iconio",
+                "pasaje": "Hechos 14:1-7",
+                "titulo": "Señales y amenazas",
+                "descripcion": "En Iconio una gran multitud de judíos y griegos cree. Dios respalda la predicación con señales y prodigios. Pero una conjura para apedrearlos obliga a Pablo y Bernabé a huir hacia Listra y Derbe.",
+                "narrativa": "Iconio era una ciudad importante en el corazón de Asia Menor, cruce de rutas comerciales y sede de una comunidad judía activa. Pablo y Bernabé llegaron directamente a la sinagoga y hablaron con tal eficacia que creyó una gran multitud de judíos y de griegos. La ciudad estaba dividida: unos a favor de los apóstoles, otros con los judíos que los rechazaban.\n\nA pesar de la oposición, se quedaron bastante tiempo. No huyeron ante el primer signo de resistencia. Hablaron confiadamente en el Señor, y Dios daba testimonio de la Palabra de su gracia concediendo señales y prodigios. La presencia de lo sobrenatural no era un espectáculo sino una confirmación: la misión tenía respaldo.\n\nPero la oposición fue creciendo. Los judíos no convencidos envenenaron el ánimo de los gentiles contra los misioneros. Los dirigentes de la ciudad y una parte del pueblo hicieron un intento concertado de maltratarlos y apedrearlos.\n\nCuando se enteraron del complot, huyeron. No por cobardía sino por estrategia: la misión no terminaba en Iconio, y había más ciudades que todavía no habían oído. El martirio inútil no era una virtud apostólica; sí lo era la perseverancia inteligente.\n\nFueron a Listra y Derbe, ciudades de Licaonia. En ese territorio menos urbanizado y más rural, el encuentro con el mundo pagano sería más directo y más violento que cualquier cosa que habían enfrentado en las sinagogas.",
+                "fase": "Asia Menor",
+                "epoca": "apostolica",
+                "orden": 7,
+                "tipo": "ciudad",
+                "routeGroup": "primer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    32.4900,
+                    37.5833
+                ]
+            },
+            "properties": {
+                "id": "listra-apedreado",
+                "nombre": "Listra — El apedreamiento",
+                "pasaje": "Hechos 14:8-20",
+                "titulo": "De dios a lapidado en un día",
+                "descripcion": "Pablo sana a un cojo de nacimiento. La multitud los proclama dioses: Zeus y Hermes. Pablo rechaza la adoración con angustia. Judíos de Antioquía e Iconio llegan y apedrean a Pablo hasta dejarlo por muerto. Se levanta y entra a la ciudad.",
+                "narrativa": "En Listra había un hombre que era cojo desde su nacimiento y nunca había caminado. Pablo lo miró fijamente y vio que tenía fe para ser sanado. Le dijo con voz alta: «Levántate derecho sobre tus pies». Y el hombre saltó y anduvo.\n\nLa multitud reaccionó en el idioma que Pablo no entendía: el licaonio. «¡Los dioses han descendido a nosotros en semejanza de hombres!». Identificaron a Bernabé como Zeus y a Pablo como Hermes. El sacerdote de Zeus, cuyo templo estaba a las puertas de la ciudad, trajo toros y guirnaldas para ofrecer sacrificio.\n\nCuando Pablo y Bernabé entendieron lo que estaba ocurriendo, rasgaron sus ropas y se lanzaron entre la multitud gritando. El gesto de rasgar las vestiduras era señal de horror ante la blasfemia. Intentaron explicar: no somos dioses, somos hombres con la misma naturaleza que vosotros, que os anunciamos que de estas vanidades os convirtáis al Dios vivo. Con dificultad lograron detener que la multitud les ofreciera sacrificio.\n\nLuego llegaron judíos de Antioquía e Iconio. Persuadieron a la multitud. La misma gente que quería ofrecerles sacrificio tomó piedras y apedreo a Pablo hasta dejarlo por muerto, y lo arrastraron fuera de la ciudad.\n\nRodeado por los discípulos, Pablo se levantó y entró de nuevo a la ciudad. Al día siguiente partió con Bernabé hacia Derbe. El hombre que fue dejado por muerto fuera de Listra volvió a caminar sobre sus propios pies. En ese contraste —el cojo que anda, el apóstol que se levanta— está comprimida toda la teología del sufrimiento apostólico.",
+                "fase": "Asia Menor",
+                "epoca": "apostolica",
+                "orden": 8,
+                "tipo": "evento",
+                "routeGroup": "primer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    33.4000,
+                    37.3500
+                ]
+            },
+            "properties": {
+                "id": "derbe",
+                "nombre": "Derbe",
+                "pasaje": "Hechos 14:20-23",
+                "titulo": "Muchos discípulos y el camino de regreso",
+                "descripcion": "En Derbe evangelizaron y ganaron muchos discípulos. Luego, en lugar de continuar hacia el este y regresar por tierra siria, volvieron por el mismo camino: fortaleciendo las iglesias, estableciendo ancianos en cada una.",
+                "narrativa": "Derbe era la ciudad más oriental del viaje, el punto más alejado de Antioquía. Podrían haber continuado hacia el este, cruzar las montañas del Tauro y regresar directamente a Siria por tierra. Era el camino más corto. No lo tomaron.\n\nEvangelizaron en Derbe y ganaron muchos discípulos. Luego dieron vuelta. Regresaron por Listra, por Iconio, por Antioquía de Pisidia: las mismas ciudades donde habían sido expulsados, donde Pablo había sido apedreado, donde los habían amenazado. Volvieron deliberadamente a los lugares más peligrosos.\n\nEl motivo era pastoral: confirmando los ánimos de los discípulos, exhortándoles a que permaneciesen en la fe. Y añadieron algo que el texto registra con precisión: «Es necesario que a través de muchas tribulaciones entremos en el reino de Dios». No era una advertencia pesimista sino una descripción honesta del camino.\n\nEn cada iglesia constituyeron ancianos. No dejaron comunidades huérfanas. La misión de Pablo no era sembrar y desaparecer sino sembrar y asegurarse de que hubiera alguien que cuidara lo sembrado.\n\nLo que comenzó en Antioquía de Siria como una misión sin itinerario definido había producido, al final del primer viaje, una cadena de congregaciones desde Chipre hasta el corazón de Asia Menor. Cada una con su historia, sus mártires casi y sus ancianos recién elegidos. La iglesia había echado raíces en suelo gentil.",
+                "fase": "Asia Menor",
+                "epoca": "apostolica",
+                "orden": 9,
+                "tipo": "ciudad",
+                "routeGroup": "primer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    30.7133,
+                    36.8969
+                ]
+            },
+            "properties": {
+                "id": "atalia",
+                "nombre": "Atalía",
+                "pasaje": "Hechos 14:25-26",
+                "titulo": "El puerto del regreso",
+                "descripcion": "Desde Atalía, puerto de Panfilia, Pablo y Bernabé se embarcan de regreso hacia Antioquía de Siria, completando el primer círculo misionero.",
+                "narrativa": "Atalía era el puerto principal de Panfilia, una ciudad bien situada en la costa sur de Asia Menor con una bahía protegida y conexiones regulares con las rutas marítimas del Mediterráneo oriental. Era desde allí desde donde se embarcaban los viajeros que necesitaban cruzar hacia Siria.\n\nPablo y Bernabé llegaron a Atalía después de predicar en Perga, que quedaba tierra adentro. El texto no registra ningún episodio significativo en Perga ni en Atalía durante el regreso. A veces el camino de vuelta es simplemente el camino de vuelta.\n\nEmbarcaron desde ese puerto con la memoria del viaje intacta: la isla de Chipre con el procónsul creyente y el mago ciego, las montañas de Pisidia con el gran sermón y la expulsión, Listra con el cojo que caminó y las piedras que volaron. Un recorrido de varios meses y varios miles de kilómetros.\n\nLlevaban también una convicción que habían adquirido en el trayecto y que comunicarían al volver: la puerta de la fe había sido abierta a los gentiles. Eso no era una conclusión teológica abstracta. Era algo que habían visto con sus propios ojos en cada ciudad: personas sin ningún trasfondo judío que recibían el evangelio con una apertura que a veces superaba la de los que conocían las Escrituras.\n\nEl primer viaje misionero había terminado. El siguiente comenzaría con una controversia que sacudiría a toda la iglesia.",
+                "fase": "Regreso",
+                "epoca": "apostolica",
+                "orden": 10,
+                "tipo": "ciudad",
+                "routeGroup": "primer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    36.1600,
+                    36.2021
+                ]
+            },
+            "properties": {
+                "id": "antioquia-regreso-i",
+                "nombre": "Antioquía — El informe",
+                "pasaje": "Hechos 14:27-28; 15:1-2",
+                "titulo": "La puerta abierta a los gentiles",
+                "descripcion": "Pablo y Bernabé regresan y reúnen a la iglesia para relatar todo lo que Dios había hecho con ellos. Pero llegan judaizantes de Judea y desata la controversia que llevará al Concilio de Jerusalén.",
+                "narrativa": "Antioquía los recibió como la iglesia que había enviado. Pablo y Bernabé reunieron a la congregación y relataron todo lo que Dios había hecho con ellos, y cómo había abierto la puerta de la fe a los gentiles. No fue un informe de gestión sino un testimonio. La iglesia que había soltado a sus mejores hombres ahora escuchaba lo que Dios había hecho con ellos.\n\nEstuvieron allí no poco tiempo. El descanso también es parte de la misión. Pero la paz no duró.\n\nBajaron algunos de Judea y comenzaron a enseñar que sin la circuncisión no era posible salvarse. La controversia fue inmediata y frontal. Pablo y Bernabé tuvieron una contienda y disputa no pequeña con ellos. La cuestión no era secundaria: si la salvación requería la circuncisión, entonces el evangelio que Pablo había predicado entre los gentiles era incompleto. Todos los convertidos de Antioquía de Pisidia, Iconio, Listra y Derbe necesitarían volver a someterse a la Ley para ser realmente salvos.\n\nEra el choque entre dos comprensiones radicalmente distintas del evangelio, y ninguno de los dos bandos estaba dispuesto a ceder en algo que consideraba fundamental.\n\nLa iglesia decidió que Pablo, Bernabé y algunos otros subieran a Jerusalén para resolver la cuestión ante los apóstoles y los ancianos. Lo que comenzó como un informe misionero terminaría en el primer concilio de la historia de la iglesia.",
+                "fase": "Regreso",
+                "epoca": "apostolica",
+                "orden": 11,
+                "tipo": "evento",
+                "routeGroup": "primer-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    32.4900,
+                    37.5833
+                ]
+            },
+            "properties": {
+                "id": "listra-timoteo",
+                "nombre": "Listra — Timoteo se une",
+                "pasaje": "Hechos 16:1-3",
+                "titulo": "El discípulo que Pablo eligió",
+                "descripcion": "En el comienzo del segundo viaje, Pablo llega a Listra y encuentra a Timoteo, hijo de madre judía creyente y padre griego. Los hermanos hablan bien de él. Pablo lo elige como compañero y lo circuncida para no causar tropiezo entre los judíos.",
+                "narrativa": "El segundo viaje comenzó con una ruptura dolorosa. Pablo y Bernabé no pudieron ponerse de acuerdo sobre si llevar de nuevo a Juan Marcos, que los había abandonado en Perga. La disputa fue tan aguda que se separaron: Bernabé tomó a Marcos y navegó hacia Chipre; Pablo tomó a Silas y salió por tierra hacia Siria y Cilicia.\n\nCuando llegaron a Derbe y Listra, Pablo encontró a Timoteo. Era el hijo de una mujer judía creyente y de padre griego. Los hermanos en Listra y en Iconio hablaban bien de él. Era joven —Pablo lo llamaría «mi verdadero hijo en la fe»— pero tenía una reputación construida en las iglesias de la región.\n\nPablo quiso que Timoteo lo acompañara. Pero antes lo circuncidó, por causa de los judíos que había en aquellos lugares, pues todos sabían que su padre era griego. No fue una concesión teológica —en el mismo viaje Pablo defendería con firmeza que Tito, gentil puro, no necesitaba circuncidarse— sino una decisión misional estratégica: evitar que la identidad de Timoteo se convirtiera en obstáculo para predicar en las sinagogas.\n\nTimoteo se convirtió en el colaborador más cercano de Pablo. Aparece junto a él en casi todas sus cartas, es enviado como representante suyo a las iglesias más difíciles, y recibirá al final dos cartas que son el testamento más personal del apóstol.\n\nListra, el lugar donde Pablo fue apedreado y dejado por muerto, fue también el lugar donde encontró al hombre que acompañaría el resto de su ministerio.",
+                "fase": "Partida",
+                "epoca": "apostolica",
+                "orden": 12,
+                "tipo": "evento",
+                "routeGroup": "segundo-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    26.2700,
+                    39.7633
+                ]
+            },
+            "properties": {
+                "id": "troas-vision",
+                "nombre": "Troas — La visión del macedonio",
+                "pasaje": "Hechos 16:6-10",
+                "titulo": "El evangelio cruza a Europa",
+                "descripcion": "Bloqueados por el Espíritu Santo para entrar en Asia y en Bitinia, Pablo y sus compañeros llegan a Troas. En la noche, Pablo tiene una visión: un macedonio pide ayuda. Al amanecer zarpan hacia Europa. Es el momento en que el evangelio cruza de Asia a Europa por primera vez.",
+                "narrativa": "El Espíritu Santo bloqueó dos veces el avance del grupo. Cuando intentaron ir hacia la provincia de Asia, el Espíritu les impidió. Cuando intentaron entrar en Bitinia, el Espíritu de Jesús no se lo permitió. El texto no explica el mecanismo del bloqueo: si fue una visión, una profecía, una circunstancia cerrada o una convicción interna. Solo registra el resultado: no pudieron.\n\nAsí llegaron a Troas. Era una ciudad portuaria importante en el extremo noroeste de Asia Menor, a pocas horas de navegación de las costas de Macedonia. Un lugar entre dos continentes, entre el mundo conocido y el horizonte nuevo.\n\nEn la noche, Pablo tuvo una visión. Un hombre macedonio estaba de pie y le rogaba: Pasa a Macedonia y ayúdanos. No era una orden sino una súplica. El evangelio llegaba al nuevo territorio porque alguien al otro lado pedía que llegara.\n\nInmediatamente buscaron embarcarse para Macedonia, concluyen que Dios los llamaba a predicar allí. Fue una conclusión colectiva: en el «nosotros» que aparece por primera vez en este pasaje está también Lucas, el médico y autor de Hechos, que se unió al grupo en Troas.\n\nZarparon de Troas con rumbo directo a Samotracia. Era el momento más decisivo del segundo viaje y quizás de toda la misión paulina: el evangelio cruzaba de Asia a Europa. Lo que comenzó en Jerusalén, pasó por Antioquía, atravesó Asia Menor, y llegaba ahora a las costas de lo que hoy llamamos Grecia y los Balcanes.",
+                "fase": "Macedonia",
+                "epoca": "apostolica",
+                "orden": 13,
+                "tipo": "vision",
+                "routeGroup": "segundo-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    24.2833,
+                    41.0167
+                ]
+            },
+            "properties": {
+                "id": "filipos",
+                "nombre": "Filipos — Lidia y el carcelero",
+                "pasaje": "Hechos 16:11-40",
+                "titulo": "El terremoto de medianoche",
+                "descripcion": "Pablo y Silas son azotados y encarcelados tras liberar a una esclava con espíritu de adivinación. A medianoche cantan himnos. Un terremoto abre las puertas. El carcelero pregunta: '¿Qué debo hacer para ser salvo?' Toda su familia cree y es bautizada.",
+                "narrativa": "Filipos era una ciudad principal de Macedonia, una colonia romana con el orgullo cívico que eso implicaba. No tenía sinagoga —pocos judíos vivían allí—, así que el sábado Pablo y sus compañeros salieron a un lugar junto al río donde esperaban encontrar oración. Encontraron a Lidia, comerciante de tela de púrpura de Tiatira. El Señor abrió su corazón para que estuviera atenta a lo que Pablo decía. Fue bautizada con toda su casa y hospedó al grupo. La primera iglesia europea nació junto a un río.\n\nDías después, una esclava con espíritu de adivinación comenzó a seguirlos gritando que eran siervos del Dios Altísimo que anunciaban el camino de salvación. Lo hacía por muchos días hasta que Pablo, fatigado, se volvió y en el nombre de Jesucristo ordenó al espíritu que saliera. Salió en el mismo momento.\n\nLos dueños de la esclava vieron desvanecerse su negocio. Arrastraron a Pablo y Silas ante los magistrados. Fueron azotados y arrojados a la cárcel interior, con los pies en el cepo.\n\nA medianoche, Pablo y Silas oraban y cantaban himnos a Dios. Los otros presos escuchaban. Un terremoto violento sacudió los cimientos de la cárcel. Las puertas se abrieron y las cadenas se soltaron. El carcelero, creyendo que los presos habían escapado, sacó la espada para matarse. Pablo gritó: ¡No te hagas ningún mal, que todos estamos aquí!\n\nEl carcelero entró temblando y cayó a los pies de Pablo y Silas: Señores, ¿qué debo hacer para ser salvo? Cree en el Señor Jesucristo y serás salvo, tú y tu casa. Esa misma hora de la noche, toda su familia creyó y fue bautizada.",
+                "fase": "Macedonia",
+                "epoca": "apostolica",
+                "orden": 14,
+                "tipo": "evento",
+                "routeGroup": "segundo-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.9444,
+                    40.6401
+                ]
+            },
+            "properties": {
+                "id": "tesalonica",
+                "nombre": "Tesalónica",
+                "pasaje": "Hechos 17:1-9",
+                "titulo": "Estos que trastornan el mundo",
+                "descripcion": "Pablo predica tres sábados en la sinagoga. Muchos creen. Los judíos no convencidos forman una turba y atacan la casa de Jasón. Ante el magistrado acusan a Pablo de proclamar a otro rey: Jesús.",
+                "narrativa": "Tesalónica era la capital de Macedonia, una ciudad de más de cien mil habitantes con un puerto activo y una vía Egnatia que la conectaba con Roma por tierra. Era un lugar donde la predicación pública tenía peso político inmediato.\n\nPablo entró a la sinagoga y durante tres sábados razonó con ellos desde las Escrituras, explicando y demostrando que era necesario que el Cristo padeciese y resucitase de entre los muertos. Algunos de los judíos creyeron, también una gran multitud de griegos piadosos y no pocas mujeres nobles.\n\nLos judíos que no creyeron tomaron consigo a algunos hombres ociosos de la plaza y formaron turba. Fueron a la casa de Jasón, donde se hospedaba Pablo. No lo encontraron y arrastraron a Jasón ante los magistrados. La acusación era precisa y políticamente peligrosa: estos que trastornan el mundo también han venido acá, y Jasón los ha hospedado. Todos estos contravienen los decretos de César, diciendo que hay otro rey: Jesús.\n\nLa acusación de lealtad a otro rey era el cargo más grave en un contexto romano. «Otro rey» podía costar la vida. Los magistrados tomaron fianza a Jasón y a los demás y los soltaron. Pablo y Silas fueron enviados de noche a Berea.\n\nPero la iglesia de Tesalónica quedó en pie. Pablo les escribiría dos cartas que revelan una comunidad con preguntas serias sobre la resurrección de los muertos y el regreso de Cristo. De un suelo de persecución había brotado una de las congregaciones más vigorosas del Mediterráneo.",
+                "fase": "Macedonia",
+                "epoca": "apostolica",
+                "orden": 15,
+                "tipo": "ciudad",
+                "routeGroup": "segundo-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.2033,
+                    40.5233
+                ]
+            },
+            "properties": {
+                "id": "berea",
+                "nombre": "Berea",
+                "pasaje": "Hechos 17:10-15",
+                "titulo": "Los más nobles que examinaban las Escrituras",
+                "descripcion": "Los bereanos reciben la Palabra con buena disposición y examinan las Escrituras cada día para verificar si lo que Pablo enseña es cierto. Muchos creen. Pero los judíos de Tesalónica llegan a agitar a las multitudes y Pablo debe partir.",
+                "narrativa": "Berea estaba a poca distancia de la vía Egnatia, en una región más tranquila que Tesalónica. Cuando Pablo y Silas llegaron, entraron a la sinagoga con la misma costumbre de siempre. Pero la respuesta fue diferente.\n\nEl texto los describe con una palabra notable: eran de más noble actitud que los de Tesalónica. Y especifica en qué consistía esa nobleza: recibieron la Palabra con toda solicitud, escudriñando cada día las Escrituras para ver si estas cosas eran así. No aceptaron la predicación por emoción ni la rechazaron por tradición. La sometieron a prueba con el texto que ya conocían.\n\nMuchos de ellos creyeron, también mujeres griegas de distinción y muchos hombres griegos. La combinación de apertura intelectual y base escritural produjo una comunidad de creyentes que vendrían a convertirse en modelo de cómo recibir el evangelio.\n\nPero los judíos de Tesalónica, cuando supieron que Pablo predicaba también en Berea, fueron allá y agitaron a las multitudes. Los hermanos enviaron a Pablo hacia el sur inmediatamente, hasta la costa. Silas y Timoteo se quedaron en Berea. Pablo fue conducido a Atenas, solo.\n\nLa imagen de Pablo llegando solo a Atenas es una de las más solitarias de todo el libro de Hechos. La ciudad más culta del mundo antiguo, y él esperando en ella mientras sus compañeros terminaban el trabajo en Macedonia.",
+                "fase": "Macedonia",
+                "epoca": "apostolica",
+                "orden": 16,
+                "tipo": "ciudad",
+                "routeGroup": "segundo-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    23.7275,
+                    37.9838
+                ]
+            },
+            "properties": {
+                "id": "atenas-areopago",
+                "nombre": "Atenas — El Areópago",
+                "pasaje": "Hechos 17:16-34",
+                "titulo": "Al Dios no conocido",
+                "descripcion": "Pablo recorre Atenas y se angustia por la idolatría. En el Areópago presenta el evangelio al mundo intelectual griego, partiendo del altar 'Al Dios no conocido'. Algunos se burlan. Otros creen, entre ellos Dionisio el Areopagita.",
+                "narrativa": "Atenas era la ciudad de Sócrates, Platón y Aristóteles. Cinco siglos después de su apogeo, seguía siendo el centro intelectual del mundo mediterráneo. Sus templos, su ágora, sus escuelas filosóficas y su cultura visual eran el canon de referencia de toda civilización que aspirara a ser llamada civilizada.\n\nPablo recorrió la ciudad mientras esperaba a sus compañeros. El texto dice que su espíritu se enardecía dentro de él al ver la ciudad llena de ídolos. No fue admiración estética sino angustia espiritual. Comenzó a discutir en la sinagoga y en el ágora con cualquiera que se encontraba. Los filósofos epicúreos y estoicos lo oyeron y lo llevaron al Areópago para que explicara esa nueva doctrina.\n\nEl discurso del Areópago es el experimento más cuidadoso de Pablo en términos de contextualización: no citó las Escrituras hebreas, que sus oyentes no reconocerían como autoridad. Comenzó con lo que ellos ya conocían: el altar con la inscripción «Al Dios no conocido». Lo que adoráis sin conocer, eso os anuncio yo.\n\nDesarrolló una teología de la creación sin mencionar a Moisés: el Dios que hizo el mundo y todo lo que hay en él, Señor del cielo y de la tierra, no habita en templos construidos por manos humanas. Llegó a la resurrección. En ese punto la audiencia se dividió: algunos se burlaron, otros quisieron oír más, y algunos creyeron.\n\nEntre los creyentes estaba Dionisio el Areopagita, miembro del tribunal que juzgaba en ese mismo lugar. También una mujer llamada Dámaris. Los frutos de Atenas fueron pocos pero no insignificantes.",
+                "fase": "Grecia",
+                "epoca": "apostolica",
+                "orden": 17,
+                "tipo": "evento",
+                "routeGroup": "segundo-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.8803,
+                    37.9078
+                ]
+            },
+            "properties": {
+                "id": "corinto",
+                "nombre": "Corinto — Dieciocho meses",
+                "pasaje": "Hechos 18:1-17",
+                "titulo": "No temas, sigue hablando",
+                "descripcion": "Pablo encuentra a Áquila y Priscila, tentmakers como él. Predica cada sábado. Cuando los judíos rechazan el mensaje se vuelve a los gentiles. En visión Dios le dice: 'No temas'. Permanece 18 meses, la estancia más larga de todo el segundo viaje.",
+                "narrativa": "Corinto era la ciudad más importante del sur de Grecia: capital de la provincia de Acaya, nudo comercial entre el Adriático y el Egeo, sede del procónsul romano. Era también una ciudad de reputación cosmopolita y moral relajada. Pablo llegaría a llamarla el contexto donde se debatían casi todos los problemas que después abordará en sus cartas.\n\nAllí encontró a Áquila y a Priscila, judíos que habían llegado de Italia después de que Claudio expulsara a todos los judíos de Roma. Compartían el oficio de fabricar tiendas. Pablo vivió y trabajó con ellos: cada sábado razonaba en la sinagoga intentando persuadir a judíos y griegos.\n\nCuando Silas y Timoteo llegaron de Macedonia, Pablo se dedicó enteramente a la predicación. Pero los judíos de la sinagoga se opusieron y blasfemaron. Pablo sacudió sus vestidos y dijo: Vuestra sangre sea sobre vuestra propia cabeza. Desde ahora me iré a los gentiles. Fue a vivir a la casa de un gentil temeroso de Dios llamado Justo, cuya casa estaba junto a la sinagoga.\n\nUna noche el Señor le habló en visión: No temas, sino habla y no calles. Porque yo estoy contigo y nadie pondrá sobre ti la mano para hacerte mal, porque tengo mucho pueblo en esta ciudad. Era la promesa más directa que Pablo habría recibido hasta ese momento sobre su seguridad personal.\n\nPermanecí allí un año y seis meses, enseñando entre ellos la Palabra de Dios. Fue la estancia más larga de todo el viaje. La iglesia de Corinto sería la que más cartas recibiría, la que más problemas tendría, y también la que más llevaría a Pablo a reflexionar sobre el significado de la cruz.",
+                "fase": "Grecia",
+                "epoca": "apostolica",
+                "orden": 18,
+                "tipo": "ciudad",
+                "routeGroup": "segundo-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    23.0033,
+                    37.8833
+                ]
+            },
+            "properties": {
+                "id": "cencreas",
+                "nombre": "Cencreas",
+                "pasaje": "Hechos 18:18; Romanos 16:1",
+                "titulo": "El voto y la despedida",
+                "descripcion": "En el puerto de Cencreas, Pablo se corta el cabello por un voto. Desde aquí zarpa hacia Éfeso. También aquí ministraba Febe, diaconisa de la iglesia, a quien Pablo recomendará en la carta a los Romanos.",
+                "narrativa": "Cencreas era el puerto oriental de Corinto, uno de los dos que hacían de la ciudad el cruce obligado entre el Mediterráneo este y oeste. Quien quería evitar la peligrosa navegación alrededor del Peloponeso desembarcaba en Cencreas, cruzaba el istmo a pie y volvía a embarcarse en el puerto occidental de Léqueo.\n\nAllí, antes de embarcar, Pablo se cortó el cabello en Cencreas porque tenía un voto. El gesto es breve en el texto pero significativo: era la práctica del voto nazareo, una forma de devoción judía que Pablo seguía practicando. El hombre que escribiría que en Cristo no hay judío ni griego seguía siendo, en su propia vida espiritual, un judío de la tribu de Benjamín.\n\nEl detalle del voto humaniza a Pablo de un modo que los grandes discursos del Areópago no logran. Aquí hay un hombre que lleva el peso de su herencia religiosa personal junto con la universalidad del evangelio que predica. La tensión no era contradicción: era profundidad.\n\nEn la iglesia de Cencreas ministraba también Febe. Pablo la mencionará en la carta a los Romanos como diaconisa de la iglesia de Cencreas y como patrona de muchos, incluyendo del propio Pablo. Ella sería probablemente la portadora de esa carta a Roma. En el puerto desde donde Pablo zarpó hacia Asia viviría la mujer que llevaría a Roma una de las cartas más importantes de la historia.\n\nEl segundo viaje comenzaba su tramo final hacia el oriente.",
+                "fase": "Grecia",
+                "epoca": "apostolica",
+                "orden": 19,
+                "tipo": "ciudad",
+                "routeGroup": "segundo-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    27.3492,
+                    37.9500
+                ]
+            },
+            "properties": {
+                "id": "efeso-primera",
+                "nombre": "Éfeso — Primera visita",
+                "pasaje": "Hechos 18:19-21",
+                "titulo": "Volveré si Dios quiere",
+                "descripcion": "Pablo hace una visita breve a Éfeso y razona en la sinagoga. Los judíos le piden que se quede más tiempo. Él declina, pero promete volver si Dios quiere. Deja allí a Áquila y Priscila. Esta escala sembrará el terreno para el tercer viaje.",
+                "narrativa": "Éfeso era la capital de la provincia romana de Asia, una de las ciudades más grandes del Mediterráneo oriental con quizás 250.000 habitantes. Su teatro podía albergar 25.000 personas. Su templo de Artemisa era considerado una de las siete maravillas del mundo antiguo. Era el corazón religioso, comercial y cultural del Asia Menor romana.\n\nPablo llegó a Éfeso en este primer contacto con la actitud de quien ya sabe que volverá. Entró a la sinagoga y razonó con los judíos. La respuesta fue inusualmente abierta: le rogaban que se quedara más tiempo. Era raro. En Antioquía lo expulsaron, en Iconio complotaron contra él, en Listra lo apedrearon. En Éfeso le pedían que se quedara.\n\nDeclinó. Pero dejó a Áquila y Priscila. Era como plantar una tienda avanzada: dos colaboradores de confianza, un matrimonio que ya había demostrado su valía en Corinto, anclados en la ciudad más estratégica de Asia. No fue abandono sino preparación.\n\nSu promesa al despedirse fue teológicamente honesta: volveré a vosotros si Dios quiere. No «volvere» sino «volveré si Dios quiere». La planificación misional de Pablo siempre estaba subordinada a la dirección del Espíritu que había bloqueado el paso hacia Asia en el segundo viaje y que ahora parecía abrirlo para una tercera expedición.\n\nEfeso esperaba. Pablo continuó su camino hacia Cesarea y Antioquía. Pero el tercer viaje tendría a Éfeso como su centro y como el escenario del episodio más largo de todo su ministerio.",
+                "fase": "Regreso",
+                "epoca": "apostolica",
+                "orden": 20,
+                "tipo": "ciudad",
+                "routeGroup": "segundo-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    34.8986,
+                    32.5007
+                ]
+            },
+            "properties": {
+                "id": "cesarea-regreso-ii",
+                "nombre": "Cesarea Marítima",
+                "pasaje": "Hechos 18:22",
+                "titulo": "El saludo a la iglesia",
+                "descripcion": "Pablo desembarca en Cesarea, sube a saludar a la iglesia (probablemente Jerusalén) y baja a Antioquía. Es el punto de cierre del segundo viaje antes de regresar a la base.",
+                "narrativa": "Cesarea Marítima era el gran puerto artificial construido por Herodes el Grande en honor a César Augusto. No era una ciudad judía ni una ciudad gentil pura: era una ciudad romana en tierra de Israel, sede del gobernador de la provincia de Judea, punto de entrada y salida de todo el tráfico marítimo que conectaba la Tierra Santa con el Imperio.\n\nPablo desembarcó allí después de la travesía desde Éfeso. El texto de Hechos 18:22 es notable por su brevedad: subió, saludó a la iglesia, y bajó a Antioquía. Los comentaristas debaten si «subió» implica una visita a Jerusalén —que estaba en una región más elevada geográficamente y teológicamente más alta en la jerarquía eclesial— o simplemente que saludó a la iglesia de Cesarea.\n\nEn cualquier caso, el gesto de saludar a la iglesia antes de volver a la base no era un trámite. Para Pablo, el regreso a la iglesia enviadora era parte del ciclo misionero. La misión no es un viaje de ida: es un movimiento que siempre regresa al origen para informar, descansar y ser enviado de nuevo.\n\nEl segundo viaje había llevado el evangelio desde Asia Menor hasta Macedonia y Grecia, cruzando el umbral entre Asia y Europa en Troas. Había producido iglesias en Filipos, Tesalónica, Berea, Atenas y Corinto. Había establecido relaciones con Áquila y Priscila, con Timoteo, con Silas, con Lidia, con el carcelero anónimo de Filipos.\n\nEl tercer viaje comenzaría pronto. Éfeso esperaba.",
+                "fase": "Regreso",
+                "epoca": "apostolica",
+                "orden": 21,
+                "tipo": "ciudad",
+                "routeGroup": "segundo-viaje"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    36.1600,
+                    36.2021
+                ]
+            },
+            "properties": {
+                "id": "antioquia-regreso-ii",
+                "nombre": "Antioquía — Base y nuevo envío",
+                "pasaje": "Hechos 18:22-23",
+                "titulo": "El origen que sostiene",
+                "descripcion": "Pablo regresa a Antioquía, la iglesia que lo envió. Después de un tiempo allí, parte de nuevo recorriendo por orden la región de Galacia y Frigia, confirmando a todos los discípulos. Comienza el tercer viaje.",
+                "narrativa": "Antioquía era siempre el punto de regreso. La iglesia que había enviado a Bernabé y Saulo en el primer viaje era también la que recibía a Pablo y a sus compañeros al final de cada expedición. No era solo una base logística. Era una comunidad que oraba, que rendía cuentas, que acompañaba desde la distancia y que celebraba el regreso.\n\nPablo pasó algún tiempo allí. El texto no especifica cuánto. Hay una discreción respetuosa del ritmo humano en el libro de Hechos: no todo es viaje y discurso y milagro. Hay tiempo en la iglesia, tiempo en comunidad, tiempo de respirar antes de salir de nuevo.\n\nLuego partió, recorriendo por orden la región de Galacia y de Frigia, confirmando a todos los discípulos. Era la misma tarea del regreso del primer viaje: no solo avanzar hacia lo nuevo sino volver a afianzar lo existente. Las iglesias plantadas necesitan más que un sermón fundacional; necesitan visitas, confirmación, corrección, aliento.\n\nEse recorrido de confirmación lo llevó de nuevo hacia el oeste, hacia Éfeso, donde Áquila y Priscila esperaban y donde un judío alejandrino llamado Apolos acababa de llegar con conocimiento parcial del evangelio y una elocuencia que sacudiría la región.\n\nEl tercer viaje comenzaba. Esta vez Éfeso sería el centro, y desde allí la Palabra del Señor se extendería por toda la provincia de Asia. Pero eso es otra historia.",
+                "fase": "Regreso",
+                "epoca": "apostolica",
+                "orden": 22,
+                "tipo": "ciudad",
+                "routeGroup": "segundo-viaje"
+            }
+        }
+    ]
+}

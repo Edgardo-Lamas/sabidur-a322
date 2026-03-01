@@ -38,6 +38,9 @@ const ROUTE_ORDER = [
     'caida-de-juda',
     'en-tierra-extrana',
     'el-retorno',
+    // Viajes de Pablo I y II
+    'primer-viaje',
+    'segundo-viaje',
 ];
 
 const ROUTE_LABELS = {
@@ -58,6 +61,9 @@ const ROUTE_LABELS = {
     'caida-de-juda': 'La caída de Judá',
     'en-tierra-extrana': 'En tierra extraña',
     'el-retorno': 'El retorno',
+    // Viajes de Pablo I y II
+    'primer-viaje': 'Primer viaje misionero',
+    'segundo-viaje': 'Segundo viaje misionero',
 };
 
 const NarrativeControlPanel = ({ epochColor = '#C5A059', sintesisTeologica }) => {

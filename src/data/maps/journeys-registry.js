@@ -89,17 +89,38 @@ El retorno bajo Zorobabel, Esdras y Nehemías no fue simplemente la restauració
 El Nuevo Testamento interpreta el exilio y el retorno como tipo de una liberación más profunda. El mismo lenguaje que los profetas usaron para describir el regreso —«consolad a mi pueblo», «el que venía a liberar a los cautivos»— fue aplicado por Juan el Bautista y por Jesús a sí mismo. El pueblo de Dios sigue en peregrinación, sigue esperando una restauración más completa. «El gozo del Señor es vuestra fuerza» sigue siendo la promesa que sostiene a quienes esperan en tierra extraña.`,
     },
     {
-        slug: 'viajes-de-pablo',
-        titulo: 'Los Viajes Misioneros de Pablo',
-        subtitulo: 'La expansión del Evangelio por el Mediterráneo',
+        slug: 'viajes-pablo-i-ii',
+        titulo: 'Viajes Misioneros de Pablo I y II',
+        subtitulo: 'De Antioquía a Chipre, Asia Menor, Macedonia y Grecia',
         descripcion:
-            'Acompaña al apóstol Pablo en sus tres viajes misioneros y su travesía final a Roma, trazando la expansión del cristianismo en el mundo antiguo.',
+            'Acompaña a Pablo y Bernabé en el primer viaje por Chipre y Asia Menor, y a Pablo y Silas en el segundo viaje que llevó el evangelio a Europa: Filipos, Atenas y Corinto.',
         epoca: 'apostolica',
-        geojsonPath: '/geojson/05-viajes-pablo.geojson',
-        center: [38.0, 30.0],
-        zoom: 5,
-        puntos: 45,
+        geojsonPath: '/geojson/05-viajes-pablo-i-ii.geojson',
+        center: [38.5, 29.0],
+        zoom: 6,
+        puntos: 22,
         imagen: '⛵',
+        narrativa: true,
+        sintesisTeologica: `Los dos primeros viajes misioneros de Pablo representan la primera gran ola de expansión del evangelio hacia el mundo gentil. El primer viaje establece el patrón que se repetirá en cada ciudad: la sinagoga primero, la apertura a los gentiles cuando el mensaje es rechazado, la plantación de una comunidad, el nombramiento de ancianos y el regreso para fortalecer lo sembrado. No es un método calculado de antemano sino el fruto de la obediencia repetida al mismo Espíritu que los había enviado.
+
+El segundo viaje lleva ese patrón al occidente de una manera que nadie había planeado. El bloqueo del Espíritu Santo —primero Asia, luego Bitinia— y la visión del macedonio en Troas son los momentos más dramáticos de dirección divina en todo el libro de Hechos. El evangelio no llega a Europa porque Pablo tuviera una estrategia para alcanzar a los griegos. Llega porque un hombre en una visión pidió ayuda desde el otro lado del mar.
+
+Filipos, Tesalónica, Berea, Atenas, Corinto: cinco ciudades en el corazón del mundo helenístico, cada una con su propia respuesta al mensaje. La comerciante de tela de púrpura que abrió su casa, el carcelero que preguntó qué debía hacer para ser salvo, los bereanos que examinaban las Escrituras cada día, los filósofos que se burlaron en el Areópago, los dieciocho meses en Corinto sostenidos por la promesa nocturna de que Dios tenía mucho pueblo en esa ciudad.
+
+La teología de Pablo no nació en una biblioteca sino en el camino: en las cárceles, en los puertos, en las sinagogas y en las casas. Sus cartas son la destilación de experiencias concretas con comunidades reales. Cuando escribe que el amor sufre, que la fe actúa y que la esperanza no avergüenza, lo escribe desde Corinto, desde Filipos, con las piedras de Listra todavía en la memoria.`,
+    },
+    {
+        slug: 'viajes-pablo-iii-roma',
+        titulo: 'Viajes Misioneros de Pablo III y Roma',
+        subtitulo: 'De Éfeso al arresto en Jerusalén y el camino a Roma',
+        descripcion:
+            'Recorre el tercer viaje centrado en Éfeso, el regreso a las iglesias de Macedonia y Grecia, el arresto en Jerusalén y el épico viaje a Roma con naufragio en Malta.',
+        epoca: 'apostolica',
+        geojsonPath: '/geojson/06-viajes-pablo-iii-roma.geojson',
+        center: [35.0, 22.0],
+        zoom: 5,
+        puntos: 23,
+        imagen: '⚓',
     },
 ];
 
