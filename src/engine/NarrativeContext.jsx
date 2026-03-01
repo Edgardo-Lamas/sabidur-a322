@@ -166,8 +166,10 @@ export const NarrativeProvider = ({ children }) => {
         };
     }, []);
 
-    // ─── Context value (estable) ───
-    const value = useMemo(() => ({
+    // ─── Context value ───
+    // Computed on every render to ensure consumers always get fresh state.
+    // Individual callbacks are already memoized with useCallback.
+    const value = {
         // Estado raw
         ...state,
         // Valores derivados
@@ -185,7 +187,7 @@ export const NarrativeProvider = ({ children }) => {
         // Puente para auto-avance entre etapas
         setRouteStarter,
         startRoute,
-    }), [state, derived, start, next, prev, pause, resume, stop, goTo, setSpeed, onTransitionComplete, setRouteStarter, startRoute]);
+    };
 
     return (
         <NarrativeContext.Provider value={value}>

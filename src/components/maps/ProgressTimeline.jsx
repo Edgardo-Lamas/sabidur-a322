@@ -24,16 +24,18 @@ const ProgressTimeline = ({ epochColor = '#C5A059' }) => {
     const features = activeRoute.features;
 
     return (
-        <div style={{
-            background: 'rgba(255,255,255,0.97)',
-            backdropFilter: 'blur(12px)',
-            WebkitBackdropFilter: 'blur(12px)',
-            border: '1px solid rgba(0,0,0,0.06)',
-            borderRadius: '12px',
-            boxShadow: '0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04)',
-            padding: '14px 24px',
-            width: '100%',
-        }}>
+        <div
+            key={`step-${currentStepIndex}`}
+            style={{
+                background: 'rgba(255,255,255,0.97)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                border: '1px solid rgba(0,0,0,0.06)',
+                borderRadius: '12px',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04)',
+                padding: '14px 24px',
+                width: '100%',
+            }}>
             {/* Segmentos */}
             <div style={{
                 display: 'flex',
@@ -104,7 +106,7 @@ const ProgressTimeline = ({ epochColor = '#C5A059' }) => {
             }
         `}</style>
 
-        {/* Labels: first and last */}
+            {/* Labels: first and last */}
             <div style={{
                 display: 'flex',
                 justifyContent: 'space-between',

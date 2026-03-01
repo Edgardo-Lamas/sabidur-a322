@@ -75,6 +75,7 @@ const StepInfoPanel = ({ epochColor: epochColorProp }) => {
 
     return (
         <div
+            key={`step-${currentStepIndex}`}
             style={{
                 background: 'rgba(255,255,255,0.97)',
                 backdropFilter: 'blur(12px)',

@@ -54,8 +54,18 @@ La trayectoria de Moisés anticipa la del Mesías: intercede por el pueblo cuand
         geojsonPath: '/geojson/03-conquista.geojson',
         center: [31.8, 35.2],
         zoom: 8,
-        puntos: 20,
+        puntos: 15,
         imagen: '⚔️',
+        narrativa: true,
+        sintesisTeologica: `La conquista de Canaán no es solo la historia de una ocupación militar. Es la consumación de una promesa que comenzó en Ur de los Caldeos con Abraham y atravesó cuatro siglos de esclavitud, desierto y formación. La tierra que Dios había prometido no se recibió como un regalo estático: se tomó paso a paso, ciudad a ciudad, con obediencia como arma principal y la presencia del arca como garantía.
+
+El libro de Josué muestra que Dios pelea por su pueblo, pero exige de él fe activa. Los muros de Jericó no cayeron por fuerza humana, pero alguien tuvo que caminar alrededor de ellos siete días. El Jordán se abrió, pero los sacerdotes tuvieron que meter los pies en el agua primero. La conquista es un modelo de cooperación entre la soberanía divina y la responsabilidad humana.
+
+Pero el libro también revela las consecuencias de la desobediencia. Hai fue una derrota causada no por la fortaleza del enemigo sino por el pecado oculto en el campamento. Gabaón fue un pacto nacido de la falta de consulta. La conquista incompleta —las tribus que no expulsaron a los cananeos de sus territorios— sembraría los conflictos que dominarían toda la época de los Jueces.
+
+El período de los Jueces expone el patrón más recurrente de la historia de Israel: apostasía, opresión, clamor y liberación. Cada juez es una gracia temporal, no una solución definitiva. Débora, Gedeón, Sansón: instrumentos imperfectos de un Dios que no abandona a su pueblo ni siquiera cuando su pueblo lo abandona a Él.
+
+Josué lo resumió en Siquem con la frase que define toda la época: «Escogeos hoy a quién sirváis». La conquista dio la tierra, pero no garantizó la fidelidad. Cada generación tendría que elegir de nuevo. Y esa elección —entre los dioses visibles de la cultura circundante y el Dios invisible que los había sacado de Egipto— sigue siendo la pregunta central de toda la Escritura.`,
     },
     {
         slug: 'exilio-y-retorno',

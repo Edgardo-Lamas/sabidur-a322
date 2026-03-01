@@ -30,18 +30,26 @@ const ROUTE_ORDER = [
     'salida-de-egipto',
     'desierto-sinai',
     'peregrinacion-desierto',
+    // Conquista de Canaán
+    'cruce-y-centro',
+    'campanas-militares',
+    'asentamiento-y-jueces',
 ];
 
 const ROUTE_LABELS = {
     // Abraham
-    'llamado-de-abraham':     'El llamado de Abraham',
-    'descenso-a-egipto':      'El descenso a Egipto',
-    'vida-en-canaan':         'Vida en Canaán',
-    'ciclo-de-jacob':         'El ciclo de Jacob',
+    'llamado-de-abraham': 'El llamado de Abraham',
+    'descenso-a-egipto': 'El descenso a Egipto',
+    'vida-en-canaan': 'Vida en Canaán',
+    'ciclo-de-jacob': 'El ciclo de Jacob',
     // Éxodo
-    'salida-de-egipto':       'La salida de Egipto',
-    'desierto-sinai':         'El desierto y el Sinaí',
+    'salida-de-egipto': 'La salida de Egipto',
+    'desierto-sinai': 'El desierto y el Sinaí',
     'peregrinacion-desierto': 'La peregrinación',
+    // Conquista de Canaán
+    'cruce-y-centro': 'Cruce y campaña central',
+    'campanas-militares': 'Las campañas militares',
+    'asentamiento-y-jueces': 'Asentamiento y jueces',
 };
 
 const NarrativeControlPanel = ({ epochColor = '#C5A059', sintesisTeologica }) => {

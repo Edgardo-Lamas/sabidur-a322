@@ -14,10 +14,14 @@
                 "id": "jordan-cruce",
                 "nombre": "Cruce del Jordán",
                 "pasaje": "Josué 3:14-17",
+                "titulo": "Las aguas se detienen",
                 "descripcion": "Dios detiene las aguas del Jordán y el pueblo cruza en seco. Se erigen 12 piedras como memorial permanente.",
+                "narrativa": "El Jordán estaba crecido. Era tiempo de siega y el río había desbordado sus márgenes en toda su extensión. No era un hilo de agua que se pudiera vadear con los pies. Era una barrera.\n\nJosué dio la orden: los sacerdotes tomarían el arca del pacto y caminarían delante del pueblo. Cuando sus pies tocaran el agua, el río se detendría.\n\nNo hubo puente. No hubo barcas. Hubo obediencia.\n\nLos sacerdotes entraron al agua y las aguas se levantaron en un montón a gran distancia, en Adam, la ciudad que está junto a Saretán. El cauce quedó seco. Todo Israel cruzó en tierra firme mientras el arca permanecía inmóvil en medio del lecho vacío.\n\nDoce hombres, uno por tribu, tomaron doce piedras del fondo del río. No eran piedras decorativas. Eran un memorial: cuando vuestros hijos pregunten qué significan estas piedras, les contaréis que las aguas del Jordán fueron cortadas delante del arca del pacto.\n\nCuarenta años antes, sus padres habían cruzado el Mar Rojo. Ahora los hijos cruzaban el Jordán. La historia se repetía, pero la generación era nueva.",
+                "fase": "Entrada",
                 "epoca": "conquista",
                 "orden": 1,
-                "tipo": "evento"
+                "tipo": "evento",
+                "routeGroup": "cruce-y-centro"
             }
         },
         {
@@ -33,10 +37,14 @@
                 "id": "gilgal",
                 "nombre": "Gilgal",
                 "pasaje": "Josué 4:19-20; 5:2-12",
+                "titulo": "El campamento de la identidad",
                 "descripcion": "Primer campamento en Canaán. Se celebra la circuncisión y la primera Pascua en la tierra prometida. El maná cesa.",
+                "narrativa": "Gilgal fue el primer campamento en la tierra prometida. Las doce piedras del Jordán fueron erigidas allí como testimonio permanente.\n\nPero antes de marchar hacia cualquier ciudad, Dios ordenó algo inesperado: circuncidar a toda la nueva generación. Los nacidos en el desierto no habían recibido la señal del pacto. Durante cuarenta años, el rito había sido suspendido.\n\nIsrael estaba en territorio enemigo, recién cruzado el río. Y Dios les pide que se detengan, que se hagan vulnerables, que antes de pelear cualquier batalla marquen en su carne a quién pertenecen.\n\nLa identidad precede a la conquista.\n\nAllí celebraron la Pascua por primera vez en Canaán. Comieron del fruto de la tierra: panes sin levadura y grano tostado. Al día siguiente, el maná cesó.\n\nDurante cuarenta años, el pan del cielo había caído cada mañana. Ahora la tierra proveería. La provisión cambiaba de forma, pero no de fuente.\n\nDios dijo: «Hoy he quitado de vosotros el oprobio de Egipto». Por eso el lugar fue llamado Gilgal: el rodar, el quitar. El pasado había sido removido.",
+                "fase": "Entrada",
                 "epoca": "conquista",
                 "orden": 2,
-                "tipo": "campamento"
+                "tipo": "campamento",
+                "routeGroup": "cruce-y-centro"
             }
         },
         {
@@ -52,10 +60,14 @@
                 "id": "jerico",
                 "nombre": "Jericó",
                 "pasaje": "Josué 6:1-27",
+                "titulo": "Los muros caen",
                 "descripcion": "Primera ciudad conquistada. Los muros caen tras siete días de marcha y al sonido de las trompetas. Victoria sobrenatural por la fe.",
+                "narrativa": "Jericó estaba cerrada. Nadie entraba ni salía. Sus muros eran gruesos y sus puertas estaban atrancadas. La ciudad entera sabía que Israel había cruzado el Jordán y el terror se había apoderado de sus habitantes.\n\nPero la orden de Dios no fue atacar. Fue caminar.\n\nDurante seis días, el ejército de Israel rodeó la ciudad en silencio. Sin gritos de guerra. Sin arietes. Solo los sacerdotes tocando las trompetas de cuerno de carnero delante del arca. Los soldados marchaban y callaban. La ciudad observaba.\n\nAl séptimo día, rodearon la ciudad siete veces. Al sonido largo de las trompetas, Josué dio la orden: «¡Gritad, porque Jehová os ha entregado la ciudad!»\n\nEl pueblo gritó. Y los muros cayeron.\n\nNo fue ingeniería militar. Fue obediencia llevada al absurdo aparente. Caminar en círculos no derriba murallas. Pero la fe no opera según la lógica de la guerra.\n\nHebreos lo consigna con una línea que resume toda la escena: «Por la fe cayeron los muros de Jericó después de rodearlos siete días». La primera victoria en Canaán no perteneció al ejército. Perteneció a quien había dado la orden.",
+                "fase": "Campaña Central",
                 "epoca": "conquista",
                 "orden": 3,
-                "tipo": "batalla"
+                "tipo": "batalla",
+                "routeGroup": "cruce-y-centro"
             }
         },
         {
@@ -71,10 +83,14 @@
                 "id": "hai",
                 "nombre": "Hai",
                 "pasaje": "Josué 7–8",
+                "titulo": "La derrota y la purificación",
                 "descripcion": "Primera derrota por el pecado de Acán. Tras purificar el campamento, Israel conquista Hai con una emboscada ordenada por Dios.",
+                "narrativa": "Después de Jericó, Hai parecía un objetivo menor. Una ciudad pequeña. Los espías recomendaron enviar solo dos o tres mil hombres. No hacía falta molestar a todo el ejército.\n\nIsrael fue derrotado. Treinta y seis hombres cayeron. El pueblo huyó.\n\nLa confianza que había crecido con los muros de Jericó se desmoronó en una tarde. Josué rasgó sus vestidos y cayó sobre su rostro delante del arca.\n\nLa respuesta de Dios fue directa: «Israel ha pecado. Han tomado del anatema». Lo que estaba destinado a la destrucción total había sido escondido bajo una tienda.\n\nAcán confesó: un manto babilónico, doscientos siclos de plata y un lingote de oro. Los había visto, los había codiciado, los había tomado. La secuencia era antigua —ver, desear, tomar— y sus consecuencias, inmediatas.\n\nTras el juicio sobre Acán, Dios habló de nuevo: «No temas ni desmayes. Toma contigo a toda la gente de guerra y sube a Hai». Esta vez la estrategia incluyó una emboscada ordenada por Dios mismo.\n\nHai fue tomada. Pero la lección quedó grabada: el pecado oculto en el campamento puede detener la mano de Dios más eficazmente que cualquier ejército enemigo.",
+                "fase": "Campaña Central",
                 "epoca": "conquista",
                 "orden": 4,
-                "tipo": "batalla"
+                "tipo": "batalla",
+                "routeGroup": "cruce-y-centro"
             }
         },
         {
@@ -90,10 +106,14 @@
                 "id": "ebal-gerizim",
                 "nombre": "Montes Ebal y Gerizim",
                 "pasaje": "Josué 8:30-35",
+                "titulo": "La Ley entre dos montes",
                 "descripcion": "Josué edifica un altar y lee la Ley. Bendiciones desde el Gerizim, maldiciones desde el Ebal. Renovación del pacto en Canaán.",
+                "narrativa": "Antes de continuar la campaña militar, Josué detuvo la marcha. En medio del territorio aún no sometido, reunió a todo Israel en el valle entre los montes Ebal y Gerizim.\n\nMoisés lo había ordenado antes de morir: al entrar en la tierra, la primera ceremonia no sería de victoria sino de pacto.\n\nSobre el monte Ebal, Josué edificó un altar de piedras sin labrar. Ofreció holocaustos y sacrificios de paz. Luego copió sobre las piedras la ley de Moisés, a la vista de todos.\n\nSeis tribus se situaron frente al monte Gerizim para pronunciar la bendición. Seis tribus frente al Ebal para pronunciar la maldición. El pueblo entero, con sus ancianos, oficiales y jueces, de pie a ambos lados del arca.\n\nJosué leyó todas las palabras de la ley: las bendiciones y las maldiciones, tal como estaban escritas en el libro.\n\nNo quedó palabra alguna que Josué no leyera.\n\nEra un acto de identidad nacional. Israel no era un ejército de ocupación. Era un pueblo bajo pacto. Y la tierra que estaban recibiendo no era un derecho incondicional: era una herencia ligada a la obediencia.\n\nLa guerra podía continuar. Pero su sentido ya había sido definido entre los dos montes.",
+                "fase": "Campaña Central",
                 "epoca": "conquista",
                 "orden": 5,
-                "tipo": "altar"
+                "tipo": "altar",
+                "routeGroup": "cruce-y-centro"
             }
         },
         {
@@ -109,10 +129,14 @@
                 "id": "gabaon",
                 "nombre": "Gabaón",
                 "pasaje": "Josué 9–10",
+                "titulo": "El día más largo",
                 "descripcion": "Los gabaonitas engañan a Josué para hacer alianza. Aquí Josué ordena al sol detenerse durante la batalla contra los reyes amorreos.",
+                "narrativa": "Los gabaonitas habían oído lo que Israel hizo en Jericó y en Hai. En lugar de pelear, eligieron el engaño. Se vistieron con ropas viejas, cargaron pan seco y odres rotos, y se presentaron como embajadores de una tierra lejana.\n\nJosué y los ancianos no consultaron a Dios. Creyeron la apariencia. Hicieron alianza con juramento.\n\nTres días después descubrieron la verdad: los gabaonitas eran vecinos. Pero el juramento ya estaba hecho y no podía romperse. Israel los mantuvo como leñadores y aguadores del santuario.\n\nLa lección fue amarga: no toda decisión urgente debe tomarse sin consulta.\n\nPero de ese error nació una de las escenas más extraordinarias de toda la Escritura. Cinco reyes amorreos atacaron a Gabaón por haberse aliado con Israel. Josué marchó toda la noche desde Gilgal y cayó sobre ellos de sorpresa.\n\nDios lanzó grandes piedras de granizo desde el cielo. Murieron más por el granizo que por la espada de Israel.\n\nY entonces Josué habló al sol: «Sol, detente en Gabaón; y tú, luna, en el valle de Ajalón».\n\nEl sol se detuvo y la luna se paró hasta que el pueblo se vengó de sus enemigos. No hubo día como aquel, ni antes ni después, en que Jehová obedeciera la voz de un hombre.",
+                "fase": "Campañas Militares",
                 "epoca": "conquista",
                 "orden": 6,
-                "tipo": "batalla"
+                "tipo": "batalla",
+                "routeGroup": "campanas-militares"
             }
         },
         {
@@ -128,10 +152,14 @@
                 "id": "laquis",
                 "nombre": "Laquis",
                 "pasaje": "Josué 10:31-33",
+                "titulo": "La puerta del sur",
                 "descripcion": "Ciudad amorreo conquistada durante la campaña del sur. Su caída abre la puerta a la conquista de toda la región meridional.",
+                "narrativa": "Tras la victoria en Gabaón, Josué no regresó a Gilgal. Continuó hacia el sur.\n\nLa campaña fue rápida y devastadora. Maceda cayó primero. Luego Libna. Después llegó el turno de Laquis.\n\nLaquis era una ciudad amorreo fortificada, estratégicamente ubicada en las colinas bajas que controlaban el acceso a la Sefela y las rutas hacia el Néguev. Su posición la convertía en la llave del sur de Canaán.\n\nIsrael acampó contra ella y la atacó. La ciudad cayó al segundo día. Horam, rey de Gezer, subió a socorrer a Laquis, pero Josué lo hirió sin dejarle sobreviviente.\n\nLa campaña del sur tiene un ritmo acelerado en el texto bíblico. Ciudad tras ciudad, rey tras rey, sin pausas ni negociaciones. El narrador repite la misma fórmula: «La tomó, y la hirió a filo de espada, con todo lo que en ella tenía vida».\n\nLo que parece repetitivo es en realidad la evidencia de un avance imparable. La tierra prometida no se recibe contemplándola desde lejos. Se ocupa paso a paso, colina a colina, fortaleza tras fortaleza.",
+                "fase": "Campañas Militares",
                 "epoca": "conquista",
                 "orden": 7,
-                "tipo": "batalla"
+                "tipo": "batalla",
+                "routeGroup": "campanas-militares"
             }
         },
         {
@@ -147,10 +175,14 @@
                 "id": "hebron-josue",
                 "nombre": "Hebrón",
                 "pasaje": "Josué 10:36-37; 14:13-14",
+                "titulo": "La herencia de Caleb",
                 "descripcion": "Conquistada por Josué y luego otorgada a Caleb como herencia por su fidelidad en el episodio de los espías.",
+                "narrativa": "Hebrón tenía una historia más antigua que la conquista. Allí había levantado Abraham su altar bajo los encinares de Mamre. Allí había comprado la cueva de Macpela para sepultar a Sara. Hebrón era memoria patriarcal inscrita en la geografía.\n\nDurante la campaña del sur, Josué tomó la ciudad y la hirió a filo de espada. Pero la escena más memorable vendría después, cuando la tierra comenzó a repartirse.\n\nCaleb se presentó ante Josué. Tenía ochenta y cinco años. Cuarenta y cinco habían pasado desde el día en que Moisés lo envió como espía a Canaán. Aquel día, Caleb había vuelto con un informe diferente al de los otros diez: «Subamos luego, y tomemos posesión de ella; porque más podremos nosotros que ellos».\n\nPor esa palabra, la tierra de los anaceos le fue prometida.\n\nAhora, cuatro décadas más tarde, Caleb reclamaba su herencia: «Dame este monte del cual habló Jehová aquel día. Tú oíste que los anaceos están allí, y que las ciudades son grandes y fortificadas. Quizá Jehová estará conmigo y los echaré».\n\nJosué lo bendijo y le dio Hebrón.\n\nLa fidelidad sostenida durante cuarenta años no había caducado. La promesa recordada encontró su cumplimiento en un anciano que todavía creía que la montaña más difícil era suya.",
+                "fase": "Campañas Militares",
                 "epoca": "conquista",
                 "orden": 8,
-                "tipo": "ciudad"
+                "tipo": "ciudad",
+                "routeGroup": "campanas-militares"
             }
         },
         {
@@ -166,10 +198,14 @@
                 "id": "hazor",
                 "nombre": "Hazor",
                 "pasaje": "Josué 11:1-15",
+                "titulo": "La campaña del norte",
                 "descripcion": "Capital del norte cananeo. Su rey Jabín lidera la coalición del norte. Josué la destruye completamente en la campaña septentrional.",
+                "narrativa": "La noticia de las victorias del sur llegó al norte. Jabín, rey de Hazor, convocó a todos los reyes de la región: desde las montañas del norte hasta el Arabá, desde las llanuras hasta las alturas de Dor.\n\nSe juntaron a las aguas de Merom con sus ejércitos. Caballos y carros en gran número. Una multitud como la arena del mar.\n\nDios habló a Josué: «No tengas temor de ellos. Mañana a esta hora yo entregaré a todos ellos muertos delante de Israel. Desjarretarás sus caballos y quemarás sus carros».\n\nJosué atacó de sorpresa. La batalla fue decisiva. Israel los hirió y persiguió hasta Sidón y hasta Misrefot-maim. No quedó quien escapara.\n\nLuego Josué se volvió contra Hazor. La ciudad había sido la cabeza de todos aquellos reinos. La quemó por completo. Solo Hazor fue quemada; las demás ciudades sobre sus colinas Israel las dejó en pie.\n\nHazor representaba el poder político del norte cananeo. Su destrucción no fue solo estratégica: fue simbólica. La cabeza de la coalición enemiga fue reducida a cenizas.\n\nAsí tomó Josué toda aquella tierra. Y la tierra descansó de la guerra.",
+                "fase": "Campañas Militares",
                 "epoca": "conquista",
                 "orden": 9,
-                "tipo": "batalla"
+                "tipo": "batalla",
+                "routeGroup": "campanas-militares"
             }
         },
         {
@@ -185,10 +221,14 @@
                 "id": "megido",
                 "nombre": "Meguido (Valle de Jezreel)",
                 "pasaje": "Jueces 5:19-21",
+                "titulo": "El canto de Débora",
                 "descripcion": "Escenario de la victoria de Débora y Barac contra Sísara. Las aguas del arroyo Cisón barren al ejército enemigo.",
+                "narrativa": "Los jueces surgieron cuando Israel olvidaba. El ciclo era siempre el mismo: el pueblo se apartaba, Dios permitía la opresión, el pueblo clamaba, Dios levantaba un libertador. Era un patrón circular que definió generaciones enteras.\n\nDébora juzgaba a Israel bajo una palmera, entre Ramá y Bet-el. No era guerrera ni comandante. Era profetisa. Pero fue ella quien convocó a Barac y le transmitió la orden divina: «Toma contigo diez mil hombres y ve al monte Tabor. Yo atraeré a Sísara con sus carros al arroyo Cisón y lo entregaré en tus manos».\n\nBarac respondió que no iría sin ella.\n\nDébora fue. Pero le advirtió: la gloria de esa batalla no sería suya. Caería en manos de una mujer.\n\nLa batalla tuvo lugar en el valle de Meguido, junto al arroyo Cisón. Los novecientos carros de hierro de Sísara quedaron atrapados en el barro cuando las aguas crecieron. Israel descendió del Tabor y los destruyó.\n\nSísara huyó a pie. Encontró refugio en la tienda de Jael, que le ofreció leche y lo cubrió con una manta. Mientras dormía, Jael tomó una estaca y un mazo.\n\nEl canto de Débora registra la victoria con poesía antigua: «Desde los cielos pelearon las estrellas; desde sus órbitas pelearon contra Sísara».",
+                "fase": "Los Jueces",
                 "epoca": "conquista",
                 "orden": 10,
-                "tipo": "batalla"
+                "tipo": "batalla",
+                "routeGroup": "asentamiento-y-jueces"
             }
         },
         {
@@ -204,10 +244,14 @@
                 "id": "timnat-sera",
                 "nombre": "Timnat-sera",
                 "pasaje": "Josué 19:49-50; 24:30",
+                "titulo": "La herencia del siervo",
                 "descripcion": "Herencia de Josué en los montes de Efraín. Aquí es sepultado tras su muerte, junto a los límites de su herencia.",
+                "narrativa": "Cuando la tierra fue repartida entre las tribus, Josué fue el último en recibir herencia. Había dirigido la conquista, había distribuido los territorios, había arbitrado las disputas entre tribus. Y solo al final pidió para sí.\n\nLe dieron Timnat-sera, en los montes de Efraín. Una ciudad en la sierra, sin la fertilidad de las llanuras costeras ni la importancia estratégica de las fortalezas del valle. Un lugar modesto para el hombre que había conducido a Israel desde las llanuras de Moab hasta la posesión de la tierra.\n\nJosué edificó la ciudad y habitó en ella.\n\nEl contraste con otros líderes es notable. No reclamó la mejor porción. No estableció una dinastía. No construyó un palacio. Recibió lo que le dieron y se retiró a vivir en paz.\n\nCuando murió, a los ciento diez años, fue sepultado en los límites de su herencia.\n\nEl texto registra un dato revelador: «Israel sirvió a Jehová todo el tiempo de Josué y todo el tiempo de los ancianos que sobrevivieron a Josué y que habían conocido todas las obras que Jehová había hecho por Israel».\n\nLa fidelidad del pueblo duró exactamente lo que duró la memoria de quienes habían visto. Cuando los testigos murieron, la memoria se apagó.",
+                "fase": "Asentamiento",
                 "epoca": "conquista",
                 "orden": 11,
-                "tipo": "ciudad"
+                "tipo": "ciudad",
+                "routeGroup": "asentamiento-y-jueces"
             }
         },
         {
@@ -223,10 +267,14 @@
                 "id": "siquem-josue",
                 "nombre": "Siquem (Discurso final de Josué)",
                 "pasaje": "Josué 24:1-28",
+                "titulo": "La elección que define",
                 "descripcion": "Josué reúne a todo Israel y pronuncia su famosa declaración: «Yo y mi casa serviremos a Jehová». Renovación final del pacto.",
+                "narrativa": "Siquem era el lugar donde Abraham había levantado su primer altar en Canaán. El lugar donde Jacob había comprado un terreno y erigido un altar llamado El-Elohe-Israel. La tierra tenía memoria, y Josué la eligió para su discurso final.\n\nReunió a todas las tribus con sus ancianos, jefes, jueces y oficiales. Y habló en nombre de Dios, recorriendo toda la historia: desde Taré al otro lado del río, pasando por Abraham, Isaac y Jacob, hasta Egipto, el mar, el desierto, y la tierra que ahora habitaban.\n\n«Yo os di tierra por la cual nada trabajasteis, y ciudades que no edificasteis, en las cuales moráis; y de las viñas y olivares que no plantasteis, coméis».\n\nLuego llegó la exigencia: «Escogeos hoy a quién sirváis. Si a los dioses que sirvieron vuestros padres al otro lado del río, o a los dioses de los amorreos en cuya tierra habitáis».\n\nY la declaración que resonaría por todos los siglos: «Pero yo y mi casa serviremos a Jehová».\n\nEl pueblo respondió que también serviría. Josué los advirtió: Dios es santo, es celoso, no tolerará vuestras rebeliones ni vuestros pecados. Pero el pueblo insistió.\n\nJosué levantó una gran piedra bajo la encina de Siquem como testigo. Y envió al pueblo, cada uno a su heredad.\n\nLa piedra quedó allí. El pacto también. El cumplimiento dependería de cada generación.",
+                "fase": "Asentamiento",
                 "epoca": "conquista",
                 "orden": 12,
-                "tipo": "evento"
+                "tipo": "evento",
+                "routeGroup": "asentamiento-y-jueces"
             }
         },
         {
@@ -242,10 +290,14 @@
                 "id": "sora",
                 "nombre": "Zora (Sansón)",
                 "pasaje": "Jueces 13:2-25",
+                "titulo": "El nazareo de Dios",
                 "descripcion": "Lugar de nacimiento de Sansón, juez de Israel. El ángel de Jehová anuncia su nacimiento y su llamado como nazareo.",
+                "narrativa": "En Zora, en el territorio de Dan, vivía un hombre llamado Manoa. Su mujer era estéril.\n\nEl ángel de Jehová se le apareció a ella —no al marido— y le anunció que concebiría un hijo. Las instrucciones fueron específicas: no bebería vino ni sidra, no comería cosa inmunda, y la navaja no pasaría sobre la cabeza del niño. Sería nazareo de Dios desde el vientre.\n\nManoa pidió que el ángel volviera para repetir las instrucciones. El ángel volvió, pero se dirigió de nuevo a la mujer. Las mismas palabras. El mismo encargo.\n\nCuando Manoa ofreció un cabrito sobre la roca, la llama del altar subió al cielo y el ángel ascendió en ella. Manoa cayó aterrorizado: «Ciertamente moriremos, porque a Dios hemos visto».\n\nSu mujer respondió con la lucidez que a él le faltaba: «Si Jehová nos quisiera matar, no habría aceptado nuestra ofrenda».\n\nSansón nació. El Espíritu de Jehová comenzó a manifestarse en él en el campamento de Dan, entre Zora y Estaol.\n\nPero la historia de Sansón sería una de las más complejas de toda la Escritura: la fuerza sobrenatural conviviendo con la debilidad moral, el llamado divino en conflicto permanente con los apetitos humanos. El instrumento de Dios que nunca logró gobernarse a sí mismo.",
+                "fase": "Los Jueces",
                 "epoca": "conquista",
                 "orden": 13,
-                "tipo": "ciudad"
+                "tipo": "ciudad",
+                "routeGroup": "asentamiento-y-jueces"
             }
         },
         {
@@ -261,10 +313,14 @@
                 "id": "monte-tabor",
                 "nombre": "Monte Tabor",
                 "pasaje": "Jueces 4:6-16",
+                "titulo": "El descenso de la fe",
                 "descripcion": "Desde aquí Barac desciende con 10.000 hombres contra el ejército de Sísara, obedeciendo la profecía de Débora.",
+                "narrativa": "El monte Tabor se eleva solitario sobre la llanura de Jezreel. Su forma redondeada y su altura lo convertían en una posición defensiva natural y en un punto de reunión visible desde toda la región.\n\nDébora envió a Barac con una instrucción precisa: reunir diez mil hombres de las tribus de Neftalí y Zabulón en la cima del Tabor. Desde allí descenderían contra el ejército de Sísara.\n\nLa posición parecía ventajosa: altura, terreno difícil para los carros de hierro del enemigo. Pero bajar de una montaña para enfrentar novecientos carros en el valle requería algo más que ventaja topográfica. Requería la certeza de que Dios pelearía.\n\nBarac dudó. No iría sin Débora. Su fe necesitaba compañía.\n\nDébora fue. Y cuando llegó el momento, dio la orden: «Levántate, porque este es el día en que Jehová ha entregado a Sísara en tus manos. ¿No ha salido Jehová delante de ti?»\n\nBarac descendió del Tabor con los diez mil. Dios desbarató a Sísara y a todos sus carros y su ejército. El arroyo Cisón los arrastró.\n\nEl descenso del Tabor fue un acto de fe: abandonar la posición segura para enfrentar al enemigo en su propio terreno, confiando solo en la palabra profética.",
+                "fase": "Los Jueces",
                 "epoca": "conquista",
                 "orden": 14,
-                "tipo": "monte"
+                "tipo": "monte",
+                "routeGroup": "asentamiento-y-jueces"
             }
         },
         {
@@ -280,10 +336,14 @@
                 "id": "silo",
                 "nombre": "Silo",
                 "pasaje": "Josué 18:1; 1 Samuel 1–3",
+                "titulo": "La morada provisional",
                 "descripcion": "Sede del Tabernáculo durante la época de los Jueces. Aquí Ana ora por un hijo y Samuel crece sirviendo a Jehová.",
+                "narrativa": "Silo se encontraba en los montes de Efraín, en un lugar protegido y apartado. Allí la congregación de Israel levantó el Tabernáculo de reunión después de someter la tierra. Durante generaciones, Silo fue el centro espiritual de Israel: el lugar donde se consultaba a Dios, donde se ofrecían los sacrificios, donde el arca del pacto reposaba.\n\nPero la santidad del lugar no garantizaba la santidad de quienes lo servían.\n\nOfni y Finees, hijos de Elí el sacerdote, «eran hombres impíos y no tenían conocimiento de Jehová». Tomaban por la fuerza la porción de los sacrificios que querían. Deshonraban el oficio. El pueblo comenzó a despreciar las ofrendas de Jehová.\n\nEn ese contexto, Ana subió a Silo. Era estéril, humillada por la otra mujer de su marido. Oró con tal intensidad que Elí la confundió con una borracha. Pero su oración no era desorden: era dolor destilado en palabras que solo Dios podía escuchar.\n\n«Si te dignares mirar la aflicción de tu sierva y te acordares de mí... yo lo dedicaré a Jehová todos los días de su vida».\n\nSamuel nació. Y cuando fue destetado, Ana lo llevó a Silo y lo entregó al servicio de Dios. El niño ministraba delante de Jehová, vestido con un efod de lino.\n\nEn Silo, la decadencia del sacerdocio existente y el nacimiento del profeta que lo reemplazaría ocurrieron bajo el mismo techo. Dios no abandonó su morada. Pero preparaba una transición que cambiaría la forma de gobernar a su pueblo.",
+                "fase": "Los Jueces",
                 "epoca": "conquista",
                 "orden": 15,
-                "tipo": "santuario"
+                "tipo": "santuario",
+                "routeGroup": "asentamiento-y-jueces"
             }
         }
     ]
