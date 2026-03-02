@@ -115,6 +115,15 @@ const TextPage = ({ textType }) => {
             />
             <div className="max-w-4xl mx-auto px-4 pt-8">
                 <Breadcrumbs title={text.title} />
+                <div className="mt-6 mb-2">
+                    <Link
+                        to={config.backPath}
+                        className="inline-flex items-center gap-2 text-sabiduria-navy hover:text-sabiduria-gold font-medium transition-colors"
+                    >
+                        <ArrowLeft size={18} />
+                        {config.backLabel}
+                    </Link>
+                </div>
             </div>
 
             {renderTemplate()}
