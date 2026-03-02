@@ -28,7 +28,7 @@ const Navbar = () => {
 
   return (
     <nav className="bg-sabiduria-bg border-b border-sabiduria-gray/10 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto pr-4 sm:pr-6 lg:pr-8 pl-0">
         <div className="flex justify-between h-20 items-center">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
@@ -38,7 +38,7 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center space-x-4 lg:space-x-6 xl:space-x-8">
+          <div className="hidden md:flex items-center space-x-8">
             {navLinks.slice(0, 1).map((link) => (
               <Link
                 key={link.name}
