@@ -38,7 +38,7 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-4 lg:space-x-6 xl:space-x-8">
             {navLinks.slice(0, 1).map((link) => (
               <Link
                 key={link.name}
