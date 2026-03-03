@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, Heart, ChevronDown } from 'lucide-react';
 import AnimatedButton from './ui/AnimatedButton';
@@ -11,7 +11,7 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Inicio', path: '/' },
     { name: 'Tienda', path: '/tienda' },
-    { name: 'Sabiduría para la Juventud', path: '/adolescentes' },
+    { name: 'Juventud', path: '/adolescentes' },
     { name: 'Biblioteca', path: '/biblioteca' },
     { name: 'Mapas', path: '/mapas-biblicos' },
     { name: 'Enseñanzas', path: '/ensenanzas' },

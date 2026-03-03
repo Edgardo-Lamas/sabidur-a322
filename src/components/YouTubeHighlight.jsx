@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Play, Eye, ExternalLink } from 'lucide-react';
 
 const API_KEY = 'AIzaSyCYZgAGvigUR8USMvXHyIP6lt0m__M0p7I';

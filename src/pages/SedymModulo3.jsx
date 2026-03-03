@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Download, ChevronDown, ChevronUp, BookOpen } from 'lucide-react';
 import SEO from '../components/SEO';

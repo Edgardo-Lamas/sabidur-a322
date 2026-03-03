@@ -16,7 +16,7 @@
  * No tiene conocimiento del mapa, Leaflet, ni DOM.
  * La conexión con el mapa se hará en un adaptador separado.
  */
-import React, { createContext, useReducer, useCallback, useMemo, useEffect, useRef } from 'react';
+import { createContext, useReducer, useCallback, useMemo, useEffect, useRef } from 'react';
 import {
     INITIAL_STATE,
     ACTIONS,

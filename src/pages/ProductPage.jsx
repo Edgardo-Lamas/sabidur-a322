@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, BookOpen, Package, FileText, Building2 } from 'lucide-react';
-import CheckoutButton from '../components/CheckoutButton';
 import ProductCard from '../components/ProductCard';
 import Breadcrumbs from '../components/Breadcrumbs';
 import SEO from '../components/SEO';
@@ -94,7 +93,7 @@ const ProductPage = () => {
             <SEO
                 title={`${product.title} - ${product.author}`}
                 description={product.description}
-                keywords={`${product.title}, ${product.author}, ${category?.name}, literatura cristiana`}
+                keywords={`${product.title}, ${product.author}, ${categoryName}, literatura cristiana`}
             />
 
             <div className="min-h-screen bg-sabiduria-bg">

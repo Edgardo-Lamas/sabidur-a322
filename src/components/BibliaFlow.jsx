@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
     Sparkles, ChevronRight, Heart, Trophy, Mountain,
     Zap, Download, Lock, Star, Award, Clock, BookOpen,

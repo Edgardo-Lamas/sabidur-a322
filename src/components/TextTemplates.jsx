@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Download, ChevronDown, ChevronUp, Book } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import ShareButtons from './ShareButtons';

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Share2, Copy, Check, MessageCircle } from 'lucide-react';
 
 /**

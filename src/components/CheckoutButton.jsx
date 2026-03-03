@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ShoppingCart, ExternalLink, AlertCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import AnimatedButton from './ui/AnimatedButton';
