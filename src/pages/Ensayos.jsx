@@ -170,6 +170,30 @@ const Ensayos = () => {
                                 </div>
                             </div>
                         </article>
+                        <article className="group bg-white p-8 border border-sabiduria-gray/5 hover:border-sabiduria-gold/30 transition-all shadow-sm">
+                            <div className="flex items-start gap-4">
+                                <div className="w-12 h-12 bg-sabiduria-gold/10 rounded-sm flex items-center justify-center flex-shrink-0">
+                                    <span className="text-sabiduria-gold font-serif text-xl font-bold">PD</span>
+                                </div>
+                                <div className="flex-1">
+                                    <span className="text-xs uppercase tracking-widest text-sabiduria-gold font-bold mb-2 block">
+                                        Formación Teológica · 14 Capítulos
+                                    </span>
+                                    <h3 className="text-xl font-serif text-sabiduria-navy group-hover:text-sabiduria-gold transition-colors mb-2">
+                                        <Link to="/estudio/perfecciones-de-dios">Las Perfecciones de Dios</Link>
+                                    </h3>
+                                    <p className="text-sabiduria-gray text-sm mb-4">
+                                        Serie de formación sobre los atributos divinos: el amor, la santidad, la justicia y las perfecciones de Dios reveladas en la Escritura.
+                                    </p>
+                                    <Link
+                                        to="/estudio/perfecciones-de-dios"
+                                        className="text-sabiduria-navy font-bold text-sm uppercase tracking-widest flex items-center gap-1 group-hover:gap-2 transition-all"
+                                    >
+                                        Ver estudio <ChevronRight size={16} />
+                                    </Link>
+                                </div>
+                            </div>
+                        </article>
                     </div>
                 </section>
             </div>

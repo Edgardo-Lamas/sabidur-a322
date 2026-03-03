@@ -1,36 +1,11 @@
-import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Download, ChevronDown, ChevronUp, BookOpen } from 'lucide-react';
+import { ArrowLeft, Download, BookOpen } from 'lucide-react';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 
 const HiloDelTiempo = () => {
-    const [expandedSections, setExpandedSections] = useState({});
-
-    const toggleSection = (id) => {
-        setExpandedSections(prev => ({
-            ...prev,
-            [id]: !prev[id]
-        }));
-    };
-
-    const expandAll = () => {
-        const allExpanded = {};
-        [...parte1, ...parte2, ...parte3].forEach(s => {
-            allExpanded[s.id] = true;
-        });
-        setExpandedSections(allExpanded);
-    };
-
-    const collapseAll = () => {
-        setExpandedSections({});
-    };
-
     const handleDownloadPDF = () => {
-        expandAll();
-        setTimeout(() => {
-            window.print();
-        }, 300);
+        window.print();
     };
 
     return (
@@ -47,19 +22,17 @@ const HiloDelTiempo = () => {
             <div id="hilo-content" className="max-w-4xl mx-auto px-4 py-8">
                 <header className="text-center mb-12 pb-8 border-b border-sabiduria-gray/20">
                     <h1 className="text-4xl md:text-5xl font-serif text-sabiduria-navy mb-4">El Hilo del Tiempo</h1>
-                    <p className="text-2xl font-serif text-sabiduria-gold mb-2">Cronología y Genealogía como Testimonio de la Fidelidad de Dios</p>
+                    <p className="text-2xl font-serif text-sabiduria-gold mb-4">Cronología y Genealogía como Testimonio de la Fidelidad de Dios</p>
                     <p className="text-sabiduria-gray text-lg text-justify max-w-3xl mx-auto">La Biblia no solo cuenta historias: también revela el diseño de Dios a través del tiempo. Las cronologías bíblicas muestran que nada ocurre al azar. Cada generación, cada promesa y cada cumplimiento forman parte de un plan perfecto. Esta serie explora cómo Dios gobierna la historia y cómo eso fortalece nuestra fe hoy.</p>
                 </header>
 
-                <div className="flex flex-wrap gap-4 justify-center mb-8 print:hidden">
+                <div className="flex justify-center mb-8 print:hidden">
                     <button onClick={handleDownloadPDF} className="btn-pdf-discrete flex items-center gap-2">
                         <Download size={18} /> Descargar PDF
                     </button>
-                    <button onClick={expandAll} className="btn-pdf-discrete">Expandir Todo</button>
-                    <button onClick={collapseAll} className="btn-pdf-discrete">Colapsar Todo</button>
                 </div>
 
-                <nav className="bg-white p-6 mb-12 border border-sabiduria-gray/10 shadow-sm">
+                <nav className="bg-white p-6 mb-14 border border-sabiduria-gray/10 shadow-sm print:hidden">
                     <h2 className="text-xl font-serif text-sabiduria-navy mb-4 flex items-center gap-2">
                         <BookOpen size={20} className="text-sabiduria-gold" /> Índice del Estudio
                     </h2>
@@ -91,24 +64,48 @@ const HiloDelTiempo = () => {
                     </div>
                 </nav>
 
+                {/* PARTE 1 */}
                 <section className="mb-16">
-                    <h2 className="text-3xl font-serif text-sabiduria-navy text-center mb-8 pb-4 border-b-2 border-sabiduria-gold">PARTE 1: El Esqueleto de la Historia de la Redención</h2>
+                    <h2 className="text-2xl font-serif text-sabiduria-navy text-center mb-10 pb-4 border-b-2 border-sabiduria-gold uppercase tracking-wide">
+                        Parte 1 — El Esqueleto de la Historia de la Redención
+                    </h2>
                     {parte1.map(section => (
-                        <ContentSection key={section.id} section={section} isExpanded={expandedSections[section.id]} onToggle={() => toggleSection(section.id)} />
+                        <div key={section.id} id={section.id} className="mb-14 scroll-mt-24">
+                            <h3 className="text-xl font-serif text-sabiduria-navy font-semibold mb-5 pb-3 border-b border-sabiduria-gray/20">
+                                {section.title}
+                            </h3>
+                            <div className="teologia-content" dangerouslySetInnerHTML={{ __html: section.content }} />
+                        </div>
                     ))}
                 </section>
 
+                {/* PARTE 2 */}
                 <section className="mb-16">
-                    <h2 className="text-3xl font-serif text-sabiduria-navy text-center mb-8 pb-4 border-b-2 border-sabiduria-gold">PARTE 2: Las Cronologías como Revelación del Pacto</h2>
+                    <h2 className="text-2xl font-serif text-sabiduria-navy text-center mb-10 pb-4 border-b-2 border-sabiduria-gold uppercase tracking-wide">
+                        Parte 2 — Las Cronologías como Revelación del Pacto
+                    </h2>
                     {parte2.map(section => (
-                        <ContentSection key={section.id} section={section} isExpanded={expandedSections[section.id]} onToggle={() => toggleSection(section.id)} />
+                        <div key={section.id} id={section.id} className="mb-14 scroll-mt-24">
+                            <h3 className="text-xl font-serif text-sabiduria-navy font-semibold mb-5 pb-3 border-b border-sabiduria-gray/20">
+                                {section.title}
+                            </h3>
+                            <div className="teologia-content" dangerouslySetInnerHTML={{ __html: section.content }} />
+                        </div>
                     ))}
                 </section>
 
+                {/* PARTE 3 */}
                 <section>
-                    <h2 className="text-3xl font-serif text-sabiduria-navy text-center mb-8 pb-4 border-b-2 border-sabiduria-gold">PARTE 3: El Tiempo Redimido</h2>
+                    <h2 className="text-2xl font-serif text-sabiduria-navy text-center mb-10 pb-4 border-b-2 border-sabiduria-gold uppercase tracking-wide">
+                        Parte 3 — El Tiempo Redimido
+                    </h2>
                     {parte3.map(section => (
-                        <ContentSection key={section.id} section={section} isExpanded={expandedSections[section.id]} onToggle={() => toggleSection(section.id)} />
+                        <div key={section.id} id={section.id} className="mb-14 scroll-mt-24">
+                            <h3 className="text-xl font-serif text-sabiduria-navy font-semibold mb-5 pb-3 border-b border-sabiduria-gray/20">
+                                {section.title}
+                            </h3>
+                            <div className="teologia-content" dangerouslySetInnerHTML={{ __html: section.content }} />
+                        </div>
                     ))}
                 </section>
             </div>
@@ -123,18 +120,6 @@ const HiloDelTiempo = () => {
         </main>
     );
 };
-
-const ContentSection = ({ section, isExpanded, onToggle }) => (
-    <article id={section.id} className="mb-6 bg-white border border-sabiduria-gray/10 shadow-sm">
-        <button onClick={onToggle} className="w-full p-6 flex justify-between items-center text-left hover:bg-sabiduria-bg/50 transition-colors">
-            <h3 className="text-xl font-serif text-sabiduria-navy">{section.title}</h3>
-            {isExpanded ? <ChevronUp className="text-sabiduria-gold" /> : <ChevronDown className="text-sabiduria-gray" />}
-        </button>
-        {isExpanded && (
-            <div className="px-6 pb-6 text-outline" dangerouslySetInnerHTML={{ __html: section.content }} />
-        )}
-    </article>
-);
 
 // PARTE 1: El Hilo del Tiempo
 const parte1 = [

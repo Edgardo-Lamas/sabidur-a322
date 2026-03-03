@@ -18,6 +18,8 @@ import TextPage from './pages/TextPage';
 import Biblioteca from './pages/Biblioteca';
 import BibliotecaConsulta from './pages/BibliotecaConsulta';
 import HiloDelTiempo from './pages/HiloDelTiempo';
+import PerfeccionesDeDios from './pages/PerfeccionesDeDios';
+import PerfeccionesCapitulo1 from './pages/PerfeccionesCapitulo1';
 import SedymModulo3 from './pages/SedymModulo3';
 import DeclaracionDeFe from './pages/DeclaracionDeFe';
 import EstudioPage from './pages/EstudioPage';
@@ -57,6 +59,8 @@ function App() {
             <Route path="/ensayos" element={<Ensayos />} />
             <Route path="/ensayo/:slug" element={<TextPage textType="ensayo" />} />
             <Route path="/estudio/hilo-del-tiempo" element={<HiloDelTiempo />} />
+            <Route path="/estudio/perfecciones-de-dios" element={<PerfeccionesDeDios />} />
+            <Route path="/estudio/perfecciones-de-dios/capitulo-1" element={<PerfeccionesCapitulo1 />} />
             <Route path="/estudio/sedym-modulo-3" element={<SedymModulo3 />} />
             <Route path="/estudio/:slug" element={<EstudioPage />} />
             <Route path="/meditaciones" element={<Meditaciones />} />
