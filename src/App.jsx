@@ -30,6 +30,7 @@ import MapasBiblicos from './pages/MapasBiblicos';
 import MapaRecorrido from './pages/MapaRecorrido';
 import Ensenanzas from './pages/Ensenanzas';
 import ChatSpurgeon from './components/ChatSpurgeon';
+import Biografias from './pages/Biografias';
 import Prerreformadores from './pages/Prerreformadores';
 import Wycliffe from './pages/prerreformadores/Wycliffe';
 import JanHus from './pages/prerreformadores/JanHus';
@@ -82,6 +83,7 @@ function App() {
             <Route path="/mapas-biblicos" element={<MapasBiblicos />} />
             <Route path="/mapas-biblicos/:slug" element={<MapaRecorrido />} />
             <Route path="/ensenanzas" element={<Ensenanzas />} />
+            <Route path="/biografias" element={<Biografias />} />
             <Route path="/prerreformadores" element={<Prerreformadores />} />
             <Route path="/prerreformadores/wycliffe" element={<Wycliffe />} />
             <Route path="/prerreformadores/jan-hus" element={<JanHus />} />

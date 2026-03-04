@@ -21,7 +21,7 @@ const Navbar = () => {
     { name: 'Artículos', path: '/articulos', description: 'Textos largos, doctrinales, desarrollados.' },
     { name: 'Ensayos', path: '/ensayos', description: 'Reflexión argumentada, más personal, menos exhaustiva.' },
     { name: 'Bosquejos & Guías', path: '/bosquejos', description: 'Estructuras, ayudas para estudio, enseñanza.' },
-    { name: 'Prerreformadores', path: '/prerreformadores', description: 'Biografías de hombres que prepararon el camino de la Reforma.' },
+    { name: 'Biografías', path: '/biografias', description: 'Prerreformadores, Reformadores, Padres de la Iglesia.' },
   ];
 
   return (

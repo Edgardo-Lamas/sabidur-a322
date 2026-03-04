@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ChevronRight, Clock } from 'lucide-react';
+import { ChevronRight, Clock, ArrowLeft } from 'lucide-react';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 
@@ -70,6 +70,13 @@ const Prerreformadores = () => {
 
                 {/* Header */}
                 <div className="mb-16 border-b border-sabiduria-gray/10 pb-12 mt-8">
+                    <Link
+                        to="/biografias"
+                        className="inline-flex items-center gap-2 text-sabiduria-navy/60 hover:text-sabiduria-navy text-sm font-medium transition-colors mb-6"
+                    >
+                        <ArrowLeft size={14} />
+                        Biografías
+                    </Link>
                     <span className="text-sabiduria-gold text-xs font-bold uppercase tracking-[0.3em] mb-4 block">
                         Historia de la Iglesia
                     </span>
