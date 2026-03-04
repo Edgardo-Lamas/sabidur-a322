@@ -1,7 +1,6 @@
-import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import { ArticleTemplate, EssayTemplate, OutlineTemplate, MeditationTemplate } from '../components/TextTemplates';
+import { ArticleTemplate, EssayTemplate, OutlineTemplate } from '../components/TextTemplates';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import content from '../data/content.json';
@@ -31,24 +30,7 @@ const textTypeConfig = {
         backPath: '/bosquejos',
         backLabel: 'Volver a Bosquejos'
     },
-    meditacion: {
-        collection: () => content.textos?.meditaciones || [],
-        label: 'Meditación',
-        backPath: '/meditaciones',
-        backLabel: 'Volver a Meditaciones'
-    },
-    paraElCorazon: {
-        collection: () => content.textos?.paraElCorazon || [],
-        label: 'Para el Corazón',
-        backPath: '/para-el-corazon',
-        backLabel: 'Volver a Para el Corazón'
-    },
-    preguntar: {
-        collection: () => content.textos?.preguntar || [],
-        label: 'Preguntar',
-        backPath: '/preguntar',
-        backLabel: 'Volver a Preguntar'
-    }
+
 };
 
 /**
@@ -94,12 +76,6 @@ const TextPage = ({ textType }) => {
                 return <EssayTemplate text={text} />;
             case 'bosquejo':
                 return <OutlineTemplate text={text} />;
-            case 'meditacion':
-                return <MeditationTemplate text={text} />;
-            case 'paraElCorazon':
-                return <EssayTemplate text={text} />;
-            case 'preguntar':
-                return <EssayTemplate text={text} />;
             default:
                 return <ArticleTemplate text={text} />;
         }

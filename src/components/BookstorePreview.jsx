@@ -1,13 +1,35 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Star, ShoppingBag } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 
-const BookstorePreview = () => {
-    const [books, setBooks] = React.useState([]);
-    const [loading, setLoading] = React.useState(true);
+const PLACEHOLDER_BOOKS = [
+    {
+        id: 'placeholder-1',
+        title: 'La Santidad de Dios',
+        author: 'R. C. Sproul',
+        price: '24.99',
+        image: `${import.meta.env.BASE_URL}img/Recursos-libros.jpg`,
+        checkout_url: '#',
+        isPlaceholder: true,
+    },
+    {
+        id: 'placeholder-2',
+        title: 'El Conocimiento del Dios Santo',
+        author: 'J. I. Packer',
+        price: '19.99',
+        image: `${import.meta.env.BASE_URL}img/foto-libros.jpg`,
+        checkout_url: '#',
+        isPlaceholder: true,
+    },
+];
 
-    React.useEffect(() => {
+const BookstorePreview = () => {
+    const [books, setBooks] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
         const fetchBooks = async () => {
             try {
                 const { data, error } = await supabase
@@ -27,6 +49,9 @@ const BookstorePreview = () => {
 
         fetchBooks();
     }, []);
+
+    const displayBooks = books.length > 0 ? books : PLACEHOLDER_BOOKS;
+
     return (
         <section className="bg-sabiduria-bg py-24">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,15 +64,13 @@ const BookstorePreview = () => {
                             Recursos seleccionados para tu crecimiento espiritual
                         </h2>
                     </div>
-                    <a
-                        href="https://example.com/shop"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    <Link
+                        to="/tienda"
                         className="btn-gold flex items-center gap-2"
                     >
                         <ShoppingBag size={18} />
                         VER TODA LA TIENDA
-                    </a>
+                    </Link>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -55,7 +78,7 @@ const BookstorePreview = () => {
                         <div className="col-span-2 flex justify-center py-20">
                             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-sabiduria-gold"></div>
                         </div>
-                    ) : books.map((book) => (
+                    ) : displayBooks.map((book) => (
                         <motion.div
                             key={book.id}
                             initial={{ opacity: 0, y: 30 }}
@@ -65,7 +88,7 @@ const BookstorePreview = () => {
                         >
                             <div className="sm:w-1/2 relative overflow-hidden h-80 sm:h-auto">
                                 <img
-                                    src={`${import.meta.env.BASE_URL}${book.image}`}
+                                    src={book.isPlaceholder ? book.image : `${import.meta.env.BASE_URL}${book.image}`}
                                     alt={book.title}
                                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
@@ -79,7 +102,7 @@ const BookstorePreview = () => {
                                     <h3 className="text-2xl font-serif font-bold text-sabiduria-navy mb-2 leading-tight">
                                         {book.title}
                                     </h3>
-                                    <p className="text-sabiduria-gray font-medium mb-6"> {book.author} </p>
+                                    <p className="text-sabiduria-gray font-medium mb-6">{book.author}</p>
                                     <p className="text-3xl font-serif font-bold text-sabiduria-navy mb-8">
                                         ${book.price}
                                     </p>
