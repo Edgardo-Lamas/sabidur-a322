@@ -33,7 +33,7 @@ const BIOGRAPHIES = [
         name: 'Ulrico Zuinglio',
         epithet: 'El Reformador de Zúrich',
         dates: '1484 – 1531',
-        disponible: false,
+        disponible: true,
         excerpt:
             'Primer reformador de la Suiza alemana, que llevó la Reforma a Zúrich y murió en el campo de batalla defendiendo la fe que había proclamado.',
     },
@@ -42,7 +42,7 @@ const BIOGRAPHIES = [
         name: 'John Knox',
         epithet: 'El León de la Reforma Escocesa',
         dates: 'c. 1514 – 1572',
-        disponible: false,
+        disponible: true,
         excerpt:
             'Reformador escocés que pasó de ser galeote en las galeras francesas a transformar Escocia entera, fundando la Iglesia Presbiteriana.',
     },
@@ -51,7 +51,7 @@ const BIOGRAPHIES = [
         name: 'Heinrich Bullinger',
         epithet: 'El Sucesor Fiel de Zuinglio',
         dates: '1504 – 1575',
-        disponible: false,
+        disponible: true,
         excerpt:
             'Sucesor de Zuinglio en Zúrich y uno de los teólogos reformados más prolíficos del siglo XVI, cuya influencia se extendió por toda Europa.',
     },

@@ -41,6 +41,9 @@ import Tyndale from './pages/prerreformadores/Tyndale';
 import Reformadores from './pages/Reformadores';
 import Lutero from './pages/reformadores/Lutero';
 import Calvino from './pages/reformadores/Calvino';
+import Zuinglio from './pages/reformadores/Zuinglio';
+import Knox from './pages/reformadores/Knox';
+import Bullinger from './pages/reformadores/Bullinger';
 
 // ScrollToTop component to ensure page starts at top on route change
 const ScrollToTop = () => {
@@ -98,6 +101,9 @@ function App() {
             <Route path="/reformadores" element={<Reformadores />} />
             <Route path="/reformadores/lutero" element={<Lutero />} />
             <Route path="/reformadores/calvino" element={<Calvino />} />
+            <Route path="/reformadores/zuinglio" element={<Zuinglio />} />
+            <Route path="/reformadores/knox" element={<Knox />} />
+            <Route path="/reformadores/bullinger" element={<Bullinger />} />
             <Route path="/donaciones" element={<Donations />} />
           </Routes>
         </div>
