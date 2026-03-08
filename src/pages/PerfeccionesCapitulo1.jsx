@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Download, BookOpen } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Download, BookOpen } from 'lucide-react';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 
@@ -223,9 +223,12 @@ const PerfeccionesCapitulo1 = () => {
                     >
                         <ArrowLeft size={18} /> Volver a la serie
                     </Link>
-                    <div className="text-sm text-sabiduria-gray italic">
-                        Capítulo 2 — Próximamente
-                    </div>
+                    <Link
+                        to="/estudio/perfecciones-de-dios/capitulo-2"
+                        className="inline-flex items-center gap-2 text-sabiduria-navy hover:text-sabiduria-gold font-medium transition-colors"
+                    >
+                        Capítulo 2 — La Eternidad <ArrowRight size={18} />
+                    </Link>
                 </div>
             </div>
         </main>
