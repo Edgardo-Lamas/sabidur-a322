@@ -27,8 +27,8 @@ const SERIES = [
         name: 'Reformadores',
         subtitle: 'El Siglo de la Reforma',
         dates: 'Siglo XVI',
-        disponible: false,
-        count: 0,
+        disponible: true,
+        count: 2,
         excerpt:
             'Los hombres que en el siglo XVI rompieron con Roma y dieron forma a las tradiciones protestantes que conocemos hoy. Lutero, Calvino, Zuinglio, Knox y sus contemporáneos.',
         names: 'Lutero · Calvino · Zuinglio · Knox · Bullinger',

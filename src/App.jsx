@@ -38,6 +38,9 @@ import JanHus from './pages/prerreformadores/JanHus';
 import PedroWaldo from './pages/prerreformadores/PedroWaldo';
 import Savonarola from './pages/prerreformadores/Savonarola';
 import Tyndale from './pages/prerreformadores/Tyndale';
+import Reformadores from './pages/Reformadores';
+import Lutero from './pages/reformadores/Lutero';
+import Calvino from './pages/reformadores/Calvino';
 
 // ScrollToTop component to ensure page starts at top on route change
 const ScrollToTop = () => {
@@ -92,6 +95,9 @@ function App() {
             <Route path="/prerreformadores/pedro-waldo" element={<PedroWaldo />} />
             <Route path="/prerreformadores/savonarola" element={<Savonarola />} />
             <Route path="/prerreformadores/tyndale" element={<Tyndale />} />
+            <Route path="/reformadores" element={<Reformadores />} />
+            <Route path="/reformadores/lutero" element={<Lutero />} />
+            <Route path="/reformadores/calvino" element={<Calvino />} />
             <Route path="/donaciones" element={<Donations />} />
           </Routes>
         </div>
