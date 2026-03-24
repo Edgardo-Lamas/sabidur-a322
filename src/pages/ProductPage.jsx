@@ -1,64 +1,26 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, BookOpen, Package, FileText, Building2 } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import Breadcrumbs from '../components/Breadcrumbs';
 import SEO from '../components/SEO';
-import { supabase } from '../lib/supabase';
+import contentData from '../data/content.json';
 
 const ProductPage = () => {
     const { slug } = useParams();
     const navigate = useNavigate();
-    const [product, setProduct] = React.useState(null);
-    const [relatedProducts, setRelatedProducts] = React.useState([]);
-    const [loading, setLoading] = React.useState(true);
-    const [storeConfig, setStoreConfig] = React.useState({});
+    const loading = false;
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                // Fetch store config
-                const { data: configData } = await supabase
-                    .from('site_config')
-                    .select('value')
-                    .eq('key', 'storeConfig')
-                    .single();
+    const allProducts = contentData.products || [];
+    const storeConfig = contentData.storeConfig || {};
+    const product = allProducts.find(p => p.slug === slug) || null;
+    const relatedProducts = product
+        ? allProducts.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4)
+        : [];
 
-                if (configData) setStoreConfig(configData.value);
-
-                // Fetch current product
-                const { data: prodData, error: prodError } = await supabase
-                    .from('productos')
-                    .select('*')
-                    .eq('slug', slug)
-                    .single();
-
-                if (prodError || !prodData) {
-                    navigate('/tienda');
-                    return;
-                }
-                setProduct(prodData);
-
-                // Fetch related products (same category, excluding current product)
-                const { data: relData } = await supabase
-                    .from('productos')
-                    .select('*')
-                    .eq('category', prodData.category)
-                    .neq('id', prodData.id)
-                    .limit(4);
-
-                setRelatedProducts(relData || []);
-            } catch (err) {
-                console.error('Error fetching product:', err.message);
-                navigate('/tienda');
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [slug, navigate]);
+    React.useEffect(() => {
+        if (!product) navigate('/tienda');
+    }, [product, navigate]);
 
     if (loading) {
         return (

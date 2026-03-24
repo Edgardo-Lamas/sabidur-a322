@@ -1,56 +1,14 @@
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Star, ShoppingBag } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
-
-const PLACEHOLDER_BOOKS = [
-    {
-        id: 'placeholder-1',
-        title: 'La Santidad de Dios',
-        author: 'R. C. Sproul',
-        price: '24.99',
-        image: `${import.meta.env.BASE_URL}img/Recursos-libros.jpg`,
-        checkout_url: '#',
-        isPlaceholder: true,
-    },
-    {
-        id: 'placeholder-2',
-        title: 'El Conocimiento del Dios Santo',
-        author: 'J. I. Packer',
-        price: '19.99',
-        image: `${import.meta.env.BASE_URL}img/foto-libros.jpg`,
-        checkout_url: '#',
-        isPlaceholder: true,
-    },
-];
+import contentData from '../data/content.json';
 
 const BookstorePreview = () => {
-    const [books, setBooks] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchBooks = async () => {
-            try {
-                const { data, error } = await supabase
-                    .from('productos')
-                    .select('*')
-                    .eq('featured', true)
-                    .limit(2);
-
-                if (error) throw error;
-                setBooks(data || []);
-            } catch (err) {
-                console.error('Error fetching books:', err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchBooks();
-    }, []);
-
-    const displayBooks = books.length > 0 ? books : PLACEHOLDER_BOOKS;
+    const loading = false;
+    const displayBooks = (contentData.products || [])
+        .filter(p => p.featured)
+        .slice(0, 2)
+        .map(p => ({ ...p, checkout_url: p.checkoutUrl }));
 
     return (
         <section className="bg-sabiduria-bg py-24">

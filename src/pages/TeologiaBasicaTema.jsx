@@ -1,4 +1,3 @@
-import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, BookOpen, List, Home } from 'lucide-react';
@@ -6,7 +5,7 @@ import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ShareButtons from '../components/ShareButtons';
 import NewsletterForm from '../components/NewsletterForm';
-import { supabase } from '../lib/supabase';
+import contentData from '../data/content.json';
 
 /**
  * TeologiaBasicaTema - Página individual para cada capítulo del curso
@@ -14,40 +13,16 @@ import { supabase } from '../lib/supabase';
  */
 const TeologiaBasicaTema = () => {
     const { slug } = useParams();
-    const [capitulo, setCapitulo] = React.useState(null);
-    const [allCapitulos, setAllCapitulos] = React.useState([]);
-    const [loading, setLoading] = React.useState(true);
+    const loading = false;
 
-    React.useEffect(() => {
-        const fetchCapitulo = async () => {
-            setLoading(true);
-            try {
-                // Fetch current chapter
-                const { data: capData, error: capError } = await supabase
-                    .from('teologia_basica')
-                    .select('*')
-                    .eq('slug', slug)
-                    .single();
-
-                if (capError) throw capError;
-                setCapitulo(capData);
-
-                // Fetch all chapters for navigation
-                const { data: allData } = await supabase
-                    .from('teologia_basica')
-                    .select('slug, title, order_index')
-                    .order('order_index', { ascending: true });
-
-                setAllCapitulos(allData || []);
-            } catch (err) {
-                console.error('Error fetching chapter:', err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchCapitulo();
-    }, [slug]);
+    const rawCapitulos = contentData.teologiaBasica?.capitulos || [];
+    const allCapitulos = rawCapitulos.map(c => ({
+        ...c,
+        title: c.titulo,
+        description: c.descripcion,
+        order_index: c.numero,
+    }));
+    const capitulo = allCapitulos.find(c => c.slug === slug) || null;
 
     // Navegación
     const capituloIndex = allCapitulos.findIndex((c) => c.slug === slug);

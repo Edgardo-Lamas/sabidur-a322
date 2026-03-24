@@ -1,4 +1,3 @@
-import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
@@ -7,7 +6,7 @@ import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ShareButtons from '../components/ShareButtons';
 import NewsletterForm from '../components/NewsletterForm';
-import { supabase } from '../lib/supabase';
+import contentData from '../data/content.json';
 
 /**
  * EstudioPage - Página dinámica para estudios con video de YouTube
@@ -16,42 +15,13 @@ import { supabase } from '../lib/supabase';
  */
 const EstudioPage = () => {
     const { slug } = useParams();
-    const [estudio, setEstudio] = React.useState(null);
-    const [estudiosRelacionados, setEstudiosRelacionados] = React.useState([]);
-    const [loading, setLoading] = React.useState(true);
+    const loading = false;
 
-    React.useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                // Fetch current study
-                const { data: estData, error: estError } = await supabase
-                    .from('estudios_biblicos')
-                    .select('*')
-                    .eq('slug', slug)
-                    .single();
-
-                if (estError) throw estError;
-                setEstudio(estData);
-
-                // Fetch related studies if they exist in the record
-                if (estData.estudios_relacionados && estData.estudios_relacionados.length > 0) {
-                    const { data: relData } = await supabase
-                        .from('estudios_biblicos')
-                        .select('slug, title, youtube_id')
-                        .in('slug', estData.estudios_relacionados);
-
-                    setEstudiosRelacionados(relData || []);
-                }
-            } catch (err) {
-                console.error('Error fetching study:', err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [slug]);
+    const allEstudios = contentData.estudios || [];
+    const estudio = allEstudios.find(e => e.slug === slug) || null;
+    const estudiosRelacionados = estudio?.estudiosRelacionados?.length
+        ? allEstudios.filter(e => estudio.estudiosRelacionados.includes(e.slug))
+        : [];
 
     if (loading) {
         return (

@@ -4,46 +4,22 @@ import { motion } from 'framer-motion';
 import { BookOpen, ChevronRight, GraduationCap } from 'lucide-react';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
-import { supabase } from '../lib/supabase';
+import contentData from '../data/content.json';
 
 /**
  * TeologiaBasica - Página índice del curso de Teología Básica
  * Muestra los 12 capítulos como módulos de un curso estructurado
  */
 const TeologiaBasica = () => {
-    const [teologiaConfig, setTeologiaConfig] = React.useState(null);
-    const [capitulos, setCapitulos] = React.useState([]);
-    const [loading, setLoading] = React.useState(true);
-
-    React.useEffect(() => {
-        const fetchData = async () => {
-            try {
-                // Fetch context from site_config
-                const { data: configData } = await supabase
-                    .from('site_config')
-                    .select('value')
-                    .eq('key', 'teologiaBasica')
-                    .single();
-
-                if (configData) setTeologiaConfig(configData.value);
-
-                // Fetch chapters
-                const { data: chaptersData, error } = await supabase
-                    .from('teologia_basica')
-                    .select('id, slug, title, description, order_index')
-                    .order('order_index', { ascending: true });
-
-                if (error) throw error;
-                setCapitulos(chaptersData || []);
-            } catch (err) {
-                console.error('Error fetching theology data:', err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, []);
+    const tb = contentData.teologiaBasica || {};
+    const teologiaConfig = tb.titulo ? { titulo: tb.titulo, subtitulo: tb.subtitulo, descripcion: tb.descripcion, autor: tb.autor } : null;
+    const capitulos = (tb.capitulos || []).map(c => ({
+        ...c,
+        title: c.titulo,
+        description: c.descripcion,
+        order_index: c.numero,
+    }));
+    const loading = false;
 
     return (
         <main className="bg-sabiduria-bg min-h-screen">

@@ -1,35 +1,28 @@
 import React from 'react';
 import { ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
+import contentData from '../data/content.json';
 
 const ArticleFeed = () => {
     const [selectedCategory, setSelectedCategory] = React.useState('Todos');
     const [articles, setArticles] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
 
-    // Define exact categories requested
     const categories = ['Todos', 'Exégesis', 'Bosquejos', 'Teología Sistemática', 'E-books / Recursos'];
 
     React.useEffect(() => {
-        const fetchArticles = async () => {
-            setLoading(true);
-            try {
-                const { data, error } = await supabase
-                    .from('articulos')
-                    .select('*')
-                    .order('date', { ascending: false });
-
-                if (error) throw error;
-                setArticles(data || []);
-            } catch (err) {
-                console.error('Error fetching articles:', err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchArticles();
+        const combined = [
+            ...(contentData.textos?.articulos || []),
+            ...(contentData.articles || [])
+        ];
+        const seen = new Set();
+        const articlesData = combined.filter(a => {
+            if (seen.has(a.slug)) return false;
+            seen.add(a.slug);
+            return true;
+        });
+        setArticles(articlesData);
+        setLoading(false);
     }, []);
 
     const filteredArticles = selectedCategory === 'Todos'
@@ -78,7 +71,7 @@ const ArticleFeed = () => {
                             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-sabiduria-gold"></div>
                         </div>
                     ) : filteredArticles.length > 0 ? (
-                        filteredArticles.slice(0, 3).map((article, index) => (
+                        filteredArticles.slice(0, 3).map((article) => (
                             <article key={article.id} className="group flex flex-col items-start animate-fade-in-up">
                                 {/* Decorative line for first item or specific style could go here, but keeping it clean */}
                                 <div className="w-full mb-6 overflow-hidden">

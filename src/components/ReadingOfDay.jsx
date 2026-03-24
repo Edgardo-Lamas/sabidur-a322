@@ -2,40 +2,12 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Quote } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import contentData from '../data/content.json';
 
 const ReadingOfDay = () => {
-    const [dailyReadings, setDailyReadings] = React.useState([]);
-    const [config, setConfig] = React.useState(null);
-    const [loading, setLoading] = React.useState(true);
-
-    React.useEffect(() => {
-        const fetchData = async () => {
-            try {
-                // Fetch readings
-                const { data: readingsData } = await supabase
-                    .from('lecturas_diarias')
-                    .select('*');
-
-                if (readingsData) setDailyReadings(readingsData);
-
-                // Fetch config
-                const { data: configData } = await supabase
-                    .from('site_config')
-                    .select('value')
-                    .eq('key', 'dailyReadingConfig')
-                    .single();
-
-                if (configData) setConfig(configData.value);
-            } catch (err) {
-                console.error('Error fetching daily reading:', err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, []);
+    const dailyReadings = contentData.dailyReadings || [];
+    const config = contentData.dailyReadingConfig || null;
+    const loading = false;
 
     // Calcular el día del año (1-366)
     const now = new Date();
