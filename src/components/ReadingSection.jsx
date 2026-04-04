@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FileText, Download, Heart, ArrowLeft } from 'lucide-react';
 import content from '../data/content.json';
+import { sanitizeHTML } from '../lib/sanitize';
 
 /**
  * AuthorshipFooter - Sección de autoría estilo Ligonier
@@ -117,7 +118,7 @@ const ReadingSection = ({ article }) => {
                 {/* Content */}
                 <div className="text-sabiduria-navy leading-[1.8]">
                     {article.content ? (
-                        <div className="teologia-content" dangerouslySetInnerHTML={{ __html: article.content }} />
+                        <div className="teologia-content" dangerouslySetInnerHTML={{ __html: sanitizeHTML(article.content) }} />
                     ) : (
                         <>
                             <p className="mb-8 first-letter:text-5xl first-letter:font-serif first-letter:mr-3 first-letter:float-left first-letter:text-sabiduria-navy">

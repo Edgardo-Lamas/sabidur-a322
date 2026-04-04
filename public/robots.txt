@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://edgardo-lamas.github.io/sabidur-a322/sitemap.xml

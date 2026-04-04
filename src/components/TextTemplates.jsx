@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Download, ChevronDown, ChevronUp, Book } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import ShareButtons from './ShareButtons';
+import { sanitizeHTML } from '../lib/sanitize';
 
 /**
  * AuthorshipFooter - Sección de autoría estilo Ligonier
@@ -76,7 +77,7 @@ export const ArticleTemplate = ({ text }) => {
             {/* Content */}
             <div
                 className="prose prose-lg max-w-none"
-                dangerouslySetInnerHTML={{ __html: content }}
+                dangerouslySetInnerHTML={{ __html: sanitizeHTML(content) }}
             />
 
             {/* Biblical References Section */}
@@ -158,7 +159,7 @@ export const EssayTemplate = ({ text }) => {
             {/* Content - Estilo Teología Básica (Justificado, Serif, Estilos ricos) */}
             <div
                 className="teologia-content"
-                dangerouslySetInnerHTML={{ __html: content }}
+                dangerouslySetInnerHTML={{ __html: sanitizeHTML(content) }}
             />
 
             {/* Biblical References - Collapsible */}
@@ -251,7 +252,7 @@ export const OutlineTemplate = ({ text }) => {
             ) : (
                 <div
                     className="prose max-w-none"
-                    dangerouslySetInnerHTML={{ __html: content }}
+                    dangerouslySetInnerHTML={{ __html: sanitizeHTML(content) }}
                 />
             )}
 
@@ -303,7 +304,7 @@ export const MeditationTemplate = ({ text }) => {
             {/* Content */}
             <div
                 className="mt-12"
-                dangerouslySetInnerHTML={{ __html: content }}
+                dangerouslySetInnerHTML={{ __html: sanitizeHTML(content) }}
             />
 
             {/* PDF Download - Discrete */}

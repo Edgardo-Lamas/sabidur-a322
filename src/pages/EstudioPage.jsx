@@ -7,6 +7,7 @@ import Breadcrumbs from '../components/Breadcrumbs';
 import ShareButtons from '../components/ShareButtons';
 import NewsletterForm from '../components/NewsletterForm';
 import contentData from '../data/content.json';
+import { sanitizeHTML } from '../lib/sanitize';
 
 /**
  * EstudioPage - Página dinámica para estudios con video de YouTube
@@ -196,7 +197,7 @@ const EstudioPage = () => {
                 >
                     <div
                         className="text-sabiduria-navy/80 leading-relaxed text-lg text-justify"
-                        dangerouslySetInnerHTML={{ __html: estudio.intro_text }}
+                        dangerouslySetInnerHTML={{ __html: sanitizeHTML(estudio.intro_text) }}
                     />
                 </motion.section>
 
@@ -274,7 +275,7 @@ const EstudioPage = () => {
                         </h2>
                         <div
                             className="prose prose-lg max-w-none text-sabiduria-navy/80 leading-relaxed text-justify"
-                            dangerouslySetInnerHTML={{ __html: section.content }}
+                            dangerouslySetInnerHTML={{ __html: sanitizeHTML(section.content) }}
                         />
                     </motion.section>
                 ))}

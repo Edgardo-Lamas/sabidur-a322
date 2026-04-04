@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, Download, BookOpen } from 'lucide-react';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
+import { sanitizeHTML } from '../lib/sanitize';
 
 const HiloDelTiempo = () => {
     const handleDownloadPDF = () => {
@@ -74,7 +75,7 @@ const HiloDelTiempo = () => {
                             <h3 className="text-xl font-serif text-sabiduria-navy font-semibold mb-5 pb-3 border-b border-sabiduria-gray/20">
                                 {section.title}
                             </h3>
-                            <div className="teologia-content" dangerouslySetInnerHTML={{ __html: section.content }} />
+                            <div className="teologia-content" dangerouslySetInnerHTML={{ __html: sanitizeHTML(section.content) }} />
                         </div>
                     ))}
                 </section>
@@ -89,7 +90,7 @@ const HiloDelTiempo = () => {
                             <h3 className="text-xl font-serif text-sabiduria-navy font-semibold mb-5 pb-3 border-b border-sabiduria-gray/20">
                                 {section.title}
                             </h3>
-                            <div className="teologia-content" dangerouslySetInnerHTML={{ __html: section.content }} />
+                            <div className="teologia-content" dangerouslySetInnerHTML={{ __html: sanitizeHTML(section.content) }} />
                         </div>
                     ))}
                 </section>
@@ -104,7 +105,7 @@ const HiloDelTiempo = () => {
                             <h3 className="text-xl font-serif text-sabiduria-navy font-semibold mb-5 pb-3 border-b border-sabiduria-gray/20">
                                 {section.title}
                             </h3>
-                            <div className="teologia-content" dangerouslySetInnerHTML={{ __html: section.content }} />
+                            <div className="teologia-content" dangerouslySetInnerHTML={{ __html: sanitizeHTML(section.content) }} />
                         </div>
                     ))}
                 </section>

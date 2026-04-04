@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import SEO from './SEO';
 import Breadcrumbs from './Breadcrumbs';
+import { sanitizeHTML } from '../lib/sanitize';
 
 /**
  * BiographyTemplate — Plantilla reutilizable para biografías históricas.
@@ -142,7 +143,7 @@ const BiographyTemplate = ({ biography, seriesName, seriesPath }) => {
                         {/* Text content */}
                         <div
                             className="teologia-content"
-                            dangerouslySetInnerHTML={{ __html: section.content }}
+                            dangerouslySetInnerHTML={{ __html: sanitizeHTML(section.content) }}
                         />
 
                         {/* Image — full width below text */}

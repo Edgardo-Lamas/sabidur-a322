@@ -6,6 +6,7 @@ import Breadcrumbs from '../components/Breadcrumbs';
 import ShareButtons from '../components/ShareButtons';
 import NewsletterForm from '../components/NewsletterForm';
 import contentData from '../data/content.json';
+import { sanitizeHTML } from '../lib/sanitize';
 
 /**
  * TeologiaBasicaTema - Página individual para cada capítulo del curso
@@ -153,7 +154,7 @@ const TeologiaBasicaTema = () => {
                             return (
                                 <div
                                     className="teologia-content"
-                                    dangerouslySetInnerHTML={{ __html: capitulo.content }}
+                                    dangerouslySetInnerHTML={{ __html: sanitizeHTML(capitulo.content) }}
                                 />
                             );
                         }

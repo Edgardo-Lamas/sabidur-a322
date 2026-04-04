@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ErrorBoundary from './components/ErrorBoundary';
+import NotFound from './pages/NotFound';
 import Home from './pages/Home';
 import ArticlePage from './pages/ArticlePage';
 import Articles from './pages/Articles';
@@ -63,6 +65,7 @@ function App() {
       <ScrollToTop />
       <div className="flex flex-col min-h-screen bg-sabiduria-bg">
         <Navbar />
+        <ErrorBoundary>
         <div className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -107,8 +110,10 @@ function App() {
             <Route path="/reformadores/knox" element={<Knox />} />
             <Route path="/reformadores/bullinger" element={<Bullinger />} />
             <Route path="/donaciones" element={<Donations />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
+        </ErrorBoundary>
         <Footer />
       </div>
       <ScrollToTopButton />

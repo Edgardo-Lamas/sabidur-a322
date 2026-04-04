@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, Download, ChevronDown, ChevronUp, BookOpen } from 'lucide-react';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
+import { sanitizeHTML } from '../lib/sanitize';
 
 const SedymModulo3 = () => {
     const [expandedClasses, setExpandedClasses] = useState({});
@@ -116,7 +117,7 @@ const ClassSection = ({ clase, isExpanded, onToggle }) => (
             {isExpanded ? <ChevronUp className="text-sabiduria-gold" /> : <ChevronDown className="text-sabiduria-gray" />}
         </button>
         {isExpanded && (
-            <div className="px-6 pb-6 text-outline" dangerouslySetInnerHTML={{ __html: clase.content }} />
+            <div className="px-6 pb-6 text-outline" dangerouslySetInnerHTML={{ __html: sanitizeHTML(clase.content) }} />
         )}
     </article>
 );

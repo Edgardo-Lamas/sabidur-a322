@@ -7,6 +7,7 @@ import Breadcrumbs from '../components/Breadcrumbs';
 import ShareButtons from '../components/ShareButtons';
 import NewsletterForm from '../components/NewsletterForm';
 import data from '../data/estudios-libros.json';
+import { sanitizeHTML } from '../lib/sanitize';
 
 const LibroEstudioCapitulo = () => {
     const { libroSlug, capituloSlug } = useParams();
@@ -106,7 +107,7 @@ const LibroEstudioCapitulo = () => {
                     {capitulo.contenido ? (
                         <div
                             className="teologia-content"
-                            dangerouslySetInnerHTML={{ __html: capitulo.contenido }}
+                            dangerouslySetInnerHTML={{ __html: sanitizeHTML(capitulo.contenido) }}
                         />
                     ) : (
                         <div className="bg-sabiduria-gold/5 border border-sabiduria-gold/20 p-8 text-center">
