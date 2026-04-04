@@ -160,9 +160,12 @@ const PerfeccionesCapitulo2 = () => {
                     >
                         <ArrowLeft size={18} /> Capítulo 1 — El Amor
                     </Link>
-                    <div className="text-sm text-sabiduria-gray italic">
-                        Capítulo 3 — Próximamente
-                    </div>
+                    <Link
+                        to="/estudio/perfecciones-de-dios/capitulo-3"
+                        className="inline-flex items-center gap-2 text-sabiduria-navy hover:text-sabiduria-gold font-medium transition-colors"
+                    >
+                        Capítulo 3 — La Santidad <ArrowRight size={18} />
+                    </Link>
                 </div>
             </div>
         </main>

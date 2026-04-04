@@ -18,6 +18,7 @@ import HiloDelTiempo from './pages/HiloDelTiempo';
 import PerfeccionesDeDios from './pages/PerfeccionesDeDios';
 import PerfeccionesCapitulo1 from './pages/PerfeccionesCapitulo1';
 import PerfeccionesCapitulo2 from './pages/PerfeccionesCapitulo2';
+import PerfeccionesCapitulo3 from './pages/PerfeccionesCapitulo3';
 import SedymModulo3 from './pages/SedymModulo3';
 import DeclaracionDeFe from './pages/DeclaracionDeFe';
 import EstudioPage from './pages/EstudioPage';
@@ -73,6 +74,7 @@ function App() {
             <Route path="/estudio/perfecciones-de-dios" element={<PerfeccionesDeDios />} />
             <Route path="/estudio/perfecciones-de-dios/capitulo-1" element={<PerfeccionesCapitulo1 />} />
             <Route path="/estudio/perfecciones-de-dios/capitulo-2" element={<PerfeccionesCapitulo2 />} />
+            <Route path="/estudio/perfecciones-de-dios/capitulo-3" element={<PerfeccionesCapitulo3 />} />
             <Route path="/estudio/sedym-modulo-3" element={<SedymModulo3 />} />
             <Route path="/estudio/:slug" element={<EstudioPage />} />
             <Route path="/bosquejos" element={<Bosquejos />} />
