@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import ReadingSection from '../components/ReadingSection';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
@@ -54,6 +55,27 @@ const ArticlePage = () => {
         );
     }
 
+    const siteUrl = import.meta.env.VITE_SITE_URL || 'https://edgardo-lamas.github.io/sabidur-a322';
+    const pageUrl = `${siteUrl}/articulo/${article.slug}`;
+    const articleSchema = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": article.title,
+        "description": article.excerpt,
+        "image": article.image ? (article.image.startsWith('http') ? article.image : `${siteUrl}${article.image}`) : `${siteUrl}/img/og-default.jpg`,
+        "author": {
+            "@type": "Organization",
+            "name": "Sabiduría para el Corazón"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Sabiduría para el Corazón",
+            "logo": { "@type": "ImageObject", "url": `${siteUrl}/img/logo.png` }
+        },
+        "datePublished": article.date || "",
+        "mainEntityOfPage": { "@type": "WebPage", "@id": pageUrl }
+    };
+
     return (
         <main className="bg-white min-h-screen">
             <SEO
@@ -63,6 +85,9 @@ const ArticlePage = () => {
                 url={`/articulo/${article.slug}`}
                 type="article"
             />
+            <Helmet>
+                <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
+            </Helmet>
             <div className="max-w-4xl mx-auto px-4 pt-8">
                 <Breadcrumbs title={article.title} />
             </div>

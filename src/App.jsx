@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -57,11 +58,42 @@ const ScrollToTop = () => {
   return null;
 };
 
+const siteUrl = import.meta.env.VITE_SITE_URL || 'https://edgardo-lamas.github.io/sabidur-a322';
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Sabiduría para el Corazón",
+  "url": siteUrl,
+  "logo": `${siteUrl}/img/logo.png`,
+  "description": "Recursos de teología reformada, exégesis bíblica y bosquejos homiléticos para la edificación de la Iglesia de Cristo.",
+  "sameAs": []
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Sabiduría para el Corazón",
+  "url": siteUrl,
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": `${siteUrl}/articulos?q={search_term_string}`
+    },
+    "query-input": "required name=search_term_string"
+  }
+};
+
 function App() {
   const basename = import.meta.env.BASE_URL;
 
   return (
     <Router basename={basename}>
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>
+      </Helmet>
       <ScrollToTop />
       <div className="flex flex-col min-h-screen bg-sabiduria-bg">
         <Navbar />

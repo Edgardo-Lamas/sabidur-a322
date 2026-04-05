@@ -1,22 +1,51 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { ChevronRight, Home } from 'lucide-react';
 
 const Breadcrumbs = ({ title }) => {
     const location = useLocation();
     const pathnames = location.pathname.split('/').filter((x) => x);
+    const siteUrl = import.meta.env.VITE_SITE_URL || 'https://edgardo-lamas.github.io/sabidur-a322';
 
     // Map internal paths to readable names
     const routeNames = {
         'articulos': 'Artículos',
-        'articulo': 'Artículo', // Only conceptual, usually skipped visually if title is present
+        'articulo': 'Artículo',
         'bosquejos': 'Bosquejos',
         'ebooks': 'E-books',
         'donaciones': 'Donaciones',
         'acerca-de': 'Sobre Nosotros'
     };
 
+    // Build BreadcrumbList schema
+    const breadcrumbItems = [{ name: 'Inicio', url: siteUrl }];
+    pathnames.forEach((segment, index) => {
+        const isLast = index === pathnames.length - 1;
+        const name = isLast && title ? title : (routeNames[segment] || segment.replace(/-/g, ' '));
+        if (segment === 'articulo' || segment === 'ensayo') return;
+        breadcrumbItems.push({ name, url: `${siteUrl}/${pathnames.slice(0, index + 1).join('/')}` });
+    });
+    if (title && !breadcrumbItems.find(i => i.name === title)) {
+        breadcrumbItems.push({ name: title, url: `${siteUrl}${location.pathname}` });
+    }
+
+    const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": breadcrumbItems.map((item, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "name": item.name,
+            "item": item.url
+        }))
+    };
+
     return (
+        <>
+        <Helmet>
+            <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
+        </Helmet>
         <nav aria-label="Breadcrumb" className="mb-6">
             <ol className="flex items-center space-x-2 text-sm text-sabiduria-navy/70 font-medium uppercase tracking-wider">
                 <li>
@@ -56,6 +85,7 @@ const Breadcrumbs = ({ title }) => {
                 )}
             </ol>
         </nav>
+        </>
     );
 };
 

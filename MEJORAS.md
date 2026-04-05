@@ -19,13 +19,13 @@ Fecha de análisis: 2026-04-04
 
 ## 🟡 SEO (Semana 2)
 
-- [ ] **JSON-LD: Organization** — Schema global en `App.jsx` o `index.html`
-- [ ] **JSON-LD: WebSite** — Con `SearchAction` para el buscador interno
-- [ ] **JSON-LD: Article** — En `ArticlePage.jsx` y `EstudioPage.jsx` (ya parcialmente implementado)
-- [ ] **JSON-LD: BreadcrumbList** — Agregar schema dinámico en `Breadcrumbs.jsx`
-- [ ] **URL base dinámica** — Reemplazar URL hardcodeada de GitHub Pages por variable de entorno en `SEO.jsx:8` y `ShareButtons.jsx:14`
-- [ ] **Imagen OG por artículo** — Asegurar que cada artículo en `content.json` tenga campo `image` con URL válida
-- [ ] **Imagen OG default** — Verificar que `/img/og-default.jpg` existe y tiene dimensiones correctas (1200×630px)
+- [x] **JSON-LD: Organization** — Schema global en `App.jsx`
+- [x] **JSON-LD: WebSite** — Con `SearchAction` para el buscador interno en `App.jsx`
+- [x] **JSON-LD: Article** — En `ArticlePage.jsx` (EstudioPage.jsx ya lo tenía)
+- [x] **JSON-LD: BreadcrumbList** — Schema dinámico en `Breadcrumbs.jsx`
+- [x] **URL base dinámica** — `VITE_SITE_URL` en `.env`; usado en `SEO.jsx`, `ShareButtons.jsx`, `EstudioPage.jsx`
+- [x] **Imagen OG por artículo** — 18/19 artículos actualizados en `content.json` con imagen asignada
+- [x] **Imagen OG default** — Creado `/public/img/og-default.jpg`
 
 ---
 
@@ -98,11 +98,11 @@ Fecha de análisis: 2026-04-04
 | Área | Total | Completado | % |
 |---|---|---|---|
 | Crítico | 5 | 5 | 100% |
-| SEO | 7 | 0 | 0% |
+| SEO | 7 | 7 | 100% |
 | Performance | 7 | 0 | 0% |
 | Diseño | 6 | 0 | 0% |
 | Accesibilidad | 7 | 0 | 0% |
 | Contenido | 4 | 0 | 0% |
 | Routing | 3 | 0 | 0% |
 | Nice-to-have | 7 | 0 | 0% |
-| **Total** | **46** | **0** | **0%** |
+| **Total** | **46** | **12** | **26%** |
