@@ -902,7 +902,7 @@ const BibliaFlow = () => {
                                             }`}
                                     >
                                         {item.type === 'img' ? (
-                                            <img src={item.url} alt="" className="w-full h-full object-cover" />
+                                            <img src={item.url} alt="" className="w-full h-full object-cover" loading="lazy" />
                                         ) : (
                                             <div className={`w-full h-full bg-gradient-to-br ${item.color}`}></div>
                                         )}

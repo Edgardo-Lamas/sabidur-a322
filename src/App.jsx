@@ -1,53 +1,57 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ErrorBoundary from './components/ErrorBoundary';
-import NotFound from './pages/NotFound';
-import Home from './pages/Home';
-import ArticlePage from './pages/ArticlePage';
-import Articles from './pages/Articles';
-import Donations from './pages/Donations';
-import Store from './pages/Store';
-import ProductPage from './pages/ProductPage';
-import Youth from './pages/Youth';
-import Bosquejos from './pages/Bosquejos';
-import Ensayos from './pages/Ensayos';
-import TextPage from './pages/TextPage';
-import Biblioteca from './pages/Biblioteca';
-import BibliotecaConsulta from './pages/BibliotecaConsulta';
-import HiloDelTiempo from './pages/HiloDelTiempo';
-import PerfeccionesDeDios from './pages/PerfeccionesDeDios';
-import PerfeccionesCapitulo1 from './pages/PerfeccionesCapitulo1';
-import PerfeccionesCapitulo2 from './pages/PerfeccionesCapitulo2';
-import PerfeccionesCapitulo3 from './pages/PerfeccionesCapitulo3';
-import SedymModulo3 from './pages/SedymModulo3';
-import DeclaracionDeFe from './pages/DeclaracionDeFe';
-import EstudioPage from './pages/EstudioPage';
-import TeologiaBasica from './pages/TeologiaBasica';
-import TeologiaBasicaTema from './pages/TeologiaBasicaTema';
-import EstudiosLibros from './pages/EstudiosLibros';
-import LibroEstudioIndex from './pages/LibroEstudioIndex';
-import LibroEstudioCapitulo from './pages/LibroEstudioCapitulo';
 import ScrollToTopButton from './components/ScrollToTopButton';
-import MapasBiblicos from './pages/MapasBiblicos';
-import MapaRecorrido from './pages/MapaRecorrido';
-import Ensenanzas from './pages/Ensenanzas';
-import ChatSpurgeon from './components/ChatSpurgeon';
-import Biografias from './pages/Biografias';
-import Prerreformadores from './pages/Prerreformadores';
-import Wycliffe from './pages/prerreformadores/Wycliffe';
-import JanHus from './pages/prerreformadores/JanHus';
-import PedroWaldo from './pages/prerreformadores/PedroWaldo';
-import Savonarola from './pages/prerreformadores/Savonarola';
-import Tyndale from './pages/prerreformadores/Tyndale';
-import Reformadores from './pages/Reformadores';
-import Lutero from './pages/reformadores/Lutero';
-import Calvino from './pages/reformadores/Calvino';
-import Zuinglio from './pages/reformadores/Zuinglio';
-import Knox from './pages/reformadores/Knox';
-import Bullinger from './pages/reformadores/Bullinger';
+
+// Lazy-loaded pages
+const NotFound            = lazy(() => import('./pages/NotFound'));
+const Home                = lazy(() => import('./pages/Home'));
+const ArticlePage         = lazy(() => import('./pages/ArticlePage'));
+const Articles            = lazy(() => import('./pages/Articles'));
+const Donations           = lazy(() => import('./pages/Donations'));
+const Store               = lazy(() => import('./pages/Store'));
+const ProductPage         = lazy(() => import('./pages/ProductPage'));
+const Youth               = lazy(() => import('./pages/Youth'));
+const Bosquejos           = lazy(() => import('./pages/Bosquejos'));
+const Ensayos             = lazy(() => import('./pages/Ensayos'));
+const TextPage            = lazy(() => import('./pages/TextPage'));
+const Biblioteca          = lazy(() => import('./pages/Biblioteca'));
+const BibliotecaConsulta  = lazy(() => import('./pages/BibliotecaConsulta'));
+const HiloDelTiempo       = lazy(() => import('./pages/HiloDelTiempo'));
+const PerfeccionesDeDios  = lazy(() => import('./pages/PerfeccionesDeDios'));
+const PerfeccionesCapitulo1 = lazy(() => import('./pages/PerfeccionesCapitulo1'));
+const PerfeccionesCapitulo2 = lazy(() => import('./pages/PerfeccionesCapitulo2'));
+const PerfeccionesCapitulo3 = lazy(() => import('./pages/PerfeccionesCapitulo3'));
+const SedymModulo3        = lazy(() => import('./pages/SedymModulo3'));
+const DeclaracionDeFe     = lazy(() => import('./pages/DeclaracionDeFe'));
+const EstudioPage         = lazy(() => import('./pages/EstudioPage'));
+const TeologiaBasica      = lazy(() => import('./pages/TeologiaBasica'));
+const TeologiaBasicaTema  = lazy(() => import('./pages/TeologiaBasicaTema'));
+const EstudiosLibros      = lazy(() => import('./pages/EstudiosLibros'));
+const LibroEstudioIndex   = lazy(() => import('./pages/LibroEstudioIndex'));
+const LibroEstudioCapitulo = lazy(() => import('./pages/LibroEstudioCapitulo'));
+const MapasBiblicos       = lazy(() => import('./pages/MapasBiblicos'));
+const MapaRecorrido       = lazy(() => import('./pages/MapaRecorrido'));
+const Ensenanzas          = lazy(() => import('./pages/Ensenanzas'));
+const Biografias          = lazy(() => import('./pages/Biografias'));
+const Prerreformadores    = lazy(() => import('./pages/Prerreformadores'));
+const Wycliffe            = lazy(() => import('./pages/prerreformadores/Wycliffe'));
+const JanHus              = lazy(() => import('./pages/prerreformadores/JanHus'));
+const PedroWaldo          = lazy(() => import('./pages/prerreformadores/PedroWaldo'));
+const Savonarola          = lazy(() => import('./pages/prerreformadores/Savonarola'));
+const Tyndale             = lazy(() => import('./pages/prerreformadores/Tyndale'));
+const Reformadores        = lazy(() => import('./pages/Reformadores'));
+const Lutero              = lazy(() => import('./pages/reformadores/Lutero'));
+const Calvino             = lazy(() => import('./pages/reformadores/Calvino'));
+const Zuinglio            = lazy(() => import('./pages/reformadores/Zuinglio'));
+const Knox                = lazy(() => import('./pages/reformadores/Knox'));
+const Bullinger           = lazy(() => import('./pages/reformadores/Bullinger'));
+
+// Lazy-loaded heavy components
+const ChatSpurgeon        = lazy(() => import('./components/ChatSpurgeon'));
 
 // ScrollToTop component to ensure page starts at top on route change
 const ScrollToTop = () => {
@@ -57,6 +61,12 @@ const ScrollToTop = () => {
   }, [pathname]);
   return null;
 };
+
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center bg-sabiduria-bg">
+    <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-sabiduria-gold"></div>
+  </div>
+);
 
 const siteUrl = import.meta.env.VITE_SITE_URL || 'https://edgardo-lamas.github.io/sabidur-a322';
 
@@ -98,61 +108,64 @@ function App() {
       <div className="flex flex-col min-h-screen bg-sabiduria-bg">
         <Navbar />
         <ErrorBoundary>
-        <div className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/articulos" element={<Articles />} />
-            <Route path="/articulo/:slug" element={<ArticlePage />} />
-            <Route path="/ensayos" element={<Ensayos />} />
-            <Route path="/ensayo/:slug" element={<TextPage textType="ensayo" />} />
-            <Route path="/estudio/hilo-del-tiempo" element={<HiloDelTiempo />} />
-            <Route path="/estudio/perfecciones-de-dios" element={<PerfeccionesDeDios />} />
-            <Route path="/estudio/perfecciones-de-dios/capitulo-1" element={<PerfeccionesCapitulo1 />} />
-            <Route path="/estudio/perfecciones-de-dios/capitulo-2" element={<PerfeccionesCapitulo2 />} />
-            <Route path="/estudio/perfecciones-de-dios/capitulo-3" element={<PerfeccionesCapitulo3 />} />
-            <Route path="/estudio/sedym-modulo-3" element={<SedymModulo3 />} />
-            <Route path="/estudio/:slug" element={<EstudioPage />} />
-            <Route path="/bosquejos" element={<Bosquejos />} />
-            <Route path="/bosquejo/:slug" element={<TextPage textType="bosquejo" />} />
-            <Route path="/tienda" element={<Store />} />
-            <Route path="/tienda/:slug" element={<ProductPage />} />
-            <Route path="/adolescentes" element={<Youth />} />
-            <Route path="/biblioteca" element={<Biblioteca />} />
-            <Route path="/biblioteca/consulta" element={<BibliotecaConsulta />} />
-            <Route path="/declaracion-de-fe" element={<DeclaracionDeFe />} />
-            <Route path="/teologia-basica" element={<TeologiaBasica />} />
-            <Route path="/teologia-basica/:slug" element={<TeologiaBasicaTema />} />
-            <Route path="/estudios-libros" element={<EstudiosLibros />} />
-            <Route path="/estudios-libros/:libroSlug" element={<LibroEstudioIndex />} />
-            <Route path="/estudios-libros/:libroSlug/:capituloSlug" element={<LibroEstudioCapitulo />} />
-            <Route path="/mapas-biblicos" element={<MapasBiblicos />} />
-            <Route path="/mapas-biblicos/:slug" element={<MapaRecorrido />} />
-            <Route path="/ensenanzas" element={<Ensenanzas />} />
-            <Route path="/biografias" element={<Biografias />} />
-            <Route path="/prerreformadores" element={<Prerreformadores />} />
-            <Route path="/prerreformadores/wycliffe" element={<Wycliffe />} />
-            <Route path="/prerreformadores/jan-hus" element={<JanHus />} />
-            <Route path="/prerreformadores/pedro-waldo" element={<PedroWaldo />} />
-            <Route path="/prerreformadores/savonarola" element={<Savonarola />} />
-            <Route path="/prerreformadores/tyndale" element={<Tyndale />} />
-            <Route path="/reformadores" element={<Reformadores />} />
-            <Route path="/reformadores/lutero" element={<Lutero />} />
-            <Route path="/reformadores/calvino" element={<Calvino />} />
-            <Route path="/reformadores/zuinglio" element={<Zuinglio />} />
-            <Route path="/reformadores/knox" element={<Knox />} />
-            <Route path="/reformadores/bullinger" element={<Bullinger />} />
-            <Route path="/donaciones" element={<Donations />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </div>
+          <div className="flex-grow">
+            <Suspense fallback={<PageLoader />}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/articulos" element={<Articles />} />
+                <Route path="/articulo/:slug" element={<ArticlePage />} />
+                <Route path="/ensayos" element={<Ensayos />} />
+                <Route path="/ensayo/:slug" element={<TextPage textType="ensayo" />} />
+                <Route path="/estudio/hilo-del-tiempo" element={<HiloDelTiempo />} />
+                <Route path="/estudio/perfecciones-de-dios" element={<PerfeccionesDeDios />} />
+                <Route path="/estudio/perfecciones-de-dios/capitulo-1" element={<PerfeccionesCapitulo1 />} />
+                <Route path="/estudio/perfecciones-de-dios/capitulo-2" element={<PerfeccionesCapitulo2 />} />
+                <Route path="/estudio/perfecciones-de-dios/capitulo-3" element={<PerfeccionesCapitulo3 />} />
+                <Route path="/estudio/sedym-modulo-3" element={<SedymModulo3 />} />
+                <Route path="/estudio/:slug" element={<EstudioPage />} />
+                <Route path="/bosquejos" element={<Bosquejos />} />
+                <Route path="/bosquejo/:slug" element={<TextPage textType="bosquejo" />} />
+                <Route path="/tienda" element={<Store />} />
+                <Route path="/tienda/:slug" element={<ProductPage />} />
+                <Route path="/adolescentes" element={<Youth />} />
+                <Route path="/biblioteca" element={<Biblioteca />} />
+                <Route path="/biblioteca/consulta" element={<BibliotecaConsulta />} />
+                <Route path="/declaracion-de-fe" element={<DeclaracionDeFe />} />
+                <Route path="/teologia-basica" element={<TeologiaBasica />} />
+                <Route path="/teologia-basica/:slug" element={<TeologiaBasicaTema />} />
+                <Route path="/estudios-libros" element={<EstudiosLibros />} />
+                <Route path="/estudios-libros/:libroSlug" element={<LibroEstudioIndex />} />
+                <Route path="/estudios-libros/:libroSlug/:capituloSlug" element={<LibroEstudioCapitulo />} />
+                <Route path="/mapas-biblicos" element={<MapasBiblicos />} />
+                <Route path="/mapas-biblicos/:slug" element={<MapaRecorrido />} />
+                <Route path="/ensenanzas" element={<Ensenanzas />} />
+                <Route path="/biografias" element={<Biografias />} />
+                <Route path="/prerreformadores" element={<Prerreformadores />} />
+                <Route path="/prerreformadores/wycliffe" element={<Wycliffe />} />
+                <Route path="/prerreformadores/jan-hus" element={<JanHus />} />
+                <Route path="/prerreformadores/pedro-waldo" element={<PedroWaldo />} />
+                <Route path="/prerreformadores/savonarola" element={<Savonarola />} />
+                <Route path="/prerreformadores/tyndale" element={<Tyndale />} />
+                <Route path="/reformadores" element={<Reformadores />} />
+                <Route path="/reformadores/lutero" element={<Lutero />} />
+                <Route path="/reformadores/calvino" element={<Calvino />} />
+                <Route path="/reformadores/zuinglio" element={<Zuinglio />} />
+                <Route path="/reformadores/knox" element={<Knox />} />
+                <Route path="/reformadores/bullinger" element={<Bullinger />} />
+                <Route path="/donaciones" element={<Donations />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+          </div>
         </ErrorBoundary>
         <Footer />
       </div>
       <ScrollToTopButton />
-      <ChatSpurgeon />
+      <Suspense fallback={null}>
+        <ChatSpurgeon />
+      </Suspense>
     </Router>
   );
 }
 
 export default App;
-

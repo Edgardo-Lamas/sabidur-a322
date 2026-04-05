@@ -23,8 +23,7 @@ const ArticlePage = () => {
                 ];
                 const foundArticle = articles.find(a => a.slug === slug);
                 setArticle(foundArticle || null);
-            } catch (err) {
-                console.error('Error fetching article:', err.message);
+            } catch {
             } finally {
                 setLoading(false);
             }

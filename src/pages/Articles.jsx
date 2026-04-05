@@ -29,8 +29,7 @@ const Articles = () => {
                     return true;
                 });
                 setArticles(articlesData);
-            } catch (err) {
-                console.error('Error fetching articles:', err.message);
+            } catch {
             } finally {
                 setLoading(false);
             }

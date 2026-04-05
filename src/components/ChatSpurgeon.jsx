@@ -66,7 +66,7 @@ const ChatSpurgeon = () => {
             };
             setMessages(prev => [...prev, assistantMessage]);
         } catch (error) {
-            console.error('Error al contactar al Agente:', error);
+            // error silenciado en producción
             const errorMessage = {
                 role: 'assistant',
                 content: 'Disculpe, hubo un inconveniente al procesar su consulta. Por favor, intente nuevamente en unos momentos.',
@@ -109,8 +109,7 @@ const ChatSpurgeon = () => {
                     };
                     setMessages(prev => [...prev, assistantMessage]);
                 })
-                .catch(err => {
-                    console.error('Error:', err);
+                .catch(() => {
                     setMessages(prev => [...prev, {
                         role: 'assistant',
                         content: 'Disculpe, hubo un inconveniente. Intente nuevamente.',

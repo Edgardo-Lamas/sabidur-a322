@@ -76,7 +76,7 @@ const ArticleFeed = () => {
                                 {/* Decorative line for first item or specific style could go here, but keeping it clean */}
                                 <div className="w-full mb-6 overflow-hidden">
                                     {article.image ? (
-                                        <img src={article.image} alt={article.title} className="w-full h-64 object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out" />
+                                        <img src={article.image} alt={article.title} className="w-full h-64 object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out" loading="lazy" />
                                     ) : (
                                         <div className="w-full h-px bg-sabiduria-navy/10 mb-8 md:hidden"></div>
                                     )}

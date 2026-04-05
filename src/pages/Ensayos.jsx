@@ -16,8 +16,7 @@ const Ensayos = () => {
                 // Cargar desde JSON local
                 const ensayosData = data.textos?.ensayos || [];
                 setEnsayos(ensayosData);
-            } catch (err) {
-                console.error('Error fetching essays:', err.message);
+            } catch {
             } finally {
                 setLoading(false);
             }

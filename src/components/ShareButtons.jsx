@@ -22,8 +22,8 @@ const ShareButtons = ({ title, url }) => {
             await navigator.clipboard.writeText(fullUrl);
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
-        } catch (err) {
-            console.error('Error copying link:', err);
+        } catch {
+            // silenciado
         }
     };
 

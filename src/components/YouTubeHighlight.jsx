@@ -34,7 +34,6 @@ const YouTubeHighlight = () => {
                     });
                 }
             } catch (err) {
-                console.error("Error cargando video de YouTube:", err);
                 setError(err.message);
             } finally {
                 setLoading(false);
