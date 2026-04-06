@@ -8,7 +8,17 @@ const HeroGrid = () => {
     const { main, side } = content.heroGrid;
     const { videos, rotationDays } = content.heroVideos;
 
-    // Calcular qué video mostrar basado en el día del año y rotación cada X días
+    /**
+     * Selecciona el video actual según el día del año.
+     * La rotación es determinista: todos los usuarios ven el mismo video el mismo día.
+     *
+     * Ejemplo con rotationDays=7 y 4 videos:
+     *   Días  1–7   → video[0]
+     *   Días  8–14  → video[1]
+     *   Días 15–21  → video[2]
+     *   Días 22–28  → video[3]
+     *   Días 29–35  → video[0] (ciclo)
+     */
     const now = new Date();
     const start = new Date(now.getFullYear(), 0, 0);
     const diff = now - start;
