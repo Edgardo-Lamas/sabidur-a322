@@ -67,9 +67,15 @@ const ArticleFeed = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 min-h-[500px]">
                     {loading ? (
-                        <div className="col-span-3 flex justify-center py-20">
-                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-sabiduria-gold"></div>
-                        </div>
+                        Array.from({ length: 3 }).map((_, i) => (
+                            <div key={i} className="flex flex-col gap-4 animate-pulse">
+                                <div className="w-full h-64 bg-sabiduria-navy/10 rounded-sm" />
+                                <div className="h-3 w-20 bg-sabiduria-gold/30 rounded" />
+                                <div className="h-6 w-3/4 bg-sabiduria-navy/10 rounded" />
+                                <div className="h-3 w-full bg-sabiduria-navy/10 rounded" />
+                                <div className="h-3 w-5/6 bg-sabiduria-navy/10 rounded" />
+                            </div>
+                        ))
                     ) : filteredArticles.length > 0 ? (
                         filteredArticles.slice(0, 3).map((article) => (
                             <article key={article.id} className="group flex flex-col items-start animate-fade-in-up">
