@@ -5,6 +5,7 @@ import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import content from '../data/content.json';
 import textos from '../data/textos.json';
+import { ArticlesArraySchema, validateInDev } from '../data/schemas';
 
 const Articles = () => {
     const [searchTerm, setSearchTerm] = React.useState('');
@@ -29,6 +30,7 @@ const Articles = () => {
                     seen.add(a.slug);
                     return true;
                 });
+                validateInDev(ArticlesArraySchema, articlesData, 'Articles');
                 setArticles(articlesData);
             } catch {
             } finally {

@@ -4,6 +4,7 @@ import { ChevronRight, Search } from 'lucide-react';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import data from '../data/textos.json';
+import { EssaysArraySchema, validateInDev } from '../data/schemas';
 
 const Ensayos = () => {
     const [searchTerm, setSearchTerm] = React.useState('');
@@ -15,6 +16,7 @@ const Ensayos = () => {
             try {
                 // Cargar desde JSON local
                 const ensayosData = data.ensayos || [];
+                validateInDev(EssaysArraySchema, ensayosData, 'Ensayos');
                 setEnsayos(ensayosData);
             } catch {
             } finally {

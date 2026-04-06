@@ -3,6 +3,7 @@ import { ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import contentData from '../data/content.json';
 import textos from '../data/textos.json';
+import { ArticlesArraySchema, validateInDev } from '../data/schemas';
 
 const ArticleFeed = () => {
     const [selectedCategory, setSelectedCategory] = React.useState('Todos');
@@ -22,6 +23,7 @@ const ArticleFeed = () => {
             seen.add(a.slug);
             return true;
         });
+        validateInDev(ArticlesArraySchema, articlesData, 'ArticleFeed');
         setArticles(articlesData);
         setLoading(false);
     }, []);
