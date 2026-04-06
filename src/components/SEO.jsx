@@ -9,8 +9,9 @@ const SEO = ({ title, description, image, url, type = 'website' }) => {
 
     const metaTitle = title ? `${title} | ${siteTitle}` : siteTitle;
     const metaDescription = description || siteDescription;
-    const metaImage = image ? (image.startsWith('http') ? image : `${siteUrl}${image}`) : `${siteUrl}${defaultImage}`;
-    const metaUrl = url ? `${siteUrl}${url}` : siteUrl;
+    const resolveUrl = (path) => path.startsWith('http') ? path : `${siteUrl}${path.replace(/^\//, '')}`;
+    const metaImage = resolveUrl(image || defaultImage);
+    const metaUrl = url ? resolveUrl(url) : siteUrl;
 
     return (
         <Helmet>
