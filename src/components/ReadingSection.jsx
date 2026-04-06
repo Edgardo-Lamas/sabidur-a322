@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FileText, Download, Heart, ArrowLeft } from 'lucide-react';
 import content from '../data/content.json';
 import { sanitizeHTML } from '../lib/sanitize';
+import { RecommendedReadings } from './ui/Card';
 
 /**
  * AuthorshipFooter - Sección de autoría estilo Ligonier
@@ -13,39 +14,6 @@ const AuthorshipFooter = () => (
         <p className="website-link">www.sabiduriaparaelcorazon.com</p>
     </div>
 );
-
-/**
- * RecommendedReadings - Sección de lecturas recomendadas estilo Ligonier
- */
-const RecommendedReadings = ({ articles, baseRoute = '/articulo' }) => {
-    if (!articles || articles.length === 0) return null;
-
-    return (
-        <div className="recommended-readings">
-            <h3>Lecturas Recomendadas</h3>
-            <div className="recommended-readings-grid">
-                {articles.slice(0, 3).map((article, index) => (
-                    <Link
-                        key={index}
-                        to={`${baseRoute}/${article.slug}`}
-                        className="recommended-card"
-                    >
-                        <div className="recommended-card-content">
-                            {article.category && (
-                                <span className="recommended-card-category">
-                                    {article.category}
-                                </span>
-                            )}
-                            <h4 className="recommended-card-title">
-                                {article.title}
-                            </h4>
-                        </div>
-                    </Link>
-                ))}
-            </div>
-        </div>
-    );
-};
 
 /**
  * Gets related articles based on same category or random from all articles
