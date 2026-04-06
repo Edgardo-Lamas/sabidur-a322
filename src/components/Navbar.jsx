@@ -55,6 +55,13 @@ const Navbar = () => {
             >
               <button
                 className="text-sabiduria-navy/80 hover:text-sabiduria-navy font-medium text-sm tracking-wide uppercase transition-colors flex items-center gap-1 py-2"
+                aria-haspopup="true"
+                aria-expanded={textosOpen}
+                aria-controls="textos-dropdown"
+                onKeyDown={(e) => {
+                  if (e.key === 'Escape') setTextosOpen(false);
+                  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setTextosOpen(prev => !prev); }
+                }}
               >
                 Textos
                 <ChevronDown size={14} className={`transition-transform ${textosOpen ? 'rotate-180' : ''}`} />
@@ -62,12 +69,14 @@ const Navbar = () => {
 
               {/* Dropdown Menu */}
               {textosOpen && (
-                <div className="absolute top-full left-0 pt-2 w-72 z-50">
+                <div id="textos-dropdown" role="menu" className="absolute top-full left-0 pt-2 w-72 z-50">
                   <div className="bg-white border border-sabiduria-gray/10 shadow-lg rounded-sm overflow-hidden">
                     {textosSubmenu.map((item) => (
                       <Link
                         key={item.name}
                         to={item.path}
+                        role="menuitem"
+                        onKeyDown={(e) => { if (e.key === 'Escape') setTextosOpen(false); }}
                         className="block px-4 py-3 hover:bg-sabiduria-bg transition-colors border-b border-sabiduria-gray/5 last:border-b-0"
                       >
                         <span className="block text-sabiduria-navy font-medium text-sm uppercase tracking-wide">
@@ -109,6 +118,9 @@ const Navbar = () => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-sabiduria-navy hover:text-sabiduria-gold focus:outline-none"
+              aria-label={isOpen ? 'Cerrar menú' : 'Abrir menú'}
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
             >
               {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
@@ -118,7 +130,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-white border-b border-sabiduria-gray/10 animate-fade-in">
+        <div id="mobile-menu" className="md:hidden bg-white border-b border-sabiduria-gray/10 animate-fade-in">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <Link
               to="/"
@@ -133,12 +145,14 @@ const Navbar = () => {
               <button
                 onClick={() => setMobileTextosOpen(!mobileTextosOpen)}
                 className="w-full flex items-center justify-between px-3 py-4 text-sabiduria-navy hover:bg-sabiduria-bg font-medium uppercase text-sm"
+                aria-expanded={mobileTextosOpen}
+                aria-controls="mobile-textos-submenu"
               >
                 Textos
                 <ChevronDown size={16} className={`transition-transform ${mobileTextosOpen ? 'rotate-180' : ''}`} />
               </button>
               {mobileTextosOpen && (
-                <div className="bg-sabiduria-bg/50 border-l-2 border-sabiduria-gold ml-3">
+                <div id="mobile-textos-submenu" className="bg-sabiduria-bg/50 border-l-2 border-sabiduria-gold ml-3">
                   {textosSubmenu.map((item) => (
                     <Link
                       key={item.name}
