@@ -42,6 +42,8 @@ const Footer = () => {
                             <input
                                 type="email"
                                 placeholder="Tu correo electrónico"
+                                aria-label="Correo electrónico para suscripción al boletín"
+                                autoComplete="email"
                                 className="bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-sabiduria-gold flex-grow"
                             />
                             <button className="btn-gold whitespace-nowrap">

@@ -16,6 +16,8 @@ const SearchBar = ({ searchQuery, onSearchChange }) => {
                     value={searchQuery}
                     onChange={(e) => onSearchChange(e.target.value)}
                     placeholder="Buscar por título, autor o tema..."
+                    aria-label="Buscar en Sabiduría para el Corazón"
+                    autoComplete="off"
                     className="w-full pl-12 pr-12 py-3 border border-sabiduria-navy/20 focus:border-sabiduria-gold focus:outline-none focus:ring-2 focus:ring-sabiduria-gold/20 transition-all font-sans text-sabiduria-navy placeholder:text-sabiduria-gray/50"
                 />
                 <AnimatePresence>
