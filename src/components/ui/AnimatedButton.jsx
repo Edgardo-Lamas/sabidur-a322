@@ -27,6 +27,7 @@ const AnimatedButton = ({
 
     const variantClasses = {
         gold: 'bg-sabiduria-gold text-white px-6 py-2',
+        primary: 'bg-sabiduria-gold text-white px-6 py-2', // alias de gold
         outline: 'px-6 py-2 border-2 border-sabiduria-gold text-sabiduria-gold hover:bg-sabiduria-gold hover:text-white',
         ghost: 'text-sabiduria-navy hover:text-sabiduria-gold'
     };
