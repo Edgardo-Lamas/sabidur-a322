@@ -1,9 +1,26 @@
 import React from 'react';
-import { Facebook, Youtube, Instagram, Mail, Heart } from 'lucide-react';
+import { Facebook, Youtube, Instagram, Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import content from '../data/content.json';
 
 const Footer = () => {
+    const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm();
+
+    const onSubmit = async ({ email }) => {
+        const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
+        if (webhookUrl) {
+            await fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, source: 'newsletter-footer' }),
+            });
+        }
+        toast.success('¡Suscripción exitosa! Gracias por unirte.');
+        reset();
+    };
+
     return (
         <footer className="bg-sabiduria-navy text-white pt-16 pb-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -38,17 +55,30 @@ const Footer = () => {
                     <div className="col-span-1 lg:col-span-2">
                         <h4 className="text-lg font-serif font-bold mb-6 border-b border-white/10 pb-2">Suscríbete al Boletín</h4>
                         <p className="text-sabiduria-gray brightness-125 mb-6"> Recibe reflexiones exegéticas y noticias de nuevos recursos directamente en tu correo. </p>
-                        <form className="flex flex-col sm:flex-row gap-2">
-                            <input
-                                type="email"
-                                placeholder="Tu correo electrónico"
-                                aria-label="Correo electrónico para suscripción al boletín"
-                                autoComplete="email"
-                                className="bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-sabiduria-gold flex-grow"
-                            />
-                            <button className="btn-gold whitespace-nowrap">
-                                Unirse ahora
-                            </button>
+                        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
+                            <div className="flex flex-col sm:flex-row gap-2">
+                                <input
+                                    type="email"
+                                    placeholder="Tu correo electrónico"
+                                    aria-label="Correo electrónico para suscripción al boletín"
+                                    autoComplete="email"
+                                    {...register('email', {
+                                        required: 'El correo es obligatorio',
+                                        pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Correo no válido' }
+                                    })}
+                                    className="bg-white/5 border border-white/10 px-4 py-3 focus:outline-none focus:border-sabiduria-gold flex-grow"
+                                />
+                                <button
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    className="btn-gold whitespace-nowrap disabled:opacity-60"
+                                >
+                                    {isSubmitting ? 'Enviando...' : 'Unirse ahora'}
+                                </button>
+                            </div>
+                            {errors.email && (
+                                <p className="text-red-400 text-sm">{errors.email.message}</p>
+                            )}
                         </form>
                     </div>
                 </div>
