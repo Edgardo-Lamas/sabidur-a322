@@ -42,10 +42,12 @@ const ArticleFeed = () => {
                         </h2>
 
                         {/* Dynamic Filters */}
-                        <div className="flex flex-wrap gap-x-8 gap-y-2 mt-8">
+                        <div className="flex flex-wrap gap-x-8 gap-y-2 mt-8" role="tablist" aria-label="Filtrar por categoría">
                             {categories.map((cat) => (
                                 <button
                                     key={cat}
+                                    role="tab"
+                                    aria-selected={selectedCategory === cat}
                                     onClick={() => setSelectedCategory(cat)}
                                     className={`text-sm md:text-base font-serif italic transition-colors relative ${selectedCategory === cat
                                         ? 'text-sabiduria-gold font-medium'
