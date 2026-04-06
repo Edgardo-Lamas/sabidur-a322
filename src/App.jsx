@@ -30,6 +30,7 @@ const DeclaracionDeFe     = lazy(() => import('./pages/DeclaracionDeFe'));
 const EstudioPage         = lazy(() => import('./pages/EstudioPage'));
 const TeologiaBasica      = lazy(() => import('./pages/TeologiaBasica'));
 const TeologiaBasicaTema  = lazy(() => import('./pages/TeologiaBasicaTema'));
+const TeologiaSistematica = lazy(() => import('./pages/TeologiaSistematica'));
 const EstudiosLibros      = lazy(() => import('./pages/EstudiosLibros'));
 const LibroEstudioIndex   = lazy(() => import('./pages/LibroEstudioIndex'));
 const LibroEstudioCapitulo = lazy(() => import('./pages/LibroEstudioCapitulo'));
@@ -133,6 +134,7 @@ function App() {
                 <Route path="/declaracion-de-fe" element={<DeclaracionDeFe />} />
                 <Route path="/teologia-basica" element={<TeologiaBasica />} />
                 <Route path="/teologia-basica/:slug" element={<TeologiaBasicaTema />} />
+                <Route path="/teologia-sistematica" element={<TeologiaSistematica />} />
                 <Route path="/estudios-libros" element={<EstudiosLibros />} />
                 <Route path="/estudios-libros/:libroSlug" element={<LibroEstudioIndex />} />
                 <Route path="/estudios-libros/:libroSlug/:capituloSlug" element={<LibroEstudioCapitulo />} />
