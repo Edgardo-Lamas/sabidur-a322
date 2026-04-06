@@ -9,6 +9,12 @@
   --color-text-heading: #1A252F;
   --color-accent-blue: #2980B9;
   --color-border-light: #BDC3C7;
+  --color-surface-light: #F8F9FA;
+  --color-text-muted: #555555;
+  --color-navy-hover: #242830;
+  --color-success: #22C55E;
+  --color-whatsapp: #25D366;
+  --color-facebook: #1877F2;
 
   --font-serif: "Lora", "Playfair Display", serif;
   --font-sans: "Inter", system-ui, sans-serif;
@@ -95,11 +101,11 @@
     margin: 1.5rem 2.5rem;
     padding-left: 1rem;
     font-style: italic;
-    color: #555;
+    color: var(--color-text-muted);
   }
 
   .text-article .biblical-references {
-    background: #f8f9fa;
+    background: var(--color-surface-light);
     border: 1px solid var(--color-border-light);
     padding: 1.5rem;
     margin-top: 2rem;
@@ -234,7 +240,7 @@
   .btn-pdf-discrete:hover {
     color: var(--color-sabiduria-navy);
     border-color: var(--color-sabiduria-navy);
-    background: #f8f9fa;
+    background: var(--color-surface-light);
   }
 
   /* Article Images */
@@ -331,7 +337,7 @@
   .recommended-card:hover {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
     transform: translateY(-3px);
-    background: #242830;
+    background: var(--color-navy-hover);
   }
 
   .recommended-card-content {
@@ -351,7 +357,7 @@
     font-family: var(--font-heading);
     font-size: 1rem;
     font-weight: 600;
-    color: #FFFFFF;
+    color: white;
     line-height: 1.4;
   }
 
@@ -409,20 +415,20 @@
   }
 
   .share-whatsapp:hover {
-    background: #25D366;
-    border-color: #25D366;
+    background: var(--color-whatsapp);
+    border-color: var(--color-whatsapp);
     color: white;
   }
 
   .share-facebook:hover {
-    background: #1877F2;
-    border-color: #1877F2;
+    background: var(--color-facebook);
+    border-color: var(--color-facebook);
     color: white;
   }
 
   .share-twitter:hover {
-    background: #000000;
-    border-color: #000000;
+    background: black;
+    border-color: black;
     color: white;
   }
 
@@ -433,8 +439,8 @@
   }
 
   .share-copy.copied {
-    background: #22C55E;
-    border-color: #22C55E;
+    background: var(--color-success);
+    border-color: var(--color-success);
     color: white;
   }
 
