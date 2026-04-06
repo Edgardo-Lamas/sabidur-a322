@@ -19,7 +19,13 @@ const AuthorshipFooter = () => (
  * Gets related articles based on same category or random from all articles
  */
 const getRelatedArticles = (currentArticle) => {
-    const allArticles = content.textos?.articulos || [];
+    const combined = [...(content.textos?.articulos || []), ...(content.articles || [])];
+    const seen = new Set();
+    const allArticles = combined.filter(a => {
+        if (seen.has(a.slug)) return false;
+        seen.add(a.slug);
+        return true;
+    });
 
     // Filter out current article and find same category
     const sameCategory = allArticles.filter(
