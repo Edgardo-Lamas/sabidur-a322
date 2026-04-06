@@ -16,6 +16,13 @@
   --color-whatsapp: #25D366;
   --color-facebook: #1877F2;
 
+  /* Espaciado semántico */
+  --space-section: 5rem;      /* py-20 — sección estándar */
+  --space-section-lg: 7rem;   /* py-28 — sección destacada */
+  --space-content: 2rem;      /* separación entre bloques de contenido */
+  --space-card: 1.25rem;      /* padding interno de cards */
+  --space-prose: 1.5rem;      /* separación entre párrafos de lectura */
+
   --font-serif: "Lora", "Playfair Display", serif;
   --font-sans: "Inter", system-ui, sans-serif;
   --font-heading: "Raleway", system-ui, sans-serif;
