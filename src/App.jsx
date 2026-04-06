@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { Toaster } from 'react-hot-toast';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -163,6 +164,14 @@ function App() {
         <Footer />
       </div>
       <ScrollToTopButton />
+      <Toaster
+        position="bottom-center"
+        toastOptions={{
+          duration: 2500,
+          style: { fontFamily: 'var(--font-sans)', fontSize: '0.875rem' },
+          success: { iconTheme: { primary: '#C5A059', secondary: '#fff' } },
+        }}
+      />
       <Suspense fallback={null}>
         <ChatSpurgeon />
       </Suspense>

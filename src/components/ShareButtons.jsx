@@ -1,13 +1,11 @@
-import { useState } from 'react';
-import { Share2, Copy, Check, MessageCircle } from 'lucide-react';
+import { Share2, Copy, MessageCircle } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 /**
  * ShareButtons - Botones para compartir contenido en redes sociales
  * Incluye: WhatsApp, Copiar enlace, Facebook, Twitter/X
  */
 const ShareButtons = ({ title, url }) => {
-    const [copied, setCopied] = useState(false);
-
     // Construir URL completa si es relativa
     const fullUrl = url?.startsWith('http')
         ? url
@@ -20,10 +18,9 @@ const ShareButtons = ({ title, url }) => {
     const handleCopy = async () => {
         try {
             await navigator.clipboard.writeText(fullUrl);
-            setCopied(true);
-            setTimeout(() => setCopied(false), 2000);
+            toast.success('¡Enlace copiado!');
         } catch {
-            // silenciado
+            toast.error('No se pudo copiar el enlace');
         }
     };
 
@@ -54,10 +51,10 @@ const ShareButtons = ({ title, url }) => {
                 {/* Copiar enlace */}
                 <button
                     onClick={handleCopy}
-                    className={`share-icon share-copy ${copied ? 'copied' : ''}`}
-                    title={copied ? '¡Copiado!' : 'Copiar enlace'}
+                    className="share-icon share-copy"
+                    title="Copiar enlace"
                 >
-                    {copied ? <Check size={18} /> : <Copy size={18} />}
+                    <Copy size={18} />
                 </button>
 
                 {/* Facebook */}
