@@ -4,6 +4,7 @@ import { ArticleTemplate, EssayTemplate, OutlineTemplate } from '../components/T
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import content from '../data/content.json';
+import textos from '../data/textos.json';
 
 /**
  * Configuración de cada tipo de texto
@@ -11,7 +12,7 @@ import content from '../data/content.json';
 const textTypeConfig = {
     articulo: {
         collection: () => [
-            ...(content.textos?.articulos || []),
+            ...(textos.articulos || []),
             ...(content.articles || [])
         ],
         label: 'Artículo',
@@ -19,13 +20,13 @@ const textTypeConfig = {
         backLabel: 'Volver a Artículos'
     },
     ensayo: {
-        collection: () => content.textos?.ensayos || [],
+        collection: () => textos.ensayos || [],
         label: 'Ensayo',
         backPath: '/ensayos',
         backLabel: 'Volver a Ensayos'
     },
     bosquejo: {
-        collection: () => content.textos?.bosquejos || [],
+        collection: () => textos.bosquejos || [],
         label: 'Bosquejo',
         backPath: '/bosquejos',
         backLabel: 'Volver a Bosquejos'

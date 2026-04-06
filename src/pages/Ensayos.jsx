@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ChevronRight, Search } from 'lucide-react';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
-import data from '../data/content.json';
+import data from '../data/textos.json';
 
 const Ensayos = () => {
     const [searchTerm, setSearchTerm] = React.useState('');
@@ -14,7 +14,7 @@ const Ensayos = () => {
         const fetchEnsayos = () => {
             try {
                 // Cargar desde JSON local
-                const ensayosData = data.textos?.ensayos || [];
+                const ensayosData = data.ensayos || [];
                 setEnsayos(ensayosData);
             } catch {
             } finally {

@@ -5,7 +5,7 @@ import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ShareButtons from '../components/ShareButtons';
 import NewsletterForm from '../components/NewsletterForm';
-import contentData from '../data/content.json';
+import contentData from '../data/teologia-basica.json';
 import { sanitizeHTML } from '../lib/sanitize';
 
 /**
@@ -16,7 +16,7 @@ const TeologiaBasicaTema = () => {
     const { slug } = useParams();
     const loading = false;
 
-    const rawCapitulos = contentData.teologiaBasica?.capitulos || [];
+    const rawCapitulos = contentData.capitulos || [];
     const allCapitulos = rawCapitulos.map(c => ({
         ...c,
         title: c.titulo,

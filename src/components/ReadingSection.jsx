@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FileText, Download, Heart, ArrowLeft } from 'lucide-react';
 import content from '../data/content.json';
+import textos from '../data/textos.json';
 import { sanitizeHTML } from '../lib/sanitize';
 import { RecommendedReadings } from './ui/Card';
 
@@ -19,7 +20,7 @@ const AuthorshipFooter = () => (
  * Gets related articles based on same category or random from all articles
  */
 const getRelatedArticles = (currentArticle) => {
-    const combined = [...(content.textos?.articulos || []), ...(content.articles || [])];
+    const combined = [...(textos.articulos || []), ...(content.articles || [])];
     const seen = new Set();
     const allArticles = combined.filter(a => {
         if (seen.has(a.slug)) return false;

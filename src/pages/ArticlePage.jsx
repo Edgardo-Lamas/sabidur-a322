@@ -4,7 +4,8 @@ import { Helmet } from 'react-helmet-async';
 import ReadingSection from '../components/ReadingSection';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
-import data from '../data/content.json';
+import content from '../data/content.json';
+import textos from '../data/textos.json';
 
 const ArticlePage = () => {
     const { slug } = useParams();
@@ -18,8 +19,8 @@ const ArticlePage = () => {
                 // Buscar en JSON local
                 // textos.articulos tiene prioridad; data.articles agrega los únicos.
                 const articles = [
-                    ...(data.textos?.articulos || []),
-                    ...(data.articles || [])
+                    ...(textos.articulos || []),
+                    ...(content.articles || [])
                 ];
                 const foundArticle = articles.find(a => a.slug === slug);
                 setArticle(foundArticle || null);

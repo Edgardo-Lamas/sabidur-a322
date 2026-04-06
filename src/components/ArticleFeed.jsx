@@ -2,6 +2,7 @@ import React from 'react';
 import { ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import contentData from '../data/content.json';
+import textos from '../data/textos.json';
 
 const ArticleFeed = () => {
     const [selectedCategory, setSelectedCategory] = React.useState('Todos');
@@ -12,7 +13,7 @@ const ArticleFeed = () => {
 
     React.useEffect(() => {
         const combined = [
-            ...(contentData.textos?.articulos || []),
+            ...(textos.articulos || []),
             ...(contentData.articles || [])
         ];
         const seen = new Set();

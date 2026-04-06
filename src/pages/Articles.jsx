@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { ChevronRight, Search, FileText } from 'lucide-react';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
-import data from '../data/content.json';
+import content from '../data/content.json';
+import textos from '../data/textos.json';
 
 const Articles = () => {
     const [searchTerm, setSearchTerm] = React.useState('');
@@ -19,8 +20,8 @@ const Articles = () => {
                 // textos.articulos primero (tiene prioridad por tener contenido completo);
                 // data.articles agrega los que no tienen equivalente, evitando duplicados.
                 const combined = [
-                    ...(data.textos?.articulos || []),
-                    ...(data.articles || [])
+                    ...(textos.articulos || []),
+                    ...(content.articles || [])
                 ];
                 const seen = new Set();
                 const articlesData = combined.filter(a => {

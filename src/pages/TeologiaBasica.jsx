@@ -4,14 +4,14 @@ import { motion } from 'framer-motion';
 import { BookOpen, ChevronRight, GraduationCap } from 'lucide-react';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
-import contentData from '../data/content.json';
+import contentData from '../data/teologia-basica.json';
 
 /**
  * TeologiaBasica - Página índice del curso de Teología Básica
  * Muestra los 12 capítulos como módulos de un curso estructurado
  */
 const TeologiaBasica = () => {
-    const tb = contentData.teologiaBasica || {};
+    const tb = contentData || {};
     const teologiaConfig = tb.titulo ? { titulo: tb.titulo, subtitulo: tb.subtitulo, descripcion: tb.descripcion, autor: tb.autor } : null;
     const capitulos = (tb.capitulos || []).map(c => ({
         ...c,
