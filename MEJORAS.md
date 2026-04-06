@@ -68,7 +68,7 @@ Fecha de análisis: 2026-04-04
 
 - [x] **Conectar `/src/data/knowledge/`** — Los 34 archivos de teología sistemática no están vinculados a ninguna ruta activa; crear sección o integrar en búsqueda
 - [x] **Separar content.json** — Dividir el archivo monolítico (1707 líneas) en archivos por tipo: `articles.json`, `readings.json`, `hero.json`, etc.
-- [ ] **Validación de datos** — Instalar Zod y definir schemas para artículos, ensayos y lecturas
+- [x] **Validación de datos** — Instalar Zod y definir schemas para artículos, ensayos y lecturas
 - [x] **Unificar "articles" y "textos.articulos"** — Hay referencia a `content.textos?.articulos` en `ArticlePage.jsx:20` que no existe en el JSON actual
 
 ---
@@ -84,11 +84,11 @@ Fecha de análisis: 2026-04-04
 ## 🟢 NICE-TO-HAVE (Backlog)
 
 - [ ] **TypeScript** — Migración gradual para mejor type safety
-- [ ] **react-hook-form + Zod** — Validación de formularios (newsletter, contacto)
+- [x] **react-hook-form + Zod** — Validación de formularios (newsletter, contacto)
 - [ ] **Service Worker** — Soporte offline básico
-- [ ] **Toast notifications** — Feedback al usuario (react-hot-toast o similar)
+- [x] **Toast notifications** — Feedback al usuario (react-hot-toast o similar)
 - [ ] **Pruebas automatizadas** — Configurar Playwright con el skill `webapp-testing` para rutas principales
-- [ ] **JSDoc** — Documentar funciones complejas (cálculo de fechas en `HeroGrid.jsx`)
+- [x] **JSDoc** — Documentar funciones complejas (cálculo de fechas en `HeroGrid.jsx`)
 - [ ] **Srcset / imágenes responsivas** — Variantes de tamaño para diferentes viewports
 
 ---
@@ -104,5 +104,5 @@ Fecha de análisis: 2026-04-04
 | Accesibilidad | 7 | 6 | 86% |
 | Contenido | 4 | 4 | 100% |
 | Routing | 3 | 3 | 100% |
-| Nice-to-have | 7 | 0 | 0% |
-| **Total** | **46** | **37** | **80%** |
+| Nice-to-have | 7 | 3 | 43% |
+| **Total** | **46** | **40** | **87%** |
