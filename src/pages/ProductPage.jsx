@@ -111,7 +111,7 @@ const ProductPage = () => {
                                     to="/tienda"
                                     className="text-xs font-bold uppercase tracking-[0.2em] text-sabiduria-gold mb-4 hover:underline inline-block"
                                 >
-                                    {category?.name || product.category}
+                                    {product.category}
                                 </Link>
 
                                 {/* Title */}

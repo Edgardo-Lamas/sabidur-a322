@@ -47,6 +47,7 @@ const StepInfoPanel = ({ epochColor: epochColorProp }) => {
         if (scrollRef.current) {
             scrollRef.current.scrollTop = 0;
         }
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setExpanded(false);
     }, [currentStepIndex]);
 

@@ -3,48 +3,38 @@ import { Link } from 'react-router-dom';
 import { Book, Download, FileText, BookOpen, GraduationCap, Bookmark } from 'lucide-react';
 import content from '../data/content.json';
 
+const SeccionBiblioteca = ({ id, icon: Icon, titulo, descripcion, children }) => (
+    <section id={id} className="py-16 px-4">
+        <div className="max-w-6xl mx-auto">
+            <div className="flex items-center gap-3 mb-4">
+                <Icon size={28} className="text-sabiduria-gold" />
+                <h2 className="text-2xl md:text-3xl font-serif font-bold text-sabiduria-navy">
+                    {titulo}
+                </h2>
+            </div>
+            {descripcion && (
+                <p className="text-sabiduria-gray leading-relaxed max-w-3xl mb-10">
+                    {descripcion}
+                </p>
+            )}
+            {children}
+        </div>
+    </section>
+);
+
+const PlaceholderVacio = ({ mensaje }) => (
+    <div className="text-center py-12 text-sabiduria-gray border border-dashed border-sabiduria-gray/20 rounded-sm">
+        <p className="text-sm italic">{mensaje || "Próximamente se añadirá contenido."}</p>
+    </div>
+);
+
 const Biblioteca = () => {
     const baseUrl = import.meta.env.BASE_URL;
 
-    // Datos de cada sección
     const documentosPropios = content.biblioteca?.documentos || [];
     const bibliotecaConsulta = content.biblioteca?.consulta || [];
     const cuadernoTeologico = content.biblioteca?.cuaderno || [];
     const ebooks = content.biblioteca?.ebooks || [];
-
-    // Componente para renderizar una sección
-    const SeccionBiblioteca = ({ id, icon: Icon, titulo, descripcion, items, children }) => (
-        <section id={id} className="py-16 px-4">
-            <div className="max-w-6xl mx-auto">
-                {/* Título de sección */}
-                <div className="flex items-center gap-3 mb-4">
-                    <Icon size={28} className="text-sabiduria-gold" />
-                    <h2 className="text-2xl md:text-3xl font-serif font-bold text-sabiduria-navy">
-                        {titulo}
-                    </h2>
-                </div>
-
-                {/* Descripción */}
-                {descripcion && (
-                    <p className="text-sabiduria-gray leading-relaxed max-w-3xl mb-10">
-                        {descripcion}
-                    </p>
-                )}
-
-                {/* Contenido */}
-                {children}
-            </div>
-        </section>
-    );
-
-    // Componente placeholder para secciones vacías
-    const PlaceholderVacio = ({ mensaje }) => (
-        <div className="text-center py-12 text-sabiduria-gray border border-dashed border-sabiduria-gray/20 rounded-sm">
-            <p className="text-sm italic">{mensaje || "Próximamente se añadirá contenido."}</p>
-        </div>
-    );
-
-
 
     return (
         <div className="min-h-screen bg-sabiduria-bg">

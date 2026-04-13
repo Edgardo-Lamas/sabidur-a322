@@ -65,7 +65,7 @@ const ChatSpurgeon = () => {
                 timestamp: new Date()
             };
             setMessages(prev => [...prev, assistantMessage]);
-        } catch (error) {
+        } catch {
             // error silenciado en producción
             const errorMessage = {
                 role: 'assistant',
@@ -82,7 +82,6 @@ const ChatSpurgeon = () => {
     const handleSuggestionClick = (question) => {
         setInput(question);
         setTimeout(() => {
-            const fakeEvent = { preventDefault: () => { } };
             setInput('');
             const userMessage = { role: 'user', content: question, timestamp: new Date() };
             setMessages(prev => [...prev, userMessage]);

@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /**
  * NarrativeContext.jsx
  * Context + Provider para el Motor Narrativo Bíblico.

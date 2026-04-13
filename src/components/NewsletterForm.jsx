@@ -12,7 +12,6 @@ const MAILCHIMP_U = '6ed704442c7f5ff5fc4c8ceff';
 const MAILCHIMP_ID = '7b9386e71e';
 
 const NewsletterForm = ({
-    variant = 'default',
     title = '¿Te bendijo este estudio?',
     description = 'Recibe nuevos estudios bíblicos directamente en tu correo. Sin spam, solo contenido que edifica.',
     buttonText = 'Suscribirse',

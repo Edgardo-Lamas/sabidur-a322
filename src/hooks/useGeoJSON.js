@@ -20,8 +20,11 @@ const useGeoJSON = (path) => {
 
     useEffect(() => {
         if (!path) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setFeatures([]);
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setStatus('idle');
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setError(null);
             return;
         }

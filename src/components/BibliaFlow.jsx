@@ -51,7 +51,7 @@ const shuffleArray = (array) => {
 
 const BibliaFlow = () => {
     const [screen, setScreen] = useState('home');
-    const [score, setScore] = useState(0);
+    const [, setScore] = useState(0);
     const [currency, setCurrency] = useState(150);
     const [lives, setLives] = useState(3);
     const [currentLevel, setCurrentLevel] = useState(1);
@@ -78,6 +78,12 @@ const BibliaFlow = () => {
     const [challengeScore, setChallengeScore] = useState(0);
     const [challengesCompleted, setChallengesCompleted] = useState(0); // 0 = none, 1 = first done, etc.
 
+    const handleTimeOut = () => {
+        setIsAnswered(true);
+        setSelectedOptionId(-1); // No option selected
+        setLives(l => l - 1);
+    };
+
     // Timer effect
     useEffect(() => {
         if (screen === 'game' && !isAnswered && timeLeft > 0) {
@@ -86,16 +92,11 @@ const BibliaFlow = () => {
             }, 1000);
         } else if (screen === 'game' && !isAnswered && timeLeft === 0) {
             // Time's up - count as wrong answer
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             handleTimeOut();
         }
         return () => clearTimeout(timerRef.current);
     }, [screen, timeLeft, isAnswered]);
-
-    const handleTimeOut = () => {
-        setIsAnswered(true);
-        setSelectedOptionId(-1); // No option selected
-        setLives(l => l - 1);
-    };
 
     const startGame = (level = 1) => {
         const levelConfig = LEVELS[level];

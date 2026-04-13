@@ -33,6 +33,7 @@ const Articles = () => {
                 validateInDev(ArticlesArraySchema, articlesData, 'Articles');
                 setArticles(articlesData);
             } catch {
+                // no-op
             } finally {
                 setLoading(false);
             }

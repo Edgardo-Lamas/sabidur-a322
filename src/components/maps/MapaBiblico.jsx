@@ -173,7 +173,7 @@ const MapaBiblico = ({ features = [], center = [31.5, 35.5], zoom = 6, epochColo
             );
             storyMode.startStory(groupFeatures);
         },
-        [sortedFeatures, storyMode.startStory]
+        [sortedFeatures, storyMode]
     );
 
     // Salir de Story Mode (vuelve al grupo activo normal)
@@ -190,7 +190,7 @@ const MapaBiblico = ({ features = [], center = [31.5, 35.5], zoom = 6, epochColo
             ]);
             if (bounds.length) mapInstance.fitBounds(bounds, { padding: [40, 40], maxZoom: 12 });
         }
-    }, [storyMode.exitStory, routeEngine.activeGroup, sortedFeatures, mapInstance]);
+    }, [storyMode, routeEngine.activeGroup, sortedFeatures, mapInstance]);
 
     return (
         <div className="map-container-wrapper" style={{ position: 'relative' }}>

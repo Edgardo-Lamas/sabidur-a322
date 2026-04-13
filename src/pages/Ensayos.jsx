@@ -19,6 +19,7 @@ const Ensayos = () => {
                 validateInDev(EssaysArraySchema, ensayosData, 'Ensayos');
                 setEnsayos(ensayosData);
             } catch {
+                // no-op
             } finally {
                 setLoading(false);
             }

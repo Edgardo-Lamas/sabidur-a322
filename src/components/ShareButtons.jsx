@@ -12,7 +12,6 @@ const ShareButtons = ({ title, url }) => {
         : `${import.meta.env.VITE_SITE_URL || 'https://edgardo-lamas.github.io/sabidur-a322'}${url}`;
 
     const encodedUrl = encodeURIComponent(fullUrl);
-    const encodedTitle = encodeURIComponent(title || 'Sabiduría para el Corazón');
     const shareText = encodeURIComponent(`${title} - Sabiduría para el Corazón`);
 
     const handleCopy = async () => {

@@ -25,6 +25,7 @@ const ArticlePage = () => {
                 const foundArticle = articles.find(a => a.slug === slug);
                 setArticle(foundArticle || null);
             } catch {
+                // no-op
             } finally {
                 setLoading(false);
             }

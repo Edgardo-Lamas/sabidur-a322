@@ -30,8 +30,11 @@ const VintagePlayer = ({ track, onNext, onPrev, canNext = false, canPrev = false
 
     // Cambio de pista: reiniciar estado
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setIsPlaying(false);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setCurrentTime(0);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setDuration(0);
         if (audioRef.current) {
             audioRef.current.pause();
@@ -47,6 +50,7 @@ const VintagePlayer = ({ track, onNext, onPrev, canNext = false, canPrev = false
             }, 180);
         } else {
             clearInterval(vuIntervalRef.current);
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setVuLevels([1, 2, 1, 2, 1, 2, 1, 1]);
         }
         return () => clearInterval(vuIntervalRef.current);
@@ -92,7 +96,6 @@ const VintagePlayer = ({ track, onNext, onPrev, canNext = false, canPrev = false
         audioRef.current.volume = next ? 0 : volume;
     };
 
-    const progress = duration ? (currentTime / duration) * 100 : 0;
     const hasAudio = !!track?.url;
 
     return (
