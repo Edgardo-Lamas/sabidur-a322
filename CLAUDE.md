@@ -30,7 +30,8 @@ src/
 │   ├── prerreformadores/   # Wiclef, JanHus, etc.
 │   └── reformadores/       # Lutero, Calvino, Zuinglio, Knox, Bullinger
 ├── data/
-│   ├── content.json        # Fuente principal de contenido (artículos, ensayos, etc.)
+│   ├── content.json        # Artículos, lecturas diarias, hero, social, productos, estudios, biblioteca
+│   ├── textos.json         # Ensayos (fuente para /ensayos/:slug y página Ensayos)
 │   └── knowledge/          # 34 JSON de teología sistemática
 ├── engine/         # NarrativeContext + hooks para narrativas interactivas
 ├── hooks/          # Custom hooks
@@ -39,14 +40,15 @@ src/
 
 ## Convenciones de contenido
 
-- **Fuente de datos principal:** `src/data/content.json` — artículos, ensayos, lecturas diarias, hero, social links.
+- **Artículos:** `src/data/content.json` → clave `articulos` — enrutados en `/articulos/:slug`.
+- **Ensayos:** `src/data/textos.json` → clave `ensayos` — enrutados en `/ensayos/:slug`. Leídos por `Ensayos.jsx` y `EnsayoDetalle.jsx`.
+- **Lecturas diarias, hero, social, productos, estudios, biblioteca:** `src/data/content.json`.
 - **Base de conocimiento teológica:** `src/data/knowledge/*.json` — bibliología, cristología, soteriología, escatología, etc.
 - **Todo el contenido está en español.**
-- Los artículos y ensayos usan slugs para enrutamiento dinámico (`/articulos/:slug`, `/ensayos/:slug`).
 
 ## Patrones arquitectónicos
 
-- **Data-driven rendering:** los componentes leen de JSON, no de base de datos en tiempo real (Supabase ya fue migrado a `content.json`).
+- **Data-driven rendering:** los componentes leen de JSON, no de base de datos en tiempo real (Supabase migrado a archivos JSON locales).
 - **Plantillas reutilizables:** `TextTemplates.jsx`, `BiographyTemplate.jsx`, `ArticleFeed.jsx`.
 - **SEO por página:** componente `SEO.jsx` con `react-helmet-async`.
 - **React StrictMode está desactivado** intencionalmente — react-leaflet no es compatible con el doble efecto de StrictMode.
@@ -67,7 +69,8 @@ VITE_N8N_WEBHOOK_URL     # Webhook N8N
 
 ## Notas importantes
 
-- Al agregar nuevo contenido (artículos, ensayos, estudios), editar `src/data/content.json`.
+- Al agregar **artículos:** editar `src/data/content.json` → clave `articulos`.
+- Al agregar **ensayos:** editar `src/data/textos.json` → clave `ensayos`.
 - Al agregar una nueva ruta, registrarla en `src/App.jsx`.
 - Los mapas bíblicos usan GeoJSON en `src/data/maps/`.
 - El ensayo/capítulo "Perfecciones de Dios" tiene rutas propias: `/estudio/perfecciones-de-dios` + capítulos 1–3.
