@@ -51,6 +51,12 @@ const Calvino             = lazy(() => import('./pages/reformadores/Calvino'));
 const Zuinglio            = lazy(() => import('./pages/reformadores/Zuinglio'));
 const Knox                = lazy(() => import('./pages/reformadores/Knox'));
 const Bullinger           = lazy(() => import('./pages/reformadores/Bullinger'));
+const PadresDeLaIglesia   = lazy(() => import('./pages/PadresDeLaIglesia'));
+const Agustin             = lazy(() => import('./pages/padres-de-la-iglesia/Agustin'));
+const Crisostomo          = lazy(() => import('./pages/padres-de-la-iglesia/Crisostomo'));
+const Atanasio            = lazy(() => import('./pages/padres-de-la-iglesia/Atanasio'));
+const Ireneo              = lazy(() => import('./pages/padres-de-la-iglesia/Ireneo'));
+const Tertuliano          = lazy(() => import('./pages/padres-de-la-iglesia/Tertuliano'));
 
 // Lazy-loaded heavy components
 const ChatSpurgeon        = lazy(() => import('./components/ChatSpurgeon'));
@@ -155,6 +161,12 @@ function App() {
                 <Route path="/reformadores/zuinglio" element={<Zuinglio />} />
                 <Route path="/reformadores/knox" element={<Knox />} />
                 <Route path="/reformadores/bullinger" element={<Bullinger />} />
+                <Route path="/padres-de-la-iglesia" element={<PadresDeLaIglesia />} />
+                <Route path="/padres-de-la-iglesia/agustin" element={<Agustin />} />
+                <Route path="/padres-de-la-iglesia/crisostomo" element={<Crisostomo />} />
+                <Route path="/padres-de-la-iglesia/atanasio" element={<Atanasio />} />
+                <Route path="/padres-de-la-iglesia/ireneo" element={<Ireneo />} />
+                <Route path="/padres-de-la-iglesia/tertuliano" element={<Tertuliano />} />
                 <Route path="/donaciones" element={<Donations />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>

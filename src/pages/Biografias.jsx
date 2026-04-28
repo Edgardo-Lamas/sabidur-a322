@@ -38,8 +38,8 @@ const SERIES = [
         name: 'Padres de la Iglesia',
         subtitle: 'Los primeros siglos',
         dates: 'Siglos II – V',
-        disponible: false,
-        count: 0,
+        disponible: true,
+        count: 5,
         excerpt:
             'Los teólogos del período patrístico que definieron la doctrina cristiana frente a las herejías y cuyas obras siguen siendo fuente de estudio para la Iglesia universal.',
         names: 'Agustín · Crisóstomo · Atanasio · Ireneo · Tertuliano',
