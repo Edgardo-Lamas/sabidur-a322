@@ -31,8 +31,12 @@ const Navbar = () => {
         <div className="flex justify-between h-20 items-center">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="text-xl lg:text-2xl font-serif font-bold text-sabiduria-navy tracking-tight whitespace-nowrap">
-              Sabiduría para el <span className="text-sabiduria-gold">Corazón</span>
+            <Link to="/" className="block">
+              <img
+                src={`${import.meta.env.BASE_URL}img/logo/logo-navbar.svg`}
+                alt="Sabiduría para el Corazón"
+                className="h-12 w-auto"
+              />
             </Link>
           </div>
 

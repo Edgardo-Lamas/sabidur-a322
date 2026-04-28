@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2560 1440" width="2560" height="1440">
+  <defs>
+    <linearGradient id="bgMain" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0D0F14"/>
+      <stop offset="50%" stop-color="#12151C"/>
+      <stop offset="100%" stop-color="#0A0C11"/>
+    </linearGradient>
+    <radialGradient id="centerGlow" cx="50%" cy="50%" r="45%">
+      <stop offset="0%" stop-color="#1A2030" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#0D0F14" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="goldBody" x1="50%" y1="100%" x2="50%" y2="0%">
+      <stop offset="0%" stop-color="#7A580F"/>
+      <stop offset="45%" stop-color="#C5A059"/>
+      <stop offset="100%" stop-color="#EDD07A"/>
+    </linearGradient>
+    <linearGradient id="flameInner" x1="50%" y1="100%" x2="50%" y2="0%">
+      <stop offset="0%" stop-color="#C5A059"/>
+      <stop offset="65%" stop-color="#F0D888"/>
+      <stop offset="100%" stop-color="#FFFBE8"/>
+    </linearGradient>
+    <radialGradient id="flameGlow" cx="50%" cy="60%" r="55%">
+      <stop offset="0%" stop-color="#C5A059" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#C5A059" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softGlow" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <!-- Separador vertical sutil -->
+    <linearGradient id="divider" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C5A059" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#C5A059" stop-opacity="0.35"/>
+      <stop offset="70%" stop-color="#C5A059" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#C5A059" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- FONDO                                          -->
+  <!-- ══════════════════════════════════════════════ -->
+  <rect width="2560" height="1440" fill="url(#bgMain)"/>
+  <!-- Luz de centro -->
+  <rect width="2560" height="1440" fill="url(#centerGlow)"/>
+
+  <!-- Patrón sutil: líneas horizontales muy tenues (textura tipográfica) -->
+  <line x1="0" y1="300" x2="2560" y2="300" stroke="#C5A059" stroke-width="0.4" opacity="0.04"/>
+  <line x1="0" y1="720" x2="2560" y2="720" stroke="#C5A059" stroke-width="0.4" opacity="0.06"/>
+  <line x1="0" y1="1140" x2="2560" y2="1140" stroke="#C5A059" stroke-width="0.4" opacity="0.04"/>
+
+  <!-- Bordes decorativos -->
+  <rect x="60" y="60" width="2440" height="1320" fill="none" stroke="#C5A059" stroke-width="0.8" opacity="0.12"/>
+  <rect x="80" y="80" width="2400" height="1280" fill="none" stroke="#C5A059" stroke-width="0.3" opacity="0.07"/>
+
+  <!-- Ornamentos en esquinas -->
+  <!-- Esquina superior izquierda -->
+  <line x1="60" y1="120" x2="120" y2="120" stroke="#C5A059" stroke-width="0.8" opacity="0.22"/>
+  <line x1="120" y1="60" x2="120" y2="120" stroke="#C5A059" stroke-width="0.8" opacity="0.22"/>
+  <!-- Esquina superior derecha -->
+  <line x1="2440" y1="120" x2="2500" y2="120" stroke="#C5A059" stroke-width="0.8" opacity="0.22"/>
+  <line x1="2440" y1="60" x2="2440" y2="120" stroke="#C5A059" stroke-width="0.8" opacity="0.22"/>
+  <!-- Esquina inferior izquierda -->
+  <line x1="60" y1="1320" x2="120" y2="1320" stroke="#C5A059" stroke-width="0.8" opacity="0.22"/>
+  <line x1="120" y1="1320" x2="120" y2="1380" stroke="#C5A059" stroke-width="0.8" opacity="0.22"/>
+  <!-- Esquina inferior derecha -->
+  <line x1="2440" y1="1320" x2="2500" y2="1320" stroke="#C5A059" stroke-width="0.8" opacity="0.22"/>
+  <line x1="2440" y1="1320" x2="2440" y2="1380" stroke="#C5A059" stroke-width="0.8" opacity="0.22"/>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- SÍMBOLO (izquierda del banner, safe zone)      -->
+  <!-- Centrado vertical: y=720 (mitad de 1440)       -->
+  <!-- Símbolo centrado en x=700, escala ×2.2 del 400x520 original -->
+  <!-- ══════════════════════════════════════════════ -->
+
+  <!-- translate(700, 720) scale — símbolo x=700, y centrado -->
+  <g transform="translate(700, 720) scale(1.65) translate(-200, -290)">
+
+    <!-- Libro — página izquierda -->
+    <path d="M 55,308 L 55,202 C 90,190 138,186 188,185 L 188,297 C 142,299 96,305 55,308 Z"
+          fill="#1A2035"/>
+    <line x1="70"  y1="212" x2="176" y2="209" stroke="#C5A059" stroke-width="0.7" opacity="0.22"/>
+    <line x1="70"  y1="226" x2="176" y2="223" stroke="#C5A059" stroke-width="0.7" opacity="0.22"/>
+    <line x1="70"  y1="240" x2="176" y2="237" stroke="#C5A059" stroke-width="0.7" opacity="0.22"/>
+    <line x1="70"  y1="254" x2="176" y2="251" stroke="#C5A059" stroke-width="0.7" opacity="0.22"/>
+    <line x1="70"  y1="268" x2="176" y2="265" stroke="#C5A059" stroke-width="0.7" opacity="0.22"/>
+    <line x1="70"  y1="282" x2="148" y2="279" stroke="#C5A059" stroke-width="0.7" opacity="0.22"/>
+
+    <!-- Libro — página derecha -->
+    <path d="M 345,308 L 345,202 C 310,190 262,186 212,185 L 212,297 C 258,299 304,305 345,308 Z"
+          fill="#1A2035"/>
+    <line x1="224" y1="209" x2="330" y2="212" stroke="#C5A059" stroke-width="0.7" opacity="0.22"/>
+    <line x1="224" y1="223" x2="330" y2="226" stroke="#C5A059" stroke-width="0.7" opacity="0.22"/>
+    <line x1="224" y1="237" x2="330" y2="240" stroke="#C5A059" stroke-width="0.7" opacity="0.22"/>
+    <line x1="224" y1="251" x2="330" y2="254" stroke="#C5A059" stroke-width="0.7" opacity="0.22"/>
+    <line x1="224" y1="265" x2="330" y2="268" stroke="#C5A059" stroke-width="0.7" opacity="0.22"/>
+    <line x1="252" y1="279" x2="330" y2="282" stroke="#C5A059" stroke-width="0.7" opacity="0.22"/>
+
+    <!-- Lomo -->
+    <path d="M 188,185 L 212,185 L 212,297 L 188,297 Z" fill="#0A0D14"/>
+    <line x1="200" y1="185" x2="200" y2="297" stroke="#C5A059" stroke-width="0.5" opacity="0.20"/>
+
+    <!-- Contorno -->
+    <path d="M 55,308 C 102,314 150,316 188,314 C 210,316 252,314 345,308 L 345,200 C 306,187 260,183 212,183 L 188,183 C 140,183 94,187 55,200 Z"
+          fill="none" stroke="#C5A059" stroke-width="1.4" stroke-linejoin="round"/>
+
+    <!-- Páginas en lomo -->
+    <line x1="188" y1="183" x2="188" y2="177" stroke="#C5A059" stroke-width="0.5" opacity="0.32"/>
+    <line x1="200" y1="182" x2="200" y2="176" stroke="#C5A059" stroke-width="0.5" opacity="0.32"/>
+    <line x1="212" y1="183" x2="212" y2="177" stroke="#C5A059" stroke-width="0.5" opacity="0.32"/>
+
+    <!-- Halo llama -->
+    <ellipse cx="200" cy="128" rx="50" ry="72" fill="url(#flameGlow)"/>
+
+    <!-- Llama exterior -->
+    <path d="M 200,183 C 183,157 166,130 170,94 C 173,67 200,40 200,18 C 200,40 227,67 230,94 C 234,130 217,157 200,183 Z"
+          fill="url(#goldBody)"/>
+
+    <!-- Llama interior -->
+    <path d="M 200,179 C 187,155 174,130 177,99 C 179,78 200,54 200,36 C 200,54 221,78 223,99 C 226,130 213,155 200,179 Z"
+          fill="url(#flameInner)" filter="url(#softGlow)" opacity="0.88"/>
+
+    <!-- Núcleo -->
+    <ellipse cx="200" cy="48" rx="7" ry="12" fill="#FFFBE8" opacity="0.70" filter="url(#softGlow)"/>
+  </g>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- LÍNEA SEPARADORA VERTICAL                      -->
+  <!-- ══════════════════════════════════════════════ -->
+  <line x1="1050" y1="280" x2="1050" y2="1160" stroke="url(#divider)" stroke-width="1"/>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- TIPOGRAFÍA (derecha del separador)             -->
+  <!-- Centro tipográfico: x=1800, y=720             -->
+  <!-- ══════════════════════════════════════════════ -->
+
+  <!-- Supra-título pequeño -->
+  <text x="1800" y="560"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="28"
+        fill="#C5A059"
+        text-anchor="middle"
+        letter-spacing="12"
+        opacity="0.50">TEOLOGÍA  REFORMADA</text>
+
+  <!-- Línea decorativa superior -->
+  <line x1="1350" y1="588" x2="1610" y2="588" stroke="#C5A059" stroke-width="0.7" opacity="0.28"/>
+  <circle cx="1350" cy="588" r="3" fill="#C5A059" opacity="0.28"/>
+  <circle cx="2250" cy="588" r="3" fill="#C5A059" opacity="0.28"/>
+  <line x1="1990" y1="588" x2="2250" y2="588" stroke="#C5A059" stroke-width="0.7" opacity="0.28"/>
+  <polygon points="1800,583 1806,588 1800,593 1794,588" fill="none" stroke="#C5A059" stroke-width="1.1" opacity="0.35"/>
+
+  <!-- SABIDURÍA (título principal) -->
+  <text x="1800" y="710"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="130"
+        font-weight="700"
+        fill="#C5A059"
+        text-anchor="middle"
+        letter-spacing="20">SABIDURÍA</text>
+
+  <!-- Línea media decorativa -->
+  <line x1="1240" y1="745" x2="1680" y2="745" stroke="#C5A059" stroke-width="1" opacity="0.30"/>
+  <line x1="1920" y1="745" x2="2360" y2="745" stroke="#C5A059" stroke-width="1" opacity="0.30"/>
+  <text x="1800" y="754"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="20"
+        fill="#C5A059"
+        text-anchor="middle"
+        letter-spacing="6"
+        opacity="0.35">✦</text>
+
+  <!-- para el corazón (subtítulo) -->
+  <text x="1800" y="832"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="58"
+        font-style="italic"
+        fill="#C5A059"
+        text-anchor="middle"
+        letter-spacing="10"
+        opacity="0.90">para el corazón</text>
+
+  <!-- Línea decorativa inferior -->
+  <line x1="1380" y1="868" x2="1680" y2="868" stroke="#C5A059" stroke-width="0.7" opacity="0.25"/>
+  <line x1="1920" y1="868" x2="2220" y2="868" stroke="#C5A059" stroke-width="0.7" opacity="0.25"/>
+
+  <!-- Referencia bíblica -->
+  <text x="1800" y="910"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="24"
+        fill="#C5A059"
+        text-anchor="middle"
+        letter-spacing="10"
+        opacity="0.40">P R O V E R B I O S  ·  1 : 7</text>
+</svg>

@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" width="400" height="520">
+  <defs>
+    <linearGradient id="goldBody" x1="50%" y1="100%" x2="50%" y2="0%">
+      <stop offset="0%" stop-color="#7A580F"/>
+      <stop offset="45%" stop-color="#C5A059"/>
+      <stop offset="100%" stop-color="#EDD07A"/>
+    </linearGradient>
+    <linearGradient id="flameInner" x1="50%" y1="100%" x2="50%" y2="0%">
+      <stop offset="0%" stop-color="#C5A059"/>
+      <stop offset="65%" stop-color="#F0D888"/>
+      <stop offset="100%" stop-color="#FFFBE8"/>
+    </linearGradient>
+    <radialGradient id="flameGlow" cx="50%" cy="65%" r="55%">
+      <stop offset="0%" stop-color="#C5A059" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#C5A059" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Fondo -->
+  <rect width="400" height="520" fill="#12151C"/>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- LIBRO ABIERTO                          -->
+  <!-- ══════════════════════════════════════ -->
+
+  <!-- Página izquierda -->
+  <path d="M 65,315 L 65,198 C 102,185 148,181 190,180 L 190,303 C 152,305 108,311 65,315 Z"
+        fill="#1A2035"/>
+
+  <!-- Líneas de texto — página izquierda -->
+  <line x1="80"  y1="208" x2="178" y2="205" stroke="#C5A059" stroke-width="0.85" opacity="0.20"/>
+  <line x1="80"  y1="222" x2="178" y2="219" stroke="#C5A059" stroke-width="0.85" opacity="0.20"/>
+  <line x1="80"  y1="236" x2="178" y2="233" stroke="#C5A059" stroke-width="0.85" opacity="0.20"/>
+  <line x1="80"  y1="250" x2="178" y2="247" stroke="#C5A059" stroke-width="0.85" opacity="0.20"/>
+  <line x1="80"  y1="264" x2="178" y2="261" stroke="#C5A059" stroke-width="0.85" opacity="0.20"/>
+  <line x1="80"  y1="278" x2="178" y2="275" stroke="#C5A059" stroke-width="0.85" opacity="0.20"/>
+  <line x1="80"  y1="292" x2="152" y2="289" stroke="#C5A059" stroke-width="0.85" opacity="0.20"/>
+
+  <!-- Página derecha -->
+  <path d="M 335,315 L 335,198 C 298,185 252,181 210,180 L 210,303 C 248,305 292,311 335,315 Z"
+        fill="#1A2035"/>
+
+  <!-- Líneas de texto — página derecha -->
+  <line x1="222" y1="205" x2="320" y2="208" stroke="#C5A059" stroke-width="0.85" opacity="0.20"/>
+  <line x1="222" y1="219" x2="320" y2="222" stroke="#C5A059" stroke-width="0.85" opacity="0.20"/>
+  <line x1="222" y1="233" x2="320" y2="236" stroke="#C5A059" stroke-width="0.85" opacity="0.20"/>
+  <line x1="222" y1="247" x2="320" y2="250" stroke="#C5A059" stroke-width="0.85" opacity="0.20"/>
+  <line x1="222" y1="261" x2="320" y2="264" stroke="#C5A059" stroke-width="0.85" opacity="0.20"/>
+  <line x1="222" y1="275" x2="320" y2="278" stroke="#C5A059" stroke-width="0.85" opacity="0.20"/>
+  <line x1="248" y1="289" x2="320" y2="292" stroke="#C5A059" stroke-width="0.85" opacity="0.20"/>
+
+  <!-- Lomo / spine -->
+  <path d="M 190,180 L 210,180 L 210,303 L 190,303 Z" fill="#0A0D14"/>
+  <line x1="200" y1="180" x2="200" y2="303" stroke="#C5A059" stroke-width="0.6" opacity="0.25"/>
+
+  <!-- Contorno exterior del libro -->
+  <path d="M 65,315 C 110,320 155,322 190,320 C 210,322 248,320 335,315 L 335,196 C 294,182 250,179 210,178 L 190,178 C 150,179 106,182 65,196 Z"
+        fill="none" stroke="#C5A059" stroke-width="1.6" stroke-linejoin="round"/>
+
+  <!-- Páginas apiladas en el lomo (sugerencia de volumen) -->
+  <line x1="190" y1="178" x2="190" y2="172" stroke="#C5A059" stroke-width="0.6" opacity="0.35"/>
+  <line x1="194" y1="177" x2="194" y2="171" stroke="#C5A059" stroke-width="0.5" opacity="0.25"/>
+  <line x1="200" y1="177" x2="200" y2="171" stroke="#C5A059" stroke-width="0.6" opacity="0.35"/>
+  <line x1="206" y1="177" x2="206" y2="171" stroke="#C5A059" stroke-width="0.5" opacity="0.25"/>
+  <line x1="210" y1="178" x2="210" y2="172" stroke="#C5A059" stroke-width="0.6" opacity="0.35"/>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- LLAMA                                  -->
+  <!-- ══════════════════════════════════════ -->
+
+  <!-- Halo de la llama -->
+  <ellipse cx="200" cy="138" rx="48" ry="68" fill="url(#flameGlow)"/>
+
+  <!-- Llama exterior (dorada cálida) -->
+  <path d="M 200,178
+           C 184,153 168,128 172,94
+           C 175,68  200,42  200,20
+           C 200,42  225,68  228,94
+           C 232,128 216,153 200,178 Z"
+        fill="url(#goldBody)"/>
+
+  <!-- Llama interior (más brillante) -->
+  <path d="M 200,174
+           C 188,151 176,129 179,100
+           C 181,80  200,57  200,40
+           C 200,57  219,80  221,100
+           C 224,129 212,151 200,174 Z"
+        fill="url(#flameInner)" filter="url(#softGlow)" opacity="0.9"/>
+
+  <!-- Núcleo luminoso en la punta -->
+  <ellipse cx="200" cy="52" rx="7" ry="12" fill="#FFFBE8" opacity="0.75" filter="url(#softGlow)"/>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- TIPOGRAFÍA                             -->
+  <!-- ══════════════════════════════════════ -->
+
+  <!-- SABIDURÍA -->
+  <text x="200" y="362"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="30"
+        font-weight="700"
+        fill="#C5A059"
+        text-anchor="middle"
+        letter-spacing="9">SABIDURÍA</text>
+
+  <!-- Línea decorativa con puntos -->
+  <line x1="78"  y1="375" x2="175" y2="375" stroke="#C5A059" stroke-width="0.5" opacity="0.4"/>
+  <circle cx="78"  cy="375" r="1.8" fill="#C5A059" opacity="0.4"/>
+  <circle cx="322" cy="375" r="1.8" fill="#C5A059" opacity="0.4"/>
+  <line x1="225" y1="375" x2="322" y2="375" stroke="#C5A059" stroke-width="0.5" opacity="0.4"/>
+  <!-- Pequeño rombo central -->
+  <polygon points="200,371 204,375 200,379 196,375"
+           fill="none" stroke="#C5A059" stroke-width="0.7" opacity="0.5"/>
+
+  <!-- para el corazón -->
+  <text x="200" y="398"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="14.5"
+        font-style="italic"
+        fill="#C5A059"
+        text-anchor="middle"
+        letter-spacing="3.5"
+        opacity="0.88">para el corazón</text>
+
+  <!-- Segunda línea decorativa -->
+  <line x1="148" y1="412" x2="252" y2="412" stroke="#C5A059" stroke-width="0.5" opacity="0.28"/>
+
+  <!-- Referencia bíblica -->
+  <text x="200" y="430"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="10"
+        fill="#C5A059"
+        text-anchor="middle"
+        letter-spacing="5"
+        opacity="0.48">P R O V  ·  1 : 7</text>
+</svg>

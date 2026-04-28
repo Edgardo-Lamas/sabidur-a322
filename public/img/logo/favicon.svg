@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EDD07A"/>
+      <stop offset="100%" stop-color="#C5A059"/>
+    </linearGradient>
+  </defs>
+  <!-- Fondo con esquinas redondeadas -->
+  <rect width="100" height="100" rx="16" fill="#1A1D23"/>
+  <!-- Borde dorado sutil -->
+  <rect x="4" y="4" width="92" height="92" rx="13" fill="none" stroke="#C5A059" stroke-width="1.5" opacity="0.5"/>
+  <!-- S tipográfica -->
+  <text x="50" y="72"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="72"
+        font-weight="700"
+        fill="url(#gold)"
+        text-anchor="middle"
+        dominant-baseline="auto">S</text>
+</svg>

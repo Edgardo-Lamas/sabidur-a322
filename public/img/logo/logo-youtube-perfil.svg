@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#16191F"/>
+      <stop offset="100%" stop-color="#0D0F14"/>
+    </linearGradient>
+    <linearGradient id="goldBody" x1="50%" y1="100%" x2="50%" y2="0%">
+      <stop offset="0%" stop-color="#7A580F"/>
+      <stop offset="45%" stop-color="#C5A059"/>
+      <stop offset="100%" stop-color="#EDD07A"/>
+    </linearGradient>
+    <linearGradient id="flameInner" x1="50%" y1="100%" x2="50%" y2="0%">
+      <stop offset="0%" stop-color="#C5A059"/>
+      <stop offset="65%" stop-color="#F0D888"/>
+      <stop offset="100%" stop-color="#FFFBE8"/>
+    </linearGradient>
+    <radialGradient id="flameGlow" cx="50%" cy="60%" r="50%">
+      <stop offset="0%" stop-color="#C5A059" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#C5A059" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="centerLight" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1E2230" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#0D0F14" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softGlow" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <clipPath id="circle">
+      <circle cx="400" cy="400" r="400"/>
+    </clipPath>
+  </defs>
+
+  <!-- Fondo circular -->
+  <circle cx="400" cy="400" r="400" fill="url(#bgGrad)"/>
+  <!-- Sutil luz central -->
+  <circle cx="400" cy="400" r="360" fill="url(#centerLight)"/>
+
+  <!-- Círculo decorativo exterior (sutil) -->
+  <circle cx="400" cy="400" r="370" fill="none" stroke="#C5A059" stroke-width="1.2" opacity="0.18"/>
+  <circle cx="400" cy="400" r="350" fill="none" stroke="#C5A059" stroke-width="0.5" opacity="0.10"/>
+
+  <!-- ══════════════════════ -->
+  <!-- LIBRO ABIERTO         -->
+  <!-- ══════════════════════ -->
+
+  <!-- Página izquierda -->
+  <path d="M 120,610 L 120,420 C 170,405 232,400 378,398 L 378,595 C 232,598 168,606 120,610 Z"
+        fill="#1A2035"/>
+  <line x1="140" y1="428" x2="364" y2="424" stroke="#C5A059" stroke-width="1.2" opacity="0.18"/>
+  <line x1="140" y1="450" x2="364" y2="446" stroke="#C5A059" stroke-width="1.2" opacity="0.18"/>
+  <line x1="140" y1="472" x2="364" y2="468" stroke="#C5A059" stroke-width="1.2" opacity="0.18"/>
+  <line x1="140" y1="494" x2="364" y2="490" stroke="#C5A059" stroke-width="1.2" opacity="0.18"/>
+  <line x1="140" y1="516" x2="364" y2="512" stroke="#C5A059" stroke-width="1.2" opacity="0.18"/>
+  <line x1="140" y1="538" x2="364" y2="534" stroke="#C5A059" stroke-width="1.2" opacity="0.18"/>
+  <line x1="140" y1="560" x2="300" y2="556" stroke="#C5A059" stroke-width="1.2" opacity="0.18"/>
+
+  <!-- Página derecha -->
+  <path d="M 680,610 L 680,420 C 630,405 568,400 422,398 L 422,595 C 568,598 632,606 680,610 Z"
+        fill="#1A2035"/>
+  <line x1="436" y1="424" x2="660" y2="428" stroke="#C5A059" stroke-width="1.2" opacity="0.18"/>
+  <line x1="436" y1="446" x2="660" y2="450" stroke="#C5A059" stroke-width="1.2" opacity="0.18"/>
+  <line x1="436" y1="468" x2="660" y2="472" stroke="#C5A059" stroke-width="1.2" opacity="0.18"/>
+  <line x1="436" y1="490" x2="660" y2="494" stroke="#C5A059" stroke-width="1.2" opacity="0.18"/>
+  <line x1="436" y1="512" x2="660" y2="516" stroke="#C5A059" stroke-width="1.2" opacity="0.18"/>
+  <line x1="436" y1="534" x2="660" y2="538" stroke="#C5A059" stroke-width="1.2" opacity="0.18"/>
+  <line x1="500" y1="556" x2="660" y2="560" stroke="#C5A059" stroke-width="1.2" opacity="0.18"/>
+
+  <!-- Lomo -->
+  <path d="M 378,398 L 422,398 L 422,595 L 378,595 Z" fill="#0A0D14"/>
+  <line x1="400" y1="398" x2="400" y2="595" stroke="#C5A059" stroke-width="0.8" opacity="0.20"/>
+
+  <!-- Contorno libro -->
+  <path d="M 120,610 C 210,618 300,622 378,618 C 420,622 500,618 680,610 L 680,418 C 598,403 508,396 422,396 L 378,396 C 292,396 202,403 120,418 Z"
+        fill="none" stroke="#C5A059" stroke-width="2.2" stroke-linejoin="round"/>
+
+  <!-- Páginas en el lomo -->
+  <line x1="378" y1="396" x2="378" y2="385" stroke="#C5A059" stroke-width="0.8" opacity="0.30"/>
+  <line x1="386" y1="394" x2="386" y2="383" stroke="#C5A059" stroke-width="0.7" opacity="0.22"/>
+  <line x1="400" y1="394" x2="400" y2="383" stroke="#C5A059" stroke-width="0.8" opacity="0.30"/>
+  <line x1="414" y1="394" x2="414" y2="383" stroke="#C5A059" stroke-width="0.7" opacity="0.22"/>
+  <line x1="422" y1="396" x2="422" y2="385" stroke="#C5A059" stroke-width="0.8" opacity="0.30"/>
+
+  <!-- ══════════════════════ -->
+  <!-- LLAMA                  -->
+  <!-- ══════════════════════ -->
+
+  <!-- Halo -->
+  <ellipse cx="400" cy="270" rx="90" ry="135" fill="url(#flameGlow)"/>
+
+  <!-- Llama exterior -->
+  <path d="M 400,396
+           C 372,354 345,308 350,252
+           C 354,210 400,162 400,125
+           C 400,162 446,210 450,252
+           C 455,308 428,354 400,396 Z"
+        fill="url(#goldBody)"/>
+
+  <!-- Llama interior -->
+  <path d="M 400,390
+           C 376,351 352,307 357,255
+           C 360,216 400,172 400,140
+           C 400,172 440,216 443,255
+           C 448,307 424,351 400,390 Z"
+        fill="url(#flameInner)" filter="url(#softGlow)" opacity="0.88"/>
+
+  <!-- Núcleo luminoso -->
+  <ellipse cx="400" cy="155" rx="13" ry="22" fill="#FFFBE8" opacity="0.70" filter="url(#softGlow)"/>
+
+  <!-- ══════════════════════ -->
+  <!-- TIPOGRAFÍA             -->
+  <!-- ══════════════════════ -->
+
+  <!-- SABIDURÍA -->
+  <text x="400" y="672"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="52"
+        font-weight="700"
+        fill="#C5A059"
+        text-anchor="middle"
+        letter-spacing="14">SABIDURÍA</text>
+
+  <!-- Línea decorativa -->
+  <line x1="148" y1="686" x2="336" y2="686" stroke="#C5A059" stroke-width="0.7" opacity="0.38"/>
+  <circle cx="148" cy="686" r="2.5" fill="#C5A059" opacity="0.38"/>
+  <circle cx="652" cy="686" r="2.5" fill="#C5A059" opacity="0.38"/>
+  <line x1="464" y1="686" x2="652" y2="686" stroke="#C5A059" stroke-width="0.7" opacity="0.38"/>
+  <polygon points="400,682 406,686 400,690 394,686" fill="none" stroke="#C5A059" stroke-width="1" opacity="0.45"/>
+
+  <!-- para el corazón -->
+  <text x="400" y="716"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="25"
+        font-style="italic"
+        fill="#C5A059"
+        text-anchor="middle"
+        letter-spacing="6"
+        opacity="0.85">para el corazón</text>
+
+  <!-- Referencia bíblica -->
+  <text x="400" y="748"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="16"
+        fill="#C5A059"
+        text-anchor="middle"
+        letter-spacing="7"
+        opacity="0.42">P R O V  ·  1 : 7</text>
+</svg>

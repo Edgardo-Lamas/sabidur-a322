@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 80" width="340" height="80">
+  <!-- Fondo transparente — se integra sobre cualquier superficie navy -->
+
+  <!-- Corchete superior izquierdo -->
+  <line x1="18" y1="14" x2="18" y2="34" stroke="#C5A059" stroke-width="1.8" stroke-linecap="square"/>
+  <line x1="18" y1="14" x2="52" y2="14" stroke="#C5A059" stroke-width="1.8" stroke-linecap="square"/>
+
+  <!-- Corchete inferior derecho -->
+  <line x1="322" y1="66" x2="322" y2="46" stroke="#C5A059" stroke-width="1.8" stroke-linecap="square"/>
+  <line x1="322" y1="66" x2="288" y2="66" stroke="#C5A059" stroke-width="1.8" stroke-linecap="square"/>
+
+  <!-- SABIDURÍA -->
+  <text x="170" y="46"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="30"
+        font-weight="700"
+        fill="#C5A059"
+        text-anchor="middle"
+        letter-spacing="4">SABIDURÍA</text>
+
+  <!-- para el Corazón -->
+  <text x="170" y="64"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="13"
+        fill="#C5A059"
+        text-anchor="middle"
+        letter-spacing="2.5"
+        opacity="0.85">para el Corazón</text>
+</svg>
