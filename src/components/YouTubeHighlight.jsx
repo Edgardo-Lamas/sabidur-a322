@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Play, Eye, ExternalLink } from 'lucide-react';
 
-const API_KEY = 'AIzaSyCYZgAGvigUR8USMvXHyIP6lt0m__M0p7I';
+const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY || '';
 const CHANNEL_ID = 'UCQ4LzY6UyppxVddHx5f-ZnA';
 
 const YouTubeHighlight = () => {

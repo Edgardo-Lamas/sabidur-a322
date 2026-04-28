@@ -5,7 +5,7 @@ import { visualizer } from 'rollup-plugin-visualizer'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/sabidur-a322/',
+  base: '/',
   plugins: [
     react(),
     tailwindcss(),
