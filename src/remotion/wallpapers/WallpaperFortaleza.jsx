@@ -1,136 +1,145 @@
-import { useCurrentFrame, useVideoConfig, interpolate } from 'remotion';
+import { useCurrentFrame, useVideoConfig, interpolate, Img } from 'remotion';
 
-// Radial pulse rings + breathing text
+// Dramatic misty mountain valley — epic, cinematic
+const PHOTO = 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1080&h=1920&q=85';
+
 export const WallpaperFortaleza = () => {
     const frame = useCurrentFrame();
-    const { fps } = useVideoConfig();
+    const { durationInFrames } = useVideoConfig();
 
-    const fadeIn = interpolate(frame, [0, 35], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
-    const titleOpacity = interpolate(frame, [20, 60], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
-    const titleY = interpolate(frame, [20, 60], [35, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
-    const subOpacity = interpolate(frame, [55, 95], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
-    const refOpacity = interpolate(frame, [85, 125], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+    // Ken Burns: slow zoom OUT — starts close, pulls back dramatically
+    const scale = interpolate(frame, [0, durationInFrames], [1.12, 1.0], { extrapolateRight: 'clamp' });
+    const panY = interpolate(frame, [0, durationInFrames], [-30, 0], { extrapolateRight: 'clamp' });
 
-    // Breathing pulse on main text
-    const breathe = Math.sin((frame / fps) * 0.85 * Math.PI) * 0.018 + 1;
+    // Entrances — slightly delayed for drama
+    const titleOpacity = interpolate(frame, [20, 65], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+    const titleY = interpolate(frame, [20, 65], [40, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+    const subOpacity = interpolate(frame, [65, 100], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+    const refOpacity = interpolate(frame, [95, 130], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
 
-    // Two rings that pulse at different phases (expand from center, fade out)
-    const RING_CYCLE = fps * 2.5;
-    const ring1Frame = frame % RING_CYCLE;
-    const ring2Frame = (frame + RING_CYCLE / 2) % RING_CYCLE;
-    const ring1R = interpolate(ring1Frame, [0, RING_CYCLE], [80, 540]);
-    const ring1O = interpolate(ring1Frame, [0, RING_CYCLE * 0.15, RING_CYCLE * 0.7, RING_CYCLE], [0, 0.18, 0.08, 0]);
-    const ring2R = interpolate(ring2Frame, [0, RING_CYCLE], [80, 540]);
-    const ring2O = interpolate(ring2Frame, [0, RING_CYCLE * 0.15, RING_CYCLE * 0.7, RING_CYCLE], [0, 0.14, 0.06, 0]);
+    // Pulse rings — 3 rings at different phases
+    const RING_CYCLE = 75;
+    const mkRing = (offset) => {
+        const f = (frame + offset) % RING_CYCLE;
+        return {
+            r: interpolate(f, [0, RING_CYCLE], [60, 480]),
+            o: interpolate(f, [0, 12, RING_CYCLE * 0.6, RING_CYCLE], [0, 0.55, 0.18, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }),
+        };
+    };
+    const ring1 = mkRing(0);
+    const ring2 = mkRing(25);
+    const ring3 = mkRing(50);
 
-    // Parallax: background subtle vertical drift
-    const parallaxY = interpolate(frame, [0, 180], [0, -22], { extrapolateRight: 'clamp' });
+    // Breathing on main text
+    const breathe = Math.sin((frame / 30) * 0.7 * Math.PI) * 0.015 + 1;
+
+    // Word-by-word
+    const lines = [['Todo', 'lo', 'puedo'], ['en', 'Cristo'], ['que', 'me', 'fortalece']];
+    const allWords = lines.flat();
+    const WORD_DELAY = 8;
+    const getWordAnim = (idx) => {
+        const start = 22 + idx * WORD_DELAY;
+        return {
+            opacity: interpolate(frame, [start, start + 16], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }),
+            y: interpolate(frame, [start, start + 16], [20, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }),
+        };
+    };
+
+    // One-time light leak at start
+    const leakX = interpolate(frame, [5, 75], [-500, 1700], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+    const leakO = interpolate(frame, [5, 20, 60, 75], [0, 1, 1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+
+    let wordIdx = 0;
 
     return (
-        <div style={{
-            width: '100%', height: '100%', overflow: 'hidden', position: 'relative',
-            background: 'linear-gradient(180deg, #0D0F14 0%, #1A1D23 40%, #0F1219 100%)',
-            fontFamily: 'Georgia, "Times New Roman", serif',
-        }}>
-            {/* Subtle cross in background — parallax */}
-            <div style={{
-                position: 'absolute', top: '50%', left: '50%',
-                transform: `translate(-50%, calc(-50% + ${parallaxY}px))`,
-                opacity: fadeIn * 0.06,
-            }}>
-                <svg width="700" height="900" viewBox="0 0 700 900">
-                    <rect x="320" y="0" width="60" height="900" fill="#C5A059" />
-                    <rect x="0" y="250" width="700" height="60" fill="#C5A059" />
-                </svg>
+        <div style={{ width: '100%', height: '100%', overflow: 'hidden', position: 'relative', fontFamily: 'Georgia, "Times New Roman", serif' }}>
+
+            {/* Photo — Ken Burns zoom out */}
+            <div style={{ position: 'absolute', inset: '-8%', transform: `scale(${scale}) translateY(${panY}px)`, transformOrigin: 'center center' }}>
+                <Img src={PHOTO} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
 
-            {/* Pulse rings */}
-            <svg style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', overflow: 'visible' }}
-                width="0" height="0">
-                <circle cx="0" cy="0" r={ring1R} fill="none" stroke="#C5A059" strokeWidth="1.5" opacity={ring1O * fadeIn} />
-                <circle cx="0" cy="0" r={ring2R} fill="none" stroke="#C5A059" strokeWidth="1" opacity={ring2O * fadeIn} />
-            </svg>
+            {/* Color grade: cool blue-teal tint — mountains feel majestic */}
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(175deg, rgba(5,15,25,0.2) 0%, rgba(8,18,30,0.4) 35%, rgba(5,10,20,0.82) 75%, rgba(3,8,15,0.92) 100%)' }} />
 
             {/* Vignette */}
+            <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 45%, transparent 28%, rgba(0,5,15,0.65) 100%)' }} />
+
+            {/* Light leak */}
             <div style={{
-                position: 'absolute', inset: 0,
-                background: 'radial-gradient(ellipse at 50% 50%, transparent 25%, rgba(0,0,0,0.72) 100%)',
+                position: 'absolute', inset: 0, opacity: leakO * 0.6,
+                background: `linear-gradient(115deg, transparent ${leakX - 280}px, rgba(100,180,255,0.1) ${leakX - 80}px, rgba(180,220,255,0.18) ${leakX}px, rgba(100,180,255,0.1) ${leakX + 80}px, transparent ${leakX + 280}px)`,
             }} />
 
-            {/* Top label */}
-            <div style={{
-                position: 'absolute', top: 120, left: 0, right: 0,
-                textAlign: 'center', opacity: refOpacity * 0.55,
-                color: '#C5A059', fontSize: 24,
-                letterSpacing: '0.45em', textTransform: 'uppercase',
-            }}>
-                Filipenses 4
-            </div>
+            {/* Pulse rings centered on composition */}
+            <svg style={{ position: 'absolute', top: '42%', left: '50%', transform: 'translate(-50%,-50%)', overflow: 'visible', opacity: titleOpacity }}
+                width="0" height="0">
+                <circle cx="0" cy="0" r={ring1.r} fill="none" stroke="rgba(180,220,255,0.9)" strokeWidth="1.5" opacity={ring1.o} />
+                <circle cx="0" cy="0" r={ring2.r} fill="none" stroke="rgba(197,160,89,0.8)" strokeWidth="1" opacity={ring2.o} />
+                <circle cx="0" cy="0" r={ring3.r} fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="0.8" opacity={ring3.o} />
+            </svg>
 
-            {/* Main content */}
+            {/* Text block — center-lower */}
             <div style={{
-                position: 'absolute', inset: 0, zIndex: 10,
-                display: 'flex', flexDirection: 'column',
-                alignItems: 'center', justifyContent: 'center',
-                padding: '0 80px', textAlign: 'center',
+                position: 'absolute', bottom: 210, left: 0, right: 0,
+                padding: '0 68px', textAlign: 'center', zIndex: 10,
             }}>
-                {/* Verse — breathing */}
+                {/* Separator top */}
                 <div style={{
-                    opacity: titleOpacity,
-                    transform: `translateY(${titleY}px) scale(${breathe})`,
+                    opacity: subOpacity, marginBottom: 36,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16,
                 }}>
-                    <div style={{
-                        color: '#C5A059',
-                        fontSize: 70, fontWeight: 'bold',
-                        lineHeight: 1.2, letterSpacing: '0.02em',
-                        marginBottom: 20,
-                        textShadow: '0 0 50px rgba(197,160,89,0.35)',
-                    }}>
-                        Todo lo puedo
-                    </div>
-                    <div style={{
-                        color: 'rgba(255,255,255,0.85)',
-                        fontSize: 70, fontWeight: 'bold',
-                        lineHeight: 1.2, letterSpacing: '0.02em',
-                        fontStyle: 'italic', marginBottom: 20,
-                    }}>
-                        en Cristo
-                    </div>
-                    <div style={{
-                        color: '#C5A059',
-                        fontSize: 70, fontWeight: 'bold',
-                        lineHeight: 1.2, letterSpacing: '0.02em',
-                    }}>
-                        que me fortalece
-                    </div>
+                    <div style={{ flex: 1, height: 1, background: 'linear-gradient(90deg, transparent, rgba(197,160,89,0.6))' }} />
+                    <svg width="16" height="16"><polygon points="8,1 15,8 8,15 1,8" fill="none" stroke="#C5A059" strokeWidth="1.2" opacity="0.8" /></svg>
+                    <div style={{ flex: 1, height: 1, background: 'linear-gradient(90deg, rgba(197,160,89,0.6), transparent)' }} />
                 </div>
 
-                {/* Separator */}
-                <div style={{ opacity: subOpacity, marginTop: 50, marginBottom: 36 }}>
-                    <svg width="220" height="20" viewBox="0 0 220 20">
-                        <line x1="0" y1="10" x2="90" y2="10" stroke="#C5A059" strokeWidth="0.8" opacity="0.4" />
-                        <circle cx="110" cy="10" r="4" fill="none" stroke="#C5A059" strokeWidth="1.2" opacity="0.6" />
-                        <line x1="130" y1="10" x2="220" y2="10" stroke="#C5A059" strokeWidth="0.8" opacity="0.4" />
-                    </svg>
+                {/* Word-by-word text — 3 lines */}
+                <div style={{ opacity: titleOpacity, transform: `translateY(${titleY}px) scale(${breathe})` }}>
+                    {lines.map((line, li) => (
+                        <div key={li} style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '0 16px', marginBottom: li < lines.length - 1 ? 8 : 0 }}>
+                            {line.map((w) => {
+                                const idx = wordIdx++;
+                                const a = getWordAnim(idx);
+                                const isHighlight = li === 1; // "en Cristo" — gold
+                                return (
+                                    <span key={idx} style={{
+                                        display: 'inline-block',
+                                        opacity: a.opacity, transform: `translateY(${a.y}px)`,
+                                        color: isHighlight ? '#C5A059' : '#ffffff',
+                                        fontSize: isHighlight ? 88 : 76,
+                                        fontWeight: 'bold', lineHeight: 1.18,
+                                        letterSpacing: '0.02em',
+                                        fontStyle: isHighlight ? 'italic' : 'normal',
+                                        textShadow: isHighlight
+                                            ? '0 0 60px rgba(197,160,89,0.6), 0 4px 25px rgba(0,0,0,0.9)'
+                                            : '0 4px 30px rgba(0,0,0,0.95), 0 0 50px rgba(0,0,0,0.7)',
+                                    }}>{w}</span>
+                                );
+                            })}
+                        </div>
+                    ))}
+                </div>
+
+                {/* Separator bottom */}
+                <div style={{
+                    opacity: subOpacity, marginTop: 36, marginBottom: 30,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16,
+                }}>
+                    <div style={{ flex: 1, height: 1, background: 'linear-gradient(90deg, transparent, rgba(197,160,89,0.5))' }} />
+                    <svg width="16" height="16"><polygon points="8,1 15,8 8,15 1,8" fill="none" stroke="#C5A059" strokeWidth="1.2" opacity="0.7" /></svg>
+                    <div style={{ flex: 1, height: 1, background: 'linear-gradient(90deg, rgba(197,160,89,0.5), transparent)' }} />
                 </div>
 
                 {/* Reference */}
-                <div style={{
-                    opacity: refOpacity,
-                    color: '#C5A059', fontSize: 34,
-                    letterSpacing: '0.28em', fontStyle: 'italic',
-                }}>
+                <div style={{ opacity: refOpacity, color: '#C5A059', fontSize: 30, letterSpacing: '0.3em', fontStyle: 'italic' }}>
                     Filipenses 4:13
                 </div>
+            </div>
 
-                {/* Watermark */}
-                <div style={{
-                    opacity: refOpacity * 0.25, marginTop: 100,
-                    color: '#C5A059', fontSize: 18,
-                    letterSpacing: '0.42em', textTransform: 'uppercase',
-                }}>
-                    Sabiduría para el Corazón
-                </div>
+            {/* Watermark */}
+            <div style={{ position: 'absolute', bottom: 68, left: 0, right: 0, textAlign: 'center', opacity: refOpacity * 0.3, color: '#ffffff', fontSize: 18, letterSpacing: '0.44em', textTransform: 'uppercase' }}>
+                Sabiduría para el Corazón
             </div>
         </div>
     );

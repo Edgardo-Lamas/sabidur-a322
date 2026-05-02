@@ -1,161 +1,137 @@
-import { useCurrentFrame, useVideoConfig, interpolate } from 'remotion';
+import { useCurrentFrame, useVideoConfig, interpolate, Img } from 'remotion';
 
-// Horizontal light sweep across text
+// Mountain peaks at golden hour — warm light hits the text perfectly
+const PHOTO = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1080&h=1920&q=85';
+
+// Floating dust/pollen motes — visible against the bright mountain photo
+const MOTES = Array.from({ length: 22 }, (_, i) => ({
+    x: (i * 137.508) % 1000 + 40,
+    size: 3 + (i % 4) * 2.5,
+    opacity: 0.25 + (i % 4) * 0.12,
+    speed: 0.22 + (i % 5) * 0.08,
+    offset: i * 79,
+    drift: Math.sin(i * 0.8) * 60,
+}));
+
 export const WallpaperGracia = () => {
     const frame = useCurrentFrame();
-    const { fps } = useVideoConfig();
+    const { durationInFrames } = useVideoConfig();
 
-    const fadeIn = interpolate(frame, [0, 40], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
-    const titleScale = interpolate(frame, [15, 55], [0.85, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
-    const titleOpacity = interpolate(frame, [15, 55], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
-    const textOpacity = interpolate(frame, [50, 90], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
-    const refOpacity = interpolate(frame, [80, 120], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+    // Ken Burns: slow pan right + slight zoom
+    const scale = interpolate(frame, [0, durationInFrames], [1.06, 1.0], { extrapolateRight: 'clamp' });
+    const panX = interpolate(frame, [0, durationInFrames], [40, -40], { extrapolateRight: 'clamp' });
+    const panY = interpolate(frame, [0, durationInFrames], [0, 20], { extrapolateRight: 'clamp' });
 
-    // Sweeping light: moves left to right repeatedly
-    const SWEEP_DURATION = fps * 3;
-    const sweepFrame = frame % SWEEP_DURATION;
-    const sweepX = interpolate(sweepFrame, [0, SWEEP_DURATION], [-200, 1300]);
+    // Entrances
+    const bigWordOpacity = interpolate(frame, [10, 50], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+    const bigWordScale = interpolate(frame, [10, 50], [0.88, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+    const verseOpacity = interpolate(frame, [55, 95], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+    const verseY = interpolate(frame, [55, 95], [25, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+    const refOpacity = interpolate(frame, [90, 125], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+    const lineW = interpolate(frame, [60, 100], [0, 300], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
 
-    // Parallax background text (very faint, moves slower)
-    const bgTextX = interpolate(frame, [0, 180], [0, -30], { extrapolateRight: 'clamp' });
+    // Sweeping light leak — repeating every 90 frames
+    const SWEEP = 90;
+    const sweepFrame = frame % SWEEP;
+    const sweepX = interpolate(sweepFrame, [0, SWEEP], [-600, 1700]);
+    const sweepO = interpolate(sweepFrame, [0, 10, 70, 90], [0, 0.9, 0.9, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
 
-    // Breathing scale on main title
-    const breathe = Math.sin((frame / fps) * 0.7 * Math.PI) * 0.012 + 1;
+    // Parallax background word drifts at half the pan speed
+    const bgWordX = panX * 0.4;
+
+    // Breathing scale on GRACIA
+    const breathe = Math.sin((frame / 30) * 0.8 * Math.PI) * 0.008 + 1;
 
     return (
-        <div style={{
-            width: '100%', height: '100%', overflow: 'hidden', position: 'relative',
-            background: 'linear-gradient(175deg, #0D0F14 0%, #1A1D23 45%, #0F1118 100%)',
-            fontFamily: 'Georgia, "Times New Roman", serif',
-        }}>
-            {/* Parallax background word */}
+        <div style={{ width: '100%', height: '100%', overflow: 'hidden', position: 'relative', fontFamily: 'Georgia, "Times New Roman", serif' }}>
+
+            {/* Photo — Ken Burns */}
+            <div style={{ position: 'absolute', inset: '-8%', transform: `scale(${scale}) translate(${panX}px, ${panY}px)`, transformOrigin: 'center center' }}>
+                <Img src={PHOTO} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+
+            {/* Warm gradient overlay — lets mountains show through at top */}
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(20,15,5,0.15) 0%, rgba(15,10,3,0.35) 35%, rgba(10,8,2,0.78) 70%, rgba(8,6,2,0.92) 100%)' }} />
+
+            {/* Warm vignette sides */}
+            <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 60%, transparent 35%, rgba(5,3,0,0.6) 100%)' }} />
+
+            {/* Dust motes */}
+            {MOTES.map((m, i) => {
+                const totalH = 2100;
+                const rawY = (frame * m.speed + m.offset) % totalH;
+                const driftX = m.drift * Math.sin((frame * m.speed + m.offset) / 120);
+                return (
+                    <div key={i} style={{
+                        position: 'absolute',
+                        left: m.x + driftX,
+                        bottom: rawY - 50,
+                        width: m.size, height: m.size,
+                        borderRadius: '50%',
+                        background: 'rgba(255, 220, 120, 1)',
+                        opacity: m.opacity,
+                        filter: 'blur(1px)',
+                    }} />
+                );
+            })}
+
+            {/* Sweeping light leak */}
             <div style={{
-                position: 'absolute', top: '50%', left: '50%',
-                transform: `translate(calc(-50% + ${bgTextX}px), -50%)`,
-                fontSize: 340, fontWeight: 'bold',
-                color: 'rgba(197,160,89,0.04)',
-                letterSpacing: '0.08em',
+                position: 'absolute', inset: 0, opacity: sweepO * 0.7,
+                background: `linear-gradient(80deg, transparent ${sweepX - 250}px, rgba(255,210,100,0.12) ${sweepX - 80}px, rgba(255,240,180,0.22) ${sweepX}px, rgba(255,210,100,0.12) ${sweepX + 80}px, transparent ${sweepX + 250}px)`,
+            }} />
+
+            {/* GHOST WORD — parallax background layer */}
+            <div style={{
+                position: 'absolute', top: '28%', left: '50%',
+                transform: `translate(calc(-50% + ${bgWordX}px), -50%)`,
+                color: 'rgba(197,160,89,0.07)', fontSize: 380,
+                fontWeight: 'bold', letterSpacing: '0.06em',
                 userSelect: 'none', whiteSpace: 'nowrap',
+            }}>GRACIA</div>
+
+            {/* Main GRACIA — foreground */}
+            <div style={{
+                position: 'absolute', top: '22%', left: 0, right: 0,
+                textAlign: 'center',
+                opacity: bigWordOpacity,
+                transform: `scale(${bigWordScale * breathe})`,
             }}>
-                GRACIA
+                <div style={{
+                    color: '#C5A059', fontSize: 160, fontWeight: 'bold',
+                    letterSpacing: '0.16em', lineHeight: 1,
+                    textShadow: '0 0 120px rgba(197,160,89,0.5), 0 0 40px rgba(197,160,89,0.3), 0 6px 30px rgba(0,0,0,0.8)',
+                }}>GRACIA</div>
             </div>
 
-            {/* Vignette */}
+            {/* Verse text — lower section */}
             <div style={{
-                position: 'absolute', inset: 0,
-                background: 'radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(0,0,0,0.7) 100%)',
-            }} />
-
-            {/* Light sweep overlay */}
-            <div style={{
-                position: 'absolute', inset: 0,
-                background: `linear-gradient(90deg, transparent ${sweepX - 200}px, rgba(197,160,89,0.06) ${sweepX}px, rgba(255,255,255,0.04) ${sweepX + 60}px, rgba(197,160,89,0.06) ${sweepX + 120}px, transparent ${sweepX + 320}px)`,
-                opacity: fadeIn,
-            }} />
-
-            {/* Top ornament */}
-            <div style={{
-                position: 'absolute', top: 110, left: '50%',
-                transform: 'translateX(-50%)',
-                opacity: refOpacity * 0.6,
+                position: 'absolute', bottom: 220, left: 0, right: 0,
+                padding: '0 72px', textAlign: 'center', zIndex: 10,
+                opacity: verseOpacity, transform: `translateY(${verseY}px)`,
             }}>
-                <svg width="160" height="24" viewBox="0 0 160 24">
-                    <line x1="0" y1="12" x2="66" y2="12" stroke="#C5A059" strokeWidth="0.8" opacity="0.5" />
-                    <polygon points="80,4 88,12 80,20 72,12" fill="none" stroke="#C5A059" strokeWidth="1.2" />
-                    <line x1="94" y1="12" x2="160" y2="12" stroke="#C5A059" strokeWidth="0.8" opacity="0.5" />
-                </svg>
-            </div>
+                <div style={{ width: lineW, height: 1, background: 'linear-gradient(90deg, transparent, rgba(197,160,89,0.7), transparent)', margin: '0 auto 36px' }} />
 
-            {/* Main content */}
-            <div style={{
-                position: 'absolute', inset: 0, zIndex: 10,
-                display: 'flex', flexDirection: 'column',
-                alignItems: 'center', justifyContent: 'center',
-                padding: '0 80px', textAlign: 'center',
-            }}>
-                {/* "GRACIA" */}
-                <div style={{
-                    opacity: titleOpacity,
-                    transform: `scale(${titleScale * breathe})`,
-                    marginBottom: 8,
-                }}>
-                    <div style={{
-                        color: '#C5A059',
-                        fontSize: 128, fontWeight: 'bold',
-                        letterSpacing: '0.18em',
-                        textShadow: '0 0 80px rgba(197,160,89,0.25), 0 0 20px rgba(197,160,89,0.1)',
-                        lineHeight: 1,
-                    }}>
-                        GRACIA
-                    </div>
+                <div style={{ color: 'rgba(255,255,255,0.9)', fontSize: 50, lineHeight: 1.5, fontStyle: 'italic', marginBottom: 10, textShadow: '0 4px 20px rgba(0,0,0,0.9)' }}>
+                    Porque por gracia
+                </div>
+                <div style={{ color: '#C5A059', fontSize: 50, lineHeight: 1.5, fontStyle: 'italic', marginBottom: 10, textShadow: '0 0 40px rgba(197,160,89,0.5), 0 4px 20px rgba(0,0,0,0.8)' }}>
+                    sois salvos
+                </div>
+                <div style={{ color: 'rgba(255,255,255,0.9)', fontSize: 50, lineHeight: 1.5, fontStyle: 'italic', textShadow: '0 4px 20px rgba(0,0,0,0.9)' }}>
+                    por medio de la fe
                 </div>
 
-                {/* Separator */}
-                <div style={{ opacity: titleOpacity, marginBottom: 50, marginTop: 20 }}>
-                    <svg width="200" height="2" viewBox="0 0 200 2">
-                        <line x1="0" y1="1" x2="200" y2="1" stroke="#C5A059" strokeWidth="0.8" opacity="0.4" />
-                    </svg>
-                </div>
+                <div style={{ width: lineW, height: 1, background: 'linear-gradient(90deg, transparent, rgba(197,160,89,0.5), transparent)', margin: '30px auto 28px' }} />
 
-                {/* Verse text */}
-                <div style={{ opacity: textOpacity }}>
-                    <div style={{
-                        color: 'rgba(255,255,255,0.82)',
-                        fontSize: 52, lineHeight: 1.45,
-                        fontStyle: 'italic', marginBottom: 16,
-                        letterSpacing: '0.01em',
-                    }}>
-                        Porque por gracia
-                    </div>
-                    <div style={{
-                        color: '#C5A059',
-                        fontSize: 52, lineHeight: 1.45,
-                        fontStyle: 'italic', marginBottom: 16,
-                        letterSpacing: '0.01em',
-                    }}>
-                        sois salvos
-                    </div>
-                    <div style={{
-                        color: 'rgba(255,255,255,0.82)',
-                        fontSize: 52, lineHeight: 1.45,
-                        fontStyle: 'italic',
-                        letterSpacing: '0.01em',
-                    }}>
-                        por medio de la fe
-                    </div>
-                </div>
-
-                {/* Reference */}
-                <div style={{
-                    opacity: refOpacity,
-                    marginTop: 60,
-                    color: '#C5A059', fontSize: 32,
-                    letterSpacing: '0.3em', fontStyle: 'italic',
-                }}>
+                <div style={{ opacity: refOpacity, color: '#C5A059', fontSize: 30, letterSpacing: '0.32em', fontStyle: 'italic' }}>
                     Efesios 2:8
                 </div>
-
-                {/* Watermark */}
-                <div style={{
-                    opacity: refOpacity * 0.25, marginTop: 100,
-                    color: '#C5A059', fontSize: 18,
-                    letterSpacing: '0.42em', textTransform: 'uppercase',
-                }}>
-                    Sabiduría para el Corazón
-                </div>
             </div>
 
-            {/* Bottom ornament */}
-            <div style={{
-                position: 'absolute', bottom: 110, left: '50%',
-                transform: 'translateX(-50%)',
-                opacity: refOpacity * 0.5,
-            }}>
-                <svg width="160" height="24" viewBox="0 0 160 24">
-                    <line x1="0" y1="12" x2="66" y2="12" stroke="#C5A059" strokeWidth="0.8" opacity="0.5" />
-                    <polygon points="80,4 88,12 80,20 72,12" fill="none" stroke="#C5A059" strokeWidth="1.2" />
-                    <line x1="94" y1="12" x2="160" y2="12" stroke="#C5A059" strokeWidth="0.8" opacity="0.5" />
-                </svg>
+            {/* Watermark */}
+            <div style={{ position: 'absolute', bottom: 72, left: 0, right: 0, textAlign: 'center', opacity: refOpacity * 0.3, color: '#ffffff', fontSize: 18, letterSpacing: '0.44em', textTransform: 'uppercase' }}>
+                Sabiduría para el Corazón
             </div>
         </div>
     );
