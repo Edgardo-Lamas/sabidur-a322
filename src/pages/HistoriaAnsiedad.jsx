@@ -74,7 +74,7 @@ const HistoriaAnsiedad = () => {
                 title={soundOn ? 'Silenciar el mar' : 'Escuchar el sonido del mar'}
                 style={{
                     position: 'fixed',
-                    bottom: 28,
+                    bottom: 90,
                     right: 24,
                     zIndex: 60,
                     display: 'flex',
