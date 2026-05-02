@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, BookOpen, Volume2, VolumeX } from 'lucide-react';
+import { ArrowLeft, Volume2, VolumeX } from 'lucide-react';
 import SEO from '../components/SEO';
 
 const FADE_IN = {
@@ -68,43 +68,44 @@ const HistoriaAnsiedad = () => {
                 pointerEvents: 'none',
             }} />
 
+            {/* ─── Botón sonido — fixed esquina inferior derecha ─── */}
+            <button
+                onClick={toggleSound}
+                title={soundOn ? 'Silenciar el mar' : 'Escuchar el sonido del mar'}
+                style={{
+                    position: 'fixed',
+                    bottom: 28,
+                    right: 24,
+                    zIndex: 60,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 8,
+                    padding: '10px 16px',
+                    borderRadius: 40,
+                    border: `1px solid ${soundOn ? 'rgba(197,160,89,0.6)' : 'rgba(255,255,255,0.25)'}`,
+                    background: soundOn ? 'rgba(197,160,89,0.18)' : 'rgba(0,5,15,0.75)',
+                    backdropFilter: 'blur(14px)',
+                    color: soundOn ? '#C5A059' : 'rgba(255,255,255,0.85)',
+                    fontFamily: 'inherit',
+                    fontSize: 13,
+                    fontWeight: 600,
+                    letterSpacing: '0.04em',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    boxShadow: soundOn
+                        ? '0 0 20px rgba(197,160,89,0.25), 0 4px 20px rgba(0,0,0,0.5)'
+                        : '0 4px 20px rgba(0,0,0,0.5)',
+                }}
+            >
+                {soundOn ? <Volume2 size={16} /> : <VolumeX size={16} />}
+                {soundOn ? 'Mar activo' : 'Activar mar'}
+            </button>
+
             {/* ─── CONTENIDO sobre el video ─── */}
             <div style={{ position: 'relative', zIndex: 2, minHeight: '100vh' }}>
 
-                {/* Barra de navegación flotante */}
-                <div className="sticky top-0 z-10 flex items-center justify-between px-6 py-4"
-                    style={{ background: 'rgba(0,5,15,0.6)', backdropFilter: 'blur(12px)', borderBottom: '1px solid rgba(197,160,89,0.12)' }}>
-                    <Link
-                        to="/adolescentes"
-                        className="flex items-center gap-2 text-white/60 hover:text-sabiduria-gold transition-colors font-heading text-sm font-semibold"
-                    >
-                        <ArrowLeft size={16} />
-                        Volver
-                    </Link>
-
-                    <div className="flex items-center gap-2 text-sabiduria-gold/70">
-                        <BookOpen size={15} />
-                        <span className="font-heading text-xs uppercase tracking-widest hidden sm:inline">Historias para Jóvenes</span>
-                    </div>
-
-                    {/* Toggle sonido del mar */}
-                    <button
-                        onClick={toggleSound}
-                        title={soundOn ? 'Silenciar' : 'Activar sonido del mar'}
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all font-heading text-xs font-semibold"
-                        style={{
-                            borderColor: soundOn ? 'rgba(197,160,89,0.4)' : 'rgba(255,255,255,0.12)',
-                            color: soundOn ? '#C5A059' : 'rgba(255,255,255,0.4)',
-                            background: soundOn ? 'rgba(197,160,89,0.08)' : 'transparent',
-                        }}
-                    >
-                        {soundOn ? <Volume2 size={14} /> : <VolumeX size={14} />}
-                        <span className="hidden sm:inline">{soundOn ? 'Sonido' : 'Silencio'}</span>
-                    </button>
-                </div>
-
                 {/* ─── HEADER ─── */}
-                <header className="pt-20 pb-12 px-6 text-center max-w-2xl mx-auto">
+                <header className="pt-8 pb-12 px-6 text-center max-w-2xl mx-auto">
                     <motion.div {...FADE_IN} className="mb-4">
                         <span className="font-heading text-xs uppercase tracking-[0.35em] text-sabiduria-gold/60">
                             Ansiedad · Paz · Fe
