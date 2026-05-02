@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, X, Send, Sparkles, User, Info, BookOpen, ExternalLink, Youtube, FileText, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const N8N_WEBHOOK_URL = import.meta.env.VITE_N8N_WEBHOOK_URL || 'https://n8n-production-0e6a.up.railway.app/webhook/chat';
+const SPURGEON_API_URL = '/api/spurgeon';
 const SPURGEON_AVATAR = `${import.meta.env.BASE_URL}images/spurgeon-avatar.png`;
 
 const INITIAL_SUGGESTIONS = [
@@ -43,7 +43,7 @@ const ChatSpurgeon = () => {
         setIsTyping(true);
 
         try {
-            const response = await fetch(N8N_WEBHOOK_URL, {
+            const response = await fetch(SPURGEON_API_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ question })
@@ -87,7 +87,7 @@ const ChatSpurgeon = () => {
             setMessages(prev => [...prev, userMessage]);
             setIsTyping(true);
 
-            fetch(N8N_WEBHOOK_URL, {
+            fetch(SPURGEON_API_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ question })
