@@ -182,5 +182,5 @@ VITE_SUPABASE_ANON_KEY   # Migrado a JSON locales
 - Al agregar una nueva **ruta:** registrarla en `src/App.jsx` con `lazy()`.
 - Los mapas bíblicos usan GeoJSON en `src/data/maps/`.
 - El Agente Spurgeon carga los 34 JSON de `knowledge/` en cada request — si se agregan archivos a esa carpeta, quedan automáticamente disponibles para el agente.
-- **Wallpapers animados (Juventud):** pendiente implementar con Remotion. Ver sección Stack.
+- **Wallpapers animados (Juventud):** ✅ Activos. 3 composiciones en `src/remotion/wallpapers/`. MP4s en `public/wallpapers/`. Workflow: editar composición → `node_modules/.bin/remotion render src/remotion/Root.jsx <ID> public/wallpapers/<id>.mp4 --overwrite` → push.
 - **Plan de lectura 30 días (Juventud):** pendiente crear contenido JSON + diseño Canva.
