@@ -1,7 +1,9 @@
-import React from 'react';
-import { Gamepad2, BookHeart, Sparkles, Zap } from 'lucide-react';
+import React, { Suspense, lazy } from 'react';
+import { Gamepad2, BookHeart, Sparkles, Zap, ImagePlay } from 'lucide-react';
 import BibliaFlow from '../components/BibliaFlow';
 import SEO from '../components/SEO';
+
+const WallpaperShowcase = lazy(() => import('../components/WallpaperShowcase'));
 
 const Youth = () => {
     return (
@@ -62,6 +64,32 @@ const Youth = () => {
                     </div>
                 </section>
 
+                {/* Wallpapers animados */}
+                <section className="py-16 md:py-20 bg-sabiduria-navy">
+                    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center mb-12">
+                            <div className="inline-flex items-center gap-3 bg-sabiduria-gold/10 text-sabiduria-gold px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider mb-4 border border-sabiduria-gold/20">
+                                <ImagePlay size={18} />
+                                Fondos Animados
+                            </div>
+                            <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4 tracking-tight">
+                                Wallpapers con <span className="text-sabiduria-gold">Versículos</span>
+                            </h2>
+                            <p className="text-white/60 max-w-xl mx-auto font-serif leading-relaxed">
+                                Fondos animados para tu celular. Cada uno está diseñado para que la Palabra
+                                esté presente en tu pantalla de inicio.
+                            </p>
+                        </div>
+                        <Suspense fallback={
+                            <div className="flex justify-center items-center h-80 text-white/30 font-serif italic">
+                                Cargando wallpapers…
+                            </div>
+                        }>
+                            <WallpaperShowcase />
+                        </Suspense>
+                    </div>
+                </section>
+
                 {/* Coming Soon Sections */}
                 <section className="py-16 bg-white border-t border-sabiduria-navy/10">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -97,15 +125,16 @@ const Youth = () => {
                             </div>
 
                             {/* Resources */}
-                            <div className="bg-white p-8 rounded-xl border border-sabiduria-gray/10 hover:border-sabiduria-gold/30 hover:shadow-lg transition-all">
+                            <div className="bg-white p-8 rounded-xl border border-sabiduria-gold/30 hover:shadow-lg transition-all">
                                 <div className="inline-block p-3 bg-sabiduria-gold/10 rounded-lg mb-4 border border-sabiduria-gold/20">
-                                    <Sparkles size={28} className="text-sabiduria-gold" />
+                                    <ImagePlay size={28} className="text-sabiduria-gold" />
                                 </div>
                                 <h3 className="text-xl font-heading font-semibold text-sabiduria-navy mb-3">
                                     Recursos Descargables
                                 </h3>
                                 <p className="text-sabiduria-gray leading-relaxed font-serif">
-                                    Guías de estudio, wallpapers, y materiales para compartir con amigos.
+                                    Wallpapers animados con versículos y plan de lectura bíblica de 30 días.
+                                    <span className="block mt-2 text-sabiduria-gold font-semibold text-sm">¡Ya disponibles abajo! ↓</span>
                                 </p>
                             </div>
                         </div>
