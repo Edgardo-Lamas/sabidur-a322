@@ -1,5 +1,7 @@
 import React, { Suspense, lazy } from 'react';
-import { Gamepad2, BookHeart, Sparkles, Zap, ImagePlay } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Gamepad2, BookHeart, Zap, ImagePlay, ArrowRight, Waves } from 'lucide-react';
+import { motion } from 'framer-motion';
 import BibliaFlow from '../components/BibliaFlow';
 import SEO from '../components/SEO';
 
@@ -87,6 +89,91 @@ const Youth = () => {
                         }>
                             <WallpaperShowcase />
                         </Suspense>
+                    </div>
+                </section>
+
+                {/* ─── Historias para Jóvenes ─── */}
+                <section className="py-16 md:py-20 bg-sabiduria-bg border-t border-white/5">
+                    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center mb-12">
+                            <div className="inline-flex items-center gap-3 bg-sabiduria-gold/10 text-sabiduria-gold px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider mb-4 border border-sabiduria-gold/20">
+                                <BookHeart size={18} />
+                                Historias para Jóvenes
+                            </div>
+                            <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4 tracking-tight">
+                                Historias que te <span className="text-sabiduria-gold">sumergen</span>
+                            </h2>
+                            <p className="text-white/55 max-w-xl mx-auto font-serif leading-relaxed">
+                                Cada historia es un mundo diferente. Entrás a la página y el ambiente te envuelve.
+                                Un texto breve, una escena animada y una verdad que se queda.
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {/* Card: Ansiedad */}
+                            <motion.div
+                                whileHover={{ y: -4 }}
+                                transition={{ duration: 0.2 }}
+                            >
+                                <Link
+                                    to="/adolescentes/historias/ansiedad"
+                                    className="block relative rounded-2xl overflow-hidden border border-white/10 hover:border-sabiduria-gold/30 transition-all shadow-xl shadow-black/40 group"
+                                    style={{ aspectRatio: '3/4' }}
+                                >
+                                    {/* Preview image — frame del video */}
+                                    <video
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                        className="absolute inset-0 w-full h-full object-cover"
+                                        src="/stories/ansiedad-bg.mp4"
+                                    />
+
+                                    {/* Gradient overlay */}
+                                    <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent" />
+
+                                    {/* Tag */}
+                                    <div className="absolute top-4 left-4 flex items-center gap-1.5 bg-black/50 backdrop-blur-sm border border-white/15 rounded-full px-3 py-1">
+                                        <Waves size={11} className="text-sabiduria-gold" />
+                                        <span className="font-heading text-[10px] uppercase tracking-widest text-white/70">Ansiedad · Paz</span>
+                                    </div>
+
+                                    {/* Content */}
+                                    <div className="absolute bottom-0 left-0 right-0 p-5">
+                                        <p className="font-heading font-bold text-white text-xl leading-tight mb-1">
+                                            El Ancla y<br />
+                                            <span className="text-sabiduria-gold italic">la Tormenta</span>
+                                        </p>
+                                        <p className="text-white/50 font-serif text-xs italic mb-4">Salmos 46:1-3</p>
+                                        <div className="flex items-center gap-1.5 text-sabiduria-gold font-heading text-xs font-semibold group-hover:gap-3 transition-all">
+                                            Leer historia <ArrowRight size={13} />
+                                        </div>
+                                    </div>
+                                </Link>
+                            </motion.div>
+
+                            {/* Próximas — placeholder cards */}
+                            {[
+                                { tema: 'Identidad', ref: 'Génesis 1:27', desc: 'Próximamente' },
+                                { tema: 'Soledad', ref: 'Mateo 28:20', desc: 'Próximamente' },
+                            ].map((c) => (
+                                <div
+                                    key={c.tema}
+                                    className="relative rounded-2xl overflow-hidden border border-white/6 bg-white/3"
+                                    style={{ aspectRatio: '3/4' }}
+                                >
+                                    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
+                                        <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center mb-4">
+                                            <span className="text-white/20 text-lg font-heading font-bold">+</span>
+                                        </div>
+                                        <p className="font-heading font-bold text-white/25 text-lg mb-1">{c.tema}</p>
+                                        <p className="font-serif italic text-white/15 text-xs">{c.ref}</p>
+                                        <span className="mt-4 font-heading text-[10px] uppercase tracking-widest text-sabiduria-gold/25">{c.desc}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </section>
 

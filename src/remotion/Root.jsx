@@ -2,6 +2,7 @@ import { Composition, registerRoot } from 'remotion';
 import { WallpaperLampara } from './wallpapers/WallpaperLampara';
 import { WallpaperGracia } from './wallpapers/WallpaperGracia';
 import { WallpaperFortaleza } from './wallpapers/WallpaperFortaleza';
+import { NocturnoMar } from './scenes/NocturnoMar';
 
 export const RemotionRoot = () => (
     <>
@@ -28,6 +29,14 @@ export const RemotionRoot = () => (
             fps={30}
             width={1080}
             height={1920}
+        />
+        <Composition
+            id="NocturnoMar"
+            component={NocturnoMar}
+            durationInFrames={300}
+            fps={30}
+            width={1920}
+            height={1080}
         />
     </>
 );
