@@ -10,7 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@remotion/cli": "^4.0.456",
     "@remotion/player": "^4.0.456",
+    "@remotion/renderer": "^4.0.456",
     "@tailwindcss/vite": "^4.1.18",
     "dompurify": "^3.3.3",
     "dotenv": "^17.2.4",
