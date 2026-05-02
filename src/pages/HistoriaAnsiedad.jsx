@@ -1,7 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, BookOpen } from 'lucide-react';
+import { ArrowLeft, BookOpen, Volume2, VolumeX } from 'lucide-react';
 import SEO from '../components/SEO';
 
 const FADE_IN = {
@@ -12,12 +12,23 @@ const FADE_IN = {
 
 const HistoriaAnsiedad = () => {
     const videoRef = useRef(null);
+    const audioRef = useRef(null);
+    const [soundOn, setSoundOn] = useState(false);
 
     useEffect(() => {
-        if (videoRef.current) {
-            videoRef.current.playbackRate = 1.0;
-        }
+        if (videoRef.current) videoRef.current.playbackRate = 1.0;
     }, []);
+
+    const toggleSound = () => {
+        if (!audioRef.current) return;
+        if (soundOn) {
+            audioRef.current.pause();
+        } else {
+            audioRef.current.volume = 0.45;
+            audioRef.current.play().catch(() => {});
+        }
+        setSoundOn(!soundOn);
+    };
 
     return (
         <>
@@ -45,6 +56,9 @@ const HistoriaAnsiedad = () => {
                 src="/stories/ansiedad-bg.mp4"
             />
 
+            {/* ─── AUDIO ambiente (sonido del mar) ─── */}
+            <audio ref={audioRef} loop src="/stories/ocean.mp3" />
+
             {/* Overlay que oscurece un poco el video para legibilidad */}
             <div style={{
                 position: 'fixed',
@@ -67,10 +81,26 @@ const HistoriaAnsiedad = () => {
                         <ArrowLeft size={16} />
                         Volver
                     </Link>
+
                     <div className="flex items-center gap-2 text-sabiduria-gold/70">
                         <BookOpen size={15} />
-                        <span className="font-heading text-xs uppercase tracking-widest">Historias para Jóvenes</span>
+                        <span className="font-heading text-xs uppercase tracking-widest hidden sm:inline">Historias para Jóvenes</span>
                     </div>
+
+                    {/* Toggle sonido del mar */}
+                    <button
+                        onClick={toggleSound}
+                        title={soundOn ? 'Silenciar' : 'Activar sonido del mar'}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all font-heading text-xs font-semibold"
+                        style={{
+                            borderColor: soundOn ? 'rgba(197,160,89,0.4)' : 'rgba(255,255,255,0.12)',
+                            color: soundOn ? '#C5A059' : 'rgba(255,255,255,0.4)',
+                            background: soundOn ? 'rgba(197,160,89,0.08)' : 'transparent',
+                        }}
+                    >
+                        {soundOn ? <Volume2 size={14} /> : <VolumeX size={14} />}
+                        <span className="hidden sm:inline">{soundOn ? 'Sonido' : 'Silencio'}</span>
+                    </button>
                 </div>
 
                 {/* ─── HEADER ─── */}
