@@ -68,6 +68,35 @@ const HistoriaAnsiedad = () => {
                 pointerEvents: 'none',
             }} />
 
+            {/* ─── Botón Volver — fixed debajo del Navbar ─── */}
+            <Link
+                to="/adolescentes"
+                style={{
+                    position: 'fixed',
+                    top: 90,
+                    left: 20,
+                    zIndex: 40,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    padding: '8px 14px',
+                    borderRadius: 40,
+                    border: '1px solid rgba(255,255,255,0.2)',
+                    background: 'rgba(0,5,15,0.72)',
+                    backdropFilter: 'blur(14px)',
+                    color: 'rgba(255,255,255,0.75)',
+                    fontSize: 13,
+                    fontWeight: 600,
+                    letterSpacing: '0.03em',
+                    textDecoration: 'none',
+                    transition: 'all 0.2s',
+                    boxShadow: '0 4px 16px rgba(0,0,0,0.45)',
+                }}
+            >
+                <ArrowLeft size={14} />
+                Volver
+            </Link>
+
             {/* ─── Botón sonido — fixed esquina inferior derecha ─── */}
             <button
                 onClick={toggleSound}
