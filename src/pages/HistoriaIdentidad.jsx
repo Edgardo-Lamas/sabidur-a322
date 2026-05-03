@@ -6,6 +6,11 @@ import SEO from '../components/SEO';
 
 // ─── CSS ANIMATIONS ──────────────────────────────────────────────────────────
 const STYLES = `
+@keyframes ken-burns-id {
+    0%   { transform: scale(1.06) translateX(1%)  translateY(0%); }
+    50%  { transform: scale(1)    translateX(-1%) translateY(-1%); }
+    100% { transform: scale(1.06) translateX(1%)  translateY(0%); }
+}
 @keyframes dawn-glow {
     0%   { opacity: 0.55; transform: scaleX(1) scaleY(1); }
     50%  { opacity: 0.78; transform: scaleX(1.08) scaleY(1.12); }
@@ -78,30 +83,34 @@ const HistoriaIdentidad = () => {
             ══════════════════════════════════════ */}
             <div style={{ position: 'fixed', inset: 0, zIndex: 0, overflow: 'hidden', background: '#0D0520' }}>
 
-                {/* Cielo nocturno → amanecer */}
+                {/* Foto base — montañas al amanecer (Unsplash) */}
+                <img
+                    src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1920&h=1080&q=85"
+                    alt=""
+                    style={{
+                        position: 'absolute', inset: 0,
+                        width: '100%', height: '100%',
+                        objectFit: 'cover', objectPosition: 'center 40%',
+                        filter: 'brightness(0.6) saturate(1.1)',
+                        animation: 'ken-burns-id 32s ease-in-out infinite',
+                        transformOrigin: 'center 40%',
+                    }}
+                />
+
+                {/* Tinte cálido — refuerza los tonos dorados del amanecer */}
                 <div style={{
                     position: 'absolute', inset: 0,
-                    background: 'linear-gradient(180deg, #0D0520 0%, #16082E 22%, #2A1008 48%, #5C2008 65%, #8B3E0A 78%, #B86010 88%, #D4800F 94%, #E8A020 100%)',
+                    background: 'linear-gradient(180deg, rgba(10,3,20,0.5) 0%, rgba(20,8,5,0.2) 45%, rgba(5,2,12,0.55) 100%)',
                 }} />
 
-                {/* Resplandor del amanecer — halo central en el horizonte */}
+                {/* Resplandor en el horizonte — sobre la foto */}
                 <div style={{
-                    position: 'absolute', bottom: '28%', left: '50%',
+                    position: 'absolute', bottom: '30%', left: '50%',
                     transform: 'translate(-50%, 50%)',
-                    width: '70%', height: 260,
-                    background: 'radial-gradient(ellipse 80% 100% at 50% 100%, rgba(240,160,30,0.55) 0%, rgba(180,80,10,0.3) 40%, transparent 75%)',
+                    width: '65%', height: 220,
+                    background: 'radial-gradient(ellipse 80% 100% at 50% 100%, rgba(240,160,30,0.4) 0%, rgba(180,80,10,0.2) 45%, transparent 75%)',
                     animation: 'dawn-glow 6s ease-in-out infinite',
-                    filter: 'blur(8px)',
-                }} />
-
-                {/* Segundo halo — más amplio y suave */}
-                <div style={{
-                    position: 'absolute', bottom: '26%', left: '50%',
-                    transform: 'translate(-50%, 50%)',
-                    width: '100%', height: 320,
-                    background: 'radial-gradient(ellipse 100% 100% at 50% 100%, rgba(180,80,10,0.25) 0%, rgba(100,30,5,0.12) 50%, transparent 75%)',
-                    animation: 'horizon-breathe 8s ease-in-out infinite',
-                    filter: 'blur(20px)',
+                    filter: 'blur(12px)',
                 }} />
 
                 {/* Rayos de luz desde el horizonte */}
@@ -116,41 +125,32 @@ const HistoriaIdentidad = () => {
                 ].map((r, i) => (
                     <div key={i} style={{
                         position: 'absolute',
-                        bottom: '28%', left: r.left,
-                        width: `${r.w}px`, height: '65%',
-                        background: 'linear-gradient(0deg, rgba(240,180,40,0.22) 0%, transparent 100%)',
+                        bottom: '30%', left: r.left,
+                        width: `${r.w}px`, height: '60%',
+                        background: 'linear-gradient(0deg, rgba(240,180,40,0.18) 0%, transparent 100%)',
                         transformOrigin: 'bottom center',
                         transform: `rotate(${r.rotate})`,
                         animation: `ray-pulse ${4 + i * 0.7}s ease-in-out ${i * 0.4}s infinite`,
-                        filter: 'blur(4px)',
+                        filter: 'blur(5px)',
                     }} />
                 ))}
 
-                {/* Estrellas (desaparecen con el amanecer — pocas, tenues) */}
-                {[[80,40],[200,25],[380,55],[920,30],[1150,48],[1320,22],[500,18],[720,60]].map(([x,y],i)=>(
-                    <div key={i} style={{
-                        position: 'absolute', left: x, top: y,
-                        width: 1.5, height: 1.5, borderRadius: '50%',
-                        background: '#fff', opacity: 0.12 + (i%3)*0.07,
-                    }} />
-                ))}
-
-                {/* NIEBLA capa 1 — sobre las montañas */}
+                {/* NIEBLA capa 1 */}
                 <div style={{
-                    position: 'absolute', bottom: '30%', left: '-5%', right: '-5%', height: 90,
-                    background: 'linear-gradient(180deg, transparent 0%, rgba(180,90,15,0.12) 40%, rgba(200,110,20,0.18) 60%, transparent 100%)',
+                    position: 'absolute', bottom: '28%', left: '-5%', right: '-5%', height: 100,
+                    background: 'linear-gradient(180deg, transparent 0%, rgba(200,120,20,0.1) 40%, rgba(220,140,30,0.14) 60%, transparent 100%)',
                     animation: 'mist-drift 22s ease-in-out infinite',
-                    filter: 'blur(22px)',
+                    filter: 'blur(25px)',
                 }} />
                 {/* NIEBLA capa 2 */}
                 <div style={{
-                    position: 'absolute', bottom: '33%', left: '-8%', right: '-8%', height: 70,
-                    background: 'linear-gradient(180deg, transparent 0%, rgba(160,70,10,0.09) 50%, transparent 100%)',
+                    position: 'absolute', bottom: '32%', left: '-8%', right: '-8%', height: 80,
+                    background: 'linear-gradient(180deg, transparent 0%, rgba(180,90,15,0.07) 50%, transparent 100%)',
                     animation: 'mist-drift-slow 30s ease-in-out infinite',
-                    filter: 'blur(30px)',
+                    filter: 'blur(35px)',
                 }} />
 
-                {/* PARTÍCULAS DE POLVO dorado en los rayos */}
+                {/* PARTÍCULAS DE POLVO dorado */}
                 {DUST.map((d, i) => (
                     <div key={i} style={{
                         position: 'absolute', left: d.left, bottom: d.bottom,
@@ -162,55 +162,10 @@ const HistoriaIdentidad = () => {
                     }} />
                 ))}
 
-                {/* MONTAÑAS — 3 capas de profundidad */}
-                <svg
-                    style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '55%' }}
-                    viewBox="0 0 1440 320"
-                    preserveAspectRatio="xMidYMax slice"
-                >
-                    {/* Capa fondo — montañas lejanas, silueta suave */}
-                    <path
-                        d="M0 320 L0 210 Q80 170 160 185 Q240 200 320 155 Q400 110 480 130 Q560 150 640 115 Q720 80 800 100 Q880 120 960 90 Q1040 60 1120 85 Q1200 110 1280 95 Q1360 80 1440 105 L1440 320 Z"
-                        fill="#1C0830"
-                        opacity="0.7"
-                    />
-                    {/* Capa media — montañas intermedias */}
-                    <path
-                        d="M0 320 L0 240 Q60 220 120 230 Q200 245 280 195 Q360 145 440 170 Q520 195 600 150 Q680 105 760 125 Q840 145 920 110 Q1000 75 1080 100 Q1160 125 1240 105 Q1320 85 1380 115 L1440 130 L1440 320 Z"
-                        fill="#120620"
-                        opacity="0.85"
-                    />
-                    {/* Capa frontal — montañas más cercanas, más oscuras */}
-                    <path
-                        d="M0 320 L0 280 Q50 265 100 275 Q160 285 220 250 Q290 215 360 235 Q420 250 480 215 Q550 178 620 195 Q690 215 760 180 Q840 142 920 162 Q990 182 1060 155 Q1140 125 1220 145 Q1300 165 1360 148 Q1400 138 1440 155 L1440 320 Z"
-                        fill="#0A0318"
-                        opacity="0.95"
-                    />
-                    {/* Pico destacado — el más alto, contraluz dramático */}
-                    <path
-                        d="M880 320 L880 162 Q910 130 940 110 Q970 88 1000 72 Q1030 55 1060 72 Q1090 88 1110 110 Q1130 130 1150 155 L1220 145 L1440 320 Z"
-                        fill="#070215"
-                        opacity="0.98"
-                    />
-                    {/* Borde luminoso del pico — contraluz del amanecer */}
-                    <path
-                        d="M1000 72 Q1030 55 1060 72"
-                        fill="none"
-                        stroke="rgba(230,150,20,0.35)"
-                        strokeWidth="2"
-                    />
-                    <path
-                        d="M960 95 Q1000 72 1060 72 Q1100 88 1130 115"
-                        fill="none"
-                        stroke="rgba(200,120,10,0.2)"
-                        strokeWidth="1.5"
-                    />
-                </svg>
-
-                {/* Tierra/suelo oscuro */}
+                {/* Velo inferior */}
                 <div style={{
-                    position: 'absolute', bottom: 0, left: 0, right: 0, height: '8%',
-                    background: '#050110',
+                    position: 'absolute', bottom: 0, left: 0, right: 0, height: '12%',
+                    background: 'linear-gradient(180deg, transparent, rgba(5,1,12,0.9))',
                 }} />
             </div>
 

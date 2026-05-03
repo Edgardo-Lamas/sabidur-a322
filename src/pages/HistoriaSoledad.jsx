@@ -1,58 +1,8 @@
-import { useEffect, useRef, useState, useMemo } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Volume2, VolumeX, BookOpen } from 'lucide-react';
 import SEO from '../components/SEO';
-
-// ─── CITY DATA (deterministic, no random) ───────────────────────────────────
-
-const BASE_Y = 400;
-const BUILDINGS = [
-    { x: 0,    w: 88,  h: 258 },
-    { x: 93,   w: 62,  h: 172 },
-    { x: 160,  w: 112, h: 325 },
-    { x: 277,  w: 72,  h: 198 },
-    { x: 354,  w: 48,  h: 135 },
-    { x: 407,  w: 96,  h: 148 },
-    { x: 508,  w: 58,  h: 265 },
-    { x: 571,  w: 82,  h: 112 },
-    { x: 658,  w: 128, h: 290 },
-    { x: 791,  w: 62,  h: 205 },
-    { x: 858,  w: 98,  h: 350 },
-    { x: 961,  w: 72,  h: 185 },
-    { x: 1038, w: 108, h: 152 },
-    { x: 1151, w: 62,  h: 255 },
-    { x: 1218, w: 88,  h: 178 },
-    { x: 1311, w: 102, h: 228 },
-    { x: 1418, w: 82,  h: 298 },
-];
-
-const WIN_W = 8, WIN_H = 10, WIN_GX = 6, WIN_GY = 6, PAD = 10;
-
-function buildWindows(buildings) {
-    const wins = [];
-    buildings.forEach((b, bi) => {
-        const cols = Math.max(1, Math.floor((b.w - PAD * 2 + WIN_GX) / (WIN_W + WIN_GX)));
-        const rows = Math.max(1, Math.floor((b.h - PAD - 45 + WIN_GY) / (WIN_H + WIN_GY)));
-        const startX = b.x + Math.floor((b.w - (cols * (WIN_W + WIN_GX) - WIN_GX)) / 2);
-        const startY = BASE_Y - b.h + PAD;
-        for (let r = 0; r < rows; r++) {
-            for (let c = 0; c < cols; c++) {
-                const seed = (bi * 17 + r * 7 + c * 3) % 10;
-                wins.push({
-                    id: `${bi}-${r}-${c}`,
-                    x: startX + c * (WIN_W + WIN_GX),
-                    y: startY + r * (WIN_H + WIN_GY),
-                    lit: seed < 4,  // ~40% lit
-                });
-            }
-        }
-    });
-    return wins;
-}
-
-// 3 specific windows will "flicker" — people awake at 3am
-const FLICKER_IDS = ['2-3-2', '8-6-1', '10-2-3'];
 
 // ─── RAIN DROPS ─────────────────────────────────────────────────────────────
 const RAIN = Array.from({ length: 55 }, (_, i) => ({
@@ -65,6 +15,11 @@ const RAIN = Array.from({ length: 55 }, (_, i) => ({
 
 // ─── CSS ────────────────────────────────────────────────────────────────────
 const STYLES = `
+@keyframes ken-burns {
+    0%   { transform: scale(1)    translateX(0%)   translateY(0%); }
+    50%  { transform: scale(1.08) translateX(-2%)  translateY(-1%); }
+    100% { transform: scale(1)    translateX(0%)   translateY(0%); }
+}
 @keyframes aurora-shift {
     0%   { background-position: 0% 50%; }
     50%  { background-position: 100% 50%; }
@@ -75,13 +30,6 @@ const STYLES = `
     10%  { opacity: 1; }
     90%  { opacity: 1; }
     100% { transform: translateY(100vh) translateX(20px); opacity: 0; }
-}
-@keyframes win-flicker {
-    0%,100% { opacity: 1; }
-    30%     { opacity: 0.2; }
-    50%     { opacity: 0.85; }
-    70%     { opacity: 0.15; }
-    85%     { opacity: 0.9; }
 }
 @keyframes fog-drift {
     0%   { transform: translateX(-5%) scaleX(1); }
@@ -95,22 +43,6 @@ const STYLES = `
 const HistoriaSoledad = () => {
     const audioRef = useRef(null);
     const [soundOn, setSoundOn] = useState(false);
-    const [flickerOn, setFlickerOn] = useState({});
-    const windows = useMemo(() => buildWindows(BUILDINGS), []);
-
-    // Randomly toggle flickering windows
-    useEffect(() => {
-        const tick = () => {
-            const next = {};
-            FLICKER_IDS.forEach(id => {
-                next[id] = Math.random() > 0.35;
-            });
-            setFlickerOn(next);
-        };
-        tick();
-        const interval = setInterval(tick, 2800);
-        return () => clearInterval(interval);
-    }, []);
 
     const toggleSound = () => {
         if (!audioRef.current) return;
@@ -140,47 +72,33 @@ const HistoriaSoledad = () => {
             ════════════════════════════════════════════════ */}
             <div style={{ position: 'fixed', inset: 0, zIndex: 0, overflow: 'hidden', background: '#05060F' }}>
 
-                {/* Cielo aurora — gradiente animado */}
+                {/* Foto base — ciudad nocturna aérea (Unsplash) */}
+                <img
+                    src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1920&h=1080&q=85"
+                    alt=""
+                    style={{
+                        position: 'absolute', inset: 0,
+                        width: '100%', height: '100%',
+                        objectFit: 'cover', objectPosition: 'center',
+                        filter: 'brightness(0.5) saturate(0.7) hue-rotate(20deg)',
+                        animation: 'ken-burns 28s ease-in-out infinite',
+                        transformOrigin: 'center center',
+                    }}
+                />
+
+                {/* Tinte azul-índigo sobre la foto */}
                 <div style={{
                     position: 'absolute', inset: 0,
-                    background: 'linear-gradient(135deg, #05060F 0%, #0A0D25 18%, #0D1040 32%, #0A1535 48%, #080C28 65%, #050815 80%, #03050D 100%)',
+                    background: 'linear-gradient(180deg, rgba(5,8,30,0.55) 0%, rgba(8,12,40,0.3) 50%, rgba(3,5,18,0.65) 100%)',
                 }} />
+
+                {/* Aurora sutil en el cielo */}
                 <div style={{
-                    position: 'absolute', top: 0, left: '-10%', right: '-10%', height: '55%',
-                    background: 'linear-gradient(100deg, transparent 0%, rgba(30,20,80,0.35) 20%, rgba(20,50,120,0.45) 38%, rgba(40,20,90,0.3) 55%, rgba(15,35,100,0.38) 72%, transparent 100%)',
-                    backgroundSize: '300% 300%',
+                    position: 'absolute', top: 0, left: '-10%', right: '-10%', height: '45%',
+                    background: 'linear-gradient(100deg, transparent 0%, rgba(20,30,100,0.25) 30%, rgba(30,20,90,0.3) 55%, rgba(15,35,110,0.22) 75%, transparent 100%)',
                     animation: 'aurora-shift 18s ease-in-out infinite',
-                    filter: 'blur(40px)',
-                    opacity: 0.85,
-                }} />
-                {/* Segunda capa aurora, fase diferente */}
-                <div style={{
-                    position: 'absolute', top: '5%', left: '-15%', right: '-15%', height: '40%',
-                    background: 'linear-gradient(110deg, transparent 10%, rgba(20,15,70,0.28) 30%, rgba(60,30,110,0.22) 50%, rgba(20,60,130,0.28) 70%, transparent 90%)',
-                    backgroundSize: '200% 200%',
-                    animation: 'aurora-shift 24s ease-in-out infinite reverse',
-                    filter: 'blur(50px)',
-                    opacity: 0.6,
-                }} />
-
-                {/* Estrellas (escasas — ciudad opaca el cielo) */}
-                {[
-                    [120,45],[280,30],[440,65],[600,22],[750,50],[920,38],[1100,55],[1300,28],[200,80],[850,70],[1050,42],
-                ].map(([x,y], i) => (
-                    <div key={i} style={{
-                        position: 'absolute', left: x, top: y,
-                        width: 1.5 + (i%3)*0.5, height: 1.5 + (i%3)*0.5,
-                        borderRadius: '50%', background: '#ffffff',
-                        opacity: 0.25 + (i%4)*0.1,
-                    }} />
-                ))}
-
-                {/* Niebla baja sobre los edificios */}
-                <div style={{
-                    position: 'absolute', bottom: '32%', left: '-5%', right: '-5%', height: 80,
-                    background: 'linear-gradient(180deg, transparent 0%, rgba(10,15,40,0.35) 50%, transparent 100%)',
-                    animation: 'fog-drift 20s ease-in-out infinite',
-                    filter: 'blur(18px)',
+                    filter: 'blur(45px)',
+                    opacity: 0.7,
                 }} />
 
                 {/* LLUVIA */}
@@ -198,84 +116,18 @@ const HistoriaSoledad = () => {
                     }} />
                 ))}
 
-                {/* SKYLINE — SVG ciudad */}
-                <svg
-                    style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '52%' }}
-                    viewBox="0 0 1500 400"
-                    preserveAspectRatio="xMidYMax slice"
-                >
-                    <defs>
-                        <linearGradient id="buildingGrad" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="#080A18" />
-                            <stop offset="100%" stopColor="#060810" />
-                        </linearGradient>
-                        {/* Glow para ventanas encendidas */}
-                        <filter id="winGlow">
-                            <feGaussianBlur stdDeviation="2.5" result="blur" />
-                            <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-                        </filter>
-                    </defs>
-
-                    {/* Edificios */}
-                    {BUILDINGS.map((b, i) => (
-                        <rect key={i}
-                            x={b.x} y={BASE_Y - b.h}
-                            width={b.w} height={b.h}
-                            fill="url(#buildingGrad)"
-                        />
-                    ))}
-
-                    {/* Reflejos de ciudad en el suelo (calle mojada) */}
-                    <rect x="0" y={BASE_Y} width="1500" height="30" fill="rgba(8,10,22,0.95)" />
-                    {BUILDINGS.filter((_, i) => i % 3 === 0).map((b, i) => (
-                        <rect key={i}
-                            x={b.x + b.w * 0.2}
-                            y={BASE_Y + 2}
-                            width={b.w * 0.6}
-                            height={8 + (b.h % 10)}
-                            fill={`rgba(20,40,80,${0.08 + (i % 3) * 0.04})`}
-                            style={{ filter: 'blur(3px)' }}
-                        />
-                    ))}
-
-                    {/* Ventanas */}
-                    <g filter="url(#winGlow)">
-                        {windows.map(w => {
-                            const isFlicker = FLICKER_IDS.includes(w.id);
-                            const isLit = isFlicker ? flickerOn[w.id] : w.lit;
-                            if (!isLit) return (
-                                <rect key={w.id} x={w.x} y={w.y} width={WIN_W} height={WIN_H}
-                                    fill="rgba(15,20,40,0.8)" />
-                            );
-                            // Ventana encendida: color varía entre cálido (alguien despierto) y frío (pantalla)
-                            const seed = parseInt(w.id.replace(/-/g, '')) % 10;
-                            const color = seed < 3
-                                ? 'rgba(255,220,130,0.85)'   // luz cálida — alguien leyendo
-                                : seed < 7
-                                    ? 'rgba(200,215,255,0.7)' // luz fría — pantalla de computadora/TV
-                                    : 'rgba(255,200,100,0.6)'; // luz tenue
-                            return (
-                                <rect key={w.id} x={w.x} y={w.y} width={WIN_W} height={WIN_H}
-                                    fill={color}
-                                    style={isFlicker ? { animation: 'win-flicker 2.8s ease-in-out infinite' } : {}}
-                                />
-                            );
-                        })}
-                    </g>
-
-                    {/* Antenas y tanques de agua en algunos edificios */}
-                    <line x1="220" y1={BASE_Y - 325} x2="220" y2={BASE_Y - 355} stroke="#060810" strokeWidth="2" />
-                    <line x1="219" y1={BASE_Y - 355} x2="228" y2={BASE_Y - 345} stroke="#060810" strokeWidth="1" />
-                    <line x1="902" y1={BASE_Y - 350} x2="902" y2={BASE_Y - 378} stroke="#060810" strokeWidth="2.5" />
-                    {/* Tanque de agua */}
-                    <ellipse cx="902" cy={BASE_Y - 378} rx="9" ry="6" fill="#060810" />
-                    <rect x="894" y={BASE_Y - 385} width="16" height="14" rx="3" fill="#060810" />
-                </svg>
-
-                {/* Velo oscuro inferior (calle) */}
+                {/* Niebla baja */}
                 <div style={{
-                    position: 'absolute', bottom: 0, left: 0, right: 0, height: '8%',
-                    background: 'linear-gradient(180deg, transparent, rgba(3,4,10,0.95))',
+                    position: 'absolute', bottom: '28%', left: '-5%', right: '-5%', height: 90,
+                    background: 'linear-gradient(180deg, transparent 0%, rgba(10,15,40,0.3) 50%, transparent 100%)',
+                    animation: 'fog-drift 20s ease-in-out infinite',
+                    filter: 'blur(20px)',
+                }} />
+
+                {/* Velo inferior */}
+                <div style={{
+                    position: 'absolute', bottom: 0, left: 0, right: 0, height: '15%',
+                    background: 'linear-gradient(180deg, transparent, rgba(3,4,10,0.92))',
                 }} />
             </div>
 
