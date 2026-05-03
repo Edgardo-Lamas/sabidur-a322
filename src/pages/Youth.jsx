@@ -153,26 +153,68 @@ const Youth = () => {
                                 </Link>
                             </motion.div>
 
-                            {/* Próximas — placeholder cards */}
-                            {[
-                                { tema: 'Identidad', ref: 'Génesis 1:27', desc: 'Próximamente' },
-                                { tema: 'Soledad', ref: 'Mateo 28:20', desc: 'Próximamente' },
-                            ].map((c) => (
-                                <div
-                                    key={c.tema}
-                                    className="relative rounded-2xl overflow-hidden border border-white/6 bg-white/3"
-                                    style={{ aspectRatio: '3/4' }}
+                            {/* Card: Soledad */}
+                            <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+                                <Link
+                                    to="/adolescentes/historias/soledad"
+                                    className="block relative rounded-2xl overflow-hidden border border-white/10 hover:border-blue-400/30 transition-all shadow-xl shadow-black/40 group"
+                                    style={{ aspectRatio: '3/4', background: '#05060F' }}
                                 >
-                                    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-                                        <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center mb-4">
-                                            <span className="text-white/20 text-lg font-heading font-bold">+</span>
-                                        </div>
-                                        <p className="font-heading font-bold text-white/25 text-lg mb-1">{c.tema}</p>
-                                        <p className="font-serif italic text-white/15 text-xs">{c.ref}</p>
-                                        <span className="mt-4 font-heading text-[10px] uppercase tracking-widest text-sabiduria-gold/25">{c.desc}</span>
+                                    {/* Fondo animado — aurora nocturna */}
+                                    <div className="absolute inset-0" style={{
+                                        background: 'linear-gradient(160deg, #05060F 0%, #0A0D25 30%, #0D1040 55%, #080C28 80%, #05060F 100%)',
+                                    }} />
+                                    {/* City silhouette mini */}
+                                    <svg className="absolute bottom-0 left-0 w-full" viewBox="0 0 300 120" preserveAspectRatio="xMidYMax slice">
+                                        <rect x="0"   y="40"  width="30" height="80" fill="#06080F" />
+                                        <rect x="32"  y="60"  width="22" height="60" fill="#060810" />
+                                        <rect x="56"  y="28"  width="38" height="92" fill="#05070E" />
+                                        <rect x="96"  y="50"  width="26" height="70" fill="#060810" />
+                                        <rect x="124" y="35"  width="42" height="85" fill="#05070E" />
+                                        <rect x="168" y="55"  width="24" height="65" fill="#06080F" />
+                                        <rect x="194" y="22"  width="34" height="98" fill="#05070E" />
+                                        <rect x="230" y="48"  width="28" height="72" fill="#060810" />
+                                        <rect x="260" y="38"  width="40" height="82" fill="#05070E" />
+                                        {/* ventanas */}
+                                        {[[10,48],[14,57],[62,36],[70,50],[130,43],[138,55],[200,30],[205,45],[268,46]].map(([x,y],i)=>(
+                                            <rect key={i} x={x} y={y} width="4" height="5"
+                                                fill={i%3===0 ? 'rgba(255,220,130,0.7)' : 'rgba(180,210,255,0.55)'} />
+                                        ))}
+                                    </svg>
+                                    {/* Gradient overlay */}
+                                    <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent" />
+                                    {/* Tag */}
+                                    <div className="absolute top-4 left-4 flex items-center gap-1.5 bg-black/50 backdrop-blur-sm border border-white/12 rounded-full px-3 py-1">
+                                        <span style={{ fontSize: 10, color: 'rgba(130,170,255,0.8)' }}>✦</span>
+                                        <span className="font-heading text-[10px] uppercase tracking-widest text-white/65">Soledad · El-Roi</span>
                                     </div>
+                                    {/* Content */}
+                                    <div className="absolute bottom-0 left-0 right-0 p-5">
+                                        <p className="font-heading font-bold text-white text-xl leading-tight mb-1">
+                                            El Dios<br />
+                                            <span style={{ color: '#8AADFF', fontStyle: 'italic' }}>que Me Ve</span>
+                                        </p>
+                                        <p className="font-serif italic text-xs mb-4" style={{ color: 'rgba(140,170,240,0.55)' }}>
+                                            Génesis 16:13 · El-Roi
+                                        </p>
+                                        <div className="flex items-center gap-1.5 font-heading text-xs font-semibold group-hover:gap-3 transition-all" style={{ color: '#8AADFF' }}>
+                                            Leer historia <ArrowRight size={13} />
+                                        </div>
+                                    </div>
+                                </Link>
+                            </motion.div>
+
+                            {/* Próxima — placeholder */}
+                            <div className="relative rounded-2xl overflow-hidden border border-white/6 bg-white/3" style={{ aspectRatio: '3/4' }}>
+                                <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
+                                    <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center mb-4">
+                                        <span className="text-white/20 text-lg font-heading font-bold">+</span>
+                                    </div>
+                                    <p className="font-heading font-bold text-white/25 text-lg mb-1">Identidad</p>
+                                    <p className="font-serif italic text-white/15 text-xs">Génesis 1:27</p>
+                                    <span className="mt-4 font-heading text-[10px] uppercase tracking-widest text-sabiduria-gold/25">Próximamente</span>
                                 </div>
-                            ))}
+                            </div>
                         </div>
                     </div>
                 </section>
