@@ -245,6 +245,45 @@ const Youth = () => {
                                     </div>
                                 </Link>
                             </motion.div>
+
+                            {/* Card: Fracaso */}
+                            <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+                                <Link
+                                    to="/adolescentes/historias/fracaso"
+                                    className="block relative rounded-2xl overflow-hidden border border-white/10 hover:border-orange-500/30 transition-all shadow-xl shadow-black/40 group"
+                                    style={{ aspectRatio: '3/4', background: '#0A0200' }}
+                                >
+                                    {/* Video preview */}
+                                    <video
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                        className="absolute inset-0 w-full h-full object-cover"
+                                        src="/stories/fracaso-bg.mp4"
+                                    />
+                                    <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent" />
+                                    {/* Tag */}
+                                    <div className="absolute top-4 left-4 flex items-center gap-1.5 bg-black/50 backdrop-blur-sm border border-white/12 rounded-full px-3 py-1">
+                                        <span style={{ fontSize: 10, color: 'rgba(255,140,40,0.85)' }}>✦</span>
+                                        <span className="font-heading text-[10px] uppercase tracking-widest text-white/65">Fracaso · Restauración</span>
+                                    </div>
+                                    {/* Content */}
+                                    <div className="absolute bottom-0 left-0 right-0 p-5">
+                                        <p className="font-heading font-bold text-white text-xl leading-tight mb-1">
+                                            El Fracaso y<br />
+                                            <span style={{ color: '#FF8C28', fontStyle: 'italic' }}>la Segunda Oportunidad</span>
+                                        </p>
+                                        <p className="font-serif italic text-xs mb-4" style={{ color: 'rgba(255,160,60,0.55)' }}>
+                                            Juan 21:15-17 · Pedro
+                                        </p>
+                                        <div className="flex items-center gap-1.5 font-heading text-xs font-semibold group-hover:gap-3 transition-all" style={{ color: '#FF8C28' }}>
+                                            Leer historia <ArrowRight size={13} />
+                                        </div>
+                                    </div>
+                                </Link>
+                            </motion.div>
+
                         </div>
                     </div>
                 </section>

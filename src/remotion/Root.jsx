@@ -3,6 +3,7 @@ import { WallpaperLampara } from './wallpapers/WallpaperLampara';
 import { WallpaperGracia } from './wallpapers/WallpaperGracia';
 import { WallpaperFortaleza } from './wallpapers/WallpaperFortaleza';
 import { NocturnoMar } from './scenes/NocturnoMar';
+import { FuegoPedro } from './scenes/FuegoPedro';
 
 export const RemotionRoot = () => (
     <>
@@ -33,6 +34,14 @@ export const RemotionRoot = () => (
         <Composition
             id="NocturnoMar"
             component={NocturnoMar}
+            durationInFrames={300}
+            fps={30}
+            width={1920}
+            height={1080}
+        />
+        <Composition
+            id="FuegoPedro"
+            component={FuegoPedro}
             durationInFrames={300}
             fps={30}
             width={1920}

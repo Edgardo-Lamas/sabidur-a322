@@ -19,6 +19,7 @@ const Youth               = lazy(() => import('./pages/Youth'));
 const HistoriaAnsiedad    = lazy(() => import('./pages/HistoriaAnsiedad'));
 const HistoriaSoledad     = lazy(() => import('./pages/HistoriaSoledad'));
 const HistoriaIdentidad   = lazy(() => import('./pages/HistoriaIdentidad'));
+const HistoriaFracaso     = lazy(() => import('./pages/HistoriaFracaso'));
 const Bosquejos           = lazy(() => import('./pages/Bosquejos'));
 const Ensayos             = lazy(() => import('./pages/Ensayos'));
 const TextPage            = lazy(() => import('./pages/TextPage'));
@@ -142,6 +143,7 @@ function App() {
                 <Route path="/adolescentes/historias/ansiedad" element={<HistoriaAnsiedad />} />
                 <Route path="/adolescentes/historias/soledad" element={<HistoriaSoledad />} />
                 <Route path="/adolescentes/historias/identidad" element={<HistoriaIdentidad />} />
+                <Route path="/adolescentes/historias/fracaso" element={<HistoriaFracaso />} />
                 <Route path="/biblioteca" element={<Biblioteca />} />
                 <Route path="/biblioteca/consulta" element={<BibliotecaConsulta />} />
                 <Route path="/declaracion-de-fe" element={<DeclaracionDeFe />} />
