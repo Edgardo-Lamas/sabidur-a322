@@ -204,17 +204,47 @@ const Youth = () => {
                                 </Link>
                             </motion.div>
 
-                            {/* Próxima — placeholder */}
-                            <div className="relative rounded-2xl overflow-hidden border border-white/6 bg-white/3" style={{ aspectRatio: '3/4' }}>
-                                <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-                                    <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center mb-4">
-                                        <span className="text-white/20 text-lg font-heading font-bold">+</span>
+                            {/* Card: Identidad */}
+                            <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+                                <Link
+                                    to="/adolescentes/historias/identidad"
+                                    className="block relative rounded-2xl overflow-hidden border border-white/10 hover:border-amber-400/30 transition-all shadow-xl shadow-black/40 group"
+                                    style={{ aspectRatio: '3/4', background: '#0D0520' }}
+                                >
+                                    {/* Fondo: amanecer sobre montaña */}
+                                    <div className="absolute inset-0" style={{
+                                        background: 'linear-gradient(180deg, #0D0520 0%, #2A1008 50%, #8B3E0A 80%, #D4800F 100%)',
+                                    }} />
+                                    {/* Mountain silhouette mini */}
+                                    <svg className="absolute bottom-0 left-0 w-full" viewBox="0 0 300 130" preserveAspectRatio="xMidYMax slice">
+                                        <path d="M0 130 L0 85 Q40 70 80 78 Q120 86 160 60 Q190 40 210 48 Q230 56 250 42 Q270 28 290 38 L300 45 L300 130 Z" fill="#1C0830" opacity="0.7" />
+                                        <path d="M0 130 L0 100 Q30 90 60 95 Q100 102 140 78 Q170 58 200 65 Q230 72 260 55 Q280 44 300 52 L300 130 Z" fill="#0A0318" opacity="0.92" />
+                                        {/* Dawn glow behind peak */}
+                                        <ellipse cx="210" cy="42" rx="40" ry="20" fill="rgba(220,130,20,0.25)" style={{ filter: 'blur(8px)' }} />
+                                        {/* Peak edge lit */}
+                                        <path d="M190 60 Q210 42 230 55" fill="none" stroke="rgba(220,140,20,0.4)" strokeWidth="1.5" />
+                                    </svg>
+                                    <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent" />
+                                    {/* Tag */}
+                                    <div className="absolute top-4 left-4 flex items-center gap-1.5 bg-black/50 backdrop-blur-sm border border-white/12 rounded-full px-3 py-1">
+                                        <span style={{ fontSize: 10, color: 'rgba(230,160,40,0.85)' }}>✦</span>
+                                        <span className="font-heading text-[10px] uppercase tracking-widest text-white/65">Identidad · Imago Dei</span>
                                     </div>
-                                    <p className="font-heading font-bold text-white/25 text-lg mb-1">Identidad</p>
-                                    <p className="font-serif italic text-white/15 text-xs">Génesis 1:27</p>
-                                    <span className="mt-4 font-heading text-[10px] uppercase tracking-widest text-sabiduria-gold/25">Próximamente</span>
-                                </div>
-                            </div>
+                                    {/* Content */}
+                                    <div className="absolute bottom-0 left-0 right-0 p-5">
+                                        <p className="font-heading font-bold text-white text-xl leading-tight mb-1">
+                                            ¿Quién<br />
+                                            <span style={{ color: '#E8A020', fontStyle: 'italic' }}>Soy Yo?</span>
+                                        </p>
+                                        <p className="font-serif italic text-xs mb-4" style={{ color: 'rgba(220,160,60,0.55)' }}>
+                                            Génesis 1:27 · Imago Dei
+                                        </p>
+                                        <div className="flex items-center gap-1.5 font-heading text-xs font-semibold group-hover:gap-3 transition-all" style={{ color: '#E8A020' }}>
+                                            Leer historia <ArrowRight size={13} />
+                                        </div>
+                                    </div>
+                                </Link>
+                            </motion.div>
                         </div>
                     </div>
                 </section>
