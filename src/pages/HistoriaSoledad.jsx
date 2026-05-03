@@ -133,7 +133,7 @@ const HistoriaSoledad = () => {
             <style>{STYLES}</style>
 
             {/* ─── AUDIO (lluvia suave) ─── */}
-            <audio ref={audioRef} loop src="/stories/ocean.mp3" />
+            <audio ref={audioRef} loop src="/stories/rain.mp3" />
 
             {/* ═══════════════════════════════════════════════
                 FONDO FIJO: cielo aurora + ciudad + lluvia
