@@ -21,7 +21,7 @@ const Navbar = () => {
     { name: 'Artículos', path: '/articulos', description: 'Textos largos, doctrinales, desarrollados.' },
     { name: 'Ensayos', path: '/ensayos', description: 'Reflexión argumentada, más personal, menos exhaustiva.' },
     { name: 'Bosquejos & Guías', path: '/bosquejos', description: 'Estructuras, ayudas para estudio, enseñanza.' },
-    { name: 'Teología Sistemática', path: '/teologia-sistematica', description: 'Disciplinas doctrinales: bibliología, cristología, soteriología y más.' },
+    { name: 'Grandes Temas Bíblicos', path: '/grandes-temas', description: 'Revelación, Justificación, Santificación y Glorificación desarrollados con fundamento bíblico.' },
     { name: 'Biografías', path: '/biografias', description: 'Prerreformadores, Reformadores, Padres de la Iglesia.' },
   ];
 
