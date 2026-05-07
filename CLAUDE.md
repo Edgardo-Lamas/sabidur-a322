@@ -22,16 +22,49 @@ URL de producción: desplegada en **Vercel** (rama `main` → deploy automático
 - **OpenAI API** (`gpt-4o-mini`) — ChatSpurgeon, agente teológico
 - **N8N webhook** — solo formulario de newsletter en Footer (falla gracefully, no es crítico)
 
-### Herramientas de diseño y contenido (NUEVAS — verificar siempre)
-- **Canva MCP** — generación y edición de assets visuales: logos, wallpapers, banners, PDFs.
-  - Disponible como herramienta MCP en sesiones de Claude Code.
-  - Usar para: diseño de recursos descargables, wallpapers, materiales de Juventud.
-  - Antes de crear assets visuales desde cero, verificar si Canva MCP está conectado.
-- **Remotion** — renderizado de video MP4 desde componentes React.
-  - Uso previsto: wallpapers animados para la página Juventud (1080×1920px, loop).
-  - Estado: **pendiente de instalar** en este proyecto. Instalar con `npm install remotion @remotion/player`.
-  - Composiciones irán en `src/remotion/` cuando se implemente.
-- **UX/UI** — toda propuesta visual debe respetar el sistema de diseño del sitio (ver sección Identidad Visual).
+### Herramientas de creación de contenido — INVENTARIO COMPLETO
+
+> Antes de crear cualquier asset (imagen, audio, video), revisar esta lista para usar la herramienta correcta.
+
+#### 🖼️ FLUX API (BFL) — Generación de imágenes con IA
+- **Estado:** ✅ Configurado. `BFL_API_KEY` guardada en `~/.zprofile` (disponible en cada sesión).
+- **Skill:** `bfl-api` + `flux-best-practices` (cargados en sesión con `/bfl-api`).
+- **Modelo recomendado:** `FLUX.2 [pro]` — endpoint `/v1/flux-2-pro`, ~$0.03/imagen 1MP.
+- **Flujo:** POST → polling → descargar URL (expira en 10 min) → guardar en `public/img/`.
+- **Usos en el sitio:** heroes de páginas, portadas de artículos/biografías, OG images, materiales Juventud.
+- **Dimensiones útiles:** `1536×576` (hero wide), `1024×1024` (cuadrada), `1200×630` (OG).
+
+#### 🎙️ ElevenLabs — Voz, efectos de sonido y música con IA
+- **Estado:** ⚠️ Skill disponible. Requiere `ELEVENLABS_API_KEY` — aún no configurada.
+- **Skill:** `elevenlabs` (TTS + sound effects), `music` (generación de música).
+- **Capacidades:**
+  - **Text-to-Speech:** narraciones para videos Remotion, devocionales en audio.
+  - **Sound effects:** efectos de sonido desde descripción de texto.
+  - **Music:** música instrumental/ambiental de fondo.
+- **Modelo TTS recomendado:** `eleven_multilingual_v2` (29 idiomas, español incluido).
+- **Para configurar:** obtener clave en elevenlabs.io → `echo 'export ELEVENLABS_API_KEY="..."' >> ~/.zprofile`.
+
+#### 🎬 Remotion — Video MP4 desde componentes React
+- **Estado:** ✅ Instalado y activo.
+- **Skill:** `remotion-best-practices` (cargado en sesión con `/remotion-best-practices`).
+- **Composiciones activas en `src/remotion/`:**
+  - `WallpaperAnsiedad`, `WallpaperSoledad`, `WallpaperIdentidad` — fondos animados Juventud (1080×1920, loop)
+  - `FuegoPedro` — fondo Historia El Fracaso (1920×1080, loop, 300 frames)
+- **MP4s renderizados en `public/`:** `public/wallpapers/*.mp4`, `public/stories/fracaso-bg.mp4`
+- **Comando de render:**
+  ```bash
+  node_modules/.bin/remotion render src/remotion/Root.jsx <ID> public/<destino>.mp4 --overwrite
+  ```
+- **Usos previstos:** fondos de nuevas historias Juventud, intro animada, devocionales en video.
+
+#### 🎨 Canva MCP — Diseño de assets visuales
+- **Estado:** ✅ Disponible como herramienta MCP en sesiones de Claude Code.
+- **Usos:** logos, banners, PDFs descargables, materiales Juventud, thumbnails.
+- **Antes de crear assets visuales desde cero:** verificar si Canva MCP está conectado en la sesión.
+
+#### 🌐 UX/UI — Regla general
+- Toda propuesta visual debe respetar el sistema de diseño del sitio (ver sección Identidad Visual).
+- NO gamer, NO flashy, NO neón — contemplativo, académico, cálido.
 
 ---
 
@@ -138,6 +171,12 @@ VITE_YOUTUBE_API_KEY     # Widget YouTube en Home
 VITE_N8N_WEBHOOK_URL     # Newsletter Footer (opcional, falla gracefully)
 ```
 
+### Locales en `~/.zprofile` — uso en sesiones de Claude Code
+```
+BFL_API_KEY              # FLUX API (BFL) — generación de imágenes ✅ Configurada
+ELEVENLABS_API_KEY       # ElevenLabs — voz, efectos, música ⚠️ Pendiente configurar
+```
+
 ### Legacy (ya no activas)
 ```
 VITE_SUPABASE_URL        # Migrado a JSON locales
@@ -161,17 +200,30 @@ VITE_SUPABASE_ANON_KEY   # Migrado a JSON locales
 | Ruta | Componente | Estado |
 |------|-----------|--------|
 | `/` | Home.jsx | ✅ |
-| `/juventud` | Youth.jsx | ✅ BibliaFlow activo |
+| `/adolescentes` | Youth.jsx | ✅ BibliaFlow + 4 historias |
+| `/adolescentes/historias/ansiedad` | HistoriaAnsiedad.jsx | ✅ video Remotion |
+| `/adolescentes/historias/soledad` | HistoriaSoledad.jsx | ✅ foto Unsplash + Ken Burns |
+| `/adolescentes/historias/identidad` | HistoriaIdentidad.jsx | ✅ foto Unsplash + Ken Burns |
+| `/adolescentes/historias/fracaso` | HistoriaFracaso.jsx | ✅ video Remotion (FuegoPedro) |
+| `/articulos` | Articles.jsx | ✅ |
+| `/ensayos` | Ensayos.jsx | ✅ |
+| `/bosquejos` | Bosquejos.jsx | ✅ |
+| `/grandes-temas` | GrandesTemas.jsx | ✅ 4 temas, hero FLUX |
+| `/teologia-sistematica` | TeologiaSistematica.jsx | ✅ (basada en Ryrie) |
+| `/teologia-basica` | TeologiaBasica.jsx | ✅ |
 | `/biografias` | Biografias.jsx | ✅ |
 | `/padres-de-la-iglesia` | PadresDeLaIglesia.jsx | ✅ 5 biografías |
-| `/prerreformadores` | Prerreformadores.jsx | ✅ |
-| `/reformadores` | Reformadores.jsx | ✅ |
-| `/ensayos` | Ensayos.jsx | ✅ 11 ensayos |
-| `/teologia-sistematica` | TeologiaSistematica.jsx | ✅ |
+| `/prerreformadores` | Prerreformadores.jsx | ✅ 5 biografías |
+| `/reformadores` | Reformadores.jsx | ✅ 5 biografías |
+| `/biblioteca` | Biblioteca.jsx | ✅ |
 | `/mapas-biblicos` | MapasBiblicos.jsx | ✅ Leaflet |
 | `/estudios-libros` | EstudiosLibros.jsx | ✅ |
-| `/estudio/perfecciones-de-dios` | PerfeccionesDeDios.jsx | ✅ 3 capítulos |
-| `/hilo-del-tiempo` | HiloDelTiempo.jsx | ✅ |
+| `/estudio/perfecciones-de-dios` | PerfeccionesDeDios.jsx | ✅ 4 capítulos activos |
+| `/estudio/hilo-del-tiempo` | HiloDelTiempo.jsx | ✅ |
+| `/ensenanzas` | Ensenanzas.jsx | ✅ |
+| `/tienda` | Store.jsx | ✅ |
+| `/panel` | Panel.jsx | ✅ dashboard métricas |
+| `/donaciones` | Donations.jsx | ✅ |
 
 ---
 
@@ -183,4 +235,6 @@ VITE_SUPABASE_ANON_KEY   # Migrado a JSON locales
 - Los mapas bíblicos usan GeoJSON en `src/data/maps/`.
 - El Agente Spurgeon carga los 34 JSON de `knowledge/` en cada request — si se agregan archivos a esa carpeta, quedan automáticamente disponibles para el agente.
 - **Wallpapers animados (Juventud):** ✅ Activos. 3 composiciones en `src/remotion/wallpapers/`. MP4s en `public/wallpapers/`. Workflow: editar composición → `node_modules/.bin/remotion render src/remotion/Root.jsx <ID> public/wallpapers/<id>.mp4 --overwrite` → push.
+- **Heroes con FLUX:** imágenes generadas se guardan en `public/img/`. Usar `${import.meta.env.BASE_URL}img/<archivo>` en el `src` del `<img>`.
 - **Plan de lectura 30 días (Juventud):** pendiente crear contenido JSON + diseño Canva.
+- **Newsletter + devocionales IA:** pendiente. Plan: `/api/devotional.js` (GPT-4o-mini) + Resend para email + lista de suscriptores. El conocimiento de Spurgeon puede alimentar la generación.
