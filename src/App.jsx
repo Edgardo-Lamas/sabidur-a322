@@ -30,6 +30,7 @@ const PerfeccionesDeDios  = lazy(() => import('./pages/PerfeccionesDeDios'));
 const PerfeccionesCapitulo1 = lazy(() => import('./pages/PerfeccionesCapitulo1'));
 const PerfeccionesCapitulo2 = lazy(() => import('./pages/PerfeccionesCapitulo2'));
 const PerfeccionesCapitulo3 = lazy(() => import('./pages/PerfeccionesCapitulo3'));
+const PerfeccionesCapitulo4 = lazy(() => import('./pages/PerfeccionesCapitulo4'));
 const SedymModulo3        = lazy(() => import('./pages/SedymModulo3'));
 const DeclaracionDeFe     = lazy(() => import('./pages/DeclaracionDeFe'));
 const EstudioPage         = lazy(() => import('./pages/EstudioPage'));
@@ -133,6 +134,7 @@ function App() {
                 <Route path="/estudio/perfecciones-de-dios/capitulo-1" element={<PerfeccionesCapitulo1 />} />
                 <Route path="/estudio/perfecciones-de-dios/capitulo-2" element={<PerfeccionesCapitulo2 />} />
                 <Route path="/estudio/perfecciones-de-dios/capitulo-3" element={<PerfeccionesCapitulo3 />} />
+                <Route path="/estudio/perfecciones-de-dios/capitulo-4" element={<PerfeccionesCapitulo4 />} />
                 <Route path="/estudio/sedym-modulo-3" element={<SedymModulo3 />} />
                 <Route path="/estudio/:slug" element={<EstudioPage />} />
                 <Route path="/bosquejos" element={<Bosquejos />} />
