@@ -58,7 +58,7 @@ const FaqItem = ({ pregunta, respuesta, color }) => {
                 </span>
                 {open
                     ? <ChevronUp size={16} style={{ color, flexShrink: 0 }} />
-                    : <ChevronDown size={16} className="text-sabiduria-gray/50 flex-shrink-0" />
+                    : <ChevronDown size={16} className="text-sabiduria-gray/50 shrink-0" />
                 }
             </button>
             {open && (
@@ -88,15 +88,25 @@ const GrandesTemas = () => {
             </div>
 
             {/* ─── HERO ─── */}
-            <header className="bg-sabiduria-navy mt-4 py-16 md:py-20">
-                <div className="max-w-5xl mx-auto px-4 text-center">
-                    <div className="inline-flex items-center justify-center w-14 h-14 rounded-full border border-sabiduria-gold/30 mb-5">
+            <header className="relative mt-4 py-20 md:py-28 overflow-hidden">
+                {/* Background image */}
+                <img
+                    src={`${import.meta.env.BASE_URL}img/grandes-temas-hero.jpg`}
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 w-full h-full object-cover object-center"
+                />
+                {/* Dark overlay: gradient from bottom so tabs below blend smoothly */}
+                <div className="absolute inset-0 bg-linear-to-b from-sabiduria-navy/70 via-sabiduria-navy/60 to-sabiduria-navy/85" />
+
+                <div className="relative max-w-5xl mx-auto px-4 text-center">
+                    <div className="inline-flex items-center justify-center w-14 h-14 rounded-full border border-sabiduria-gold/40 mb-5 bg-black/20 backdrop-blur-sm">
                         <BookOpen className="text-sabiduria-gold" size={24} />
                     </div>
-                    <h1 className="text-4xl md:text-5xl font-serif text-white mb-4 leading-tight">
+                    <h1 className="text-4xl md:text-5xl font-serif text-white mb-4 leading-tight drop-shadow-lg">
                         Grandes Temas Bíblicos
                     </h1>
-                    <p className="text-white/55 max-w-xl mx-auto font-serif leading-relaxed">
+                    <p className="text-white/70 max-w-xl mx-auto font-serif leading-relaxed drop-shadow">
                         Cuatro doctrinas fundamentales desarrolladas con rigor bíblico y aplicación pastoral:
                         Revelación, Justificación, Santificación y Glorificación.
                     </p>
@@ -111,7 +121,7 @@ const GrandesTemas = () => {
                             <button
                                 key={t.id}
                                 onClick={() => setActivo(i)}
-                                className="flex-shrink-0 flex items-center gap-2.5 px-5 py-4 font-heading text-sm font-semibold transition-all border-b-2"
+                                className="shrink-0 flex items-center gap-2.5 px-5 py-4 font-heading text-sm font-semibold transition-all border-b-2"
                                 style={{
                                     borderColor:  activo === i ? t.color : 'transparent',
                                     color:        activo === i ? t.color : '#6B7280',
@@ -252,7 +262,7 @@ const GrandesTemas = () => {
                             {c.aplicacion_practica.map((ap, i) => (
                                 <div key={i} className="flex gap-4 items-start">
                                     <div
-                                        className="w-1 flex-shrink-0 rounded-full mt-1"
+                                        className="w-1 shrink-0 rounded-full mt-1"
                                         style={{ background: tema.color, alignSelf: 'stretch', minHeight: 40 }}
                                     />
                                     <div>
