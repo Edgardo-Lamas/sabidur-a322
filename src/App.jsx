@@ -32,6 +32,7 @@ const PerfeccionesCapitulo2 = lazy(() => import('./pages/PerfeccionesCapitulo2')
 const PerfeccionesCapitulo3 = lazy(() => import('./pages/PerfeccionesCapitulo3'));
 const PerfeccionesCapitulo4 = lazy(() => import('./pages/PerfeccionesCapitulo4'));
 const SedymModulo3        = lazy(() => import('./pages/SedymModulo3'));
+const Panel               = lazy(() => import('./pages/Panel'));
 const DeclaracionDeFe     = lazy(() => import('./pages/DeclaracionDeFe'));
 const EstudioPage         = lazy(() => import('./pages/EstudioPage'));
 const TeologiaBasica      = lazy(() => import('./pages/TeologiaBasica'));
@@ -177,6 +178,7 @@ function App() {
                 <Route path="/padres-de-la-iglesia/atanasio" element={<Atanasio />} />
                 <Route path="/padres-de-la-iglesia/ireneo" element={<Ireneo />} />
                 <Route path="/padres-de-la-iglesia/tertuliano" element={<Tertuliano />} />
+                <Route path="/panel" element={<Panel />} />
                 <Route path="/donaciones" element={<Donations />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
