@@ -22,6 +22,7 @@ const biography = {
     epithet: 'El Traductor que Pagó con su Vida',
     dates: 'c. 1494 – 1536',
     portrait: null,
+    heroImage: `${import.meta.env.BASE_URL}img/prerreformadores/tyndale-hero.jpg`,
     // portrait: `${import.meta.env.BASE_URL}img/prerreformadores/tyndale.jpg`,
 
     sections: [

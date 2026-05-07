@@ -22,6 +22,7 @@ const biography = {
     epithet: 'El Monje que Sacudió al Mundo',
     dates: '1483 – 1546',
     portrait: null,
+    heroImage: `${import.meta.env.BASE_URL}img/reformadores/lutero-hero.jpg`,
     // portrait: `${import.meta.env.BASE_URL}img/reformadores/lutero.jpg`,
 
     sections: [

@@ -44,6 +44,7 @@ const BiographyTemplate = ({ biography, seriesName, seriesPath }) => {
         epithet,
         dates,
         portrait,
+        heroImage = null,
         sections = [],
         quote,
         timeline = [],
@@ -59,8 +60,19 @@ const BiographyTemplate = ({ biography, seriesName, seriesPath }) => {
             />
 
             {/* Hero */}
-            <div className="bg-sabiduria-navy text-white">
-                <div className="max-w-4xl mx-auto px-4 pt-8 pb-16 md:pb-20">
+            <div className="relative bg-sabiduria-navy text-white overflow-hidden">
+                {heroImage && (
+                    <>
+                        <img
+                            src={heroImage}
+                            alt=""
+                            aria-hidden="true"
+                            className="absolute inset-0 w-full h-full object-cover object-center"
+                        />
+                        <div className="absolute inset-0 bg-linear-to-b from-sabiduria-navy/65 via-sabiduria-navy/55 to-sabiduria-navy/80" />
+                    </>
+                )}
+                <div className="relative max-w-4xl mx-auto px-4 pt-8 pb-16 md:pb-20">
                     <Breadcrumbs title={name} />
                     <Link
                         to={seriesPath}

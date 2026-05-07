@@ -22,6 +22,7 @@ const biography = {
     epithet: 'La Estrella Matutina de la Reforma',
     dates: 'c. 1328 – 1384',
     portrait: null,
+    heroImage: `${import.meta.env.BASE_URL}img/prerreformadores/wycliffe-hero.jpg`,
     // portrait: `${import.meta.env.BASE_URL}img/prerreformadores/wycliffe.jpg`,
 
     sections: [

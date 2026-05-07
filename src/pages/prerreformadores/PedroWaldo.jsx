@@ -22,6 +22,7 @@ const biography = {
     epithet: 'El Mercader que Renunció a Todo',
     dates: 'c. 1140 – c. 1218',
     portrait: null,
+    heroImage: `${import.meta.env.BASE_URL}img/prerreformadores/pedro-waldo-hero.jpg`,
     // portrait: `${import.meta.env.BASE_URL}img/prerreformadores/pedro-waldo.jpg`,
 
     sections: [

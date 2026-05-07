@@ -22,6 +22,7 @@ const biography = {
     epithet: 'El Reformador de Zúrich',
     dates: '1484 – 1531',
     portrait: null,
+    heroImage: `${import.meta.env.BASE_URL}img/reformadores/zuinglio-hero.jpg`,
     // portrait: `${import.meta.env.BASE_URL}img/reformadores/zuinglio.jpg`,
 
     sections: [

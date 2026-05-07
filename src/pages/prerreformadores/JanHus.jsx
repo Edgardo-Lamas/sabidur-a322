@@ -22,6 +22,7 @@ const biography = {
     epithet: 'El Mártir de Constanza',
     dates: 'c. 1369 – 1415',
     portrait: null,
+    heroImage: `${import.meta.env.BASE_URL}img/prerreformadores/jan-hus-hero.jpg`,
     // portrait: `${import.meta.env.BASE_URL}img/prerreformadores/jan-hus.jpg`,
 
     sections: [

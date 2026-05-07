@@ -6,6 +6,7 @@ const biography = {
     epithet: 'El Doctor de la Gracia',
     dates: '354 – 430',
     portrait: null,
+    heroImage: `${import.meta.env.BASE_URL}img/padres-de-la-iglesia/agustin-hero.jpg`,
 
     sections: [
         {

@@ -22,6 +22,7 @@ const biography = {
     epithet: 'El Teólogo de la Soberanía de Dios',
     dates: '1509 – 1564',
     portrait: null,
+    heroImage: `${import.meta.env.BASE_URL}img/reformadores/calvino-hero.jpg`,
     // portrait: `${import.meta.env.BASE_URL}img/reformadores/calvino.jpg`,
 
     sections: [

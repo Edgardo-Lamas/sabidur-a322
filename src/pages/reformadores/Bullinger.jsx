@@ -22,6 +22,7 @@ const biography = {
     epithet: 'El Sucesor Fiel de Zuinglio',
     dates: '1504 – 1575',
     portrait: null,
+    heroImage: `${import.meta.env.BASE_URL}img/reformadores/bullinger-hero.jpg`,
     // portrait: `${import.meta.env.BASE_URL}img/reformadores/bullinger.jpg`,
 
     sections: [

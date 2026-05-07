@@ -6,6 +6,7 @@ const biography = {
     epithet: 'La Boca de Oro',
     dates: 'c. 347 – 407',
     portrait: null,
+    heroImage: `${import.meta.env.BASE_URL}img/padres-de-la-iglesia/crisostomo-hero.jpg`,
 
     sections: [
         {

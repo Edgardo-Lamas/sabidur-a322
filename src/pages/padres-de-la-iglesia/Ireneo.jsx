@@ -6,6 +6,7 @@ const biography = {
     epithet: 'El Arquitecto de la Ortodoxia',
     dates: 'c. 130 – c. 202',
     portrait: null,
+    heroImage: `${import.meta.env.BASE_URL}img/padres-de-la-iglesia/ireneo-hero.jpg`,
 
     sections: [
         {

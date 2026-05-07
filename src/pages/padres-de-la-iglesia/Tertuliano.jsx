@@ -6,6 +6,7 @@ const biography = {
     epithet: 'El Padre del Latín Cristiano',
     dates: 'c. 155 – c. 220',
     portrait: null,
+    heroImage: `${import.meta.env.BASE_URL}img/padres-de-la-iglesia/tertuliano-hero.jpg`,
 
     sections: [
         {

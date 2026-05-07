@@ -22,6 +22,7 @@ const biography = {
     epithet: 'El Profeta Incómodo de Florencia',
     dates: '1452 – 1498',
     portrait: null,
+    heroImage: `${import.meta.env.BASE_URL}img/prerreformadores/savonarola-hero.jpg`,
     // portrait: `${import.meta.env.BASE_URL}img/prerreformadores/savonarola.jpg`,
 
     sections: [

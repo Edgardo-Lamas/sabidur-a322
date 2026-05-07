@@ -6,6 +6,7 @@ const biography = {
     epithet: 'El Campeón de la Trinidad',
     dates: 'c. 296 – 373',
     portrait: null,
+    heroImage: `${import.meta.env.BASE_URL}img/padres-de-la-iglesia/atanasio-hero.jpg`,
 
     sections: [
         {

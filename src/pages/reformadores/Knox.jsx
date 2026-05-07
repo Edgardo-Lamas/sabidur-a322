@@ -22,6 +22,7 @@ const biography = {
     epithet: 'El León de la Reforma Escocesa',
     dates: 'c. 1514 – 1572',
     portrait: null,
+    heroImage: `${import.meta.env.BASE_URL}img/reformadores/knox-hero.jpg`,
     // portrait: `${import.meta.env.BASE_URL}img/reformadores/knox.jpg`,
 
     sections: [
