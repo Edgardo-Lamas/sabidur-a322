@@ -34,15 +34,12 @@ URL de producción: desplegada en **Vercel** (rama `main` → deploy automático
 - **Usos en el sitio:** heroes de páginas, portadas de artículos/biografías, OG images, materiales Juventud.
 - **Dimensiones útiles:** `1536×576` (hero wide), `1024×1024` (cuadrada), `1200×630` (OG).
 
-#### 🎙️ ElevenLabs — Voz, efectos de sonido y música con IA
-- **Estado:** ⚠️ Skill disponible. Requiere `ELEVENLABS_API_KEY` — aún no configurada.
-- **Skill:** `elevenlabs` (TTS + sound effects), `music` (generación de música).
-- **Capacidades:**
-  - **Text-to-Speech:** narraciones para videos Remotion, devocionales en audio.
-  - **Sound effects:** efectos de sonido desde descripción de texto.
-  - **Music:** música instrumental/ambiental de fondo.
-- **Modelo TTS recomendado:** `eleven_multilingual_v2` (29 idiomas, español incluido).
-- **Para configurar:** obtener clave en elevenlabs.io → `echo 'export ELEVENLABS_API_KEY="..."' >> ~/.zprofile`.
+#### 🎙️ Voicebox — Generación de voz con IA (MCP nativo)
+- **Estado:** ✅ Configurado en `~/.claude.json` como MCP server. App instalada en `/Applications/Voicebox.app`.
+- **Requisito:** La app Voicebox debe estar **abierta** en el Mac para que el MCP funcione (corre en `localhost:17493`).
+- **Cómo activar:** Abrir Voicebox.app antes de iniciar Claude Code, o abrirla cuando se necesite generar audio.
+- **Usos en el sitio:** narraciones para videos Remotion, devocionales en audio, voiceovers para historias Juventud.
+- **Integración:** las herramientas MCP de Voicebox aparecen automáticamente en la sesión cuando la app está corriendo.
 
 #### 🎬 Remotion — Video MP4 desde componentes React
 - **Estado:** ✅ Instalado y activo.
@@ -174,7 +171,6 @@ VITE_N8N_WEBHOOK_URL     # Newsletter Footer (opcional, falla gracefully)
 ### Locales en `~/.zprofile` — uso en sesiones de Claude Code
 ```
 BFL_API_KEY              # FLUX API (BFL) — generación de imágenes ✅ Configurada
-ELEVENLABS_API_KEY       # ElevenLabs — voz, efectos, música ⚠️ Pendiente configurar
 ```
 
 ### Legacy (ya no activas)
