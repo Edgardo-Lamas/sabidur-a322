@@ -21,15 +21,13 @@ const MapasBiblicos = () => {
 
             {/* Hero */}
             <section className="relative overflow-hidden bg-sabiduria-navy text-white">
-                <div className="absolute inset-0 opacity-10">
-                    <div
-                        className="absolute inset-0"
-                        style={{
-                            backgroundImage:
-                                'radial-gradient(circle at 20% 50%, rgba(197,160,89,0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(41,128,185,0.2) 0%, transparent 50%)',
-                        }}
-                    />
-                </div>
+                <img
+                    src={`${import.meta.env.BASE_URL}img/mapas-biblicos-hero.jpg`}
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 w-full h-full object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-linear-to-b from-sabiduria-navy/55 via-sabiduria-navy/45 to-sabiduria-navy/80" />
                 <div className="relative max-w-5xl mx-auto px-4 py-16 md:py-24 text-center">
                     <div className="flex items-center justify-center gap-3 mb-6">
                         <MapPin size={28} className="text-sabiduria-gold" />
@@ -74,15 +72,15 @@ const MapasBiblicos = () => {
                                 <div className="flex flex-col md:flex-row">
                                     {/* Barra lateral de color */}
                                     <div
-                                        className="md:w-2 w-full h-2 md:h-auto flex-shrink-0"
+                                        className="md:w-2 w-full h-2 md:h-auto shrink-0"
                                         style={{ background: epoch.color }}
                                     />
 
                                     {/* Contenido */}
-                                    <div className="flex-grow p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                                    <div className="grow p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                                         <div className="flex items-start gap-4">
                                             {/* Número + emoji */}
-                                            <div className="flex flex-col items-center gap-1 flex-shrink-0">
+                                            <div className="flex flex-col items-center gap-1 shrink-0">
                                                 <span
                                                     className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm"
                                                     style={{ background: epoch.color }}
@@ -107,7 +105,7 @@ const MapasBiblicos = () => {
                                         </div>
 
                                         {/* Info + CTA */}
-                                        <div className="flex flex-row md:flex-col items-center md:items-end gap-3 md:gap-2 flex-shrink-0">
+                                        <div className="flex flex-row md:flex-col items-center md:items-end gap-3 md:gap-2 shrink-0">
                                             <span
                                                 className="text-xs font-semibold px-2.5 py-1 rounded-sm text-white"
                                                 style={{ background: epoch.color }}
