@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import { Link } from 'react-router-dom';
-import { Gamepad2, BookHeart, Zap, ImagePlay, ArrowRight, Waves } from 'lucide-react';
+import { Gamepad2, BookHeart, Zap, ImagePlay, ArrowRight, Waves, Smartphone, Download, Frame } from 'lucide-react';
 import { motion } from 'framer-motion';
 import BibliaFlow from '../components/BibliaFlow';
 import SEO from '../components/SEO';
@@ -284,6 +284,131 @@ const Youth = () => {
                                 </Link>
                             </motion.div>
 
+                        </div>
+                    </div>
+                </section>
+
+                {/* ─── Versículos para compartir ─── */}
+                <section className="py-16 md:py-20 bg-sabiduria-navy border-t border-white/5">
+                    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center mb-10">
+                            <div className="inline-flex items-center gap-3 bg-sabiduria-gold/10 text-sabiduria-gold px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider mb-4 border border-sabiduria-gold/20">
+                                <Smartphone size={16} />
+                                Para compartir
+                            </div>
+                            <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-3 tracking-tight">
+                                Versículos <span className="text-sabiduria-gold">Animados</span>
+                            </h2>
+                            <p className="text-white/55 max-w-lg mx-auto font-serif leading-relaxed">
+                                Videos en formato 9:16 listos para WhatsApp e Instagram Stories.
+                                Descargalos y compartí la Palabra.
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                            {[
+                                { id: 'lamentaciones', ref: 'Lamentaciones 3:22-23', img: 'img/versiculos/lamentaciones.jpg' },
+                                { id: 'isaias',        ref: 'Isaías 40:31',          img: 'img/versiculos/isaias.jpg' },
+                                { id: 'proverbios-16', ref: 'Proverbios 16:6',       img: 'img/versiculos/proverbios-16.jpg' },
+                                { id: 'proverbios-22', ref: 'Proverbios 22:1',       img: 'img/versiculos/proverbios-22.jpg' },
+                                { id: 'proverbios-21', ref: 'Proverbios 21:31',      img: 'img/versiculos/proverbios-21.jpg' },
+                            ].map((v) => (
+                                <div key={v.id} className="flex flex-col gap-2">
+                                    <div
+                                        className="relative rounded-xl overflow-hidden border border-white/10"
+                                        style={{ aspectRatio: '9/16' }}
+                                    >
+                                        <img
+                                            src={`${import.meta.env.BASE_URL}${v.img}`}
+                                            alt={v.ref}
+                                            className="absolute inset-0 w-full h-full object-cover"
+                                        />
+                                        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
+                                        <p className="absolute bottom-3 left-0 right-0 text-center text-white/80 font-serif italic text-[10px] px-2 leading-tight">
+                                            {v.ref}
+                                        </p>
+                                    </div>
+                                    <a
+                                        href={`${import.meta.env.BASE_URL}versiculos/${v.id}.mp4`}
+                                        download={`${v.id}.mp4`}
+                                        className="flex items-center justify-center gap-1.5 bg-sabiduria-gold/10 hover:bg-sabiduria-gold/20 border border-sabiduria-gold/30 text-sabiduria-gold rounded-lg py-2 text-xs font-heading font-bold uppercase tracking-wide transition-colors"
+                                    >
+                                        <Download size={12} />
+                                        Descargar
+                                    </a>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* ─── Láminas para imprimir ─── */}
+                <section className="py-16 md:py-20 bg-sabiduria-bg border-t border-white/5">
+                    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center mb-10">
+                            <div className="inline-flex items-center gap-3 bg-sabiduria-gold/10 text-sabiduria-gold px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider mb-4 border border-sabiduria-gold/20">
+                                <Frame size={16} />
+                                Láminas bíblicas
+                            </div>
+                            <h2 className="text-3xl md:text-4xl font-heading font-bold text-sabiduria-navy mb-3 tracking-tight">
+                                Para imprimir y <span className="text-sabiduria-gold">enmarcar</span>
+                            </h2>
+                            <p className="text-sabiduria-gray max-w-lg mx-auto font-serif leading-relaxed">
+                                Salmos completos en Reina Valera 1960 con imagen épica de fondo.
+                                Alta resolución — listos para imprimir en A4 o A3.
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                            {[
+                                {
+                                    id: '145',
+                                    titulo: 'Salmo 145',
+                                    subtitulo: 'Alabanza a la majestad de Dios',
+                                    tema: 'Omnipotencia · Bondad',
+                                    img: 'img/posters/salmo-145-bg.jpg',
+                                },
+                                {
+                                    id: '139',
+                                    titulo: 'Salmo 139',
+                                    subtitulo: 'La omnisciencia y omnipresencia de Dios',
+                                    tema: 'Omnipresencia · Omnisciencia',
+                                    img: 'img/posters/salmo-139-bg.jpg',
+                                },
+                            ].map((s) => (
+                                <div key={s.id} className="bg-white rounded-xl overflow-hidden border border-sabiduria-gray/10 shadow-sm hover:shadow-md transition-shadow">
+                                    <div className="relative" style={{ aspectRatio: '3/4' }}>
+                                        <img
+                                            src={`${import.meta.env.BASE_URL}${s.img}`}
+                                            alt={s.titulo}
+                                            className="absolute inset-0 w-full h-full object-cover object-top"
+                                        />
+                                        <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/30 to-transparent" />
+                                        <div className="absolute bottom-0 left-0 right-0 p-5 text-center">
+                                            <p className="text-sabiduria-gold font-heading font-bold text-2xl tracking-widest">{s.titulo}</p>
+                                            <p className="text-white/75 font-serif italic text-sm mt-1 leading-snug">{s.subtitulo}</p>
+                                        </div>
+                                        <div className="absolute top-4 left-0 right-0 flex justify-center">
+                                            <span className="bg-black/50 backdrop-blur-sm border border-white/15 rounded-full px-3 py-1 text-white/60 font-heading text-[10px] uppercase tracking-widest">
+                                                {s.tema}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className="p-4">
+                                        <a
+                                            href={`${import.meta.env.BASE_URL}posters/salmo-${s.id}.png`}
+                                            download={`salmo-${s.id}.png`}
+                                            className="flex items-center justify-center gap-2 w-full bg-sabiduria-navy hover:bg-sabiduria-navy/85 text-sabiduria-gold rounded-lg py-3 text-sm font-heading font-bold uppercase tracking-wider transition-colors"
+                                        >
+                                            <Download size={14} />
+                                            Descargar PNG (alta resolución)
+                                        </a>
+                                        <p className="text-center text-sabiduria-gray/60 text-xs font-serif mt-2">
+                                            1240 × 1752 px · Apto para A4 y A3
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </section>

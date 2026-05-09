@@ -5,6 +5,8 @@ import { WallpaperFortaleza } from './wallpapers/WallpaperFortaleza';
 import { NocturnoMar } from './scenes/NocturnoMar';
 import { FuegoPedro } from './scenes/FuegoPedro';
 import { VersiculoCard } from './scenes/VersiculoCard';
+import { SalmoPoster } from './scenes/SalmoPoster';
+import { SALMO_145, SALMO_139 } from '../data/salmos-posters';
 
 // 15 seconds at 30fps
 const VERSICULO_DURATION = 450;
@@ -131,6 +133,24 @@ export const RemotionRoot = () => (
                 }}
             />
         ))}
+        <Composition
+            id="SalmoPoster-145"
+            component={SalmoPoster}
+            durationInFrames={1}
+            fps={30}
+            width={1240}
+            height={1752}
+            defaultProps={SALMO_145}
+        />
+        <Composition
+            id="SalmoPoster-139"
+            component={SalmoPoster}
+            durationInFrames={1}
+            fps={30}
+            width={1240}
+            height={1752}
+            defaultProps={SALMO_139}
+        />
     </>
 );
 
