@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import { Link } from 'react-router-dom';
-import { Gamepad2, BookHeart, Zap, ImagePlay, ArrowRight, Waves, Smartphone, Download, Frame } from 'lucide-react';
+import { Gamepad2, BookHeart, Zap, ImagePlay, ArrowRight, Waves, Download, Frame } from 'lucide-react';
 import { motion } from 'framer-motion';
 import BibliaFlow from '../components/BibliaFlow';
 import SEO from '../components/SEO';
@@ -284,60 +284,6 @@ const Youth = () => {
                                 </Link>
                             </motion.div>
 
-                        </div>
-                    </div>
-                </section>
-
-                {/* ─── Versículos para compartir ─── */}
-                <section className="py-16 md:py-20 bg-sabiduria-navy border-t border-white/5">
-                    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-10">
-                            <div className="inline-flex items-center gap-3 bg-sabiduria-gold/10 text-sabiduria-gold px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider mb-4 border border-sabiduria-gold/20">
-                                <Smartphone size={16} />
-                                Para compartir
-                            </div>
-                            <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-3 tracking-tight">
-                                Versículos <span className="text-sabiduria-gold">Animados</span>
-                            </h2>
-                            <p className="text-white/55 max-w-lg mx-auto font-serif leading-relaxed">
-                                Videos en formato 9:16 listos para WhatsApp e Instagram Stories.
-                                Descargalos y compartí la Palabra.
-                            </p>
-                        </div>
-
-                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-                            {[
-                                { id: 'lamentaciones', ref: 'Lamentaciones 3:22-23', img: 'img/versiculos/lamentaciones.jpg' },
-                                { id: 'isaias',        ref: 'Isaías 40:31',          img: 'img/versiculos/isaias.jpg' },
-                                { id: 'proverbios-16', ref: 'Proverbios 16:6',       img: 'img/versiculos/proverbios-16.jpg' },
-                                { id: 'proverbios-22', ref: 'Proverbios 22:1',       img: 'img/versiculos/proverbios-22.jpg' },
-                                { id: 'proverbios-21', ref: 'Proverbios 21:31',      img: 'img/versiculos/proverbios-21.jpg' },
-                            ].map((v) => (
-                                <div key={v.id} className="flex flex-col gap-2">
-                                    <div
-                                        className="relative rounded-xl overflow-hidden border border-white/10"
-                                        style={{ aspectRatio: '9/16' }}
-                                    >
-                                        <img
-                                            src={`${import.meta.env.BASE_URL}${v.img}`}
-                                            alt={v.ref}
-                                            className="absolute inset-0 w-full h-full object-cover"
-                                        />
-                                        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
-                                        <p className="absolute bottom-3 left-0 right-0 text-center text-white/80 font-serif italic text-[10px] px-2 leading-tight">
-                                            {v.ref}
-                                        </p>
-                                    </div>
-                                    <a
-                                        href={`${import.meta.env.BASE_URL}versiculos/${v.id}.mp4`}
-                                        download={`${v.id}.mp4`}
-                                        className="flex items-center justify-center gap-1.5 bg-sabiduria-gold/10 hover:bg-sabiduria-gold/20 border border-sabiduria-gold/30 text-sabiduria-gold rounded-lg py-2 text-xs font-heading font-bold uppercase tracking-wide transition-colors"
-                                    >
-                                        <Download size={12} />
-                                        Descargar
-                                    </a>
-                                </div>
-                            ))}
                         </div>
                     </div>
                 </section>
