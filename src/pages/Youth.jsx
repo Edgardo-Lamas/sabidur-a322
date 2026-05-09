@@ -1,13 +1,34 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Gamepad2, BookHeart, Zap, ImagePlay, ArrowRight, Waves, Download, Frame } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Gamepad2, BookHeart, Zap, ImagePlay, ArrowRight, Waves, Download, Frame, Expand, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import BibliaFlow from '../components/BibliaFlow';
 import SEO from '../components/SEO';
 
 const WallpaperShowcase = lazy(() => import('../components/WallpaperShowcase'));
 
+const SALMOS_POSTERS = [
+    {
+        id: '145',
+        titulo: 'Salmo 145',
+        subtitulo: 'Alabanza a la majestad de Dios',
+        tema: 'Omnipotencia · Bondad',
+        img: 'img/posters/salmo-145-bg.jpg',
+        poster: 'posters/salmo-145.png',
+    },
+    {
+        id: '139',
+        titulo: 'Salmo 139',
+        subtitulo: 'La omnisciencia y omnipresencia de Dios',
+        tema: 'Omnipresencia · Omnisciencia',
+        img: 'img/posters/salmo-139-bg.jpg',
+        poster: 'posters/salmo-139.png',
+    },
+];
+
 const Youth = () => {
+    const [posterPreview, setPosterPreview] = useState(null);
+
     return (
         <>
             <SEO
@@ -306,30 +327,26 @@ const Youth = () => {
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                            {[
-                                {
-                                    id: '145',
-                                    titulo: 'Salmo 145',
-                                    subtitulo: 'Alabanza a la majestad de Dios',
-                                    tema: 'Omnipotencia · Bondad',
-                                    img: 'img/posters/salmo-145-bg.jpg',
-                                },
-                                {
-                                    id: '139',
-                                    titulo: 'Salmo 139',
-                                    subtitulo: 'La omnisciencia y omnipresencia de Dios',
-                                    tema: 'Omnipresencia · Omnisciencia',
-                                    img: 'img/posters/salmo-139-bg.jpg',
-                                },
-                            ].map((s) => (
+                            {SALMOS_POSTERS.map((s) => (
                                 <div key={s.id} className="bg-white rounded-xl overflow-hidden border border-sabiduria-gray/10 shadow-sm hover:shadow-md transition-shadow">
-                                    <div className="relative" style={{ aspectRatio: '3/4' }}>
+                                    {/* Thumbnail — clic abre preview */}
+                                    <div
+                                        className="relative cursor-pointer group"
+                                        style={{ aspectRatio: '3/4' }}
+                                        onClick={() => setPosterPreview(s)}
+                                    >
                                         <img
                                             src={`${import.meta.env.BASE_URL}${s.img}`}
                                             alt={s.titulo}
                                             className="absolute inset-0 w-full h-full object-cover object-top"
                                         />
                                         <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/30 to-transparent" />
+                                        {/* Hover overlay */}
+                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/35 transition-all flex items-center justify-center">
+                                            <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 rounded-full p-4">
+                                                <Expand size={24} className="text-white" />
+                                            </div>
+                                        </div>
                                         <div className="absolute bottom-0 left-0 right-0 p-5 text-center">
                                             <p className="text-sabiduria-gold font-heading font-bold text-2xl tracking-widest">{s.titulo}</p>
                                             <p className="text-white/75 font-serif italic text-sm mt-1 leading-snug">{s.subtitulo}</p>
@@ -340,23 +357,85 @@ const Youth = () => {
                                             </span>
                                         </div>
                                     </div>
-                                    <div className="p-4">
-                                        <a
-                                            href={`${import.meta.env.BASE_URL}posters/salmo-${s.id}.png`}
-                                            download={`salmo-${s.id}.png`}
-                                            className="flex items-center justify-center gap-2 w-full bg-sabiduria-navy hover:bg-sabiduria-navy/85 text-sabiduria-gold rounded-lg py-3 text-sm font-heading font-bold uppercase tracking-wider transition-colors"
+                                    {/* Botones */}
+                                    <div className="p-4 flex gap-3">
+                                        <button
+                                            onClick={() => setPosterPreview(s)}
+                                            className="flex-1 flex items-center justify-center gap-2 bg-sabiduria-gray/8 hover:bg-sabiduria-gray/15 border border-sabiduria-gray/20 text-sabiduria-navy rounded-lg py-3 text-sm font-heading font-semibold transition-colors"
                                         >
-                                            <Download size={14} />
-                                            Descargar PNG (alta resolución)
+                                            <Expand size={14} /> Vista previa
+                                        </button>
+                                        <a
+                                            href={`${import.meta.env.BASE_URL}${s.poster}`}
+                                            download={`salmo-${s.id}.png`}
+                                            className="flex-1 flex items-center justify-center gap-2 bg-sabiduria-navy hover:bg-sabiduria-navy/85 text-sabiduria-gold rounded-lg py-3 text-sm font-heading font-bold transition-colors"
+                                        >
+                                            <Download size={14} /> Descargar
                                         </a>
-                                        <p className="text-center text-sabiduria-gray/60 text-xs font-serif mt-2">
-                                            1240 × 1752 px · Apto para A4 y A3
-                                        </p>
                                     </div>
+                                    <p className="text-center text-sabiduria-gray/50 text-xs font-serif pb-3">
+                                        1240 × 1752 px · Apto para A4 y A3
+                                    </p>
                                 </div>
                             ))}
                         </div>
                     </div>
+
+                    {/* Modal de preview */}
+                    <AnimatePresence>
+                        {posterPreview && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0, transition: { duration: 0.2 } }}
+                                className="fixed inset-0 z-50 flex items-center justify-center p-4"
+                                style={{ backdropFilter: 'blur(14px)', background: 'rgba(0,0,0,0.88)' }}
+                                onClick={() => setPosterPreview(null)}
+                            >
+                                <motion.div
+                                    initial={{ scale: 0.88, opacity: 0, y: 24 }}
+                                    animate={{ scale: 1, opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeOut' } }}
+                                    exit={{ scale: 0.9, opacity: 0 }}
+                                    className="flex flex-col items-center gap-5 max-h-screen"
+                                    onClick={(e) => e.stopPropagation()}
+                                >
+                                    {/* Póster completo — PNG renderizado */}
+                                    <div className="rounded-lg overflow-hidden shadow-2xl border border-white/10"
+                                        style={{ maxHeight: '78vh', aspectRatio: '1240/1752' }}>
+                                        <img
+                                            src={`${import.meta.env.BASE_URL}${posterPreview.poster}`}
+                                            alt={posterPreview.titulo}
+                                            className="w-full h-full object-contain"
+                                        />
+                                    </div>
+
+                                    {/* Acciones */}
+                                    <div className="flex gap-3">
+                                        <button
+                                            onClick={() => setPosterPreview(null)}
+                                            className="flex items-center gap-2 bg-white/8 border border-white/15 text-white/70 px-5 py-2.5 rounded-lg font-heading text-sm font-semibold hover:bg-white/15 transition-all"
+                                        >
+                                            <X size={15} /> Cerrar
+                                        </button>
+                                        <a
+                                            href={`${import.meta.env.BASE_URL}${posterPreview.poster}`}
+                                            download={`salmo-${posterPreview.id}.png`}
+                                            className="flex items-center gap-2 bg-sabiduria-gold text-sabiduria-navy px-5 py-2.5 rounded-lg font-heading text-sm font-bold hover:bg-sabiduria-gold/90 transition-all active:scale-95"
+                                        >
+                                            <Download size={15} /> Descargar PNG
+                                        </a>
+                                    </div>
+                                </motion.div>
+
+                                <button
+                                    onClick={() => setPosterPreview(null)}
+                                    className="absolute top-5 right-5 p-2 text-white/40 hover:text-white transition-colors"
+                                >
+                                    <X size={22} />
+                                </button>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </section>
 
                 {/* Coming Soon Sections */}
