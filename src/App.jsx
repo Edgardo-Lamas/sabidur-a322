@@ -64,6 +64,8 @@ const Crisostomo          = lazy(() => import('./pages/padres-de-la-iglesia/Cris
 const Atanasio            = lazy(() => import('./pages/padres-de-la-iglesia/Atanasio'));
 const Ireneo              = lazy(() => import('./pages/padres-de-la-iglesia/Ireneo'));
 const Tertuliano          = lazy(() => import('./pages/padres-de-la-iglesia/Tertuliano'));
+const Devocionales        = lazy(() => import('./pages/Devocionales'));
+const DevocionalPage      = lazy(() => import('./pages/DevocionalPage'));
 
 // Lazy-loaded heavy components
 const ChatSpurgeon        = lazy(() => import('./components/ChatSpurgeon'));
@@ -180,6 +182,8 @@ function App() {
                 <Route path="/padres-de-la-iglesia/atanasio" element={<Atanasio />} />
                 <Route path="/padres-de-la-iglesia/ireneo" element={<Ireneo />} />
                 <Route path="/padres-de-la-iglesia/tertuliano" element={<Tertuliano />} />
+                <Route path="/devocionales" element={<Devocionales />} />
+                <Route path="/devocionales/:slug" element={<DevocionalPage />} />
                 <Route path="/panel" element={<Panel />} />
                 <Route path="/donaciones" element={<Donations />} />
                 <Route path="*" element={<NotFound />} />
