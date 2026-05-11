@@ -31,6 +31,7 @@ const PlaceholderVacio = ({ mensaje }) => (
 const Biblioteca = () => {
     const baseUrl = import.meta.env.BASE_URL;
 
+    const librosHebreos = content.biblioteca?.librosHebreos || [];
     const documentosPropios = content.biblioteca?.documentos || [];
     const bibliotecaConsulta = content.biblioteca?.consulta || [];
     const cuadernoTeologico = content.biblioteca?.cuaderno || [];
@@ -71,7 +72,91 @@ const Biblioteca = () => {
             </header>
 
             {/* ═══════════════════════════════════════════════════════════════════
-          SECCIÓN 2: Documentos de Sabiduría para el Corazón
+          SECCIÓN 2: Libros Sagrados del Pueblo de Israel
+      ═══════════════════════════════════════════════════════════════════ */}
+            <section id="libros-hebreos" className="py-16 px-4 bg-[#F5F0E8]">
+                <div className="max-w-6xl mx-auto">
+                    {/* Encabezado de colección */}
+                    <div className="flex items-center gap-3 mb-2">
+                        <BookOpen size={28} className="text-sabiduria-gold" />
+                        <h2 className="text-2xl md:text-3xl font-serif font-bold text-sabiduria-navy">
+                            Libros Sagrados del Pueblo de Israel
+                        </h2>
+                    </div>
+                    <div className="w-16 h-0.5 bg-sabiduria-gold mb-4 ml-10" />
+                    <p className="text-sabiduria-gray leading-relaxed max-w-3xl mb-10 ml-10">
+                        Una colección de estudios histórico-teológicos sobre los textos fundacionales del judaísmo y su relación con la fe cristiana. Cada documento ofrece un análisis riguroso, académico y pastoral de estos escritos que constituyen la raíz de nuestra herencia escriturística.
+                    </p>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {librosHebreos.map((libro) => (
+                            <div
+                                key={libro.id}
+                                className={`bg-white border rounded-sm overflow-hidden flex flex-col transition-shadow ${libro.disponible ? 'border-sabiduria-gray/15 hover:shadow-md' : 'border-sabiduria-gray/10 opacity-70'}`}
+                            >
+                                {/* Header card */}
+                                <div className="bg-sabiduria-navy px-6 py-5">
+                                    <p className="text-sabiduria-gold text-xs font-semibold uppercase tracking-widest mb-1">
+                                        {libro.disponible ? 'Disponible' : 'Próximamente'}
+                                    </p>
+                                    <h3 className="text-white text-xl font-serif font-bold leading-tight">
+                                        {libro.titulo}
+                                    </h3>
+                                    {libro.subtitulo && (
+                                        <p className="text-white/60 text-sm italic mt-1 leading-snug">
+                                            {libro.subtitulo}
+                                        </p>
+                                    )}
+                                </div>
+
+                                {/* Body */}
+                                <div className="px-6 py-5 flex-1 flex flex-col gap-4">
+                                    <p className="text-sabiduria-gray text-sm leading-relaxed flex-1">
+                                        {libro.descripcion}
+                                    </p>
+
+                                    {/* Acciones */}
+                                    {libro.disponible && libro.pdfUrl ? (
+                                        <div className="flex gap-3 pt-2 border-t border-sabiduria-gray/10">
+                                            <a
+                                                href={`${baseUrl}${libro.pdfUrl}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-sabiduria-navy text-white text-sm font-medium rounded-sm hover:bg-sabiduria-navy/90 transition-colors"
+                                            >
+                                                <BookOpen size={15} />
+                                                Ver
+                                            </a>
+                                            <a
+                                                href={`${baseUrl}${libro.pdfUrl}`}
+                                                download
+                                                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 border border-sabiduria-navy text-sabiduria-navy text-sm font-medium rounded-sm hover:bg-sabiduria-navy/5 transition-colors"
+                                            >
+                                                <Download size={15} />
+                                                PDF
+                                            </a>
+                                        </div>
+                                    ) : (
+                                        <div className="pt-2 border-t border-sabiduria-gray/10">
+                                            <span className="text-xs text-sabiduria-gray/50 italic">
+                                                En preparación
+                                            </span>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Separador */}
+            <div className="max-w-6xl mx-auto px-4">
+                <hr className="border-sabiduria-gray/10" />
+            </div>
+
+            {/* ═══════════════════════════════════════════════════════════════════
+          SECCIÓN 3: Documentos de Sabiduría para el Corazón
       ═══════════════════════════════════════════════════════════════════ */}
             <SeccionBiblioteca
                 id="documentos"

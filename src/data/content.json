@@ -1,17 +1,6 @@
 {
   "articles": [
     {
-      "id": 1,
-      "category": "Exégesis",
-      "title": "La Torá Editada",
-      "excerpt": "Un estudio profundo sobre los primeros cinco libros de la Biblia y su importancia en el canon sagrado.",
-      "date": "2025-12-27",
-      "slug": "la-tora-editada",
-      "pdfUrl": "pdf/La-Tora-Editada.pdf",
-      "image": "img/Recursos-articulos.jpg",
-      "content": "<blockquote class='blockquote-gold'>«La ley del Señor es perfecta, que convierte el alma; el testimonio del Señor es fiel, que hace sabio al sencillo.»<footer class='mt-2 text-sabiduria-gray'>— Salmo 19:7 (RVR1960)</footer></blockquote>\n\n<p class='first-letter:text-5xl first-letter:font-serif first-letter:mr-3 first-letter:float-left'>Los primeros cinco libros de la Biblia —Génesis, Éxodo, Levítico, Números y Deuteronomio— conforman lo que los hebreos llaman la <em>Torá</em> (תּוֹרָה), palabra que significa «instrucción» o «enseñanza», y que los griegos tradujeron como <em>Pentateuco</em>, «los cinco rollos». Esta colección no es simplemente el inicio cronológico de la Escritura; es el fundamento teológico sobre el que se levanta todo el edificio bíblico.</p>\n\n<h2>La Unidad del Texto</h2>\n<p>Durante siglos, la tradición judía y cristiana atribuyó la autoría del Pentateuco a Moisés. Si bien los estudios modernos han identificado diversas tradiciones y capas redaccionales en el texto, esto no niega ni disminuye la coherencia teológica de la obra final. El texto que tenemos en manos no es una colección fragmentada: es una narración con propósito, estructura y clímax.</p>\n<p>Desde el primer versículo —«En el principio creó Dios los cielos y la tierra»— hasta las últimas palabras de Deuteronomio, la Torá presenta una sola historia: Dios creó un mundo bueno, el hombre lo desobedeció, y Dios comenzó un plan de redención a través de un pueblo llamado y formado por Él.</p>\n\n<h2>Los Cinco Libros y su Contribución</h2>\n<p><strong>Génesis</strong> establece los cimientos: la creación, la caída, el diluvio y la dispersión de las naciones (Génesis 1–11), seguidos por la historia de los patriarcas —Abraham, Isaac, Jacob y José— que anticipa el propósito redentor de Dios (Génesis 12–50). La promesa a Abraham (12:1–3) es la brújula que orienta toda la narrativa subsiguiente.</p>\n<p><strong>Éxodo</strong> presenta al Dios que libera. El pueblo esclavizado en Egipto clama, y Dios responde. El nombre divino revelado en la zarza ardiente —<em>YHWH</em>, «Yo soy el que soy»— define la naturaleza del Dios de Israel: un Dios presente, activo y comprometido con su pueblo. El Éxodo es el paradigma bíblico de la redención; toda salvación posterior lo presupone.</p>\n<p><strong>Levítico</strong> puede parecer árido al lector moderno, con sus detalladas instrucciones sobre sacrificios y pureza ritual. Pero su mensaje central es de una profundidad insuperable: «Seréis santos, porque yo, el Señor vuestro Dios, soy santo» (Levítico 19:2). La santidad no es un ideal abstracto, sino una forma de vida concreta que abarca la adoración, la ética y las relaciones humanas.</p>\n<p><strong>Números</strong> narra la experiencia del pueblo en el desierto —cuarenta años de formación, fracasos y fidelidad divina. El nombre hebreo del libro, <em>Bamidbar</em> («en el desierto»), captura su tema: Dios acompaña a su pueblo incluso en los lugares inhóspitos y en los momentos de mayor rebelión.</p>\n<p><strong>Deuteronomio</strong> es el discurso final de Moisés antes de morir. Es una renovación del pacto: la ley es recordada, explicada y aplicada a la generación que está a punto de entrar en Canaán. El capítulo 6 contiene el <em>Shemá</em> —«Oye, Israel: El Señor nuestro Dios, el Señor uno es»— que se convirtió en el corazón de la confesión de fe judía y que Jesús citó como el primer mandamiento.</p>\n\n<h2>La Torá y el Nuevo Testamento</h2>\n<p>El Nuevo Testamento es incomprensible sin la Torá. Cuando Jesús dice «No penséis que he venido para abrogar la ley o los profetas; no he venido para abrogar, sino para cumplir» (Mateo 5:17), está afirmando que su vida, muerte y resurrección son la culminación de lo que la Torá prometía y prefiguraba.</p>\n<p>El cordero pascual de Éxodo 12 anticipa al «Cordero de Dios que quita el pecado del mundo» (Juan 1:29). El Tabernáculo que Dios ordena construir en Éxodo 25–40 anticipa la encarnación: «Y el Verbo se hizo carne, y <em>habitó</em> entre nosotros» —el verbo griego usado es <em>eskenosen</em>, literalmente «plantó su tienda»— (Juan 1:14). La serpiente levantada en el desierto (Números 21) anticipa la cruz (Juan 3:14).</p>\n\n<h2>Una Palabra para Hoy</h2>\n<p>La Torá no es un texto arqueológico. Es la Palabra viva del Dios que creó, que llamó, que liberó y que prometió. Cada generación de creyentes es invitada a sentarse con ella y escucharla. Sus historias no son mitos de una cultura antigua; son la narración de las obras de Dios en la historia real, con personas reales, en lugares reales.</p>\n<blockquote class='blockquote-gold'>«Este libro de la ley no se apartará de tu boca, sino que de día y de noche meditarás en él, para que guardes y hagas conforme a todo lo que en él está escrito.»<footer class='mt-2 text-sabiduria-gray'>— Josué 1:8 (RVR1960)</footer></blockquote>\n<p>La instrucción de Dios a Josué en el umbral de la Tierra Prometida es también su instrucción para nosotros: meditar, guardar y hacer. La Torá no fue dada para ser admirada desde lejos, sino para dar forma a una vida entera.</p>"
-    },
-    {
       "id": 2,
       "category": "Teología Sistemática",
       "title": "El Temor a Dios",
@@ -72,17 +61,6 @@
       "slug": "principios-eternos-temporales",
       "pdfUrl": "pdf/Principios-y-Convicciones.pdf",
       "image": "img/fondo-declaracion-fe.jpg"
-    },
-    {
-      "id": 9,
-      "category": "Exégesis",
-      "title": "La Septuaginta Final",
-      "excerpt": "La historia y relevancia de la traducción al griego del Antiguo Testamento para la iglesia primitiva.",
-      "date": "2025-12-27",
-      "slug": "septuaginta-final",
-      "pdfUrl": "pdf/Septuaginta-Final.pdf",
-      "content": "<blockquote class='blockquote-gold'>«Lámpara es a mis pies tu palabra, y lumbrera a mi camino.»<footer class='mt-2 text-sabiduria-gray'>— Salmo 119:105 (RVR1960)</footer></blockquote>\n\n<p class='first-letter:text-5xl first-letter:font-serif first-letter:mr-3 first-letter:float-left'>En el siglo III a.C., en la ciudad de Alejandría —entonces el mayor centro cultural del mundo helenístico— se llevó a cabo uno de los proyectos más significativos en la historia de las Escrituras: la traducción del Antiguo Testamento hebreo al griego. Este trabajo, conocido como la Septuaginta (abreviada LXX), no fue simplemente un ejercicio lingüístico. Fue un puente entre el mundo hebreo y el mundo greco-romano, y se convirtió en el texto bíblico que leyeron los apóstoles, que citó Jesús y que usó la iglesia primitiva.</p>\n\n<h2>El Nombre y la Leyenda</h2>\n<p>El nombre «Septuaginta» proviene del latín <em>septuaginta</em>, «setenta». Según la <em>Carta de Aristeas</em> —documento del siglo II a.C.— el rey Ptolomeo II Filadelfo de Egipto convocó a setenta y dos eruditos judíos para traducir las Escrituras hebreas al griego. La versión legendaria afirma que los traductores, trabajando en celdas separadas, produjeron traducciones idénticas en setenta y dos días. Aunque este relato tiene claros elementos legendarios, refleja el respeto que la comunidad judía y luego cristiana tenía por esta traducción.</p>\n<p>La realidad histórica es que la Septuaginta no fue el trabajo de un único momento ni de un único grupo. El Pentateuco fue traducido primero (probablemente en el siglo III a.C.), y los libros proféticos y escriturales fueron añadiéndose gradualmente. El resultado final es una colección de traducciones de calidad desigual —algunas muy literales, otras más libres— que refleja el trabajo de diferentes traductores en diferentes períodos.</p>\n\n<h2>Por Qué Era Necesaria</h2>\n<p>La diáspora judía —la dispersión de los judíos por todo el mundo mediterráneo después del exilio babilónico— creó una situación paradójica: millones de judíos vivían en ciudades donde el griego era el idioma común, y muchos ya no leían hebreo con fluidez. Para estas comunidades, la Septuaginta no era un lujo académico; era la Biblia que podían leer y entender. Alejandría fue el epicentro de esta realidad: con una comunidad judía de cientos de miles, esta ciudad cosmopolita fue el laboratorio donde el pensamiento hebreo y la cultura helenística entraron en diálogo.</p>\n\n<h2>La Septuaginta y el Nuevo Testamento</h2>\n<p>El impacto de la Septuaginta sobre el Nuevo Testamento es difícil de exagerar. Cuando los escritores del Nuevo Testamento citan el Antiguo Testamento, en la mayoría de los casos están citando la Septuaginta, no el texto hebreo. Esto tiene implicaciones importantes:</p>\n<ul>\n<li>En Mateo 1:23, la cita de Isaías 7:14 usa la palabra griega <em>parthenos</em> («virgen»), que es la palabra de la Septuaginta. El texto hebreo usa <em>almah</em>, que puede significar «joven» o «virgen».</li>\n<li>En Hebreos 10:5, la cita del Salmo 40:6 dice «me preparaste un cuerpo» —que es la Septuaginta. El hebreo original dice «mis oídos has abierto».</li>\n<li>El título «Señor» (griego: <em>Kyrios</em>) que la Septuaginta usa para el nombre hebreo de Dios (YHWH) se convirtió en el título central de Jesús en el Nuevo Testamento: «Jesucristo es el Señor» (Filipenses 2:11).</li>\n</ul>\n\n<h2>La Septuaginta en la Iglesia Primitiva</h2>\n<p>Para la iglesia primitiva, la Septuaginta era <em>la</em> Biblia. Pablo la cita extensamente en sus cartas. Los Padres de la Iglesia —Justino Mártir, Ireneo, Clemente de Alejandría, Orígenes— comentaron el Antiguo Testamento casi exclusivamente desde el texto griego. Solo la insistencia del erudito Jerónimo —que aprendió hebreo para traducir desde el original— introdujo el texto hebreo como base de la Vulgata latina.</p>\n\n<h2>Una Herramienta Providencial</h2>\n<p>La Septuaginta fue, en la perspectiva de la fe, un instrumento providencial. Cuando el evangelio comenzó a extenderse por el mundo mediterráneo, ya existía una traducción accesible de las Escrituras que el mundo greco-romano podía leer. Los predicadores apostólicos entraban en las sinagogas y en las plazas con un texto que sus oyentes podían verificar. El camino al corazón del Imperio Romano pasó, en parte, a través de esas páginas en griego.</p>\n<blockquote class='blockquote-gold'>«Porque las cosas que se escribieron antes, para nuestra enseñanza se escribieron.»<footer class='mt-2 text-sabiduria-gray'>— Romanos 15:4 (RVR1960)</footer></blockquote>\n<p>La Septuaginta nos recuerda que Dios no solo inspira la Escritura, sino que también providencia su preservación y transmisión. La historia de cómo la Biblia llegó a nosotros no es una historia accidental; es la historia de un Dios que quiso ser conocido.</p>",
-      "image": "img/libros-fondo.jpg"
     }
   ],
   "social": {
@@ -899,24 +877,7 @@
     }
   ],
   "biblioteca": {
-    "documentos": [
-      {
-        "id": 1,
-        "titulo": "La Torá",
-        "subtitulo": "Los Cinco Libros de Moisés",
-        "descripcion": "La Torá comprende los primeros cinco libros de las Sagradas Escrituras: Génesis, Éxodo, Levítico, Números y Deuteronomio. Estos libros constituyen el fundamento de toda la revelación bíblica, narrando desde la creación del mundo hasta la preparación del pueblo de Israel para entrar en la tierra prometida. Este documento presenta un estudio profundo sobre la formación, estructura y significado teológico de estos textos sagrados, invitando al lector a detenerse con reverencia ante las palabras que Dios habló por medio de Moisés.",
-        "pdfUrl": "pdf/La-Tora-Editada.pdf",
-        "categoria": "Estudio Bíblico"
-      },
-      {
-        "id": 2,
-        "titulo": "La Septuaginta",
-        "subtitulo": "La Traducción Griega del Antiguo Testamento",
-        "descripcion": "La Septuaginta (LXX) es la antigua traducción griega del Antiguo Testamento hebreo, realizada en Alejandría entre los siglos III y II a.C. Esta versión fue la Biblia de la iglesia primitiva y es frecuentemente citada por los autores del Nuevo Testamento. El presente documento explora la historia, el propósito y la relevancia de esta traducción, ofreciendo al estudiante de las Escrituras una comprensión más profunda del mundo textual que rodeaba a los apóstoles y primeros cristianos.",
-        "pdfUrl": "pdf/Septuaginta-Final.pdf",
-        "categoria": "Estudio Bíblico"
-      }
-    ],
+    "documentos": [],
     "consulta": [
       {
         "id": 1,
@@ -1123,6 +1084,48 @@
         "imagenUrl": "ebooks/Historia-de-la-Iglesia/Historia-de-la-Iglesia.png",
         "pdfUrl": "ebooks/Historia-de-la-Iglesia/Historia-de-la-Iglesia-Era-de-la-Reforma.pdf",
         "categoria": "Historia de la Iglesia"
+      }
+    ],
+    "librosHebreos": [
+      {
+        "id": 1,
+        "titulo": "La Torá",
+        "subtitulo": "Los Cinco Libros de Moisés",
+        "descripcion": "La Torá comprende los primeros cinco libros de las Sagradas Escrituras: Génesis, Éxodo, Levítico, Números y Deuteronomio. Constituyen el fundamento de toda la revelación bíblica, narrando desde la creación del mundo hasta la preparación del pueblo de Israel para entrar en la tierra prometida. Este estudio aborda su formación, estructura y significado teológico.",
+        "pdfUrl": "pdf/La-Tora-Editada.pdf",
+        "disponible": true
+      },
+      {
+        "id": 2,
+        "titulo": "La Septuaginta",
+        "subtitulo": "La Traducción Griega del Antiguo Testamento",
+        "descripcion": "La Septuaginta (LXX) es la antigua traducción griega del Antiguo Testamento hebreo, realizada en Alejandría entre los siglos III y II a.C. Fue la Biblia de la iglesia primitiva y es frecuentemente citada por los autores del Nuevo Testamento. Este documento explora su historia, propósito y relevancia textual.",
+        "pdfUrl": "pdf/Septuaginta-Final.pdf",
+        "disponible": true
+      },
+      {
+        "id": 3,
+        "titulo": "El Tanaj",
+        "subtitulo": "El Canon Hebreo: Memoria, Pacto e Identidad de un Pueblo",
+        "descripcion": "El Tanaj es el documento fundacional de la existencia judía, compuesto por tres grandes corpus —Torá, Nevi'im y Ketuvim. Este estudio aborda su arquitectura tripartita, el proceso de canonización, la vida litúrgica a través de la Haftará y las Meguilot, los métodos exegéticos del judaísmo (PaRDeS) y su impacto universal.",
+        "pdfUrl": "pdf/El-Tanaj.pdf",
+        "disponible": true
+      },
+      {
+        "id": 4,
+        "titulo": "El Talmud",
+        "subtitulo": "La Tradición Oral y el Derecho Judío",
+        "descripcion": "El Talmud es la obra central de la literatura rabínica, compuesto por la Mishná y la Guemará. Conserva siglos de debate jurídico, teológico y narrativo del judaísmo. Próximamente disponible en esta colección.",
+        "pdfUrl": "",
+        "disponible": false
+      },
+      {
+        "id": 5,
+        "titulo": "El Midrash",
+        "subtitulo": "La Exégesis Narrativa del Texto Sagrado",
+        "descripcion": "El Midrash es el conjunto de comentarios narrativos, parábolas y reflexiones homilética que generaciones de sabios judíos produjeron para hacer hablar al texto en el contexto de su audiencia. Próximamente disponible en esta colección.",
+        "pdfUrl": "",
+        "disponible": false
       }
     ]
   }
