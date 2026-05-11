@@ -374,7 +374,7 @@ const Youth = () => {
                                         </a>
                                     </div>
                                     <p className="text-center text-sabiduria-gray/50 text-xs font-serif pb-3">
-                                        1240 × 1752 px · Apto para A4 y A3
+                                        2480 × 3508 px · 300 dpi · Apto para imprimir en A4 y A3
                                     </p>
                                 </div>
                             ))}

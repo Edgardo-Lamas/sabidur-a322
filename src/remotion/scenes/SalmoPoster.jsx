@@ -1,8 +1,8 @@
 import { Img, staticFile } from 'remotion';
 
-// Two-column psalm text layout for print-quality A4 portrait posters (1240x1752)
+// Composición a 2480×3508px (A4 a 300dpi — apto para imprimir y enmarcar)
 
-export const SalmoPoster = ({ imagePath, numero, titulo, subtitulo, keyword, versiculos }) => {
+export const SalmoPoster = ({ imagePath, numero, titulo, subtitulo, versiculos }) => {
     const mid = Math.ceil(versiculos.length / 2);
     const col1 = versiculos.slice(0, mid);
     const col2 = versiculos.slice(mid);
@@ -10,100 +10,101 @@ export const SalmoPoster = ({ imagePath, numero, titulo, subtitulo, keyword, ver
     return (
         <div style={{
             width: '100%', height: '100%', overflow: 'hidden',
-            position: 'relative', background: '#0d0c0a',
+            position: 'relative',
             fontFamily: 'Georgia, "Times New Roman", serif',
         }}>
-
-            {/* Background image — top half visible, fades to dark */}
+            {/* Imagen de fondo — cubre todo el póster */}
             <div style={{ position: 'absolute', inset: 0 }}>
                 <Img
                     src={staticFile(imagePath)}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center center' }}
                 />
             </div>
 
-            {/* Strong overlay: transparent at top, nearly opaque from 35% down */}
+            {/* Overlay — imagen visible en todo el póster, más oscuro donde hay texto */}
             <div style={{
                 position: 'absolute', inset: 0,
-                background: 'linear-gradient(180deg, rgba(8,7,4,0.10) 0%, rgba(8,7,4,0.25) 18%, rgba(8,7,4,0.72) 36%, rgba(8,7,4,0.93) 52%, rgba(6,5,2,0.98) 65%, rgba(6,5,2,1) 80%)',
+                background: 'linear-gradient(180deg, rgba(4,3,1,0.48) 0%, rgba(4,3,1,0.52) 18%, rgba(4,3,1,0.65) 40%, rgba(4,3,1,0.75) 65%, rgba(4,3,1,0.82) 100%)',
             }} />
 
-            {/* Top section: Psalm number + keyword */}
+            {/* ── ENCABEZADO ── */}
             <div style={{
-                position: 'absolute', top: 56, left: 0, right: 0,
+                position: 'absolute', top: 120, left: 0, right: 0,
                 textAlign: 'center', zIndex: 10,
             }}>
                 <div style={{
-                    color: 'rgba(197,160,89,0.55)', fontSize: 13,
-                    letterSpacing: '0.38em', textTransform: 'uppercase',
-                    marginBottom: 10,
+                    color: 'rgba(197,160,89,0.65)', fontSize: 26,
+                    letterSpacing: '0.40em', textTransform: 'uppercase', marginBottom: 18,
+                    textShadow: '0 2px 12px rgba(0,0,0,0.8)',
                 }}>
                     Reina Valera 1960
                 </div>
+
                 <div style={{
-                    color: '#C5A059', fontSize: 88, fontWeight: 'bold',
-                    letterSpacing: '0.14em', lineHeight: 1,
-                    textShadow: '0 0 80px rgba(197,160,89,0.5), 0 4px 30px rgba(0,0,0,0.95)',
+                    color: '#C5A059', fontSize: 180, fontWeight: 'bold',
+                    letterSpacing: '0.10em', lineHeight: 1,
+                    textShadow: '0 4px 50px rgba(0,0,0,0.95), 0 0 80px rgba(197,160,89,0.25)',
                 }}>
                     Salmo {numero}
                 </div>
+
                 {subtitulo && (
                     <div style={{
-                        color: 'rgba(255,255,255,0.55)', fontSize: 18,
-                        fontStyle: 'italic', marginTop: 10, letterSpacing: '0.04em',
+                        color: 'rgba(255,255,255,0.72)', fontSize: 36,
+                        fontStyle: 'italic', marginTop: 22, letterSpacing: '0.04em',
+                        textShadow: '0 2px 20px rgba(0,0,0,0.9)',
                     }}>
                         {subtitulo}
                     </div>
                 )}
+
+                {/* Línea decorativa */}
+                <div style={{
+                    width: 560, height: 2,
+                    background: 'linear-gradient(90deg, transparent, rgba(197,160,89,0.65), transparent)',
+                    margin: '38px auto 0',
+                }} />
             </div>
 
-            {/* Title banner — sits over the image/text transition */}
+            {/* Título del salmo */}
             <div style={{
-                position: 'absolute', top: '30%', left: 0, right: 0,
-                textAlign: 'center', zIndex: 10, padding: '0 80px',
+                position: 'absolute', top: 490, left: 140, right: 140,
+                textAlign: 'center', zIndex: 10,
             }}>
-                {/* Decorative line */}
                 <div style={{
-                    width: 320, height: 1,
-                    background: 'linear-gradient(90deg, transparent, rgba(197,160,89,0.7), transparent)',
-                    margin: '0 auto 18px',
-                }} />
-                <div style={{
-                    color: 'rgba(255,255,255,0.90)', fontSize: 26,
-                    fontStyle: 'italic', letterSpacing: '0.04em', lineHeight: 1.4,
-                    textShadow: '0 3px 18px rgba(0,0,0,0.95)',
+                    color: 'rgba(255,255,255,0.90)', fontSize: 46,
+                    fontStyle: 'italic', letterSpacing: '0.03em', lineHeight: 1.4,
+                    textShadow: '0 2px 24px rgba(0,0,0,0.95)',
                 }}>
                     {titulo}
                 </div>
-                <div style={{
-                    width: 320, height: 1,
-                    background: 'linear-gradient(90deg, transparent, rgba(197,160,89,0.7), transparent)',
-                    margin: '18px auto 0',
-                }} />
             </div>
 
-            {/* Two-column psalm text */}
+            {/* ── DOS COLUMNAS DE TEXTO ── */}
             <div style={{
-                position: 'absolute', top: '42%', left: 0, right: 0, bottom: 80,
-                padding: '0 64px',
-                display: 'flex', gap: 40,
+                position: 'absolute', top: 620, left: 0, right: 0, bottom: 140,
+                padding: '0 110px',
+                display: 'flex', gap: 72,
                 zIndex: 10,
             }}>
                 {[col1, col2].map((col, colIdx) => (
-                    <div key={colIdx} style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 7 }}>
+                    <div key={colIdx} style={{
+                        flex: 1, display: 'flex', flexDirection: 'column', gap: 14,
+                    }}>
                         {col.map((v) => (
-                            <div key={v.num} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+                            <div key={v.num} style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
                                 <span style={{
-                                    color: '#C5A059', fontSize: 11, fontWeight: 'bold',
-                                    letterSpacing: '0.05em', marginTop: 2,
-                                    minWidth: 18, textAlign: 'right', flexShrink: 0,
+                                    color: '#C5A059', fontSize: 22, fontWeight: 'bold',
+                                    letterSpacing: '0.04em', marginTop: 3,
+                                    minWidth: 34, textAlign: 'right', flexShrink: 0,
+                                    textShadow: '0 1px 8px rgba(0,0,0,0.9)',
                                 }}>
                                     {v.num}
                                 </span>
                                 <span style={{
-                                    color: 'rgba(255,255,255,0.87)', fontSize: 14,
-                                    lineHeight: 1.55, fontStyle: 'italic',
-                                    textShadow: '0 1px 8px rgba(0,0,0,0.9)',
+                                    color: 'rgba(255,255,255,0.93)', fontSize: 28,
+                                    lineHeight: 1.65, fontStyle: 'italic',
+                                    textShadow: '0 1px 14px rgba(0,0,0,0.97), 0 3px 28px rgba(0,0,0,0.8)',
                                 }}>
                                     {v.texto}
                                 </span>
@@ -113,13 +114,14 @@ export const SalmoPoster = ({ imagePath, numero, titulo, subtitulo, keyword, ver
                 ))}
             </div>
 
-            {/* Bottom watermark */}
+            {/* Marca de agua */}
             <div style={{
-                position: 'absolute', bottom: 32, left: 0, right: 0,
+                position: 'absolute', bottom: 58, left: 0, right: 0,
                 textAlign: 'center', zIndex: 10,
-                color: 'rgba(197,160,89,0.35)', fontSize: 12,
-                letterSpacing: '0.36em', textTransform: 'uppercase',
+                color: 'rgba(197,160,89,0.42)', fontSize: 22,
+                letterSpacing: '0.40em', textTransform: 'uppercase',
                 fontFamily: 'Arial, sans-serif',
+                textShadow: '0 1px 8px rgba(0,0,0,0.8)',
             }}>
                 Sabiduría para el Corazón
             </div>

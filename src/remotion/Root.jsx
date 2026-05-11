@@ -138,8 +138,8 @@ export const RemotionRoot = () => (
             component={SalmoPoster}
             durationInFrames={1}
             fps={30}
-            width={1240}
-            height={1752}
+            width={2480}
+            height={3508}
             defaultProps={SALMO_145}
         />
         <Composition
@@ -147,8 +147,8 @@ export const RemotionRoot = () => (
             component={SalmoPoster}
             durationInFrames={1}
             fps={30}
-            width={1240}
-            height={1752}
+            width={2480}
+            height={3508}
             defaultProps={SALMO_139}
         />
     </>
