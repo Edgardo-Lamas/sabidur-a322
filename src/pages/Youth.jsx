@@ -400,14 +400,12 @@ const Youth = () => {
                                     onClick={(e) => e.stopPropagation()}
                                 >
                                     {/* Póster completo — PNG renderizado */}
-                                    <div className="rounded-lg overflow-hidden shadow-2xl border border-white/10"
-                                        style={{ maxHeight: '78vh', aspectRatio: '1240/1752' }}>
-                                        <img
-                                            src={`${import.meta.env.BASE_URL}${posterPreview.poster}`}
-                                            alt={posterPreview.titulo}
-                                            className="w-full h-full object-contain"
-                                        />
-                                    </div>
+                                    <img
+                                        src={`${import.meta.env.BASE_URL}${posterPreview.poster}`}
+                                        alt={posterPreview.titulo}
+                                        className="rounded-lg shadow-2xl border border-white/10 block"
+                                        style={{ maxHeight: '72vh', maxWidth: '90vw', width: 'auto', height: 'auto' }}
+                                    />
 
                                     {/* Acciones */}
                                     <div className="flex gap-3">
