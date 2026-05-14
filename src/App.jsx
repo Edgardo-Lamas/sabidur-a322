@@ -6,6 +6,8 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ErrorBoundary from './components/ErrorBoundary';
 import ScrollToTopButton from './components/ScrollToTopButton';
+import { AudioPlayerProvider } from './context/AudioPlayerContext';
+import PersistentPlayer from './components/audio/PersistentPlayer';
 
 // Lazy-loaded pages
 const NotFound            = lazy(() => import('./pages/NotFound'));
@@ -31,6 +33,7 @@ const PerfeccionesCapitulo1 = lazy(() => import('./pages/PerfeccionesCapitulo1')
 const PerfeccionesCapitulo2 = lazy(() => import('./pages/PerfeccionesCapitulo2'));
 const PerfeccionesCapitulo3 = lazy(() => import('./pages/PerfeccionesCapitulo3'));
 const PerfeccionesCapitulo4 = lazy(() => import('./pages/PerfeccionesCapitulo4'));
+const PerfeccionesCapitulo5 = lazy(() => import('./pages/PerfeccionesCapitulo5'));
 const SedymModulo3        = lazy(() => import('./pages/SedymModulo3'));
 const Panel               = lazy(() => import('./pages/Panel'));
 const DeclaracionDeFe     = lazy(() => import('./pages/DeclaracionDeFe'));
@@ -66,6 +69,8 @@ const Ireneo              = lazy(() => import('./pages/padres-de-la-iglesia/Iren
 const Tertuliano          = lazy(() => import('./pages/padres-de-la-iglesia/Tertuliano'));
 const Devocionales        = lazy(() => import('./pages/Devocionales'));
 const DevocionalPage      = lazy(() => import('./pages/DevocionalPage'));
+const Predicaciones       = lazy(() => import('./pages/Predicaciones'));
+const PredicacionesSerie  = lazy(() => import('./pages/PredicacionesSerie'));
 
 // Lazy-loaded heavy components
 const ChatSpurgeon        = lazy(() => import('./components/ChatSpurgeon'));
@@ -116,6 +121,7 @@ function App() {
   const basename = import.meta.env.BASE_URL;
 
   return (
+    <AudioPlayerProvider>
     <Router basename={basename}>
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
@@ -139,6 +145,7 @@ function App() {
                 <Route path="/estudio/perfecciones-de-dios/capitulo-2" element={<PerfeccionesCapitulo2 />} />
                 <Route path="/estudio/perfecciones-de-dios/capitulo-3" element={<PerfeccionesCapitulo3 />} />
                 <Route path="/estudio/perfecciones-de-dios/capitulo-4" element={<PerfeccionesCapitulo4 />} />
+                <Route path="/estudio/perfecciones-de-dios/capitulo-5" element={<PerfeccionesCapitulo5 />} />
                 <Route path="/estudio/sedym-modulo-3" element={<SedymModulo3 />} />
                 <Route path="/estudio/:slug" element={<EstudioPage />} />
                 <Route path="/bosquejos" element={<Bosquejos />} />
@@ -184,6 +191,11 @@ function App() {
                 <Route path="/padres-de-la-iglesia/tertuliano" element={<Tertuliano />} />
                 <Route path="/devocionales" element={<Devocionales />} />
                 <Route path="/devocionales/:slug" element={<DevocionalPage />} />
+                <Route path="/predicaciones" element={<Predicaciones />} />
+                <Route path="/predicaciones/libros/:id" element={<PredicacionesSerie seccion="libros" />} />
+                <Route path="/predicaciones/temas/:id" element={<PredicacionesSerie seccion="temas" />} />
+                <Route path="/predicaciones/escuela/:id" element={<PredicacionesSerie seccion="escuela" />} />
+                <Route path="/predicaciones/varios/:id" element={<PredicacionesSerie seccion="varios" />} />
                 <Route path="/panel" element={<Panel />} />
                 <Route path="/donaciones" element={<Donations />} />
                 <Route path="*" element={<NotFound />} />
@@ -194,6 +206,7 @@ function App() {
         <Footer />
       </div>
       <ScrollToTopButton />
+      <PersistentPlayer />
       <Toaster
         position="bottom-center"
         toastOptions={{
@@ -206,6 +219,7 @@ function App() {
         <ChatSpurgeon />
       </Suspense>
     </Router>
+    </AudioPlayerProvider>
   );
 }
 
