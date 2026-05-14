@@ -1115,9 +1115,9 @@
         "id": 4,
         "titulo": "El Talmud",
         "subtitulo": "La Tradición Oral y el Derecho Judío",
-        "descripcion": "El Talmud es la obra central de la literatura rabínica, compuesto por la Mishná y la Guemará. Conserva siglos de debate jurídico, teológico y narrativo del judaísmo. Próximamente disponible en esta colección.",
-        "pdfUrl": "",
-        "disponible": false
+        "descripcion": "El Talmud es la obra central de la literatura rabínica, compuesto por la Mishná y la Guemará. Conserva siglos de debate jurídico, teológico y narrativo del judaísmo.",
+        "pdfUrl": "pdf/El-Talmud.pdf",
+        "disponible": true
       },
       {
         "id": 5,

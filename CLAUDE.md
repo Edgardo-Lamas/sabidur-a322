@@ -28,11 +28,20 @@ URL de producción: desplegada en **Vercel** (rama `main` → deploy automático
 
 #### 🖼️ FLUX API (BFL) — Generación de imágenes con IA
 - **Estado:** ✅ Configurado. `BFL_API_KEY` guardada en `~/.zprofile` (disponible en cada sesión).
-- **Skill:** `bfl-api` + `flux-best-practices` (cargados en sesión con `/bfl-api`).
+- **Skill:** `bfl-api` + `flux-best-practices` (cargados en sesión con `/bfl-api`). **SIEMPRE cargar antes de generar imágenes.**
 - **Modelo recomendado:** `FLUX.2 [pro]` — endpoint `/v1/flux-2-pro`, ~$0.03/imagen 1MP.
-- **Flujo:** POST → polling → descargar URL (expira en 10 min) → guardar en `public/img/`.
-- **Usos en el sitio:** heroes de páginas, portadas de artículos/biografías, OG images, materiales Juventud.
-- **Dimensiones útiles:** `1536×576` (hero wide), `1024×1024` (cuadrada), `1200×630` (OG).
+- **Flujo:** POST → polling → descargar URL (expira en 10 min) → guardar en `public/img/` o `/tmp/`.
+- **Usos en el sitio:** heroes de páginas, portadas de artículos/biografías, OG images, materiales Juventud, **portadas e ilustraciones de PDFs**.
+- **Dimensiones útiles:**
+  - `1536×576` — hero wide
+  - `1024×1024` — cuadrada
+  - `1200×630` — OG / redes sociales
+  - `595×842` — A4 vertical (portada PDF)
+  - `1200×400` — ilustración horizontal en página de PDF
+- **Estilos probados en PDFs:**
+  - Portada El Tanaj: geométrico navy + estrella de David (programático, sin FLUX)
+  - Portada El Talmud: pintura al óleo estilo Rembrandt, luz dramática, biblioteca babilónica
+  - Textura pergamino: aged parchment manuscript texture, warm ochre and amber tones
 
 #### 🎙️ Voicebox — Generación de voz con IA (MCP nativo)
 - **Estado:** ✅ Configurado en `~/.claude.json` como MCP server. App instalada en `/Applications/Voicebox.app`.
@@ -58,6 +67,34 @@ URL de producción: desplegada en **Vercel** (rama `main` → deploy automático
 - **Estado:** ✅ Disponible como herramienta MCP en sesiones de Claude Code.
 - **Usos:** logos, banners, PDFs descargables, materiales Juventud, thumbnails.
 - **Antes de crear assets visuales desde cero:** verificar si Canva MCP está conectado en la sesión.
+
+#### 📄 PDF Pipeline — Python + ReportLab + PyMuPDF + Pillow
+- **Estado:** ✅ Establecido. Dependencias instaladas globalmente en el sistema.
+- **Librerías:**
+  - `reportlab` — layout de texto, estilos tipográficos, canvas para dibujar (portadas, headers, footers)
+  - `fitz` (PyMuPDF) — merge de PDFs multiparte (portada + metadata + contenido)
+  - `Pillow` + `numpy` — procesamiento de imágenes (brillo, saturación, capas RGBA)
+- **Patrón establecido:**
+  ```python
+  build_cover()    # Portada: imagen FLUX full-bleed + gradientes + texto
+  build_content()  # Páginas: textura de fondo (onPage) + texto encima + header/footer (onPageEnd)
+  merge_pdf()      # fitz: portada + metadata + contenido → PDF final
+  ```
+- **CRÍTICO:** La textura/fondo se dibuja en `onPage` (antes del texto). El header/footer en `onPageEnd` (después). Si se invierte, la textura tapa el texto.
+- **Scripts en:** `/tmp/create_*.py` — guardar siempre copia antes de cerrar sesión si se quiere reutilizar.
+- **Output:** `public/pdf/` — nombres: `El-Talmud.pdf`, `El-Tanaj.pdf`, etc.
+- **Paletas por libro:**
+  - La Torá: cuero marrón + dorado clásico
+  - El Tanaj: navy profundo + dorado + estrella de David (geométrico, sin FLUX)
+  - El Talmud: marrón ámbar profundo (#2C1206) + oro ámbar (#C5902A) + pergamino (#F2DCBE)
+
+#### ☁️ Cloudflare R2 — Almacenamiento de audio
+- **Estado:** ✅ Bucket `spc-audio` creado. Credenciales en `~/.zprofile`.
+- **Variables:** `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, `R2_ACCOUNT_ID`, `R2_ENDPOINT`
+- **Script de subida:** `/tmp/upload_to_r2.py` (boto3, omite archivos ya subidos por tamaño)
+- **URL pública base:** `https://r2.sabiduriadelcorazon.com/audio/`
+- **Uso:** hospedar los 635 audios de predicaciones de Matías (formato: `{slug}.mp3/.m4a`)
+- **Subida pendiente:** ejecutar con buena conexión → `source ~/.zprofile && python3 /tmp/upload_to_r2.py`
 
 #### 🌐 UX/UI — Regla general
 - Toda propuesta visual debe respetar el sistema de diseño del sitio (ver sección Identidad Visual).
@@ -214,9 +251,14 @@ VITE_SUPABASE_ANON_KEY   # Migrado a JSON locales
 | `/biblioteca` | Biblioteca.jsx | ✅ |
 | `/mapas-biblicos` | MapasBiblicos.jsx | ✅ Leaflet |
 | `/estudios-libros` | EstudiosLibros.jsx | ✅ |
-| `/estudio/perfecciones-de-dios` | PerfeccionesDeDios.jsx | ✅ 4 capítulos activos |
+| `/estudio/perfecciones-de-dios` | PerfeccionesDeDios.jsx | ✅ 5 capítulos activos |
 | `/estudio/hilo-del-tiempo` | HiloDelTiempo.jsx | ✅ |
 | `/ensenanzas` | Ensenanzas.jsx | ✅ |
+| `/predicaciones` | Predicaciones.jsx | ✅ 635 audios, 4 secciones |
+| `/predicaciones/libros/:id` | PredicacionesSerie.jsx | ✅ reproductor persistente |
+| `/predicaciones/temas/:id` | PredicacionesSerie.jsx | ✅ |
+| `/predicaciones/escuela/:id` | PredicacionesSerie.jsx | ✅ |
+| `/predicaciones/varios/:id` | PredicacionesSerie.jsx | ✅ |
 | `/tienda` | Store.jsx | ✅ |
 | `/panel` | Panel.jsx | ✅ dashboard métricas |
 | `/donaciones` | Donations.jsx | ✅ |
@@ -232,5 +274,8 @@ VITE_SUPABASE_ANON_KEY   # Migrado a JSON locales
 - El Agente Spurgeon carga los 34 JSON de `knowledge/` en cada request — si se agregan archivos a esa carpeta, quedan automáticamente disponibles para el agente.
 - **Wallpapers animados (Juventud):** ✅ Activos. 3 composiciones en `src/remotion/wallpapers/`. MP4s en `public/wallpapers/`. Workflow: editar composición → `node_modules/.bin/remotion render src/remotion/Root.jsx <ID> public/wallpapers/<id>.mp4 --overwrite` → push.
 - **Heroes con FLUX:** imágenes generadas se guardan en `public/img/`. Usar `${import.meta.env.BASE_URL}img/<archivo>` en el `src` del `<img>`.
+- **PDFs de Biblioteca:** en `public/pdf/`. Cada libro tiene identidad visual única. Scripts en `/tmp/create_*.py`. Activar con `source ~/.zprofile` antes de ejecutar si usan BFL_API_KEY.
+- **Biblioteca — Libros Sagrados de Israel:** La Torá ✅, El Tanaj ✅, El Talmud ✅. Pendientes: El Midrash, el resto de la serie.
+- **Predicaciones (audio):** reproductor global en `AudioPlayerContext` + `PersistentPlayer`. Datos en `src/data/predicaciones.json`. URLs de audio apuntan a R2 (`r2.sabiduriadelcorazon.com/audio/`) — subida pendiente con buena conexión.
 - **Plan de lectura 30 días (Juventud):** pendiente crear contenido JSON + diseño Canva.
 - **Newsletter + devocionales IA:** pendiente. Plan: `/api/devotional.js` (GPT-4o-mini) + Resend para email + lista de suscriptores. El conocimiento de Spurgeon puede alimentar la generación.
