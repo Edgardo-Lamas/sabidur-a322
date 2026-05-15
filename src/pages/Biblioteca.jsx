@@ -225,6 +225,46 @@ const Biblioteca = () => {
                                 fielmente el diseño, las imágenes y la experiencia de lectura contemplativa.
                             </p>
                         </div>
+
+                        {/* Próximas series */}
+                        <div className="mt-14 space-y-6">
+                            <div className="flex items-center gap-4">
+                                <div className="h-px flex-1 bg-sabiduria-gray/15" />
+                                <span className="text-sabiduria-gold uppercase tracking-widest text-xs font-semibold">Próximamente</span>
+                                <div className="h-px flex-1 bg-sabiduria-gray/15" />
+                            </div>
+
+                            {[
+                                {
+                                    serie: "Los Custodios de la Palabra",
+                                    descripcion: "Antes de que existiera la palabra impresa, existieron ellos: hombres que copiaron cada letra del texto sagrado a mano, que lo escondieron en vasijas de cerámica, que lo memorizaron bajo tortura, que lo transmitieron en sótanos y desiertos para que llegara intacto hasta nosotros. Esta es su historia.",
+                                },
+                                {
+                                    serie: "Los Arquitectos del Pensamiento Judío",
+                                    descripcion: "Uno murió recitando el Shemá mientras lo torturaban. Otro construyó el sistema filosófico más ambicioso de la Edad Media desde el exilio. Un tercero escribió un comentario de una sola línea que iluminó lo que siglos de debate no habían podido aclarar. Sin ellos, el judaísmo no existiría tal como lo conocemos. Y sin ellos, tampoco el Nuevo Testamento puede entenderse del todo.",
+                                },
+                            ].map((item) => (
+                                <div
+                                    key={item.serie}
+                                    className="bg-sabiduria-navy/4 border border-sabiduria-gray/10 rounded-sm p-8 md:p-10 flex flex-col md:flex-row md:items-start gap-6"
+                                >
+                                    <div className="flex-shrink-0">
+                                        <span className="inline-block border border-sabiduria-gold/40 text-sabiduria-gold uppercase tracking-widest text-xs font-semibold px-3 py-1 rounded-sm">
+                                            En preparación
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs uppercase tracking-widest text-sabiduria-gray/50 font-semibold mb-1">Serie</p>
+                                        <h4 className="text-xl font-serif font-bold text-sabiduria-navy mb-3">
+                                            {item.serie}
+                                        </h4>
+                                        <p className="text-sabiduria-gray leading-relaxed text-justify max-w-2xl">
+                                            {item.descripcion}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 ) : (
                     <PlaceholderVacio />
