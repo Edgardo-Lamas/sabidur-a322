@@ -1121,6 +1121,14 @@
       },
       {
         "id": 5,
+        "titulo": "La Mishná",
+        "subtitulo": "La Palabra que Sobrevivió al Templo",
+        "descripcion": "La Mishná es el primer gran código sistemático de la Ley Oral, redactado hacia el año 200 d.C. Nacida de la catástrofe de la destrucción del Templo, esta obra monumental es también el mundo intelectual en que Jesús debatió con los fariseos y en que Pablo fue formado a los pies de Gamaliel. Un estudio histórico-teológico desde la perspectiva reformada.",
+        "pdfUrl": "pdf/La-Mishna.pdf",
+        "disponible": true
+      },
+      {
+        "id": 6,
         "titulo": "El Midrash",
         "subtitulo": "La Exégesis Narrativa del Texto Sagrado",
         "descripcion": "El Midrash es el conjunto de comentarios narrativos, parábolas y reflexiones homilética que generaciones de sabios judíos produjeron para hacer hablar al texto en el contexto de su audiencia. Próximamente disponible en esta colección.",
