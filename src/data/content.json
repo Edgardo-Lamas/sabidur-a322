@@ -1094,7 +1094,7 @@
         "subtitulo": "Los Cinco Libros de Moisés",
         "descripcion": "La Torá comprende los primeros cinco libros de las Sagradas Escrituras: Génesis, Éxodo, Levítico, Números y Deuteronomio. Constituyen el fundamento de toda la revelación bíblica, narrando desde la creación del mundo hasta la preparación del pueblo de Israel para entrar en la tierra prometida. Este estudio aborda su formación, estructura y significado teológico.",
         "pdfUrl": "pdf/La-Tora-Editada.pdf",
-        "coverImage": "img/og-default.jpg",
+        "coverImage": "img/pdf/tora_cover.jpg",
         "disponible": true
       },
       {
@@ -1104,7 +1104,7 @@
         "subtitulo": "La Traducción Griega del Antiguo Testamento",
         "descripcion": "La Septuaginta (LXX) es la antigua traducción griega del Antiguo Testamento hebreo, realizada en Alejandría entre los siglos III y II a.C. Fue la Biblia de la iglesia primitiva y es frecuentemente citada por los autores del Nuevo Testamento. Este documento explora su historia, propósito y relevancia textual.",
         "pdfUrl": "pdf/Septuaginta-Final.pdf",
-        "coverImage": "img/og-default.jpg",
+        "coverImage": "img/pdf/septuaginta_cover.jpg",
         "disponible": true
       },
       {
@@ -1114,7 +1114,7 @@
         "subtitulo": "El Canon Hebreo: Memoria, Pacto e Identidad de un Pueblo",
         "descripcion": "El Tanaj es el documento fundacional de la existencia judía, compuesto por tres grandes corpus —Torá, Nevi'im y Ketuvim. Este estudio aborda su arquitectura tripartita, el proceso de canonización, la vida litúrgica a través de la Haftará y las Meguilot, los métodos exegéticos del judaísmo (PaRDeS) y su impacto universal.",
         "pdfUrl": "pdf/El-Tanaj.pdf",
-        "coverImage": "img/pdf/tanaj_illus_1.jpg",
+        "coverImage": "img/pdf/tanaj_cover.jpg",
         "disponible": true
       },
       {
