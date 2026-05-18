@@ -5,6 +5,9 @@
   "functions": {
     "api/spurgeon.js": {
       "includeFiles": "src/data/**"
+    },
+    "api/og-preview.js": {
+      "includeFiles": "src/data/**"
     }
   }
 }

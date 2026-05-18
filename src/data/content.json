@@ -1130,10 +1130,10 @@
       {
         "id": 6,
         "titulo": "El Midrash",
-        "subtitulo": "La Exégesis Narrativa del Texto Sagrado",
-        "descripcion": "El Midrash es el conjunto de comentarios narrativos, parábolas y reflexiones homilética que generaciones de sabios judíos produjeron para hacer hablar al texto en el contexto de su audiencia. Próximamente disponible en esta colección.",
-        "pdfUrl": "",
-        "disponible": false
+        "subtitulo": "La Palabra que Siempre Tiene Más que Decir",
+        "descripcion": "El Midrash no es un libro: es una manera de leer. Método, historia y significado teológico de la exégesis rabínica, desde el Nehemías 8 hasta Rashi y el Nuevo Testamento. Una aproximación histórico-teológica desde una perspectiva cristiana reformada.",
+        "pdfUrl": "pdf/El-Midrash.pdf",
+        "disponible": true
       }
     ]
   }
