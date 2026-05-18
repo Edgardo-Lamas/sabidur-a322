@@ -1089,50 +1089,62 @@
     "librosHebreos": [
       {
         "id": 1,
+        "slug": "la-tora",
         "titulo": "La Torá",
         "subtitulo": "Los Cinco Libros de Moisés",
         "descripcion": "La Torá comprende los primeros cinco libros de las Sagradas Escrituras: Génesis, Éxodo, Levítico, Números y Deuteronomio. Constituyen el fundamento de toda la revelación bíblica, narrando desde la creación del mundo hasta la preparación del pueblo de Israel para entrar en la tierra prometida. Este estudio aborda su formación, estructura y significado teológico.",
         "pdfUrl": "pdf/La-Tora-Editada.pdf",
+        "coverImage": "img/og-default.jpg",
         "disponible": true
       },
       {
         "id": 2,
+        "slug": "la-septuaginta",
         "titulo": "La Septuaginta",
         "subtitulo": "La Traducción Griega del Antiguo Testamento",
         "descripcion": "La Septuaginta (LXX) es la antigua traducción griega del Antiguo Testamento hebreo, realizada en Alejandría entre los siglos III y II a.C. Fue la Biblia de la iglesia primitiva y es frecuentemente citada por los autores del Nuevo Testamento. Este documento explora su historia, propósito y relevancia textual.",
         "pdfUrl": "pdf/Septuaginta-Final.pdf",
+        "coverImage": "img/og-default.jpg",
         "disponible": true
       },
       {
         "id": 3,
+        "slug": "el-tanaj",
         "titulo": "El Tanaj",
         "subtitulo": "El Canon Hebreo: Memoria, Pacto e Identidad de un Pueblo",
         "descripcion": "El Tanaj es el documento fundacional de la existencia judía, compuesto por tres grandes corpus —Torá, Nevi'im y Ketuvim. Este estudio aborda su arquitectura tripartita, el proceso de canonización, la vida litúrgica a través de la Haftará y las Meguilot, los métodos exegéticos del judaísmo (PaRDeS) y su impacto universal.",
         "pdfUrl": "pdf/El-Tanaj.pdf",
+        "coverImage": "img/pdf/tanaj_illus_1.jpg",
         "disponible": true
       },
       {
         "id": 4,
+        "slug": "el-talmud",
         "titulo": "El Talmud",
         "subtitulo": "La Tradición Oral y el Derecho Judío",
         "descripcion": "El Talmud es la obra central de la literatura rabínica, compuesto por la Mishná y la Guemará. Conserva siglos de debate jurídico, teológico y narrativo del judaísmo.",
         "pdfUrl": "pdf/El-Talmud.pdf",
+        "coverImage": "img/pdf/talmud_cover.jpg",
         "disponible": true
       },
       {
         "id": 5,
+        "slug": "la-mishna",
         "titulo": "La Mishná",
         "subtitulo": "La Palabra que Sobrevivió al Templo",
         "descripcion": "La Mishná es el primer gran código sistemático de la Ley Oral, redactado hacia el año 200 d.C. Nacida de la catástrofe de la destrucción del Templo, esta obra monumental es también el mundo intelectual en que Jesús debatió con los fariseos y en que Pablo fue formado a los pies de Gamaliel. Un estudio histórico-teológico desde la perspectiva reformada.",
         "pdfUrl": "pdf/La-Mishna.pdf",
+        "coverImage": "img/pdf/mishna_cover.jpg",
         "disponible": true
       },
       {
         "id": 6,
+        "slug": "el-midrash",
         "titulo": "El Midrash",
         "subtitulo": "La Palabra que Siempre Tiene Más que Decir",
         "descripcion": "El Midrash no es un libro: es una manera de leer. Método, historia y significado teológico de la exégesis rabínica, desde el Nehemías 8 hasta Rashi y el Nuevo Testamento. Una aproximación histórico-teológica desde una perspectiva cristiana reformada.",
         "pdfUrl": "pdf/El-Midrash.pdf",
+        "coverImage": "img/pdf/midrash_cover.jpg",
         "disponible": true
       }
     ]

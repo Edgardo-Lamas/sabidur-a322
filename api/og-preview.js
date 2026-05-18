@@ -57,6 +57,19 @@ export default function handler(req, res) {
     }
   }
 
+  // /biblioteca/:slug — páginas individuales de libros
+  const libroMatch = urlPath.match(/^\/biblioteca\/(.+)$/);
+  if (libroMatch) {
+    const slug  = libroMatch[1];
+    const libros = (content.biblioteca?.librosHebreos || []);
+    const found  = libros.find(l => l.slug === slug);
+    if (found) {
+      title       = `${found.titulo} — ${found.subtitulo} | ${SITE_TITLE}`;
+      description = found.descripcion || SITE_DESC;
+      image       = resolveImage(found.coverImage, BASE);
+    }
+  }
+
   const canonicalUrl = `${BASE}${urlPath}`;
 
   const html = `<!DOCTYPE html>

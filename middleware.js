@@ -11,7 +11,7 @@ export default async function middleware(request) {
   const path = url.pathname;
 
   // Solo actuar en rutas con contenido específico
-  if (!path.match(/^\/(articulo|ensayo)\//)) return;
+  if (!path.match(/^\/(articulo|ensayo|biblioteca)\//)) return;
 
   // Proxy transparente a la función que genera el HTML con OG tags
   const previewUrl = new URL('/api/og-preview', url.origin);
@@ -29,5 +29,5 @@ export default async function middleware(request) {
 }
 
 export const config = {
-  matcher: ['/articulo/:slug*', '/ensayo/:slug*'],
+  matcher: ['/articulo/:slug*', '/ensayo/:slug*', '/biblioteca/:slug*'],
 };

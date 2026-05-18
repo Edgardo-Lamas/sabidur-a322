@@ -118,15 +118,13 @@ const Biblioteca = () => {
                                     {/* Acciones */}
                                     {libro.disponible && libro.pdfUrl ? (
                                         <div className="flex gap-3 pt-2 border-t border-sabiduria-gray/10">
-                                            <a
-                                                href={`${baseUrl}${libro.pdfUrl}`}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
+                                            <Link
+                                                to={`/biblioteca/${libro.slug}`}
                                                 className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-sabiduria-navy text-white text-sm font-medium rounded-sm hover:bg-sabiduria-navy/90 transition-colors"
                                             >
                                                 <BookOpen size={15} />
                                                 Ver
-                                            </a>
+                                            </Link>
                                             <a
                                                 href={`${baseUrl}${libro.pdfUrl}`}
                                                 download

@@ -27,6 +27,7 @@ const Ensayos             = lazy(() => import('./pages/Ensayos'));
 const TextPage            = lazy(() => import('./pages/TextPage'));
 const Biblioteca          = lazy(() => import('./pages/Biblioteca'));
 const BibliotecaConsulta  = lazy(() => import('./pages/BibliotecaConsulta'));
+const LibroPage           = lazy(() => import('./pages/LibroPage'));
 const HiloDelTiempo       = lazy(() => import('./pages/HiloDelTiempo'));
 const PerfeccionesDeDios  = lazy(() => import('./pages/PerfeccionesDeDios'));
 const PerfeccionesCapitulo1 = lazy(() => import('./pages/PerfeccionesCapitulo1'));
@@ -159,6 +160,7 @@ function App() {
                 <Route path="/adolescentes/historias/fracaso" element={<HistoriaFracaso />} />
                 <Route path="/biblioteca" element={<Biblioteca />} />
                 <Route path="/biblioteca/consulta" element={<BibliotecaConsulta />} />
+                <Route path="/biblioteca/:slug" element={<LibroPage />} />
                 <Route path="/declaracion-de-fe" element={<DeclaracionDeFe />} />
                 <Route path="/teologia-basica" element={<TeologiaBasica />} />
                 <Route path="/teologia-basica/:slug" element={<TeologiaBasicaTema />} />
