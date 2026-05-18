@@ -186,6 +186,68 @@ public/
 
 ---
 
+## Formato HTML de ensayos — ESTÁNDAR OBLIGATORIO
+
+> **CRÍTICO:** Todo ensayo nuevo que se agregue a `src/data/textos.json` DEBE seguir exactamente este formato. No inventar variantes ni usar etiquetas alternativas.
+
+### Estructura del campo `content`
+
+El campo `content` es HTML embebido en JSON (sin saltos de línea reales — todo en una sola cadena).
+
+#### Primer párrafo — letra capital
+```html
+<p class='first-letter:text-5xl first-letter:font-serif first-letter:mr-3 first-letter:float-left'>Texto del primer párrafo...</p>
+```
+Solo el **primer párrafo** lleva esta clase. El resto son `<p>` simples.
+
+#### Párrafos normales
+```html
+<p>Texto del párrafo.</p>
+```
+
+#### Encabezados de sección
+```html
+<h2>Título de la Sección</h2>
+```
+Se usan `<h2>` (no `<h3>`, no `<strong>`, no `<b>`).
+
+#### Citas bíblicas en línea — OBLIGATORIO
+```html
+<span class='biblical-inline'>«Texto del versículo»</span>
+```
+- Siempre entre comillas angulares `«»`
+- **NUNCA usar `<em>«...»</em>` para versículos** — ese fue el error a corregir
+- Solo `<em>` para énfasis genuino de redacción, no para versículos
+
+#### Citas bíblicas en bloque (pull quotes)
+```html
+<blockquote class='blockquote-gold'>«Texto completo del pasaje bíblico.»<footer class='mt-2 text-sabiduria-gray'>— Referencia 0:0 (RVR1960)</footer></blockquote>
+```
+- Para pasajes largos citados completos (más de una oración)
+- Siempre incluir el `<footer>` con la referencia
+
+#### Énfasis y términos teológicos
+```html
+<strong>término o frase importante</strong>
+```
+Para énfasis tipográfico o términos teológicos destacados.
+
+### Checklist al agregar un ensayo nuevo
+
+Antes de hacer push, verificar:
+- [ ] Primer párrafo tiene clase `first-letter:...`
+- [ ] Versículos cortos en `<span class='biblical-inline'>«...»</span>`
+- [ ] Pasajes largos en `<blockquote class='blockquote-gold'>` con `<footer>`
+- [ ] Secciones separadas por `<h2>`
+- [ ] **Ningún versículo** envuelto en `<em>«...»</em>`
+- [ ] El `content` es una sola cadena sin saltos de línea reales
+
+### Referencia — ensayos modelo
+- *La Autoridad de la Escritura y su Lugar en la Vida Cristiana* — usa todos los patrones correctamente
+- *El Pecado: Su Realidad, Su Impacto y la Esperanza en Cristo* — buen uso de blockquotes y secciones
+
+---
+
 ## Patrones arquitectónicos
 
 - **Data-driven rendering:** componentes leen JSON locales, sin base de datos en tiempo real.
