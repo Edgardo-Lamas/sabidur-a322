@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Play, Eye, ExternalLink } from 'lucide-react';
 
-const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY || '';
-const CHANNEL_ID = 'UCQ4LzY6UyppxVddHx5f-ZnA';
-
 const YouTubeHighlight = () => {
     const [video, setVideo] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -13,26 +10,21 @@ const YouTubeHighlight = () => {
         const fetchMostViewedVideo = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(
-                    `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=viewCount&maxResults=1&type=video`
-                );
+                const response = await fetch('/api/youtube');
                 const data = await response.json();
 
-                if (data.error) {
-                    throw new Error(data.error.message);
+                if (!response.ok) {
+                    throw new Error(data.error || 'Error al cargar el video');
                 }
 
-                if (data.items && data.items.length > 0) {
-                    const videoData = data.items[0];
-                    setVideo({
-                        id: videoData.id.videoId,
-                        title: videoData.snippet.title,
-                        description: videoData.snippet.description,
-                        thumbnail: videoData.snippet.thumbnails.high?.url || videoData.snippet.thumbnails.medium?.url,
-                        channelTitle: videoData.snippet.channelTitle,
-                        publishedAt: new Date(videoData.snippet.publishedAt)
-                    });
-                }
+                setVideo({
+                    id:           data.id,
+                    title:        data.title,
+                    description:  data.description,
+                    thumbnail:    data.thumbnail,
+                    channelTitle: data.channelTitle,
+                    publishedAt:  new Date(data.publishedAt),
+                });
             } catch (err) {
                 setError(err.message);
             } finally {
