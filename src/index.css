@@ -144,7 +144,10 @@
 
   .text-essay .biblical-inline {
     font-style: italic;
-    color: var(--color-accent-blue);
+    color: #7A5C1E;
+    background-color: rgba(197, 160, 89, 0.10);
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
   }
 
   /* Bosquejos - Esquemático, funcional */
@@ -271,10 +274,21 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
 
-  /* Biblical inline references in articles */
+  /* Biblical inline references in articles and essays */
   .biblical-inline {
     font-style: italic;
-    color: var(--color-accent-blue);
+    color: #7A5C1E;
+    background-color: rgba(197, 160, 89, 0.10);
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+  }
+
+  .teologia-content .biblical-inline {
+    font-style: italic;
+    color: #7A5C1E;
+    background-color: rgba(197, 160, 89, 0.10);
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
   }
 
   /* ========================================
