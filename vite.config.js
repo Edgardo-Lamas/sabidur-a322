@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import { visualizer } from 'rollup-plugin-visualizer'
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   base: '/',
   plugins: [
     react(),
@@ -12,7 +12,6 @@ export default defineConfig({
     visualizer({ open: false, filename: 'dist/stats.html', gzipSize: true }),
   ],
   build: {
-    // Elimina console.* y debugger en producción
     minify: 'esbuild',
     target: 'es2020',
     rollupOptions: {
@@ -26,6 +25,7 @@ export default defineConfig({
     },
   },
   esbuild: {
-    drop: ['console', 'debugger'],
+    // Solo elimina console.* y debugger en el build de producción, no en dev
+    drop: command === 'build' ? ['console', 'debugger'] : [],
   },
-})
+}))
