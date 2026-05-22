@@ -49,7 +49,7 @@ const HeroGrid = () => {
                 <div
                     className="absolute inset-0 bg-cover bg-center opacity-10"
                     style={{
-                        backgroundImage: `url(${import.meta.env.BASE_URL}img/portada-eBooks.png)`,
+                        backgroundImage: `url(${import.meta.env.BASE_URL}img/portada-eBooks.webp)`,
                         filter: 'blur(8px) grayscale(50%)'
                     }}
                 />

@@ -3,196 +3,272 @@
 
   <!-- Inicio -->
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- Artículos -->
+  <!-- Artículos y Ensayos -->
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/articulos</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/articulos</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-
-  <!-- Ensayos -->
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/ensayos</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/ensayos</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-
-  <!-- Bosquejos -->
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/bosquejos</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/bosquejos</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sabiduriadelcorazon.vercel.app/ensenanzas</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- Enseñanzas -->
+  <!-- Grandes Temas -->
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/ensenanzas</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/grandes-temas</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Predicaciones -->
+  <url>
+    <loc>https://sabiduriadelcorazon.vercel.app/predicaciones</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Teología -->
+  <url>
+    <loc>https://sabiduriadelcorazon.vercel.app/teologia-sistematica</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sabiduriadelcorazon.vercel.app/teologia-basica</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Estudios -->
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/estudio/hilo-del-tiempo</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/estudios-libros</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sabiduriadelcorazon.vercel.app/estudio/hilo-del-tiempo</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/estudio/perfecciones-de-dios</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/estudio/perfecciones-de-dios</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/estudio/perfecciones-de-dios/capitulo-1</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/estudio/perfecciones-de-dios/capitulo-1</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/estudio/perfecciones-de-dios/capitulo-2</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/estudio/perfecciones-de-dios/capitulo-2</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/estudio/perfecciones-de-dios/capitulo-3</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/estudio/perfecciones-de-dios/capitulo-3</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/estudio/sedym-modulo-3</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Teología Básica -->
-  <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/teologia-basica</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Estudios de Libros -->
-  <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/estudios-libros</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/estudio/sedym-modulo-3</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Mapas Bíblicos -->
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/mapas-biblicos</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/mapas-biblicos</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Biografías -->
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/biografias</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/biografias</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
+  <!-- Padres de la Iglesia -->
+  <url>
+    <loc>https://sabiduriadelcorazon.vercel.app/padres-de-la-iglesia</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <!-- Prerreformadores -->
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/prerreformadores</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/prerreformadores</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/prerreformadores/wycliffe</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/prerreformadores/wycliffe</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/prerreformadores/jan-hus</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/prerreformadores/jan-hus</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/prerreformadores/pedro-waldo</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/prerreformadores/pedro-waldo</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/prerreformadores/savonarola</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/prerreformadores/savonarola</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/prerreformadores/tyndale</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/prerreformadores/tyndale</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Reformadores -->
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/reformadores</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/reformadores</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/reformadores/lutero</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/reformadores/lutero</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/reformadores/calvino</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/reformadores/calvino</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/reformadores/zuinglio</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/reformadores/zuinglio</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/reformadores/knox</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/reformadores/knox</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/reformadores/bullinger</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/reformadores/bullinger</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Biblioteca -->
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/biblioteca</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/biblioteca</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
-  <!-- Tienda -->
+  <!-- Adolescentes e Historias -->
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/tienda</loc>
-    <changefreq>weekly</changefreq>
+    <loc>https://sabiduriadelcorazon.vercel.app/adolescentes</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-
-  <!-- Declaración de Fe -->
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/declaracion-de-fe</loc>
-    <changefreq>yearly</changefreq>
+    <loc>https://sabiduriadelcorazon.vercel.app/adolescentes/historias/ansiedad</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-
-  <!-- Adolescentes -->
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/adolescentes</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/adolescentes/historias/soledad</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sabiduriadelcorazon.vercel.app/adolescentes/historias/identidad</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sabiduriadelcorazon.vercel.app/adolescentes/historias/fracaso</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
-  <!-- Donaciones -->
+  <!-- Tienda y Donaciones -->
   <url>
-    <loc>https://edgardo-lamas.github.io/sabidur-a322/donaciones</loc>
+    <loc>https://sabiduriadelcorazon.vercel.app/tienda</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sabiduriadelcorazon.vercel.app/donaciones</loc>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
+  </url>
+
+  <!-- Declaración de Fe -->
+  <url>
+    <loc>https://sabiduriadelcorazon.vercel.app/declaracion-de-fe</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
 
 </urlset>

@@ -16,11 +16,15 @@ const EbooksSection = () => {
                         className="lg:w-1/2 relative"
                     >
                         <div className="absolute -inset-4 bg-sabiduria-gold/10 rounded-full blur-3xl opacity-50" />
-                        <img
-                            src={`${import.meta.env.BASE_URL}img/portada-eBooks.png`}
-                            alt="Biblioteca de recursos"
-                            className="relative z-10 w-full h-auto drop-shadow-2xl rounded-sm transition-transform duration-500 hover:scale-[1.02]"
-                        />
+                        <picture>
+                            <source srcSet={`${import.meta.env.BASE_URL}img/portada-eBooks.webp`} type="image/webp" />
+                            <img
+                                src={`${import.meta.env.BASE_URL}img/portada-eBooks.png`}
+                                alt="Biblioteca de recursos"
+                                className="relative z-10 w-full h-auto drop-shadow-2xl rounded-sm transition-transform duration-500 hover:scale-[1.02]"
+                                loading="lazy"
+                            />
+                        </picture>
                     </motion.div>
 
                     {/* Content Side */}

@@ -526,7 +526,7 @@
       "price": 5200,
       "currency": "ARS",
       "description": "Guía práctica para la preparación y predicación de sermones expositivos con poder y relevancia.",
-      "image": "img/portada-eBooks.png",
+      "image": "img/portada-eBooks.webp",
       "slug": "predicando-frescura",
       "checkoutUrl": "",
       "featured": false,
@@ -634,7 +634,7 @@
       "price": 3800,
       "currency": "ARS",
       "description": "Llamado apasionado a una relación más profunda con Dios. Uno de los libros devocionales más influyentes del siglo XX.",
-      "image": "img/portada-eBooks.png",
+      "image": "img/portada-eBooks.webp",
       "slug": "busqueda-de-dios",
       "checkoutUrl": "",
       "featured": false,
@@ -678,7 +678,7 @@
         "id": 4,
         "title": "Biblioteca Digital",
         "category": "E-books",
-        "image": "img/portada-eBooks.png",
+        "image": "img/portada-eBooks.webp",
         "link": "/ebooks"
       }
     ]
