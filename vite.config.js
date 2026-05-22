@@ -11,4 +11,21 @@ export default defineConfig({
     tailwindcss(),
     visualizer({ open: false, filename: 'dist/stats.html', gzipSize: true }),
   ],
+  build: {
+    // Elimina console.* y debugger en producción
+    minify: 'esbuild',
+    target: 'es2020',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-ui': ['framer-motion', 'lucide-react'],
+          'vendor-maps': ['leaflet', 'react-leaflet'],
+        },
+      },
+    },
+  },
+  esbuild: {
+    drop: ['console', 'debugger'],
+  },
 })

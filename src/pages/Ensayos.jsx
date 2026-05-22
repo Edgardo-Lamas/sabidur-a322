@@ -62,7 +62,7 @@ const Ensayos = () => {
                         {/* Image - Right Side */}
                         <div className="md:w-1/2">
                             <img
-                                src={`${import.meta.env.BASE_URL}img/img_ensayo.png`}
+                                src={`${import.meta.env.BASE_URL}img/img_ensayo.jpg`}
                                 alt="Ensayos - Sabiduría para el Corazón"
                                 className="w-full h-auto object-cover shadow-md"
                             />

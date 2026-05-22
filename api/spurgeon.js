@@ -1,6 +1,34 @@
 import OpenAI from 'openai';
 import { readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
+import { z } from 'zod';
+
+const ALLOWED_ORIGINS = [
+    'https://sabiduriadelcorazon.vercel.app',
+    'http://localhost:5173',
+    'http://localhost:4173',
+];
+
+// Rate limiter en memoria: máx 10 requests por IP cada 60 segundos
+const rateLimits = new Map();
+const RATE_LIMIT = 10;
+const RATE_WINDOW_MS = 60 * 1000;
+
+function checkRateLimit(ip) {
+    const now = Date.now();
+    const entry = rateLimits.get(ip);
+    if (!entry || now > entry.resetAt) {
+        rateLimits.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
+        return true;
+    }
+    if (entry.count >= RATE_LIMIT) return false;
+    entry.count++;
+    return true;
+}
+
+const questionSchema = z.object({
+    question: z.string().trim().min(3).max(500),
+});
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
@@ -88,15 +116,27 @@ ESTRUCTURA JSON DE RESPUESTA:
 }
 
 export default async function handler(req, res) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    const origin = req.headers.origin;
+    if (ALLOWED_ORIGINS.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+        res.setHeader('Vary', 'Origin');
+    }
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
     if (req.method === 'OPTIONS') return res.status(200).end();
     if (req.method !== 'POST') return res.status(405).json({ error: 'Método no permitido' });
 
-    const { question } = req.body || {};
-    if (!question?.trim()) return res.status(400).json({ error: 'La pregunta es requerida' });
+    const ip = req.headers['x-forwarded-for']?.split(',')[0].trim() || req.socket?.remoteAddress || 'unknown';
+    if (!checkRateLimit(ip)) {
+        return res.status(429).json({ error: 'Demasiadas consultas. Espera un momento antes de continuar.' });
+    }
+
+    const parsed = questionSchema.safeParse(req.body);
+    if (!parsed.success) {
+        return res.status(400).json({ error: 'La pregunta debe tener entre 3 y 500 caracteres.' });
+    }
+    const { question } = parsed.data;
 
     try {
         const knowledge = loadKnowledgeBase();
@@ -107,7 +147,7 @@ export default async function handler(req, res) {
             model: 'gpt-4o-mini',
             messages: [
                 { role: 'system', content: systemPrompt },
-                { role: 'user', content: question.trim() }
+                { role: 'user', content: question }
             ],
             response_format: { type: 'json_object' },
             temperature: 0.7,

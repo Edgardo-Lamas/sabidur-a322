@@ -3,14 +3,24 @@
 // el endpoint search?order=viewCount cuesta 100 unidades/llamada; con caché
 // solo se llama cuando el container está frío (aprox. cada 6 horas en Vercel free).
 
-const API_KEY    = process.env.VITE_YOUTUBE_API_KEY || process.env.YOUTUBE_API_KEY || '';
+const API_KEY    = process.env.YOUTUBE_API_KEY || process.env.VITE_YOUTUBE_API_KEY || '';
 const CHANNEL_ID = 'UCQ4LzY6UyppxVddHx5f-ZnA';
 const TTL_MS     = 6 * 60 * 60 * 1000; // 6 horas
+
+const ALLOWED_ORIGINS = [
+  'https://sabiduriadelcorazon.vercel.app',
+  'http://localhost:5173',
+  'http://localhost:4173',
+];
 
 let cache = null; // { data, fetchedAt }
 
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const origin = req.headers.origin;
+  if (ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Vary', 'Origin');
+  }
 
   // Devolver caché si está vigente
   if (cache && Date.now() - cache.fetchedAt < TTL_MS) {

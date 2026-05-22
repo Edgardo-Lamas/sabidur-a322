@@ -10,7 +10,14 @@ export function AudioPlayerProvider({ children }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [volume, setVolume] = useState(() => parseFloat(localStorage.getItem('player_volume') ?? '0.85'));
+  const [volume, setVolume] = useState(() => {
+    try {
+      const stored = parseFloat(localStorage.getItem('player_volume'));
+      return Number.isFinite(stored) && stored >= 0 && stored <= 1 ? stored : 0.85;
+    } catch {
+      return 0.85;
+    }
+  });
   const [isMinimized, setIsMinimized] = useState(false);
 
   useEffect(() => {

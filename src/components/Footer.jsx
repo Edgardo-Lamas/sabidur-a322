@@ -10,15 +10,22 @@ const Footer = () => {
 
     const onSubmit = async ({ email }) => {
         const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
-        if (webhookUrl) {
-            await fetch(webhookUrl, {
+        if (!webhookUrl) {
+            toast.error('El servicio de suscripción no está disponible temporalmente.');
+            return;
+        }
+        try {
+            const res = await fetch(webhookUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, source: 'newsletter-footer' }),
             });
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            toast.success('¡Suscripción exitosa! Gracias por unirte.');
+            reset();
+        } catch {
+            toast.error('Hubo un error al suscribirte. Por favor intenta nuevamente.');
         }
-        toast.success('¡Suscripción exitosa! Gracias por unirte.');
-        reset();
     };
 
     return (
