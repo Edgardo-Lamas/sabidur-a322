@@ -115,6 +115,7 @@
     <priority>0.85</priority>
   </url>
 
+
   <!-- Ensayos individuales -->
   <url>
     <loc>https://sabiduriadelcorazon.vercel.app/ensayo/de-la-opinion-a-la-conviccion</loc>
@@ -213,26 +214,28 @@
     <priority>0.85</priority>
   </url>
 
+
   <!-- Bosquejos individuales -->
   <url>
     <loc>https://sabiduriadelcorazon.vercel.app/bosquejo/el-proposito-de-la-oracion</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://sabiduriadelcorazon.vercel.app/bosquejo/las-coincidencias-que-no-existen</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
+
 
   <!-- Meditaciones individuales -->
   <url>
     <loc>https://sabiduriadelcorazon.vercel.app/meditacion/el-silencio-de-dios</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
 
   <!-- Grandes Temas -->

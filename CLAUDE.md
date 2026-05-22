@@ -332,6 +332,11 @@ VITE_SUPABASE_ANON_KEY   # Migrado a JSON locales
 - Al agregar **artículos:** editar `src/data/content.json` → clave `articulos`.
 - Al agregar **ensayos:** editar `src/data/textos.json` → clave `ensayos`.
 - Al agregar una nueva **ruta:** registrarla en `src/App.jsx` con `lazy()`.
+- **Al agregar cualquier contenido nuevo (artículo, ensayo, bosquejo, meditación):** regenerar el sitemap con:
+  ```bash
+  node scripts/generate-sitemap.js
+  ```
+  El script lee los JSONs automáticamente y actualiza `public/sitemap.xml`. Ejecutar antes de cada push.
 - Los mapas bíblicos usan GeoJSON en `src/data/maps/`.
 - El Agente Spurgeon carga los 34 JSON de `knowledge/` en cada request — si se agregan archivos a esa carpeta, quedan automáticamente disponibles para el agente.
 - **Wallpapers animados (Juventud):** ✅ Activos. 3 composiciones en `src/remotion/wallpapers/`. MP4s en `public/wallpapers/`. Workflow: editar composición → `node_modules/.bin/remotion render src/remotion/Root.jsx <ID> public/wallpapers/<id>.mp4 --overwrite` → push.
