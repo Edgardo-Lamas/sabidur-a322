@@ -225,6 +225,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
+  <url>
+    <loc>https://sabiduriadelcorazon.vercel.app/ensayo/el-dia-que-israel-no-esperaba</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
 
 
   <!-- Bosquejos individuales -->
