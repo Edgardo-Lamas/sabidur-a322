@@ -46,6 +46,13 @@ const TextPage = ({ textType }) => {
     const collection = config.collection();
     const text = collection.find((t) => t.slug === slug);
 
+    // Si el texto pertenece a una serie, el botón vuelve a la página de esa serie
+    const serieMatch = text?.serie
+        ? (content.biblioteca?.series || []).find(s => s.titulo === text.serie)
+        : null;
+    const backPath = serieMatch ? `/biblioteca/series/${serieMatch.slug}` : backPath;
+    const backLabel = serieMatch ? `Volver a ${serieMatch.titulo}` : backLabel;
+
     if (!text) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-sabiduria-bg">
@@ -57,11 +64,11 @@ const TextPage = ({ textType }) => {
                         Lo sentimos, el recurso que buscas no está disponible.
                     </p>
                     <Link
-                        to={config.backPath}
+                        to={backPath}
                         className="inline-flex items-center gap-2 text-sabiduria-gold font-bold uppercase tracking-widest hover:underline"
                     >
                         <ArrowLeft size={16} />
-                        {config.backLabel}
+                        {backLabel}
                     </Link>
                 </div>
             </div>
@@ -94,11 +101,11 @@ const TextPage = ({ textType }) => {
                 <Breadcrumbs title={text.title} />
                 <div className="mt-6 mb-2">
                     <Link
-                        to={config.backPath}
+                        to={backPath}
                         className="inline-flex items-center gap-2 text-sabiduria-navy hover:text-sabiduria-gold font-medium transition-colors"
                     >
                         <ArrowLeft size={18} />
-                        {config.backLabel}
+                        {backLabel}
                     </Link>
                 </div>
             </div>
@@ -109,11 +116,11 @@ const TextPage = ({ textType }) => {
             <div className="max-w-3xl mx-auto px-4 pb-16">
                 <div className="pt-8 border-t border-sabiduria-gray/10">
                     <Link
-                        to={config.backPath}
+                        to={backPath}
                         className="inline-flex items-center gap-2 text-sabiduria-navy hover:text-sabiduria-gold font-medium transition-colors"
                     >
                         <ArrowLeft size={18} />
-                        {config.backLabel}
+                        {backLabel}
                     </Link>
                 </div>
             </div>

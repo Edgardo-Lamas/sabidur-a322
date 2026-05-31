@@ -1147,6 +1147,71 @@
         "coverImage": "img/pdf/midrash_cover.jpg",
         "disponible": true
       }
+    ],
+    "series": [
+      {
+        "id": 0,
+        "slug": "libros-sagrados-israel",
+        "titulo": "Libros Sagrados del Pueblo de Israel",
+        "categoria": "Estudios Histórico-Teológicos",
+        "descripcion": "Estudios sobre los textos fundacionales del judaísmo y su relación con la fe cristiana: La Torá, El Tanaj, El Talmud y los grandes textos rabínicos. Análisis riguroso, académico y pastoral de la herencia escriturística que nos precede.",
+        "imagen": "img/series/libros-sagrados.jpg",
+        "disponible": true,
+        "primerArticulo": "#libros-hebreos",
+        "totalArticulos": 3,
+        "esColeccion": true
+      },
+      {
+        "id": 1,
+        "slug": "reloj-profetico",
+        "titulo": "El Reloj Profético",
+        "categoria": "Profecía Bíblica",
+        "descripcion": "Una serie de estudios teológicos que examina el plan profético de Dios desde el marco hermenéutico de las tres esferas corporativas de la historia redentora: Israel, las naciones gentiles y la Iglesia. Perspectiva dispensacionalista clásica y pretribulacionista, anclada en la literalidad de los pactos bíblicos y la suficiencia de las Escrituras.",
+        "imagen": "img/series/reloj-profetico.jpg",
+        "disponible": true,
+        "primerArticulo": "/ensayos/reloj-profetico-introduccion",
+        "totalArticulos": 1,
+        "articulos": [
+          {
+            "numero": "0",
+            "titulo": "Introducción",
+            "subtitulo": "Las tres líneas de tiempo de Dios y la llave de 1 Corintios 10:32",
+            "href": "/ensayo/reloj-profetico-introduccion",
+            "disponible": true
+          },
+          {
+            "numero": "I",
+            "titulo": "Bloque I — El estado actual de la Iglesia",
+            "subtitulo": "",
+            "href": "",
+            "disponible": false
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "slug": "custodios-de-la-palabra",
+        "titulo": "Los Custodios de la Palabra",
+        "categoria": "Historia de la Biblia",
+        "descripcion": "Antes de que existiera la palabra impresa, existieron ellos: hombres que copiaron cada letra del texto sagrado a mano, que lo escondieron en vasijas de cerámica, que lo memorizaron bajo tortura, que lo transmitieron en sótanos y desiertos para que llegara intacto hasta nosotros. Esta es su historia.",
+        "imagen": "",
+        "disponible": false,
+        "primerArticulo": "",
+        "totalArticulos": 0,
+        "articulos": []
+      },
+      {
+        "id": 3,
+        "slug": "arquitectos-pensamiento-judio",
+        "titulo": "Los Arquitectos del Pensamiento Judío",
+        "categoria": "Historia Judía",
+        "descripcion": "Uno murió recitando el Shemá mientras lo torturaban. Otro construyó el sistema filosófico más ambicioso de la Edad Media desde el exilio. Un tercero escribió un comentario de una sola línea que iluminó lo que siglos de debate no habían podido aclarar. Sin ellos, el judaísmo no existiría tal como lo conocemos.",
+        "imagen": "",
+        "disponible": false,
+        "primerArticulo": "",
+        "totalArticulos": 0,
+        "articulos": []
+      }
     ]
   }
 }
