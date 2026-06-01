@@ -213,11 +213,11 @@ La Biblioteca tiene cuatro secciones. Cada una tiene su propia fuente de datos e
 - **Metadatos de la serie:** `content.json → biblioteca.series[]`
   - Campos: `id, slug, titulo, categoria, descripcion, imagen, disponible, totalArticulos, articulos[]`
   - El array `articulos[]` contiene la **lista de capítulos** con campos: `numero, titulo, subtitulo, href, disponible`
-  - El `href` de cada artículo apunta a la ruta donde vive su contenido (normalmente `/ensayos/:slug`)
+  - El `href` de cada artículo apunta a la ruta donde vive su contenido (normalmente `/ensayo/:slug` — **SIN 's', así está registrado en App.jsx**)
 - **Contenido del artículo:** vive en `textos.json → ensayos[]` (mismo formato que ensayos de la página Textos)
 - **Para publicar un artículo nuevo en una serie:**
   1. Agregar el ensayo en `textos.json → ensayos[]` con su slug
-  2. En `content.json → biblioteca.series[n].articulos[]`, marcar `disponible: true`, completar `href: "/ensayos/<slug>"` y actualizar `totalArticulos`
+  2. En `content.json → biblioteca.series[n].articulos[]`, marcar `disponible: true`, completar `href: "/ensayo/<slug>"` (**sin 's** — así está registrado en App.jsx) y actualizar `totalArticulos`
 - **Formato HTML del contenido:** igual al de Ensayos (ver sección "Formato HTML de ensayos")
 
 #### 2. Libros Sagrados de Israel — colección especial
