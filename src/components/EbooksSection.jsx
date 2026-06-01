@@ -19,7 +19,7 @@ const EbooksSection = () => {
                         <picture>
                             <source srcSet={`${import.meta.env.BASE_URL}img/portada-eBooks.webp`} type="image/webp" />
                             <img
-                                src={`${import.meta.env.BASE_URL}img/portada-eBooks.png`}
+                                src={`${import.meta.env.BASE_URL}img/portada-eBooks.webp`}
                                 alt="Biblioteca de recursos"
                                 className="relative z-10 w-full h-auto drop-shadow-2xl rounded-sm transition-transform duration-500 hover:scale-[1.02]"
                                 loading="lazy"

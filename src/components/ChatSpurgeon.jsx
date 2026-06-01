@@ -4,7 +4,7 @@ import { MessageSquare, X, Send, Sparkles, User, Info, BookOpen, ExternalLink, Y
 import { Link } from 'react-router-dom';
 
 const SPURGEON_API_URL = '/api/spurgeon';
-const SPURGEON_AVATAR = `${import.meta.env.BASE_URL}images/spurgeon-avatar.png`;
+const SPURGEON_AVATAR = `${import.meta.env.BASE_URL}images/spurgeon-avatar.webp`;
 
 const INITIAL_SUGGESTIONS = [
     '¿Qué es la justificación por fe?',

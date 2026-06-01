@@ -129,6 +129,8 @@ const HeroGrid = () => {
                                 src={`${import.meta.env.BASE_URL}${main.image}`}
                                 alt={main.title}
                                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                fetchpriority="high"
+                                decoding="async"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                             <div className="absolute bottom-0 left-0 p-6 w-full">
