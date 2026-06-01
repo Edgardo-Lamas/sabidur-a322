@@ -1170,7 +1170,7 @@
         "imagen": "img/series/reloj-profetico.jpg",
         "disponible": true,
         "primerArticulo": "/ensayos/reloj-profetico-introduccion",
-        "totalArticulos": 1,
+        "totalArticulos": 2,
         "articulos": [
           {
             "numero": "0",
@@ -1181,10 +1181,10 @@
           },
           {
             "numero": "I",
-            "titulo": "Bloque I — El estado actual de la Iglesia",
-            "subtitulo": "",
-            "href": "",
-            "disponible": false
+            "titulo": "Bloque I — El Estado Actual de la Iglesia",
+            "subtitulo": "La novia que espera, el mundo que no sabe la hora",
+            "href": "/ensayos/reloj-profetico-bloque-i",
+            "disponible": true
           }
         ]
       },

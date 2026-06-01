@@ -176,13 +176,92 @@ public/
 
 ---
 
-## Convenciones de contenido
+## Guía de publicación de contenido
 
-- **Artículos:** `src/data/content.json` → clave `articulos` — rutas `/articulos/:slug`
-- **Ensayos:** `src/data/textos.json` → clave `ensayos` — rutas `/ensayos/:slug`
-- **Lecturas diarias, hero, social, productos, estudios, biblioteca:** `src/data/content.json`
+> **LEER ANTES DE SUBIR CUALQUIER CONTENIDO NUEVO.** Cada tipo tiene su fuente de datos y su formato HTML propio. No mezclar.
+
+---
+
+### PÁGINA TEXTOS (`/articulos`, `/ensayos`, `/bosquejos`)
+
+Esta página agrupa tres tipos de texto distintos con formatos diferentes.
+
+#### 1. Artículos — `/articulos/:slug`
+- **Fuente:** `src/data/textos.json` → clave `articulos[]` (tiene prioridad); `src/data/content.json` → clave `articles[]` (complemento sin duplicados)
+- **Campos:** `id, category, title, excerpt, date, slug, content, image`
+- **Formato del `content`:** HTML libre con estilos propios dentro de un `<style>` tag al inicio del string. No sigue el estándar de ensayos — tiene su propia hoja de estilos inline. Ver cualquier artículo existente como referencia.
+- **Ruta de imagen:** `img/<archivo>.jpg` (servida desde `public/`)
+
+#### 2. Ensayos — `/ensayos/:slug`
+- **Fuente:** `src/data/textos.json` → clave `ensayos[]`
+- **Campos:** `id, title, slug, author, date, excerpt, content, biblicalReferences[], pdfUrl`
+- **Formato del `content`:** HTML estrictamente formateado — ver sección "Formato HTML de ensayos" más abajo.
+- **Diferencia clave vs Artículos:** Sin `<style>` tag propio; usa las clases CSS del sistema de diseño del sitio.
+
+#### 3. Bosquejos — `/bosquejos`
+- **Fuente:** datos hardcodeados directamente en `src/pages/Bosquejos.jsx` (array interno, no JSON)
+- **Contenido:** PDFs en `public/Bosquejos & Guias/`
+- **Para agregar:** editar el array en `Bosquejos.jsx` directamente.
+
+---
+
+### PÁGINA BIBLIOTECA (`/biblioteca`)
+
+La Biblioteca tiene cuatro secciones. Cada una tiene su propia fuente de datos en `content.json → biblioteca`.
+
+#### 1. Series y Colecciones — `/biblioteca/series/:slug`
+- **Metadatos de la serie:** `content.json → biblioteca.series[]`
+  - Campos: `id, slug, titulo, categoria, descripcion, imagen, disponible, totalArticulos, articulos[]`
+  - El array `articulos[]` contiene la **lista de capítulos** con campos: `numero, titulo, subtitulo, href, disponible`
+  - El `href` de cada artículo apunta a la ruta donde vive su contenido (normalmente `/ensayos/:slug`)
+- **Contenido del artículo:** vive en `textos.json → ensayos[]` (mismo formato que ensayos de la página Textos)
+- **Para publicar un artículo nuevo en una serie:**
+  1. Agregar el ensayo en `textos.json → ensayos[]` con su slug
+  2. En `content.json → biblioteca.series[n].articulos[]`, marcar `disponible: true`, completar `href: "/ensayos/<slug>"` y actualizar `totalArticulos`
+- **Formato HTML del contenido:** igual al de Ensayos (ver sección "Formato HTML de ensayos")
+
+#### 2. Libros Sagrados de Israel — colección especial
+- **Fuente:** `content.json → biblioteca.librosHebreos[]`
+- **Contenido descargable:** PDFs en `public/pdf/` — pipeline Python + ReportLab (ver sección PDF Pipeline)
+
+#### 3. Biblioteca de Consulta — `/biblioteca/consulta`
+- **Fuente:** `content.json → biblioteca.consulta[]`
+- **Estructura:** categorías con listas de libros recomendados (título, autor, frase). Sin ruta propia por libro.
+
+#### 4. Ebooks PDF — sección de descarga
+- **Fuente:** `content.json → biblioteca.ebooks[]`
+- **Campos:** `id, titulo, autor, categoria, descripcion, imagenUrl, pdfUrl`
+- **Archivos:** PDFs en `public/pdf/`, imágenes en `public/img/`
+
+---
+
+### OTROS LUGARES CON CONTENIDO
+
+| Sección | Fuente de datos | Cómo agregar |
+|---|---|---|
+| Devocionales (`/devocionales`) | `src/data/devocionales/<serie>.json` + array `ALL_SERIES` en `Devocionales.jsx` | Crear JSON de serie + registrar en `Devocionales.jsx` |
+| Enseñanzas — audio (`/ensenanzas`) | `src/data/audio-library.js` | Agregar track al array `AUDIOS` |
+| Predicaciones (`/predicaciones`) | `src/data/predicaciones.json` | Agregar entrada; audio debe estar en R2 |
+| Estudios de libros (`/estudios-libros`) | `src/data/estudios-libros.json` | Agregar entrada al JSON |
+| Teología Básica (`/teologia-basica`) | `src/data/teologia-basica.json` | Agregar tema al JSON |
+| Teología Sistemática | `src/data/knowledge/*.json` (34 archivos) | Agregar/editar JSON — disponible automáticamente para ChatSpurgeon |
+| Biografías | `.jsx` individual por figura (hardcoded) | Crear nueva página JSX + registrar ruta en `App.jsx` |
+| Grandes Temas (`/grandes-temas`) | `content.json → grandesTemas` | Editar JSON |
+| Meditaciones | `textos.json → meditaciones[]` | Agregar al array |
+
+---
+
+### Checklist universal al publicar contenido nuevo
+
+1. Agregar el contenido en la fuente correcta (tabla arriba)
+2. Si es ruta nueva: registrar en `src/App.jsx` con `lazy()`
+3. Regenerar el sitemap: `node scripts/generate-sitemap.js`
+4. Hacer push a `main` → deploy automático en Vercel
+
+---
+
+### Bases de conocimiento teológica y todo el contenido está en español.
 - **Base de conocimiento teológica:** `src/data/knowledge/*.json`
-- **Todo el contenido está en español.**
 
 ---
 
@@ -346,3 +425,86 @@ VITE_SUPABASE_ANON_KEY   # Migrado a JSON locales
 - **Predicaciones (audio):** reproductor global en `AudioPlayerContext` + `PersistentPlayer`. Datos en `src/data/predicaciones.json`. URLs de audio apuntan a R2 (`r2.sabiduriadelcorazon.com/audio/`) — subida pendiente con buena conexión.
 - **Plan de lectura 30 días (Juventud):** pendiente crear contenido JSON + diseño Canva.
 - **Newsletter + devocionales IA:** pendiente. Plan: `/api/devotional.js` (GPT-4o-mini) + Resend para email + lista de suscriptores. El conocimiento de Spurgeon puede alimentar la generación.
+
+---
+
+## Proyecto: Templo de Salomón 3D — Módulo Arqueología Bíblica
+
+### Estado actual
+- **Archivo:** `~/Desktop/templo-salomon.html` — mover a `public/templo/` antes del deploy
+- **Versión:** v2 (funcional, abre en modo incógnito vía `http://localhost:8080`)
+- **Tecnología:** Vanilla Three.js r160, ES modules con import map, single HTML file
+- **Texturas:** Poly Haven CDN (CC0, sin login) — carga async desde `dl.polyhaven.org`
+
+### Cómo ejecutar en desarrollo
+```bash
+cd ~/Desktop && python3 -m http.server 8080
+# Abrir: http://localhost:8080/templo-salomon.html
+# IMPORTANTE: siempre via localhost, nunca file:// (rompe import map + texturas)
+```
+
+### Stack del visor 3D
+```javascript
+// Import map (OBLIGATORIO para que OrbitControls resuelva 'three' internamente)
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+```
+- **OrbitControls** — rotación, zoom, damping
+- **TextureLoader** — carga PBR textures de Poly Haven (falla silenciosa si hay CORS)
+- **MeshStandardMaterial** — PBR con map + normalMap + roughnessMap
+- **Raycaster** — hover interactivo con tooltips teológicos
+
+### Fuentes de datos arqueológicos (en NotebookLM)
+- **Cuaderno 1:** 1 Reyes 6-7, 2 Crónicas 3-4, Josefo (Ant. Judías VIII.3.2), Diccionario Vine, arqueología comparada
+- **Cuaderno 2:** Medidas en codos (45-46 cm regular), debate altura del Ulam (30 vs 120 codos), descripción del oro de Parvaim, Mishná Middot
+
+### Escala y coordenadas
+- **1 unidad Three.js = 1 codo hebreo ≈ 0.46 m**
+- **Z+ = Este** (entrada), **X+ = Sur**, **Y = arriba**
+- Ulam: Z 30-40 | Hekal: Z -10 a 30 | Debir: Z -30 a -10
+
+### Elementos modelados con tooltips interactivos
+| Elemento | Info teológica | Ref. bíblica |
+|---|---|---|
+| Monte Moríah (plataforma) | Abraham + David | 2 Cr 3:1 · Gn 22 |
+| Debir — Lugar Santísimo | 20×20×20 codos, cubo perfecto | 1 R 6:16-20 |
+| Querubines (esfinge fenicio-cananea) | 10 codos, alas 5c | 1 R 6:23-28 |
+| Arca del Pacto | Propiciatorio = tipo de Cristo | Ro 3:25 |
+| Hekal — Lugar Santo | Oro de Parvaim | 2 Cr 3:5-6 |
+| Altar del incienso | Intercesión perpétua | Ap 8:3-4 |
+| Mesa panes (redondos) | Pan de la Presencia | Jn 6:35 |
+| 10 Menorahs (7 brazos) | Luz perpetua | Jn 8:12 |
+| Ulam — Vestíbulo | Debate 30 vs 120 codos | Josefo VIII.3.2 |
+| Cámaras Yatsía | 3 pisos, 5-6-7 codos | 1 R 6:5-8 |
+| Jaquín y Boaz | "Él establecerá / En Él hay fortaleza" | 1 R 7:21 |
+| Altar de bronce (escalonado + rejilla) | Sacrificio → Cristo | Jn 1:29 |
+| Mar de bronce (12 toros) | Purificación sacerdotal | 1 R 7:23-26 |
+| 10 Carros de bronce | Mekonot con ruedas | 1 R 7:27-39 |
+| Atrio interior | Sacerdotes únicamente | Ef 2:14 |
+| Columnata exterior | Gran patio del pueblo | 2 Cr 4:9 |
+
+### Texturas PBR activas (Poly Haven, CC0)
+```
+large_sandstone_blocks → muros exteriores (stone)
+white_sandstone_bricks → plataforma/mármol (marble)
+brown_planks_03        → cedro interior (cedar/cedarD)
+old_wood_floor         → madera de olivo (olive)
+metal_plate            → bronce (bronze/bronzeD)
+rock_wall              → suelo del atrio (ground)
+```
+- Oro, vidrio, llamas y humo: **procedurales** (MeshStandardMaterial, sin textura externa)
+
+### Pendientes v3
+- [ ] Bajar las "salientes" erróneas (cámaras Yatsía mal posicionadas)
+- [ ] Eliminar la terraza incorrecta
+- [ ] Paneles de pared con palmeras, querubines y rosetas en relieve (canvas texture)
+- [ ] Ventanas clerestory funcionales (ShapeGeometry con abertura)
+- [ ] Integrar en página React del sitio como componente lazy
+- [ ] Ruta sugerida: `/mapas-biblicos/templo-salomon` o `/arqueologia/templo`
+- [ ] Estructuras siguientes: Templo de Ezequiel, Nueva Jerusalén, Tabernáculo
+
+### Lecciones técnicas aprendidas
+- **Import map es OBLIGATORIO** — OrbitControls.js internamente importa `from 'three'`; sin import map falla
+- **Siempre servir via HTTP** — `file://` bloquea texturas externas por CORS
+- **Unicode minus (U+2212) rompe JS** — usar siempre guión ASCII `-` en números
+- **Hard refresh (Cmd+Shift+R)** — necesario para limpiar caché al iterar
+- **Ventana incógnito** — útil para testear sin caché persistente
