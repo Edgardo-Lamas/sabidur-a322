@@ -107,7 +107,7 @@ export const EssayTemplate = ({ text }) => {
         <article className="max-w-4xl mx-auto px-4 py-16">
             {/* Header - Centrado */}
             <header className="mb-12 text-center">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-sabiduria-navy mb-6 font-heading leading-tight">
+                <h1 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-semibold text-sabiduria-navy mb-6 font-serif leading-tight">
                     {title}
                 </h1>
                 <div className="text-sm text-sabiduria-gray opacity-80">

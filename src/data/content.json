@@ -1170,7 +1170,7 @@
         "imagen": "img/series/reloj-profetico.jpg",
         "disponible": true,
         "primerArticulo": "/ensayos/reloj-profetico-introduccion",
-        "totalArticulos": 2,
+        "totalArticulos": 3,
         "articulos": [
           {
             "numero": "0",
@@ -1185,8 +1185,16 @@
             "subtitulo": "La novia que espera, el mundo que no sabe la hora",
             "href": "/ensayo/reloj-profetico-bloque-i",
             "disponible": true
+          },
+          {
+            "numero": "II",
+            "titulo": "Bloque II — El Harpazo: la promesa del rescate",
+            "subtitulo": "La naturaleza del arrebatamiento, la secuencia de 1 Tesalonicenses 4 y la liberación de la ira",
+            "href": "/ensayo/reloj-profetico-bloque-ii",
+            "disponible": true
           }
         ]
+
       },
       {
         "id": 2,
