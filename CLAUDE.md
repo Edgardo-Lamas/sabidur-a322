@@ -515,17 +515,16 @@ rock_wall              → suelo del atrio (ground)
 ## Tareas y Estado de Desarrollo (Sesión de Hoy y Próximos Pasos)
 
 ### Hecho hoy (Despliegue y Correcciones):
-- **Nueva página de Esquemas Visuales (`/esquemas`):** Creada e integrada con un mapa del "Ordo Salutis" interactivo en SVG con panel lateral explicativo y enlace a la línea de tiempo.
-- **Menú de navegación:** Convertido "Biblioteca" en un dropdown con 3 sub-items (*Biblioteca Digital*, *Esquemas Visuales*, *Biblioteca de Consulta*).
-- **Corrección de links de Spurgeon:** Corregidos enlaces de ensayos a formato singular `/ensayo/:slug` y mapeo de teología básica a `/teologia-basica/:slug`.
-- **Redirección de URL obsoleta:** `/teologia-sistematica` ahora redirige automáticamente a `/esquemas`.
-- **Regeneración de sitemap:** Actualizado `public/sitemap.xml` con todas las nuevas rutas.
-- **Git Push:** Subidos los cambios a producción (rama `main`), construyéndose en Vercel. Las capturas de pantalla de `public/Templo` se agregaron a `.gitignore` para no inflar el repo.
+- **Migración de ChatSpurgeon a Claude (Anthropic)**: Se migró la Serverless Function `/api/spurgeon.js` al modelo de última generación de Anthropic (`claude-sonnet-4-6`).
+- **Implementación de RAG con Supabase**: Se integró búsqueda semántica (`pgvector`) llamando vía REST RPC a la base de datos de Supabase.
+- **Correcciones Críticas en Scripts de Datos**:
+  - Se corrigió `migrate.js` para cargar ensayos desde `textos.json` (antes ignorados) y para castear el campo `stock` como entero para el esquema de la base de datos.
+  - Se ejecutaron las migraciones y la generación de embeddings, indexando exitosamente **475 fragmentos** (21 ensayos, 12 artículos, 12 capítulos de teología básica y 2 estudios).
+- **Git Push**: Cambios confirmados y subidos a la rama `main` en producción.
 
-### Próximos Pasos (Sesión de Mañana):
-1. **Migración del motor del Agente Spurgeon:** Cambiar el modelo de OpenAI (`gpt-4o-mini`) a **Claude (Anthropic)** en la Serverless Function `/api/spurgeon.js`.
-2. **Implementación de RAG con Supabase Vector:**
-   - Crear tablas en Supabase con soporte para vectores (`pgvector`).
-   - Crear script local para fragmentar e indexar todos los artículos, ensayos y textos en Supabase.
-   - Modificar `/api/spurgeon.js` para realizar búsquedas semánticas y proveer a Claude del contexto exacto de toda la base de datos de la web en tiempo real.
-3. **Desarrollo de nuevos Esquemas Visuales Interactivos:** Diseñar el siguiente mapa conceptual en `/esquemas` utilizando la estética inmersiva de botones tipo pastilla, líneas luminosas conectadas y panel lateral con texto-imagen-video-enlace (ej: *La Genealogía de Jesús* o *Las 12 Tribus de Israel*).
+### Próximos Pasos (Siguiente Sesión):
+1. **Fuentes de datos de métricas para el Dashboard (`/panel`)**: Definir e implementar la recepción de métricas analíticas activando y conectando Vercel Analytics, Supabase o Google Search Console.
+2. **Desarrollo del Nuevo Agente Administrador (Copiloto Editorial / SEO)**:
+   - Diseñar un agente interno e independiente del Agente Spurgeon pastoral público.
+   - Integrarlo en el panel administrativo (`/panel`) para ayudar a redactar devocionales/newsletters, interpretar las métricas del dashboard y sugerir estrategias de SEO y contenidos.
+3. **Desarrollo de nuevos Esquemas Visuales Interactivos**: Diseñar el siguiente mapa conceptual en `/esquemas` (ej: *La Genealogía de Jesús* o *Las 12 Tribus de Israel*).
