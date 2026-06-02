@@ -60,7 +60,7 @@ ${urlBlock('/grandes-temas', '0.8')}
 ${urlBlock('/predicaciones', '0.9', 'weekly')}
 
   <!-- Teología -->
-${urlBlock('/teologia-sistematica', '0.8')}
+${urlBlock('/esquemas', '0.8')}
 ${urlBlock('/teologia-basica', '0.8')}
 
   <!-- Estudios -->

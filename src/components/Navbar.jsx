@@ -7,12 +7,16 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [textosOpen, setTextosOpen] = useState(false);
   const [mobileTextosOpen, setMobileTextosOpen] = useState(false);
+  const [bibliotecaOpen, setBibliotecaOpen] = useState(false);
+  const [mobileBibliotecaOpen, setMobileBibliotecaOpen] = useState(false);
 
-  const navLinks = [
+  const navLinksPre = [
     { name: 'Inicio', path: '/' },
     { name: 'Tienda', path: '/tienda' },
     { name: 'Juventud', path: '/adolescentes' },
-    { name: 'Biblioteca', path: '/biblioteca' },
+  ];
+
+  const navLinksPost = [
     { name: 'Mapas', path: '/mapas-biblicos' },
     { name: 'Enseñanzas', path: '/ensenanzas' },
   ];
@@ -23,6 +27,12 @@ const Navbar = () => {
     { name: 'Bosquejos & Guías', path: '/bosquejos', description: 'Estructuras, ayudas para estudio, enseñanza.' },
     { name: 'Grandes Temas Bíblicos', path: '/grandes-temas', description: 'Revelación, Justificación, Santificación y Glorificación desarrollados con fundamento bíblico.' },
     { name: 'Biografías', path: '/biografias', description: 'Prerreformadores, Reformadores, Padres de la Iglesia.' },
+  ];
+
+  const bibliotecaSubmenu = [
+    { name: 'Biblioteca Digital', path: '/biblioteca', description: 'Series, libros sagrados e e-books PDF.' },
+    { name: 'Esquemas Visuales', path: '/esquemas', description: 'Mapas conceptuales, líneas de tiempo y recursos de estudio.' },
+    { name: 'Biblioteca de Consulta', path: '/biblioteca/consulta', description: 'Comentarios bíblicos y lecturas recomendadas.' },
   ];
 
   return (
@@ -42,7 +52,7 @@ const Navbar = () => {
 
           {/* Desktop Links */}
           <div className="hidden md:flex items-center space-x-8">
-            {navLinks.slice(0, 1).map((link) => (
+            {navLinksPre.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
@@ -97,7 +107,52 @@ const Navbar = () => {
               )}
             </div>
 
-            {navLinks.slice(1).map((link) => (
+            {/* BIBLIOTECA Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setBibliotecaOpen(true)}
+              onMouseLeave={() => setBibliotecaOpen(false)}
+            >
+              <button
+                className="text-sabiduria-navy/80 hover:text-sabiduria-navy font-medium text-sm tracking-wide uppercase transition-colors flex items-center gap-1 py-2"
+                aria-haspopup="true"
+                aria-expanded={bibliotecaOpen}
+                aria-controls="biblioteca-dropdown"
+                onKeyDown={(e) => {
+                  if (e.key === 'Escape') setBibliotecaOpen(false);
+                  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setBibliotecaOpen(prev => !prev); }
+                }}
+              >
+                Biblioteca
+                <ChevronDown size={14} className={`transition-transform ${bibliotecaOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {/* Dropdown Menu */}
+              {bibliotecaOpen && (
+                <div id="biblioteca-dropdown" role="menu" className="absolute top-full left-0 pt-2 w-72 z-50">
+                  <div className="bg-white border border-sabiduria-gray/10 shadow-lg rounded-sm overflow-hidden">
+                    {bibliotecaSubmenu.map((item) => (
+                      <Link
+                        key={item.name}
+                        to={item.path}
+                        role="menuitem"
+                        onKeyDown={(e) => { if (e.key === 'Escape') setBibliotecaOpen(false); }}
+                        className="block px-4 py-3 hover:bg-sabiduria-bg transition-colors border-b border-sabiduria-gray/5 last:border-b-0"
+                      >
+                        <span className="block text-sabiduria-navy font-medium text-sm uppercase tracking-wide">
+                          {item.name}
+                        </span>
+                        <span className="block text-sabiduria-gray text-xs mt-1">
+                          {item.description}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {navLinksPost.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
@@ -106,6 +161,7 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
+
             <AnimatedButton
               as="link"
               to="/donaciones"
@@ -137,13 +193,16 @@ const Navbar = () => {
       {isOpen && (
         <div id="mobile-menu" className="md:hidden bg-white border-b border-sabiduria-gray/10 animate-fade-in">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <Link
-              to="/"
-              onClick={() => setIsOpen(false)}
-              className="block px-3 py-4 text-sabiduria-navy hover:bg-sabiduria-bg font-medium uppercase text-sm"
-            >
-              Inicio
-            </Link>
+            {navLinksPre.map((link) => (
+              <Link
+                key={link.name}
+                to={link.path}
+                onClick={() => setIsOpen(false)}
+                className="block px-3 py-4 text-sabiduria-navy hover:bg-sabiduria-bg font-medium uppercase text-sm"
+              >
+                {link.name}
+              </Link>
+            ))}
 
             {/* Mobile TEXTOS Accordion */}
             <div>
@@ -173,7 +232,35 @@ const Navbar = () => {
               )}
             </div>
 
-            {navLinks.slice(1).map((link) => (
+            {/* Mobile BIBLIOTECA Accordion */}
+            <div>
+              <button
+                onClick={() => setMobileBibliotecaOpen(!mobileBibliotecaOpen)}
+                className="w-full flex items-center justify-between px-3 py-4 text-sabiduria-navy hover:bg-sabiduria-bg font-medium uppercase text-sm"
+                aria-expanded={mobileBibliotecaOpen}
+                aria-controls="mobile-biblioteca-submenu"
+              >
+                Biblioteca
+                <ChevronDown size={16} className={`transition-transform ${mobileBibliotecaOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {mobileBibliotecaOpen && (
+                <div id="mobile-biblioteca-submenu" className="bg-sabiduria-bg/50 border-l-2 border-sabiduria-gold ml-3">
+                  {bibliotecaSubmenu.map((item) => (
+                    <Link
+                      key={item.name}
+                      to={item.path}
+                      onClick={() => setIsOpen(false)}
+                      className="block px-4 py-3 text-sabiduria-navy/80 hover:text-sabiduria-navy text-sm"
+                    >
+                      <span className="block font-medium">{item.name}</span>
+                      <span className="block text-xs text-sabiduria-gray mt-0.5">{item.description}</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {navLinksPost.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
@@ -183,6 +270,7 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
+
             <Link
               to="/donaciones"
               onClick={() => setIsOpen(false)}

@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
 import Navbar from './components/Navbar';
@@ -42,7 +42,7 @@ const DeclaracionDeFe     = lazy(() => import('./pages/DeclaracionDeFe'));
 const EstudioPage         = lazy(() => import('./pages/EstudioPage'));
 const TeologiaBasica      = lazy(() => import('./pages/TeologiaBasica'));
 const TeologiaBasicaTema  = lazy(() => import('./pages/TeologiaBasicaTema'));
-const TeologiaSistematica = lazy(() => import('./pages/TeologiaSistematica'));
+const Esquemas            = lazy(() => import('./pages/Esquemas'));
 const GrandesTemas        = lazy(() => import('./pages/GrandesTemas'));
 const EstudiosLibros      = lazy(() => import('./pages/EstudiosLibros'));
 const LibroEstudioIndex   = lazy(() => import('./pages/LibroEstudioIndex'));
@@ -166,7 +166,8 @@ function App() {
                 <Route path="/declaracion-de-fe" element={<DeclaracionDeFe />} />
                 <Route path="/teologia-basica" element={<TeologiaBasica />} />
                 <Route path="/teologia-basica/:slug" element={<TeologiaBasicaTema />} />
-                <Route path="/teologia-sistematica" element={<TeologiaSistematica />} />
+                <Route path="/esquemas" element={<Esquemas />} />
+                <Route path="/teologia-sistematica" element={<Navigate to="/esquemas" replace />} />
                 <Route path="/grandes-temas" element={<GrandesTemas />} />
                 <Route path="/estudios-libros" element={<EstudiosLibros />} />
                 <Route path="/estudios-libros/:libroSlug" element={<LibroEstudioIndex />} />

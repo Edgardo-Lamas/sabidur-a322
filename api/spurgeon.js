@@ -42,7 +42,8 @@ function loadKnowledgeBase() {
             const tema = data.tema || data.categoria || data.title || file.replace('.json', '');
             const definicion = data.contenido?.definicion || data.content || data.body || '';
             const refs = data.referencias_clave || data.biblicalReferences || '';
-            return { tema, definicion: String(definicion).substring(0, 450), refs: String(refs).substring(0, 150) };
+            const slug = data.id || file.replace('.json', '');
+            return { tema, slug, definicion: String(definicion).substring(0, 450), refs: String(refs).substring(0, 150) };
         } catch {
             return null;
         }
@@ -62,13 +63,49 @@ function loadEssays() {
     }
 }
 
+function getKnowledgeUrl(slug) {
+    const KNOWLEDGE_TO_BASICA_MAP = {
+        'intro-teologia': '/teologia-basica/introduccion-teologia',
+        'revelacion': '/teologia-basica/la-biblia',
+        'bibliologia': '/teologia-basica/la-biblia',
+        'teologia-propia-atributos': '/teologia-basica/atributos-de-dios',
+        'trinidad': '/teologia-basica/atributos-de-dios',
+        'cristologia': '/teologia-basica/jesucristo',
+        'pneumatologia': '/teologia-basica/el-espiritu-santo',
+        'angelologia': '/teologia-basica/los-angeles',
+        'demonologia': '/teologia-basica/satanas-y-demonios',
+        'antropologia': '/teologia-basica/el-hombre',
+        'hamartiologia-pecado': '/teologia-basica/el-pecado',
+        'soteriologia-justificacion': '/teologia-basica/la-salvacion',
+        'soteriologia-santificacion': '/teologia-basica/la-salvacion',
+        'soteriologia-glorificacion': '/teologia-basica/la-salvacion',
+        'eclesiologia': '/teologia-basica/la-iglesia',
+        'escatologia': '/teologia-basica/las-ultimas-cosas'
+    };
+
+    if (KNOWLEDGE_TO_BASICA_MAP[slug]) {
+        return KNOWLEDGE_TO_BASICA_MAP[slug];
+    }
+    if (slug.startsWith('sitio-articulo-')) {
+        return `/articulo/${slug.replace('sitio-articulo-', '')}`;
+    }
+    if (slug.startsWith('sitio-ensayo-')) {
+        return `/ensayo/${slug.replace('sitio-ensayo-', '')}`;
+    }
+    if (slug.startsWith('sitio-meditacion-')) {
+        return `/meditacion/${slug.replace('sitio-meditacion-', '')}`;
+    }
+    return `/teologia-basica`;
+}
+
 function buildSystemPrompt(knowledge, essays) {
-    const knowledgeSummary = knowledge.map(k =>
-        `### ${k.tema}\n${k.definicion}${k.refs ? `\nRefs: ${k.refs}` : ''}`
-    ).join('\n\n');
+    const knowledgeSummary = knowledge.map(k => {
+        const url = getKnowledgeUrl(k.slug);
+        return `### ${k.tema} (Enlace de lectura recomendado: ${url})\n${k.definicion}${k.refs ? `\nRefs: ${k.refs}` : ''}`;
+    }).join('\n\n');
 
     const essaysList = essays.map(e =>
-        `- "${e.titulo}" → /ensayos/${e.slug}`
+        `- "${e.titulo}" → /ensayo/${e.slug}`
     ).join('\n');
 
     return `Eres el Agente Spurgeon, asistente teológico del sitio "Sabiduría para el Corazón" — plataforma de teología reformada en español. Tu nombre evoca a Charles Haddon Spurgeon, el Príncipe de los Predicadores.
@@ -89,7 +126,8 @@ ${essaysList}
 RUTAS DEL SITIO (para sugerencias de lectura):
 - /biografias — Reformadores y Padres de la Iglesia
 - /ensayos — Todos los ensayos teológicos
-- /teologia-sistematica — Teología sistemática completa
+- /teologia-basica — Curso de Teología Básica completo (12 capítulos)
+- /esquemas — Esquemas, mapas conceptuales y líneas de tiempo interactivas
 - /mapas-biblicos — Mapas bíblicos interactivos
 - /estudios-libros — Estudios de libros bíblicos
 - /estudio/perfecciones-de-dios — Serie "Las Perfecciones de Dios"
