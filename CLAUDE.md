@@ -383,7 +383,8 @@ VITE_SUPABASE_ANON_KEY   # Migrado a JSON locales
 | `/ensayos` | Ensayos.jsx | ✅ |
 | `/bosquejos` | Bosquejos.jsx | ✅ |
 | `/grandes-temas` | GrandesTemas.jsx | ✅ 4 temas, hero FLUX |
-| `/teologia-sistematica` | TeologiaSistematica.jsx | ✅ (basada en Ryrie) |
+| `/teologia-sistematica` | - | Redirige a `/esquemas` |
+| `/esquemas` | Esquemas.jsx | ✅ Esquemas Visuales (Ordo Salutis interactivo) |
 | `/teologia-basica` | TeologiaBasica.jsx | ✅ |
 | `/biografias` | Biografias.jsx | ✅ |
 | `/padres-de-la-iglesia` | PadresDeLaIglesia.jsx | ✅ 5 biografías |
@@ -504,7 +505,27 @@ rock_wall              → suelo del atrio (ground)
 
 ### Lecciones técnicas aprendidas
 - **Import map es OBLIGATORIO** — OrbitControls.js internamente importa `from 'three'`; sin import map falla
-- **Siempre servir via HTTP** — `file://` bloquea texturas externas por CORS
+- **Always servir via HTTP** — `file://` bloquea texturas externas por CORS
 - **Unicode minus (U+2212) rompe JS** — usar siempre guión ASCII `-` en números
 - **Hard refresh (Cmd+Shift+R)** — necesario para limpiar caché al iterar
 - **Ventana incógnito** — útil para testear sin caché persistente
+
+---
+
+## Tareas y Estado de Desarrollo (Sesión de Hoy y Próximos Pasos)
+
+### Hecho hoy (Despliegue y Correcciones):
+- **Nueva página de Esquemas Visuales (`/esquemas`):** Creada e integrada con un mapa del "Ordo Salutis" interactivo en SVG con panel lateral explicativo y enlace a la línea de tiempo.
+- **Menú de navegación:** Convertido "Biblioteca" en un dropdown con 3 sub-items (*Biblioteca Digital*, *Esquemas Visuales*, *Biblioteca de Consulta*).
+- **Corrección de links de Spurgeon:** Corregidos enlaces de ensayos a formato singular `/ensayo/:slug` y mapeo de teología básica a `/teologia-basica/:slug`.
+- **Redirección de URL obsoleta:** `/teologia-sistematica` ahora redirige automáticamente a `/esquemas`.
+- **Regeneración de sitemap:** Actualizado `public/sitemap.xml` con todas las nuevas rutas.
+- **Git Push:** Subidos los cambios a producción (rama `main`), construyéndose en Vercel. Las capturas de pantalla de `public/Templo` se agregaron a `.gitignore` para no inflar el repo.
+
+### Próximos Pasos (Sesión de Mañana):
+1. **Migración del motor del Agente Spurgeon:** Cambiar el modelo de OpenAI (`gpt-4o-mini`) a **Claude (Anthropic)** en la Serverless Function `/api/spurgeon.js`.
+2. **Implementación de RAG con Supabase Vector:**
+   - Crear tablas en Supabase con soporte para vectores (`pgvector`).
+   - Crear script local para fragmentar e indexar todos los artículos, ensayos y textos en Supabase.
+   - Modificar `/api/spurgeon.js` para realizar búsquedas semánticas y proveer a Claude del contexto exacto de toda la base de datos de la web en tiempo real.
+3. **Desarrollo de nuevos Esquemas Visuales Interactivos:** Diseñar el siguiente mapa conceptual en `/esquemas` utilizando la estética inmersiva de botones tipo pastilla, líneas luminosas conectadas y panel lateral con texto-imagen-video-enlace (ej: *La Genealogía de Jesús* o *Las 12 Tribus de Israel*).
