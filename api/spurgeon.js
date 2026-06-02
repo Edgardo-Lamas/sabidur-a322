@@ -1,4 +1,8 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import OpenAI from 'openai';
+import Anthropic from '@anthropic-ai/sdk';
 import { readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
 import { z } from 'zod';
@@ -31,23 +35,28 @@ const questionSchema = z.object({
 });
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 function loadKnowledgeBase() {
     const dir = join(process.cwd(), 'src/data/knowledge');
-    const files = readdirSync(dir).filter(f => f.endsWith('.json') && f !== 'index.json');
+    try {
+        const files = readdirSync(dir).filter(f => f.endsWith('.json') && f !== 'index.json');
 
-    return files.map(file => {
-        try {
-            const data = JSON.parse(readFileSync(join(dir, file), 'utf8'));
-            const tema = data.tema || data.categoria || data.title || file.replace('.json', '');
-            const definicion = data.contenido?.definicion || data.content || data.body || '';
-            const refs = data.referencias_clave || data.biblicalReferences || '';
-            const slug = data.id || file.replace('.json', '');
-            return { tema, slug, definicion: String(definicion).substring(0, 450), refs: String(refs).substring(0, 150) };
-        } catch {
-            return null;
-        }
-    }).filter(k => k && k.definicion.length > 50);
+        return files.map(file => {
+            try {
+                const data = JSON.parse(readFileSync(join(dir, file), 'utf8'));
+                const tema = data.tema || data.categoria || data.title || file.replace('.json', '');
+                const definicion = data.contenido?.definicion || data.content || data.body || '';
+                const refs = data.referencias_clave || data.biblicalReferences || '';
+                const slug = data.id || file.replace('.json', '');
+                return { tema, slug, definicion: String(definicion).substring(0, 450), refs: String(refs).substring(0, 150) };
+            } catch {
+                return null;
+            }
+        }).filter(k => k && k.definicion.length > 50);
+    } catch {
+        return [];
+    }
 }
 
 function loadEssays() {
@@ -98,33 +107,26 @@ function getKnowledgeUrl(slug) {
     return `/teologia-basica`;
 }
 
-function buildSystemPrompt(knowledge, essays) {
-    const knowledgeSummary = knowledge.map(k => {
-        const url = getKnowledgeUrl(k.slug);
-        return `### ${k.tema} (Enlace de lectura recomendado: ${url})\n${k.definicion}${k.refs ? `\nRefs: ${k.refs}` : ''}`;
-    }).join('\n\n');
-
-    const essaysList = essays.map(e =>
-        `- "${e.titulo}" → /ensayo/${e.slug}`
-    ).join('\n');
+function buildSystemPrompt(context, suggestedLinks) {
+    const linksList = suggestedLinks.map(l => `- "${l.title}" → ${l.url}`).join('\n');
 
     return `Eres el Agente Spurgeon, asistente teológico del sitio "Sabiduría para el Corazón" — plataforma de teología reformada en español. Tu nombre evoca a Charles Haddon Spurgeon, el Príncipe de los Predicadores.
 
 CARÁCTER:
-- Hablas con calidez pastoral, sabiduría y humildad genuina
-- Tu teología es reformada: soberanía de Dios, gracia soberana, Sola Scriptura, Solus Christus, Sola Gratia, Sola Fide
-- Citas la Escritura con precisión y reverencia, integrándola naturalmente en tu respuesta
-- Eres accesible y nunca condescendiente; hablas a alguien que quiere crecer, no a un estudiante que debe aprobar
-- Siempre recuerdas sutilmente que no reemplazas la guianza pastoral humana
+- Hablas con calidez pastoral, sabiduría y humildad genuina.
+- Tu teología es reformada: soberanía de Dios, gracia soberana, Sola Scriptura, Solus Christus, Sola Gratia, Sola Fide.
+- Citas la Escritura con precisión y reverencia, integrándola naturalmente en tu respuesta.
+- Eres accesible y nunca condescendiente; hablas a alguien que quiere crecer, no a un estudiante que debe aprobar.
+- Siempre recuerdas sutilmente que no reemplazas la guianza pastoral humana.
 
-BASE DE CONOCIMIENTO TEOLÓGICA:
-${knowledgeSummary}
+CONTEXTO DE NUESTRO SITIO WEB (Utiliza esta información para responder con exactitud):
+${context}
 
-ENSAYOS DEL SITIO:
-${essaysList}
+ENLACES RECOMENDADOS DEL SITIO (Si son relevantes para la pregunta, sugiérelos exactamente como están aquí):
+${linksList || '- /teologia-basica (Curso de Teología Básica)'}
 
-RUTAS DEL SITIO (para sugerencias de lectura):
-- /biografias — Reformadores y Padres de la Iglesia
+OTRAS RUTAS GENERALES DEL SITIO:
+- /biografias — Biografías de Reformadores y Padres de la Iglesia
 - /ensayos — Todos los ensayos teológicos
 - /teologia-basica — Curso de Teología Básica completo (12 capítulos)
 - /esquemas — Esquemas, mapas conceptuales y líneas de tiempo interactivas
@@ -135,12 +137,13 @@ RUTAS DEL SITIO (para sugerencias de lectura):
 - /reformadores — Lutero, Calvino, Zuinglio, Knox, Bullinger
 
 INSTRUCCIONES DE RESPUESTA:
-- Responde SIEMPRE en JSON válido con la estructura exacta indicada abajo
-- La respuesta debe ser pastoral, cálida y teológicamente precisa
-- Entre 150 y 280 palabras para el campo "reply"
-- Integra referencias bíblicas naturalmente en el texto
-- Las preguntas sugeridas deben profundizar el tema o abrir nuevos ángulos relacionados
-- Solo sugiere links del sitio si son genuinamente relevantes (máximo 2)
+- Responde SIEMPRE en formato JSON válido con la estructura exacta indicada abajo.
+- Tu respuesta ("reply") debe ser pastoral, cálida, teológicamente precisa y basarse primariamente en el CONTEXTO provisto.
+- La respuesta ("reply") debe tener una extensión de entre 150 y 280 palabras.
+- Integra referencias bíblicas naturalmente en el texto.
+- Las preguntas sugeridas ("suggestedQuestions") deben profundizar el tema o abrir nuevos ángulos relacionados.
+- Solo sugiere links de "suggestedLinks" si están en la sección de ENLACES RECOMENDADOS o RUTAS GENERALES (máximo 2).
+- NO agregues texto antes ni después del JSON. Devuelve únicamente el objeto JSON.
 
 ESTRUCTURA JSON DE RESPUESTA:
 {
@@ -151,6 +154,19 @@ ESTRUCTURA JSON DE RESPUESTA:
     { "title": "Título del recurso", "url": "/ruta", "type": "ensayo", "external": false }
   ]
 }`;
+}
+
+function extractJSON(text) {
+    let cleanText = text.trim();
+    if (cleanText.startsWith('```json')) {
+        cleanText = cleanText.substring(7);
+    } else if (cleanText.startsWith('```')) {
+        cleanText = cleanText.substring(3);
+    }
+    if (cleanText.endsWith('```')) {
+        cleanText = cleanText.substring(0, cleanText.length - 3);
+    }
+    return JSON.parse(cleanText.trim());
 }
 
 export default async function handler(req, res) {
@@ -176,34 +192,137 @@ export default async function handler(req, res) {
     }
     const { question } = parsed.data;
 
+    let documents = [];
     try {
-        const knowledge = loadKnowledgeBase();
-        const essays = loadEssays();
-        const systemPrompt = buildSystemPrompt(knowledge, essays);
+        // 1. Generar el embedding de la pregunta con OpenAI
+        const embeddingRes = await openai.embeddings.create({
+            model: 'text-embedding-3-small',
+            input: question,
+        });
+        const queryEmbedding = embeddingRes.data[0].embedding;
 
-        const completion = await openai.chat.completions.create({
-            model: 'gpt-4o-mini',
+        // 2. Realizar la búsqueda semántica en Supabase vía REST RPC
+        const supabaseUrl = process.env.VITE_SUPABASE_URL;
+        const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
+
+        if (supabaseUrl && supabaseKey) {
+            const dbResponse = await fetch(`${supabaseUrl}/rest/v1/rpc/match_document_sections`, {
+                method: 'POST',
+                headers: {
+                    'apikey': supabaseKey,
+                    'Authorization': `Bearer ${supabaseKey}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    query_embedding: queryEmbedding,
+                    match_threshold: 0.35,
+                    match_count: 5
+                })
+            });
+
+            if (dbResponse.ok) {
+                documents = await dbResponse.json();
+            } else {
+                console.warn('[Spurgeon API RAG] Error consultando Supabase RPC:', dbResponse.status, await dbResponse.text());
+            }
+        }
+    } catch (err) {
+        console.error('[Spurgeon API RAG] Error en el flujo RAG:', err.message);
+    }
+
+    try {
+        let context = '';
+        const suggestedLinks = [];
+
+        if (Array.isArray(documents) && documents.length > 0) {
+            context = documents.map((doc, index) => {
+                const meta = doc.metadata || {};
+                let url = '/teologia-basica';
+                let type = 'general';
+
+                if (meta.source === 'articulo') {
+                    url = `/articulo/${meta.slug}`;
+                    type = 'articulo';
+                } else if (meta.source === 'ensayo') {
+                    url = `/ensayo/${meta.slug}`;
+                    type = 'ensayo';
+                } else if (meta.source === 'teologia_basica') {
+                    url = `/teologia-basica/${meta.slug}`;
+                    type = 'teologia';
+                } else if (meta.source === 'estudio_biblico') {
+                    url = `/estudio/${meta.slug}`;
+                    type = 'estudio';
+                }
+
+                // Añadir a links sugeridos si tiene título y slug
+                if (meta.title && meta.slug && suggestedLinks.length < 2) {
+                    if (!suggestedLinks.some(l => l.url === url)) {
+                        suggestedLinks.push({
+                            title: meta.title,
+                            url: url,
+                            type: type,
+                            external: false
+                        });
+                    }
+                }
+
+                return `[Fragmento ${index + 1}]
+Título: ${meta.title || 'Recurso'}
+Fuente: ${meta.source || 'web'}
+Enlace al recurso: ${url}
+Contenido: ${doc.content}`;
+            }).join('\n\n');
+        } else {
+            // Fallback a archivos locales si no se encontraron documentos
+            const localKnowledge = loadKnowledgeBase();
+            const localEssays = loadEssays();
+
+            context = localKnowledge.map(k => {
+                const url = getKnowledgeUrl(k.slug);
+                return `### ${k.tema} (Enlace de lectura: ${url})\n${k.definicion}`;
+            }).join('\n\n');
+
+            localEssays.slice(0, 2).forEach(e => {
+                suggestedLinks.push({
+                    title: e.titulo,
+                    url: `/ensayo/${e.slug}`,
+                    type: 'ensayo',
+                    external: false
+                });
+            });
+        }
+
+        const systemPrompt = buildSystemPrompt(context, suggestedLinks);
+
+        // 3. Consultar a Claude (Anthropic)
+        const response = await anthropic.messages.create({
+            model: 'claude-sonnet-4-6',
+            max_tokens: 1200,
+            system: systemPrompt,
             messages: [
-                { role: 'system', content: systemPrompt },
                 { role: 'user', content: question }
             ],
-            response_format: { type: 'json_object' },
             temperature: 0.7,
-            max_tokens: 950,
         });
 
-        const data = JSON.parse(completion.choices[0].message.content);
+        const rawText = response.content[0].text;
+        const data = extractJSON(rawText);
+
+        const sources = (documents || []).map(doc => ({
+            title: doc.metadata?.title || 'Recurso del sitio',
+            source: doc.metadata?.source || 'web'
+        }));
 
         return res.status(200).json({
             reply: data.reply || 'No pude generar una respuesta. Por favor intente nuevamente.',
             verse: data.verse || null,
             suggestedQuestions: Array.isArray(data.suggestedQuestions) ? data.suggestedQuestions.slice(0, 3) : [],
-            suggestedLinks: Array.isArray(data.suggestedLinks) ? data.suggestedLinks.slice(0, 2) : [],
-            sources: [],
+            suggestedLinks: Array.isArray(data.suggestedLinks) ? data.suggestedLinks.slice(0, 2) : (data.suggestedLinks || []),
+            sources: sources,
         });
 
     } catch (err) {
-        console.error('[Spurgeon API]', err.message);
+        console.error('[Spurgeon API Error]', err.message);
         return res.status(500).json({
             reply: 'Disculpe, hubo un inconveniente al procesar su consulta. Por favor intente nuevamente en unos momentos.',
             verse: null,
@@ -213,6 +332,7 @@ export default async function handler(req, res) {
                 '¿Quiénes fueron los Reformadores?'
             ],
             suggestedLinks: [],
+            sources: [],
         });
     }
 }

@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.100.1",
     "@remotion/cli": "^4.0.456",
     "@remotion/player": "^4.0.456",
     "@remotion/renderer": "^4.0.456",
+    "@supabase/supabase-js": "^2.107.0",
     "@tailwindcss/vite": "^4.1.18",
     "@vercel/analytics": "^2.0.1",
     "dompurify": "^3.3.3",

@@ -20,17 +20,24 @@ if (!supabaseUrl || !supabaseKey) {
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const contentPath = path.join(__dirname, '../src/data/content.json');
+const textosPath = path.join(__dirname, '../src/data/textos.json');
 const knowledgeDir = path.join(__dirname, '../src/data/knowledge');
 
 async function migrate() {
     console.log('--- Iniciando Migración ---');
 
     const content = JSON.parse(fs.readFileSync(contentPath, 'utf8'));
+    let textosData = { articulos: [], ensayos: [] };
+    try {
+        textosData = JSON.parse(fs.readFileSync(textosPath, 'utf8'));
+    } catch (e) {
+        console.warn('No se pudo leer textos.json, usando valores vacíos');
+    }
 
     // 1. Artículos
     console.log('Migrando artículos...');
     const { articles } = content;
-    const textosArticulos = content.textos?.articulos || [];
+    const textosArticulos = textosData.articulos || [];
 
     const articulatedData = articles.map(art => {
         const detail = textosArticulos.find(t => t.slug === art.slug);
@@ -53,8 +60,7 @@ async function migrate() {
 
     // 2. Ensayos
     console.log('Migrando ensayos...');
-    const { ensayos } = content; // Si existe en root
-    const textosEnsayos = content.textos?.ensayos || [];
+    const textosEnsayos = textosData.ensayos || [];
 
     for (const item of textosEnsayos) {
         const entry = {
@@ -100,7 +106,7 @@ async function migrate() {
             checkout_url: item.checkoutUrl,
             featured: item.featured,
             bestseller: item.bestseller,
-            stock: item.stock === true || item.stock === 'true', // Handle boolean or string
+            stock: (item.stock === true || item.stock === 'true') ? 1 : 0, // Handle boolean or string to match integer column
             format: item.format,
             pages: item.pages,
             publisher: item.publisher
