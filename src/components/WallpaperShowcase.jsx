@@ -4,10 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { WallpaperLampara } from '../remotion/wallpapers/WallpaperLampara';
 import { WallpaperGracia } from '../remotion/wallpapers/WallpaperGracia';
 import { WallpaperFortaleza } from '../remotion/wallpapers/WallpaperFortaleza';
-import { VersiculoCard } from '../remotion/scenes/VersiculoCard';
-import { Download, Smartphone, X, Expand } from 'lucide-react';
+import { Download, X, Expand, Smartphone } from 'lucide-react';
 
-// Existing animated wallpapers — Remotion Player (live)
 const WALLPAPERS = [
     {
         id: 'lampara',
@@ -44,99 +42,14 @@ const WALLPAPERS = [
     },
 ];
 
-// Verse cards — pregenerados como MP4 para compartir
-const VERSE_CARDS = [
-    {
-        id: 'lamentaciones',
-        component: VersiculoCard,
-        inputProps: {
-            imagePath: 'img/versiculos/lamentaciones.jpg',
-            keyword: 'FIDELIDAD',
-            lines: ['Por la misericordia de Jehová', 'no hemos sido consumidos.', 'Nuevas son cada mañana;', 'grande es tu fidelidad.'],
-            reference: 'Lamentaciones 3:22-23',
-        },
-        titulo: 'Fidelidad',
-        referencia: 'Lamentaciones 3:22-23',
-        descripcion: 'Para compartir · 9:16',
-        durationInFrames: 450,
-        compositionWidth: 576,
-        compositionHeight: 1024,
-        downloadPath: '/versiculos/lamentaciones.mp4',
-    },
-    {
-        id: 'isaias',
-        component: VersiculoCard,
-        inputProps: {
-            imagePath: 'img/versiculos/isaias.jpg',
-            keyword: 'FUERZAS',
-            lines: ['Los que esperan a Jehová', 'tendrán nuevas fuerzas;', 'levantarán alas como las águilas;', 'correrán, y no se cansarán.'],
-            reference: 'Isaías 40:31',
-        },
-        titulo: 'Fuerzas',
-        referencia: 'Isaías 40:31',
-        descripcion: 'Para compartir · 9:16',
-        durationInFrames: 450,
-        compositionWidth: 576,
-        compositionHeight: 1024,
-        downloadPath: '/versiculos/isaias.mp4',
-    },
-    {
-        id: 'proverbios-16',
-        component: VersiculoCard,
-        inputProps: {
-            imagePath: 'img/versiculos/proverbios-16.jpg',
-            keyword: 'TEMOR',
-            lines: ['Con misericordia y verdad', 'se corrige el pecado,', 'y con el temor de Jehová', 'los hombres se apartan del mal.'],
-            reference: 'Proverbios 16:6',
-        },
-        titulo: 'Temor',
-        referencia: 'Proverbios 16:6',
-        descripcion: 'Para compartir · 9:16',
-        durationInFrames: 450,
-        compositionWidth: 576,
-        compositionHeight: 1024,
-        downloadPath: '/versiculos/proverbios-16.mp4',
-    },
-    {
-        id: 'proverbios-22',
-        component: VersiculoCard,
-        inputProps: {
-            imagePath: 'img/versiculos/proverbios-22.jpg',
-            keyword: 'NOMBRE',
-            lines: ['De más estima es el buen nombre', 'que las muchas riquezas,', 'y la buena fama más que', 'la plata y el oro.'],
-            reference: 'Proverbios 22:1',
-        },
-        titulo: 'Buen Nombre',
-        referencia: 'Proverbios 22:1',
-        descripcion: 'Para compartir · 9:16',
-        durationInFrames: 450,
-        compositionWidth: 576,
-        compositionHeight: 1024,
-        downloadPath: '/versiculos/proverbios-22.mp4',
-    },
-    {
-        id: 'proverbios-21',
-        component: VersiculoCard,
-        inputProps: {
-            imagePath: 'img/versiculos/proverbios-21.jpg',
-            keyword: 'VICTORIA',
-            lines: ['El caballo se alista', 'para el día de la batalla;', 'mas Jehová es', 'el que da la victoria.'],
-            reference: 'Proverbios 21:31',
-        },
-        titulo: 'Victoria',
-        referencia: 'Proverbios 21:31',
-        descripcion: 'Para compartir · 9:16',
-        durationInFrames: 450,
-        compositionWidth: 576,
-        compositionHeight: 1024,
-        downloadPath: '/versiculos/proverbios-21.mp4',
-    },
-];
-
 const WallpaperCard = ({ w, onPreview }) => (
-    <div className="flex flex-col items-center">
+    <motion.div
+        whileHover={{ y: -6, scale: 1.02 }}
+        transition={{ duration: 0.22 }}
+        className="flex flex-col items-center"
+    >
         <div
-            className="relative w-44 rounded-[2.2rem] overflow-hidden border-2 border-white/15 shadow-2xl shadow-black/60 cursor-pointer group"
+            className="relative w-full rounded-2xl overflow-hidden border border-white/10 hover:border-sabiduria-gold/40 shadow-2xl shadow-black/60 cursor-pointer group transition-colors"
             style={{ aspectRatio: '9/16' }}
             onClick={() => onPreview(w)}
         >
@@ -154,9 +67,10 @@ const WallpaperCard = ({ w, onPreview }) => (
                 clickToPlay={false}
                 style={{ width: '100%', height: '100%' }}
             />
+            {/* notch de celular */}
             <div className="absolute top-3 left-1/2 -translate-x-1/2 w-14 h-4 bg-black/70 rounded-full pointer-events-none" />
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all flex items-center justify-center">
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 rounded-full p-3">
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/28 transition-all flex items-center justify-center">
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-black/55 backdrop-blur-sm rounded-full p-3.5 border border-white/20">
                     <Expand size={22} className="text-white" />
                 </div>
             </div>
@@ -164,26 +78,26 @@ const WallpaperCard = ({ w, onPreview }) => (
 
         <div className="mt-5 text-center">
             <p className="text-sabiduria-gold font-heading font-bold text-base tracking-wider">{w.titulo}</p>
-            <p className="text-white/50 font-serif text-sm italic mt-0.5">{w.referencia}</p>
-            <p className="text-white/25 text-xs font-heading uppercase tracking-widest mt-1.5">{w.descripcion}</p>
+            <p className="text-sabiduria-navy/60 font-serif text-sm italic mt-0.5">{w.referencia}</p>
+            <p className="text-sabiduria-gray/50 text-xs font-heading uppercase tracking-widest mt-1.5">{w.descripcion}</p>
         </div>
 
-        <div className="mt-4 flex gap-2">
+        <div className="mt-4 flex gap-2 w-full">
             <button
                 onClick={() => onPreview(w)}
-                className="flex items-center gap-1.5 bg-white/5 border border-white/15 text-white/70 px-4 py-2 rounded-lg font-heading text-xs font-semibold hover:bg-white/10 transition-all"
+                className="flex-1 flex items-center justify-center gap-1.5 bg-sabiduria-navy/6 border border-sabiduria-navy/15 text-sabiduria-navy/65 py-2.5 rounded-xl font-heading text-xs font-semibold hover:bg-sabiduria-navy/12 hover:text-sabiduria-navy transition-all"
             >
                 <Expand size={13} /> Preview
             </button>
             <a
                 href={w.downloadPath}
                 download
-                className="flex items-center gap-1.5 bg-sabiduria-gold/10 border border-sabiduria-gold/25 text-sabiduria-gold px-4 py-2 rounded-lg font-heading text-xs font-semibold hover:bg-sabiduria-gold/20 transition-all active:scale-95"
+                className="flex-1 flex items-center justify-center gap-1.5 bg-sabiduria-gold/10 border border-sabiduria-gold/25 text-sabiduria-gold py-2.5 rounded-xl font-heading text-xs font-semibold hover:bg-sabiduria-gold/22 transition-all active:scale-95"
             >
-                <Download size={13} /> Descargar
+                <Download size={13} /> MP4
             </a>
         </div>
-    </div>
+    </motion.div>
 );
 
 const WallpaperShowcase = () => {
@@ -191,47 +105,25 @@ const WallpaperShowcase = () => {
 
     return (
         <div className="w-full">
-            {/* Instruction banner */}
             <div className="flex items-start gap-3 bg-sabiduria-gold/8 border border-sabiduria-gold/20 rounded-xl p-4 mb-10 max-w-2xl mx-auto">
-                <Smartphone size={18} className="text-sabiduria-gold shrink-0 mt-0.5" />
+                <Smartphone size={17} className="text-sabiduria-gold shrink-0 mt-0.5" />
                 <div>
                     <p className="text-sabiduria-gold font-heading font-semibold text-sm mb-1">
-                        ¿Cómo usar como Live Wallpaper?
+                        ¿Cómo usarlo como Live Wallpaper?
                     </p>
-                    <p className="text-white/50 font-serif text-sm leading-relaxed">
+                    <p className="text-sabiduria-navy/65 font-serif text-sm leading-relaxed">
                         Descargá el MP4. En Android usá <em>Video Live Wallpaper</em>,
                         en iOS usá <em>intoLive</em>. El video corre en loop en tu pantalla de inicio.
                     </p>
                 </div>
             </div>
 
-            {/* Fondos animados — 3 originales */}
-            <p className="text-white/35 font-heading text-xs uppercase tracking-[0.22em] text-center mb-8">
-                Fondos para pantalla de inicio
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 justify-items-center mb-14">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 justify-items-center">
                 {WALLPAPERS.map((w) => (
                     <WallpaperCard key={w.id} w={w} onPreview={setPreview} />
                 ))}
             </div>
 
-            {/* Divisor */}
-            <div className="flex items-center gap-4 mb-10 max-w-2xl mx-auto">
-                <div className="flex-1 h-px bg-white/8" />
-                <p className="text-white/35 font-heading text-xs uppercase tracking-[0.22em] whitespace-nowrap">
-                    Para compartir en WhatsApp e Instagram
-                </p>
-                <div className="flex-1 h-px bg-white/8" />
-            </div>
-
-            {/* Versículos para compartir — 5 nuevos */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 justify-items-center">
-                {VERSE_CARDS.map((w) => (
-                    <WallpaperCard key={w.id} w={w} onPreview={setPreview} />
-                ))}
-            </div>
-
-            {/* Preview Modal */}
             <AnimatePresence>
                 {preview && (
                     <motion.div
@@ -239,19 +131,19 @@ const WallpaperShowcase = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0, transition: { duration: 0.2 } }}
                         className="fixed inset-0 z-50 flex items-center justify-center p-4"
-                        style={{ backdropFilter: 'blur(12px)', background: 'rgba(0,0,0,0.85)' }}
+                        style={{ backdropFilter: 'blur(14px)', background: 'rgba(0,0,0,0.88)' }}
                         onClick={() => setPreview(null)}
                     >
                         <motion.div
                             initial={{ scale: 0.88, opacity: 0, y: 20 }}
-                            animate={{ scale: 1, opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeOut' } }}
+                            animate={{ scale: 1, opacity: 1, y: 0, transition: { duration: 0.28, ease: 'easeOut' } }}
                             exit={{ scale: 0.9, opacity: 0 }}
                             className="flex flex-col items-center gap-5"
                             onClick={(e) => e.stopPropagation()}
                         >
                             <div
-                                className="relative rounded-[2.8rem] overflow-hidden border-2 border-white/20 shadow-2xl"
-                                style={{ width: 'min(320px, 75vw)', aspectRatio: '9/16' }}
+                                className="relative rounded-[2.8rem] overflow-hidden border border-white/18 shadow-2xl"
+                                style={{ width: 'min(300px, 72vw)', aspectRatio: '9/16' }}
                             >
                                 <Player
                                     component={preview.component}
@@ -272,29 +164,29 @@ const WallpaperShowcase = () => {
 
                             <div className="text-center">
                                 <p className="text-sabiduria-gold font-heading font-bold text-lg tracking-wider">{preview.titulo}</p>
-                                <p className="text-white/60 font-serif text-sm italic">{preview.referencia}</p>
+                                <p className="text-white/55 font-serif text-sm italic">{preview.referencia}</p>
                             </div>
 
                             <div className="flex gap-3">
                                 <button
                                     onClick={() => setPreview(null)}
-                                    className="flex items-center gap-2 bg-white/8 border border-white/15 text-white/70 px-5 py-2.5 rounded-lg font-heading text-sm font-semibold hover:bg-white/15 transition-all"
+                                    className="flex items-center gap-2 bg-white/8 border border-white/15 text-white/65 px-5 py-2.5 rounded-xl font-heading text-sm font-semibold hover:bg-white/14 transition-all"
                                 >
-                                    <X size={15} /> Cerrar
+                                    <X size={14} /> Cerrar
                                 </button>
                                 <a
                                     href={preview.downloadPath}
                                     download
-                                    className="flex items-center gap-2 bg-sabiduria-gold text-sabiduria-navy px-5 py-2.5 rounded-lg font-heading text-sm font-bold hover:bg-sabiduria-gold/90 transition-all active:scale-95"
+                                    className="flex items-center gap-2 bg-sabiduria-gold text-sabiduria-navy px-5 py-2.5 rounded-xl font-heading text-sm font-bold hover:brightness-105 transition-all active:scale-95"
                                 >
-                                    <Download size={15} /> Descargar MP4
+                                    <Download size={14} /> Descargar MP4
                                 </a>
                             </div>
                         </motion.div>
 
                         <button
                             onClick={() => setPreview(null)}
-                            className="absolute top-5 right-5 p-2 text-white/40 hover:text-white transition-colors"
+                            className="absolute top-5 right-5 p-2 text-white/35 hover:text-white transition-colors"
                         >
                             <X size={22} />
                         </button>

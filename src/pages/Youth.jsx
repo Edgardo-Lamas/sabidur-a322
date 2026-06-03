@@ -1,6 +1,6 @@
-import React, { Suspense, lazy, useState } from 'react';
+import { Suspense, lazy, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Gamepad2, BookHeart, Zap, ImagePlay, ArrowRight, Waves, Download, Frame, Expand, X } from 'lucide-react';
+import { Gamepad2, BookHeart, ArrowRight, Waves, Download, Frame, Expand, X, ChevronDown, Smartphone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import BibliaFlow from '../components/BibliaFlow';
 import SEO from '../components/SEO';
@@ -26,6 +26,38 @@ const SALMOS_POSTERS = [
     },
 ];
 
+const MODULES = [
+    { id: 'juego',      icon: Gamepad2,   num: '01', title: 'Biblia Flow',  desc: 'Juego interactivo',  accent: '#C5A059' },
+    { id: 'flayer',     icon: Frame,      num: '02', title: 'Tu Flayer',    desc: 'Crea y descarga',    accent: '#8AADFF' },
+    { id: 'wallpapers', icon: Smartphone, num: '03', title: 'Wallpapers',   desc: 'Para tu celular',    accent: '#B896E8' },
+    { id: 'historias',  icon: BookHeart,  num: '04', title: 'Historias',    desc: 'Sumérgete',          accent: '#FF9055' },
+];
+
+const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+const fadeUp = {
+    hidden: { opacity: 0, y: 28 },
+    show:   { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' } },
+};
+
+const stagger = (i) => ({
+    hidden: { opacity: 0, y: 24 },
+    show:   { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut', delay: i * 0.1 } },
+});
+
+/* Etiqueta de sección — adapta colores según fondo */
+const SectionLabel = ({ num, children, dark = false }) => (
+    <div className="flex items-center justify-center gap-3 mb-5">
+        <span className={`text-xs font-heading font-bold tracking-[0.28em] ${dark ? 'text-white/25' : 'text-sabiduria-navy/30'}`}>{num}</span>
+        <div className={`h-px w-8 ${dark ? 'bg-white/10' : 'bg-sabiduria-navy/15'}`} />
+        <span className="text-xs font-heading font-semibold tracking-[0.22em] uppercase text-sabiduria-gold">{children}</span>
+        <div className={`h-px w-8 ${dark ? 'bg-white/10' : 'bg-sabiduria-navy/15'}`} />
+        <span className={`text-xs font-heading font-bold tracking-[0.28em] ${dark ? 'text-white/25' : 'text-sabiduria-navy/30'}`}>{num}</span>
+    </div>
+);
+
 const Youth = () => {
     const [posterPreview, setPosterPreview] = useState(null);
 
@@ -38,268 +70,371 @@ const Youth = () => {
             />
 
             <div className="min-h-screen bg-sabiduria-bg">
-                {/* Hero Section */}
+
+                {/* ══════════════════════════════════════════
+                    HERO — imagen original + módulos de nav
+                ══════════════════════════════════════════ */}
                 <section
-                    className="relative py-20 md:py-28 bg-cover bg-center"
+                    className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-cover bg-center"
                     style={{ backgroundImage: `url(${import.meta.env.BASE_URL}img/juventud-hero.jpg)` }}
                 >
-                    {/* Dark Overlay */}
-                    <div className="absolute inset-0 bg-sabiduria-navy/70"></div>
+                    {/* Overlay con degradado — más claro arriba, legible abajo */}
+                    <div className="absolute inset-0" style={{
+                        background: 'linear-gradient(180deg, rgba(26,29,35,0.55) 0%, rgba(26,29,35,0.70) 50%, rgba(26,29,35,0.92) 100%)'
+                    }} />
 
-                    <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-white mb-4 leading-tight tracking-tight">
-                            Sabiduría para la <span className="text-sabiduria-gold">Juventud</span>
-                        </h1>
-                        <p className="text-base md:text-lg text-white/80 max-w-xl mx-auto leading-relaxed font-serif">
-                            Textos y desafíos bíblicos para crecer en la fe
-                        </p>
-                    </div>
-                </section>
+                    {/* Contenido */}
+                    <div className="relative z-10 text-center max-w-3xl mx-auto px-4 flex flex-col items-center">
 
-                {/* Introductory Text Section */}
-                <section className="py-12 md:py-16 bg-sabiduria-bg">
-                    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <p className="text-lg md:text-xl text-sabiduria-navy/90 font-serif leading-relaxed">
-                            Este espacio está pensado para adolescentes que desean leer, preguntar y crecer en la fe cristiana.
-                            Aquí encontrarás desafíos y recursos que buscan ayudarte a pensar la Biblia con honestidad, profundidad y esperanza.
-                        </p>
-                    </div>
-                </section>
+                        <motion.p
+                            initial={{ opacity: 0, y: 12 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.15 }}
+                            className="text-sabiduria-gold font-heading text-xs uppercase tracking-[0.32em] mb-5"
+                        >
+                            Sabiduría para el Corazón
+                        </motion.p>
 
-                {/* Biblia Flow Game Section */}
-                <section className="py-16 md:py-20">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-12">
-                            <div className="inline-flex items-center gap-3 bg-sabiduria-gold/10 text-sabiduria-gold px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider mb-4 border border-sabiduria-gold/20">
-                                <Gamepad2 size={20} />
-                                Juego Interactivo
-                            </div>
-                            <h2 className="text-4xl md:text-5xl font-heading font-bold text-sabiduria-navy mb-4 tracking-tight">
-                                Biblia Flow
-                            </h2>
-                            <p className="text-lg text-sabiduria-gray max-w-2xl mx-auto font-serif leading-relaxed">
-                                Pon a prueba tu conocimiento bíblico y desbloquea fondos épicos para crear postales personalizadas.
-                            </p>
-                        </div>
+                        <motion.h1
+                            initial={{ opacity: 0, y: 22 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.7, delay: 0.25, ease: 'easeOut' }}
+                            className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-4 leading-tight tracking-tight"
+                        >
+                            Sabiduría para la{' '}
+                            <span className="text-sabiduria-gold">Juventud</span>
+                        </motion.h1>
 
-                        {/* Game Component */}
-                        <BibliaFlow />
-                    </div>
-                </section>
+                        <motion.p
+                            initial={{ opacity: 0, y: 14 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.4 }}
+                            className="text-white/75 font-serif text-lg leading-relaxed max-w-lg mb-14"
+                        >
+                            Desafíos bíblicos, recursos creativos e historias
+                            para crecer en la fe.
+                        </motion.p>
 
-                {/* Wallpapers animados */}
-                <section className="py-16 md:py-20 bg-sabiduria-navy">
-                    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-12">
-                            <div className="inline-flex items-center gap-3 bg-sabiduria-gold/10 text-sabiduria-gold px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider mb-4 border border-sabiduria-gold/20">
-                                <ImagePlay size={18} />
-                                Fondos Animados
-                            </div>
-                            <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4 tracking-tight">
-                                Wallpapers con <span className="text-sabiduria-gold">Versículos</span>
-                            </h2>
-                            <p className="text-white/60 max-w-xl mx-auto font-serif leading-relaxed">
-                                Fondos animados para tu celular. Cada uno está diseñado para que la Palabra
-                                esté presente en tu pantalla de inicio.
-                            </p>
-                        </div>
-                        <Suspense fallback={
-                            <div className="flex justify-center items-center h-80 text-white/30 font-serif italic">
-                                Cargando wallpapers…
-                            </div>
-                        }>
-                            <WallpaperShowcase />
-                        </Suspense>
-                    </div>
-                </section>
-
-                {/* ─── Historias para Jóvenes ─── */}
-                <section className="py-16 md:py-20 bg-sabiduria-bg border-t border-white/5">
-                    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-12">
-                            <div className="inline-flex items-center gap-3 bg-sabiduria-gold/10 text-sabiduria-gold px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider mb-4 border border-sabiduria-gold/20">
-                                <BookHeart size={18} />
-                                Historias para Jóvenes
-                            </div>
-                            <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4 tracking-tight">
-                                Historias que te <span className="text-sabiduria-gold">sumergen</span>
-                            </h2>
-                            <p className="text-white/55 max-w-xl mx-auto font-serif leading-relaxed">
-                                Cada historia es un mundo diferente. Entrás a la página y el ambiente te envuelve.
-                                Un texto breve, una escena animada y una verdad que se queda.
-                            </p>
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {/* Card: Ansiedad */}
-                            <motion.div
-                                whileHover={{ y: -4 }}
-                                transition={{ duration: 0.2 }}
-                            >
-                                <Link
-                                    to="/adolescentes/historias/ansiedad"
-                                    className="block relative rounded-2xl overflow-hidden border border-white/10 hover:border-sabiduria-gold/30 transition-all shadow-xl shadow-black/40 group"
-                                    style={{ aspectRatio: '3/4' }}
+                        {/* 4 módulos de navegación */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 24 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.7, delay: 0.55 }}
+                            className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full max-w-2xl"
+                        >
+                            {MODULES.map((m) => (
+                                <motion.button
+                                    key={m.id}
+                                    onClick={() => scrollTo(m.id)}
+                                    whileHover={{ y: -5, scale: 1.04 }}
+                                    whileTap={{ scale: 0.96 }}
+                                    transition={{ duration: 0.18 }}
+                                    className="flex flex-col items-center gap-2.5 p-4 rounded-2xl cursor-pointer text-center backdrop-blur-sm"
+                                    style={{
+                                        background: 'rgba(255,255,255,0.10)',
+                                        border: '1px solid rgba(255,255,255,0.18)',
+                                    }}
                                 >
-                                    {/* Preview image — frame del video */}
-                                    <video
-                                        autoPlay
-                                        loop
-                                        muted
-                                        playsInline
-                                        className="absolute inset-0 w-full h-full object-cover"
-                                        src="/stories/ansiedad-bg.mp4"
-                                    />
-
-                                    {/* Gradient overlay */}
-                                    <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent" />
-
-                                    {/* Tag */}
-                                    <div className="absolute top-4 left-4 flex items-center gap-1.5 bg-black/50 backdrop-blur-sm border border-white/15 rounded-full px-3 py-1">
-                                        <Waves size={11} className="text-sabiduria-gold" />
-                                        <span className="font-heading text-[10px] uppercase tracking-widest text-white/70">Ansiedad · Paz</span>
+                                    <div className="w-10 h-10 rounded-xl flex items-center justify-center"
+                                        style={{ background: `${m.accent}22`, border: `1px solid ${m.accent}40` }}>
+                                        <m.icon size={19} style={{ color: m.accent }} />
                                     </div>
+                                    <div>
+                                        <p className="font-heading font-bold text-white text-sm leading-tight">{m.title}</p>
+                                        <p className="text-white/45 text-[10px] font-heading uppercase tracking-wider mt-0.5">{m.desc}</p>
+                                    </div>
+                                </motion.button>
+                            ))}
+                        </motion.div>
+                    </div>
 
-                                    {/* Content */}
+                    {/* Scroll hint */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 1.1, duration: 0.6 }}
+                        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer"
+                        onClick={() => scrollTo('juego')}
+                    >
+                        <span className="text-white/30 font-heading text-[10px] uppercase tracking-[0.25em]">Explorar</span>
+                        <motion.div
+                            animate={{ y: [0, 6, 0] }}
+                            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+                        >
+                            <ChevronDown size={18} className="text-white/25" />
+                        </motion.div>
+                    </motion.div>
+                </section>
+
+                {/* ══════════════════════════════════════════
+                    01 — BIBLIA FLOW  (fondo claro)
+                ══════════════════════════════════════════ */}
+                <section id="juego" className="py-20 md:py-28 bg-sabiduria-bg">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <motion.div
+                            variants={fadeUp} initial="hidden" whileInView="show"
+                            viewport={{ once: true, amount: 0.2 }}
+                            className="text-center mb-14"
+                        >
+                            <SectionLabel num="01">Juego Interactivo</SectionLabel>
+                            <h2 className="text-4xl md:text-5xl font-heading font-bold text-sabiduria-navy tracking-tight mb-4">
+                                Biblia <span className="text-sabiduria-gold">Flow</span>
+                            </h2>
+                            <p className="text-sabiduria-gray max-w-xl mx-auto font-serif text-lg leading-relaxed">
+                                Poné a prueba tu conocimiento bíblico y desbloqueá fondos épicos
+                                para crear postales personalizadas.
+                            </p>
+                        </motion.div>
+
+                        {/* Imagen de cercanía cristiana */}
+                        <motion.div
+                            variants={fadeUp} initial="hidden" whileInView="show"
+                            viewport={{ once: true, amount: 0.1 }}
+                            className="mb-12"
+                        >
+                            <img
+                                src={`${import.meta.env.BASE_URL}img/juventud-biblia-flow.jpg`}
+                                alt="Jóvenes compartiendo la Biblia con alegría"
+                                className="w-full max-w-4xl mx-auto block rounded-2xl shadow-lg object-cover"
+                                style={{ maxHeight: 360 }}
+                            />
+                        </motion.div>
+
+                        <motion.div
+                            variants={fadeUp} initial="hidden" whileInView="show"
+                            viewport={{ once: true, amount: 0.1 }}
+                        >
+                            <BibliaFlow />
+                        </motion.div>
+                    </div>
+                </section>
+
+                {/* ══════════════════════════════════════════
+                    02 — TU FLAYER ANIMADO  (fondo navy)
+                ══════════════════════════════════════════ */}
+                <section id="flayer" className="py-20 md:py-28 bg-sabiduria-navy">
+                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <motion.div
+                            variants={fadeUp} initial="hidden" whileInView="show"
+                            viewport={{ once: true, amount: 0.2 }}
+                            className="text-center mb-12"
+                        >
+                            <SectionLabel num="02" dark>Crea tu Contenido</SectionLabel>
+                            <h2 className="text-4xl md:text-5xl font-heading font-bold text-white tracking-tight mb-4">
+                                Tu{' '}
+                                <span style={{ color: '#8AADFF' }}>Flayer Animado</span>
+                            </h2>
+                            <p className="text-white/60 max-w-lg mx-auto font-serif text-lg leading-relaxed">
+                                Elegí un fondo, seleccioná un versículo y descargalo
+                                para compartir verdades eternas con tus seres queridos.
+                            </p>
+                        </motion.div>
+
+                        <motion.div
+                            variants={fadeUp} initial="hidden" whileInView="show"
+                            viewport={{ once: true, amount: 0.1 }}
+                            className="rounded-2xl overflow-hidden shadow-2xl shadow-black/40"
+                            style={{ border: '1px solid rgba(255,255,255,0.08)' }}
+                        >
+                            <iframe
+                                src="/herramientas/flayers/index.html"
+                                style={{ width: '100%', height: '900px', border: 0 }}
+                                title="Creador de Flayers Animados"
+                                allow="downloads"
+                            />
+                        </motion.div>
+                    </div>
+                </section>
+
+                {/* ══════════════════════════════════════════
+                    03 — WALLPAPERS  (fondo claro)
+                ══════════════════════════════════════════ */}
+                <section id="wallpapers" className="py-20 md:py-28 bg-sabiduria-bg">
+                    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <motion.div
+                            variants={fadeUp} initial="hidden" whileInView="show"
+                            viewport={{ once: true, amount: 0.2 }}
+                            className="mb-14"
+                        >
+                            <div className="flex flex-col md:flex-row items-center gap-10 md:gap-14">
+                                {/* Texto */}
+                                <div className="md:w-1/2 text-center md:text-left">
+                                    <SectionLabel num="03">Fondos Animados</SectionLabel>
+                                    <h2 className="text-4xl md:text-5xl font-heading font-bold text-sabiduria-navy tracking-tight mb-4">
+                                        Wallpapers con{' '}
+                                        <span className="text-sabiduria-gold">Versículos</span>
+                                    </h2>
+                                    <p className="text-sabiduria-gray font-serif text-lg leading-relaxed">
+                                        Fondos animados para tu celular. La Palabra presente
+                                        en tu pantalla de inicio, cada vez que la desbloqueás.
+                                    </p>
+                                </div>
+                                {/* Imagen */}
+                                <div className="md:w-1/2">
+                                    <img
+                                        src={`${import.meta.env.BASE_URL}img/juventud-flayer.jpg`}
+                                        alt="Joven disfrutando un versículo en su celular"
+                                        className="w-full rounded-2xl shadow-xl object-cover"
+                                        style={{ maxHeight: 360, objectPosition: 'center 20%' }}
+                                    />
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        <motion.div
+                            variants={fadeUp} initial="hidden" whileInView="show"
+                            viewport={{ once: true, amount: 0.1 }}
+                        >
+                            <Suspense fallback={
+                                <div className="flex justify-center items-center h-80 text-sabiduria-gray font-serif italic">
+                                    Cargando wallpapers…
+                                </div>
+                            }>
+                                <WallpaperShowcase />
+                            </Suspense>
+                        </motion.div>
+                    </div>
+                </section>
+
+                {/* ══════════════════════════════════════════
+                    04 — HISTORIAS  (fondo navy — cinematic)
+                ══════════════════════════════════════════ */}
+                <section id="historias" className="py-20 md:py-28 bg-sabiduria-navy">
+                    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <motion.div
+                            variants={fadeUp} initial="hidden" whileInView="show"
+                            viewport={{ once: true, amount: 0.2 }}
+                            className="text-center mb-14"
+                        >
+                            <SectionLabel num="04" dark>Historias para Jóvenes</SectionLabel>
+                            <h2 className="text-4xl md:text-5xl font-heading font-bold text-white tracking-tight mb-4">
+                                Historias que te{' '}
+                                <span style={{ color: '#FF9055' }}>sumergen</span>
+                            </h2>
+                            <p className="text-white/55 max-w-xl mx-auto font-serif text-lg leading-relaxed">
+                                Entrás a la página y el ambiente te envuelve. Un texto breve,
+                                una escena animada y una verdad que se queda.
+                            </p>
+                        </motion.div>
+
+                        {/* Imagen de comunión */}
+                        <motion.div
+                            variants={fadeUp} initial="hidden" whileInView="show"
+                            viewport={{ once: true, amount: 0.1 }}
+                            className="mb-10"
+                        >
+                            <div className="relative max-w-2xl mx-auto rounded-2xl overflow-hidden shadow-2xl shadow-black/40">
+                                <img
+                                    src={`${import.meta.env.BASE_URL}img/juventud-oracion.jpg`}
+                                    alt="Jóvenes en oración y comunión"
+                                    className="w-full object-cover"
+                                    style={{ maxHeight: 320 }}
+                                />
+                                <div className="absolute inset-0 bg-linear-to-t from-sabiduria-navy/60 to-transparent" />
+                            </div>
+                        </motion.div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+                            {/* Ansiedad */}
+                            <motion.div variants={stagger(0)} initial="hidden" whileInView="show"
+                                viewport={{ once: true, amount: 0.15 }} whileHover={{ y: -6 }} transition={{ duration: 0.2 }}>
+                                <Link to="/adolescentes/historias/ansiedad"
+                                    className="block relative rounded-2xl overflow-hidden border border-white/10 hover:border-sabiduria-gold/40 transition-all shadow-2xl shadow-black/50 group"
+                                    style={{ aspectRatio: '3/4' }}>
+                                    <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" src="/stories/ansiedad-bg.mp4" />
+                                    <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/25 to-transparent" />
+                                    <div className="absolute top-4 left-4 flex items-center gap-1.5 bg-black/50 backdrop-blur-sm border border-white/12 rounded-full px-3 py-1">
+                                        <Waves size={10} className="text-sabiduria-gold" />
+                                        <span className="font-heading text-[9px] uppercase tracking-widest text-white/65">Ansiedad · Paz</span>
+                                    </div>
                                     <div className="absolute bottom-0 left-0 right-0 p-5">
-                                        <p className="font-heading font-bold text-white text-xl leading-tight mb-1">
-                                            El Ancla y<br />
-                                            <span className="text-sabiduria-gold italic">la Tormenta</span>
-                                        </p>
-                                        <p className="text-white/50 font-serif text-xs italic mb-4">Salmos 46:1-3</p>
+                                        <p className="font-heading font-bold text-white text-lg leading-tight mb-1">El Ancla y<br /><span className="text-sabiduria-gold italic">la Tormenta</span></p>
+                                        <p className="text-white/45 font-serif text-xs italic mb-4">Salmos 46:1-3</p>
                                         <div className="flex items-center gap-1.5 text-sabiduria-gold font-heading text-xs font-semibold group-hover:gap-3 transition-all">
-                                            Leer historia <ArrowRight size={13} />
+                                            Leer historia <ArrowRight size={12} />
                                         </div>
                                     </div>
                                 </Link>
                             </motion.div>
 
-                            {/* Card: Soledad */}
-                            <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
-                                <Link
-                                    to="/adolescentes/historias/soledad"
-                                    className="block relative rounded-2xl overflow-hidden border border-white/10 hover:border-blue-400/30 transition-all shadow-xl shadow-black/40 group"
-                                    style={{ aspectRatio: '3/4', background: '#05060F' }}
-                                >
-                                    {/* Fondo animado — aurora nocturna */}
-                                    <div className="absolute inset-0" style={{
-                                        background: 'linear-gradient(160deg, #05060F 0%, #0A0D25 30%, #0D1040 55%, #080C28 80%, #05060F 100%)',
-                                    }} />
-                                    {/* City silhouette mini */}
+                            {/* Soledad */}
+                            <motion.div variants={stagger(1)} initial="hidden" whileInView="show"
+                                viewport={{ once: true, amount: 0.15 }} whileHover={{ y: -6 }} transition={{ duration: 0.2 }}>
+                                <Link to="/adolescentes/historias/soledad"
+                                    className="block relative rounded-2xl overflow-hidden border border-white/10 hover:border-blue-400/35 transition-all shadow-2xl shadow-black/50 group"
+                                    style={{ aspectRatio: '3/4', background: '#05060F' }}>
+                                    <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, #05060F 0%, #0A0D25 30%, #0D1040 55%, #080C28 80%, #05060F 100%)' }} />
                                     <svg className="absolute bottom-0 left-0 w-full" viewBox="0 0 300 120" preserveAspectRatio="xMidYMax slice">
-                                        <rect x="0"   y="40"  width="30" height="80" fill="#06080F" />
-                                        <rect x="32"  y="60"  width="22" height="60" fill="#060810" />
-                                        <rect x="56"  y="28"  width="38" height="92" fill="#05070E" />
-                                        <rect x="96"  y="50"  width="26" height="70" fill="#060810" />
-                                        <rect x="124" y="35"  width="42" height="85" fill="#05070E" />
-                                        <rect x="168" y="55"  width="24" height="65" fill="#06080F" />
-                                        <rect x="194" y="22"  width="34" height="98" fill="#05070E" />
-                                        <rect x="230" y="48"  width="28" height="72" fill="#060810" />
-                                        <rect x="260" y="38"  width="40" height="82" fill="#05070E" />
-                                        {/* ventanas */}
+                                        <rect x="0" y="40" width="30" height="80" fill="#06080F" /><rect x="32" y="60" width="22" height="60" fill="#060810" />
+                                        <rect x="56" y="28" width="38" height="92" fill="#05070E" /><rect x="96" y="50" width="26" height="70" fill="#060810" />
+                                        <rect x="124" y="35" width="42" height="85" fill="#05070E" /><rect x="168" y="55" width="24" height="65" fill="#06080F" />
+                                        <rect x="194" y="22" width="34" height="98" fill="#05070E" /><rect x="230" y="48" width="28" height="72" fill="#060810" />
+                                        <rect x="260" y="38" width="40" height="82" fill="#05070E" />
                                         {[[10,48],[14,57],[62,36],[70,50],[130,43],[138,55],[200,30],[205,45],[268,46]].map(([x,y],i)=>(
-                                            <rect key={i} x={x} y={y} width="4" height="5"
-                                                fill={i%3===0 ? 'rgba(255,220,130,0.7)' : 'rgba(180,210,255,0.55)'} />
+                                            <rect key={i} x={x} y={y} width="4" height="5" fill={i%3===0 ? 'rgba(255,220,130,0.7)' : 'rgba(180,210,255,0.55)'} />
                                         ))}
                                     </svg>
-                                    {/* Gradient overlay */}
                                     <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent" />
-                                    {/* Tag */}
                                     <div className="absolute top-4 left-4 flex items-center gap-1.5 bg-black/50 backdrop-blur-sm border border-white/12 rounded-full px-3 py-1">
-                                        <span style={{ fontSize: 10, color: 'rgba(130,170,255,0.8)' }}>✦</span>
-                                        <span className="font-heading text-[10px] uppercase tracking-widest text-white/65">Soledad · El-Roi</span>
+                                        <span style={{ fontSize: 9, color: 'rgba(130,170,255,0.85)' }}>✦</span>
+                                        <span className="font-heading text-[9px] uppercase tracking-widest text-white/60">Soledad · El-Roi</span>
                                     </div>
-                                    {/* Content */}
                                     <div className="absolute bottom-0 left-0 right-0 p-5">
-                                        <p className="font-heading font-bold text-white text-xl leading-tight mb-1">
-                                            El Dios<br />
-                                            <span style={{ color: '#8AADFF', fontStyle: 'italic' }}>que Me Ve</span>
-                                        </p>
-                                        <p className="font-serif italic text-xs mb-4" style={{ color: 'rgba(140,170,240,0.55)' }}>
-                                            Génesis 16:13 · El-Roi
-                                        </p>
+                                        <p className="font-heading font-bold text-white text-lg leading-tight mb-1">El Dios<br /><span style={{ color: '#8AADFF', fontStyle: 'italic' }}>que Me Ve</span></p>
+                                        <p className="font-serif italic text-xs mb-4" style={{ color: 'rgba(140,170,240,0.45)' }}>Génesis 16:13 · El-Roi</p>
                                         <div className="flex items-center gap-1.5 font-heading text-xs font-semibold group-hover:gap-3 transition-all" style={{ color: '#8AADFF' }}>
-                                            Leer historia <ArrowRight size={13} />
+                                            Leer historia <ArrowRight size={12} />
                                         </div>
                                     </div>
                                 </Link>
                             </motion.div>
 
-                            {/* Card: Identidad */}
-                            <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
-                                <Link
-                                    to="/adolescentes/historias/identidad"
-                                    className="block relative rounded-2xl overflow-hidden border border-white/10 hover:border-amber-400/30 transition-all shadow-xl shadow-black/40 group"
-                                    style={{ aspectRatio: '3/4', background: '#0D0520' }}
-                                >
-                                    {/* Fondo: amanecer sobre montaña */}
-                                    <div className="absolute inset-0" style={{
-                                        background: 'linear-gradient(180deg, #0D0520 0%, #2A1008 50%, #8B3E0A 80%, #D4800F 100%)',
-                                    }} />
-                                    {/* Mountain silhouette mini */}
+                            {/* Identidad */}
+                            <motion.div variants={stagger(2)} initial="hidden" whileInView="show"
+                                viewport={{ once: true, amount: 0.15 }} whileHover={{ y: -6 }} transition={{ duration: 0.2 }}>
+                                <Link to="/adolescentes/historias/identidad"
+                                    className="block relative rounded-2xl overflow-hidden border border-white/10 hover:border-amber-400/35 transition-all shadow-2xl shadow-black/50 group"
+                                    style={{ aspectRatio: '3/4', background: '#0D0520' }}>
+                                    <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, #0D0520 0%, #2A1008 50%, #8B3E0A 80%, #D4800F 100%)' }} />
                                     <svg className="absolute bottom-0 left-0 w-full" viewBox="0 0 300 130" preserveAspectRatio="xMidYMax slice">
                                         <path d="M0 130 L0 85 Q40 70 80 78 Q120 86 160 60 Q190 40 210 48 Q230 56 250 42 Q270 28 290 38 L300 45 L300 130 Z" fill="#1C0830" opacity="0.7" />
                                         <path d="M0 130 L0 100 Q30 90 60 95 Q100 102 140 78 Q170 58 200 65 Q230 72 260 55 Q280 44 300 52 L300 130 Z" fill="#0A0318" opacity="0.92" />
-                                        {/* Dawn glow behind peak */}
                                         <ellipse cx="210" cy="42" rx="40" ry="20" fill="rgba(220,130,20,0.25)" style={{ filter: 'blur(8px)' }} />
-                                        {/* Peak edge lit */}
                                         <path d="M190 60 Q210 42 230 55" fill="none" stroke="rgba(220,140,20,0.4)" strokeWidth="1.5" />
                                     </svg>
                                     <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent" />
-                                    {/* Tag */}
                                     <div className="absolute top-4 left-4 flex items-center gap-1.5 bg-black/50 backdrop-blur-sm border border-white/12 rounded-full px-3 py-1">
-                                        <span style={{ fontSize: 10, color: 'rgba(230,160,40,0.85)' }}>✦</span>
-                                        <span className="font-heading text-[10px] uppercase tracking-widest text-white/65">Identidad · Imago Dei</span>
+                                        <span style={{ fontSize: 9, color: 'rgba(230,160,40,0.9)' }}>✦</span>
+                                        <span className="font-heading text-[9px] uppercase tracking-widest text-white/60">Identidad · Imago Dei</span>
                                     </div>
-                                    {/* Content */}
                                     <div className="absolute bottom-0 left-0 right-0 p-5">
-                                        <p className="font-heading font-bold text-white text-xl leading-tight mb-1">
-                                            ¿Quién<br />
-                                            <span style={{ color: '#E8A020', fontStyle: 'italic' }}>Soy Yo?</span>
-                                        </p>
-                                        <p className="font-serif italic text-xs mb-4" style={{ color: 'rgba(220,160,60,0.55)' }}>
-                                            Génesis 1:27 · Imago Dei
-                                        </p>
+                                        <p className="font-heading font-bold text-white text-lg leading-tight mb-1">¿Quién<br /><span style={{ color: '#E8A020', fontStyle: 'italic' }}>Soy Yo?</span></p>
+                                        <p className="font-serif italic text-xs mb-4" style={{ color: 'rgba(220,160,60,0.45)' }}>Génesis 1:27 · Imago Dei</p>
                                         <div className="flex items-center gap-1.5 font-heading text-xs font-semibold group-hover:gap-3 transition-all" style={{ color: '#E8A020' }}>
-                                            Leer historia <ArrowRight size={13} />
+                                            Leer historia <ArrowRight size={12} />
                                         </div>
                                     </div>
                                 </Link>
                             </motion.div>
 
-                            {/* Card: Fracaso */}
-                            <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
-                                <Link
-                                    to="/adolescentes/historias/fracaso"
-                                    className="block relative rounded-2xl overflow-hidden border border-white/10 hover:border-orange-500/30 transition-all shadow-xl shadow-black/40 group"
-                                    style={{ aspectRatio: '3/4', background: '#0A0200' }}
-                                >
-                                    {/* Video preview */}
-                                    <video
-                                        autoPlay
-                                        loop
-                                        muted
-                                        playsInline
-                                        className="absolute inset-0 w-full h-full object-cover"
-                                        src="/stories/fracaso-bg.mp4"
-                                    />
+                            {/* Fracaso */}
+                            <motion.div variants={stagger(3)} initial="hidden" whileInView="show"
+                                viewport={{ once: true, amount: 0.15 }} whileHover={{ y: -6 }} transition={{ duration: 0.2 }}>
+                                <Link to="/adolescentes/historias/fracaso"
+                                    className="block relative rounded-2xl overflow-hidden border border-white/10 hover:border-orange-500/35 transition-all shadow-2xl shadow-black/50 group"
+                                    style={{ aspectRatio: '3/4', background: '#0A0200' }}>
+                                    <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" src="/stories/fracaso-bg.mp4" />
                                     <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent" />
-                                    {/* Tag */}
                                     <div className="absolute top-4 left-4 flex items-center gap-1.5 bg-black/50 backdrop-blur-sm border border-white/12 rounded-full px-3 py-1">
-                                        <span style={{ fontSize: 10, color: 'rgba(255,140,40,0.85)' }}>✦</span>
-                                        <span className="font-heading text-[10px] uppercase tracking-widest text-white/65">Fracaso · Restauración</span>
+                                        <span style={{ fontSize: 9, color: 'rgba(255,140,40,0.9)' }}>✦</span>
+                                        <span className="font-heading text-[9px] uppercase tracking-widest text-white/60">Fracaso · Restauración</span>
                                     </div>
-                                    {/* Content */}
                                     <div className="absolute bottom-0 left-0 right-0 p-5">
-                                        <p className="font-heading font-bold text-white text-xl leading-tight mb-1">
-                                            El Fracaso y<br />
-                                            <span style={{ color: '#FF8C28', fontStyle: 'italic' }}>la Segunda Oportunidad</span>
-                                        </p>
-                                        <p className="font-serif italic text-xs mb-4" style={{ color: 'rgba(255,160,60,0.55)' }}>
-                                            Juan 21:15-17 · Pedro
-                                        </p>
+                                        <p className="font-heading font-bold text-white text-lg leading-tight mb-1">El Fracaso y<br /><span style={{ color: '#FF8C28', fontStyle: 'italic' }}>la Segunda Oportunidad</span></p>
+                                        <p className="font-serif italic text-xs mb-4" style={{ color: 'rgba(255,160,60,0.45)' }}>Juan 21:15-17 · Pedro</p>
                                         <div className="flex items-center gap-1.5 font-heading text-xs font-semibold group-hover:gap-3 transition-all" style={{ color: '#FF8C28' }}>
-                                            Leer historia <ArrowRight size={13} />
+                                            Leer historia <ArrowRight size={12} />
                                         </div>
                                     </div>
                                 </Link>
@@ -309,84 +444,77 @@ const Youth = () => {
                     </div>
                 </section>
 
-                {/* ─── Láminas para imprimir ─── */}
-                <section className="py-16 md:py-20 bg-sabiduria-bg border-t border-white/5">
+                {/* ══════════════════════════════════════════
+                    05 — LÁMINAS PARA IMPRIMIR  (fondo claro)
+                ══════════════════════════════════════════ */}
+                <section className="py-20 md:py-28 bg-sabiduria-bg">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-10">
-                            <div className="inline-flex items-center gap-3 bg-sabiduria-gold/10 text-sabiduria-gold px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider mb-4 border border-sabiduria-gold/20">
-                                <Frame size={16} />
-                                Láminas bíblicas
-                            </div>
-                            <h2 className="text-3xl md:text-4xl font-heading font-bold text-sabiduria-navy mb-3 tracking-tight">
-                                Para imprimir y <span className="text-sabiduria-gold">enmarcar</span>
+                        <motion.div
+                            variants={fadeUp} initial="hidden" whileInView="show"
+                            viewport={{ once: true, amount: 0.2 }}
+                            className="text-center mb-12"
+                        >
+                            <SectionLabel num="05">Láminas Bíblicas</SectionLabel>
+                            <h2 className="text-4xl md:text-5xl font-heading font-bold text-sabiduria-navy tracking-tight mb-4">
+                                Para imprimir y{' '}
+                                <span className="text-sabiduria-gold">enmarcar</span>
                             </h2>
-                            <p className="text-sabiduria-gray max-w-lg mx-auto font-serif leading-relaxed">
+                            <p className="text-sabiduria-gray max-w-md mx-auto font-serif text-lg leading-relaxed">
                                 Salmos completos en Reina Valera 1960 con imagen épica de fondo.
-                                Alta resolución — listos para imprimir en A4 o A3.
+                                Alta resolución — listos para A4 o A3.
                             </p>
-                        </div>
+                        </motion.div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                            {SALMOS_POSTERS.map((s) => (
-                                <div key={s.id} className="bg-white rounded-xl overflow-hidden border border-sabiduria-gray/10 shadow-sm hover:shadow-md transition-shadow">
-                                    {/* Thumbnail — clic abre preview */}
-                                    <div
-                                        className="relative cursor-pointer group"
-                                        style={{ aspectRatio: '3/4' }}
-                                        onClick={() => setPosterPreview(s)}
-                                    >
-                                        <img
-                                            src={`${import.meta.env.BASE_URL}${s.img}`}
-                                            alt={s.titulo}
-                                            className="absolute inset-0 w-full h-full object-cover object-top"
-                                        />
-                                        <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/30 to-transparent" />
-                                        {/* Hover overlay */}
-                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/35 transition-all flex items-center justify-center">
-                                            <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 rounded-full p-4">
+                            {SALMOS_POSTERS.map((s, i) => (
+                                <motion.div
+                                    key={s.id}
+                                    variants={stagger(i)} initial="hidden" whileInView="show"
+                                    viewport={{ once: true, amount: 0.2 }}
+                                    whileHover={{ y: -4 }} transition={{ duration: 0.2 }}
+                                    className="bg-white rounded-xl overflow-hidden border border-sabiduria-gray/10 shadow-md hover:shadow-xl transition-shadow"
+                                >
+                                    <div className="relative cursor-pointer group" style={{ aspectRatio: '3/4' }}
+                                        onClick={() => setPosterPreview(s)}>
+                                        <img src={`${import.meta.env.BASE_URL}${s.img}`} alt={s.titulo}
+                                            className="absolute inset-0 w-full h-full object-cover object-top" />
+                                        <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/25 to-transparent" />
+                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all flex items-center justify-center">
+                                            <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-black/55 backdrop-blur-sm rounded-full p-4 border border-white/18">
                                                 <Expand size={24} className="text-white" />
                                             </div>
                                         </div>
                                         <div className="absolute bottom-0 left-0 right-0 p-5 text-center">
                                             <p className="text-sabiduria-gold font-heading font-bold text-2xl tracking-widest">{s.titulo}</p>
-                                            <p className="text-white/75 font-serif italic text-sm mt-1 leading-snug">{s.subtitulo}</p>
+                                            <p className="text-white/70 font-serif italic text-sm mt-1 leading-snug">{s.subtitulo}</p>
                                         </div>
                                         <div className="absolute top-4 left-0 right-0 flex justify-center">
-                                            <span className="bg-black/50 backdrop-blur-sm border border-white/15 rounded-full px-3 py-1 text-white/60 font-heading text-[10px] uppercase tracking-widest">
+                                            <span className="bg-black/50 backdrop-blur-sm border border-white/15 rounded-full px-3 py-1 text-white/55 font-heading text-[10px] uppercase tracking-widest">
                                                 {s.tema}
                                             </span>
                                         </div>
                                     </div>
-                                    {/* Botones */}
                                     <div className="p-4 flex gap-3">
-                                        <button
-                                            onClick={() => setPosterPreview(s)}
-                                            className="flex-1 flex items-center justify-center gap-2 bg-sabiduria-gray/8 hover:bg-sabiduria-gray/15 border border-sabiduria-gray/20 text-sabiduria-navy rounded-lg py-3 text-sm font-heading font-semibold transition-colors"
-                                        >
+                                        <button onClick={() => setPosterPreview(s)}
+                                            className="flex-1 flex items-center justify-center gap-2 bg-sabiduria-gray/8 hover:bg-sabiduria-gray/15 border border-sabiduria-gray/20 text-sabiduria-navy rounded-lg py-3 text-sm font-heading font-semibold transition-colors">
                                             <Expand size={14} /> Vista previa
                                         </button>
-                                        <a
-                                            href={`${import.meta.env.BASE_URL}${s.poster}`}
-                                            download={`salmo-${s.id}.png`}
-                                            className="flex-1 flex items-center justify-center gap-2 bg-sabiduria-navy hover:bg-sabiduria-navy/85 text-sabiduria-gold rounded-lg py-3 text-sm font-heading font-bold transition-colors"
-                                        >
+                                        <a href={`${import.meta.env.BASE_URL}${s.poster}`} download={`salmo-${s.id}.png`}
+                                            className="flex-1 flex items-center justify-center gap-2 bg-sabiduria-navy hover:bg-sabiduria-navy/85 text-sabiduria-gold rounded-lg py-3 text-sm font-heading font-bold transition-colors">
                                             <Download size={14} /> Descargar
                                         </a>
                                     </div>
-                                    <p className="text-center text-sabiduria-gray/50 text-xs font-serif pb-3">
-                                        2480 × 3508 px · 300 dpi · Apto para imprimir en A4 y A3
-                                    </p>
-                                </div>
+                                    <p className="text-center text-sabiduria-gray/45 text-xs font-serif pb-3">2480 × 3508 px · 300 dpi · A4 y A3</p>
+                                </motion.div>
                             ))}
                         </div>
                     </div>
 
-                    {/* Modal de preview */}
+                    {/* Modal poster */}
                     <AnimatePresence>
                         {posterPreview && (
                             <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
+                                initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                                 exit={{ opacity: 0, transition: { duration: 0.2 } }}
                                 className="fixed inset-0 z-50 flex items-center justify-center p-4"
                                 style={{ backdropFilter: 'blur(14px)', background: 'rgba(0,0,0,0.88)' }}
@@ -399,36 +527,22 @@ const Youth = () => {
                                     className="flex flex-col items-center gap-5 max-h-screen"
                                     onClick={(e) => e.stopPropagation()}
                                 >
-                                    {/* Póster completo — PNG renderizado */}
-                                    <img
-                                        src={`${import.meta.env.BASE_URL}${posterPreview.poster}`}
-                                        alt={posterPreview.titulo}
-                                        className="rounded-lg shadow-2xl border border-white/10 block"
-                                        style={{ maxHeight: '72vh', maxWidth: '90vw', width: 'auto', height: 'auto' }}
-                                    />
-
-                                    {/* Acciones */}
+                                    <img src={`${import.meta.env.BASE_URL}${posterPreview.poster}`} alt={posterPreview.titulo}
+                                        className="rounded-xl shadow-2xl border border-white/10 block"
+                                        style={{ maxHeight: '72vh', maxWidth: '90vw', width: 'auto', height: 'auto' }} />
                                     <div className="flex gap-3">
-                                        <button
-                                            onClick={() => setPosterPreview(null)}
-                                            className="flex items-center gap-2 bg-white/8 border border-white/15 text-white/70 px-5 py-2.5 rounded-lg font-heading text-sm font-semibold hover:bg-white/15 transition-all"
-                                        >
-                                            <X size={15} /> Cerrar
+                                        <button onClick={() => setPosterPreview(null)}
+                                            className="flex items-center gap-2 bg-white/8 border border-white/15 text-white/70 px-5 py-2.5 rounded-xl font-heading text-sm font-semibold hover:bg-white/15 transition-all">
+                                            <X size={14} /> Cerrar
                                         </button>
-                                        <a
-                                            href={`${import.meta.env.BASE_URL}${posterPreview.poster}`}
-                                            download={`salmo-${posterPreview.id}.png`}
-                                            className="flex items-center gap-2 bg-sabiduria-gold text-sabiduria-navy px-5 py-2.5 rounded-lg font-heading text-sm font-bold hover:bg-sabiduria-gold/90 transition-all active:scale-95"
-                                        >
-                                            <Download size={15} /> Descargar PNG
+                                        <a href={`${import.meta.env.BASE_URL}${posterPreview.poster}`} download={`salmo-${posterPreview.id}.png`}
+                                            className="flex items-center gap-2 bg-sabiduria-gold text-sabiduria-navy px-5 py-2.5 rounded-xl font-heading text-sm font-bold hover:brightness-105 transition-all active:scale-95">
+                                            <Download size={14} /> Descargar PNG
                                         </a>
                                     </div>
                                 </motion.div>
-
-                                <button
-                                    onClick={() => setPosterPreview(null)}
-                                    className="absolute top-5 right-5 p-2 text-white/40 hover:text-white transition-colors"
-                                >
+                                <button onClick={() => setPosterPreview(null)}
+                                    className="absolute top-5 right-5 p-2 text-white/40 hover:text-white transition-colors">
                                     <X size={22} />
                                 </button>
                             </motion.div>
@@ -436,74 +550,6 @@ const Youth = () => {
                     </AnimatePresence>
                 </section>
 
-                {/* Coming Soon Sections */}
-                <section className="py-16 bg-white border-t border-sabiduria-navy/10">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h2 className="text-3xl md:text-4xl font-heading font-bold text-sabiduria-navy text-center mb-12 tracking-tight">
-                            Próximamente
-                        </h2>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {/* Devotionals */}
-                            <div className="bg-white p-8 rounded-xl border border-sabiduria-gray/10 hover:border-sabiduria-gold/30 hover:shadow-lg transition-all">
-                                <div className="inline-block p-3 bg-sabiduria-gold/10 rounded-lg mb-4 border border-sabiduria-gold/20">
-                                    <BookHeart size={28} className="text-sabiduria-gold" />
-                                </div>
-                                <h3 className="text-xl font-heading font-semibold text-sabiduria-navy mb-3">
-                                    Devocionales Diarios
-                                </h3>
-                                <p className="text-sabiduria-gray leading-relaxed font-serif">
-                                    Lecturas bíblicas y reflexiones diseñadas específicamente para adolescentes.
-                                </p>
-                            </div>
-
-                            {/* Articles */}
-                            <div className="bg-white p-8 rounded-xl border border-sabiduria-gray/10 hover:border-sabiduria-gold/30 hover:shadow-lg transition-all">
-                                <div className="inline-block p-3 bg-sabiduria-gold/10 rounded-lg mb-4 border border-sabiduria-gold/20">
-                                    <Zap size={28} className="text-sabiduria-gold" />
-                                </div>
-                                <h3 className="text-xl font-heading font-semibold text-sabiduria-navy mb-3">
-                                    Artículos para Jóvenes
-                                </h3>
-                                <p className="text-sabiduria-gray leading-relaxed font-serif">
-                                    Contenido relevante sobre fe, vida cristiana y temas que te importan.
-                                </p>
-                            </div>
-
-                            {/* Resources */}
-                            <div className="bg-white p-8 rounded-xl border border-sabiduria-gold/30 hover:shadow-lg transition-all">
-                                <div className="inline-block p-3 bg-sabiduria-gold/10 rounded-lg mb-4 border border-sabiduria-gold/20">
-                                    <ImagePlay size={28} className="text-sabiduria-gold" />
-                                </div>
-                                <h3 className="text-xl font-heading font-semibold text-sabiduria-navy mb-3">
-                                    Recursos Descargables
-                                </h3>
-                                <p className="text-sabiduria-gray leading-relaxed font-serif">
-                                    Wallpapers animados con versículos y plan de lectura bíblica de 30 días.
-                                    <span className="block mt-2 text-sabiduria-gold font-semibold text-sm">¡Ya disponibles abajo! ↓</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* CTA Section */}
-                <section className="py-16 bg-sabiduria-navy text-white">
-                    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6 tracking-tight">
-                            ¿Tienes ideas para esta sección?
-                        </h2>
-                        <p className="text-lg text-white/80 mb-8 leading-relaxed font-serif">
-                            Queremos crear contenido que realmente te ayude. Contáctanos y cuéntanos qué te gustaría ver aquí.
-                        </p>
-                        <a
-                            href="mailto:contacto@sabiduria322.com"
-                            className="inline-block bg-sabiduria-gold text-sabiduria-navy px-8 py-3 rounded-sm font-bold hover:bg-sabiduria-gold/90 transition-all"
-                        >
-                            Enviar Sugerencias
-                        </a>
-                    </div>
-                </section>
             </div>
         </>
     );
