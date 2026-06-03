@@ -4,6 +4,16 @@
       "id": "mar-tempestuoso",
       "name": "Mar Tempestuoso",
       "file": "videos/mar-tempestuoso.mp4"
+    },
+    {
+      "id": "barco-tormenta",
+      "name": "Barco Tormenta",
+      "file": "videos/barco-tormenta.mp4"
+    },
+    {
+      "id": "muelle-mar",
+      "name": "Muelle Mar",
+      "file": "videos/muelle-mar.mp4"
     }
   ]
 }
