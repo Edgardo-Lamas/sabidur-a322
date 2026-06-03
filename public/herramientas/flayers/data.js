@@ -19,16 +19,14 @@ window.SEED_VERSES = [
 /* Los fondos se definen como presets procedurales en backgrounds.js.
    Aquí solo declaramos el orden y los nombres visibles del catálogo. */
 window.SEED_BACKGROUNDS = [
-  { id: "nebula-violeta",  name: "Nebulosa Violeta" },
-  { id: "vialactea",       name: "Vía Láctea" },
-  { id: "aurora",          name: "Aurora Celeste" },
-  { id: "galaxia",         name: "Galaxia Espiral" },
-  { id: "nebula-zafiro",   name: "Nebulosa Zafiro" },
-  { id: "nebula-dorada",   name: "Nebulosa Dorada" },
-  { id: "meteoros",        name: "Lluvia de Estrellas" },
-  { id: "planeta",         name: "Mundos Lejanos" },
-  { id: "amanecer",        name: "Amanecer Cósmico" },
-  { id: "nebula-esmeralda",name: "Nebulosa Esmeralda" }
+  { id: "vialactea",     name: "Vía Láctea" },
+  { id: "aurora",        name: "Aurora Celeste" },
+  { id: "galaxia",       name: "Galaxia Espiral" },
+  { id: "nebula-zafiro", name: "Nebulosa Zafiro" },
+  { id: "nebula-dorada", name: "Nebulosa Dorada" },
+  { id: "meteoros",      name: "Lluvia de Estrellas" },
+  { id: "planeta",       name: "Mundos Lejanos" },
+  { id: "amanecer",      name: "Amanecer Cósmico" }
 ];
 
 /* Estilos de animación de la tipografía (cada flayer puede ser distinto). */
