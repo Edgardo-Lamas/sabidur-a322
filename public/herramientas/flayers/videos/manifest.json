@@ -14,6 +14,16 @@
       "id": "muelle-mar",
       "name": "Muelle Mar",
       "file": "videos/muelle-mar.mp4"
+    },
+    {
+      "id": "cabana",
+      "name": "Cabaña",
+      "file": "videos/cabana.mp4"
+    },
+    {
+      "id": "cascada",
+      "name": "Cascada",
+      "file": "videos/cascada.mp4"
     }
   ]
 }
