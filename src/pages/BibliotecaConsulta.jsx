@@ -384,13 +384,14 @@ const BibliotecaConsulta = () => {
             {/* ════════════════════════════════════════════════════════════════
                 ENCABEZADO
             ════════════════════════════════════════════════════════════════ */}
-            <header
-                className="py-20 px-4 relative"
-                style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E")`,
-                }}
-            >
-                <div className="max-w-4xl mx-auto text-center">
+            <header className="py-20 px-4 relative overflow-hidden">
+                {/* Background Image */}
+                <div
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                    style={{ backgroundImage: `url(${import.meta.env.BASE_URL}img/biblioteca-consulta-hero.jpg)` }}
+                />
+                <div className="absolute inset-0 bg-sabiduria-bg/60" />
+                <div className="relative max-w-4xl mx-auto text-center">
                     {/* Botón volver */}
                     <Link
                         to="/biblioteca"
