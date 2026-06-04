@@ -167,9 +167,15 @@
   function renderBgGrid() {
     const grid = document.getElementById('bgGrid');
     grid.innerHTML = '';
-    const all = window.SEED_BACKGROUNDS.map(b => ({ id: b.id, name: b.name, custom: false, type: 'scene' }))
-      .concat(manifestVideos.map(c => ({ id: c.id, name: c.name, custom: false, type: 'video' })))
-      .concat(customMedia.map(c => ({ id: c.id, name: c.name, custom: true, type: c.type })));
+    const scenes = window.SEED_BACKGROUNDS.map(b => ({ id: b.id, name: b.name, custom: false, type: 'scene' }));
+    const videos = manifestVideos.map(c => ({ id: c.id, name: c.name, custom: false, type: 'video' }));
+    const mixed = [];
+    const maxLen = Math.max(scenes.length, videos.length);
+    for (let i = 0; i < maxLen; i++) {
+      if (i < scenes.length) mixed.push(scenes[i]);
+      if (i < videos.length) mixed.push(videos[i]);
+    }
+    const all = mixed.concat(customMedia.map(c => ({ id: c.id, name: c.name, custom: true, type: c.type })));
     for (const b of all) {
       const el = document.createElement('div');
       el.className = 'bg-thumb' + (b.id === state.bgId ? ' sel' : '') + (b.custom ? ' custom' : '');

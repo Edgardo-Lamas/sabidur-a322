@@ -24,6 +24,11 @@
       "id": "cascada",
       "name": "Cascada",
       "file": "videos/cascada.mp4"
+    },
+    {
+      "id": "lluvia",
+      "name": "Lluvia",
+      "file": "videos/lluvia.mp4"
     }
   ]
 }
