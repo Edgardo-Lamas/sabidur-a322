@@ -1,6 +1,6 @@
 import { Suspense, lazy, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Gamepad2, BookHeart, ArrowRight, Waves, Download, Frame, Expand, X, ChevronDown, Smartphone } from 'lucide-react';
+import { Gamepad2, BookHeart, ArrowRight, Waves, Download, Frame, Expand, X, ChevronDown, Smartphone, Shield } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import BibliaFlow from '../components/BibliaFlow';
 import SEO from '../components/SEO';
@@ -28,9 +28,10 @@ const SALMOS_POSTERS = [
 
 const MODULES = [
     { id: 'juego',      icon: Gamepad2,   num: '01', title: 'Biblia Flow',  desc: 'Juego interactivo',  accent: '#C5A059' },
-    { id: 'flayer',     icon: Frame,      num: '02', title: 'Tu Flayer',    desc: 'Crea y descarga',    accent: '#8AADFF' },
-    { id: 'wallpapers', icon: Smartphone, num: '03', title: 'Wallpapers',   desc: 'Para tu celular',    accent: '#B896E8' },
-    { id: 'historias',  icon: BookHeart,  num: '04', title: 'Historias',    desc: 'Sumérgete',          accent: '#FF9055' },
+    { id: 'armadura',   icon: Shield,     num: '02', title: 'Armadura',     desc: 'Conquista tu fe',    accent: '#7CA9FF' },
+    { id: 'flayer',     icon: Frame,      num: '03', title: 'Tu Flayer',    desc: 'Crea y descarga',    accent: '#8AADFF' },
+    { id: 'wallpapers', icon: Smartphone, num: '04', title: 'Wallpapers',   desc: 'Para tu celular',    accent: '#B896E8' },
+    { id: 'historias',  icon: BookHeart,  num: '05', title: 'Historias',    desc: 'Sumérgete',          accent: '#FF9055' },
 ];
 
 const scrollTo = (id) => {
@@ -210,7 +211,45 @@ const Youth = () => {
                 </section>
 
                 {/* ══════════════════════════════════════════
-                    02 — TU FLAYER ANIMADO  (fondo navy)
+                    02 — LA ARMADURA DE DIOS  (fondo navy)
+                ══════════════════════════════════════════ */}
+                <section id="armadura" className="py-20 md:py-28 bg-sabiduria-navy">
+                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <motion.div
+                            variants={fadeUp} initial="hidden" whileInView="show"
+                            viewport={{ once: true, amount: 0.2 }}
+                            className="text-center mb-12"
+                        >
+                            <SectionLabel num="02" dark>Juego Devocional</SectionLabel>
+                            <h2 className="text-4xl md:text-5xl font-heading font-bold text-white tracking-tight mb-4">
+                                La <span style={{ color: '#7CA9FF' }}>Armadura de Dios</span>
+                            </h2>
+                            <p className="text-white/60 max-w-lg mx-auto font-serif text-lg leading-relaxed">
+                                Conquistá cada pieza de la armadura superando desafíos bíblicos.
+                                Al completarlas, descargá tu retrato heroico.
+                            </p>
+                            <p className="text-white/35 font-serif text-sm italic mt-2">
+                                «Vestíos de toda la armadura de Dios.» — Efesios 6:11
+                            </p>
+                        </motion.div>
+                        <motion.div
+                            variants={fadeUp} initial="hidden" whileInView="show"
+                            viewport={{ once: true, amount: 0.1 }}
+                            className="rounded-2xl overflow-hidden shadow-2xl shadow-black/40"
+                            style={{ border: '1px solid rgba(255,255,255,0.08)' }}
+                        >
+                            <iframe
+                                src="/herramientas/armadura/Armadura.html"
+                                style={{ width: '100%', height: '920px', border: 0 }}
+                                title="La Armadura de Dios"
+                                allow="downloads"
+                            />
+                        </motion.div>
+                    </div>
+                </section>
+
+                {/* ══════════════════════════════════════════
+                    03 — TU FLAYER ANIMADO  (fondo navy)
                 ══════════════════════════════════════════ */}
                 <section id="flayer" className="py-20 md:py-28 bg-sabiduria-navy">
                     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -219,7 +258,7 @@ const Youth = () => {
                             viewport={{ once: true, amount: 0.2 }}
                             className="text-center mb-12"
                         >
-                            <SectionLabel num="02" dark>Crea tu Contenido</SectionLabel>
+                            <SectionLabel num="03" dark>Crea tu Contenido</SectionLabel>
                             <h2 className="text-4xl md:text-5xl font-heading font-bold text-white tracking-tight mb-4">
                                 Tu{' '}
                                 <span style={{ color: '#8AADFF' }}>Flayer Animado</span>
@@ -259,7 +298,7 @@ const Youth = () => {
                             <div className="flex flex-col md:flex-row items-center gap-10 md:gap-14">
                                 {/* Texto */}
                                 <div className="md:w-1/2 text-center md:text-left">
-                                    <SectionLabel num="03">Fondos Animados</SectionLabel>
+                                    <SectionLabel num="04">Fondos Animados</SectionLabel>
                                     <h2 className="text-4xl md:text-5xl font-heading font-bold text-sabiduria-navy tracking-tight mb-4">
                                         Wallpapers con{' '}
                                         <span className="text-sabiduria-gold">Versículos</span>
@@ -306,7 +345,7 @@ const Youth = () => {
                             viewport={{ once: true, amount: 0.2 }}
                             className="text-center mb-14"
                         >
-                            <SectionLabel num="04" dark>Historias para Jóvenes</SectionLabel>
+                            <SectionLabel num="05" dark>Historias para Jóvenes</SectionLabel>
                             <h2 className="text-4xl md:text-5xl font-heading font-bold text-white tracking-tight mb-4">
                                 Historias que te{' '}
                                 <span style={{ color: '#FF9055' }}>sumergen</span>
@@ -454,7 +493,7 @@ const Youth = () => {
                             viewport={{ once: true, amount: 0.2 }}
                             className="text-center mb-12"
                         >
-                            <SectionLabel num="05">Láminas Bíblicas</SectionLabel>
+                            <SectionLabel num="06">Láminas Bíblicas</SectionLabel>
                             <h2 className="text-4xl md:text-5xl font-heading font-bold text-sabiduria-navy tracking-tight mb-4">
                                 Para imprimir y{' '}
                                 <span className="text-sabiduria-gold">enmarcar</span>
