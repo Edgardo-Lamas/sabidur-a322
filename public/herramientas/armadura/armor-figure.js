@@ -11,38 +11,14 @@
   /* Ruta base de los assets del guerrero */
   const IMG = '/img/armadura/';
 
-  /* ---- helpers de color ---- */
-  function shade(hex, amt) {
-    const n = parseInt(hex.slice(1), 16);
-    let r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
-    r = Math.max(0, Math.min(255, r + amt));
-    g = Math.max(0, Math.min(255, g + amt));
-    b = Math.max(0, Math.min(255, b + amt));
-    return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
-  }
-
-  function P(id) { return window.ARMOR.find(a => a.id === id); }
-
-  /* ---- defs: gradientes por pieza ---- */
+  /* ---- defs: filtro de brillo para piezas ---- */
   function defs() {
-    let g = '<defs>';
-    for (const a of window.ARMOR) {
-      g += `<linearGradient id="grad-${a.id}" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="${a.glow}"/>
-        <stop offset="0.5" stop-color="${a.accent}"/>
-        <stop offset="1" stop-color="${shade(a.accent, -70)}"/>
-      </linearGradient>
-      <radialGradient id="rg-${a.id}" cx="0.5" cy="0.4" r="0.7">
-        <stop offset="0" stop-color="${a.glow}" stop-opacity="0.9"/>
-        <stop offset="0.5" stop-color="${a.accent}" stop-opacity="0.5"/>
-        <stop offset="1" stop-color="${a.accent}" stop-opacity="0"/>
-      </radialGradient>`;
-    }
-    g += `<linearGradient id="grad-espada-glow" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#fff8dc"/><stop offset="1" stop-color="#E9C98A"/>
-    </linearGradient>`;
-    g += '</defs>';
-    return g;
+    return `<defs>
+      <filter id="glow-piece" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="6" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>`;
   }
 
   /* ---- Hero base: PNG con fondo transparente ---- */
@@ -69,113 +45,55 @@
     return `<g id="face">${markup}</g>`;
   }
 
-  /* ===================== PIEZAS SVG (overlays animados) ===================== */
+  /* ===================== PIEZAS PNG (overlays animados) =====================
+     Cada pieza es un <image> SVG posicionado sobre el héroe.
+     Coordenadas para viewBox 440×700, héroe en x=20 y=0 w=400 h=700.
+     ===================================================================== */
 
   function piece(id, inner) {
-    return `<g class="piece" data-piece="${id}" data-on="0">${inner}</g>`;
+    return `<g class="piece" data-piece="${id}" data-on="0" filter="url(#glow-piece)">${inner}</g>`;
   }
 
   function pieceCinturon() {
-    const a = P('cinturon');
-    return piece('cinturon', `
-      <ellipse cx="220" cy="352" rx="86" ry="34" fill="url(#rg-cinturon)" opacity="0.28"/>
-      <path d="M180,360 L260,360 L256,418 C256,424 250,428 244,428 L196,428 C190,428 184,424 184,418 Z"
-            fill="url(#grad-cinturon)" stroke="${shade(a.accent, 30)}" stroke-width="1.3" opacity="0.92"/>
-      <path d="M210,362 L210,426 M230,362 L230,426 M196,362 L196,420 M244,362 L244,420"
-            stroke="${shade(a.accent, -50)}" stroke-width="1.4" opacity="0.5"/>
-      <path d="M164,338 L276,338 C280,338 282,341 282,345 L282,361 C282,365 280,368 276,368 L164,368 C160,368 158,365 158,361 L158,345 C158,341 160,338 164,338 Z"
-            fill="url(#grad-cinturon)" stroke="${shade(a.accent, 40)}" stroke-width="1.5"/>
-      <rect x="206" y="338" width="28" height="30" rx="5" fill="${shade(a.accent, 50)}" stroke="${shade(a.accent, -40)}" stroke-width="1.5"/>
-      <path d="M220,344 L220,362 M214,353 L226,353" stroke="${shade(a.accent, -60)}" stroke-width="2.4" stroke-linecap="round"/>
-    `);
+    return piece('cinturon',
+      `<image href="${IMG}cinturon.png" x="110" y="305" width="200" height="100"
+              preserveAspectRatio="xMidYMid meet"/>`
+    );
   }
 
   function pieceCoraza() {
-    const a = P('coraza');
-    return piece('coraza', `
-      <ellipse cx="220" cy="262" rx="92" ry="86" fill="url(#rg-coraza)" opacity="0.28"/>
-      <path d="M168,206 C168,196 184,188 196,187 L244,187 C256,188 272,196 272,206
-               L266,318 C264,336 250,346 234,348 L206,348 C190,346 176,336 174,318 Z"
-            fill="url(#grad-coraza)" stroke="${shade(a.accent, 50)}" stroke-width="2"/>
-      <path d="M220,196 L220,344" stroke="${shade(a.accent, -40)}" stroke-width="2" opacity="0.6"/>
-      <path d="M196,214 C206,232 206,250 200,268 M244,214 C234,232 234,250 240,268"
-            fill="none" stroke="${a.glow}" stroke-width="2" opacity="0.7"/>
-      <path d="M220,250 L220,286 M206,264 L234,264" stroke="${a.glow}" stroke-width="4.5" stroke-linecap="round" opacity="0.95"/>
-      <path d="M150,206 C150,190 172,182 188,186 C176,196 170,206 168,220 C160,210 154,206 150,206 Z"
-            fill="url(#grad-coraza)" stroke="${shade(a.accent, 40)}" stroke-width="1.5"/>
-      <path d="M290,206 C290,190 268,182 252,186 C264,196 270,206 272,220 C280,210 286,206 290,206 Z"
-            fill="url(#grad-coraza)" stroke="${shade(a.accent, 40)}" stroke-width="1.5"/>
-    `);
+    return piece('coraza',
+      `<image href="${IMG}coraza.png" x="95" y="130" width="250" height="220"
+              preserveAspectRatio="xMidYMid meet"/>`
+    );
   }
 
   function pieceCalzado() {
-    const a = P('calzado');
-    return piece('calzado', `
-      <ellipse cx="220" cy="600" rx="100" ry="56" fill="url(#rg-calzado)" opacity="0.25"/>
-      ${greave(180, 216)}
-      ${greave(224, 260)}
-    `);
-    function greave(x0, x1) {
-      const mid = (x0 + x1) / 2;
-      return `<path d="M${x0},492 L${x1},492 L${x1 + 2},614 L${x0 - 2},614 Z"
-                 fill="url(#grad-calzado)" stroke="${shade(a.accent, 40)}" stroke-width="1.5"/>
-              <path d="M${x0 - 4},614 L${x1 + 4},614 L${x1 + 14},650 C${x1 + 14},656 ${x1 + 8},660 ${x1},660 L${x0 - 6},660 C${x0 - 12},660 ${x0 - 12},652 ${x0 - 8},644 Z"
-                 fill="url(#grad-calzado)" stroke="${shade(a.accent, 40)}" stroke-width="1.5"/>
-              <path d="M${mid},500 L${mid},606" stroke="${a.glow}" stroke-width="1.6" opacity="0.55"/>
-              <path d="M${x0 + 3},520 L${x1 - 3},520" stroke="${shade(a.accent, -40)}" stroke-width="1.4" opacity="0.4"/>`;
-    }
+    return piece('calzado',
+      `<image href="${IMG}calzado.png" x="105" y="440" width="230" height="250"
+              preserveAspectRatio="xMidYMid meet"/>`
+    );
   }
 
   function pieceEscudo() {
-    const a = P('escudo');
-    const cx = 112, cy = 330, r = 88;
-    return piece('escudo', `
-      <ellipse cx="${cx}" cy="${cy}" rx="${r + 16}" ry="${r + 16}" fill="url(#rg-escudo)" opacity="0.3"/>
-      <circle cx="${cx}" cy="${cy}" r="${r}" fill="url(#grad-escudo)" stroke="${shade(a.accent, 50)}" stroke-width="3"/>
-      <circle cx="${cx}" cy="${cy}" r="${r - 14}" fill="none" stroke="${shade(a.accent, -40)}" stroke-width="2" opacity="0.7"/>
-      <circle cx="${cx}" cy="${cy}" r="${r - 30}" fill="none" stroke="${a.glow}" stroke-width="1.6" opacity="0.6"/>
-      <path d="M${cx},${cy - 44} L${cx},${cy + 44} M${cx - 44},${cy} L${cx + 44},${cy}" stroke="${a.glow}" stroke-width="6" stroke-linecap="round"/>
-      <circle cx="${cx}" cy="${cy}" r="9" fill="${a.glow}"/>
-    `);
+    return piece('escudo',
+      `<image href="${IMG}escudo.png" x="-10" y="195" width="185" height="185"
+              preserveAspectRatio="xMidYMid meet"/>`
+    );
   }
 
   function pieceYelmo() {
-    const a = P('yelmo');
-    const cx = 220, cy = 116;
-    return piece('yelmo', `
-      <ellipse cx="${cx}" cy="${cy - 4}" rx="80" ry="86" fill="url(#rg-yelmo)" opacity="0.25"/>
-      <path d="M${cx + 6},${cy - 70}
-               C${cx + 30},${cy - 120} ${cx + 70},${cy - 132} ${cx + 92},${cy - 120}
-               C${cx + 70},${cy - 110} ${cx + 58},${cy - 86} ${cx + 56},${cy - 58}
-               C${cx + 48},${cy - 78} ${cx + 30},${cy - 86} ${cx + 6},${cy - 70} Z"
-            fill="url(#grad-espada-glow)" stroke="${shade('#E9C98A', 30)}" stroke-width="1.2" opacity="0.9"/>
-      <path d="M${cx - 56},${cy - 6} C${cx - 56},${cy - 78} ${cx + 56},${cy - 78} ${cx + 56},${cy - 6}
-               C${cx + 40},${cy - 18} ${cx - 40},${cy - 18} ${cx - 56},${cy - 6} Z"
-            fill="url(#grad-yelmo)" stroke="${shade(a.accent, -30)}" stroke-width="2"/>
-      <path d="M${cx - 56},${cy - 8} C${cx - 60},${cy + 30} ${cx - 52},${cy + 52} ${cx - 44},${cy + 60}
-               L${cx - 40},${cy + 30} C${cx - 44},${cy + 8} ${cx - 50},${cy - 4} ${cx - 56},${cy - 8} Z"
-            fill="url(#grad-yelmo)" stroke="${shade(a.accent, -30)}" stroke-width="1.5"/>
-      <path d="M${cx + 56},${cy - 8} C${cx + 60},${cy + 30} ${cx + 52},${cy + 52} ${cx + 44},${cy + 60}
-               L${cx + 40},${cy + 30} C${cx + 44},${cy + 8} ${cx + 50},${cy - 4} ${cx + 56},${cy - 8} Z"
-            fill="url(#grad-yelmo)" stroke="${shade(a.accent, -30)}" stroke-width="1.5"/>
-      <path d="M${cx - 56},${cy - 6} C${cx - 40},${cy - 18} ${cx + 40},${cy - 18} ${cx + 56},${cy - 6}" fill="none" stroke="${a.glow}" stroke-width="2.5" opacity="0.8"/>
-      <rect x="${cx - 4}" y="${cy - 80}" width="14" height="16" rx="4" fill="${shade(a.accent, -10)}" stroke="${shade(a.accent, -40)}" stroke-width="1"/>
-    `);
+    return piece('yelmo',
+      `<image href="${IMG}yelmo.png" x="115" y="-15" width="210" height="185"
+              preserveAspectRatio="xMidYMid meet"/>`
+    );
   }
 
   function pieceEspada() {
-    const a = P('espada');
-    const hx = 322, hy = 372, tipY = 96;
-    return piece('espada', `
-      <ellipse cx="${hx + 8}" cy="${(hy + tipY) / 2}" rx="28" ry="${(hy - tipY) / 2 + 14}" fill="url(#rg-espada)" opacity="0.25"/>
-      <path d="M${hx + 2},${hy - 34} L${hx + 14},${tipY} L${hx + 26},${hy - 34} Z"
-            fill="url(#grad-espada)" stroke="${shade(a.accent, 30)}" stroke-width="1.5"/>
-      <path d="M${hx + 14},${tipY + 6} L${hx + 14},${hy - 36}" stroke="#fffef5" stroke-width="2" opacity="0.85"/>
-      <path d="M${hx - 16},${hy - 30} L${hx + 44},${hy - 30} L${hx + 40},${hy - 22} L${hx - 12},${hy - 22} Z"
-            fill="${shade(a.accent, -20)}" stroke="${shade(a.accent, 30)}" stroke-width="1.2"/>
-      <rect x="${hx + 8}" y="${hy - 22}" width="12" height="30" rx="4" fill="${shade(a.accent, -40)}"/>
-      <circle cx="${hx + 14}" cy="${hy + 12}" r="8" fill="url(#grad-espada)" stroke="${shade(a.accent, -30)}" stroke-width="1.2"/>
-    `);
+    return piece('espada',
+      `<image href="${IMG}espada.png" x="295" y="100" width="110" height="310"
+              preserveAspectRatio="xMidYMid meet"/>`
+    );
   }
 
   /* ===================== ENSAMBLE SVG ===================== */
@@ -198,10 +116,10 @@
     const face = opts.face;
     let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${VB_W} ${VB_H}" width="${VB_W}" height="${VB_H}">`;
     svg += defs();
-    svg += `<clipPath id="faceClip"><ellipse cx="220" cy="116" rx="47" ry="55"/></clipPath>`;
     svg += styleBlock();
     svg += baseBody();
-    svg += faceGroup(face);
+    // Solo superpone foto si el usuario subió una en el retrato final
+    if (face && face.type === 'photo' && face.src) svg += faceGroup(face);
     svg += allPieces();
     svg = setEquippedInString(svg, equipped);
     svg += '</svg>';
