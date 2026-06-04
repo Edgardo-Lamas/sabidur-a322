@@ -7,6 +7,7 @@
     { "id": "cascada",         "name": "Cascada",         "file": "videos/cascada.mp4" },
     { "id": "lluvia",          "name": "Lluvia",          "file": "videos/lluvia.mp4" },
     { "id": "lago-montana",    "name": "Lago Montaña",    "file": "videos/lago-montana.mp4" },
-    { "id": "gaviotas",        "name": "Gaviotas",        "file": "videos/gaviotas.mp4" }
+    { "id": "gaviotas",        "name": "Gaviotas",        "file": "videos/gaviotas.mp4" },
+    { "id": "playa",           "name": "Playa",           "file": "videos/playa.mp4" }
   ]
 }
