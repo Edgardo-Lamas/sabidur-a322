@@ -48,10 +48,10 @@ const TextPage = ({ textType }) => {
 
     // Si el texto pertenece a una serie, el botón vuelve a la página de esa serie
     const serieMatch = text?.serie
-        ? (content.biblioteca?.series || []).find(s => s.titulo === text.serie)
+        ? (content.biblioteca?.series || []).find(s => text.serie.startsWith(s.titulo))
         : null;
-    const backPath = serieMatch ? `/biblioteca/series/${serieMatch.slug}` : backPath;
-    const backLabel = serieMatch ? `Volver a ${serieMatch.titulo}` : backLabel;
+    const backPath = serieMatch ? `/biblioteca/series/${serieMatch.slug}` : config.backPath;
+    const backLabel = serieMatch ? `Volver a ${serieMatch.titulo}` : config.backLabel;
 
     if (!text) {
         return (
