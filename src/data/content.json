@@ -1170,7 +1170,7 @@
         "imagen": "img/series/reloj-profetico.jpg",
         "disponible": true,
         "primerArticulo": "/ensayos/reloj-profetico-introduccion",
-        "totalArticulos": 3,
+        "totalArticulos": 4,
         "articulos": [
           {
             "numero": "0",
@@ -1193,8 +1193,60 @@
             "href": "/ensayo/reloj-profetico-bloque-ii",
             "disponible": true
           }
+        ],
+        "intro": {
+          "numero": "0",
+          "titulo": "Introducción",
+          "subtitulo": "Las tres líneas de tiempo de Dios y la llave de 1 Corintios 10:32",
+          "href": "/ensayo/reloj-profetico-introduccion",
+          "disponible": true
+        },
+        "lineas": [
+          {
+            "id": "iglesia",
+            "nombre": "Línea de la Iglesia",
+            "descripcion": "El tiempo presente de la gracia, la novia que espera y el misterio del Cuerpo de Cristo.",
+            "color": "gold",
+            "articulos": [
+              {
+                "numero": "I",
+                "titulo": "El Estado Actual de la Iglesia",
+                "subtitulo": "La novia que espera, el mundo que no sabe la hora",
+                "href": "/ensayo/reloj-profetico-bloque-i",
+                "disponible": true
+              },
+              {
+                "numero": "II",
+                "titulo": "El Harpazo: la promesa del rescate",
+                "subtitulo": "La naturaleza del arrebatamiento, la secuencia de 1 Tesalonicenses 4 y la liberación de la ira",
+                "href": "/ensayo/reloj-profetico-bloque-ii",
+                "disponible": true
+              }
+            ]
+          },
+          {
+            "id": "israel",
+            "nombre": "Línea de Israel",
+            "descripcion": "La nación elegida, sus pactos irrevocables y su lugar en el programa profético de Dios.",
+            "color": "blue",
+            "articulos": [
+              {
+                "numero": "Israel I",
+                "titulo": "Israel en su vocación original",
+                "subtitulo": "El llamado de Abraham, la ceremonia de Génesis 15 y la identidad sacerdotal de Israel",
+                "href": "/ensayo/reloj-profetico-israel-1",
+                "disponible": true
+              }
+            ]
+          },
+          {
+            "id": "gentiles",
+            "nombre": "Línea de los Gentiles",
+            "descripcion": "El tiempo de los gentiles, los imperios del sueño de Nabucodonosor y el horizonte de las naciones.",
+            "color": "earth",
+            "articulos": []
+          }
         ]
-
       },
       {
         "id": 2,
