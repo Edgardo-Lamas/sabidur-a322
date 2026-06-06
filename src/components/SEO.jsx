@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 const SEO = ({ title, description, image, url, type = 'website' }) => {
     const siteTitle = 'Sabiduría para el Corazón';
     const siteDescription = 'Recursos de teología reformada, exégesis bíblica y bosquejos homiléticos para la edificación de la Iglesia de Cristo.';
-    const siteUrl = (import.meta.env.VITE_SITE_URL || 'https://edgardo-lamas.github.io/sabidur-a322').replace(/\/$/, '') + '/';
+    const siteUrl = (import.meta.env.VITE_SITE_URL || 'https://sabiduriadelcorazon.vercel.app').replace(/\/$/, '') + '/';
     const defaultImage = '/img/og-default.jpg'; // Ensure this image exists in public/img
 
     const metaTitle = title ? `${title} | ${siteTitle}` : siteTitle;
