@@ -1170,7 +1170,7 @@
         "imagen": "img/series/reloj-profetico.jpg",
         "disponible": true,
         "primerArticulo": "/ensayos/reloj-profetico-introduccion",
-        "totalArticulos": 4,
+        "totalArticulos": 5,
         "articulos": [
           {
             "numero": "0",
@@ -1191,6 +1191,13 @@
             "titulo": "Bloque II — El Harpazo: la promesa del rescate",
             "subtitulo": "La naturaleza del arrebatamiento, la secuencia de 1 Tesalonicenses 4 y la liberación de la ira",
             "href": "/ensayo/reloj-profetico-bloque-ii",
+            "disponible": true
+          },
+          {
+            "numero": "Israel II",
+            "titulo": "El quiebre y la disciplina",
+            "subtitulo": "Del becerro de oro al exilio: la lógica de la disciplina pactual y la fidelidad inquebrantable de Dios",
+            "href": "/ensayo/reloj-profetico-israel-2",
             "disponible": true
           }
         ],
@@ -1235,6 +1242,13 @@
                 "titulo": "Israel en su vocación original",
                 "subtitulo": "El llamado de Abraham, la ceremonia de Génesis 15 y la identidad sacerdotal de Israel",
                 "href": "/ensayo/reloj-profetico-israel-1",
+                "disponible": true
+              },
+              {
+                "numero": "Israel II",
+                "titulo": "El quiebre y la disciplina",
+                "subtitulo": "Del becerro de oro al exilio: la lógica de la disciplina pactual y la fidelidad inquebrantable de Dios",
+                "href": "/ensayo/reloj-profetico-israel-2",
                 "disponible": true
               }
             ]
