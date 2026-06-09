@@ -7,6 +7,16 @@ const API_KEY    = process.env.YOUTUBE_API_KEY || process.env.VITE_YOUTUBE_API_K
 const CHANNEL_ID = 'UCQ4LzY6UyppxVddHx5f-ZnA';
 const TTL_MS     = 6 * 60 * 60 * 1000; // 6 horas
 
+// Video de respaldo: se usa cuando la API key no está configurada o falla
+const FALLBACK_VIDEO = {
+  id:           'gqXb77xb1cc',
+  title:        'Compasión sin Límites — Estudio en Mateo 15',
+  description:  'Un estudio expositivo sobre la compasión de Cristo y su significado para la vida cristiana.',
+  thumbnail:    `https://i.ytimg.com/vi/gqXb77xb1cc/hqdefault.jpg`,
+  channelTitle: 'Sabiduría para el Corazón',
+  publishedAt:  '2024-01-01T00:00:00Z',
+};
+
 const ALLOWED_ORIGINS = [
   'https://sabiduriadelcorazon.vercel.app',
   'http://localhost:5173',
@@ -28,7 +38,7 @@ export default async function handler(req, res) {
   }
 
   if (!API_KEY) {
-    return res.status(500).json({ error: 'YouTube API key not configured' });
+    return res.status(200).json(FALLBACK_VIDEO);
   }
 
   try {
@@ -40,12 +50,8 @@ export default async function handler(req, res) {
     const response = await fetch(url);
     const data     = await response.json();
 
-    if (data.error) {
-      return res.status(502).json({ error: data.error.message });
-    }
-
-    if (!data.items?.length) {
-      return res.status(404).json({ error: 'No videos found' });
+    if (data.error || !data.items?.length) {
+      return res.status(200).json(FALLBACK_VIDEO);
     }
 
     const v = data.items[0];
@@ -63,6 +69,6 @@ export default async function handler(req, res) {
     return res.status(200).json(result);
 
   } catch (err) {
-    return res.status(500).json({ error: err.message });
+    return res.status(200).json(FALLBACK_VIDEO);
   }
 }
