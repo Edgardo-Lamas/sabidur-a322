@@ -439,9 +439,10 @@ VITE_SUPABASE_ANON_KEY   # Migrado a JSON locales
 
 ### Cómo ejecutar en desarrollo
 ```bash
-cd ~/Desktop && python3 -m http.server 8080
-# Abrir: http://localhost:8080/templo-salomon.html
-# IMPORTANTE: siempre via localhost, nunca file:// (rompe import map + texturas)
+cd ~/Desktop && python3 -m http.server 8080 --bind 127.0.0.1
+# Abrir: http://127.0.0.1:8080/templo-salomon.html
+# IMPORTANTE: usar 127.0.0.1, NO "localhost" (en macOS resuelve a IPv6 y el browser no conecta)
+# NUNCA abrir con file:// (rompe import map + texturas)
 ```
 
 ### Stack del visor 3D
@@ -509,6 +510,61 @@ rock_wall              → suelo del atrio (ground)
 - **Unicode minus (U+2212) rompe JS** — usar siempre guión ASCII `-` en números
 - **Hard refresh (Cmd+Shift+R)** — necesario para limpiar caché al iterar
 - **Ventana incógnito** — útil para testear sin caché persistente
+
+---
+
+## Proyecto: Recorridos Bíblicos — Plan de Mejoras (acordado)
+
+> Plan discutido y acordado. Implementar solo con aprobación explícita por fase.
+> **REGLA:** Antes de tocar cualquier archivo de mapas, presentar propuesta y esperar OK.
+
+### Fase inmediata — Navegación manual (solo código, sin contenido nuevo)
+- **Opción C acordada:** el mapa vuela a cada parada, se detiene y espera. El usuario lee y presiona "Siguiente". Sin Play/Pause ni auto-avance.
+- Cambios de código: `narrativeEngine.js` (START → `status: 'paused'`), `NarrativeControlPanel.jsx` (reemplazar controles por Anterior/Siguiente/Detener), `RouteSelector.jsx` (un solo clic para iniciar narrativa, sin paso intermedio).
+- **Estado:** pendiente de implementación.
+
+### Fase 2 — Audio narrativo (requiere producción de contenido primero)
+- Cada parada tiene un audio que se reproduce al llegar al punto. El recorrido espera a que termine antes de ofrecer avanzar.
+- **Diferencia editorial crítica:** el texto actual es descriptivo y autocontenido por parada. El guion de audio debe ser narrativo y continuo — cada parada retoma el hilo de la anterior, como una guía de turismo que camina con el visitante.
+- Pipeline técnico: Voicebox MCP → MP3 → Cloudflare R2 (`/audio/mapas/`) → campo `audioUrl` en GeoJSON → mini reproductor en StepInfoPanel.
+- **Piloto:** recorrido "El Viaje de Abraham" (redactar guion primero, luego generar audios).
+- **Estado:** pendiente de guion editorial.
+
+### Fase 3 — Recursos por parada (requiere producción de contenido primero)
+- Cada punto puede vincular: imagen (arqueológica o FLUX), artículo interno del sitio, video del canal YouTube.
+- Campos a agregar en GeoJSON: `imagenUrl`, `articuloSlug`, `videoId` (todos opcionales).
+- Mostrar en StepInfoPanel como chips de acceso rápido. Los recursos se agregan progresivamente al GeoJSON a medida que existen.
+- **Estado:** pendiente de producción de contenido.
+
+### Fase A — Zoom cinematográfico (solo código, todos los recorridos)
+- Aumentar `flyZoom` de 10 → 13 y `flyDuration` de 1.2 → 2.2 en `useNarrativeMap.js`.
+- Leaflet `flyTo` hace una curva natural zoom-out → zoom-in. Con estos valores la animación es notablemente más dramática.
+- Aplica a todos los recorridos sin excepción.
+- **Estado:** pendiente de implementación.
+
+### Fase B — Capa satelital (complementa Fase A, paradas con buena resolución)
+- Agregar capa ESRI World Imagery (gratuita, sin API key) que se activa al superar zoom 12.
+- El recorrido arranca en NatGeo (vista cartográfica, ruta amplia) y llega a imagen satelital real.
+- Requiere revisar parada por parada qué lugares tienen buena resolución satelital.
+- Sitios sin resolución útil (desierto, ruinas rasas) se quedan con Fase A + imagen de la Fase 3.
+- **Estado:** pendiente. Implementar después de Fase A.
+
+### Fase C — Vuelo 3D con MapLibre GL (paradas estrella, puntual)
+- Migrar la capa de mapa de Leaflet a MapLibre GL (open-source) para habilitar terreno 3D, inclinación de cámara y rotación durante el vuelo.
+- Solo para paradas específicas de alto valor visual: Jerusalén, Monte Sinaí, Mar Muerto, etc.
+- Cambio estructural significativo — planificar por separado cuando llegue el momento.
+- **Estado:** pendiente. Implementar de a una parada a la vez cuando haya contenido listo.
+
+### Secuencia completa acordada
+```
+Fase A (zoom cinematográfico) → mejora todos los recorridos ya
+Fase B (satélite)             → complementa donde hay buena imagen satelital
+Fase 3 anterior (recursos)    → completa sitios donde el satélite no alcanza
+Fase C (3D MapLibre)          → paradas estrella seleccionadas
+```
+
+### Nota sobre el GeoJSON de Abraham
+- `descenso-a-egipto` tiene solo 1 feature (Egipto). Al iniciar esa sub-ruta, `isComplete` es true de inmediato. Pendiente: agregar más paradas o fusionar como parada especial dentro de otra sub-ruta.
 
 ---
 

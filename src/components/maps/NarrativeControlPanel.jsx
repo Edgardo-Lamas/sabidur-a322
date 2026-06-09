@@ -7,8 +7,6 @@
  */
 import {
     SkipBack,
-    Play,
-    Pause,
     SkipForward,
     Square,
     CheckCircle,
@@ -16,8 +14,6 @@ import {
     BookOpen,
 } from 'lucide-react';
 import useNarrative from '../../engine/useNarrative';
-
-const SPEED_OPTIONS = [0.5, 1, 1.5, 2];
 
 // Orden y etiquetas legibles de los grupos de ruta — por recorrido
 const ROUTE_ORDER = [
@@ -78,22 +74,14 @@ const NarrativeControlPanel = ({ epochColor = '#C5A059', sintesisTeologica }) =>
         activeRoute,
         canGoNext,
         canGoPrev,
-        speed,
         next,
         prev,
-        pause,
-        resume,
         stop,
-        setSpeed,
         startRoute,
     } = useNarrative();
 
     if (status === 'idle') return null;
 
-    const isPlaying = status === 'playing';
-    // isComplete: sin más pasos (status !== 'idle' ya está filtrado arriba).
-    // Cubre rutas de 1 solo paso (status='playing', canGoNext=false desde el inicio)
-    // y rutas normales al final (status='paused' por el reducer de NEXT).
     const isComplete = !canGoNext;
 
     // Siguiente etapa en secuencia (si existe)
@@ -223,131 +211,79 @@ const NarrativeControlPanel = ({ epochColor = '#C5A059', sintesisTeologica }) =>
                     </button>
                 </div>
             ) : (
-                /* ── Controles normales ── */
-                <>
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '8px',
-                    }}>
-                        {/* Prev */}
+                /* ── Navegación manual ── */
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                        {/* Anterior */}
                         <button
                             onClick={prev}
                             disabled={!canGoPrev}
                             title="Paso anterior"
                             style={{
                                 ...btnBase,
-                                width: '36px',
-                                height: '36px',
-                                borderRadius: '8px',
+                                flex: 1,
+                                padding: '10px 12px',
+                                borderRadius: '10px',
                                 background: 'transparent',
-                                color: canGoPrev ? epochColor : '#D0D0D0',
-                                opacity: canGoPrev ? 1 : 0.35,
+                                color: canGoPrev ? '#4A4F5A' : '#D0D0D0',
+                                border: '1px solid rgba(0,0,0,0.10)',
+                                gap: '6px',
+                                fontSize: '0.8125rem',
+                                fontWeight: 500,
+                                opacity: canGoPrev ? 1 : 0.4,
+                                cursor: canGoPrev ? 'pointer' : 'default',
                             }}
                         >
-                            <SkipBack size={17} />
+                            <SkipBack size={14} />
+                            Anterior
                         </button>
 
-                        {/* Play / Pause */}
-                        <button
-                            onClick={isPlaying ? pause : resume}
-                            title={isPlaying ? 'Pausar' : 'Reanudar'}
-                            style={{
-                                ...btnBase,
-                                width: '44px',
-                                height: '44px',
-                                borderRadius: '50%',
-                                background: epochColor,
-                                color: 'white',
-                                boxShadow: `0 2px 8px ${epochColor}40`,
-                            }}
-                        >
-                            {isPlaying ? <Pause size={18} /> : <Play size={18} style={{ marginLeft: '2px' }} />}
-                        </button>
-
-                        {/* Next */}
+                        {/* Siguiente */}
                         <button
                             onClick={next}
                             disabled={!canGoNext}
                             title="Siguiente paso"
                             style={{
                                 ...btnBase,
-                                width: '36px',
-                                height: '36px',
-                                borderRadius: '8px',
-                                background: 'transparent',
-                                color: canGoNext ? epochColor : '#D0D0D0',
-                                opacity: canGoNext ? 1 : 0.35,
+                                flex: 1,
+                                padding: '10px 12px',
+                                borderRadius: '10px',
+                                background: canGoNext ? epochColor : 'rgba(0,0,0,0.04)',
+                                color: canGoNext ? 'white' : '#D0D0D0',
+                                border: canGoNext ? 'none' : '1px solid rgba(0,0,0,0.08)',
+                                gap: '6px',
+                                fontSize: '0.8125rem',
+                                fontWeight: 600,
+                                boxShadow: canGoNext ? `0 2px 8px ${epochColor}40` : 'none',
+                                opacity: canGoNext ? 1 : 0.4,
+                                cursor: canGoNext ? 'pointer' : 'default',
                             }}
                         >
-                            <SkipForward size={17} />
-                        </button>
-
-                        {/* Divider */}
-                        <div style={{
-                            width: '1px',
-                            height: '24px',
-                            background: 'rgba(0,0,0,0.08)',
-                            margin: '0 6px',
-                        }} />
-
-                        {/* Stop */}
-                        <button
-                            onClick={stop}
-                            title="Detener recorrido"
-                            style={{
-                                ...btnBase,
-                                width: '32px',
-                                height: '32px',
-                                borderRadius: '8px',
-                                background: 'transparent',
-                                color: '#999',
-                            }}
-                        >
-                            <Square size={14} />
+                            Siguiente
+                            <SkipForward size={14} />
                         </button>
                     </div>
 
-                    {/* Speed selector */}
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '4px',
-                        marginTop: '12px',
-                        paddingTop: '12px',
-                        borderTop: '1px solid rgba(0,0,0,0.05)',
-                    }}>
-                        <span style={{
-                            fontSize: '0.6875rem',
+                    {/* Detener */}
+                    <button
+                        onClick={stop}
+                        title="Detener recorrido"
+                        style={{
+                            ...btnBase,
+                            width: '100%',
+                            padding: '7px 16px',
+                            borderRadius: '8px',
+                            background: 'transparent',
                             color: '#999',
-                            fontWeight: 500,
-                            marginRight: '8px',
-                            letterSpacing: '0.03em',
-                        }}>
-                            Velocidad
-                        </span>
-                        {SPEED_OPTIONS.map((s) => (
-                            <button
-                                key={s}
-                                onClick={() => setSpeed(s)}
-                                style={{
-                                    ...btnBase,
-                                    padding: '3px 10px',
-                                    borderRadius: '6px',
-                                    fontSize: '0.75rem',
-                                    fontFamily: "'Inter', monospace",
-                                    fontWeight: speed === s ? 600 : 400,
-                                    background: speed === s ? epochColor : 'transparent',
-                                    color: speed === s ? 'white' : '#999',
-                                }}
-                            >
-                                {s}x
-                            </button>
-                        ))}
-                    </div>
-                </>
+                            fontSize: '0.75rem',
+                            gap: '5px',
+                            border: '1px solid rgba(0,0,0,0.07)',
+                        }}
+                    >
+                        <Square size={12} />
+                        Detener recorrido
+                    </button>
+                </div>
             )}
         </div>
     );

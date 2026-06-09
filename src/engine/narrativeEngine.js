@@ -57,7 +57,7 @@ export const narrativeReducer = (state, action) => {
                 ...state,
                 activeRoute: { id: routeId, features, meta: meta || null },
                 currentStepIndex: 0,
-                status: 'playing',
+                status: 'paused',
             };
         }
 

@@ -10,7 +10,6 @@
  *   onStartStory     — (groupId: string) => void  (undefined si story no disponible)
  *   epochColor       — string
  */
-import React from 'react';
 import { Route, X, Play } from 'lucide-react';
 
 const RouteSelector = ({ availableGroups, activeGroup, activateRoute, clearRoute, onStartStory, onStartNarrative, epochColor = '#C5A059' }) => {
@@ -29,7 +28,15 @@ const RouteSelector = ({ availableGroups, activeGroup, activateRoute, clearRoute
                     return (
                         <div key={group} className="flex items-center gap-0.5">
                             <button
-                                onClick={() => isActive ? clearRoute() : activateRoute(group)}
+                                onClick={() => {
+                                    if (onStartNarrative) {
+                                        onStartNarrative(group);
+                                    } else if (isActive) {
+                                        clearRoute();
+                                    } else {
+                                        activateRoute(group);
+                                    }
+                                }}
                                 className="px-2.5 py-1 rounded-sm text-xs font-medium transition-all"
                                 style={{
                                     background: isActive ? epochColor : 'transparent',
@@ -39,17 +46,7 @@ const RouteSelector = ({ availableGroups, activeGroup, activateRoute, clearRoute
                             >
                                 {group.replace(/-/g, ' ')}
                             </button>
-                            {isActive && onStartNarrative && (
-                                <button
-                                    onClick={() => onStartNarrative(group)}
-                                    className="px-2 py-1 rounded-sm text-xs font-semibold transition-all flex items-center gap-1"
-                                    style={{ background: epochColor, color: 'white' }}
-                                    title="Recorrido narrativo paso a paso"
-                                >
-                                    📖 Recorrido
-                                </button>
-                            )}
-                            {/* Botón Story: solo visible cuando el grupo está activo y no hay narrative */}
+                            {/* Botón Story: solo cuando no hay narrativa */}
                             {isActive && onStartStory && !onStartNarrative && (
                                 <button
                                     onClick={() => onStartStory(group)}

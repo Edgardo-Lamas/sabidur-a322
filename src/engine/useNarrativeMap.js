@@ -120,7 +120,7 @@ const animateSegmentDraw = (polyline, durationMs = 1200) => {
 const useNarrativeMap = (map, clusterRef, options = {}) => {
     const {
         flyZoom = 10,
-        flyDuration = 1.2,
+        flyDuration = 2.2,
     } = options;
 
     const {
@@ -329,7 +329,7 @@ const useNarrativeMap = (map, clusterRef, options = {}) => {
         // ── flyTo con animación suave ─────────────────────────────────────────
         map.flyTo([lat, lng], flyZoom, {
             duration: flyDuration,
-            easeLinearity: 0.25,
+            easeLinearity: 0.1,
         });
 
         // ── onMoveEnd: animar segmento, crear marcador, abrir popup ──────────
