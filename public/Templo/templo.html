@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Templo de Salomón — Sabiduría para el Corazón</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#050301;font-family:Georgia,serif;overflow:hidden;user-select:none}
+canvas{display:block}
+
+#header{position:fixed;top:0;left:0;padding:20px 24px;z-index:20;pointer-events:none}
+#header h1{font-size:19px;color:#D4AF37;letter-spacing:3px;text-transform:uppercase;font-weight:normal;text-shadow:0 0 30px rgba(212,175,55,.6)}
+#header .sub{font-size:11px;color:#6a5a30;letter-spacing:2px;margin-top:4px}
+#header .brand{font-size:10px;color:#3a2e14;letter-spacing:1px;margin-top:2px}
+
+#tooltip{position:fixed;max-width:340px;background:rgba(5,3,1,.96);border:1px solid rgba(212,175,55,.35);border-left:3px solid #D4AF37;border-radius:4px;padding:16px 18px;pointer-events:none;opacity:0;transition:opacity .25s;z-index:30;backdrop-filter:blur(8px)}
+#tooltip h3{font-size:12px;color:#D4AF37;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:9px;font-weight:normal}
+#tooltip p{font-size:12.5px;line-height:1.8;color:#b8a070}
+#tooltip .ref{font-size:10.5px;color:#5a4820;margin-top:10px;font-style:italic;border-top:1px solid rgba(212,175,55,.12);padding-top:8px}
+#tooltip.on{opacity:1}
+
+#controls{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:20;flex-wrap:wrap;justify-content:center}
+.btn{background:rgba(212,175,55,.07);border:1px solid rgba(212,175,55,.28);color:#C8A030;font-family:inherit;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:7px 13px;cursor:pointer;border-radius:3px;transition:background .2s,border-color .2s}
+.btn:hover{background:rgba(212,175,55,.2);border-color:rgba(212,175,55,.6)}
+.btn.active{background:rgba(212,175,55,.22);border-color:#D4AF37;color:#D4AF37}
+
+#legend{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:20}
+.li{display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.ls{width:13px;height:13px;border-radius:2px;flex-shrink:0}
+.ll{font-size:9.5px;color:#7a6030;letter-spacing:.4px}
+
+#hint{position:fixed;bottom:58px;left:50%;transform:translateX(-50%);font-size:9.5px;color:#2e2510;letter-spacing:.8px;z-index:20;white-space:nowrap}
+
+#loading{position:fixed;inset:0;background:#050301;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:100;transition:opacity .9s}
+#loading h2{color:#D4AF37;font-size:20px;letter-spacing:4px;text-transform:uppercase;font-weight:normal}
+#loading p{color:#3a2e14;font-size:10px;letter-spacing:2px;margin-top:10px}
+.lbar{width:200px;height:1px;background:rgba(212,175,55,.1);margin-top:24px;overflow:hidden}
+.lbar::after{content:'';display:block;height:100%;background:#D4AF37;animation:ld 2.2s ease-in-out forwards}
+@keyframes ld{from{width:0}to{width:100%}}
+</style>
+</head>
+<body>
+<div id="errdsp" style="position:fixed;top:10px;left:10px;background:rgba(200,0,0,.9);color:#fff;padding:12px;z-index:9999;max-width:600px;display:none;font-family:monospace;font-size:11px;border-radius:4px;white-space:pre-wrap"></div>
+<script>
+window.onerror=function(m,s,l,c,e){
+  var d=document.getElementById('errdsp');
+  d.style.display='block';
+  d.textContent='ERROR: '+m+' (linea '+l+', col '+c+')';
+  return false;
+};
+window.addEventListener('unhandledrejection',function(e){
+  var d=document.getElementById('errdsp');
+  d.style.display='block';
+  d.textContent='PROMISE ERROR: '+(e.reason && e.reason.message ? e.reason.message : e.reason);
+});
+// Fallback: si el módulo no arranca en 6s, quitar pantalla de carga e informar
+setTimeout(function(){
+  var ld=document.getElementById('loading');
+  if(ld && ld.parentNode){
+    ld.style.opacity='0';
+    setTimeout(function(){if(ld.parentNode)ld.parentNode.removeChild(ld);},900);
+    if(!window.__sceneReady){
+      var d=document.getElementById('errdsp');
+      d.style.display='block';
+      d.textContent='Three.js tardó demasiado o falló al cargar.\nAbrí DevTools (F12 → Console) para ver el error exacto.';
+    }
+  }
+},6000);
+</script>
+
+
+<div id="loading">
+  <h2>Templo de Salomón</h2>
+  <p>Sabiduría para el Corazón · Monte Moríah · S. X a.C.</p>
+  <div class="lbar"></div>
+</div>
+
+<div id="header">
+  <h1>Templo de Salomón</h1>
+  <div class="sub">Monte Moríah · Jerusalén · S. X a.C.</div>
+  <div class="brand">Sabiduría para el Corazón</div>
+</div>
+
+<div id="tooltip">
+  <h3 id="tt-t"></h3>
+  <p id="tt-b"></p>
+  <div class="ref" id="tt-r"></div>
+</div>
+
+<div id="legend">
+  <div class="li"><div class="ls" style="background:#D4AF37"></div><span class="ll">Oro puro</span></div>
+  <div class="li"><div class="ls" style="background:#E0D4B0"></div><span class="ll">Piedra / Mármol</span></div>
+  <div class="li"><div class="ls" style="background:#8B5E3C"></div><span class="ll">Cedro del Líbano</span></div>
+  <div class="li"><div class="ls" style="background:#B87333"></div><span class="ll">Bronce</span></div>
+  <div class="li"><div class="ls" style="background:#5A4A30"></div><span class="ll">Madera de olivo</span></div>
+</div>
+
+<div id="controls">
+  <button class="btn" id="b-ext">Vista Exterior</button>
+  <button class="btn" id="b-top">Vista Aérea</button>
+  <button class="btn" id="b-hek">Interior Hekal</button>
+  <button class="btn" id="b-deb">Interior Debir</button>
+  <button class="btn" id="b-col">Las Columnas</button>
+  <button class="btn" id="b-mar">Mar de Bronce</button>
+  <button class="btn" id="b-drone">▶ Vuelo Dron</button>
+</div>
+
+<div id="hint">Pasa el cursor sobre los elementos · Arrastrar para rotar · Scroll para zoom</div>
+
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { SSAOPass } from 'three/addons/postprocessing/SSAOPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+window.__sceneReady = true; // módulo importado OK
+
+// ── RENDERER ──────────────────────────────────────────────────────────────────
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.9;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+document.body.prepend(renderer.domElement);
+
+// ── HDRI ENVIRONMENT (reflexiones PBR realistas en oro, bronce y piedra) ─────
+const pmremGen = new THREE.PMREMGenerator(renderer);
+pmremGen.compileEquirectangularShader();
+new RGBELoader().load(
+  'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/golden_bay_1k.hdr',
+  (hdr) => {
+    const envMap = pmremGen.fromEquirectangular(hdr).texture;
+    scene.environment = envMap;
+    hdr.dispose();
+    pmremGen.dispose();
+  },
+  undefined,
+  () => {} // falla silenciosa si CDN no responde
+);
+
+const scene = new THREE.Scene();
+scene.background = null; // Usaremos skydome
+
+const camera = new THREE.PerspectiveCamera(48, innerWidth/innerHeight, 0.1, 2000);
+camera.position.set(100, 80, 125);
+
+const orbit = new OrbitControls(camera, renderer.domElement);
+orbit.enableDamping = true; orbit.dampingFactor = 0.06;
+orbit.target.set(0, 18, 5); orbit.minDistance = 4; orbit.maxDistance = 500;
+orbit.maxPolarAngle = Math.PI * 0.88; orbit.update();
+
+// ── POST-PROCESSING (SSAO + Bloom) ────────────────────────────────────────────
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+// SSAO — sombra de contacto entre superficies (profundidad arquitectónica)
+const ssaoPass = new SSAOPass(scene, camera, innerWidth, innerHeight);
+ssaoPass.kernelRadius = 16; ssaoPass.minDistance = 0.005; ssaoPass.maxDistance = 0.10;
+composer.addPass(ssaoPass);
+// Bloom — halos en oro, llamas y candeleros (umbral sobre valores ya tone-mapped)
+const bloomPass = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 0.38, 0.5, 0.72);
+composer.addPass(bloomPass);
+
+// ── TEXTURAS PBR (Poly Haven — CC0) ──────────────────────────────────────────
+const TL = new THREE.TextureLoader();
+const PH = 'https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k';
+
+function tex(name, type = 'diff') {
+  const t = TL.load(`${PH}/${name}/${name}_${type}_1k.jpg`,
+    undefined, undefined, () => {}); // falla silenciosa
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  return t;
+}
+
+function pbr(name, color, roughness, metalness, rep = 4) {
+  const mat = new THREE.MeshStandardMaterial({ color, roughness, metalness });
+  mat.map           = tex(name, 'diff');
+  mat.normalMap     = tex(name, 'nor_gl');
+  mat.roughnessMap  = tex(name, 'rough');
+  mat.map.repeat.set(rep, rep);
+  mat.normalMap.repeat.set(rep, rep);
+  mat.roughnessMap.repeat.set(rep, rep);
+  return mat;
+}
+
+// ── MATERIALES ────────────────────────────────────────────────────────────────
+const M = {
+  // PBR texturizados
+  stone:   pbr('large_sandstone_blocks', 0xD8C89A, 0.88, 0.02, 5),
+  marble:  pbr('white_sandstone_bricks',  0xEDE4CC, 0.72, 0.04, 4),
+  cedar:   pbr('brown_planks_03',          0x8B5E3C, 0.92, 0.0,  3),
+  cedarD:  pbr('brown_planks_03',          0x6B4424, 0.95, 0.0,  3),
+  olive:   pbr('old_wood_floor',           0x5A4A30, 0.90, 0.0,  2),
+  bronze:  pbr('metal_plate',              0xB87333, 0.38, 0.80, 2),
+  bronzeD: pbr('metal_plate',              0x7A4A18, 0.50, 0.75, 2),
+  ground:  pbr('rock_wall',               0x7A6A50, 0.95, 0.0,  8),
+  // Pavimento atrio mejorado (Fase 1.7)
+  paving:  pbr('large_sandstone_blocks',   0xC0B090, 0.82, 0.03, 12),
+  // Procedurales
+  gold:    new THREE.MeshStandardMaterial({ color:0xD4AF37, roughness:0.10, metalness:0.97, emissive:new THREE.Color(0x3A2200), emissiveIntensity:0.45 }),
+  goldW:   new THREE.MeshStandardMaterial({ color:0xC8A030, roughness:0.14, metalness:0.94, emissive:new THREE.Color(0x2A1800), emissiveIntensity:0.6, side:THREE.DoubleSide }),
+  goldInt: new THREE.MeshStandardMaterial({ color:0xE0B840, roughness:0.08, metalness:0.98, emissive:new THREE.Color(0x4A2E00), emissiveIntensity:0.7 }),
+  goldChain: new THREE.MeshStandardMaterial({ color:0xD4AF37, roughness:0.15, metalness:0.95, emissive:new THREE.Color(0x4A2E00), emissiveIntensity:0.5 }),
+  blue:    new THREE.MeshStandardMaterial({ color:0x1A3A70, roughness:0.8,  metalness:0.1  }),
+  blueD:   new THREE.MeshStandardMaterial({ color:0x0F2550, roughness:0.8,  metalness:0.1  }),
+  water:   new THREE.MeshPhysicalMaterial({ color:0x2266AA, transparent:true, opacity:0.55, roughness:0.02, metalness:0.1, transmission:0.6, ior:1.33, thickness:2 }),
+  smoke:   new THREE.MeshStandardMaterial({ color:0xE0D0A0, transparent:true, opacity:0.10, side:THREE.DoubleSide }),
+  flame:   new THREE.MeshStandardMaterial({ color:0xFFCC44, emissive:new THREE.Color(0xFFAA00), emissiveIntensity:1.5, transparent:true, opacity:0.8 }),
+  invis:   new THREE.MeshBasicMaterial({ transparent:true, opacity:0, side:THREE.DoubleSide }),
+  // God ray material
+  godray:  new THREE.MeshBasicMaterial({ color:0xFFEECC, transparent:true, opacity:0.04, side:THREE.DoubleSide, blending:THREE.AdditiveBlending, depthWrite:false }),
+  // Fog plane material
+  fogMat:  new THREE.MeshBasicMaterial({ color:0x1A150E, transparent:true, opacity:0.08, side:THREE.DoubleSide, depthWrite:false }),
+  // Relief decoration
+  relief:  new THREE.MeshStandardMaterial({ color:0xD4AF37, roughness:0.25, metalness:0.9, emissive:new THREE.Color(0x3A2200), emissiveIntensity:0.3 }),
+};
+
+// ── ILUMINACIÓN ───────────────────────────────────────────────────────────────
+// Sol desde el Este (Z+), luz de mañana
+const sun = new THREE.DirectionalLight(0xFFF8E8, 3.2);
+sun.position.set(0, 100, 160);
+sun.castShadow = true;
+sun.shadow.mapSize.set(4096, 4096);
+sun.shadow.camera.near = 1; sun.shadow.camera.far = 700;
+sun.shadow.camera.left = -250; sun.shadow.camera.right = 250;
+sun.shadow.camera.top = 250; sun.shadow.camera.bottom = -250;
+sun.shadow.bias = -0.0003; sun.shadow.normalBias = 0.02; scene.add(sun);
+scene.add(new THREE.AmbientLight(0xD0C090, 0.30));
+const fill = new THREE.DirectionalLight(0x90A8C8, 0.35);
+fill.position.set(-90, 50, -110); scene.add(fill);
+// Contra-luz cálida desde el oeste
+const backLight = new THREE.DirectionalLight(0xFFE0B0, 0.15);
+backLight.position.set(0, 60, -140); scene.add(backLight);
+// Brillos interiores
+const glow1 = new THREE.PointLight(0xFFCC44, 6, 28, 2);
+glow1.position.set(0, 12, -20); scene.add(glow1);
+const glow2 = new THREE.PointLight(0xFFAA22, 3.5, 55, 2);
+glow2.position.set(0, 12, 8); scene.add(glow2);
+const glow3 = new THREE.PointLight(0xFFDD66, 2, 40, 2);
+glow3.position.set(0, 16, -5); scene.add(glow3);
+
+// ── INTERACTIVOS ──────────────────────────────────────────────────────────────
+const IXS = [];
+function mk(geo, mat, x, y, z, info, rotY = 0) {
+  const m = new THREE.Mesh(geo, mat);
+  m.position.set(x, y, z);
+  if (rotY) m.rotation.y = rotY;
+  m.castShadow = true; m.receiveShadow = true;
+  if (info) { m.userData = info; IXS.push(m); }
+  scene.add(m); return m;
+}
+function bx(w,h,d, mat, x,y,z, info) { return mk(new THREE.BoxGeometry(w,h,d), mat, x,y,z, info); }
+function cy(rt,rb,h,seg, mat, x,y,z, info) { return mk(new THREE.CylinderGeometry(rt,rb,h,seg), mat, x,y,z, info); }
+function hov(w,h,d, x,y,z, info) {
+  const m = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), M.invis);
+  m.position.set(x,y,z); m.userData = info; IXS.push(m); scene.add(m); return m;
+}
+function addToScene(m) { m.castShadow = true; m.receiveShadow = true; scene.add(m); }
+
+// ── TOOLTIPS ──────────────────────────────────────────────────────────────────
+const INFO = {
+  MORIAH:{ title:'El Monte Moríah — Fundación Sagrada', body:'El templo fue construido en el Monte Moríah, el mismo sitio donde Abraham estuvo a punto de ofrecer a Isaac (Génesis 22) y donde el ángel del SEÑOR detuvo la plaga en tiempo de David (1 Crónicas 21:15). La elección no fue casual: Dios señaló el lugar donde su providencia se había manifestado. La piedra fue tallada y terminada en la cantera para que no se oyera ningún sonido de herramientas de hierro en el monte sagrado durante la construcción.', ref:'2 Crónicas 3:1 · 1 Reyes 6:7 · Génesis 22:2 · 1 Crónicas 21:15'},
+  DEBIR: { title:'El Lugar Santísimo (דְּבִיר — Debir)', body:'Cubo perfecto de 20 codos por lado (≈9.2 m). La Shekinah, la presencia gloriosa de Dios, habitaba aquí. Paredes, piso y techo completamente revestidos de oro puro. Solo el Sumo Sacerdote podía entrar, una vez al año, en Yom Kipur, con sangre expiatoria. La geometría cúbica perfecta reaparece en la Nueva Jerusalén (Ap. 21:16), declarando que en la eternidad toda la ciudad es "Lugar Santísimo".', ref:'1 Reyes 6:16-20 · 2 Crónicas 3:8 · Hebreos 9:3-7 · Apocalipsis 21:16'},
+  HEKAL: { title:'El Lugar Santo (הֵיכָל — Hekal)', body:'Sala de 40×20×30 codos (≈18.4×9.2×13.8 m). Las paredes de cedro del Líbano estaban totalmente laminadas de oro de Parvaim (2 Crónicas 3:6), un oro de calidad excepcional cuya región de origen no se ha identificado con certeza. El piso de ciprés también cubría de oro. Aquí el sacerdote servía a diario: incienso cada mañana y tarde, panes renovados cada sábado, lámparas encendidas continuamente.', ref:'1 Reyes 6:17,21 · 2 Crónicas 3:5-6 · Hebreos 9:6'},
+  ULAM:  { title:'El Vestíbulo (אוּלָם — Ulam)', body:'Pórtico de 20 codos de ancho y 10 de profundidad. La altura es el principal debate textual: 1 Reyes 6:3 no la especifica; 2 Crónicas 3:4 da 120 codos, pero manuscritos de la LXX y la Peshitta leen 20 codos. Josefo (Ant. VIII.3.2) confirma 120 codos, pero la mayoría de los comentaristas modernos prefieren 30 codos (igual que el edificio principal). Este modelo usa 30 codos, la interpretación más conservadora arquitectónicamente.', ref:'1 Reyes 6:3 · 2 Crónicas 3:4 · Josefo, Ant. VIII.3.2'},
+  ARK:   { title:'El Arca del Pacto (אֲרוֹן הַבְּרִית)', body:'2.5×1.5×1.5 codos de madera de acacia recubierta de oro por dentro y por fuera. Contenía las dos tablas de la Ley, la vara de Aarón y una vasija de maná. El propiciatorio (kapporeth) con sus dos querubines de oro era el "trono de la misericordia" donde Dios se encontraba con Israel. Pablo usa el mismo término griego (ἱλαστήριον) para describir a Cristo en Romanos 3:25: Él es el nuevo propiciatorio.', ref:'Éxodo 25:10-22 · Hebreos 9:4-5 · Romanos 3:25'},
+  CHERUB:{ title:'Los Querubines Colosales — Estilo Fenicio-Cananeo', body:'Dos figuras de madera de olivo (ets shemen) de 10 codos de altura (≈4.6 m), recubiertas de oro. Conforme al arte del período (s. X a.C.), son esfingues: cuerpo de león, cabeza humana con tocado real, alas extendidas. Las alas externas (5 codos) tocaban las paredes laterales; las internas se unían en el centro sobre el Arca. El artesano fenicio Hiram de Tiro era experto en este estilo sírio-fenicio de querubín.', ref:'1 Reyes 6:23-28 · 2 Crónicas 3:10-13 · Ezequiel 1:5-14'},
+  JACHIN:{ title:'Columna Jaquín — יָכִין ("Él Establecerá")', body:'Columna sur, bronce hueco (4 dedos de espesor). Altura del fuste: 18 codos (≈8.3 m). Circunferencia: 12 codos → diámetro ≈ 3.82 codos. El capitel en forma de lirio medía 5 codos, decorado con 200 granadas de bronce. Fundida en el llano del Jordán por Hiram de Tiro. El nombre proclama la promesa de Dios: "Él establecerá el trono de David para siempre."', ref:'1 Reyes 7:15-22 · 2 Crónicas 3:15-17 · 2 Samuel 7:16'},
+  BOAZ:  { title:'Columna Boaz — בֹּעַז ("En Él Hay Fortaleza")', body:'Columna norte, idéntica en construcción a Jaquín. Juntas proclamaban: "En Él hay fortaleza — Él establecerá." Ambas eran huecas, fundidas en una pieza. Algunos comentaristas las vinculan con los pilares de nube y fuego que acompañaron al pueblo en el desierto, columnas que hacían visible la presencia de Dios en el camino.', ref:'1 Reyes 7:21 · Éxodo 13:21 · Salmo 46:1 · Jeremías 52:21'},
+  ALT_B: { title:'El Altar de Bronce — El Lugar del Sacrificio', body:'20×20×10 codos (≈9.2×9.2×4.6 m). Primer punto de contacto entre el adorador y Dios. Sin pasar por el altar no había acceso al templo. La rejilla de bronce sobre la superficie permitía que la sangre y la grasa de los holocaustos escurrieran. Toda la economía sacrificial del AT era tipo de la obra de Cristo: "Sin derramamiento de sangre no hay remisión" (He. 9:22). Juan lo reconoció: "El Cordero de Dios que quita el pecado del mundo."', ref:'2 Crónicas 4:1 · Levítico 1:3 · Hebreos 9:22 · Juan 1:29'},
+  SEA:   { title:'El Mar de Bronce — Purificación Sacerdotal', body:'Diámetro: 10 codos. Altura: 5 codos. Circunferencia: 30 codos. La discrepancia con π se resuelve midiendo el interior (el borde tenía un palmo de espesor). 12 toros de bronce como soporte, 3 mirando a cada punto cardinal. Capacidad: 2000 batos (1 R. 7:26) o 3000 (2 Cr. 4:5) ≈ 40.000-60.000 litros. Los sacerdotes se purificaban aquí antes de ministrar. Tipología del bautismo y la purificación por la Palabra (Ef. 5:26).', ref:'1 Reyes 7:23-26 · 2 Crónicas 4:2-5 · Efesios 5:26'},
+  YATSIA:{ title:'Cámaras Laterales (יָצִיעַ — Yatsía)', body:'Tres pisos de cámaras de cedro rodeaban el templo por el norte, sur y oeste. El muro del templo tenía rebajes progresivos (misgérot) para que las vigas descansaran sin penetrar la piedra sagrada. Piso 1: 5 codos; Piso 2: 6 codos; Piso 3: 7 codos. Se accedía por escalera de caracol en el flanco sur. Usadas para almacenar tesoros, vestiduras y utensilios del culto.', ref:'1 Reyes 6:5-8'},
+  INC:   { title:'Altar del Incienso — Intercesión Perpetua', body:'Cedro cubierto de oro, ubicado frente a la cortina del Debir. El sacerdote quemaba la mezcla de cuatro especias (quetoret, Éx. 30:34) cada mañana y tarde. La columna de humo aromático llenaba el Hekal como símbolo de la oración ascendiendo a Dios. En Apocalipsis 8:3-4 el incienso ante el trono divino es identificado con las oraciones de los santos.', ref:'1 Reyes 6:20-22 · Éxodo 30:1-10 · Apocalipsis 8:3-4'},
+  BREAD: { title:'Mesa de los Panes de la Proposición', body:'Mesa de acacia cubierta de oro. Doce panes redondos (lechem happanim, "pan de la Presencia"), uno por tribu, renovados cada sábado. Cuando David y sus hombres comieron estos panes (1 Samuel 21), Jesús lo usó para enseñar que la misericordia precede al rito (Mateo 12:3-4). Él mismo declaró: "Yo soy el pan de vida" (Juan 6:35).', ref:'1 Reyes 7:48 · Levítico 24:5-9 · Juan 6:35 · Mateo 12:3-4'},
+  LAMPS: { title:'Los Diez Candeleros (Menorot) de Oro', body:'Cinco al norte, cinco al sur del Hekal, de oro puro labrado. El Tabernáculo tenía solo uno (menorá de 7 brazos); Salomón multiplicó el número para reflejar la gloria expandida. Cada menorá tiene siete brazos (el número de la perfección divina) con llamas perpetuas. Cristo: "Yo soy la luz del mundo" (Juan 8:12). En Ap. 1 los siete candeleros representan las iglesias en presencia del Resucitado.', ref:'1 Reyes 7:49 · Juan 8:12 · Apocalipsis 1:12-20'},
+  COURT: { title:'El Atrio Interior — De los Sacerdotes', body:'Delimitado por muros de tres hiladas de piedra labrada y una hilada de vigas de cedro (patrón arquitectónico hitita del período, también usado en palacios sirios contemporáneos). Solo los sacerdotes podían acceder. La distinción entre atrios prefiguraba los niveles de acceso a Dios bajo el Antiguo Pacto, plenamente abolidos en Cristo: "Él derribó la pared intermedia de separación" (Efesios 2:14).', ref:'1 Reyes 6:36 · Efesios 2:14 · Hebreos 10:19-20'},
+  CARTS: { title:'Diez Bases de Bronce (מְכוֹנוֹת — Mekonot)', body:'Diez carros de bronce sobre ruedas, 5 norte y 5 sur. Base: 4×4 codos; alto: 3 codos. Paneles decorados en bajorrelieve con leones, bueyes y querubines. Sobre cada carro una fuente de 4 codos para lavar los sacrificios. Eran una maravilla de ingeniería del período, con ejes, travesaños y marcos de fundición de bronce.', ref:'1 Reyes 7:27-39'},
+  COLONNADE:{ title:'Pórtico Exterior del Atrio', body:'El gran patio exterior estaba rodeado de una columnata de piedra, similar a los grandes templos cananeos y hititas del período. Aquí se congregaba el pueblo de Israel durante las fiestas. La columnata marcaba el límite entre el espacio sagrado y el mundo exterior, siendo también un lugar de enseñanza y oración colectiva.', ref:'1 Reyes 7:12 · 2 Crónicas 4:9'},
+  CHAINS:{ title:'Cadenas de Oro (שַׁרְשְׁרוֹת — Sharsh\'rot)', body:'Cadenas de oro puro cruzaban la entrada del Debir, delante del velo. 2 Crónicas 3:16 menciona cadenas "en el santuario interior" que adornaban y separaban simbólicamente lo santo de lo santísimo. Cada eslabón era oro labrado, como las cadenas del pectoral del sumo sacerdote. El oro purísimo reflejaba la luz de las lámparas creando un efecto de cortina luminosa.', ref:'2 Crónicas 3:16 · 1 Reyes 6:21'},
+  STAIR: { title:'Escalera de Caracol (לוּלִים — Lulim)', body:'Escalera en espiral en el flanco sur del templo, dando acceso a las tres plantas de las cámaras laterales. 1 Reyes 6:8 la menciona explícitamente: "La puerta de las cámaras del medio estaba al lado derecho de la casa, y se subía por una escalera de caracol al piso intermedio, y del intermedio al tercero." La palabra hebrea lulim (לוּלִים) aparece solo aquí en toda la Biblia.', ref:'1 Reyes 6:8'},
+};
+
+// ── ESCALA: 1 unidad = 1 codo hebreo ≈ 0.46m ─────────────────────────────────
+// Z+ = Este (entrada), X+ = Sur
+
+// ══════════════════════════════════════════════════════════════════════════════
+// FASE 2.1 — SKYDOME (Cielo realista con gradiente nocturno)
+// ══════════════════════════════════════════════════════════════════════════════
+const skyGeo = new THREE.SphereGeometry(900, 32, 20);
+const skyCanvas = document.createElement('canvas');
+skyCanvas.width = 512; skyCanvas.height = 512;
+const skyCtx = skyCanvas.getContext('2d');
+const skyGrad = skyCtx.createLinearGradient(0, 0, 0, 512);
+skyGrad.addColorStop(0, '#020108');    // zenith: negro azulado
+skyGrad.addColorStop(0.25, '#0a0520'); // azul muy oscuro
+skyGrad.addColorStop(0.5, '#0e0a22');  // azul profundo
+skyGrad.addColorStop(0.7, '#1a1428');  // transición
+skyGrad.addColorStop(0.85, '#2a1a18'); // horizonte marrón cálido
+skyGrad.addColorStop(0.95, '#3a2010'); // cálido en el horizonte
+skyGrad.addColorStop(1.0, '#1a0e05');  // base
+skyCtx.fillStyle = skyGrad;
+skyCtx.fillRect(0, 0, 512, 512);
+const skyTex = new THREE.CanvasTexture(skyCanvas);
+const skyMat = new THREE.MeshBasicMaterial({ map:skyTex, side:THREE.BackSide, fog:false });
+const skyDome = new THREE.Mesh(skyGeo, skyMat);
+scene.add(skyDome);
+
+// ══════════════════════════════════════════════════════════════════════════════
+// FASE 2.2 — ESTRELLAS MEJORADAS CON TITILEO
+// ══════════════════════════════════════════════════════════════════════════════
+const STAR_COUNT = 8000;
+const sG = new THREE.BufferGeometry();
+const sP = new Float32Array(STAR_COUNT * 3);
+const sSizes = new Float32Array(STAR_COUNT);
+const sPhases = new Float32Array(STAR_COUNT); // para titileo
+for (let i = 0; i < STAR_COUNT; i++) {
+  const theta = Math.random() * Math.PI * 2;
+  const phi = Math.acos(Math.random() * 0.8 + 0.2); // concentrar arriba
+  const r = 800 + Math.random() * 80;
+  sP[i*3]   = r * Math.sin(phi) * Math.cos(theta);
+  sP[i*3+1] = r * Math.cos(phi);
+  sP[i*3+2] = r * Math.sin(phi) * Math.sin(theta);
+  sSizes[i] = 0.4 + Math.random() * 1.6;
+  sPhases[i] = Math.random() * Math.PI * 2;
+}
+sG.setAttribute('position', new THREE.BufferAttribute(sP, 3));
+sG.setAttribute('size', new THREE.BufferAttribute(sSizes, 1));
+// Shader para titileo
+const starMat = new THREE.ShaderMaterial({
+  uniforms: { time: { value: 0 }, color: { value: new THREE.Color(0xFFFFFF) } },
+  vertexShader: `
+    attribute float size;
+    varying float vAlpha;
+    uniform float time;
+    void main() {
+      vec4 mvp = modelViewMatrix * vec4(position, 1.0);
+      float phase = position.x * 0.01 + position.z * 0.013;
+      vAlpha = 0.4 + 0.6 * (0.5 + 0.5 * sin(time * (1.5 + fract(phase * 7.3) * 2.0) + phase * 6.28));
+      gl_PointSize = size * (300.0 / -mvp.z);
+      gl_Position = projectionMatrix * mvp;
+    }
+  `,
+  fragmentShader: `
+    uniform vec3 color;
+    varying float vAlpha;
+    void main() {
+      float d = length(gl_PointCoord - 0.5) * 2.0;
+      float a = 1.0 - smoothstep(0.0, 1.0, d);
+      gl_FragColor = vec4(color, a * vAlpha);
+    }
+  `,
+  transparent: true, depthWrite: false, blending: THREE.AdditiveBlending
+});
+const starPoints = new THREE.Points(sG, starMat);
+scene.add(starPoints);
+
+// ── SUELO ─────────────────────────────────────────────────────────────────────
+const gnd = new THREE.Mesh(new THREE.PlaneGeometry(800,800), M.ground);
+gnd.rotation.x = -Math.PI/2; gnd.receiveShadow = true; scene.add(gnd);
+
+// ── FASE 1.7 — PAVIMENTO MEJORADO DEL ATRIO ──────────────────────────────────
+const pavGeo = new THREE.PlaneGeometry(160, 200);
+const pav = new THREE.Mesh(pavGeo, M.paving);
+pav.rotation.x = -Math.PI/2; pav.position.set(0, 0.05, 30);
+pav.receiveShadow = true; scene.add(pav);
+
+// ── PLATAFORMA DEL MONTE MORÍAH ───────────────────────────────────────────────
+bx(80, 4, 120, M.marble, 0,-2, 5, INFO.MORIAH);
+bx(100,2, 145, M.stone,  0,-5, 5, null);
+// Escalones de acceso principal (este)
+for(let i=0;i<5;i++) bx(28, 0.6, 2, M.marble, 0, -4.7+i*0.6, 73-i*2, null);
+
+// ── PARAPETO + CORNISA (reemplaza almenas medievales) ─────────────────────────
+// Terminación auténtica: templos israelitas s. X a.C. tenían parapeto sólido,
+// no merlones tipo fortaleza. Cornisa de mármol similar a la arquitectura fenicio-cananea.
+function battlements(cx, wallTopY, cz, len, axis) {
+  const pH = 1.6, pD = 1.3;
+  if (axis === 'x') {
+    bx(len,       pH,    pD,       M.stone,  cx, wallTopY + pH/2,  cz, null); // parapeto
+    bx(len + 0.7, 0.45,  pD + 0.7, M.marble, cx, wallTopY + 0.22,  cz, null); // cornisa
+  } else {
+    bx(pD,        pH,    len,      M.stone,  cx, wallTopY + pH/2,  cz, null);
+    bx(pD + 0.7,  0.45,  len + 0.7, M.marble, cx, wallTopY + 0.22, cz, null);
+  }
+}
+// Banda azul decorativa
+function blueBand(cx, y, cz, w, d) {
+  bx(w, 1.2, d, M.blue, cx, y, cz, null);
+}
+
+// ── COLUMNATA EXTERIOR ────────────────────────────────────────────────────────
+const COL_OUTER_N = -42, COL_OUTER_S = 42;
+const COL_OUTER_W = -50, COL_OUTER_E = 115;
+const colH = 12, colR = 0.8;
+function outerColRow(x1, x2, z, count) {
+  for(let i=0;i<=count;i++){
+    const t=i/count, cx=x1+(x2-x1)*t;
+    cy(colR,colR,colH,12, M.marble, cx, colH/2, z, i===Math.floor(count/2)?INFO.COLONNADE:null);
+    bx(1.8,0.6,1.8, M.marble, cx, colH+0.3, z, null);
+    bx(1.8,0.4,1.8, M.marble, cx, 0.2, z, null);
+  }
+}
+function outerColCol(z1, z2, x, count) {
+  for(let i=0;i<=count;i++){
+    const t=i/count, cz=z1+(z2-z1)*t;
+    cy(colR,colR,colH,12, M.marble, x, colH/2, cz, null);
+    bx(1.8,0.6,1.8, M.marble, x, colH+0.3, cz, null);
+    bx(1.8,0.4,1.8, M.marble, x, 0.2, cz, null);
+  }
+}
+outerColRow(COL_OUTER_W+3, COL_OUTER_E-3, COL_OUTER_N, 25);
+outerColRow(COL_OUTER_W+3, COL_OUTER_E-3, COL_OUTER_S, 25);
+outerColCol(COL_OUTER_N+3, COL_OUTER_E-3, COL_OUTER_W, 20);
+outerColCol(COL_OUTER_N+3, COL_OUTER_E-3, COL_OUTER_E, 20);
+// Linterna/viga encima
+bx(165, 0.8,1.2, M.marble, 30, colH+0.7, COL_OUTER_N, null);
+bx(165, 0.8,1.2, M.marble, 30, colH+0.7, COL_OUTER_S, null);
+bx(1.2, 0.8,100, M.marble, COL_OUTER_W, colH+0.7, 15, null);
+bx(1.2, 0.8,100, M.marble, COL_OUTER_E, colH+0.7, 15, null);
+
+// ── MUROS DEL ATRIO INTERIOR ──────────────────────────────────────────────────
+const cwM = new THREE.MeshStandardMaterial({color:0xC0A880, roughness:0.85});
+cwM.map = tex('white_sandstone_bricks','diff'); cwM.map.repeat.set(8,2);
+cwM.normalMap = tex('white_sandstone_bricks','nor_gl'); cwM.normalMap.repeat.set(8,2);
+bx(1.2,8,155, cwM, -32,4,8,  INFO.COURT);
+bx(1.2,8,155, cwM,  32,4,8,  null);
+bx(65,8,1.2,  cwM,  0,4,-43, null);
+bx(65,8,1.2,  cwM,  0,4,105, null);
+bx(1.2,2.5,155,M.cedarD,-32,9.25,8, null);
+bx(1.2,2.5,155,M.cedarD, 32,9.25,8, null);
+bx(65,2.5,1.2, M.cedarD,  0,9.25,-43,null);
+bx(65,2.5,1.2, M.cedarD,  0,9.25,105,null);
+// Almenas atrio interior
+battlements(0,11.5, -43, 64, 'x'); battlements(0,11.5,105,64,'x');
+battlements(-32,11.5, 8,154,'z'); battlements(32,11.5, 8,154,'z');
+
+// ── CÁMARAS LATERALES YATSÍA ──────────────────────────────────────────────────
+bx(5,10,60, M.cedar, -13,5,0,  null);
+bx(5,10,60, M.cedar,  13,5,0,  null);
+bx(6,10,60, M.cedar, -13.5,15,0,null);
+bx(6,10,60, M.cedar,  13.5,15,0,null);
+bx(7,10,60, M.cedarD,-14,25,0, INFO.YATSIA);
+bx(7,10,60, M.cedarD, 14,25,0, null);
+bx(32,10,5, M.cedar,  0,5,-33, null);
+bx(32,10,5, M.cedar,  0,15,-33.5,null);
+bx(32,10,5, M.cedarD, 0,25,-34,null);
+
+// ══════════════════════════════════════════════════════════════════════════════
+// FASE 1.6 — ESCALERA DE CARACOL (lado sur)
+// ══════════════════════════════════════════════════════════════════════════════
+const spiralGroup = new THREE.Group();
+const stairSteps = 36;
+const stairR = 2.5;
+const stairTotalH = 28;
+for (let i = 0; i < stairSteps; i++) {
+  const angle = (i / stairSteps) * Math.PI * 3; // 1.5 vueltas
+  const y = (i / stairSteps) * stairTotalH;
+  const step = new THREE.Mesh(
+    new THREE.BoxGeometry(3.0, 0.4, 1.0),
+    M.stone
+  );
+  step.position.set(
+    Math.cos(angle) * stairR * 0.5,
+    y,
+    Math.sin(angle) * stairR * 0.5
+  );
+  step.rotation.y = -angle;
+  step.castShadow = true;
+  spiralGroup.add(step);
+}
+// Columna central
+const spiralPole = new THREE.Mesh(
+  new THREE.CylinderGeometry(0.3, 0.3, stairTotalH, 8),
+  M.stone
+);
+spiralPole.position.y = stairTotalH / 2;
+spiralGroup.add(spiralPole);
+spiralGroup.position.set(16.5, 0, 5);
+spiralGroup.userData = INFO.STAIR;
+IXS.push(spiralGroup);
+scene.add(spiralGroup);
+
+// ── DEBIR — LUGAR SANTÍSIMO (20×20×20) ────────────────────────────────────────
+// Z: -30 a -10
+bx(22,30,1.4, M.stone, 0,15,-30.7, null);
+bx(1.4,30,20, M.stone,-10.7,15,-20,null);
+bx(1.4,30,20, M.stone, 10.7,15,-20,null);
+bx(22,30,1.4, M.stone, 0,15,-9.3, null);
+// Revestimiento interior oro
+bx(19.8,28.5,0.4, M.goldInt, 0,15,-29.9,null);
+bx(0.4,28.5,18.8, M.goldInt,-9.9,15,-20,null);
+bx(0.4,28.5,18.8, M.goldInt, 9.9,15,-20,null);
+bx(20,0.5,20, M.goldInt, 0,0.25,-20,null);
+bx(20,0.5,20, M.goldInt, 0,29.75,-20,null);
+hov(20,30,20, 0,15,-20, INFO.DEBIR);
+// Parapeto + cornisa Debir — perímetro correcto (bordes del techo)
+battlements(0, 30.5, -30.7, 22, 'x');    blueBand(0, 30, -30.7, 22, 1.6);    // pared oeste
+battlements(-10.7, 30.5, -20, 21, 'z');  blueBand(-10.7, 30, -20, 1.6, 21);  // pared norte
+battlements( 10.7, 30.5, -20, 21, 'z');  blueBand( 10.7, 30, -20, 1.6, 21);  // pared sur
+
+// ══════════════════════════════════════════════════════════════════════════════
+// FASE 1.5 — DECORACIONES EN RELIEVE (palmeras, flores en paredes doradas)
+// ══════════════════════════════════════════════════════════════════════════════
+function palmRelief(x, y, z, rotY = 0) {
+  const g = new THREE.Group();
+  // Tronco de palmera
+  const trunk = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.12, 0.18, 3.5, 6),
+    M.relief
+  );
+  trunk.position.y = 1.75;
+  g.add(trunk);
+  // Frondas (hojas de palmera)
+  for (let i = 0; i < 6; i++) {
+    const angle = (i / 6) * Math.PI * 2;
+    const frond = new THREE.Mesh(
+      new THREE.BoxGeometry(0.08, 0.04, 1.8),
+      M.relief
+    );
+    frond.position.set(
+      Math.cos(angle) * 0.3,
+      3.6,
+      Math.sin(angle) * 0.3
+    );
+    frond.rotation.set(
+      Math.sin(angle) * 0.5,
+      angle,
+      Math.cos(angle) * 0.5
+    );
+    g.add(frond);
+  }
+  g.position.set(x, y, z);
+  g.rotation.y = rotY;
+  scene.add(g);
+}
+
+function flowerRelief(x, y, z, rotY = 0) {
+  const g = new THREE.Group();
+  // Centro
+  const center = new THREE.Mesh(
+    new THREE.SphereGeometry(0.18, 6, 6),
+    M.relief
+  );
+  center.position.y = 0;
+  g.add(center);
+  // Pétalos
+  for (let i = 0; i < 6; i++) {
+    const angle = (i / 6) * Math.PI * 2;
+    const petal = new THREE.Mesh(
+      new THREE.SphereGeometry(0.14, 4, 4),
+      M.relief
+    );
+    petal.scale.set(1, 0.4, 1.6);
+    petal.position.set(Math.cos(angle) * 0.35, 0, Math.sin(angle) * 0.35);
+    petal.rotation.y = angle;
+    g.add(petal);
+  }
+  g.position.set(x, y, z);
+  g.rotation.y = rotY;
+  scene.add(g);
+}
+
+// Relieves en paredes del Debir (interior dorado)
+for (let z = -28; z <= -12; z += 4) {
+  palmRelief(-9.6, 8, z, Math.PI/2);
+  palmRelief(9.6, 8, z, -Math.PI/2);
+  flowerRelief(-9.6, 14, z, Math.PI/2);
+  flowerRelief(9.6, 14, z, -Math.PI/2);
+}
+// Relieves en paredes del Hekal
+for (let z = -8; z <= 28; z += 5) {
+  palmRelief(-9.6, 8, z, Math.PI/2);
+  palmRelief(9.6, 8, z, -Math.PI/2);
+  flowerRelief(-9.6, 16, z, Math.PI/2);
+  flowerRelief(9.6, 16, z, -Math.PI/2);
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// FASE 1.2 — QUERUBINES MEJORADOS (cuerpo orgánico de esfinge)
+// ══════════════════════════════════════════════════════════════════════════════
+function makeCherub(xPos) {
+  const g = new THREE.Group();
+  const s = xPos < 0 ? -1 : 1;
+
+  // Cuerpo de león (LatheGeometry para torso orgánico)
+  const bodyProfile = [
+    new THREE.Vector2(0, 0),
+    new THREE.Vector2(0.6, 0.3),
+    new THREE.Vector2(1.1, 1.0),
+    new THREE.Vector2(1.3, 2.0),
+    new THREE.Vector2(1.2, 3.0),
+    new THREE.Vector2(1.0, 3.8),
+    new THREE.Vector2(0.7, 4.2),
+    new THREE.Vector2(0, 4.5),
+  ];
+  const bodyGeo = new THREE.LatheGeometry(bodyProfile, 12);
+  const body = new THREE.Mesh(bodyGeo, M.gold);
+  body.scale.set(1.0, 1.0, 1.4);
+  body.position.set(0, 0, 0);
+  body.rotation.z = s * 0.3;
+  body.rotation.x = -0.1;
+  g.add(body);
+
+  // Patas delanteras (con articulación)
+  [-1, 1].forEach(pz => {
+    // Muslo
+    const thigh = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.38, 1.8, 8), M.gold);
+    thigh.position.set(s * 1.2, 1.8, pz * 0.9);
+    thigh.rotation.z = s * 0.3;
+    g.add(thigh);
+    // Pantorrilla
+    const shin = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.3, 1.5, 8), M.gold);
+    shin.position.set(s * 1.5, 0.7, pz * 0.9);
+    g.add(shin);
+    // Garra
+    const paw = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.25, 0.6), M.gold);
+    paw.position.set(s * 1.6, 0.1, pz * 0.9);
+    g.add(paw);
+  });
+
+  // Patas traseras
+  [-1, 1].forEach(pz => {
+    const thigh = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.4, 2.0, 8), M.gold);
+    thigh.position.set(-s * 1.0, 2.0, pz * 0.9);
+    thigh.rotation.z = -s * 0.2;
+    g.add(thigh);
+    const shin = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.35, 1.6, 8), M.gold);
+    shin.position.set(-s * 1.3, 0.8, pz * 0.9);
+    g.add(shin);
+    const paw = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.25, 0.6), M.gold);
+    paw.position.set(-s * 1.3, 0.1, pz * 0.9);
+    g.add(paw);
+  });
+
+  // Cuello (cilindro inclinado)
+  const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.75, 2.5, 10), M.gold);
+  neck.position.set(s * 1.2, 5.5, 0);
+  neck.rotation.z = -s * 0.3;
+  g.add(neck);
+
+  // Cabeza humana (esfera deformada)
+  const head = new THREE.Mesh(new THREE.SphereGeometry(0.9, 14, 14), M.gold);
+  head.position.set(s * 1.8, 7.2, 0);
+  head.scale.set(0.9, 1.15, 0.85);
+  g.add(head);
+
+  // Tocado real (nemes egipcio) — más elaborado
+  const nemes = new THREE.Mesh(new THREE.BoxGeometry(1.4, 2.5, 1.6), M.gold);
+  nemes.position.set(s * 1.7, 6.5, 0);
+  g.add(nemes);
+  // Ala del nemes (caida a los lados)
+  [-1, 1].forEach(sz => {
+    const nemesWing = new THREE.Mesh(new THREE.BoxGeometry(0.15, 2.0, 0.8), M.gold);
+    nemesWing.position.set(s * 1.7, 5.5, sz * 0.9);
+    g.add(nemesWing);
+  });
+
+  // Barba real
+  const beard = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.18, 1.0, 6), M.gold);
+  beard.position.set(s * 2.5, 6.2, 0);
+  beard.rotation.z = s * 0.2;
+  g.add(beard);
+
+  // Ojos (pequeñas esferas)
+  [-0.25, 0.25].forEach(ez => {
+    const eye = new THREE.Mesh(new THREE.SphereGeometry(0.12, 8, 8),
+      new THREE.MeshStandardMaterial({ color: 0x1A1000, roughness: 0.3, metalness: 0.9 }));
+    eye.position.set(s * 2.4, 7.4, ez);
+    g.add(eye);
+  });
+
+  // Cola (TubeGeometry con curva CatmullRom) — Fase 1.2
+  const tailPts = [
+    new THREE.Vector3(-s * 1.5, 3.8, 0),
+    new THREE.Vector3(-s * 2.5, 4.5, 0.5),
+    new THREE.Vector3(-s * 3.5, 5.5, 0.2),
+    new THREE.Vector3(-s * 3.8, 6.5, -0.3),
+    new THREE.Vector3(-s * 3.2, 7.0, -0.5),
+  ];
+  const tailCurve = new THREE.CatmullRomCurve3(tailPts);
+  const tailGeo = new THREE.TubeGeometry(tailCurve, 20, 0.12, 6, false);
+  const tail = new THREE.Mesh(tailGeo, M.gold);
+  g.add(tail);
+  // Penacho de la cola
+  const tuft = new THREE.Mesh(new THREE.SphereGeometry(0.25, 6, 6), M.gold);
+  tuft.position.copy(tailPts[tailPts.length - 1]);
+  g.add(tuft);
+
+  // Alas (ShapeGeometry con forma curva — Fase 1.2)
+  [-1, 1].forEach(wside => {
+    // Ala interior o exterior
+    const wingShape = new THREE.Shape();
+    const wLen = 5.0;
+    wingShape.moveTo(0, 0);
+    wingShape.quadraticCurveTo(wLen * 0.3, 2.5, wLen, 1.5);
+    wingShape.quadraticCurveTo(wLen * 0.8, 0.8, wLen * 0.6, 0.3);
+    wingShape.quadraticCurveTo(wLen * 0.3, -0.2, 0, 0);
+
+    const wingGeo = new THREE.ShapeGeometry(wingShape, 8);
+    const wing = new THREE.Mesh(wingGeo, M.goldW);
+    wing.position.set(wside * 0.5, 7.5, 0);
+    wing.rotation.y = wside > 0 ? -Math.PI/2 + wside * 0.15 : Math.PI/2 - wside * 0.15;
+    wing.rotation.z = wside * -0.15;
+    wing.scale.set(wside > 0 ? 1 : -1, 1, 1);
+    g.add(wing);
+
+    // Plumas secundarias (detalle)
+    for (let f = 0; f < 4; f++) {
+      const feather = new THREE.Mesh(
+        new THREE.BoxGeometry(0.06, 0.03, 2.5 + f * 0.5),
+        M.goldW
+      );
+      feather.position.set(wside * (1.5 + f * 1.0), 8.0 - f * 0.2, 0);
+      feather.rotation.y = wside * 0.05;
+      g.add(feather);
+    }
+  });
+
+  g.position.set(xPos, 0, -20);
+  g.userData = INFO.CHERUB; IXS.push(g); scene.add(g);
+  return g;
+}
+makeCherub(-4.5); makeCherub(4.5);
+
+// ── ARCA DEL PACTO ────────────────────────────────────────────────────────────
+bx(3.75,1.5,2.25, M.gold, 0,0.85,-20, INFO.ARK);
+bx(3.9,0.28,2.4,  M.gold, 0,1.74,-20, null); // propiciatorio
+[-1.1,1.1].forEach(x => {
+  bx(0.55,1.0,0.55, M.gold, x,2.35,-20, null);
+  bx(1.5,0.08,0.8,  M.gold, x,2.82,-19.7,null);
+});
+
+// ══════════════════════════════════════════════════════════════════════════════
+// FASE 1.3 — CADENAS DE ORO DEL VELO (2 Crónicas 3:16)
+// ══════════════════════════════════════════════════════════════════════════════
+function goldChain(x1, y1, z1, x2, y2, z2, sag = 2) {
+  const mid = new THREE.Vector3((x1+x2)/2, Math.min(y1,y2) - sag, (z1+z2)/2);
+  const pts = [
+    new THREE.Vector3(x1, y1, z1),
+    new THREE.Vector3(x1 + (x2-x1)*0.25, y1 - sag*0.5, z1 + (z2-z1)*0.25),
+    mid,
+    new THREE.Vector3(x1 + (x2-x1)*0.75, y2 - sag*0.5, z1 + (z2-z1)*0.75),
+    new THREE.Vector3(x2, y2, z2),
+  ];
+  const curve = new THREE.CatmullRomCurve3(pts);
+  const geo = new THREE.TubeGeometry(curve, 30, 0.08, 6, false);
+  const mesh = new THREE.Mesh(geo, M.goldChain);
+  mesh.castShadow = true;
+  return mesh;
+}
+
+const chainGroup = new THREE.Group();
+// 3 cadenas catenarias cruzando la entrada del Debir
+for (let i = 0; i < 3; i++) {
+  const yBase = 18 + i * 4;
+  const chain = goldChain(-7, yBase, -9.5, 7, yBase, -9.5, 1.5 + i * 0.5);
+  chainGroup.add(chain);
+}
+chainGroup.userData = INFO.CHAINS;
+IXS.push(chainGroup);
+scene.add(chainGroup);
+
+// ── HEKAL — LUGAR SANTO (40×30×20) ───────────────────────────────────────────
+// Z: -10 a +30
+bx(1.4,30,41, M.stone,-10.7,15,10,null);
+bx(1.4,30,41, M.stone, 10.7,15,10,null);
+bx(22,30,1.4, M.stone, 0,15,30.7,null);
+// Interior dorado
+bx(0.4,28.5,39.5, M.goldInt,-9.95,15,10,null);
+bx(0.4,28.5,39.5, M.goldInt, 9.95,15,10,null);
+// Pilar de cedro interno (divisores de paneles)
+[-4,4].forEach(x => bx(0.8,29,0.8,M.cedarD,x,15,-5,null));
+[-4,4].forEach(x => bx(0.8,29,0.8,M.cedarD,x,15,15,null));
+// Piso ciprés + lámina de oro
+bx(20,0.35,40, M.olive, 0,0.175,10,null);
+bx(20,0.10,40, M.goldInt, 0,0.42,10,null);
+// Techo de cedro
+bx(23,1.2,42.5, M.cedarD, 0,30.6,10,null);
+// Ventanas de clerestory (altas y estrechas - abocinadas)
+[-4,0,4].forEach(xw => {
+  bx(1.5,3,0.3, M.stone,-11.2,24,xw,null); // N exterior
+  bx(1.5,3,0.3, M.stone, 11.2,24,xw,null); // S exterior
+});
+// Hover Hekal
+hov(20,30,40, 0,15,10, INFO.HEKAL);
+// Parapeto + cornisa Hekal — perímetro correcto
+battlements(-10.7, 30.5, 10, 40, 'z');  blueBand(-10.7, 30, 10, 1.6, 40);   // pared norte
+battlements( 10.7, 30.5, 10, 40, 'z');  blueBand( 10.7, 30, 10, 1.6, 40);   // pared sur
+
+// ══════════════════════════════════════════════════════════════════════════════
+// FASE 2.3 — GOD RAYS (conos de luz desde ventanas clerestory)
+// ══════════════════════════════════════════════════════════════════════════════
+const godRays = [];
+[-4, 0, 4].forEach(xw => {
+  // Rayos desde ventanas norte (entran oblicuos al interior)
+  const rayGeo = new THREE.ConeGeometry(4, 18, 8, 1, true);
+  const rayN = new THREE.Mesh(rayGeo, M.godray);
+  rayN.position.set(-5, 15, xw);
+  rayN.rotation.z = -Math.PI / 2 + 0.4;
+  rayN.rotation.y = 0.1;
+  scene.add(rayN);
+  godRays.push(rayN);
+
+  // Rayos desde ventanas sur
+  const rayS = new THREE.Mesh(rayGeo.clone(), M.godray);
+  rayS.position.set(5, 15, xw);
+  rayS.rotation.z = Math.PI / 2 - 0.4;
+  rayS.rotation.y = -0.1;
+  scene.add(rayS);
+  godRays.push(rayS);
+});
+
+// ── ALTAR DEL INCIENSO ────────────────────────────────────────────────────────
+const incGrp = new THREE.Group();
+const incBody = new THREE.Mesh(new THREE.BoxGeometry(1.8,5,1.8), M.gold);
+incBody.position.y = 2.5; incGrp.add(incBody);
+const incTop = new THREE.Mesh(new THREE.BoxGeometry(2.0,0.4,2.0), M.gold);
+incTop.position.y = 5.3; incGrp.add(incTop);
+// Cuernos del altar
+[[0.8,0.8],[-0.8,0.8],[0.8,-0.8],[-0.8,-0.8]].forEach(([cx,cz]) => {
+  const horn = new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.18,0.6,6), M.gold);
+  horn.position.set(cx,5.8,cz); incGrp.add(horn);
+});
+// Humo mejorado (múltiples columnas ondulantes)
+for (let si = 0; si < 3; si++) {
+  const smoke = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.1 + si * 0.08, 0.3 + si * 0.12, 6 + si * 2, 8),
+    M.smoke
+  );
+  smoke.position.set(si * 0.15 - 0.15, 8.5 + si * 1.5, si * 0.1 - 0.05);
+  incGrp.add(smoke);
+}
+incGrp.position.set(0,0,-7.5);
+incGrp.userData = INFO.INC; IXS.push(incGrp); scene.add(incGrp);
+
+// ── MESA DE LOS PANES (panes redondos apilados) ───────────────────────────────
+const tblGrp = new THREE.Group();
+const tblTop = new THREE.Mesh(new THREE.BoxGeometry(3.2,0.22,1.8), M.gold);
+tblTop.position.y = 4; tblGrp.add(tblTop);
+[[-1.0,0],[0,0],[1.0,0]].forEach(([lx,lz]) => { // patas
+  const leg = new THREE.Mesh(new THREE.BoxGeometry(0.12,4,0.12), M.gold);
+  leg.position.set(lx,2,lz); tblGrp.add(leg);
+});
+// Panes redondos (2 pilas de 6)
+[-0.65,0.65].forEach(px => {
+  for(let p=0;p<5;p++){
+    const pan = new THREE.Mesh(new THREE.CylinderGeometry(0.45,0.45,0.15,10), M.stone);
+    pan.position.set(px, 4.23+p*0.16, 0); tblGrp.add(pan);
+  }
+});
+tblGrp.position.set(-8,0,10);
+tblGrp.userData = INFO.BREAD; IXS.push(tblGrp); scene.add(tblGrp);
+
+// ══════════════════════════════════════════════════════════════════════════════
+// FASE 1.4 — MENORAH MEJORADA (brazos curvos con CatmullRomCurve3)
+// ══════════════════════════════════════════════════════════════════════════════
+const flameSprites = []; // para animar halos
+
+function menorah(x, y, z, addInfo) {
+  const g = new THREE.Group();
+  // Base trípode mejorada
+  const base = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1.2, 0.3, 16), M.gold);
+  g.add(base);
+  // Anillos decorativos en la base
+  const ring1 = new THREE.Mesh(new THREE.TorusGeometry(1.0, 0.06, 8, 24), M.gold);
+  ring1.rotation.x = Math.PI / 2; ring1.position.y = 0.05; g.add(ring1);
+
+  // Fuste central (con bulbos — cálices de almendra)
+  const stemPts = [
+    new THREE.Vector3(0, 0.3, 0),
+    new THREE.Vector3(0, 1.5, 0),
+    new THREE.Vector3(0, 3.0, 0),
+    new THREE.Vector3(0, 4.5, 0),
+    new THREE.Vector3(0, 5.2, 0),
+  ];
+  const stemCurve = new THREE.CatmullRomCurve3(stemPts);
+  const stemGeo = new THREE.TubeGeometry(stemCurve, 16, 0.12, 8, false);
+  const stem = new THREE.Mesh(stemGeo, M.gold);
+  g.add(stem);
+
+  // Bulbos (cálices florales) en el fuste
+  [1.2, 2.5, 4.0].forEach(bh => {
+    const bulb = new THREE.Mesh(
+      new THREE.SphereGeometry(0.2, 8, 8),
+      M.gold
+    );
+    bulb.scale.set(1, 1.4, 1);
+    bulb.position.set(0, bh, 0);
+    g.add(bulb);
+  });
+
+  // 3 brazos curvos por lado (con CatmullRomCurve3)
+  const armData = [
+    { startH: 1.2, reach: 1.2 },
+    { startH: 2.2, reach: 2.2 },
+    { startH: 3.2, reach: 3.2 },
+  ];
+
+  armData.forEach(({ startH, reach }, i) => {
+    [-1, 1].forEach(side => {
+      const endH = 5.2;
+      // Curva tipo menorá — sale horizontal, luego sube
+      const armPts = [
+        new THREE.Vector3(0, startH, 0),
+        new THREE.Vector3(side * reach * 0.3, startH - 0.2, 0),
+        new THREE.Vector3(side * reach * 0.7, startH + 0.3, 0),
+        new THREE.Vector3(side * reach, startH + (endH - startH) * 0.4, 0),
+        new THREE.Vector3(side * reach, endH, 0),
+      ];
+      const armCurve = new THREE.CatmullRomCurve3(armPts);
+      const armGeo = new THREE.TubeGeometry(armCurve, 16, 0.07, 6, false);
+      const arm = new THREE.Mesh(armGeo, M.gold);
+      g.add(arm);
+
+      // Cáliz en la punta
+      const calyx = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.15, 0.08, 0.3, 8),
+        M.gold
+      );
+      calyx.position.set(side * reach, endH - 0.1, 0);
+      g.add(calyx);
+
+      // Llama
+      const fl = new THREE.Mesh(new THREE.SphereGeometry(0.14, 8, 8), M.flame);
+      fl.position.set(side * reach, endH + 0.22, 0);
+      g.add(fl);
+
+      // FASE 2.4 — Halo dorado (sprite)
+      const haloGeo = new THREE.PlaneGeometry(1.2, 1.2);
+      const haloMat = new THREE.MeshBasicMaterial({
+        color: 0xFFCC44,
+        transparent: true,
+        opacity: 0.12,
+        side: THREE.DoubleSide,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      });
+      const halo = new THREE.Mesh(haloGeo, haloMat);
+      halo.position.set(side * reach, endH + 0.22, 0);
+      halo.lookAt(camera.position);
+      g.add(halo);
+      flameSprites.push(halo);
+    });
+  });
+
+  // Llama central + halo
+  const cfl = new THREE.Mesh(new THREE.SphereGeometry(0.14, 8, 8), M.flame);
+  cfl.position.set(0, 5.45, 0); g.add(cfl);
+  const cHalo = new THREE.Mesh(
+    new THREE.PlaneGeometry(1.4, 1.4),
+    new THREE.MeshBasicMaterial({
+      color: 0xFFCC44, transparent: true, opacity: 0.15,
+      side: THREE.DoubleSide, blending: THREE.AdditiveBlending, depthWrite: false,
+    })
+  );
+  cHalo.position.set(0, 5.45, 0);
+  g.add(cHalo);
+  flameSprites.push(cHalo);
+
+  g.position.set(x, y, z);
+  if (addInfo) { g.userData = INFO.LAMPS; IXS.push(g); }
+  addToScene(g); return g;
+}
+const mZpos = [-8, -3, 2, 7, 12];
+mZpos.forEach((z, i) => {
+  menorah(9, 0, z, i === 2);
+  menorah(-9, 0, z, false);
+});
+
+// ── PUERTAS DEBIR (olivo) ─────────────────────────────────────────────────────
+bx(5.2,20,0.55, M.olive,-4.5,11,-9.6, null);
+bx(5.2,20,0.55, M.olive, 4.5,11,-9.6, null);
+bx(0.9,22,0.8, M.olive,-5.6,11,-9.6,null);
+bx(0.9,22,0.8, M.olive, 5.6,11,-9.6,null);
+hov(12,22,1, 0,11,-9.6, { title:'Puerta del Debir — Madera de Olivo', body:'Dos hojas de olivo (ets shemen) talladas con querubines, palmeras y flores abiertas, recubiertas de oro laminado. Esta es la puerta que el Sumo Sacerdote atravesaba una vez al año, con sangre expiatoria. El velo que Dios rasgó de arriba abajo al morir Jesús estaba aquí, señalando que el camino al Lugar Santísimo quedó abierto para siempre.', ref:'1 Reyes 6:31-32 · Mateo 27:51 · Hebreos 10:19-20'});
+// Puertas Hekal (ciprés)
+bx(5.5,20,0.55, M.olive,-4,11,30.8,null);
+bx(5.5,20,0.55, M.olive, 4,11,30.8,null);
+hov(12,22,1, 0,11,30.8, { title:'Puerta del Hekal — Madera de Ciprés', body:'Dos hojas de ciprés (berosh) plegadizas, con quicios de olivo. Decoradas con querubines, palmeras y flores en relieve dorado. Separaban el Ulam del lugar de servicio diario (Hekal).', ref:'1 Reyes 6:33-35'});
+
+// ── ULAM — VESTÍBULO (20×30×10) ──────────────────────────────────────────────
+const UH = 30;
+bx(1.4,UH,10.5, M.stone,-10.7,UH/2,35,null);
+bx(1.4,UH,10.5, M.stone, 10.7,UH/2,35,null);
+bx(22,UH,1.4,   M.stone,  0,UH/2,30.7,null);
+// Fachada este con abertura (vano de 9c)
+bx(5.5,UH,1.4, M.marble,-7.75,UH/2,40.7,null);
+bx(5.5,UH,1.4, M.marble, 7.75,UH/2,40.7,null);
+bx(22,UH*0.45,1.4, M.marble, 0,UH-UH*0.45/2,40.7,null);
+// Techo Ulam
+bx(22,1.2,11.5, M.cedarD, 0,UH+0.6,35,null);
+// Parapeto + cornisa Ulam — perímetro correcto
+battlements(0, UH+1.2, 40.7, 22, 'x');      blueBand(0, UH, 40.7, 22, 1.6);       // fachada este
+battlements(-10.7, UH+1.2, 35, 10.5, 'z');  blueBand(-10.7, UH, 35, 1.6, 10.5);  // pared norte
+battlements( 10.7, UH+1.2, 35, 10.5, 'z');  blueBand( 10.7, UH, 35, 1.6, 10.5);  // pared sur
+hov(22,UH,10.5, 0,UH/2,35, INFO.ULAM);
+// Escalones de acceso al Ulam
+for(let i=0;i<6;i++) bx(24,0.7,1.8, M.marble, 0,-4+i*0.7, 44-i*1.8, null);
+
+// ── COLUMNAS JAQUÍN Y BOAZ ────────────────────────────────────────────────────
+const CR = 1.91;
+[[-7.5, INFO.BOAZ],[7.5, INFO.JACHIN]].forEach(([x, info]) => {
+  cy(CR,CR,18,24, M.bronze, x,9,46, info);
+  // Capitel estilo lirio
+  cy(2.8,CR,5,24, M.bronze, x,21.5,46, null);
+  cy(3.15,2.85,0.9,24, M.bronzeD, x,18.9,46,null);
+  cy(3.15,2.85,0.9,24, M.bronzeD, x,20.0,46,null);
+  // Granadas de bronce
+  for(let i=0;i<14;i++){
+    const a=(i/14)*Math.PI*2;
+    const px=x+Math.cos(a)*3.2, pz=46+Math.sin(a)*3.2;
+    mk(new THREE.SphereGeometry(0.3,6,6), M.bronzeD, px,19.3,pz,null);
+  }
+});
+
+// ── ALTAR DE BRONCE (escalonado con rejilla) ──────────────────────────────────
+bx(24,1.5,24, M.stone,  0,0.75,68,null);
+bx(22,2.5,22, M.stone,  0,2.25,68,null);
+bx(20,3.0,20, M.stone,  0,4.0,68,null);
+bx(20,3.0,20, M.bronze, 0,6.5,68, INFO.ALT_B);
+for(let i=-8;i<=8;i+=2){
+  bx(20,0.2,0.25, M.bronzeD, 0,8.15,68+i,null);
+  bx(0.25,0.2,20, M.bronzeD, i,8.15,68, null);
+}
+bx(21,0.5,0.6, M.cedarD, 0,8.1,58,null);
+bx(21,0.5,0.6, M.cedarD, 0,8.1,78,null);
+bx(0.6,0.5,21, M.cedarD,-10.3,8.1,68,null);
+bx(0.6,0.5,21, M.cedarD, 10.3,8.1,68,null);
+[[9.5,9.5],[-9.5,9.5],[9.5,-9.5],[-9.5,-9.5]].forEach(([ax,az]) => {
+  cy(0.4,0.5,1.5,6, M.bronze, ax,9.3,68+az,null);
+});
+
+// ══════════════════════════════════════════════════════════════════════════════
+// FASE 1.3 — MAR DE BRONCE MEJORADO (toros detallados + lirios)
+// ══════════════════════════════════════════════════════════════════════════════
+const SX=22, SZ=72;
+
+// Recipiente con perfil mejorado
+const seaProfile = [
+  new THREE.Vector2(0, 0),
+  new THREE.Vector2(4.0, 0),
+  new THREE.Vector2(4.5, 0.5),
+  new THREE.Vector2(4.8, 1.5),
+  new THREE.Vector2(5.0, 3.0),
+  new THREE.Vector2(5.1, 4.0),
+  new THREE.Vector2(5.2, 4.8),
+  new THREE.Vector2(5.0, 5.0),
+  new THREE.Vector2(4.6, 5.0),
+];
+const seaGeo = new THREE.LatheGeometry(seaProfile, 32);
+const seaMesh = new THREE.Mesh(seaGeo, M.bronze);
+seaMesh.position.set(SX, 0, SZ);
+seaMesh.castShadow = true; seaMesh.receiveShadow = true;
+seaMesh.userData = INFO.SEA; IXS.push(seaMesh);
+scene.add(seaMesh);
+
+// Borde/labio decorativo (lirios — Fase 1.3)
+const lilyCount = 24;
+for (let i = 0; i < lilyCount; i++) {
+  const angle = (i / lilyCount) * Math.PI * 2;
+  const lx = SX + Math.cos(angle) * 5.15;
+  const lz = SZ + Math.sin(angle) * 5.15;
+  // Pétalo de lirio
+  const petal = new THREE.Mesh(
+    new THREE.SphereGeometry(0.25, 6, 6),
+    M.bronzeD
+  );
+  petal.scale.set(1, 0.5, 1.8);
+  petal.position.set(lx, 5.2, lz);
+  petal.rotation.y = angle;
+  scene.add(petal);
+}
+
+// Torus decorativo
+mk(new THREE.TorusGeometry(5.15,0.25,10,32), M.bronzeD, SX,5.1,SZ,null);
+
+// Agua con efecto de ondulación (Fase 2.6)
+const waterGeo = new THREE.CircleGeometry(4.5, 32);
+const waterMesh = new THREE.Mesh(waterGeo, M.water);
+waterMesh.rotation.x = -Math.PI / 2;
+waterMesh.position.set(SX, 4.85, SZ);
+scene.add(waterMesh);
+
+// 12 toros de bronce MEJORADOS
+for (let i = 0; i < 12; i++) {
+  const a = (i / 12) * Math.PI * 2;
+  const tx = SX + Math.cos(a) * 4.1;
+  const tz = SZ + Math.sin(a) * 4.1;
+  const tGroup = new THREE.Group();
+
+  // Cuerpo del toro (más detallado)
+  const tBody = new THREE.Mesh(new THREE.CapsuleGeometry(0.55, 1.8, 8, 16), M.bronze);
+  tBody.rotation.z = Math.PI / 2;
+  tBody.position.y = 1.2;
+  tGroup.add(tBody);
+
+  // Cabeza (más grande y definida)
+  const tHead = new THREE.Mesh(new THREE.SphereGeometry(0.45, 10, 10), M.bronze);
+  tHead.scale.set(0.9, 1.0, 1.1);
+  tHead.position.set(Math.cos(a) * 1.2, 1.5, Math.sin(a) * 1.2);
+  tGroup.add(tHead);
+
+  // Morro
+  const muzzle = new THREE.Mesh(new THREE.SphereGeometry(0.22, 8, 8), M.bronze);
+  muzzle.scale.set(1.2, 0.8, 1.0);
+  muzzle.position.set(Math.cos(a) * 1.7, 1.3, Math.sin(a) * 1.7);
+  tGroup.add(muzzle);
+
+  // Cuernos curvos (TubeGeometry)
+  [-0.22, 0.22].forEach(offset => {
+    const hornPts = [
+      new THREE.Vector3(Math.cos(a) * 1.3, 1.8, Math.sin(a) * 1.3),
+      new THREE.Vector3(Math.cos(a) * 1.5, 2.3, Math.sin(a) * 1.5 + offset * 2),
+      new THREE.Vector3(Math.cos(a) * 1.2, 2.6, Math.sin(a) * 1.2 + offset * 3),
+    ];
+    const hornCurve = new THREE.CatmullRomCurve3(hornPts);
+    const hornGeo = new THREE.TubeGeometry(hornCurve, 10, 0.06, 6, false);
+    const horn = new THREE.Mesh(hornGeo, M.bronzeD);
+    tGroup.add(horn);
+  });
+
+  // 4 patas
+  const legAngles = [-0.4, 0.4, Math.PI - 0.4, Math.PI + 0.4];
+  legAngles.forEach(la => {
+    const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.15, 1.0, 6), M.bronze);
+    leg.position.set(Math.cos(a + la) * 0.4, 0.5, Math.sin(a + la) * 0.4);
+    tGroup.add(leg);
+  });
+
+  tGroup.position.set(tx, 0, tz);
+  tGroup.rotation.y = a + Math.PI; // mirando hacia afuera
+  scene.add(tGroup);
+}
+
+// ── CARROS DE BRONCE ────────────────────────────────────────────────────────
+function waterCart(cx, cz, info) {
+  const g = new THREE.Group();
+  const box = new THREE.Mesh(new THREE.BoxGeometry(4.5,3.2,4.5), M.bronze);
+  box.position.y = 2.8; g.add(box);
+  [[0,0,2.3],[0,0,-2.3],[2.3,0,0],[-2.3,0,0]].forEach(([px,py,pz],i) => {
+    const pan = new THREE.Mesh(new THREE.BoxGeometry(
+      i<2?4.2:0.15, 2.8, i<2?0.15:4.2), M.bronzeD);
+    pan.position.set(px,2.8,pz); g.add(pan);
+  });
+  const bowl = new THREE.Mesh(new THREE.CylinderGeometry(1.9,1.6,0.9,16), M.bronze);
+  bowl.position.y = 4.7; g.add(bowl);
+  [[-1.8,-1.8],[1.8,-1.8],[-1.8,1.8],[1.8,1.8]].forEach(([wx,wz]) => {
+    const rim = new THREE.Mesh(new THREE.TorusGeometry(0.75,0.14,8,16), M.bronzeD);
+    rim.rotation.x=Math.PI/2; rim.position.set(wx,0.75,wz); g.add(rim);
+    const axle = new THREE.Mesh(new THREE.CylinderGeometry(0.08,0.08,0.35,6), M.bronze);
+    axle.rotation.z=Math.PI/2; axle.position.set(wx,0.75,wz); g.add(axle);
+    for(let r=0;r<8;r++){
+      const ra=(r/8)*Math.PI*2;
+      const spoke = new THREE.Mesh(new THREE.CylinderGeometry(0.04,0.04,0.6,4), M.bronzeD);
+      spoke.position.set(wx+Math.cos(ra)*0.3,0.75+Math.sin(ra)*0.3,wz);
+      spoke.rotation.z=ra; g.add(spoke);
+    }
+  });
+  g.position.set(cx,0,cz);
+  if(info){ g.userData=info; IXS.push(g); }
+  scene.add(g);
+}
+for(let i=0;i<5;i++){
+  const z=50+i*10;
+  waterCart(-25, z, i===2 ? INFO.CARTS : null);
+  waterCart( 25, z, null);
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// FASE 2.5 — NIEBLA A NIVEL DEL SUELO
+// ══════════════════════════════════════════════════════════════════════════════
+const fogPlanes = [];
+for (let i = 0; i < 6; i++) {
+  const fogGeo = new THREE.PlaneGeometry(250 + i * 40, 250 + i * 40);
+  const fogMatI = M.fogMat.clone();
+  fogMatI.opacity = 0.03 + i * 0.008;
+  const fogMesh = new THREE.Mesh(fogGeo, fogMatI);
+  fogMesh.rotation.x = -Math.PI / 2;
+  fogMesh.position.y = 0.3 + i * 0.6;
+  scene.add(fogMesh);
+  fogPlanes.push(fogMesh);
+}
+
+// ── RAYCASTING / HOVER ────────────────────────────────────────────────────────
+const ray=new THREE.Raycaster();
+const mouse=new THREE.Vector2();
+const ttEl=document.getElementById('tooltip');
+const ttT=document.getElementById('tt-t'),ttB=document.getElementById('tt-b'),ttR=document.getElementById('tt-r');
+let hObj=null;
+
+renderer.domElement.addEventListener('mousemove', e => {
+  mouse.x=(e.clientX/innerWidth)*2-1;
+  mouse.y=-(e.clientY/innerHeight)*2+1;
+  ray.setFromCamera(mouse,camera);
+  const hits=ray.intersectObjects(IXS,true);
+  let found=null;
+  for(const h of hits){
+    let o=h.object;
+    while(o){ if(o.userData?.title){found=o;break;} o=o.parent; }
+    if(found) break;
+  }
+  if(found){
+    if(found!==hObj){hObj=found;ttT.textContent=found.userData.title;ttB.textContent=found.userData.body;ttR.textContent=found.userData.ref||'';}
+    let tx=e.clientX+22,ty=e.clientY-18;
+    if(tx+360>innerWidth) tx=e.clientX-370;
+    if(ty+320>innerHeight) ty=e.clientY-310;
+    ttEl.style.left=tx+'px'; ttEl.style.top=ty+'px';
+    ttEl.classList.add('on'); document.body.style.cursor='crosshair';
+  } else {
+    ttEl.classList.remove('on'); hObj=null; document.body.style.cursor='grab';
+  }
+});
+renderer.domElement.addEventListener('mouseleave',()=>{ttEl.classList.remove('on');hObj=null;});
+
+// ── PRESETS DE CÁMARA ─────────────────────────────────────────────────────────
+const CAMS={
+  ext: {p:[100,80,125], t:[0,18,5]},
+  top: {p:[0,220,5],    t:[0,0,5]},
+  hek: {p:[0,15,50],    t:[0,12,5]},
+  deb: {p:[0,12,14],    t:[0,12,-20]},
+  col: {p:[0,32,78],    t:[0,12,44]},
+  mar: {p:[40,28,95],   t:[SX,5,SZ]},
+};
+let camAnim=null;
+function goTo(k){
+  const c=CAMS[k];
+  camAnim={sp:camera.position.clone(),st:orbit.target.clone(),
+    ep:new THREE.Vector3(...c.p),et:new THREE.Vector3(...c.t),k:0,dur:90};
+  droneActive=false; orbit.enabled=true;
+  document.getElementById('b-drone').classList.remove('active');
+  document.getElementById('b-drone').textContent='▶ Vuelo Dron';
+}
+document.getElementById('b-ext').onclick=()=>goTo('ext');
+document.getElementById('b-top').onclick=()=>goTo('top');
+document.getElementById('b-hek').onclick=()=>goTo('hek');
+document.getElementById('b-deb').onclick=()=>goTo('deb');
+document.getElementById('b-col').onclick=()=>goTo('col');
+document.getElementById('b-mar').onclick=()=>goTo('mar');
+
+// ── DRON ──────────────────────────────────────────────────────────────────────
+let droneActive=false, droneT=0;
+document.getElementById('b-drone').addEventListener('click',function(){
+  droneActive=!droneActive; droneT=0;
+  orbit.enabled=!droneActive;
+  this.classList.toggle('active',droneActive);
+  this.textContent=droneActive?'■ Detener Dron':'▶ Vuelo Dron';
+});
+
+// ── LOOP ──────────────────────────────────────────────────────────────────────
+const clock=new THREE.Clock();
+function ease(t){return t<.5?2*t*t:-1+(4-2*t)*t;}
+
+function animate(){
+  requestAnimationFrame(animate);
+  const t=clock.getElapsedTime();
+
+  // Luces interiores pulsantes
+  glow1.intensity=5.5+Math.sin(t*0.85)*1.0;
+  glow2.intensity=3.0+Math.sin(t*0.65+1)*0.6;
+  glow3.intensity=2.0+Math.sin(t*0.5+2)*0.4;
+
+  // FASE 2.2 — Titileo de estrellas
+  starMat.uniforms.time.value = t;
+
+  // FASE 2.3 — God rays pulsantes
+  godRays.forEach((ray, i) => {
+    ray.material.opacity = 0.025 + 0.02 * Math.sin(t * 0.4 + i * 0.7);
+  });
+
+  // FASE 2.4 — Halos de llamas miran a la cámara
+  flameSprites.forEach(h => {
+    h.lookAt(camera.position);
+    h.material.opacity = 0.08 + 0.06 * Math.sin(t * 3 + h.position.x * 2);
+  });
+
+  // FASE 2.5 — Niebla ondulante
+  fogPlanes.forEach((fp, i) => {
+    fp.position.x = Math.sin(t * 0.15 + i) * 8;
+    fp.position.z = Math.cos(t * 0.12 + i * 0.5) * 6;
+    fp.material.opacity = 0.02 + 0.015 * Math.sin(t * 0.3 + i);
+  });
+
+  // FASE 2.6 — Ondulación del agua
+  if (waterMesh.geometry.attributes.position) {
+    const pos = waterMesh.geometry.attributes.position;
+    const original = waterMesh.geometry.attributes.position.array;
+    // Simple ondulación en Y vía uniform time no es posible en geometry, 
+    // así que movemos ligeramente el mesh
+    waterMesh.position.y = 4.85 + Math.sin(t * 1.5) * 0.04;
+    waterMesh.rotation.z = Math.sin(t * 0.8) * 0.02;
+  }
+
+  // Animación de cámara
+  if(camAnim){
+    camAnim.k=Math.min(camAnim.k+1,camAnim.dur);
+    const a=ease(camAnim.k/camAnim.dur);
+    camera.position.lerpVectors(camAnim.sp,camAnim.ep,a);
+    orbit.target.lerpVectors(camAnim.st,camAnim.et,a);
+    if(camAnim.k>=camAnim.dur) camAnim=null;
+  }
+  if(droneActive){
+    droneT+=0.0025;
+    const ang=droneT*Math.PI*2;
+    const r=140+Math.sin(droneT*2.5)*30;
+    const ht=90+Math.sin(droneT*Math.PI*1.2)*40;
+    camera.position.set(Math.cos(ang)*r,ht,Math.sin(ang)*r+8);
+    camera.lookAt(0,22,8); orbit.target.set(0,22,8);
+    if(droneT>=1){
+      droneActive=false; orbit.enabled=true;
+      document.getElementById('b-drone').classList.remove('active');
+      document.getElementById('b-drone').textContent='▶ Vuelo Dron';
+    }
+  }
+  orbit.update();
+  composer.render();
+}
+animate();
+
+window.addEventListener('resize',()=>{
+  camera.aspect=innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth,innerHeight);
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  composer.setSize(innerWidth,innerHeight);
+  ssaoPass.setSize(innerWidth,innerHeight);
+});
+
+setTimeout(()=>{
+  const ld=document.getElementById('loading');
+  if(ld){ld.style.opacity='0'; setTimeout(()=>{if(ld&&ld.parentNode)ld.parentNode.removeChild(ld);},900);}
+},2400);
+
+</script>
+</body>
+</html>

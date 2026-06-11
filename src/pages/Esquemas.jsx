@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Clock, Info, HelpCircle, X, BookOpen, Layers } from 'lucide-react';
+import { Clock, Info, HelpCircle, X, BookOpen, Layers, Box, ExternalLink } from 'lucide-react';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 
@@ -185,6 +185,17 @@ const Esquemas = () => {
                         <Clock size={18} />
                         Líneas de Tiempo
                     </button>
+                    <button
+                        onClick={() => setSelectedTab('3d')}
+                        className={`flex items-center gap-2 px-6 py-4 font-heading font-semibold text-sm uppercase tracking-wider border-b-2 transition-all ${
+                            selectedTab === '3d'
+                                ? 'border-sabiduria-gold text-sabiduria-gold'
+                                : 'border-transparent text-sabiduria-gray hover:text-sabiduria-navy'
+                        }`}
+                    >
+                        <Box size={18} />
+                        Arqueología 3D
+                    </button>
                 </div>
             </div>
 
@@ -270,7 +281,7 @@ const Esquemas = () => {
                             </div>
                         </div>
                     </div>
-                ) : (
+                ) : selectedTab === 'cronologia' ? (
                     <div>
                         {/* Sección de Líneas de Tiempo */}
                         <div className="mb-10 max-w-3xl">
@@ -324,6 +335,88 @@ const Esquemas = () => {
                                     </h3>
                                 <p className="text-sabiduria-gray/60 text-sm max-w-xs">
                                     Pronto se añadirán esquemas del exilio babilónico, la cronología del Nuevo Testamento y los reinados de Judá e Israel.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                ) : (
+                    /* ── Tab: Arqueología 3D ── */
+                    <div>
+                        <div className="mb-10 max-w-3xl">
+                            <h2 className="text-2xl font-serif text-sabiduria-navy mb-3">
+                                Exploraciones Arqueológicas en 3D
+                            </h2>
+                            <p className="text-sabiduria-gray text-base leading-relaxed">
+                                Recorre los espacios sagrados de la Biblia en modelos tridimensionales interactivos. Cada elemento está documentado con sus fuentes bíblicas y arqueológicas.
+                            </p>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 gap-8">
+                            {/* Card: Templo de Salomón */}
+                            <motion.article
+                                whileHover={{ y: -4 }}
+                                className="bg-white border border-sabiduria-gray/10 rounded-sm overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-all"
+                            >
+                                <div className="h-48 bg-[#050301] flex items-center justify-center relative overflow-hidden">
+                                    <div className="absolute inset-0" style={{
+                                        background: 'radial-gradient(ellipse at 40% 60%, rgba(212,175,55,0.12) 0%, rgba(5,3,1,0) 70%)'
+                                    }} />
+                                    <div className="text-center relative z-10">
+                                        <Box size={52} className="mx-auto mb-3" style={{ color: '#D4AF37', opacity: 0.85 }} />
+                                        <span style={{ color: '#6a5a30', fontSize: '10px', letterSpacing: '3px', textTransform: 'uppercase' }}>
+                                            S. X a.C. · Monte Moríah
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="p-6 flex-grow flex flex-col justify-between">
+                                    <div>
+                                        <span className="text-xs font-bold uppercase tracking-wider text-sabiduria-gold block mb-2">
+                                            Arqueología Bíblica · Three.js
+                                        </span>
+                                        <h3 className="text-xl font-serif text-sabiduria-navy font-bold mb-3">
+                                            Templo de Salomón en 3D
+                                        </h3>
+                                        <p className="text-sabiduria-gray text-sm leading-relaxed mb-4">
+                                            Explora el Debir, el Hekal, las columnas Jaquín y Boaz, el Mar de Bronce, los querubines y 18 elementos más con referencias bíblicas al hacer clic. Modelo basado en 1 Reyes 6–7, 2 Crónicas 3–4 y Josefo.
+                                        </p>
+                                        <div className="flex flex-wrap gap-1.5 mb-5">
+                                            {['Lugar Santísimo', 'Jaquín y Boaz', 'Mar de Bronce', 'Querubines', 'Arca del Pacto'].map(tag => (
+                                                <span key={tag} className="text-[10px] font-semibold uppercase tracking-wider text-sabiduria-gold/80 bg-sabiduria-gold/8 border border-sabiduria-gold/15 px-2 py-0.5 rounded-full">
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-3">
+                                        <Link
+                                            to="/esquemas/templo-salomon"
+                                            className="flex-1 inline-flex items-center justify-center gap-2 bg-sabiduria-navy text-white text-sm font-semibold px-4 py-2.5 rounded-sm hover:bg-sabiduria-navy/90 transition-colors"
+                                        >
+                                            <Box size={14} />
+                                            Explorar en 3D
+                                        </Link>
+                                        <a
+                                            href="/templo/templo.html"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-1.5 text-sabiduria-gray hover:text-sabiduria-navy text-xs font-medium transition-colors border border-sabiduria-gray/20 hover:border-sabiduria-navy/30 px-3 py-2.5 rounded-sm"
+                                            title="Abrir en pantalla completa"
+                                        >
+                                            <ExternalLink size={13} />
+                                            Pantalla completa
+                                        </a>
+                                    </div>
+                                </div>
+                            </motion.article>
+
+                            {/* Card: Próximamente */}
+                            <div className="bg-white/40 border border-dashed border-sabiduria-gray/20 rounded-sm p-8 flex flex-col items-center justify-center text-center">
+                                <Box size={40} className="text-sabiduria-gray/30 mb-4" />
+                                <h3 className="text-lg font-serif text-sabiduria-navy/70 font-semibold mb-2">
+                                    Próximas Exploraciones
+                                </h3>
+                                <p className="text-sabiduria-gray/60 text-sm max-w-xs">
+                                    En desarrollo: El Tabernáculo del Desierto, el Templo de Ezequiel y el Arca de Noé según las dimensiones del texto hebreo.
                                 </p>
                             </div>
                         </div>
