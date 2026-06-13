@@ -100,6 +100,7 @@
     if (state.bgPreset.isVideo && state.bgPreset._video) {
       try { state.bgPreset._video.play(); } catch (e) {}
     }
+    updateMuteBtn();
   }
 
   function currentVerse() { return verses.find(x => x.id === state.verseId) || verses[0]; }
@@ -130,6 +131,18 @@
     requestAnimationFrame(previewLoop);
   }
   function replay() { startTime = performance.now(); }
+
+  function updateMuteBtn() {
+    const btn = document.getElementById('btnMute');
+    if (!btn) return;
+    const v = state.bgPreset && state.bgPreset.isVideo ? state.bgPreset._video : null;
+    if (v) {
+      btn.classList.remove('hidden');
+      btn.textContent = v.muted ? '🔇 Sin audio' : '🔊 Con audio';
+    } else {
+      btn.classList.add('hidden');
+    }
+  }
 
   // ---------- render UI ----------
   function thumbCanvas(id) {
@@ -190,11 +203,6 @@
       el.onclick = () => { state.bgId = b.id; resolveBg(); renderBgGrid(); replay(); save(); };
       grid.appendChild(el);
     }
-    const up = document.createElement('div');
-    up.className = 'bg-thumb upload-thumb';
-    up.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0L7 9m5-5l5 5"/><path d="M5 20h14"/></svg><span>Subir<br>imagen<br>o video</span>';
-    up.onclick = () => document.getElementById('imgInput').click();
-    grid.appendChild(up);
   }
 
   function renderVerseList() {
@@ -351,6 +359,12 @@
     });
 
     document.getElementById('btnReplay').addEventListener('click', replay);
+    document.getElementById('btnMute').addEventListener('click', () => {
+      const v = state.bgPreset && state.bgPreset.isVideo ? state.bgPreset._video : null;
+      if (!v) return;
+      v.muted = !v.muted;
+      document.getElementById('btnMute').textContent = v.muted ? '🔇 Sin audio' : '🔊 Con audio';
+    });
     document.getElementById('btnDownload').addEventListener('click', doDownload);
     document.getElementById('btnPoster').addEventListener('click', () => {
       const fname = 'flayer-' + (state.ref || 'versiculo').replace(/[^\wáéíóúñ]+/gi, '-').toLowerCase();

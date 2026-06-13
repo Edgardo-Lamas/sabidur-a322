@@ -54,13 +54,17 @@
 
     if (state.bgPreset) state.bgPreset.prepare(W, H);
 
-    // pausar video durante el render determinista
+    // pausar video durante el render
     const vid = state.bgPreset && state.bgPreset.isVideo ? state.bgPreset._video : null;
-    if (vid) { try { vid.pause(); } catch (e) {} }
+    if (vid) {
+      try { vid.pause(); } catch (e) {}
+      vid.muted = false; // desmuteado para que captureStream incluya el audio
+    }
 
     let result;
     try {
-      if (supportsWebCodecs()) {
+      // Con video de fondo: MediaRecorder captura audio; sin video: WebCodecs es más eficiente
+      if (supportsWebCodecs() && !vid) {
         const muxerMod = await loadMuxer();
         if (muxerMod) {
           try {
@@ -70,7 +74,7 @@
       }
       if (!result) result = await encodeWithMediaRecorder(state, ctx, canvas, W, H, dur, onProgress, filename);
     } finally {
-      if (vid) { try { vid.play(); } catch (e) {} }
+      if (vid) { try { vid.muted = true; vid.play(); } catch (e) {} }
     }
     return result;
   }
@@ -119,7 +123,32 @@
     const vid = state.bgPreset && state.bgPreset.isVideo ? state.bgPreset._video : null;
     if (vid) { try { vid.currentTime = 0; await vid.play(); } catch (e) {} }
     const stream = canvas.captureStream(FPS);
-    let mime = 'video/webm;codecs=vp9';
+
+    // Capturar audio del video via WebAudio (fetch + decode, evita problemas de captureStream/CORS)
+    let audioSource = null;
+    let audioCtx = null;
+    if (vid && vid.src) {
+      try {
+        const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtxClass) {
+          const resp = await fetch(vid.src);
+          const arrBuf = await resp.arrayBuffer();
+          audioCtx = new AudioCtxClass();
+          const audioBuf = await audioCtx.decodeAudioData(arrBuf);
+          const destNode = audioCtx.createMediaStreamDestination();
+          audioSource = audioCtx.createBufferSource();
+          audioSource.buffer = audioBuf;
+          audioSource.loop = true;
+          audioSource.connect(destNode);
+          audioSource.start(0);
+          destNode.stream.getAudioTracks().forEach(t => stream.addTrack(t));
+        }
+      } catch (e) { console.warn('Audio export:', e); }
+    }
+
+    let mime = 'video/webm;codecs=vp9,opus';
+    if (!MediaRecorder.isTypeSupported(mime)) mime = 'video/webm;codecs=vp8,opus';
+    if (!MediaRecorder.isTypeSupported(mime)) mime = 'video/webm;codecs=vp9';
     if (!MediaRecorder.isTypeSupported(mime)) mime = 'video/webm;codecs=vp8';
     if (!MediaRecorder.isTypeSupported(mime)) mime = 'video/webm';
     const rec = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 9_000_000 });
@@ -127,6 +156,8 @@
     rec.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
     return await new Promise((resolve) => {
       rec.onstop = () => {
+        if (audioSource) { try { audioSource.stop(); } catch (e) {} }
+        if (audioCtx) { try { audioCtx.close(); } catch (e) {} }
         downloadBlob(new Blob(chunks, { type: 'video/webm' }), (filename || 'flayer') + '.webm');
         if (onProgress) onProgress(1);
         resolve({ ok: true, type: 'webm' });
