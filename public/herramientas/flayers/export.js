@@ -94,23 +94,32 @@
   async function encodeWithWebCodecs(muxerMod, state, ctx, canvas, W, H, totalFrames, dur, onProgress, filename, audioBuf) {
     const { Muxer, ArrayBufferTarget } = muxerMod;
 
-    const hasAudio = !!(audioBuf && typeof AudioEncoder !== 'undefined');
     const sampleRate = audioBuf ? audioBuf.sampleRate : 44100;
     const numCh = audioBuf ? audioBuf.numberOfChannels : 2;
+
+    /* Verificar AudioEncoder ANTES de configurar el muxer:
+       si el muxer se configura con audio pero no recibe chunks, finalize() tira error */
+    let audioOk = false;
+    if (audioBuf && typeof AudioEncoder !== 'undefined') {
+      try {
+        const chk = await AudioEncoder.isConfigSupported({ codec: 'mp4a.40.2', sampleRate, numberOfChannels: numCh, bitrate: 128_000 });
+        audioOk = !!(chk && chk.supported);
+      } catch (e) {}
+    }
 
     const muxerOpts = {
       target: new ArrayBufferTarget(),
       video: { codec: 'avc', width: W, height: H, frameRate: FPS },
       fastStart: 'in-memory'
     };
-    if (hasAudio) muxerOpts.audio = { codec: 'aac', sampleRate, numberOfChannels: numCh };
+    if (audioOk) muxerOpts.audio = { codec: 'aac', sampleRate, numberOfChannels: numCh };
 
     const muxer = new Muxer(muxerOpts);
 
     /* ---- Video encoder ---- */
     const videoEncoder = new VideoEncoder({
       output: (chunk, meta) => muxer.addVideoChunk(chunk, meta),
-      error: (e) => { throw e; }
+      error: (e) => console.error('VideoEncoder:', e)
     });
     const vcandidates = ['avc1.640028', 'avc1.4d0028', 'avc1.42e028', 'avc1.42001f'];
     let vconfigured = false;
@@ -125,22 +134,14 @@
     }
     if (!vconfigured) videoEncoder.configure({ codec: 'avc1.42001f', width: W, height: H, bitrate: 9_000_000, framerate: FPS });
 
-    /* ---- Audio encoder (AAC) ---- */
+    /* ---- Audio encoder (AAC) — solo si la config fue confirmada arriba ---- */
     let audioEncoder = null;
-    if (hasAudio) {
+    if (audioOk) {
       audioEncoder = new AudioEncoder({
         output: (chunk, meta) => muxer.addAudioChunk(chunk, meta),
         error: (e) => console.warn('AudioEncoder:', e)
       });
-      try {
-        const aacCfg = { codec: 'mp4a.40.2', sampleRate, numberOfChannels: numCh, bitrate: 128_000 };
-        const check = await AudioEncoder.isConfigSupported(aacCfg);
-        if (check.supported) {
-          audioEncoder.configure(aacCfg);
-        } else {
-          audioEncoder.close(); audioEncoder = null;
-        }
-      } catch (e) { audioEncoder = null; }
+      audioEncoder.configure({ codec: 'mp4a.40.2', sampleRate, numberOfChannels: numCh, bitrate: 128_000 });
     }
 
     /* ---- Codificar audio en chunks de 4096 frames ---- */
