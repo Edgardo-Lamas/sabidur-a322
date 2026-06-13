@@ -18,6 +18,9 @@
   }
 
   async function loadMuxer() {
+    // Primero archivo local (evita problemas de CDN/CSP en iframes)
+    try { return await import('./mp4-muxer.mjs'); }
+    catch (e) {}
     try { return await import('https://esm.sh/mp4-muxer@5.2.1'); }
     catch (e) {
       try { return await import('https://cdn.jsdelivr.net/npm/mp4-muxer@5.2.1/+esm'); }
@@ -215,11 +218,15 @@
       } catch (e) { console.warn('Audio MediaRecorder:', e); }
     }
 
-    let mime = 'video/webm;codecs=vp9,opus';
+    // MP4 primero (Chrome 130+), WebM como último recurso
+    let mime = 'video/mp4;codecs=avc1,mp4a.40.2';
+    if (!MediaRecorder.isTypeSupported(mime)) mime = 'video/mp4';
+    if (!MediaRecorder.isTypeSupported(mime)) mime = 'video/webm;codecs=vp9,opus';
     if (!MediaRecorder.isTypeSupported(mime)) mime = 'video/webm;codecs=vp8,opus';
     if (!MediaRecorder.isTypeSupported(mime)) mime = 'video/webm;codecs=vp9';
     if (!MediaRecorder.isTypeSupported(mime)) mime = 'video/webm;codecs=vp8';
     if (!MediaRecorder.isTypeSupported(mime)) mime = 'video/webm';
+    const isMp4 = mime.startsWith('video/mp4');
     const rec = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 9_000_000 });
     const chunks = [];
     rec.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
@@ -227,9 +234,11 @@
       rec.onstop = () => {
         if (audioSource) { try { audioSource.stop(); } catch (e) {} }
         if (audioCtx) { try { audioCtx.close(); } catch (e) {} }
-        downloadBlob(new Blob(chunks, { type: 'video/webm' }), (filename || 'flayer') + '.webm');
+        const type = isMp4 ? 'video/mp4' : 'video/webm';
+        const ext  = isMp4 ? '.mp4' : '.webm';
+        downloadBlob(new Blob(chunks, { type }), (filename || 'flayer') + ext);
         if (onProgress) onProgress(1);
-        resolve({ ok: true, type: 'webm' });
+        resolve({ ok: true, type: isMp4 ? 'mp4' : 'webm' });
       };
       rec.start();
       const start = performance.now();
