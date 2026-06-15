@@ -1281,10 +1281,18 @@
         "categoria": "Historia Judía",
         "descripcion": "Uno murió recitando el Shemá mientras lo torturaban. Otro construyó el sistema filosófico más ambicioso de la Edad Media desde el exilio. Un tercero escribió un comentario de una sola línea que iluminó lo que siglos de debate no habían podido aclarar. Sin ellos, el judaísmo no existiría tal como lo conocemos.",
         "imagen": "",
-        "disponible": false,
-        "primerArticulo": "",
-        "totalArticulos": 0,
-        "articulos": []
+        "disponible": true,
+        "primerArticulo": "/ensayo/rabban-yojanan-ben-zakkai",
+        "totalArticulos": 1,
+        "articulos": [
+          {
+            "numero": 1,
+            "titulo": "Rabbán Yojanán ben Zakkai — El hombre de Yavné",
+            "subtitulo": "Cómo el judaísmo sobrevivió la destrucción del Templo",
+            "href": "/ensayo/rabban-yojanan-ben-zakkai",
+            "disponible": true
+          }
+        ]
       }
     ]
   }
