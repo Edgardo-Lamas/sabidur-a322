@@ -254,9 +254,20 @@ La Biblioteca tiene cuatro secciones. Cada una tiene su propia fuente de datos e
 ### Checklist universal al publicar contenido nuevo
 
 1. Agregar el contenido en la fuente correcta (tabla arriba)
-2. Si es ruta nueva: registrar en `src/App.jsx` con `lazy()`
-3. Regenerar el sitemap: `node scripts/generate-sitemap.js`
-4. Hacer push a `main` → deploy automático en Vercel
+2. **Agregar campo `image`** con la ruta a la imagen OG (ej: `"image": "img/mi-imagen.jpg"`). Sin este campo el artículo usa la imagen genérica del sitio al compartirse en WhatsApp/redes. Ver nota abajo.
+3. Si es ruta nueva: registrar en `src/App.jsx` con `lazy()`
+4. Regenerar el sitemap: `node scripts/generate-sitemap.js`
+5. Hacer push a `main` → deploy automático en Vercel
+
+#### Imagen OG (Open Graph) — OBLIGATORIO para artículos y ensayos
+
+- **Campo:** `"image"` en el JSON del artículo/ensayo (textos.json o content.json)
+- **Ruta:** relativa desde `public/`, ej: `"img/mi-articulo-og.jpg"`
+- **Dimensión ideal:** 1200×630 px — se muestra al compartir en WhatsApp, Facebook, Twitter
+- **Para series:** todos los artículos de la misma serie pueden compartir la misma imagen hero de la serie
+- **Ejemplo (ensayo de serie):** `"image": "img/arquitectos-judio-hero.jpg"`
+- **Si no se define:** el sitio usa `img/og-default.jpg` como fallback (genérico, sin identidad del artículo)
+- **Cómo generar:** con FLUX API (`/bfl-api`), dimensión `1200×630`, guardar en `public/img/`
 
 ---
 
@@ -384,7 +395,8 @@ VITE_SUPABASE_ANON_KEY   # Migrado a JSON locales
 | `/bosquejos` | Bosquejos.jsx | ✅ |
 | `/grandes-temas` | GrandesTemas.jsx | ✅ 4 temas, hero FLUX |
 | `/teologia-sistematica` | - | Redirige a `/esquemas` |
-| `/esquemas` | Esquemas.jsx | ✅ Esquemas Visuales (Ordo Salutis interactivo) |
+| `/esquemas` | Esquemas.jsx | ✅ Esquemas Visuales (Ordo Salutis interactivo) + tab Arqueología 3D |
+| `/esquemas/templo-salomon` | TemploSalomon.jsx | ✅ Templo 3D integrado vía iframe |
 | `/teologia-basica` | TeologiaBasica.jsx | ✅ |
 | `/biografias` | Biografias.jsx | ✅ |
 | `/padres-de-la-iglesia` | PadresDeLaIglesia.jsx | ✅ 5 biografías |
@@ -432,17 +444,21 @@ VITE_SUPABASE_ANON_KEY   # Migrado a JSON locales
 ## Proyecto: Templo de Salomón 3D — Módulo Arqueología Bíblica
 
 ### Estado actual
-- **Archivo:** `~/Desktop/templo-salomon.html` — mover a `public/templo/` antes del deploy
-- **Versión:** v2 (funcional, abre en modo incógnito vía `http://localhost:8080`)
-- **Tecnología:** Vanilla Three.js r160, ES modules con import map, single HTML file
+
+- **Archivo:** `public/Templo/templo.html` — integrado en el sitio, en producción en Vercel
+- **Ruta:** `/esquemas/templo-salomon` (wrapper React) + `/templo/templo.html` (pantalla completa)
+- **Versión:** v2.1 (integrado, con post-processing y parapeto corregido)
+- **Tecnología:** Vanilla Three.js r160, ES modules con import map, single HTML file en `public/`
 - **Texturas:** Poly Haven CDN (CC0, sin login) — carga async desde `dl.polyhaven.org`
+- **Post-processing activo:** HDRI `golden_bay_1k.hdr` (reflexiones PBR), SSAO (profundidad de contacto), Bloom (halos en oro y llamas)
+- **Vite fix:** `servePublicHtml()` plugin en `vite.config.js` — evita que el SPA fallback intercepte el HTML del templo en dev
 
 ### Cómo ejecutar en desarrollo
+
 ```bash
-cd ~/Desktop && python3 -m http.server 8080 --bind 127.0.0.1
-# Abrir: http://127.0.0.1:8080/templo-salomon.html
-# IMPORTANTE: usar 127.0.0.1, NO "localhost" (en macOS resuelve a IPv6 y el browser no conecta)
-# NUNCA abrir con file:// (rompe import map + texturas)
+npm run dev
+# Abrir: http://localhost:5173/esquemas/templo-salomon
+# O directamente: http://localhost:5173/templo/templo.html
 ```
 
 ### Stack del visor 3D
@@ -496,13 +512,17 @@ rock_wall              → suelo del atrio (ground)
 - Oro, vidrio, llamas y humo: **procedurales** (MeshStandardMaterial, sin textura externa)
 
 ### Pendientes v3
-- [ ] Bajar las "salientes" erróneas (cámaras Yatsía mal posicionadas)
+
+- [x] Integrar en página React del sitio (✅ `/esquemas/templo-salomon`, iframe)
+- [x] Post-processing: HDRI + SSAO + Bloom (✅ EffectComposer en templo.html)
+- [x] Parapeto correcto en perímetro del techo — reemplazó almenas medievales (✅)
+- [ ] **Parapeto/cornisa aún se puede acercar más a las imágenes de referencia** — el modelo avanzó pero no es igual a los renders fotorrealistas de referencia. Próximo paso: ajustar proporciones de cornisa y agregar friso decorativo bajo el parapeto
+- [ ] **Renders estáticos fotorrealistas (Blender/V-Ray)** — 5-6 vistas clave (exterior, Hekal, Debir, columnas, Mar de Bronce) como overlay "modo fotorrealista" junto al visor interactivo
+- [ ] Bajar las cámaras Yatsía mal posicionadas
 - [ ] Eliminar la terraza incorrecta
 - [ ] Paneles de pared con palmeras, querubines y rosetas en relieve (canvas texture)
 - [ ] Ventanas clerestory funcionales (ShapeGeometry con abertura)
-- [ ] Integrar en página React del sitio como componente lazy
-- [ ] Ruta sugerida: `/mapas-biblicos/templo-salomon` o `/arqueologia/templo`
-- [ ] Estructuras siguientes: Templo de Ezequiel, Nueva Jerusalén, Tabernáculo
+- [ ] Estructuras siguientes: Tabernáculo, Templo de Ezequiel, Nueva Jerusalén
 
 ### Lecciones técnicas aprendidas
 - **Import map es OBLIGATORIO** — OrbitControls.js internamente importa `from 'three'`; sin import map falla
@@ -521,7 +541,7 @@ rock_wall              → suelo del atrio (ground)
 ### Fase inmediata — Navegación manual (solo código, sin contenido nuevo)
 - **Opción C acordada:** el mapa vuela a cada parada, se detiene y espera. El usuario lee y presiona "Siguiente". Sin Play/Pause ni auto-avance.
 - Cambios de código: `narrativeEngine.js` (START → `status: 'paused'`), `NarrativeControlPanel.jsx` (reemplazar controles por Anterior/Siguiente/Detener), `RouteSelector.jsx` (un solo clic para iniciar narrativa, sin paso intermedio).
-- **Estado:** pendiente de implementación.
+- **Estado:** ✅ Implementado (commit `ba5df82`).
 
 ### Fase 2 — Audio narrativo (requiere producción de contenido primero)
 - Cada parada tiene un audio que se reproduce al llegar al punto. El recorrido espera a que termine antes de ofrecer avanzar.
@@ -540,7 +560,7 @@ rock_wall              → suelo del atrio (ground)
 - Aumentar `flyZoom` de 10 → 13 y `flyDuration` de 1.2 → 2.2 en `useNarrativeMap.js`.
 - Leaflet `flyTo` hace una curva natural zoom-out → zoom-in. Con estos valores la animación es notablemente más dramática.
 - Aplica a todos los recorridos sin excepción.
-- **Estado:** pendiente de implementación.
+- **Estado:** ✅ Implementado (commit `ba5df82`).
 
 ### Fase B — Capa satelital (complementa Fase A, paradas con buena resolución)
 - Agregar capa ESRI World Imagery (gratuita, sin API key) que se activa al superar zoom 12.
@@ -570,17 +590,18 @@ Fase C (3D MapLibre)          → paradas estrella seleccionadas
 
 ## Tareas y Estado de Desarrollo (Sesión de Hoy y Próximos Pasos)
 
-### Hecho hoy (Despliegue y Correcciones):
-- **Migración de ChatSpurgeon a Claude (Anthropic)**: Se migró la Serverless Function `/api/spurgeon.js` al modelo de última generación de Anthropic (`claude-sonnet-4-6`).
-- **Implementación de RAG con Supabase**: Se integró búsqueda semántica (`pgvector`) llamando vía REST RPC a la base de datos de Supabase.
-- **Correcciones Críticas en Scripts de Datos**:
-  - Se corrigió `migrate.js` para cargar ensayos desde `textos.json` (antes ignorados) y para castear el campo `stock` como entero para el esquema de la base de datos.
-  - Se ejecutaron las migraciones y la generación de embeddings, indexando exitosamente **475 fragmentos** (21 ensayos, 12 artículos, 12 capítulos de teología básica y 2 estudios).
-- **Git Push**: Cambios confirmados y subidos a la rama `main` en producción.
+### Hecho en sesiones recientes
 
-### Próximos Pasos (Siguiente Sesión):
-1. **Fuentes de datos de métricas para el Dashboard (`/panel`)**: Definir e implementar la recepción de métricas analíticas activando y conectando Vercel Analytics, Supabase o Google Search Console.
-2. **Desarrollo del Nuevo Agente Administrador (Copiloto Editorial / SEO)**:
-   - Diseñar un agente interno e independiente del Agente Spurgeon pastoral público.
-   - Integrarlo en el panel administrativo (`/panel`) para ayudar a redactar devocionales/newsletters, interpretar las métricas del dashboard y sugerir estrategias de SEO y contenidos.
-3. **Desarrollo de nuevos Esquemas Visuales Interactivos**: Diseñar el siguiente mapa conceptual en `/esquemas` (ej: *La Genealogía de Jesús* o *Las 12 Tribus de Israel*).
+- **Integración Templo de Salomón 3D:** visor Three.js movido a `public/Templo/templo.html`, ruta `/esquemas/templo-salomon`, tercer tab en Esquemas.jsx. Vite plugin `servePublicHtml()` para evitar conflicto con SPA fallback.
+- **Post-processing Templo:** HDRI `golden_bay_1k.hdr` (Poly Haven), SSAO y Bloom con EffectComposer.
+- **Parapeto corregido:** reemplazó almenas medievales por parapeto sólido + cornisa en el perímetro real del techo (Debir, Hekal, Ulam). Bug original: `cx/cz` y `axis` invertidos ponían el parapeto por el eje central.
+- **Mapas Bíblicos — Fase inmediata + A:** navegación manual (Anterior/Siguiente/Detener) y zoom cinematográfico (`flyZoom` 13, `flyDuration` 2.2) implementados en `useNarrativeMap.js`.
+- **Migración ChatSpurgeon a Claude:** `/api/spurgeon.js` usa `claude-sonnet-4-6` + RAG con Supabase pgvector (475 fragmentos indexados).
+
+### Próximos Pasos
+
+1. **Templo — acercar roofline a imágenes de referencia:** ajustar proporciones de cornisa, agregar friso decorativo bajo el parapeto. Ver pendientes v3 en sección Templo.
+2. **Mapas — Fase B (capa satelital):** ESRI World Imagery activada al superar zoom 12. Implementar después de revisar resolución por parada.
+3. **Mapas — Fase 2 (audio):** requiere guion narrativo del Viaje de Abraham primero. Pipeline: Voicebox → R2 → GeoJSON `audioUrl`.
+4. **Dashboard `/panel`:** conectar Vercel Analytics o Google Search Console para métricas reales.
+5. **Esquemas visuales:** siguiente mapa conceptual en `/esquemas` (ej: *Las 12 Tribus de Israel*).

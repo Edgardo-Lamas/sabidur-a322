@@ -94,6 +94,7 @@ const TextPage = ({ textType }) => {
             <SEO
                 title={`${text.title} | ${config.label}`}
                 description={text.excerpt || text.title}
+                image={text.image}
                 url={`/${textType}/${text.slug}`}
                 type="article"
             />
