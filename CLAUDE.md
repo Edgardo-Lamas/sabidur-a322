@@ -220,6 +220,17 @@ La Biblioteca tiene cuatro secciones. Cada una tiene su propia fuente de datos e
   2. En `content.json → biblioteca.series[n].articulos[]`, marcar `disponible: true`, completar `href: "/ensayo/<slug>"` (**sin 's** — así está registrado en App.jsx) y actualizar `totalArticulos`
 - **Formato HTML del contenido:** igual al de Ensayos (ver sección "Formato HTML de ensayos")
 
+#### Serie activa: Los Arquitectos del Pensamiento Judío (`arquitectos-pensamiento-judio`)
+
+- **Total planificado:** 8 artículos (publicados: 3 — Yojanán ben Zakkai, Akiva ben Yosef, Yehudá haNasí)
+- **Imagen hero de serie:** `img/arquitectos-judio-hero.jpg` — se usa como OG image de cada artículo
+- **Presentaciones visuales (NotebookLM → PDF):** cada artículo tiene su presentación en `/esquemas/presentacion/<slug>`
+  - Slides en `public/img/presentaciones/<slug>/slide-01.jpg` ... `slide-N.jpg`
+  - PDF en `public/pdf/presentaciones/<slug>.pdf`
+  - Campos en el ensayo: `"presentacionSlug"` y `"presentacionTotalSlides"`
+  - Para procesar un PDF nuevo: `python3 /tmp/extract_slides.py "public/Ezquemas/<archivo>.pdf" "<slug>"`
+- **Cards en Esquemas Visuales → Presentaciones:** usan `PresentacionCover` (`src/components/PresentacionCover.jsx`) con `compact=true` — diseño navy con número de artículo watermark, nombre de serie en gold y título en serif blanco. **Este modelo de card es el estándar para todas las series que tengan presentaciones.**
+
 #### 2. Libros Sagrados de Israel — colección especial
 - **Fuente:** `content.json → biblioteca.librosHebreos[]`
 - **Contenido descargable:** PDFs en `public/pdf/` — pipeline Python + ReportLab (ver sección PDF Pipeline)
