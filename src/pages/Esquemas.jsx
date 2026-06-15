@@ -15,7 +15,7 @@ function getNumeroEnSerie(ensayo) {
     if (!ensayo.serie) return null;
     const serie = (content.biblioteca?.series || []).find(s => ensayo.serie.startsWith(s.titulo));
     const art = serie?.articulos?.find(a => a.href === `/ensayo/${ensayo.slug}`);
-    return { numero: art?.numero || null, totalEnSerie: serie?.totalArticulos || null };
+    return art?.numero || null;
 }
 
 // Datos para el mapa conceptual de ejemplo: Ordo Salutis
@@ -386,15 +386,14 @@ const Esquemas = () => {
 
                         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                             {PRESENTACIONES.map(ensayo => {
-                                const { numero, totalEnSerie } = getNumeroEnSerie(ensayo);
+                                const numero = getNumeroEnSerie(ensayo);
                                 return (
                                 <motion.article
                                     key={ensayo.presentacionSlug}
                                     whileHover={{ y: -4 }}
                                     className="bg-white border border-sabiduria-gray/10 rounded-sm overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-all"
                                 >
-                                    {/* Carátula de serie como portada */}
-                                    {/* Carátula — toda la info identificatoria está aquí */}
+                                    {/* Carátula compacta: número + serie */}
                                     <Link
                                         to={`/esquemas/presentacion/${ensayo.presentacionSlug}`}
                                         className="block h-52 overflow-hidden"
@@ -402,7 +401,7 @@ const Esquemas = () => {
                                         <PresentacionCover
                                             essay={ensayo}
                                             numero={numero}
-                                            totalEnSerie={totalEnSerie}
+                                            compact={true}
                                         />
                                     </Link>
 

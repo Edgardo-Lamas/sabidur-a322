@@ -18,7 +18,6 @@ const PresentacionViewer = () => {
         : null;
     const articuloInfo = serieData?.articulos?.find(a => a.href === `/ensayo/${essay?.slug}`);
     const numero = articuloInfo?.numero || null;
-    const totalEnSerie = serieData?.totalArticulos || null;
 
     const [current, setCurrent] = useState(1);
 
@@ -92,7 +91,7 @@ const PresentacionViewer = () => {
 
                 {/* ── Carátula — siempre visible como portada ── */}
                 <div className="rounded-xl overflow-hidden shadow-lg mb-3" style={{ aspectRatio: '2867/1600' }}>
-                    <PresentacionCover essay={essay} numero={numero} totalEnSerie={totalEnSerie} />
+                    <PresentacionCover essay={essay} numero={numero} />
                 </div>
 
                 {/* Separador con indicación */}
