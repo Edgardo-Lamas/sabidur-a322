@@ -51,7 +51,7 @@ const TextPage = ({ textType }) => {
         ? (content.biblioteca?.series || []).find(s => text.serie.startsWith(s.titulo))
         : null;
     const backPath = serieMatch ? `/biblioteca/series/${serieMatch.slug}` : config.backPath;
-    const backLabel = serieMatch ? `Volver a ${serieMatch.titulo}` : config.backLabel;
+    const backLabel = serieMatch ? 'Volver a la serie' : config.backLabel;
 
     if (!text) {
         return (
