@@ -394,9 +394,10 @@ const Esquemas = () => {
                                     className="bg-white border border-sabiduria-gray/10 rounded-sm overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-all"
                                 >
                                     {/* Carátula de serie como portada */}
+                                    {/* Carátula — toda la info identificatoria está aquí */}
                                     <Link
                                         to={`/esquemas/presentacion/${ensayo.presentacionSlug}`}
-                                        className="block h-44 overflow-hidden"
+                                        className="block h-52 overflow-hidden"
                                     >
                                         <PresentacionCover
                                             essay={ensayo}
@@ -405,44 +406,32 @@ const Esquemas = () => {
                                         />
                                     </Link>
 
-                                    <div className="p-5 flex-grow flex flex-col">
-                                        {ensayo.serie && (
-                                            <span className="text-[10px] font-bold uppercase tracking-wider text-sabiduria-gold block mb-1.5">
-                                                {ensayo.serie}
-                                            </span>
-                                        )}
-                                        <h3 className="font-serif text-sabiduria-navy font-bold text-base leading-snug mb-3 flex-grow">
-                                            {ensayo.title}
-                                        </h3>
-                                        <p className="text-xs text-sabiduria-gray mb-4">
-                                            {ensayo.presentacionTotalSlides} diapositivas
-                                        </p>
-                                        <div className="flex items-center gap-2 mt-auto">
-                                            <Link
-                                                to={`/esquemas/presentacion/${ensayo.presentacionSlug}`}
-                                                className="flex-1 inline-flex items-center justify-center gap-1.5 bg-sabiduria-navy text-white text-xs font-semibold px-3 py-2 rounded-sm hover:bg-sabiduria-navy/90 transition-colors"
-                                            >
-                                                <Presentation size={13} />
-                                                Ver presentación
-                                            </Link>
-                                            <a
-                                                href={`${import.meta.env.BASE_URL}pdf/presentaciones/${ensayo.presentacionSlug}.pdf`}
-                                                download
-                                                className="inline-flex items-center gap-1 text-xs text-sabiduria-gray border border-sabiduria-gray/20 hover:border-sabiduria-navy/40 hover:text-sabiduria-navy px-3 py-2 rounded-sm transition-colors"
-                                                title="Descargar PDF"
-                                            >
-                                                <Download size={13} />
-                                                PDF
-                                            </a>
-                                            <Link
-                                                to={`/ensayo/${ensayo.slug}`}
-                                                className="inline-flex items-center gap-1 text-xs text-sabiduria-gray border border-sabiduria-gray/20 hover:border-sabiduria-navy/40 hover:text-sabiduria-navy px-3 py-2 rounded-sm transition-colors"
-                                                title="Ir al artículo"
-                                            >
-                                                <ChevronRight size={13} />
-                                                Artículo
-                                            </Link>
-                                        </div>
+                                    {/* Cuerpo — solo acciones, sin repetir título */}
+                                    <div className="p-4 flex items-center gap-2">
+                                        <Link
+                                            to={`/esquemas/presentacion/${ensayo.presentacionSlug}`}
+                                            className="flex-1 inline-flex items-center justify-center gap-1.5 bg-sabiduria-navy text-white text-xs font-semibold px-3 py-2 rounded-sm hover:bg-sabiduria-navy/90 transition-colors"
+                                        >
+                                            <Presentation size={13} />
+                                            Ver · {ensayo.presentacionTotalSlides} slides
+                                        </Link>
+                                        <a
+                                            href={`${import.meta.env.BASE_URL}pdf/presentaciones/${ensayo.presentacionSlug}.pdf`}
+                                            download
+                                            className="inline-flex items-center gap-1 text-xs text-sabiduria-gray border border-sabiduria-gray/20 hover:border-sabiduria-navy/40 hover:text-sabiduria-navy px-3 py-2 rounded-sm transition-colors"
+                                            title="Descargar PDF"
+                                        >
+                                            <Download size={13} />
+                                            PDF
+                                        </a>
+                                        <Link
+                                            to={`/ensayo/${ensayo.slug}`}
+                                            className="inline-flex items-center gap-1 text-xs text-sabiduria-gray border border-sabiduria-gray/20 hover:border-sabiduria-navy/40 hover:text-sabiduria-navy px-3 py-2 rounded-sm transition-colors"
+                                            title="Ir al artículo"
+                                        >
+                                            <ChevronRight size={13} />
+                                            Artículo
+                                        </Link>
                                     </div>
                                 </motion.article>
                                 );
