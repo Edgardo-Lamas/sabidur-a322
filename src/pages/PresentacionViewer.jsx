@@ -2,74 +2,9 @@ import { useState, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Download, ChevronLeft, Presentation } from 'lucide-react';
 import SEO from '../components/SEO';
+import PresentacionCover from '../components/PresentacionCover';
 import textos from '../data/textos.json';
 import content from '../data/content.json';
-
-/* ── Carátula de serie — siempre visible como header ── */
-const CoverHeader = ({ essay, numero, totalEnSerie }) => (
-    <div className="w-full" style={{ aspectRatio: '2867/1600' }}>
-        <div className="w-full h-full bg-sabiduria-navy flex flex-col items-center justify-center relative overflow-hidden px-[8%]">
-
-            {/* Patrón geométrico de fondo */}
-            <div className="absolute inset-0 opacity-[0.04]" style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30z' fill='none' stroke='%23C5A059' stroke-width='1'/%3E%3C/svg%3E")`,
-                backgroundSize: '60px 60px'
-            }} />
-
-            <div className="absolute top-0 left-0 right-0 h-[3px] bg-linear-to-r from-transparent via-sabiduria-gold to-transparent" />
-
-            {/* Ornamento */}
-            <div className="mb-[4%] opacity-60">
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                    <polygon points="24,4 28,14 39,14 30,21 34,32 24,25 14,32 18,21 9,14 20,14"
-                        fill="none" stroke="#C5A059" strokeWidth="1.2" />
-                    <circle cx="24" cy="24" r="4" fill="#C5A059" opacity="0.5" />
-                </svg>
-            </div>
-
-            {/* Nombre de la serie */}
-            {essay.serie && (
-                <p className="text-sabiduria-gold font-heading uppercase text-center opacity-90 mb-[2%]"
-                    style={{ fontSize: 'clamp(9px, 1.4vw, 18px)', letterSpacing: '0.22em' }}>
-                    {essay.serie}
-                </p>
-            )}
-
-            {/* Separador */}
-            <div className="flex items-center gap-3 mb-[3%] w-full max-w-[55%] justify-center">
-                <div className="h-px flex-1 bg-sabiduria-gold/30" />
-                <div className="w-1.5 h-1.5 rounded-full bg-sabiduria-gold/50" />
-                <div className="h-px flex-1 bg-sabiduria-gold/30" />
-            </div>
-
-            {/* Título */}
-            <h1 className="text-white font-serif text-center leading-snug mb-[3%] max-w-[65%]"
-                style={{ fontSize: 'clamp(16px, 3.2vw, 52px)' }}>
-                {essay.title}
-            </h1>
-
-            {/* Excerpt */}
-            {essay.excerpt && (
-                <p className="text-white/50 text-center max-w-[50%] leading-relaxed"
-                    style={{ fontSize: 'clamp(9px, 1.1vw, 16px)' }}>
-                    {essay.excerpt}
-                </p>
-            )}
-
-            {/* Número en la serie */}
-            {numero && (
-                <div className="absolute bottom-[6%]">
-                    <span className="text-sabiduria-gold/50 font-heading uppercase"
-                        style={{ fontSize: 'clamp(8px, 0.9vw, 13px)', letterSpacing: '0.15em' }}>
-                        Artículo {numero}{totalEnSerie ? ` de ${totalEnSerie}` : ''}
-                    </span>
-                </div>
-            )}
-
-            <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-linear-to-r from-transparent via-sabiduria-gold to-transparent" />
-        </div>
-    </div>
-);
 
 /* ── Componente principal ── */
 const PresentacionViewer = () => {
@@ -156,8 +91,8 @@ const PresentacionViewer = () => {
             <div className="max-w-5xl mx-auto px-4">
 
                 {/* ── Carátula — siempre visible como portada ── */}
-                <div className="rounded-xl overflow-hidden shadow-lg mb-3">
-                    <CoverHeader essay={essay} numero={numero} totalEnSerie={totalEnSerie} />
+                <div className="rounded-xl overflow-hidden shadow-lg mb-3" style={{ aspectRatio: '2867/1600' }}>
+                    <PresentacionCover essay={essay} numero={numero} totalEnSerie={totalEnSerie} />
                 </div>
 
                 {/* Separador con indicación */}

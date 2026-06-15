@@ -5,8 +5,18 @@ import { Clock, Info, HelpCircle, X, BookOpen, Layers, Box, ExternalLink, Presen
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
 import textos from '../data/textos.json';
+import content from '../data/content.json';
+import PresentacionCover from '../components/PresentacionCover';
 
 const PRESENTACIONES = (textos.ensayos || []).filter(e => e.presentacionSlug);
+
+// Pre-calcula el número de cada artículo en su serie
+function getNumeroEnSerie(ensayo) {
+    if (!ensayo.serie) return null;
+    const serie = (content.biblioteca?.series || []).find(s => ensayo.serie.startsWith(s.titulo));
+    const art = serie?.articulos?.find(a => a.href === `/ensayo/${ensayo.slug}`);
+    return { numero: art?.numero || null, totalEnSerie: serie?.totalArticulos || null };
+}
 
 // Datos para el mapa conceptual de ejemplo: Ordo Salutis
 const ORDO_SALUTIS_NODES = [
@@ -375,21 +385,23 @@ const Esquemas = () => {
                         </div>
 
                         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {PRESENTACIONES.map(ensayo => (
+                            {PRESENTACIONES.map(ensayo => {
+                                const { numero, totalEnSerie } = getNumeroEnSerie(ensayo);
+                                return (
                                 <motion.article
                                     key={ensayo.presentacionSlug}
                                     whileHover={{ y: -4 }}
                                     className="bg-white border border-sabiduria-gray/10 rounded-sm overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-all"
                                 >
-                                    {/* Portada — primer slide como thumbnail */}
+                                    {/* Carátula de serie como portada */}
                                     <Link
                                         to={`/esquemas/presentacion/${ensayo.presentacionSlug}`}
-                                        className="block overflow-hidden"
+                                        className="block h-44 overflow-hidden"
                                     >
-                                        <img
-                                            src={`${import.meta.env.BASE_URL}img/presentaciones/${ensayo.presentacionSlug}/slide-01.jpg`}
-                                            alt={ensayo.title}
-                                            className="w-full h-44 object-cover object-top hover:scale-105 transition-transform duration-300"
+                                        <PresentacionCover
+                                            essay={ensayo}
+                                            numero={numero}
+                                            totalEnSerie={totalEnSerie}
                                         />
                                     </Link>
 
@@ -433,7 +445,8 @@ const Esquemas = () => {
                                         </div>
                                     </div>
                                 </motion.article>
-                            ))}
+                                );
+                            })}
 
                             {/* Card próximamente */}
                             <div className="bg-white/40 border border-dashed border-sabiduria-gray/20 rounded-sm p-8 flex flex-col items-center justify-center text-center">
