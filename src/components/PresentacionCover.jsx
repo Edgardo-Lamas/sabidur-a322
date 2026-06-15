@@ -17,32 +17,51 @@ const PresentacionCover = ({ essay, numero, compact = false }) => (
         <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-linear-to-r from-transparent via-sabiduria-gold to-transparent" />
 
         {compact ? (
-            /* ── Versión card: número grande + serie ── */
-            <div className="flex flex-col items-center justify-center gap-3 px-4 text-center">
-                {/* Número del artículo */}
+            /* ── Versión card: número watermark + serie + título ── */
+            <div className="relative w-full h-full flex flex-col justify-between px-5 py-5">
+
+                {/* Número grande como watermark en esquina superior derecha */}
                 {numero && (
                     <span
-                        className="font-heading font-bold text-sabiduria-gold leading-none select-none"
-                        style={{ fontSize: 'clamp(48px, 8vw, 80px)', opacity: 0.9 }}
+                        className="absolute top-3 right-4 font-heading font-bold text-sabiduria-gold select-none pointer-events-none"
+                        style={{ fontSize: 'clamp(52px, 9vw, 72px)', opacity: 0.18, lineHeight: 1 }}
                     >
                         {String(numero).padStart(2, '0')}
                     </span>
                 )}
 
-                {/* Línea separadora */}
-                <div className="flex items-center gap-2 w-24">
-                    <div className="h-px flex-1 bg-sabiduria-gold/30" />
-                    <div className="w-1 h-1 rounded-full bg-sabiduria-gold/50" />
-                    <div className="h-px flex-1 bg-sabiduria-gold/30" />
+                {/* Parte superior: serie + número visible */}
+                <div>
+                    {essay.serie && (
+                        <p className="text-sabiduria-gold font-heading uppercase leading-tight mb-2"
+                            style={{ fontSize: 'clamp(8px, 0.9vw, 10px)', letterSpacing: '0.14em' }}>
+                            {essay.serie}
+                        </p>
+                    )}
+                    <div className="flex items-center gap-2 mb-4">
+                        <div className="h-px w-8 bg-sabiduria-gold/40" />
+                        {numero && (
+                            <span className="text-sabiduria-gold font-heading font-bold"
+                                style={{ fontSize: 'clamp(10px, 1.1vw, 13px)', letterSpacing: '0.1em' }}>
+                                Artículo {String(numero).padStart(2, '0')}
+                            </span>
+                        )}
+                    </div>
                 </div>
 
-                {/* Nombre de la serie */}
-                {essay.serie && (
-                    <p className="text-white/70 font-heading uppercase text-center leading-snug"
-                        style={{ fontSize: 'clamp(8px, 1.1vw, 11px)', letterSpacing: '0.12em' }}>
-                        {essay.serie}
-                    </p>
-                )}
+                {/* Título del artículo */}
+                <div>
+                    <h3 className="text-white font-serif leading-snug"
+                        style={{
+                            fontSize: 'clamp(13px, 1.5vw, 17px)',
+                            display: '-webkit-box',
+                            WebkitLineClamp: 3,
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden'
+                        }}>
+                        {essay.title}
+                    </h3>
+                </div>
             </div>
         ) : (
             /* ── Versión visor: título completo + serie + número ── */
