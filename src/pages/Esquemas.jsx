@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Clock, Info, HelpCircle, X, BookOpen, Layers, Box, ExternalLink } from 'lucide-react';
+import { Clock, Info, HelpCircle, X, BookOpen, Layers, Box, ExternalLink, Presentation, Download, ChevronRight } from 'lucide-react';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
+import textos from '../data/textos.json';
+
+const PRESENTACIONES = (textos.ensayos || []).filter(e => e.presentacionSlug);
 
 // Datos para el mapa conceptual de ejemplo: Ordo Salutis
 const ORDO_SALUTIS_NODES = [
@@ -196,6 +199,22 @@ const Esquemas = () => {
                         <Box size={18} />
                         Arqueología 3D
                     </button>
+                    <button
+                        onClick={() => setSelectedTab('presentaciones')}
+                        className={`flex items-center gap-2 px-6 py-4 font-heading font-semibold text-sm uppercase tracking-wider border-b-2 transition-all ${
+                            selectedTab === 'presentaciones'
+                                ? 'border-sabiduria-gold text-sabiduria-gold'
+                                : 'border-transparent text-sabiduria-gray hover:text-sabiduria-navy'
+                        }`}
+                    >
+                        <Presentation size={18} />
+                        Presentaciones
+                        {PRESENTACIONES.length > 0 && (
+                            <span className="ml-1 text-[10px] bg-sabiduria-gold text-white rounded-full px-1.5 py-0.5 font-bold leading-none">
+                                {PRESENTACIONES.length}
+                            </span>
+                        )}
+                    </button>
                 </div>
             </div>
 
@@ -335,6 +354,91 @@ const Esquemas = () => {
                                     </h3>
                                 <p className="text-sabiduria-gray/60 text-sm max-w-xs">
                                     Pronto se añadirán esquemas del exilio babilónico, la cronología del Nuevo Testamento y los reinados de Judá e Israel.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                ) : selectedTab === 'presentaciones' ? (
+                    /* ── Tab: Presentaciones ── */
+                    <div>
+                        <div className="mb-10 max-w-3xl">
+                            <h2 className="text-2xl font-serif text-sabiduria-navy mb-3">
+                                Presentaciones Infográficas
+                            </h2>
+                            <p className="text-sabiduria-gray text-base leading-relaxed">
+                                Cada artículo de las series de estudio viene acompañado de una presentación visual generada con inteligencia artificial. Navega las diapositivas en pantalla o descarga el PDF completo.
+                            </p>
+                        </div>
+
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {PRESENTACIONES.map(ensayo => (
+                                <motion.article
+                                    key={ensayo.presentacionSlug}
+                                    whileHover={{ y: -4 }}
+                                    className="bg-white border border-sabiduria-gray/10 rounded-sm overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-all"
+                                >
+                                    {/* Portada — primer slide como thumbnail */}
+                                    <Link
+                                        to={`/esquemas/presentacion/${ensayo.presentacionSlug}`}
+                                        className="block overflow-hidden"
+                                    >
+                                        <img
+                                            src={`${import.meta.env.BASE_URL}img/presentaciones/${ensayo.presentacionSlug}/slide-01.jpg`}
+                                            alt={ensayo.title}
+                                            className="w-full h-44 object-cover object-top hover:scale-105 transition-transform duration-300"
+                                        />
+                                    </Link>
+
+                                    <div className="p-5 flex-grow flex flex-col">
+                                        {ensayo.serie && (
+                                            <span className="text-[10px] font-bold uppercase tracking-wider text-sabiduria-gold block mb-1.5">
+                                                {ensayo.serie}
+                                            </span>
+                                        )}
+                                        <h3 className="font-serif text-sabiduria-navy font-bold text-base leading-snug mb-3 flex-grow">
+                                            {ensayo.title}
+                                        </h3>
+                                        <p className="text-xs text-sabiduria-gray mb-4">
+                                            {ensayo.presentacionTotalSlides} diapositivas
+                                        </p>
+                                        <div className="flex items-center gap-2 mt-auto">
+                                            <Link
+                                                to={`/esquemas/presentacion/${ensayo.presentacionSlug}`}
+                                                className="flex-1 inline-flex items-center justify-center gap-1.5 bg-sabiduria-navy text-white text-xs font-semibold px-3 py-2 rounded-sm hover:bg-sabiduria-navy/90 transition-colors"
+                                            >
+                                                <Presentation size={13} />
+                                                Ver presentación
+                                            </Link>
+                                            <a
+                                                href={`${import.meta.env.BASE_URL}pdf/presentaciones/${ensayo.presentacionSlug}.pdf`}
+                                                download
+                                                className="inline-flex items-center gap-1 text-xs text-sabiduria-gray border border-sabiduria-gray/20 hover:border-sabiduria-navy/40 hover:text-sabiduria-navy px-3 py-2 rounded-sm transition-colors"
+                                                title="Descargar PDF"
+                                            >
+                                                <Download size={13} />
+                                                PDF
+                                            </a>
+                                            <Link
+                                                to={`/ensayo/${ensayo.slug}`}
+                                                className="inline-flex items-center gap-1 text-xs text-sabiduria-gray border border-sabiduria-gray/20 hover:border-sabiduria-navy/40 hover:text-sabiduria-navy px-3 py-2 rounded-sm transition-colors"
+                                                title="Ir al artículo"
+                                            >
+                                                <ChevronRight size={13} />
+                                                Artículo
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </motion.article>
+                            ))}
+
+                            {/* Card próximamente */}
+                            <div className="bg-white/40 border border-dashed border-sabiduria-gray/20 rounded-sm p-8 flex flex-col items-center justify-center text-center">
+                                <Presentation size={40} className="text-sabiduria-gray/30 mb-4" />
+                                <h3 className="text-base font-serif text-sabiduria-navy/70 font-semibold mb-2">
+                                    Más presentaciones en camino
+                                </h3>
+                                <p className="text-sabiduria-gray/60 text-sm max-w-xs">
+                                    Cada nuevo artículo de las series incluirá su presentación visual correspondiente.
                                 </p>
                             </div>
                         </div>
