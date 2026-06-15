@@ -1283,7 +1283,7 @@
         "imagen": "img/arquitectos-judio-hero.jpg",
         "disponible": true,
         "primerArticulo": "/ensayo/rabban-yojanan-ben-zakkai",
-        "totalArticulos": 2,
+        "totalArticulos": 3,
         "articulos": [
           {
             "numero": 1,
@@ -1297,6 +1297,13 @@
             "titulo": "Rabbí Akiva ben Yosef — El mártir y el método",
             "subtitulo": "Hermenéutica, mesianismo y martirio",
             "href": "/ensayo/rabbi-akiva-ben-yosef",
+            "disponible": true
+          },
+          {
+            "numero": 3,
+            "titulo": "Yehudá haNasí — El Príncipe y la Mishná",
+            "subtitulo": "Cómo se fijó la tradición oral",
+            "href": "/ensayo/yehuda-hanasi",
             "disponible": true
           }
         ]
