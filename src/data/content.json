@@ -1283,13 +1283,20 @@
         "imagen": "img/arquitectos-judio-hero.jpg",
         "disponible": true,
         "primerArticulo": "/ensayo/rabban-yojanan-ben-zakkai",
-        "totalArticulos": 1,
+        "totalArticulos": 2,
         "articulos": [
           {
             "numero": 1,
             "titulo": "Rabbán Yojanán ben Zakkai — El hombre de Yavné",
             "subtitulo": "Cómo el judaísmo sobrevivió la destrucción del Templo",
             "href": "/ensayo/rabban-yojanan-ben-zakkai",
+            "disponible": true
+          },
+          {
+            "numero": 2,
+            "titulo": "Rabbí Akiva ben Yosef — El mártir y el método",
+            "subtitulo": "Hermenéutica, mesianismo y martirio",
+            "href": "/ensayo/rabbi-akiva-ben-yosef",
             "disponible": true
           }
         ]
