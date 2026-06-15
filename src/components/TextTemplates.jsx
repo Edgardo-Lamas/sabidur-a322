@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Download, ChevronDown, ChevronUp, Book } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
+import { Download, ChevronDown, ChevronUp, Book, Presentation } from 'lucide-react';
+import { useLocation, Link } from 'react-router-dom';
 import ShareButtons from './ShareButtons';
 import { sanitizeHTML } from '../lib/sanitize';
 import { RecommendedReadings } from './ui/Card';
@@ -99,7 +99,7 @@ export const ArticleTemplate = ({ text }) => {
  * Mostrar: fecha opcional, referencias integradas o colapsables
  */
 export const EssayTemplate = ({ text }) => {
-    const { title, author, date, content, biblicalReferences, pdfUrl } = text;
+    const { title, author, date, content, biblicalReferences, pdfUrl, presentacionSlug, presentacionTotalSlides } = text;
     const [refsExpanded, setRefsExpanded] = useState(false);
     const location = useLocation();
 
@@ -129,6 +129,39 @@ export const EssayTemplate = ({ text }) => {
                 className="teologia-content"
                 dangerouslySetInnerHTML={{ __html: sanitizeHTML(content) }}
             />
+
+            {/* Presentación Visual — gancho hacia /esquemas/presentacion/:slug */}
+            {presentacionSlug && (
+                <div className="mt-12 rounded-xl border border-sabiduria-gold/20 bg-sabiduria-gold/5 p-6 flex flex-col sm:flex-row items-center gap-5">
+                    <div className="shrink-0 w-12 h-12 rounded-full bg-sabiduria-gold/10 flex items-center justify-center">
+                        <Presentation size={22} className="text-sabiduria-gold" />
+                    </div>
+                    <div className="flex-1 text-center sm:text-left">
+                        <p className="text-xs uppercase tracking-widest text-sabiduria-gold font-heading mb-1">
+                            Presentación Visual
+                        </p>
+                        <p className="text-sabiduria-navy font-medium text-sm">
+                            Explora este artículo en {presentacionTotalSlides} diapositivas infográficas
+                        </p>
+                    </div>
+                    <div className="flex items-center gap-3 shrink-0">
+                        <Link
+                            to={`/esquemas/presentacion/${presentacionSlug}`}
+                            className="inline-flex items-center gap-2 bg-sabiduria-gold text-white text-sm font-heading px-4 py-2 rounded-lg hover:bg-sabiduria-gold/90 transition-colors"
+                        >
+                            Ver presentación
+                        </Link>
+                        <a
+                            href={`${import.meta.env.BASE_URL}pdf/presentaciones/${presentacionSlug}.pdf`}
+                            download
+                            className="inline-flex items-center gap-1.5 text-sm text-sabiduria-navy border border-sabiduria-navy/20 hover:border-sabiduria-navy/50 px-3 py-2 rounded-lg transition-colors"
+                            title="Descargar PDF"
+                        >
+                            <Download size={14} />
+                        </a>
+                    </div>
+                </div>
+            )}
 
             {/* Biblical References - Collapsible */}
             {biblicalReferences && biblicalReferences.length > 0 && (

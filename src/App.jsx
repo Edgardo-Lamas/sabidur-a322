@@ -44,6 +44,7 @@ const TeologiaBasica      = lazy(() => import('./pages/TeologiaBasica'));
 const TeologiaBasicaTema  = lazy(() => import('./pages/TeologiaBasicaTema'));
 const Esquemas            = lazy(() => import('./pages/Esquemas'));
 const TemploSalomon       = lazy(() => import('./pages/TemploSalomon'));
+const PresentacionViewer  = lazy(() => import('./pages/PresentacionViewer'));
 const GrandesTemas        = lazy(() => import('./pages/GrandesTemas'));
 const EstudiosLibros      = lazy(() => import('./pages/EstudiosLibros'));
 const LibroEstudioIndex   = lazy(() => import('./pages/LibroEstudioIndex'));
@@ -169,6 +170,7 @@ function App() {
                 <Route path="/teologia-basica/:slug" element={<TeologiaBasicaTema />} />
                 <Route path="/esquemas" element={<Esquemas />} />
                 <Route path="/esquemas/templo-salomon" element={<TemploSalomon />} />
+                <Route path="/esquemas/presentacion/:slug" element={<PresentacionViewer />} />
                 <Route path="/teologia-sistematica" element={<Navigate to="/esquemas" replace />} />
                 <Route path="/grandes-temas" element={<GrandesTemas />} />
                 <Route path="/estudios-libros" element={<EstudiosLibros />} />
