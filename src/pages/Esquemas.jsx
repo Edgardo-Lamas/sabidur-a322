@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Clock, Info, HelpCircle, X, BookOpen, Layers, Box, ExternalLink, Presentation, Download, ChevronRight } from 'lucide-react';
 import SEO from '../components/SEO';
 import Breadcrumbs from '../components/Breadcrumbs';
@@ -120,8 +120,12 @@ const ORDO_SALUTIS_NODES = [
     }
 ];
 
+const VALID_TABS = ['mapas', 'cronologia', '3d', 'presentaciones'];
+
 const Esquemas = () => {
-    const [selectedTab, setSelectedTab] = useState('mapas');
+    const [searchParams] = useSearchParams();
+    const initialTab = VALID_TABS.includes(searchParams.get('tab')) ? searchParams.get('tab') : 'mapas';
+    const [selectedTab, setSelectedTab] = useState(initialTab);
     const [activeNode, setActiveNode] = useState(null);
 
     return (
