@@ -291,6 +291,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
+  <url>
+    <loc>https://sabiduriadelcorazon.vercel.app/ensayo/abraham-ibn-ezra-el-filosofo-nomade</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
 
 
   <!-- Bosquejos individuales -->

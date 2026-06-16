@@ -1283,7 +1283,7 @@
         "imagen": "img/arquitectos-judio-hero.jpg",
         "disponible": true,
         "primerArticulo": "/ensayo/rabban-yojanan-ben-zakkai",
-        "totalArticulos": 4,
+        "totalArticulos": 5,
         "articulos": [
           {
             "numero": 1,
@@ -1311,6 +1311,13 @@
             "titulo": "Rashi (Rabbí Shlomó Itzjaki) — El maestro de Troyes",
             "subtitulo": "La exégesis que definió el judaísmo medieval",
             "href": "/ensayo/rashi-rabbi-shlomo-itzjaki",
+            "disponible": true
+          },
+          {
+            "numero": 5,
+            "titulo": "Abraham Ibn Ezra — El filólogo nómade",
+            "subtitulo": "Racionalismo, gramática y las semillas de la crítica bíblica",
+            "href": "/ensayo/abraham-ibn-ezra-el-filosofo-nomade",
             "disponible": true
           }
         ]
