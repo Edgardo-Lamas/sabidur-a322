@@ -1283,7 +1283,7 @@
         "imagen": "img/arquitectos-judio-hero.jpg",
         "disponible": true,
         "primerArticulo": "/ensayo/rabban-yojanan-ben-zakkai",
-        "totalArticulos": 3,
+        "totalArticulos": 4,
         "articulos": [
           {
             "numero": 1,
@@ -1304,6 +1304,13 @@
             "titulo": "Yehudá haNasí — El Príncipe y la Mishná",
             "subtitulo": "Cómo se fijó la tradición oral",
             "href": "/ensayo/yehuda-hanasi",
+            "disponible": true
+          },
+          {
+            "numero": 4,
+            "titulo": "Rashi (Rabbí Shlomó Itzjaki) — El maestro de Troyes",
+            "subtitulo": "La exégesis que definió el judaísmo medieval",
+            "href": "/ensayo/rashi-rabbi-shlomo-itzjaki",
             "disponible": true
           }
         ]
