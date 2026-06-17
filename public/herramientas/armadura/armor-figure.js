@@ -18,6 +18,9 @@
         <feGaussianBlur stdDeviation="6" result="blur"/>
         <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
       </filter>
+      <clipPath id="clip-cinturon">
+        <rect x="148" y="318" width="144" height="74" rx="4"/>
+      </clipPath>
     </defs>`;
   }
 
@@ -56,8 +59,8 @@
 
   function pieceCinturon() {
     return piece('cinturon',
-      `<image href="${IMG}cinturon.png" x="95" y="310" width="250" height="100"
-              preserveAspectRatio="xMidYMid slice"/>`
+      `<image href="${IMG}cinturon.png" x="75" y="282" width="290" height="132"
+              preserveAspectRatio="xMidYMid slice" clip-path="url(#clip-cinturon)"/>`
     );
   }
 
@@ -144,7 +147,7 @@
   const PIECE_CANVAS_POS = {
     yelmo:    [0.50,  0.09,  0.90,  0.22],
     coraza:   [0.50,  0.34,  1.15,  0.38],
-    cinturon: [0.50,  0.49,  1.00,  0.15],
+    cinturon: [0.50,  0.49,  0.46,  0.11],
     calzado:  [0.50,  0.84,  1.10,  0.32],
     escudo:   [-0.16, 0.44,  0.72,  0.72],
     espada:   [1.16,  0.40,  0.58,  0.68],
