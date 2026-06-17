@@ -76,8 +76,8 @@
 
   function pieceCalzado() {
     return piece('calzado',
-      `<image href="${IMG}calzado.png" x="83" y="440" width="284" height="250"
-              preserveAspectRatio="xMidYMid meet" clip-path="url(#clip-calzado)"/>`
+      `<image href="${IMG}calzado.png" x="83" y="490" width="284" height="210"
+              preserveAspectRatio="xMidYMid meet"/>`
     );
   }
 
