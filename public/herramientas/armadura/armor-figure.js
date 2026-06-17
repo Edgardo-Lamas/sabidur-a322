@@ -21,6 +21,9 @@
       <clipPath id="clip-cinturon">
         <rect x="148" y="318" width="144" height="74" rx="4"/>
       </clipPath>
+      <clipPath id="clip-calzado">
+        <rect x="140" y="464" width="160" height="184" rx="3"/>
+      </clipPath>
     </defs>`;
   }
 
@@ -66,15 +69,15 @@
 
   function pieceCoraza() {
     return piece('coraza',
-      `<image href="${IMG}coraza.png" x="95" y="130" width="250" height="220"
+      `<image href="${IMG}coraza.png" x="65" y="100" width="310" height="280"
               preserveAspectRatio="xMidYMid meet"/>`
     );
   }
 
   function pieceCalzado() {
     return piece('calzado',
-      `<image href="${IMG}calzado.png" x="105" y="440" width="230" height="250"
-              preserveAspectRatio="xMidYMid meet"/>`
+      `<image href="${IMG}calzado.png" x="83" y="440" width="284" height="250"
+              preserveAspectRatio="xMidYMid meet" clip-path="url(#clip-calzado)"/>`
     );
   }
 
@@ -148,7 +151,7 @@
     yelmo:    [0.50,  0.09,  0.90,  0.22],
     coraza:   [0.50,  0.34,  1.15,  0.38],
     cinturon: [0.50,  0.49,  0.46,  0.11],
-    calzado:  [0.50,  0.84,  1.10,  0.32],
+    calzado:  [0.50,  0.84,  0.56,  0.28],
     escudo:   [-0.16, 0.44,  0.72,  0.72],
     espada:   [1.16,  0.40,  0.58,  0.68],
   };
