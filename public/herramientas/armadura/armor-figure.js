@@ -56,8 +56,8 @@
 
   function pieceCinturon() {
     return piece('cinturon',
-      `<image href="${IMG}cinturon.png" x="60" y="210" width="300" height="300"
-              preserveAspectRatio="xMidYMid meet"/>`
+      `<image href="${IMG}cinturon.png" x="95" y="310" width="250" height="100"
+              preserveAspectRatio="xMidYMid slice"/>`
     );
   }
 
