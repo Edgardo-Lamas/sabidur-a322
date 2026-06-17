@@ -22,7 +22,7 @@
         <rect x="148" y="318" width="144" height="74" rx="4"/>
       </clipPath>
       <clipPath id="clip-calzado">
-        <rect x="140" y="464" width="160" height="184" rx="3"/>
+        <rect x="118" y="460" width="196" height="196" rx="3"/>
       </clipPath>
     </defs>`;
   }
