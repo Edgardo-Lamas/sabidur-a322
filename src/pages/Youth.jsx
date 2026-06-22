@@ -240,7 +240,7 @@ const Youth = () => {
                         >
                             <iframe
                                 src="/herramientas/armadura/Armadura.html"
-                                style={{ width: '100%', height: '920px', border: 0 }}
+                                style={{ width: '100%', height: '1060px', border: 0 }}
                                 title="La Armadura de Dios"
                                 allow="downloads"
                             />
