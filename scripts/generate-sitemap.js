@@ -8,7 +8,7 @@ import { fileURLToPath } from 'url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const root = resolve(__dirname, '..')
-const BASE = 'https://sabiduriadelcorazon.com'
+const BASE = 'https://sabiduriaparaelcorazon.com'
 const TODAY = new Date().toISOString().split('T')[0]
 
 const textos = JSON.parse(readFileSync(`${root}/src/data/textos.json`, 'utf8'))
