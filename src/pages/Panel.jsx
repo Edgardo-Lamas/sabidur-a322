@@ -5,7 +5,7 @@ import {
 } from 'recharts';
 import {
     BookOpen, FileText, Users, Map, Library, ShoppingBag,
-    Layers, BookMarked, TrendingUp, Star, Zap, Heart,
+    Layers, BookMarked, TrendingUp, Star, Zap, Heart, Youtube, Play,
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import content from '../data/content.json';
@@ -65,6 +65,13 @@ const CONTENT_PIE = [
 const GOLD = '#C5A059';
 const NAVY = '#1E3A5F';
 
+const YT_GEO = [
+    { country: 'México',    flag: '🇲🇽', pct: 45, color: '#C5A059' },
+    { country: 'EE.UU.',   flag: '🇺🇸', pct: 28, color: '#3B5375' },
+    { country: 'Argentina', flag: '🇦🇷', pct: 15, color: '#6A5B9E' },
+    { country: 'Otros',     flag: '🌎',  pct: 12, color: '#9ca3af' },
+];
+
 // ─── TOOLTIP CUSTOM ──────────────────────────────────────────────────────────
 const CustomTooltip = ({ active, payload, label }) => {
     if (!active || !payload?.length) return null;
@@ -108,12 +115,17 @@ const SectionHeader = ({ title, sub }) => (
 const Panel = () => {
     const [tab, setTab] = useState('overview');
     const [analytics, setAnalytics] = useState(null); // null = loading, obj = loaded
+    const [ytStats, setYtStats] = useState(null);
 
     useEffect(() => {
         fetch('/api/analytics')
             .then(r => r.json())
             .then(setAnalytics)
             .catch(() => setAnalytics({ live: false, error: 'No se pudo conectar' }));
+        fetch('/api/youtube-stats')
+            .then(r => r.json())
+            .then(setYtStats)
+            .catch(() => setYtStats({ live: false }));
     }, []);
 
     const totalContent =
@@ -141,6 +153,7 @@ const Panel = () => {
                             { id: 'overview', label: 'Resumen' },
                             { id: 'traffic',  label: 'Audiencia' },
                             { id: 'content',  label: 'Contenido' },
+                        { id: 'youtube',  label: 'YouTube' },
                         ].map(t => (
                             <button
                                 key={t.id}
@@ -251,6 +264,42 @@ const Panel = () => {
                                             </div>
                                         </div>
                                     ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Canal de YouTube — resumen */}
+                        <div className="bg-white rounded-xl border border-sabiduria-gray/10 p-6 shadow-sm">
+                            <div className="flex items-center justify-between mb-5">
+                                <h2 className="font-heading font-bold text-sabiduria-navy text-xl flex items-center gap-2">
+                                    <Youtube size={18} className="text-red-500" />
+                                    Canal de YouTube
+                                </h2>
+                                <button
+                                    onClick={() => setTab('youtube')}
+                                    className="font-heading text-xs font-semibold text-sabiduria-gold hover:underline"
+                                >
+                                    Ver detalle →
+                                </button>
+                            </div>
+                            <div className="grid grid-cols-3 gap-4">
+                                <div className="text-center p-4 rounded-lg bg-red-50 border border-red-100">
+                                    <p className="font-heading text-3xl font-bold text-sabiduria-navy">
+                                        {(ytStats?.live ? ytStats.subscribers : 3000).toLocaleString()}
+                                    </p>
+                                    <p className="font-heading text-xs font-semibold text-sabiduria-gray uppercase tracking-wider mt-1">Suscriptores</p>
+                                </div>
+                                <div className="text-center p-4 rounded-lg" style={{ background: `${GOLD}10`, border: `1px solid ${GOLD}30` }}>
+                                    <p className="font-heading text-3xl font-bold text-sabiduria-navy">
+                                        {(ytStats?.live ? ytStats.totalViews : 710000).toLocaleString()}
+                                    </p>
+                                    <p className="font-heading text-xs font-semibold text-sabiduria-gray uppercase tracking-wider mt-1">Visualizaciones</p>
+                                </div>
+                                <div className="text-center p-4 rounded-lg bg-sabiduria-gray/5 border border-sabiduria-gray/10">
+                                    <p className="font-heading text-xl font-bold text-sabiduria-navy leading-tight pt-1">
+                                        🇲🇽 · 🇺🇸 · 🇦🇷
+                                    </p>
+                                    <p className="font-heading text-xs font-semibold text-sabiduria-gray uppercase tracking-wider mt-1">Top países</p>
                                 </div>
                             </div>
                         </div>
@@ -481,6 +530,150 @@ const Panel = () => {
                                 ))}
                             </div>
                         </div>
+
+                    </div>
+                )}
+
+                {/* ── TAB: YOUTUBE ── */}
+                {tab === 'youtube' && (
+                    <div className="space-y-10">
+
+                        {/* KPI Cards */}
+                        <div>
+                            <SectionHeader title="Canal de YouTube" sub="@SabiduriaparaelCorazon-322 · estadísticas en tiempo real" />
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <StatCard
+                                    icon={Youtube}
+                                    label="Suscriptores"
+                                    value={ytStats?.live ? ytStats.subscribers : 3000}
+                                    sub={ytStats?.live ? 'en tiempo real' : 'aprox.'}
+                                    color="#ef4444"
+                                />
+                                <StatCard
+                                    icon={TrendingUp}
+                                    label="Visualizaciones"
+                                    value={ytStats?.live ? ytStats.totalViews : 710000}
+                                    sub={ytStats?.live ? 'en tiempo real' : 'aprox.'}
+                                />
+                                <StatCard
+                                    icon={FileText}
+                                    label="Videos"
+                                    value={ytStats?.videoCount ?? '—'}
+                                    sub="publicados"
+                                    color="#3B5375"
+                                />
+                                <StatCard
+                                    icon={Map}
+                                    label="Ranking #1"
+                                    value="México"
+                                    sub="país con más vistas"
+                                    color="#4A7A5A"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Audiencia geográfica */}
+                        <div className="bg-white rounded-xl border border-sabiduria-gray/10 p-6 shadow-sm">
+                            <SectionHeader title="Audiencia por país" sub="Distribución de visualizaciones — datos del canal" />
+                            <div className="space-y-4">
+                                {YT_GEO.map((g, i) => (
+                                    <div key={i} className="flex items-center gap-4">
+                                        <span className="text-2xl w-8 flex-shrink-0">{g.flag}</span>
+                                        <p className="font-serif text-sm text-sabiduria-gray w-24 flex-shrink-0">{g.country}</p>
+                                        <div className="flex-1 bg-sabiduria-gray/8 rounded-full h-5 overflow-hidden">
+                                            <div
+                                                className="h-full rounded-full flex items-center justify-end pr-3 transition-all"
+                                                style={{ width: `${g.pct}%`, background: g.color }}
+                                            >
+                                                <span className="font-heading text-xs font-bold text-white">{g.pct}%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                                <p className="font-serif text-xs text-sabiduria-gray/50 mt-2">
+                                    * Distribución aproximada según analytics del canal.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Top videos más vistos */}
+                        {ytStats?.live && ytStats.topVideos?.length > 0 ? (
+                            <div className="bg-white rounded-xl border border-sabiduria-gray/10 p-6 shadow-sm">
+                                <SectionHeader title="Videos más vistos" sub="Por total de visualizaciones" />
+                                <div className="space-y-1">
+                                    {ytStats.topVideos.map((v, i) => (
+                                        <a
+                                            key={v.id}
+                                            href={`https://www.youtube.com/watch?v=${v.id}`}
+                                            target="_blank" rel="noopener noreferrer"
+                                            className="flex items-center gap-4 py-2.5 border-b border-sabiduria-gray/8 last:border-0 hover:bg-sabiduria-gray/3 rounded-lg px-2 transition-colors group"
+                                        >
+                                            <span className="font-heading text-sm font-bold text-sabiduria-gray/40 w-6 flex-shrink-0">#{i + 1}</span>
+                                            {v.thumbnail && (
+                                                <img src={v.thumbnail} alt="" className="w-20 h-12 object-cover rounded flex-shrink-0" />
+                                            )}
+                                            <div className="flex-1 min-w-0">
+                                                <p className="font-heading text-sm font-semibold text-sabiduria-navy truncate group-hover:text-sabiduria-gold transition-colors">
+                                                    {v.title}
+                                                </p>
+                                                <p className="font-serif text-xs text-sabiduria-gray">
+                                                    {v.views.toLocaleString()} vistas
+                                                    {v.likes > 0 && <> · {v.likes.toLocaleString()} likes</>}
+                                                </p>
+                                            </div>
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="bg-white rounded-xl border border-sabiduria-gray/10 p-8 shadow-sm text-center">
+                                <Youtube size={32} className="text-red-300 mx-auto mb-3" />
+                                <p className="font-heading text-sm font-semibold text-sabiduria-gray">
+                                    {ytStats === null ? 'Cargando videos…' : 'Configurar YOUTUBE_API_KEY en Vercel para ver el ranking de videos'}
+                                </p>
+                                <a
+                                    href="https://www.youtube.com/@SabiduriaparaelCorazon-322"
+                                    target="_blank" rel="noopener noreferrer"
+                                    className="inline-block mt-3 font-heading text-xs font-semibold text-red-600 hover:underline"
+                                >
+                                    Ver canal en YouTube ↗
+                                </a>
+                            </div>
+                        )}
+
+                        {/* Últimos videos */}
+                        {ytStats?.live && ytStats.recentVideos?.length > 0 && (
+                            <div className="bg-white rounded-xl border border-sabiduria-gray/10 p-6 shadow-sm">
+                                <SectionHeader title="Últimos videos publicados" sub="Publicaciones recientes del canal" />
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                    {ytStats.recentVideos.map(v => (
+                                        <a
+                                            key={v.id}
+                                            href={`https://www.youtube.com/watch?v=${v.id}`}
+                                            target="_blank" rel="noopener noreferrer"
+                                            className="group rounded-lg overflow-hidden border border-sabiduria-gray/10 hover:border-sabiduria-gold/30 transition-all"
+                                        >
+                                            <div className="relative">
+                                                {v.thumbnail && (
+                                                    <img src={v.thumbnail} alt="" className="w-full h-32 object-cover" />
+                                                )}
+                                                <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                                    <Play size={28} className="text-white" fill="white" />
+                                                </div>
+                                            </div>
+                                            <div className="p-3">
+                                                <p className="font-heading text-xs font-semibold text-sabiduria-navy line-clamp-2 group-hover:text-sabiduria-gold transition-colors">
+                                                    {v.title}
+                                                </p>
+                                                <p className="font-serif text-xs text-sabiduria-gray mt-1">
+                                                    {v.views.toLocaleString()} vistas · {new Date(v.publishedAt).toLocaleDateString('es-ES', { month: 'short', year: 'numeric' })}
+                                                </p>
+                                            </div>
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
 
                     </div>
                 )}
