@@ -6,6 +6,7 @@ import {
 import {
     BookOpen, FileText, Users, Map, Library, ShoppingBag,
     Layers, BookMarked, TrendingUp, Star, Zap, Heart, Youtube, Play,
+    Search, Eye, ExternalLink, Globe,
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import content from '../data/content.json';
@@ -116,6 +117,7 @@ const Panel = () => {
     const [tab, setTab] = useState('overview');
     const [analytics, setAnalytics] = useState(null); // null = loading, obj = loaded
     const [ytStats, setYtStats] = useState(null);
+    const [gscData, setGscData] = useState(null);
 
     useEffect(() => {
         fetch('/api/analytics')
@@ -126,6 +128,10 @@ const Panel = () => {
             .then(r => r.json())
             .then(setYtStats)
             .catch(() => setYtStats({ live: false }));
+        fetch('/api/search-console')
+            .then(r => r.json())
+            .then(setGscData)
+            .catch(() => setGscData({ live: false }));
     }, []);
 
     const totalContent =
@@ -154,6 +160,7 @@ const Panel = () => {
                             { id: 'traffic',  label: 'Audiencia' },
                             { id: 'content',  label: 'Contenido' },
                         { id: 'youtube',  label: 'YouTube' },
+                        { id: 'seo',      label: 'SEO' },
                         ].map(t => (
                             <button
                                 key={t.id}
@@ -672,6 +679,202 @@ const Panel = () => {
                                         </a>
                                     ))}
                                 </div>
+                            </div>
+                        )}
+
+                    </div>
+                )}
+
+                {/* ── TAB: SEO ── */}
+                {tab === 'seo' && (
+                    <div className="space-y-10">
+
+                        {gscData?.live ? (
+                            <>
+                                {/* KPI Cards */}
+                                <div>
+                                    <SectionHeader
+                                        title="Rendimiento en Google"
+                                        sub={`Últimos 28 días · ${gscData.period}`}
+                                    />
+                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                        <StatCard icon={Search}     label="Clics"           value={gscData.totals.clicks}                    sub="desde Google" />
+                                        <StatCard icon={Eye}        label="Impresiones"      value={gscData.totals.impressions}               sub="veces mostrado" color="#3B5375" />
+                                        <StatCard icon={TrendingUp} label="CTR"              value={`${gscData.totals.ctr.toFixed(1)}%`}      sub="tasa de clic"   color="#4A7A5A" />
+                                        <StatCard icon={Star}       label="Posición media"   value={gscData.totals.position.toFixed(1)}       sub="en resultados"  color="#6A5B9E" />
+                                    </div>
+                                </div>
+
+                                {/* Gráfico de tendencia diaria */}
+                                {gscData.daily?.length > 0 && (
+                                    <div className="bg-white rounded-xl border border-sabiduria-gray/10 p-6 shadow-sm">
+                                        <SectionHeader title="Tendencia diaria" sub="Clics e impresiones en Google (últimos 28 días)" />
+                                        <ResponsiveContainer width="100%" height={240}>
+                                            <AreaChart data={gscData.daily} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
+                                                <defs>
+                                                    <linearGradient id="gradClics" x1="0" y1="0" x2="0" y2="1">
+                                                        <stop offset="5%"  stopColor={GOLD} stopOpacity={0.3} />
+                                                        <stop offset="95%" stopColor={GOLD} stopOpacity={0} />
+                                                    </linearGradient>
+                                                    <linearGradient id="gradImpr" x1="0" y1="0" x2="0" y2="1">
+                                                        <stop offset="5%"  stopColor={NAVY} stopOpacity={0.2} />
+                                                        <stop offset="95%" stopColor={NAVY} stopOpacity={0} />
+                                                    </linearGradient>
+                                                </defs>
+                                                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                                                <XAxis dataKey="date" tick={{ fontSize: 10 }} tickFormatter={d => d.slice(5)} />
+                                                <YAxis tick={{ fontSize: 11 }} />
+                                                <Tooltip content={<CustomTooltip />} />
+                                                <Legend />
+                                                <Area type="monotone" dataKey="clicks"      name="Clics"        stroke={GOLD} fill="url(#gradClics)" strokeWidth={2} />
+                                                <Area type="monotone" dataKey="impressions" name="Impresiones"  stroke={NAVY} fill="url(#gradImpr)"  strokeWidth={2} />
+                                            </AreaChart>
+                                        </ResponsiveContainer>
+                                    </div>
+                                )}
+
+                                {/* Top queries + Top páginas */}
+                                <div className="grid md:grid-cols-2 gap-6">
+
+                                    {/* Top consultas */}
+                                    <div className="bg-white rounded-xl border border-sabiduria-gray/10 p-6 shadow-sm">
+                                        <SectionHeader title="Top consultas" sub="Palabras clave que te encuentran" />
+                                        <div className="space-y-1">
+                                            {gscData.queries.map((q, i) => {
+                                                const posColor = q.position <= 3 ? '#4A7A5A' : q.position <= 10 ? GOLD : '#9ca3af';
+                                                return (
+                                                    <div key={i} className="flex items-center justify-between py-2 border-b border-sabiduria-gray/8 last:border-0 gap-3">
+                                                        <div className="flex items-center gap-2 min-w-0">
+                                                            <span className="font-heading text-xs text-sabiduria-gray/40 w-5 flex-shrink-0">#{i+1}</span>
+                                                            <p className="font-serif text-sm text-sabiduria-navy truncate">{q.query}</p>
+                                                        </div>
+                                                        <div className="flex items-center gap-3 flex-shrink-0">
+                                                            <span className="font-heading text-xs text-sabiduria-gray">{q.clicks} clics</span>
+                                                            <span
+                                                                className="font-heading text-xs font-bold px-1.5 py-0.5 rounded"
+                                                                style={{ color: posColor, background: `${posColor}18` }}
+                                                            >
+                                                                #{q.position}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+
+                                    {/* Top páginas */}
+                                    <div className="bg-white rounded-xl border border-sabiduria-gray/10 p-6 shadow-sm">
+                                        <SectionHeader title="Top páginas" sub="Las más vistas desde Google" />
+                                        <div className="space-y-1">
+                                            {gscData.pages.map((p, i) => (
+                                                <div key={i} className="flex items-center justify-between py-2 border-b border-sabiduria-gray/8 last:border-0 gap-3">
+                                                    <div className="flex items-center gap-2 min-w-0">
+                                                        <span className="font-heading text-xs text-sabiduria-gray/40 w-5 flex-shrink-0">#{i+1}</span>
+                                                        <p className="font-serif text-sm text-sabiduria-navy truncate">{p.page || '/'}</p>
+                                                    </div>
+                                                    <div className="flex items-center gap-3 flex-shrink-0 text-right">
+                                                        <span className="font-heading text-xs text-sabiduria-gray">{p.clicks} clics</span>
+                                                        <span className="font-heading text-xs text-sabiduria-gray/50">{p.impressions} imp.</span>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Países */}
+                                {gscData.countries?.length > 0 && (
+                                    <div className="bg-white rounded-xl border border-sabiduria-gray/10 p-6 shadow-sm">
+                                        <SectionHeader title="Países" sub="Top países por clics desde Google Search" />
+                                        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                                            {gscData.countries.map((c, i) => (
+                                                <div key={i} className="text-center p-4 rounded-lg bg-sabiduria-gray/3 border border-sabiduria-gray/8">
+                                                    <Globe size={16} className="mx-auto mb-2 text-sabiduria-gray/40" />
+                                                    <p className="font-heading text-lg font-bold text-sabiduria-navy">{c.clicks}</p>
+                                                    <p className="font-heading text-xs text-sabiduria-gray uppercase tracking-wider mt-0.5">{c.country}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </>
+                        ) : (
+                            /* ── Sin configurar: instrucciones paso a paso ── */
+                            <div className="space-y-6">
+                                <div className="bg-amber-50 border border-amber-200 rounded-xl px-6 py-5 flex gap-4">
+                                    <Search size={20} className="text-amber-600 flex-shrink-0 mt-0.5" />
+                                    <div>
+                                        <p className="font-heading text-sm font-semibold text-amber-800 mb-1">
+                                            {gscData === null ? 'Conectando con Google Search Console…' : 'Search Console no conectado al dashboard'}
+                                        </p>
+                                        <p className="font-serif text-xs text-amber-700">
+                                            {gscData?.error
+                                                ? `Error: ${gscData.error}`
+                                                : 'Seguí los pasos de abajo para ver clics reales, palabras clave y posición en Google.'}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {gscData !== null && (
+                                    <div className="bg-white rounded-xl border border-sabiduria-gray/10 p-6 shadow-sm">
+                                        <h3 className="font-heading font-bold text-sabiduria-navy text-lg mb-6">
+                                            Configurar en 4 pasos
+                                        </h3>
+                                        <div className="space-y-6">
+                                            {[
+                                                {
+                                                    n: '1',
+                                                    title: 'Activar la API en Google Cloud',
+                                                    desc: 'Ir a console.cloud.google.com → APIs y servicios → Habilitar APIs → buscar "Google Search Console API" → Habilitar.',
+                                                    link: 'https://console.cloud.google.com/apis/library/searchconsole.googleapis.com',
+                                                    linkLabel: 'Abrir Google Cloud Console →',
+                                                },
+                                                {
+                                                    n: '2',
+                                                    title: 'Crear una cuenta de servicio',
+                                                    desc: 'En Google Cloud → IAM y administración → Cuentas de servicio → Crear cuenta de servicio. Dale un nombre (ej: "dashboard-spc"). Crear clave JSON → descargar el archivo .json.',
+                                                    link: 'https://console.cloud.google.com/iam-admin/serviceaccounts',
+                                                    linkLabel: 'Abrir cuentas de servicio →',
+                                                },
+                                                {
+                                                    n: '3',
+                                                    title: 'Agregar la cuenta en Search Console',
+                                                    desc: 'En Google Search Console → Configuración → Usuarios y permisos → Agregar usuario. Pegar el email de la cuenta de servicio (termina en @...gserviceaccount.com). Rol: Propietario restringido.',
+                                                    link: 'https://search.google.com/search-console/users',
+                                                    linkLabel: 'Abrir permisos en GSC →',
+                                                },
+                                                {
+                                                    n: '4',
+                                                    title: 'Agregar la variable en Vercel',
+                                                    desc: 'En Vercel → Project Settings → Environment Variables → agregar GSC_SERVICE_ACCOUNT_JSON y pegar el contenido completo del archivo .json descargado. Hacer redeploy.',
+                                                    link: 'https://vercel.com/dashboard',
+                                                    linkLabel: 'Abrir Vercel →',
+                                                },
+                                            ].map((step, i) => (
+                                                <div key={i} className="flex gap-4">
+                                                    <div
+                                                        className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-heading font-bold text-sm text-white"
+                                                        style={{ background: GOLD }}
+                                                    >
+                                                        {step.n}
+                                                    </div>
+                                                    <div className="flex-1">
+                                                        <p className="font-heading font-semibold text-sabiduria-navy text-sm mb-1">{step.title}</p>
+                                                        <p className="font-serif text-xs text-sabiduria-gray leading-relaxed mb-2">{step.desc}</p>
+                                                        <a
+                                                            href={step.link}
+                                                            target="_blank" rel="noopener noreferrer"
+                                                            className="inline-flex items-center gap-1 font-heading text-xs font-semibold text-sabiduria-gold hover:underline"
+                                                        >
+                                                            {step.linkLabel} <ExternalLink size={11} />
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         )}
 
