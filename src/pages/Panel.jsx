@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
     AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell,
     XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
@@ -107,6 +107,14 @@ const SectionHeader = ({ title, sub }) => (
 // ─── COMPONENT ───────────────────────────────────────────────────────────────
 const Panel = () => {
     const [tab, setTab] = useState('overview');
+    const [analytics, setAnalytics] = useState(null); // null = loading, obj = loaded
+
+    useEffect(() => {
+        fetch('/api/analytics')
+            .then(r => r.json())
+            .then(setAnalytics)
+            .catch(() => setAnalytics({ live: false, error: 'No se pudo conectar' }));
+    }, []);
 
     const totalContent =
         SITE_STATS.articulos + SITE_STATS.ensayos + SITE_STATS.lecturas +
@@ -254,19 +262,35 @@ const Panel = () => {
                 {tab === 'traffic' && (
                     <div className="space-y-10">
 
-                        <div className="bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 flex gap-3">
-                            <Zap size={18} className="text-amber-600 flex-shrink-0 mt-0.5" />
-                            <div>
-                                <p className="font-heading text-sm font-semibold text-amber-800">
-                                    Vercel Analytics activo
-                                </p>
-                                <p className="font-serif text-xs text-amber-700 mt-0.5">
-                                    Los datos de audiencia reales estarán disponibles en tu dashboard de Vercel
-                                    en <strong>vercel.com → tu proyecto → Analytics</strong>.
-                                    Los gráficos de abajo son proyecciones de referencia.
-                                </p>
+                        {analytics?.live ? (
+                            <div className="bg-emerald-50 border border-emerald-200 rounded-xl px-5 py-4 flex gap-3">
+                                <Zap size={18} className="text-emerald-600 flex-shrink-0 mt-0.5" />
+                                <div>
+                                    <p className="font-heading text-sm font-semibold text-emerald-800">
+                                        Datos en vivo — últimos 30 días
+                                    </p>
+                                    <p className="font-serif text-xs text-emerald-700 mt-0.5">
+                                        {analytics.totals?.visitas?.toLocaleString() ?? '—'} páginas vistas registradas por Vercel Analytics.
+                                        El gráfico de secciones usa datos reales.
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        ) : (
+                            <div className="bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 flex gap-3">
+                                <Zap size={18} className="text-amber-600 flex-shrink-0 mt-0.5" />
+                                <div>
+                                    <p className="font-heading text-sm font-semibold text-amber-800">
+                                        {analytics === null ? 'Cargando métricas…' : 'Vercel Analytics — pendiente de configuración'}
+                                    </p>
+                                    <p className="font-serif text-xs text-amber-700 mt-0.5">
+                                        {analytics?.error
+                                            ? <><strong>{analytics.error}</strong>. Crear token en <strong>vercel.com → Settings → Tokens</strong> y guardarlo como <code>VERCEL_TOKEN</code> en las variables de entorno del proyecto.</>
+                                            : <>Los gráficos muestran proyecciones de referencia. Para datos reales, configurar <code>VERCEL_TOKEN</code> en Vercel → Project Settings → Environment Variables.</>
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                        )}
 
                         {/* Tráfico mensual */}
                         <div className="bg-white rounded-xl border border-sabiduria-gray/10 p-6 shadow-sm">
@@ -296,9 +320,12 @@ const Panel = () => {
 
                         {/* Páginas más visitadas */}
                         <div className="bg-white rounded-xl border border-sabiduria-gray/10 p-6 shadow-sm">
-                            <SectionHeader title="Secciones más visitadas" sub="Pageviews por sección (proyección)" />
+                            <SectionHeader
+                                title="Secciones más visitadas"
+                                sub={analytics?.live ? 'Pageviews reales — últimos 30 días' : 'Pageviews por sección (proyección)'}
+                            />
                             <ResponsiveContainer width="100%" height={280}>
-                                <BarChart data={PAGES_DATA} layout="vertical" margin={{ left: 20, right: 20 }}>
+                                <BarChart data={analytics?.live ? analytics.pages : PAGES_DATA} layout="vertical" margin={{ left: 20, right: 20 }}>
                                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" horizontal={false} />
                                     <XAxis type="number" tick={{ fontSize: 11 }} />
                                     <YAxis type="category" dataKey="page" tick={{ fontSize: 12, fontFamily: 'var(--font-sans)' }} width={80} />
