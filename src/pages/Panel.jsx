@@ -267,11 +267,15 @@ const Panel = () => {
                                 <Zap size={18} className="text-emerald-600 flex-shrink-0 mt-0.5" />
                                 <div>
                                     <p className="font-heading text-sm font-semibold text-emerald-800">
-                                        Datos en vivo — últimos 30 días
+                                        Conectado a Vercel — {analytics.projectName ?? 'proyecto'}
                                     </p>
                                     <p className="font-serif text-xs text-emerald-700 mt-0.5">
-                                        {analytics.totals?.visitas?.toLocaleString() ?? '—'} páginas vistas registradas por Vercel Analytics.
-                                        El gráfico de secciones usa datos reales.
+                                        {analytics.totals?.visitas > 0
+                                            ? <>{analytics.totals.visitas.toLocaleString()} páginas vistas en los últimos 30 días. El gráfico de secciones usa datos reales.</>
+                                            : analytics.analyticsNote
+                                                ? <>Web Analytics aún sin datos suficientes — el gráfico usa proyecciones de referencia.</>
+                                                : <>Datos de proyecto cargados. Web Analytics activo.</>
+                                        }
                                     </p>
                                 </div>
                             </div>
@@ -288,6 +292,25 @@ const Panel = () => {
                                             : <>Los gráficos muestran proyecciones de referencia. Para datos reales, configurar <code>VERCEL_TOKEN</code> en Vercel → Project Settings → Environment Variables.</>
                                         }
                                     </p>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Deployments recientes */}
+                        {analytics?.live && analytics.recentDeploys?.length > 0 && (
+                            <div className="bg-white rounded-xl border border-sabiduria-gray/10 p-6 shadow-sm">
+                                <SectionHeader title="Deployments recientes" sub="Últimas publicaciones en producción" />
+                                <div className="space-y-2">
+                                    {analytics.recentDeploys.map((d, i) => (
+                                        <div key={i} className="flex items-start justify-between gap-4 py-2.5 border-b border-sabiduria-gray/8 last:border-0">
+                                            <div className="flex items-center gap-2.5 min-w-0">
+                                                <span className="w-2 h-2 rounded-full flex-shrink-0"
+                                                    style={{ background: d.state === 'READY' ? '#10b981' : d.state === 'ERROR' ? '#ef4444' : GOLD }} />
+                                                <p className="font-serif text-sm text-sabiduria-navy truncate">{d.commit || d.url}</p>
+                                            </div>
+                                            <span className="font-heading text-xs text-sabiduria-gray flex-shrink-0">{d.fecha}</span>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         )}
