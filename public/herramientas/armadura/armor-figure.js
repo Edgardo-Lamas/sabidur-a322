@@ -6,7 +6,7 @@
 (function () {
   'use strict';
 
-  const VB_W = 440, VB_H = 700;
+  const VB_W = 440, VB_H = 780;
 
   /* Ruta base de los assets del guerrero */
   const IMG = '/img/armadura/';
@@ -22,7 +22,7 @@
         <rect x="148" y="318" width="144" height="74" rx="4"/>
       </clipPath>
       <clipPath id="clip-calzado">
-        <rect x="118" y="460" width="196" height="196" rx="3"/>
+        <rect x="100" y="460" width="240" height="300" rx="3"/>
       </clipPath>
     </defs>`;
   }
@@ -30,7 +30,7 @@
   /* ---- Hero base: PNG con fondo transparente ---- */
   function baseBody() {
     return `<image href="${IMG}heroe.png"
-              x="20" y="0" width="400" height="700"
+              x="20" y="0" width="400" height="780"
               preserveAspectRatio="xMidYMid meet"/>`;
   }
 
@@ -76,7 +76,7 @@
 
   function pieceCalzado() {
     return piece('calzado',
-      `<image href="${IMG}calzado.png" x="83" y="490" width="284" height="210"
+      `<image href="${IMG}calzado.png" x="83" y="520" width="284" height="250"
               preserveAspectRatio="xMidYMid meet"/>`
     );
   }
@@ -151,7 +151,7 @@
     yelmo:    [0.50,  0.09,  0.90,  0.22],
     coraza:   [0.50,  0.34,  1.15,  0.38],
     cinturon: [0.50,  0.49,  0.46,  0.11],
-    calzado:  [0.50,  0.84,  0.56,  0.28],
+    calzado:  [0.50,  0.88,  0.56,  0.30],
     escudo:   [-0.16, 0.44,  0.72,  0.72],
     espada:   [1.16,  0.40,  0.58,  0.68],
   };
