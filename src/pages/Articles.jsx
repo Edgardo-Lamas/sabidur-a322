@@ -153,7 +153,7 @@ const Articles = () => {
                                             to={`/articulo/${article.slug}`}
                                             className="text-sabiduria-navy font-bold text-sm uppercase tracking-widest flex items-center gap-1 group-hover:gap-2 transition-all"
                                         >
-                                            Leer artículo <ChevronRight size={16} />
+                                            Leer <ChevronRight size={16} />
                                         </Link>
                                     </div>
                                 </div>
