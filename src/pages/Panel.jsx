@@ -9,6 +9,7 @@ import {
     Search, Eye, ExternalLink, Globe,
 } from 'lucide-react';
 import SEO from '../components/SEO';
+import HeraldoChat from '../components/HeraldoChat';
 import content from '../data/content.json';
 import textos from '../data/textos.json';
 
@@ -154,13 +155,14 @@ const Panel = () => {
                     </p>
 
                     {/* Tabs */}
-                    <div className="flex gap-2 mt-6">
+                    <div className="flex flex-wrap gap-2 mt-6">
                         {[
                             { id: 'overview', label: 'Resumen' },
                             { id: 'traffic',  label: 'Audiencia' },
                             { id: 'content',  label: 'Contenido' },
-                        { id: 'youtube',  label: 'YouTube' },
-                        { id: 'seo',      label: 'SEO' },
+                            { id: 'youtube',  label: 'YouTube' },
+                            { id: 'seo',      label: 'SEO' },
+                            { id: 'heraldo',  label: '⚡ Heraldo' },
                         ].map(t => (
                             <button
                                 key={t.id}
@@ -878,6 +880,19 @@ const Panel = () => {
                             </div>
                         )}
 
+                    </div>
+                )}
+
+                {/* ── TAB: HERALDO ── */}
+                {tab === 'heraldo' && (
+                    <div>
+                        <div className="mb-6">
+                            <h2 className="font-heading font-bold text-sabiduria-navy text-xl">Heraldo</h2>
+                            <p className="font-serif text-sabiduria-gray text-sm mt-0.5">
+                                Agente estratégico · Crecimiento en LATAM, EE.UU. y España
+                            </p>
+                        </div>
+                        <HeraldoChat />
                     </div>
                 )}
 

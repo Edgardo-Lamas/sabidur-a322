@@ -122,6 +122,17 @@ const websiteSchema = {
   }
 };
 
+// ChatSpurgeon no aparece en el panel interno
+function SpurgeonGlobal() {
+  const { pathname } = useLocation();
+  if (pathname === '/panel') return null;
+  return (
+    <Suspense fallback={null}>
+      <ChatSpurgeon />
+    </Suspense>
+  );
+}
+
 function App() {
   const basename = import.meta.env.BASE_URL;
 
@@ -226,9 +237,7 @@ function App() {
           success: { iconTheme: { primary: '#C5A059', secondary: '#fff' } },
         }}
       />
-      <Suspense fallback={null}>
-        <ChatSpurgeon />
-      </Suspense>
+      <SpurgeonGlobal />
     </Router>
     </AudioPlayerProvider>
   );
