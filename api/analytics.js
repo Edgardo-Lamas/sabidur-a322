@@ -1,50 +1,31 @@
-// api/analytics.js — Google Analytics 4 Data API
-// Reutiliza GSC_SERVICE_ACCOUNT_JSON (mismo service account, scope diferente)
-// Requiere también: GA4_PROPERTY_ID (el ID numérico de la propiedad, ej: 123456789)
-// La cuenta de servicio debe tener rol "Lector" en la propiedad GA4
+// Serverless Function — Google Analytics 4 Data API
+// Auth: OAuth2 con refresh token (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REFRESH_TOKEN)
+// Requiere también: GA4_PROPERTY_ID (el ID numérico de la propiedad GA4)
+// Caché 30 min.
 
-import crypto from 'crypto';
-
-const GA4_SCOPE = 'https://www.googleapis.com/auth/analytics.readonly';
-const TTL_MS    = 30 * 60 * 1000;
+const TTL_MS = 30 * 60 * 1000;
 
 let cache      = null;
 let tokenCache = null;
 
-function b64url(data) {
-  return Buffer.from(typeof data === 'string' ? data : JSON.stringify(data))
-    .toString('base64')
-    .replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
-}
-
-async function getToken(creds) {
+async function getAccessToken() {
   if (tokenCache && tokenCache.exp > Date.now()) return tokenCache.token;
 
-  const now    = Math.floor(Date.now() / 1000);
-  const header = b64url({ alg: 'RS256', typ: 'JWT' });
-  const claims = b64url({
-    iss:   creds.client_email,
-    scope: GA4_SCOPE,
-    aud:   'https://oauth2.googleapis.com/token',
-    exp:   now + 3600,
-    iat:   now,
-  });
-
-  const toSign = `${header}.${claims}`;
-  const signer = crypto.createSign('RSA-SHA256');
-  signer.update(toSign);
-  const sig = signer.sign(creds.private_key, 'base64')
-    .replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
-
-  const res  = await fetch('https://oauth2.googleapis.com/token', {
+  const res = await fetch('https://oauth2.googleapis.com/token', {
     method:  'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body:    `grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer&assertion=${toSign}.${sig}`,
+    body:    new URLSearchParams({
+      client_id:     process.env.GOOGLE_CLIENT_ID,
+      client_secret: process.env.GOOGLE_CLIENT_SECRET,
+      refresh_token: process.env.GOOGLE_REFRESH_TOKEN,
+      grant_type:    'refresh_token',
+    }).toString(),
   });
-  const data = await res.json();
-  if (!data.access_token) throw new Error('GA4 token error: ' + JSON.stringify(data));
 
-  tokenCache = { token: data.access_token, exp: Date.now() + 3500 * 1000 };
+  const data = await res.json();
+  if (!data.access_token) throw new Error('OAuth error: ' + JSON.stringify(data));
+
+  tokenCache = { token: data.access_token, exp: Date.now() + (data.expires_in - 60) * 1000 };
   return data.access_token;
 }
 
@@ -55,21 +36,19 @@ export default async function handler(_req, res) {
     return res.status(200).json(cache.data);
   }
 
-  const raw        = process.env.GSC_SERVICE_ACCOUNT_JSON;
-  const propertyId = process.env.GA4_PROPERTY_ID;
-
-  if (!raw) {
-    return res.status(200).json({ live: false, error: 'GSC_SERVICE_ACCOUNT_JSON no configurada' });
+  const missing = ['GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET', 'GOOGLE_REFRESH_TOKEN']
+    .filter(k => !process.env[k]);
+  if (missing.length) {
+    return res.status(200).json({ live: false, error: `Faltan variables: ${missing.join(', ')}` });
   }
+
+  const propertyId = process.env.GA4_PROPERTY_ID;
   if (!propertyId) {
     return res.status(200).json({ live: false, error: 'GA4_PROPERTY_ID no configurado' });
   }
 
   try {
-    const creds = JSON.parse(raw);
-    creds.private_key = creds.private_key.replace(/\\n/g, '\n');
-
-    const token    = await getToken(creds);
+    const token    = await getAccessToken();
     const endpoint = `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`;
     const headers  = { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' };
 
@@ -107,7 +86,7 @@ export default async function handler(_req, res) {
       totalsRes.json(), pagesRes.json(), countriesRes.json(), dailyRes.json(),
     ]);
 
-    const tv       = totals.rows?.[0]?.metricValues ?? [];
+    const tv        = totals.rows?.[0]?.metricValues ?? [];
     const sessions  = parseInt(tv[0]?.value ?? 0);
     const users     = parseInt(tv[1]?.value ?? 0);
     const pageviews = parseInt(tv[2]?.value ?? 0);

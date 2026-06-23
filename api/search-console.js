@@ -1,50 +1,31 @@
 // Serverless Function — Google Search Console API
-// Autenticación con Service Account (JWT RS256, sin dependencias externas)
-// Caché 30 min. Requiere GSC_SERVICE_ACCOUNT_JSON en las variables de entorno de Vercel.
-
-import crypto from 'crypto';
+// Auth: OAuth2 con refresh token (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REFRESH_TOKEN)
+// Caché 30 min.
 
 const GSC_SITE = 'sc-domain:sabiduriaparaelcorazon.com';
-const SCOPE    = 'https://www.googleapis.com/auth/webmasters.readonly';
 const TTL_MS   = 30 * 60 * 1000;
 
 let cache      = null;
 let tokenCache = null;
 
-function b64url(data) {
-  return Buffer.from(typeof data === 'string' ? data : JSON.stringify(data))
-    .toString('base64')
-    .replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
-}
-
-async function getToken(creds) {
+async function getAccessToken() {
   if (tokenCache && tokenCache.exp > Date.now()) return tokenCache.token;
 
-  const now    = Math.floor(Date.now() / 1000);
-  const header = b64url({ alg: 'RS256', typ: 'JWT' });
-  const claims = b64url({
-    iss:   creds.client_email,
-    scope: SCOPE,
-    aud:   'https://oauth2.googleapis.com/token',
-    exp:   now + 3600,
-    iat:   now,
-  });
-
-  const toSign = `${header}.${claims}`;
-  const signer = crypto.createSign('RSA-SHA256');
-  signer.update(toSign);
-  const sig = signer.sign(creds.private_key, 'base64')
-    .replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
-
-  const res  = await fetch('https://oauth2.googleapis.com/token', {
+  const res = await fetch('https://oauth2.googleapis.com/token', {
     method:  'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body:    `grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer&assertion=${toSign}.${sig}`,
+    body:    new URLSearchParams({
+      client_id:     process.env.GOOGLE_CLIENT_ID,
+      client_secret: process.env.GOOGLE_CLIENT_SECRET,
+      refresh_token: process.env.GOOGLE_REFRESH_TOKEN,
+      grant_type:    'refresh_token',
+    }).toString(),
   });
-  const data = await res.json();
-  if (!data.access_token) throw new Error('GSC token error: ' + JSON.stringify(data));
 
-  tokenCache = { token: data.access_token, exp: Date.now() + 3500 * 1000 };
+  const data = await res.json();
+  if (!data.access_token) throw new Error('OAuth error: ' + JSON.stringify(data));
+
+  tokenCache = { token: data.access_token, exp: Date.now() + (data.expires_in - 60) * 1000 };
   return data.access_token;
 }
 
@@ -58,24 +39,21 @@ async function query(token, body) {
   return res.json();
 }
 
-export default async function handler(req, res) {
+export default async function handler(_req, res) {
   res.setHeader('Cache-Control', 'public, max-age=1800, stale-while-revalidate=3600');
 
   if (cache && Date.now() - cache.fetchedAt < TTL_MS) {
     return res.status(200).json(cache.data);
   }
 
-  const raw = process.env.GSC_SERVICE_ACCOUNT_JSON;
-  if (!raw) {
-    return res.status(200).json({ live: false, error: 'GSC_SERVICE_ACCOUNT_JSON no configurada' });
+  const missing = ['GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET', 'GOOGLE_REFRESH_TOKEN']
+    .filter(k => !process.env[k]);
+  if (missing.length) {
+    return res.status(200).json({ live: false, error: `Faltan variables: ${missing.join(', ')}` });
   }
 
   try {
-    const creds = JSON.parse(raw);
-    // Corregir saltos de línea escapados (común al pegar JSON en Vercel)
-    creds.private_key = creds.private_key.replace(/\\n/g, '\n');
-
-    const token = await getToken(creds);
+    const token = await getAccessToken();
 
     const end   = new Date().toISOString().split('T')[0];
     const start = new Date(Date.now() - 28 * 86400000).toISOString().split('T')[0];
