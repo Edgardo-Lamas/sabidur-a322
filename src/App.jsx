@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
 import { Helmet } from 'react-helmet-async';
@@ -122,24 +122,6 @@ const websiteSchema = {
   }
 };
 
-// GA4 tracking — carga el script solo si VITE_GA4_MEASUREMENT_ID está configurado
-function GA4Tracker() {
-  useEffect(() => {
-    const id = import.meta.env.VITE_GA4_MEASUREMENT_ID;
-    if (!id) return;
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
-    document.head.appendChild(script);
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function () { window.dataLayer.push(arguments); };
-    window.gtag('js', new Date());
-    window.gtag('config', id);
-    return () => { document.head.removeChild(script); };
-  }, []);
-  return null;
-}
-
 // ChatSpurgeon no aparece en el panel interno
 function SpurgeonGlobal() {
   const { pathname } = useLocation();
@@ -158,7 +140,6 @@ function App() {
     <AudioPlayerProvider>
     <Router basename={basename}>
       <Analytics />
-      <GA4Tracker />
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>
