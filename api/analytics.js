@@ -1,115 +1,144 @@
-// api/analytics.js — Métricas del sitio via Vercel REST API
-// Requiere: VERCEL_TOKEN (Vercel → Settings → Tokens)
-// VERCEL_PROJECT_ID y VERCEL_TEAM_ID son inyectados automáticamente por Vercel.
+// api/analytics.js — Google Analytics 4 Data API
+// Reutiliza GSC_SERVICE_ACCOUNT_JSON (mismo service account, scope diferente)
+// Requiere también: GA4_PROPERTY_ID (el ID numérico de la propiedad, ej: 123456789)
+// La cuenta de servicio debe tener rol "Lector" en la propiedad GA4
 
-export default async function handler(req, res) {
-  res.setHeader('Cache-Control', 's-maxage=1800, stale-while-revalidate=3600');
-  res.setHeader('Access-Control-Allow-Origin', '*');
+import crypto from 'crypto';
 
-  const TOKEN      = process.env.VERCEL_TOKEN;
-  const PROJECT_ID = process.env.VERCEL_PROJECT_ID;
-  const TEAM_ID    = process.env.VERCEL_TEAM_ID;
+const GA4_SCOPE = 'https://www.googleapis.com/auth/analytics.readonly';
+const TTL_MS    = 30 * 60 * 1000;
 
-  if (!TOKEN) {
-    return res.status(200).json({ live: false, error: 'Falta VERCEL_TOKEN' });
-  }
-  if (!PROJECT_ID) {
-    return res.status(200).json({ live: false, error: 'VERCEL_PROJECT_ID no disponible' });
-  }
+let cache      = null;
+let tokenCache = null;
 
-  const headers = { Authorization: `Bearer ${TOKEN}` };
-  const teamQ   = TEAM_ID ? `&teamId=${TEAM_ID}` : '';
-
-  try {
-    // ── 1. Datos del proyecto y deployments recientes (API bien documentada) ──
-    const [projRes, deploysRes] = await Promise.all([
-      fetch(`https://api.vercel.com/v9/projects/${PROJECT_ID}?${TEAM_ID ? `teamId=${TEAM_ID}` : ''}`, { headers }),
-      fetch(`https://api.vercel.com/v6/deployments?projectId=${PROJECT_ID}&limit=5&target=production${teamQ}`, { headers }),
-    ]);
-
-    const proj    = projRes.ok    ? await projRes.json()    : null;
-    const deploys = deploysRes.ok ? await deploysRes.json() : null;
-
-    const projectName    = proj?.name ?? 'Sabiduría para el Corazón';
-    const recentDeploys  = (deploys?.deployments ?? []).map(d => ({
-      url:    d.url,
-      state:  d.readyState ?? d.state,
-      fecha:  d.createdAt ? new Date(d.createdAt).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' }) : '—',
-      commit: d.meta?.githubCommitMessage?.split('\n')[0]?.slice(0, 60) ?? '',
-    }));
-
-    // ── 2. Intentar Web Analytics (endpoint puede variar según plan) ──
-    const to   = Date.now();
-    const from = to - 30 * 24 * 60 * 60 * 1000;
-    const analyticsParams = new URLSearchParams({
-      projectId: PROJECT_ID,
-      from: String(from),
-      to:   String(to),
-      environment: 'production',
-      limit: '10',
-    });
-    if (TEAM_ID) analyticsParams.set('teamId', TEAM_ID);
-
-    // Probar endpoints conocidos en orden
-    const analyticsEndpoints = [
-      `https://api.vercel.com/v1/web/insights?${analyticsParams}`,
-      `https://api.vercel.com/v1/web/insights/stats/pageviews?${analyticsParams}`,
-      `https://api.vercel.com/v2/web/insights?${analyticsParams}`,
-    ];
-
-    let pages = [];
-    let analyticsError = '';
-    for (const url of analyticsEndpoints) {
-      const r = await fetch(url, { headers });
-      if (r.ok) {
-        const json = await r.json();
-        const rows = Array.isArray(json.data) ? json.data : (Array.isArray(json) ? json : []);
-        pages = rows
-          .map(p => ({
-            page:    shorten(p.url ?? p.path ?? p.key ?? '/'),
-            visitas: Number(p.total ?? p.count ?? p.pageViews ?? p.visitors ?? 0),
-          }))
-          .filter(p => p.visitas > 0)
-          .sort((a, b) => b.visitas - a.visitas)
-          .slice(0, 8);
-        break;
-      } else {
-        const body = await r.text();
-        analyticsError = `${r.status}: ${body.slice(0, 150)}`;
-      }
-    }
-
-    const totalVisitas = pages.reduce((s, p) => s + p.visitas, 0);
-
-    return res.status(200).json({
-      live:          true,
-      projectName,
-      recentDeploys,
-      pages,
-      totals:        { visitas: totalVisitas, periodo: '30 días' },
-      analyticsNote: pages.length === 0 ? analyticsError : null,
-    });
-
-  } catch (e) {
-    return res.status(200).json({ live: false, error: e.message });
-  }
+function b64url(data) {
+  return Buffer.from(typeof data === 'string' ? data : JSON.stringify(data))
+    .toString('base64')
+    .replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
 }
 
-function shorten(url) {
-  const path = url.replace(/^https?:\/\/[^/]+/, '').replace(/^\//, '') || '';
-  const MAP = {
-    '':                    'Inicio',
-    'adolescentes':        'Jóvenes',
-    'articulos':           'Artículos',
-    'ensayos':             'Ensayos',
-    'biblioteca':          'Biblioteca',
-    'mapas-biblicos':      'Mapas',
-    'biografias':          'Biografías',
-    'predicaciones':       'Predicaciones',
-    'teologia-basica':     'Teología básica',
-    'grandes-temas':       'Grandes temas',
-    'esquemas':            'Esquemas',
-  };
-  const key = path.split('?')[0].split('#')[0].toLowerCase();
-  return MAP[key] ?? (path.length > 24 ? '…' + path.slice(-22) : path || 'Inicio');
+async function getToken(creds) {
+  if (tokenCache && tokenCache.exp > Date.now()) return tokenCache.token;
+
+  const now    = Math.floor(Date.now() / 1000);
+  const header = b64url({ alg: 'RS256', typ: 'JWT' });
+  const claims = b64url({
+    iss:   creds.client_email,
+    scope: GA4_SCOPE,
+    aud:   'https://oauth2.googleapis.com/token',
+    exp:   now + 3600,
+    iat:   now,
+  });
+
+  const toSign = `${header}.${claims}`;
+  const signer = crypto.createSign('RSA-SHA256');
+  signer.update(toSign);
+  const sig = signer.sign(creds.private_key, 'base64')
+    .replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
+
+  const res  = await fetch('https://oauth2.googleapis.com/token', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body:    `grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer&assertion=${toSign}.${sig}`,
+  });
+  const data = await res.json();
+  if (!data.access_token) throw new Error('GA4 token error: ' + JSON.stringify(data));
+
+  tokenCache = { token: data.access_token, exp: Date.now() + 3500 * 1000 };
+  return data.access_token;
+}
+
+export default async function handler(_req, res) {
+  res.setHeader('Cache-Control', 's-maxage=1800, stale-while-revalidate=3600');
+
+  if (cache && Date.now() - cache.fetchedAt < TTL_MS) {
+    return res.status(200).json(cache.data);
+  }
+
+  const raw        = process.env.GSC_SERVICE_ACCOUNT_JSON;
+  const propertyId = process.env.GA4_PROPERTY_ID;
+
+  if (!raw) {
+    return res.status(200).json({ live: false, error: 'GSC_SERVICE_ACCOUNT_JSON no configurada' });
+  }
+  if (!propertyId) {
+    return res.status(200).json({ live: false, error: 'GA4_PROPERTY_ID no configurado' });
+  }
+
+  try {
+    const creds = JSON.parse(raw);
+    creds.private_key = creds.private_key.replace(/\\n/g, '\n');
+
+    const token    = await getToken(creds);
+    const endpoint = `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`;
+    const headers  = { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' };
+
+    const report = (body) => fetch(endpoint, { method: 'POST', headers, body: JSON.stringify(body) });
+
+    const [totalsRes, pagesRes, countriesRes, dailyRes] = await Promise.all([
+      report({
+        dateRanges: [{ startDate: '28daysAgo', endDate: 'today' }],
+        metrics: [{ name: 'sessions' }, { name: 'activeUsers' }, { name: 'screenPageViews' }],
+      }),
+      report({
+        dateRanges: [{ startDate: '28daysAgo', endDate: 'today' }],
+        dimensions: [{ name: 'pagePath' }],
+        metrics:    [{ name: 'screenPageViews' }, { name: 'activeUsers' }],
+        orderBys:   [{ metric: { metricName: 'screenPageViews' }, desc: true }],
+        limit: 10,
+      }),
+      report({
+        dateRanges: [{ startDate: '28daysAgo', endDate: 'today' }],
+        dimensions: [{ name: 'country' }],
+        metrics:    [{ name: 'activeUsers' }],
+        orderBys:   [{ metric: { metricName: 'activeUsers' }, desc: true }],
+        limit: 5,
+      }),
+      report({
+        dateRanges: [{ startDate: '27daysAgo', endDate: 'today' }],
+        dimensions: [{ name: 'date' }],
+        metrics:    [{ name: 'activeUsers' }, { name: 'sessions' }],
+        orderBys:   [{ dimension: { dimensionName: 'date' } }],
+        limit: 28,
+      }),
+    ]);
+
+    const [totals, pages, countries, daily] = await Promise.all([
+      totalsRes.json(), pagesRes.json(), countriesRes.json(), dailyRes.json(),
+    ]);
+
+    const tv       = totals.rows?.[0]?.metricValues ?? [];
+    const sessions  = parseInt(tv[0]?.value ?? 0);
+    const users     = parseInt(tv[1]?.value ?? 0);
+    const pageviews = parseInt(tv[2]?.value ?? 0);
+
+    const result = {
+      live: true,
+      period: '28 días',
+      totals: { sessions, users, pageviews },
+      pages: (pages.rows ?? []).map(r => ({
+        page:      r.dimensionValues?.[0]?.value ?? '/',
+        pageviews: parseInt(r.metricValues?.[0]?.value ?? 0),
+        users:     parseInt(r.metricValues?.[1]?.value ?? 0),
+      })),
+      countries: (countries.rows ?? []).map(r => ({
+        country: r.dimensionValues?.[0]?.value ?? '?',
+        users:   parseInt(r.metricValues?.[0]?.value ?? 0),
+      })),
+      daily: (daily.rows ?? []).map(r => {
+        const d = r.dimensionValues?.[0]?.value ?? '';
+        return {
+          date:     d.length === 8 ? `${d.slice(0,4)}-${d.slice(4,6)}-${d.slice(6,8)}` : d,
+          users:    parseInt(r.metricValues?.[0]?.value ?? 0),
+          sessions: parseInt(r.metricValues?.[1]?.value ?? 0),
+        };
+      }),
+    };
+
+    cache = { data: result, fetchedAt: Date.now() };
+    return res.status(200).json(result);
+
+  } catch (err) {
+    return res.status(200).json({ live: false, error: err.message });
+  }
 }
