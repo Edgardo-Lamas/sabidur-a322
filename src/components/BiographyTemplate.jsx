@@ -56,6 +56,7 @@ const BiographyTemplate = ({ biography, seriesName, seriesPath }) => {
                 title={`${name} | ${seriesName}`}
                 description={epithet || name}
                 url={`${seriesPath}/${slug}`}
+                image={heroImage || portrait}
                 type="article"
             />
 
