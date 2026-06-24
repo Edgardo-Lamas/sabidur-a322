@@ -64,6 +64,7 @@ const Prerreformadores = () => {
                 title="Prerreformadores"
                 description="Biografías de hombres que prepararon el camino antes de la Reforma Protestante. Sus vidas costaron un precio alto, pero su legado fue eterno."
                 url="/prerreformadores"
+                image="img/prerreformadores-og.jpg"
             />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <Breadcrumbs />

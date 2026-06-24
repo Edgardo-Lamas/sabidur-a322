@@ -53,6 +53,7 @@ const Biografias = () => {
                 title="Biografías"
                 description="Biografías de hombres y mujeres que moldearon la historia de la fe cristiana. Prerreformadores, Reformadores y Padres de la Iglesia."
                 url="/biografias"
+                image="img/biografias-og.jpg"
             />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <Breadcrumbs />

@@ -64,6 +64,7 @@ const Reformadores = () => {
                 title="Reformadores"
                 description="Biografías de los hombres que en el siglo XVI dieron forma a la Reforma Protestante. Lutero, Calvino, Zuinglio, Knox y sus contemporáneos."
                 url="/reformadores"
+                image="img/reformadores-og.jpg"
             />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <Breadcrumbs />

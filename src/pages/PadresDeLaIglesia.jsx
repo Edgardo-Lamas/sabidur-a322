@@ -58,6 +58,7 @@ const PadresDeLaIglesia = () => {
                 title="Padres de la Iglesia"
                 description="Biografías de los grandes teólogos del período patrístico. Agustín, Crisóstomo, Atanasio, Ireneo y Tertuliano: los hombres que definieron la doctrina cristiana frente a las herejías."
                 url="/padres-de-la-iglesia"
+                image="img/padres-iglesia-og.jpg"
             />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <Breadcrumbs />
