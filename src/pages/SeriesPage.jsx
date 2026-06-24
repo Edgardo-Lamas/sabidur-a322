@@ -218,6 +218,7 @@ const SeriesPage = () => {
             <SEO
                 title={`${serie.titulo} — Sabiduría para el Corazón`}
                 description={serie.descripcion}
+                image={serie.imagen || undefined}
             />
 
             <div className="min-h-screen bg-sabiduria-bg">
