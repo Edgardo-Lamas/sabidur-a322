@@ -3,6 +3,8 @@
 
 const BOT_UA = /WhatsApp|facebookexternalhit|Facebot|Twitterbot|TelegramBot|LinkedInBot|Slackbot-LinkExpanding|Discordbot|Applebot|Googlebot|bingbot|DuckDuckBot/i;
 
+const OG_PATHS = /^\/(articulo|ensayo|biblioteca|biografias|reformadores|padres-de-la-iglesia|prerreformadores)(\/|$)/;
+
 export default async function middleware(request) {
   const ua = request.headers.get('user-agent') || '';
   if (!BOT_UA.test(ua)) return; // Usuarios normales: pasa al SPA
@@ -10,8 +12,7 @@ export default async function middleware(request) {
   const url = new URL(request.url);
   const path = url.pathname;
 
-  // Solo actuar en rutas con contenido específico
-  if (!path.match(/^\/(articulo|ensayo|biblioteca)\//)) return;
+  if (!OG_PATHS.test(path)) return;
 
   // Proxy transparente a la función que genera el HTML con OG tags
   const previewUrl = new URL('/api/og-preview', url.origin);
@@ -29,5 +30,16 @@ export default async function middleware(request) {
 }
 
 export const config = {
-  matcher: ['/articulo/:slug*', '/ensayo/:slug*', '/biblioteca/:slug*'],
+  matcher: [
+    '/articulo/:slug*',
+    '/ensayo/:slug*',
+    '/biblioteca/:slug*',
+    '/biografias',
+    '/reformadores',
+    '/reformadores/:slug*',
+    '/padres-de-la-iglesia',
+    '/padres-de-la-iglesia/:slug*',
+    '/prerreformadores',
+    '/prerreformadores/:slug*',
+  ],
 };
