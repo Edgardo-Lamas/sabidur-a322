@@ -18,6 +18,7 @@ const SERIES = [
         dates: 'Siglos XII – XVI',
         disponible: true,
         count: 5,
+        image: 'img/prerreformadores-og.jpg',
         excerpt:
             'Hombres que, antes de que Lutero clavara sus tesis en Wittenberg, ya cuestionaban las corrupciones de la Iglesia y anhelaban una reforma anclada en las Escrituras. Sus voces fueron silenciadas, pero no olvidadas.',
         names: 'Wycliffe · Jan Hus · Pedro Waldo · Savonarola · Tyndale',
@@ -29,6 +30,7 @@ const SERIES = [
         dates: 'Siglo XVI',
         disponible: true,
         count: 5,
+        image: 'img/reformadores-og.jpg',
         excerpt:
             'Los hombres que en el siglo XVI rompieron con Roma y dieron forma a las tradiciones protestantes que conocemos hoy. Lutero, Calvino, Zuinglio, Knox y sus contemporáneos.',
         names: 'Lutero · Calvino · Zuinglio · Knox · Bullinger',
@@ -40,103 +42,118 @@ const SERIES = [
         dates: 'Siglos II – V',
         disponible: true,
         count: 5,
+        image: 'img/padres-iglesia-og.jpg',
         excerpt:
             'Los teólogos del período patrístico que definieron la doctrina cristiana frente a las herejías y cuyas obras siguen siendo fuente de estudio para la Iglesia universal.',
         names: 'Agustín · Crisóstomo · Atanasio · Ireneo · Tertuliano',
     },
 ];
 
+const BASE = import.meta.env.BASE_URL;
+
 const Biografias = () => {
     return (
-        <main className="bg-sabiduria-bg min-h-screen py-8 md:py-16">
+        <main className="bg-sabiduria-bg min-h-screen">
             <SEO
                 title="Biografías"
                 description="Biografías de hombres y mujeres que moldearon la historia de la fe cristiana. Prerreformadores, Reformadores y Padres de la Iglesia."
                 url="/biografias"
                 image="img/biografias-og.jpg"
             />
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <Breadcrumbs />
 
-                {/* Header */}
-                <div className="mb-16 border-b border-sabiduria-gray/10 pb-12 mt-8">
-                    <span className="text-sabiduria-gold text-xs font-bold uppercase tracking-[0.3em] mb-4 block">
+            {/* Breadcrumbs */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+                <Breadcrumbs />
+            </div>
+
+            {/* Hero */}
+            <header className="relative mt-4 py-20 md:py-28 overflow-hidden">
+                <img
+                    src={`${BASE}img/biografias-og.jpg`}
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 w-full h-full object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-linear-to-b from-sabiduria-navy/70 via-sabiduria-navy/60 to-sabiduria-navy/85" />
+
+                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <span className="text-sabiduria-gold text-xs font-bold uppercase tracking-[0.3em] mb-5 block">
                         Historia de la Iglesia
                     </span>
-                    <h1 className="text-4xl md:text-5xl font-serif text-sabiduria-navy mb-6">
+                    <h1 className="text-4xl md:text-5xl font-serif text-white mb-4 leading-tight drop-shadow-lg">
                         Biografías
                     </h1>
-                    <p className="text-lg text-sabiduria-gray leading-relaxed max-w-2xl text-justify">
+                    <p className="text-white/70 max-w-2xl mx-auto font-serif leading-relaxed drop-shadow">
                         La historia de la Iglesia se escribe en vidas. Hombres que enfrentaron
                         herejías, traiciones, hogueras e imperios, y cuya fidelidad a la Palabra
-                        de Dios moldeó siglos de fe cristiana. Estas son sus historias.
+                        de Dios moldeó siglos de fe cristiana.
                     </p>
                 </div>
+            </header>
 
-                {/* Series */}
-                <div className="space-y-6">
+            {/* Series cards */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {SERIES.map((serie) => (
                         <article
                             key={serie.slug}
-                            className={`bg-white border shadow-sm transition-all ${
+                            className={`bg-white border shadow-sm flex flex-col transition-all overflow-hidden ${
                                 serie.disponible
                                     ? 'border-sabiduria-gray/5 hover:border-sabiduria-gold/30 group'
                                     : 'border-sabiduria-gray/5 opacity-60'
                             }`}
                         >
-                            <div className="p-8 md:p-10">
-                                <div className="flex flex-col md:flex-row md:items-start gap-6">
-                                    {/* Left: meta */}
-                                    <div className="md:w-56 flex-shrink-0">
-                                        <span className="text-xs uppercase tracking-widest text-sabiduria-gold font-bold block mb-1">
-                                            {serie.dates}
-                                        </span>
-                                        {serie.disponible ? (
-                                            <span className="text-xs text-sabiduria-gray bg-sabiduria-bg px-2 py-1 inline-block">
-                                                {serie.count} {serie.count === 1 ? 'biografía' : 'biografías'} disponibles
-                                            </span>
-                                        ) : (
-                                            <span className="flex items-center gap-1 text-xs text-sabiduria-gray bg-sabiduria-bg px-2 py-1 w-fit">
-                                                <Clock size={11} />
-                                                Próximamente
-                                            </span>
-                                        )}
-                                    </div>
+                            {/* Imagen de la serie */}
+                            <div className="relative h-48 overflow-hidden">
+                                <img
+                                    src={`${BASE}${serie.image}`}
+                                    alt={serie.name}
+                                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                                />
+                                <div className="absolute inset-0 bg-linear-to-t from-sabiduria-navy/60 to-transparent" />
+                                <span className="absolute bottom-3 left-4 text-sabiduria-gold text-xs font-bold uppercase tracking-widest">
+                                    {serie.dates}
+                                </span>
+                            </div>
 
-                                    {/* Right: content */}
-                                    <div className="flex-1">
-                                        <h2
-                                            className={`text-2xl md:text-3xl font-serif font-bold text-sabiduria-navy mb-1 leading-tight ${
-                                                serie.disponible
-                                                    ? 'group-hover:text-sabiduria-gold transition-colors'
-                                                    : ''
-                                            }`}
-                                        >
-                                            {serie.disponible ? (
-                                                <Link to={`/${serie.slug}`}>{serie.name}</Link>
-                                            ) : (
-                                                serie.name
-                                            )}
-                                        </h2>
-                                        <p className="text-sabiduria-gold text-sm italic font-serif mb-4">
-                                            {serie.subtitle}
-                                        </p>
-                                        <p className="text-sabiduria-gray leading-relaxed mb-4">
-                                            {serie.excerpt}
-                                        </p>
-                                        <p className="text-sabiduria-navy/50 text-xs uppercase tracking-widest font-medium mb-6">
-                                            {serie.names}
-                                        </p>
-                                        {serie.disponible && (
-                                            <Link
-                                                to={`/${serie.slug}`}
-                                                className="text-sabiduria-navy font-bold text-sm uppercase tracking-widest flex items-center gap-1 group-hover:gap-2 transition-all"
-                                            >
-                                                Ver serie <ChevronRight size={16} />
-                                            </Link>
-                                        )}
-                                    </div>
-                                </div>
+                            {/* Contenido */}
+                            <div className="p-7 flex flex-col flex-1">
+                                <h2
+                                    className={`text-2xl font-serif font-bold text-sabiduria-navy mb-1 leading-tight ${
+                                        serie.disponible
+                                            ? 'group-hover:text-sabiduria-gold transition-colors'
+                                            : ''
+                                    }`}
+                                >
+                                    {serie.disponible ? (
+                                        <Link to={`/${serie.slug}`}>{serie.name}</Link>
+                                    ) : (
+                                        serie.name
+                                    )}
+                                </h2>
+                                <p className="text-sabiduria-gold text-sm italic font-serif mb-4">
+                                    {serie.subtitle}
+                                </p>
+                                <p className="text-sabiduria-gray leading-relaxed mb-4 flex-1">
+                                    {serie.excerpt}
+                                </p>
+                                <p className="text-sabiduria-navy/40 text-xs uppercase tracking-widest font-medium mb-5">
+                                    {serie.names}
+                                </p>
+
+                                {serie.disponible ? (
+                                    <Link
+                                        to={`/${serie.slug}`}
+                                        className="text-sabiduria-navy font-bold text-sm uppercase tracking-widest flex items-center gap-1 group-hover:gap-2 transition-all mt-auto"
+                                    >
+                                        Ver serie <ChevronRight size={16} />
+                                    </Link>
+                                ) : (
+                                    <span className="flex items-center gap-1 text-xs text-sabiduria-gray bg-sabiduria-bg px-2 py-1 w-fit mt-auto">
+                                        <Clock size={11} />
+                                        Próximamente
+                                    </span>
+                                )}
                             </div>
                         </article>
                     ))}
