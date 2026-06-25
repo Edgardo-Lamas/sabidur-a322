@@ -1283,7 +1283,7 @@
         "imagen": "img/arquitectos-judio-hero.jpg",
         "disponible": true,
         "primerArticulo": "/ensayo/rabban-yojanan-ben-zakkai",
-        "totalArticulos": 5,
+        "totalArticulos": 6,
         "articulos": [
           {
             "numero": 1,
@@ -1318,6 +1318,13 @@
             "titulo": "Abraham Ibn Ezra — El filólogo nómade",
             "subtitulo": "Racionalismo, gramática y las semillas de la crítica bíblica",
             "href": "/ensayo/abraham-ibn-ezra-el-filosofo-nomade",
+            "disponible": true
+          },
+          {
+            "numero": 6,
+            "titulo": "Maimónides — El águila de Córdoba",
+            "subtitulo": "Aristóteles, la Torá y la gran síntesis",
+            "href": "/ensayo/maimonides-el-aguila-de-cordoba",
             "disponible": true
           }
         ]
