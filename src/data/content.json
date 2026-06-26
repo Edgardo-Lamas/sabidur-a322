@@ -1283,7 +1283,7 @@
         "imagen": "img/arquitectos-judio-hero.jpg",
         "disponible": true,
         "primerArticulo": "/ensayo/rabban-yojanan-ben-zakkai",
-        "totalArticulos": 6,
+        "totalArticulos": 8,
         "articulos": [
           {
             "numero": 1,
@@ -1325,6 +1325,20 @@
             "titulo": "Maimónides — El águila de Córdoba",
             "subtitulo": "Aristóteles, la Torá y la gran síntesis",
             "href": "/ensayo/maimonides-el-aguila-de-cordoba",
+            "disponible": true
+          },
+          {
+            "numero": 7,
+            "titulo": "Nahmánides — El exiliado de Barcelona",
+            "subtitulo": "Mística, Torá y el alma del judaísmo medieval tardío",
+            "href": "",
+            "disponible": false
+          },
+          {
+            "numero": 8,
+            "titulo": "El Maestro del Nombre — El Baal Shem Tov",
+            "subtitulo": "Hasidismo, presencia divina y la revolución interior",
+            "href": "/ensayo/baal-shem-tov-el-maestro-del-nombre",
             "disponible": true
           }
         ]
