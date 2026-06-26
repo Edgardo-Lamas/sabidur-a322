@@ -95,7 +95,7 @@ const PageLoader = () => (
   </div>
 );
 
-const siteUrl = import.meta.env.VITE_SITE_URL || 'https://edgardo-lamas.github.io/sabidur-a322';
+const siteUrl = import.meta.env.VITE_SITE_URL || 'https://sabiduriaparaelcorazon.com';
 
 const organizationSchema = {
   "@context": "https://schema.org",

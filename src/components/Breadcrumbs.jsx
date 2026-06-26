@@ -6,7 +6,7 @@ import { ChevronRight, Home } from 'lucide-react';
 const Breadcrumbs = ({ title }) => {
     const location = useLocation();
     const pathnames = location.pathname.split('/').filter((x) => x);
-    const siteUrl = import.meta.env.VITE_SITE_URL || 'https://edgardo-lamas.github.io/sabidur-a322';
+    const siteUrl = import.meta.env.VITE_SITE_URL || 'https://sabiduriaparaelcorazon.com';
 
     // Map internal paths to readable names
     const routeNames = {

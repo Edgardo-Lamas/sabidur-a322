@@ -9,7 +9,7 @@ const ShareButtons = ({ title, url }) => {
     // Construir URL completa si es relativa
     const fullUrl = url?.startsWith('http')
         ? url
-        : `${import.meta.env.VITE_SITE_URL || 'https://edgardo-lamas.github.io/sabidur-a322'}${url}`;
+        : `${import.meta.env.VITE_SITE_URL || 'https://sabiduriaparaelcorazon.com'}${url}`;
 
     const encodedUrl = encodeURIComponent(fullUrl);
     const shareText = encodeURIComponent(`${title} - Sabiduría para el Corazón`);
