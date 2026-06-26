@@ -3,7 +3,7 @@
 
 const BOT_UA = /WhatsApp|facebookexternalhit|Facebot|Twitterbot|TelegramBot|LinkedInBot|Slackbot-LinkExpanding|Discordbot|Applebot|Googlebot|bingbot|DuckDuckBot/i;
 
-const OG_PATHS = /^\/(articulo|ensayo|biblioteca|biografias|reformadores|padres-de-la-iglesia|prerreformadores)(\/|$)/;
+const OG_PATHS = /^\/(articulo|ensayo|biblioteca|biografias|reformadores|padres-de-la-iglesia|prerreformadores|estudios-libros|estudio)(\/|$)/;
 
 export default async function middleware(request) {
   const ua = request.headers.get('user-agent') || '';
@@ -41,5 +41,7 @@ export const config = {
     '/padres-de-la-iglesia/:slug*',
     '/prerreformadores',
     '/prerreformadores/:slug*',
+    '/estudios-libros/:slug*',
+    '/estudio/:slug*',
   ],
 };

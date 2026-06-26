@@ -68,10 +68,11 @@ export default function handler(req, res) {
   const BASE  = `${proto}://${host}`;
 
   // Leer datos JSON
-  let content = {}, textos = {};
+  let content = {}, textos = {}, estudiosLibros = {};
   try {
-    content = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/data/content.json'), 'utf-8'));
-    textos  = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/data/textos.json'),  'utf-8'));
+    content       = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/data/content.json'),        'utf-8'));
+    textos        = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/data/textos.json'),         'utf-8'));
+    estudiosLibros = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/data/estudios-libros.json'), 'utf-8'));
   } catch { /* usa fallback genérico */ }
 
   let title       = SITE_TITLE;
@@ -125,6 +126,54 @@ export default function handler(req, res) {
       title       = `${found.titulo} — ${found.subtitulo} | ${SITE_TITLE}`;
       description = found.descripcion || SITE_DESC;
       image       = resolveImage(found.coverImage, BASE);
+    }
+  }
+
+  // /estudios-libros/:libro/:capitulo — capítulo individual
+  const capMatch = urlPath.match(/^\/estudios-libros\/([^/]+)\/(.+)$/);
+  if (capMatch) {
+    const libroSlug = capMatch[1];
+    const capSlug   = capMatch[2];
+    const libro = (estudiosLibros.libros || []).find(l => l.slug === libroSlug);
+    if (libro) {
+      const cap = (libro.capitulos || []).find(c => c.slug === capSlug);
+      if (cap) {
+        title       = `${cap.titulo} — ${libro.titulo} | ${SITE_TITLE}`;
+        description = cap.descripcion || libro.descripcion || SITE_DESC;
+        image       = resolveImage(libro.imagen, BASE);
+      } else {
+        title       = `${libro.titulo} | ${SITE_TITLE}`;
+        description = libro.descripcion || SITE_DESC;
+        image       = resolveImage(libro.imagen, BASE);
+      }
+    }
+  }
+
+  // /estudios-libros/:libro — landing del libro
+  const libroEstudioMatch = urlPath.match(/^\/estudios-libros\/([^/]+)$/);
+  if (libroEstudioMatch) {
+    const libroSlug = libroEstudioMatch[1];
+    const libro = (estudiosLibros.libros || []).find(l => l.slug === libroSlug);
+    if (libro) {
+      title       = `${libro.titulo} — ${libro.subtitulo} | ${SITE_TITLE}`;
+      description = libro.descripcion || SITE_DESC;
+      image       = resolveImage(libro.imagen, BASE);
+    }
+  }
+
+  // /estudio/:slug — estudios especiales (perfecciones-de-dios, hilo-del-tiempo)
+  const estudioMatch = urlPath.match(/^\/estudio\/(.+)$/);
+  if (estudioMatch) {
+    const slug = estudioMatch[1];
+    const ESTUDIOS_ESPECIALES = {
+      'perfecciones-de-dios': { title: 'Las Perfecciones de Dios', desc: 'Un estudio profundo sobre los atributos divinos: la santidad, la soberanía, la misericordia y la justicia de Dios.', image: 'img/og-default.jpg' },
+      'hilo-del-tiempo':      { title: 'El Hilo del Tiempo', desc: 'Recorrido cronológico por la historia de la redención desde la creación hasta la consumación.', image: 'img/og-default.jpg' },
+    };
+    if (ESTUDIOS_ESPECIALES[slug]) {
+      const e = ESTUDIOS_ESPECIALES[slug];
+      title       = `${e.title} | ${SITE_TITLE}`;
+      description = e.desc;
+      image       = resolveImage(e.image, BASE);
     }
   }
 
