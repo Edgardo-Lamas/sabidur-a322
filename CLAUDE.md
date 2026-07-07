@@ -458,11 +458,18 @@ VITE_SUPABASE_ANON_KEY   # Migrado a JSON locales
 
 - **Archivo:** `public/Templo/templo.html` — integrado en el sitio, en producción en Vercel
 - **Ruta:** `/esquemas/templo-salomon` (wrapper React) + `/templo/templo.html` (pantalla completa)
-- **Versión:** v2.1 (integrado, con post-processing y parapeto corregido)
+- **Versión:** v3 (2026-07-06, commit `893e685`) — **rediseño fiel al templo de Salomón**
 - **Tecnología:** Vanilla Three.js r160, ES modules con import map, single HTML file en `public/`
 - **Texturas:** Poly Haven CDN (CC0, sin login) — carga async desde `dl.polyhaven.org`
-- **Post-processing activo:** HDRI `golden_bay_1k.hdr` (reflexiones PBR), SSAO (profundidad de contacto), Bloom (halos en oro y llamas)
+- **Post-processing:** HDRI `golden_bay_1k.hdr` (solo reflexiones PBR) + Bloom. **SSAO desactivado por rendimiento.**
+- **Rendimiento (Mac de Edgardo se ponía lenta):** `pixelRatio` cap 1.5 · sombras 2048 · almenas/decoración sin sombras · `if(document.hidden) return` en el loop. Referencias PNG movidas a `docs/templo-refs/` (gitignored) para no inflar el deploy.
+- **Cielo:** skydome con gradiente de **amanecer** (editar el gradiente del canvas para cambiarlo; el HDRI NO es el fondo).
 - **Vite fix:** `servePublicHtml()` plugin en `vite.config.js` — evita que el SPA fallback intercepte el HTML del templo en dev
+
+### Layout actual (fiel a 1 Reyes / 2 Crónicas)
+- **Muros de atrio** (NO columnata — esa es herodiana): piedra labrada + cornisa de cedro (1 R 6:36 / 7:12). Constructor `courtWall(x1,z1,x2,z2,h,info)`. Dos recintos: **atrio interior** (`IC_*`, ±46 / z -54..138) y **gran atrio** (`GC_*`, ±80 / z -95..200), cada uno con portón central abierto al este.
+- **Edificio:** piedra caliza gris (`M.stone` usa textura `white_sandstone_bricks`) + corona de almenas escalonadas azul-oro (`battlements(...,'temple')`) + friso.
+- **Mobiliario según Escritura:** Mar de Bronce al SE `(SX=30,SZ=66)` (2 Cr 4:10) · altar al centro `(AZ=98)` · 10 fuentes/mekonot 5+5 a los lados `x=±40` (2 Cr 4:6) · portón de bronce labrado en la entrada del Ulam.
 
 ### Cómo ejecutar en desarrollo
 
@@ -508,13 +515,14 @@ npm run dev
 | Altar de bronce (escalonado + rejilla) | Sacrificio → Cristo | Jn 1:29 |
 | Mar de bronce (12 toros) | Purificación sacerdotal | 1 R 7:23-26 |
 | 10 Carros de bronce | Mekonot con ruedas | 1 R 7:27-39 |
-| Atrio interior | Sacerdotes únicamente | Ef 2:14 |
-| Columnata exterior | Gran patio del pueblo | 2 Cr 4:9 |
+| Atrio interior (muro piedra+cedro) | Sacerdotes únicamente | Ef 2:14 · 1 R 6:36 |
+| Gran atrio (muro piedra+cedro) | Patio del pueblo | 2 Cr 4:9 · 1 R 7:12 |
+| Portón de bronce (Ulam) | «Yo soy la puerta» | 1 R 6:34 · Jn 10:9 |
 
 ### Texturas PBR activas (Poly Haven, CC0)
 ```
-large_sandstone_blocks → muros exteriores (stone)
-white_sandstone_bricks → plataforma/mármol (marble)
+white_sandstone_bricks → piedra gris (stone) + mármol (marble) + pavimento (paving)
+large_sandstone_blocks → (ya NO se usa para muros: era demasiado cálido/tostado)
 brown_planks_03        → cedro interior (cedar/cedarD)
 old_wood_floor         → madera de olivo (olive)
 metal_plate            → bronce (bronze/bronzeD)
@@ -522,25 +530,32 @@ rock_wall              → suelo del atrio (ground)
 ```
 - Oro, vidrio, llamas y humo: **procedurales** (MeshStandardMaterial, sin textura externa)
 
-### Pendientes v3
+### Hecho en v3 (2026-07-06)
+- [x] Piedra caliza gris + corona de almenas escalonadas azul-oro + friso
+- [x] Portón de bronce labrado en la entrada del Ulam
+- [x] Capiteles de lirio + granadas en Jaquín y Boaz
+- [x] Piso de losa de piedra gris; cielo de amanecer
+- [x] **Muros bíblicos** (piedra + cedro): atrio interior + gran atrio. Columnata eliminada (anacrónica)
+- [x] Mobiliario reubicado y espaciado según Escritura (Mar SE, altar centro, 5+5 fuentes)
+- [x] Escalera de caracol externa eliminada (quedaba "colgada")
+- [x] Optimización de rendimiento (ver Estado actual)
 
-- [x] Integrar en página React del sitio (✅ `/esquemas/templo-salomon`, iframe)
-- [x] Post-processing: HDRI + SSAO + Bloom (✅ EffectComposer en templo.html)
-- [x] Parapeto correcto en perímetro del techo — reemplazó almenas medievales (✅)
-- [ ] **Parapeto/cornisa aún se puede acercar más a las imágenes de referencia** — el modelo avanzó pero no es igual a los renders fotorrealistas de referencia. Próximo paso: ajustar proporciones de cornisa y agregar friso decorativo bajo el parapeto
-- [ ] **Renders estáticos fotorrealistas (Blender/V-Ray)** — 5-6 vistas clave (exterior, Hekal, Debir, columnas, Mar de Bronce) como overlay "modo fotorrealista" junto al visor interactivo
-- [ ] Bajar las cámaras Yatsía mal posicionadas
-- [ ] Eliminar la terraza incorrecta
-- [ ] Paneles de pared con palmeras, querubines y rosetas en relieve (canvas texture)
-- [ ] Ventanas clerestory funcionales (ShapeGeometry con abertura)
-- [ ] Estructuras siguientes: Tabernáculo, Templo de Ezequiel, Nueva Jerusalén
+### Pendientes
+- [ ] **Portones de bronce en las entradas de los atrios** (2 Cr 4:9 — «cubrió de bronce las puertas»)
+- [ ] Muros de atrio un poco más altos/macizos para más presencia
+- [ ] Agrandar/aclarar más el Mar de Bronce
+- [ ] Paneles de pared interiores con palmeras, querubines y rosetas más detallados
+- [ ] (Opcional) Renders fotorrealistas Blender como overlay "modo fotorrealista"
+- [ ] **Proyecto aparte siguiente: TEMPLO DE HERODES** (ahí SÍ van columnatas/pórticos). Luego: Tabernáculo, Templo de Ezequiel, Nueva Jerusalén.
 
 ### Lecciones técnicas aprendidas
 - **Import map es OBLIGATORIO** — OrbitControls.js internamente importa `from 'three'`; sin import map falla
-- **Always servir via HTTP** — `file://` bloquea texturas externas por CORS
-- **Unicode minus (U+2212) rompe JS** — usar siempre guión ASCII `-` en números
-- **Hard refresh (Cmd+Shift+R)** — necesario para limpiar caché al iterar
-- **Ventana incógnito** — útil para testear sin caché persistente
+- **Servir via HTTP** — `file://` bloquea texturas externas por CORS
+- **Piedra GRIS:** la textura `large_sandstone_blocks` es cálida/tostada; para gris usar `white_sandstone_bricks` con tinte frío. El tinte (color) multiplica la textura, no la puede desaturar.
+- **`scene.environment` (HDRI) NO es el fondo** — el fondo es el skydome. Para cambiar el cielo, editar el gradiente del canvas del skydome.
+- **Rendimiento:** el mayor costo era `pixelRatio` 2 en Retina + SSAO. Bajar pixelRatio y quitar SSAO fue el gran salto. Las almenas (cientos de cajas) deben ir SIN sombras.
+- **Unicode minus (U+2212) rompe JS** — usar guión ASCII `-` en números
+- **Hard refresh (Cmd+Shift+R)** — para limpiar caché al iterar
 
 ---
 
@@ -604,14 +619,13 @@ Fase C (3D MapLibre)          → paradas estrella seleccionadas
 ### Hecho en sesiones recientes
 
 - **Integración Templo de Salomón 3D:** visor Three.js movido a `public/Templo/templo.html`, ruta `/esquemas/templo-salomon`, tercer tab en Esquemas.jsx. Vite plugin `servePublicHtml()` para evitar conflicto con SPA fallback.
-- **Post-processing Templo:** HDRI `golden_bay_1k.hdr` (Poly Haven), SSAO y Bloom con EffectComposer.
-- **Parapeto corregido:** reemplazó almenas medievales por parapeto sólido + cornisa en el perímetro real del techo (Debir, Hekal, Ulam). Bug original: `cx/cz` y `axis` invertidos ponían el parapeto por el eje central.
+- **Templo v3 — rediseño fiel (2026-07-06, commit `893e685`, en producción):** piedra caliza gris, corona de almenas azul-oro, portón de bronce, capiteles de lirio, **muros bíblicos piedra+cedro** (atrio interior + gran atrio, se quitó la columnata herodiana), mobiliario reubicado según Escritura, escalera de caracol eliminada, cielo de amanecer y **optimizaciones de rendimiento**. Detalle completo en la sección "Proyecto: Templo de Salomón 3D".
 - **Mapas Bíblicos — Fase inmediata + A:** navegación manual (Anterior/Siguiente/Detener) y zoom cinematográfico (`flyZoom` 13, `flyDuration` 2.2) implementados en `useNarrativeMap.js`.
 - **Migración ChatSpurgeon a Claude:** `/api/spurgeon.js` usa `claude-sonnet-4-6` + RAG con Supabase pgvector (475 fragmentos indexados).
 
 ### Próximos Pasos
 
-1. **Templo — acercar roofline a imágenes de referencia:** ajustar proporciones de cornisa, agregar friso decorativo bajo el parapeto. Ver pendientes v3 en sección Templo.
+1. **Templo de Salomón — pulido final:** portones de bronce en los atrios (2 Cr 4:9), muros más altos, agrandar/aclarar el Mar de Bronce, relieves interiores. Ver "Pendientes" en la sección Templo. **Después: proyecto Templo de Herodes** (ahí sí van columnatas).
 2. **Mapas — Fase B (capa satelital):** ESRI World Imagery activada al superar zoom 12. Implementar después de revisar resolución por parada.
 3. **Mapas — Fase 2 (audio):** requiere guion narrativo del Viaje de Abraham primero. Pipeline: Voicebox → R2 → GeoJSON `audioUrl`.
 4. **Dashboard `/panel`:** conectar Vercel Analytics o Google Search Console para métricas reales.
