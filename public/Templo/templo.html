@@ -14,7 +14,7 @@ canvas{display:block}
 #header .sub{font-size:11px;color:#6a5a30;letter-spacing:2px;margin-top:4px}
 #header .brand{font-size:10px;color:#3a2e14;letter-spacing:1px;margin-top:2px}
 
-#tooltip{position:fixed;max-width:340px;background:rgba(5,3,1,.96);border:1px solid rgba(212,175,55,.35);border-left:3px solid #D4AF37;border-radius:4px;padding:16px 18px;pointer-events:none;opacity:0;transition:opacity .25s;z-index:30;backdrop-filter:blur(8px)}
+#tooltip{position:fixed;left:24px;top:88px;width:300px;max-height:72vh;overflow:hidden;background:rgba(5,3,1,.9);border:1px solid rgba(212,175,55,.35);border-left:3px solid #D4AF37;border-radius:4px;padding:16px 18px;pointer-events:none;opacity:0;transition:opacity .25s;z-index:30;backdrop-filter:blur(8px)}
 #tooltip h3{font-size:12px;color:#D4AF37;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:9px;font-weight:normal}
 #tooltip p{font-size:12.5px;line-height:1.8;color:#b8a070}
 #tooltip .ref{font-size:10.5px;color:#5a4820;margin-top:10px;font-style:italic;border-top:1px solid rgba(212,175,55,.12);padding-top:8px}
@@ -208,7 +208,7 @@ const M = {
   goldChain: new THREE.MeshStandardMaterial({ color:0xD4AF37, roughness:0.15, metalness:0.95, emissive:new THREE.Color(0x4A2E00), emissiveIntensity:0.5 }),
   blue:    new THREE.MeshStandardMaterial({ color:0x1A3A70, roughness:0.8,  metalness:0.1  }),
   blueD:   new THREE.MeshStandardMaterial({ color:0x0F2550, roughness:0.8,  metalness:0.1  }),
-  water:   new THREE.MeshPhysicalMaterial({ color:0x2266AA, transparent:true, opacity:0.55, roughness:0.02, metalness:0.1, transmission:0.6, ior:1.33, thickness:2 }),
+  water:   new THREE.MeshPhysicalMaterial({ color:0x2E8BC8, transparent:true, opacity:0.62, roughness:0.02, metalness:0.1, transmission:0.55, ior:1.33, thickness:2, emissive:new THREE.Color(0x0E3A5A), emissiveIntensity:0.25, clearcoat:0.6, clearcoatRoughness:0.05 }),
   smoke:   new THREE.MeshStandardMaterial({ color:0xE0D0A0, transparent:true, opacity:0.10, side:THREE.DoubleSide }),
   flame:   new THREE.MeshStandardMaterial({ color:0xFFCC44, emissive:new THREE.Color(0xFFAA00), emissiveIntensity:1.5, transparent:true, opacity:0.8 }),
   invis:   new THREE.MeshBasicMaterial({ transparent:true, opacity:0, side:THREE.DoubleSide }),
@@ -219,6 +219,10 @@ const M = {
   // Relief decoration
   relief:  new THREE.MeshStandardMaterial({ color:0xD4AF37, roughness:0.25, metalness:0.9, emissive:new THREE.Color(0x3A2200), emissiveIntensity:0.3 }),
 };
+// Bronce bruñido especial del Mar de Bronce (obra maestra de Hiram, 1 R 7:23-26) —
+// más claro y pulido que el bronce común, para que destaque como pieza central.
+M.seaBronze  = pbr('metal_plate', 0xCFA35C, 0.20, 0.92, 2);
+M.seaBronzeD = pbr('metal_plate', 0x9E6E30, 0.32, 0.85, 2);
 
 // ── ILUMINACIÓN ───────────────────────────────────────────────────────────────
 // Sol de amanecer desde el Este (Z+), bajo en el horizonte → luz cálida rasante
@@ -453,15 +457,15 @@ courtWall(GC_N, GC_E, -14, GC_E, GCH, null);          // frente este (con portó
 courtWall(14, GC_E, GC_S, GC_E, GCH, null);
 
 // ── CÁMARAS LATERALES YATSÍA (envoltura exterior de piedra, 3 pisos) ─────────────
-bx(5,10,60, M.stone, -13,5,0,  null);
-bx(5,10,60, M.stone,  13,5,0,  null);
-bx(6,10,60, M.stone, -13.5,15,0,null);
-bx(6,10,60, M.stone,  13.5,15,0,null);
-bx(7,10,60, M.stone, -14,25,0, INFO.YATSIA);
-bx(7,10,60, M.stone,  14,25,0, null);
-bx(32,10,5, M.stone,  0,5,-33, null);
-bx(32,10,5, M.stone,  0,15,-33.5,null);
-bx(32,10,5, M.stone,  0,25,-34,null);
+bx(5,10,65, M.stone, -17.5,5,-2.5,  null);
+bx(5,10,65, M.stone,  17.5,5,-2.5,  null);
+bx(6,10,65, M.stone, -18.0,15,-2.5,null);
+bx(6,10,65, M.stone,  18.0,15,-2.5,null);
+bx(7,10,65, M.stone, -18.5,25,-2.5, INFO.YATSIA);
+bx(7,10,65, M.stone,  18.5,25,-2.5, null);
+bx(44,10,5, M.stone,  0,5,-37.5, null);
+bx(44,10,6, M.stone,  0,15,-38.0,null);
+bx(44,10,7, M.stone,  0,25,-38.5,null);
 
 // NOTA: La escalera de caracol externa (Fase 1.6) se eliminó — quedaba "colgada"
 // contra el muro sin torre ni cerramiento y no figura en los renders de referencia.
@@ -469,9 +473,9 @@ bx(32,10,5, M.stone,  0,25,-34,null);
 
 // ── DEBIR — LUGAR SANTÍSIMO (20×20×20) ────────────────────────────────────────
 // Z: -30 a -10
-bx(22,30,1.4, M.stone, 0,15,-30.7, null);
-bx(1.4,30,20, M.stone,-10.7,15,-20,null);
-bx(1.4,30,20, M.stone, 10.7,15,-20,null);
+bx(30,30,5.0, M.stone, 0,15,-32.5, null);
+bx(5.0,30,20, M.stone,-12.5,15,-20,null);
+bx(5.0,30,20, M.stone, 12.5,15,-20,null);
 bx(22,30,1.4, M.stone, 0,15,-9.3, null);
 // Revestimiento interior oro
 bx(19.8,28.5,0.4, M.goldInt, 0,15,-29.9,null);
@@ -481,9 +485,9 @@ bx(20,0.5,20, M.goldInt, 0,0.25,-20,null);
 bx(20,0.5,20, M.goldInt, 0,29.75,-20,null);
 hov(20,30,20, 0,15,-20, INFO.DEBIR);
 // Coronación azul-oro Debir — perímetro del techo
-battlements(0, 30.5, -30.7, 22, 'x', 'temple');    // pared oeste
-battlements(-10.7, 30.5, -20, 21, 'z', 'temple');  // pared norte
-battlements( 10.7, 30.5, -20, 21, 'z', 'temple');  // pared sur
+battlements(0, 30.5, -32.5, 30, 'x', 'temple');    // pared oeste
+battlements(-12.5, 30.5, -20, 21, 'z', 'temple');  // pared norte
+battlements( 12.5, 30.5, -20, 21, 'z', 'temple');  // pared sur
 
 // ══════════════════════════════════════════════════════════════════════════════
 // FASE 1.5 — DECORACIONES EN RELIEVE (palmeras, flores en paredes doradas)
@@ -749,9 +753,9 @@ scene.add(chainGroup);
 
 // ── HEKAL — LUGAR SANTO (40×30×20) ───────────────────────────────────────────
 // Z: -10 a +30
-bx(1.4,30,41, M.stone,-10.7,15,10,null);
-bx(1.4,30,41, M.stone, 10.7,15,10,null);
-bx(22,30,1.4, M.stone, 0,15,30.7,null);
+bx(5.0,30,41, M.stone,-12.5,15,10,null);
+bx(5.0,30,41, M.stone, 12.5,15,10,null);
+bx(30,30,1.4, M.stone, 0,15,30.7,null);
 // Interior dorado
 bx(0.4,28.5,39.5, M.goldInt,-9.95,15,10,null);
 bx(0.4,28.5,39.5, M.goldInt, 9.95,15,10,null);
@@ -762,17 +766,17 @@ bx(0.4,28.5,39.5, M.goldInt, 9.95,15,10,null);
 bx(20,0.35,40, M.olive, 0,0.175,10,null);
 bx(20,0.10,40, M.goldInt, 0,0.42,10,null);
 // Techo de cedro
-bx(23,1.2,42.5, M.cedarD, 0,30.6,10,null);
+bx(31,1.2,42.5, M.cedarD, 0,30.6,10,null);
 // Ventanas de clerestory (altas y estrechas - abocinadas)
 [-4,0,4].forEach(xw => {
-  bx(1.5,3,0.3, M.stone,-11.2,24,xw,null); // N exterior
-  bx(1.5,3,0.3, M.stone, 11.2,24,xw,null); // S exterior
+  bx(1.5,3,0.3, M.stone,-15.1,24,xw,null); // N exterior
+  bx(1.5,3,0.3, M.stone, 15.1,24,xw,null); // S exterior
 });
 // Hover Hekal
 hov(20,30,40, 0,15,10, INFO.HEKAL);
 // Coronación azul-oro Hekal — perímetro del techo
-battlements(-10.7, 30.5, 10, 40, 'z', 'temple');   // pared norte
-battlements( 10.7, 30.5, 10, 40, 'z', 'temple');   // pared sur
+battlements(-12.5, 30.5, 10, 40, 'z', 'temple');   // pared norte
+battlements( 12.5, 30.5, 10, 40, 'z', 'temple');   // pared sur
 
 // ══════════════════════════════════════════════════════════════════════════════
 // FASE 2.3 — GOD RAYS (conos de luz desde ventanas clerestory)
@@ -967,22 +971,22 @@ hov(12,22,1, 0,11,30.8, { title:'Puerta del Hekal — Madera de Ciprés', body:'
 
 // ── ULAM — VESTÍBULO (20×30×10) ──────────────────────────────────────────────
 const UH = 30;
-bx(1.4,UH,10.5, M.stone,-10.7,UH/2,35,null);
-bx(1.4,UH,10.5, M.stone, 10.7,UH/2,35,null);
-bx(22,UH,1.4,   M.stone,  0,UH/2,30.7,null);
-// Fachada este con abertura (vano de 9c)
-bx(5.5,UH,1.4, M.marble,-7.75,UH/2,40.7,null);
-bx(5.5,UH,1.4, M.marble, 7.75,UH/2,40.7,null);
-bx(22,UH*0.45,1.4, M.marble, 0,UH-UH*0.45/2,40.7,null);
+bx(5.0,UH,10.5, M.stone,-12.5,UH/2,35,null);
+bx(5.0,UH,10.5, M.stone, 12.5,UH/2,35,null);
+bx(30,UH,1.4,   M.stone,  0,UH/2,30.7,null);
+// Fachada este con abertura (vano de 11c, acorde al portón)
+bx(9.5,UH,1.4, M.marble,-10.25,UH/2,40.7,null);
+bx(9.5,UH,1.4, M.marble, 10.25,UH/2,40.7,null);
+bx(30,UH*0.45,1.4, M.marble, 0,UH-UH*0.45/2,40.7,null);
 // Techo Ulam
-bx(22,1.2,11.5, M.cedarD, 0,UH+0.6,35,null);
+bx(30,1.2,11.5, M.cedarD, 0,UH+0.6,35,null);
 // Coronación azul-oro Ulam — perímetro del techo
-battlements(0, UH+1.2, 40.7, 22, 'x', 'temple');      // fachada este
-battlements(-10.7, UH+1.2, 35, 10.5, 'z', 'temple');  // pared norte
-battlements( 10.7, UH+1.2, 35, 10.5, 'z', 'temple');  // pared sur
-hov(22,UH,10.5, 0,UH/2,35, INFO.ULAM);
+battlements(0, UH+1.2, 40.7, 30, 'x', 'temple');      // fachada este
+battlements(-12.5, UH+1.2, 35, 10.5, 'z', 'temple');  // pared norte
+battlements( 12.5, UH+1.2, 35, 10.5, 'z', 'temple');  // pared sur
+hov(30,UH,10.5, 0,UH/2,35, INFO.ULAM);
 // Escalones de acceso al Ulam
-for(let i=0;i<6;i++) bx(24,0.7,1.8, M.marble, 0,-4+i*0.7, 44-i*1.8, null);
+for(let i=0;i<6;i++) bx(32,0.7,1.8, M.marble, 0,-4+i*0.7, 44-i*1.8, null);
 
 // ── PORTÓN DE BRONCE — Entrada del Ulam (dos hojas labradas en oro) ────────────
 (function templeGate(){
@@ -1009,6 +1013,35 @@ for(let i=0;i<6;i++) bx(24,0.7,1.8, M.marble, 0,-4+i*0.7, 44-i*1.8, null);
   });
   hov(11, openH, 1.6, 0, openH/2, 40.5, { title:'Portón del Templo — Bronce', body:'Las dos grandes hojas de la entrada, revestidas de bronce y talladas con querubines, palmeras y flores abiertas cubiertas de oro. Por aquí se accedía al Ulam (vestíbulo). Cristo es la Puerta: «Yo soy la puerta; el que por mí entrare, será salvo».', ref:'1 Reyes 6:34-35 · 2 Crónicas 4:9 · Juan 10:9'});
 })();
+
+// ── PORTONES DE BRONCE DE LOS ATRIOS (2 Cr 4:9: «las puertas… cubrió de bronce») ─
+// Dos hojas de bronce macizo con tachones. Más sobrias que el portón dorado del
+// templo: la Escritura reserva el oro para la Casa y deja los atrios en bronce.
+function courtGate(cz, openW, wallH, hover){
+  const th = 2.2, zF = cz, half = openW/2, openH = wallH - 0.4;
+  const d = (m) => { m.castShadow = false; m.receiveShadow = false; return m; };
+  // Marco de bronce: jambas + dintel + umbral
+  bx(1.0,       wallH, th+0.4, M.bronzeD, -half, wallH/2,   zF, null);
+  bx(1.0,       wallH, th+0.4, M.bronzeD,  half, wallH/2,   zF, null);
+  bx(openW+2,   1.2,   th+0.4, M.bronzeD,  0,    wallH-0.6, zF, null);
+  bx(openW+1.4, 0.5,   th+0.6, M.bronzeD,  0,    0.25,      zF, null);
+  // Dos hojas con tachones y tirador de anillo
+  const leafW = (openW-0.5)/2;
+  [-1,1].forEach(side => {
+    const lx = side*(leafW/2 + 0.12);
+    bx(leafW, openH-0.5, 0.55, M.bronze, lx, (openH-0.5)/2 + 0.25, zF, null);
+    const cols = 3, rows = Math.max(3, Math.round((openH-1.6)/2.2));
+    for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
+      const sx = lx - leafW/2 + leafW*((c+0.5)/cols);
+      const sy = 0.9 + (openH-1.8)*((r+0.5)/rows);
+      d(mk(new THREE.CylinderGeometry(0.26,0.26,0.2,10), M.bronzeD, sx, sy, zF+0.34, null)).rotation.x = Math.PI/2;
+    }
+    d(mk(new THREE.TorusGeometry(0.55,0.11,8,16), M.bronzeD, side*0.5, wallH*0.45, zF+0.36, null));
+  });
+  hov(openW, openH, th+0.8, 0, openH/2, zF, hover);
+}
+courtGate(138, 18, 9,  { title:'Portón del Atrio Interior — Bronce', body:'La entrada al atrio de los sacerdotes, cerrada por dos grandes hojas cubiertas de bronce. Solo los sacerdotes cruzaban este umbral para ministrar ante el altar y el Mar de Bronce. «Las puertas de ellas cubrió de bronce» (2 Cr 4:9).', ref:'2 Crónicas 4:9 · 1 Reyes 6:36' });
+courtGate(200, 28, 12, { title:'Portón del Gran Atrio — Bronce', body:'El acceso principal desde el exterior al gran atrio del pueblo, con hojas de bronce macizo. Aquí se congregaba Israel en las fiestas solemnes. Salomón «cubrió de bronce» las puertas de ambos atrios.', ref:'2 Crónicas 4:9 · 1 Reyes 7:12' });
 
 // ── COLUMNAS JAQUÍN Y BOAZ ────────────────────────────────────────────────────
 const CR = 1.91;
@@ -1061,103 +1094,126 @@ bx(0.6,0.5,21, M.cedarD, 10.3,8.1,AZ,null);
 // FASE 1.3 — MAR DE BRONCE MEJORADO (toros detallados + lirios)
 // ══════════════════════════════════════════════════════════════════════════════
 const SX=30, SZ=66;  // «al lado derecho de la casa, al oriente, hacia el sur» (2 Cr 4:10)
+const SEA_LIFT = 3.2; // altura del fondo del recipiente: apoya sobre las ancas de los bueyes (más grandes)
 
-// Recipiente con perfil mejorado
+// Recipiente: gran tinón cilíndrico (no tazón). Ø10 codos × 5 de alto (1 R 7:23).
 const seaProfile = [
   new THREE.Vector2(0, 0),
-  new THREE.Vector2(4.0, 0),
-  new THREE.Vector2(4.5, 0.5),
-  new THREE.Vector2(4.8, 1.5),
-  new THREE.Vector2(5.0, 3.0),
-  new THREE.Vector2(5.1, 4.0),
-  new THREE.Vector2(5.2, 4.8),
-  new THREE.Vector2(5.0, 5.0),
-  new THREE.Vector2(4.6, 5.0),
+  new THREE.Vector2(3.8, 0),        // fondo plano donde apoyan las ancas de los bueyes
+  new THREE.Vector2(4.9, 0.55),     // curva del fondo hacia la pared
+  new THREE.Vector2(5.15, 1.4),
+  new THREE.Vector2(5.22, 2.6),     // pared casi vertical (leve barril)
+  new THREE.Vector2(5.22, 3.8),
+  new THREE.Vector2(5.15, 4.5),
+  new THREE.Vector2(5.02, 5.0),     // labio superior
 ];
-const seaGeo = new THREE.LatheGeometry(seaProfile, 32);
-const seaMesh = new THREE.Mesh(seaGeo, M.bronze);
-seaMesh.position.set(SX, 0, SZ);
+const seaGeo = new THREE.LatheGeometry(seaProfile, 40);
+const seaMat = M.seaBronze.clone(); seaMat.side = THREE.DoubleSide; // interior opaco
+const seaMesh = new THREE.Mesh(seaGeo, seaMat);
+seaMesh.position.set(SX, SEA_LIFT, SZ);  // descansa SOBRE las ancas de los 12 bueyes (1 R 7:25)
 seaMesh.castShadow = true; seaMesh.receiveShadow = true;
 seaMesh.userData = INFO.SEA; IXS.push(seaMesh);
 scene.add(seaMesh);
 
-// Borde/labio decorativo (lirios — Fase 1.3)
-const lilyCount = 24;
+// Pedestal central de bronce (soporte visible entre las patas de los bueyes)
+cy(1.6, 1.95, SEA_LIFT + 0.2, 16, M.seaBronzeD, SX, (SEA_LIFT + 0.2)/2, SZ, null);
+
+// Molduras horizontales del cuerpo bajo (anillos)
+[1.1, 1.45].forEach(hy => {
+  mk(new THREE.TorusGeometry(5.18, 0.09, 8, 40), M.seaBronzeD, SX, hy + SEA_LIFT, SZ, null).rotation.x = Math.PI/2;
+});
+
+// Dos hileras de calabacillas bajo el borde — «adornos de calabazas» (1 R 7:24)
+[4.15, 4.45].forEach(gy => {
+  for (let i = 0; i < 36; i++) {
+    const a = (i / 36) * Math.PI * 2;
+    const g = mk(new THREE.SphereGeometry(0.16, 6, 6), M.seaBronzeD,
+      SX + Math.cos(a) * 5.24, gy + SEA_LIFT, SZ + Math.sin(a) * 5.24, null);
+    g.castShadow = false;
+  }
+});
+
+// Labio superior plano + brocal de lirio (1 R 7:26 «como flor de lis»)
+mk(new THREE.TorusGeometry(5.12, 0.28, 10, 40), M.seaBronzeD, SX, 5.0 + SEA_LIFT, SZ, null).rotation.x = Math.PI/2;
+const lilyCount = 28;
 for (let i = 0; i < lilyCount; i++) {
   const angle = (i / lilyCount) * Math.PI * 2;
-  const lx = SX + Math.cos(angle) * 5.15;
-  const lz = SZ + Math.sin(angle) * 5.15;
-  // Pétalo de lirio
-  const petal = new THREE.Mesh(
-    new THREE.SphereGeometry(0.25, 6, 6),
-    M.bronzeD
-  );
+  const petal = new THREE.Mesh(new THREE.SphereGeometry(0.24, 6, 6), M.seaBronzeD);
   petal.scale.set(1, 0.5, 1.8);
-  petal.position.set(lx, 5.2, lz);
-  petal.rotation.y = angle;
+  petal.position.set(SX + Math.cos(angle) * 5.12, 5.15 + SEA_LIFT, SZ + Math.sin(angle) * 5.12);
+  petal.rotation.y = angle; petal.castShadow = false;
   scene.add(petal);
 }
 
-// Torus decorativo
-mk(new THREE.TorusGeometry(5.15,0.25,10,32), M.bronzeD, SX,5.1,SZ,null);
-
-// Agua con efecto de ondulación (Fase 2.6)
-const waterGeo = new THREE.CircleGeometry(4.5, 32);
-const waterMesh = new THREE.Mesh(waterGeo, M.water);
+// Agua
+const waterMesh = new THREE.Mesh(new THREE.CircleGeometry(4.7, 40), M.water);
 waterMesh.rotation.x = -Math.PI / 2;
-waterMesh.position.set(SX, 4.85, SZ);
+waterMesh.position.set(SX, 4.8 + SEA_LIFT, SZ);
 scene.add(waterMesh);
 
-// 12 toros de bronce MEJORADOS
-for (let i = 0; i < 12; i++) {
-  const a = (i / 12) * Math.PI * 2;
-  const tx = SX + Math.cos(a) * 4.1;
-  const tz = SZ + Math.sin(a) * 4.1;
-  const tGroup = new THREE.Group();
-
-  // Cuerpo del toro (más detallado)
-  const tBody = new THREE.Mesh(new THREE.CapsuleGeometry(0.55, 1.8, 8, 16), M.bronze);
-  tBody.rotation.z = Math.PI / 2;
-  tBody.position.y = 1.2;
-  tGroup.add(tBody);
-
-  // Cabeza (más grande y definida)
-  const tHead = new THREE.Mesh(new THREE.SphereGeometry(0.45, 10, 10), M.bronze);
-  tHead.scale.set(0.9, 1.0, 1.1);
-  tHead.position.set(Math.cos(a) * 1.2, 1.5, Math.sin(a) * 1.2);
-  tGroup.add(tHead);
-
-  // Morro
-  const muzzle = new THREE.Mesh(new THREE.SphereGeometry(0.22, 8, 8), M.bronze);
-  muzzle.scale.set(1.2, 0.8, 1.0);
-  muzzle.position.set(Math.cos(a) * 1.7, 1.3, Math.sin(a) * 1.7);
-  tGroup.add(muzzle);
-
-  // Cuernos curvos (TubeGeometry)
-  [-0.22, 0.22].forEach(offset => {
-    const hornPts = [
-      new THREE.Vector3(Math.cos(a) * 1.3, 1.8, Math.sin(a) * 1.3),
-      new THREE.Vector3(Math.cos(a) * 1.5, 2.3, Math.sin(a) * 1.5 + offset * 2),
-      new THREE.Vector3(Math.cos(a) * 1.2, 2.6, Math.sin(a) * 1.2 + offset * 3),
-    ];
-    const hornCurve = new THREE.CatmullRomCurve3(hornPts);
-    const hornGeo = new THREE.TubeGeometry(hornCurve, 10, 0.06, 6, false);
-    const horn = new THREE.Mesh(hornGeo, M.bronzeD);
-    tGroup.add(horn);
+// ── 12 BUEYES DE BRONCE — de tres en tres a cada punto cardinal (1 R 7:25) ─────
+// «...y descansaba sobre doce bueyes; tres miraban al norte, tres al occidente,
+//  tres al sur y tres al oriente... y sus traseros estaban hacia la parte de adentro.»
+// Buey robusto y realista, modelado en espacio local con el frente (cabeza) a +Z.
+function makeOx() {
+  const g = new THREE.Group();
+  const B = M.seaBronze, D = M.seaBronzeD;
+  const soft = (m) => { m.castShadow = false; return m; };
+  const P = (geo, mat, x, y, z) => { const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); g.add(m); return m; };
+  // Torso — barril alargado a lo largo de Z
+  const body = P(new THREE.CapsuleGeometry(0.74, 1.75, 10, 18), B, 0, 1.78, -0.1);
+  body.rotation.x = Math.PI/2;
+  // Grupa (cuartos traseros musculosos) hacia el centro (-Z)
+  P(new THREE.SphereGeometry(0.85, 14, 14), B, 0, 1.75, -1.2).scale.set(1.0, 1.12, 0.95);
+  // Giba / cruz sobre los hombros (típica del buey/toro)
+  P(new THREE.SphereGeometry(0.62, 12, 12), B, 0, 2.55, 0.5).scale.set(1.0, 0.95, 1.35);
+  // Pecho / paletas
+  P(new THREE.SphereGeometry(0.74, 12, 12), B, 0, 1.72, 1.0).scale.set(1.0, 1.08, 0.95);
+  // Cuello grueso que baja hacia adelante
+  const neck = P(new THREE.CylinderGeometry(0.44, 0.62, 1.35, 14), B, 0, 2.05, 1.6); neck.rotation.x = 1.25;
+  // Cabeza de buey: cuña alargada y angosta (no hipopótamo), hocico moderado
+  P(new THREE.SphereGeometry(0.48, 14, 14), B, 0, 2.05, 2.35).scale.set(0.9, 0.95, 1.18);  // cráneo/frente (lo más ancho)
+  P(new THREE.SphereGeometry(0.4, 12, 12), B, 0, 1.9, 2.82).scale.set(0.72, 0.78, 1.08);   // cara alargada
+  P(new THREE.SphereGeometry(0.34, 12, 12), B, 0, 1.82, 3.18).scale.set(0.66, 0.66, 0.95); // hocico moderado
+  P(new THREE.BoxGeometry(0.5, 0.2, 0.45), D, 0, 2.36, 2.18);            // testuz angosto entre cuernos
+  // Orejas
+  [-1,1].forEach(s => soft(P(new THREE.SphereGeometry(0.2, 8, 8), D, s*0.54, 2.22, 2.1)).scale.set(1.5, 0.5, 0.9));
+  // Cuernos pequeños (los bueyes no los tienen enormes): curva corta afuera-arriba
+  [-1,1].forEach(s => {
+    const pts = [ new THREE.Vector3(s*0.3, 2.5, 2.42),
+                  new THREE.Vector3(s*0.5, 2.63, 2.34),
+                  new THREE.Vector3(s*0.56, 2.82, 2.2) ];
+    g.add(soft(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 10, 0.07, 6, false), D)));
   });
-
-  // 4 patas
-  const legAngles = [-0.4, 0.4, Math.PI - 0.4, Math.PI + 0.4];
-  legAngles.forEach(la => {
-    const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.15, 1.0, 6), M.bronze);
-    leg.position.set(Math.cos(a + la) * 0.4, 0.5, Math.sin(a + la) * 0.4);
-    tGroup.add(leg);
+  // Papada colgante bajo el cuello
+  P(new THREE.SphereGeometry(0.4, 10, 10), B, 0, 1.32, 1.8).scale.set(0.6, 1.25, 0.85);
+  // 4 patas: muslo + caña + pezuña
+  [[0.5,1.05],[-0.5,1.05],[0.52,-1.15],[-0.52,-1.15]].forEach(([lx,lz]) => {
+    P(new THREE.CylinderGeometry(0.27, 0.19, 0.95, 8), B, lx, 1.28, lz);   // muslo
+    P(new THREE.CylinderGeometry(0.16, 0.15, 1.0, 8),  B, lx, 0.5, lz);    // caña
+    soft(P(new THREE.CylinderGeometry(0.19, 0.23, 0.24, 8), D, lx, 0.12, lz)); // pezuña
   });
-
-  tGroup.position.set(tx, 0, tz);
-  tGroup.rotation.y = a + Math.PI; // mirando hacia afuera
-  scene.add(tGroup);
+  // Cola con borla
+  g.add(soft(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([
+    new THREE.Vector3(0, 2.1, -1.4), new THREE.Vector3(0.16, 1.2, -1.75), new THREE.Vector3(0, 0.5, -1.55)
+  ]), 12, 0.07, 5, false), B)));
+  soft(P(new THREE.SphereGeometry(0.15, 8, 8), D, 0, 0.46, -1.55));
+  return g;
 }
+// Cuatro tríadas: los 3 bueyes de cada grupo miran al mismo punto cardinal
+// (Este +Z, Sur +X, Oeste -Z, Norte -X); traseros hacia el centro (1 R 7:25).
+const OX_R = 3.8;
+[[0,1],[1,0],[0,-1],[-1,0]].forEach(([ux,uz]) => {
+  const px = -uz, pz = ux;               // perpendicular: separa los 3 del grupo
+  const phi = Math.atan2(ux, uz);        // los 3 miran hacia afuera al mismo punto
+  [-2.1, 0, 2.1].forEach(off => {
+    const ox = makeOx();
+    ox.scale.setScalar(1.3);             // bueyes más grandes
+    ox.position.set(SX + ux*OX_R + px*off, 0, SZ + uz*OX_R + pz*off);
+    ox.rotation.y = phi;
+    scene.add(ox);
+  });
+});
 
 // ── CARROS DE BRONCE ────────────────────────────────────────────────────────
 function waterCart(cx, cz, info) {
@@ -1229,11 +1285,7 @@ renderer.domElement.addEventListener('mousemove', e => {
   }
   if(found){
     if(found!==hObj){hObj=found;ttT.textContent=found.userData.title;ttB.textContent=found.userData.body;ttR.textContent=found.userData.ref||'';}
-    let tx=e.clientX+22,ty=e.clientY-18;
-    if(tx+360>innerWidth) tx=e.clientX-370;
-    if(ty+320>innerHeight) ty=e.clientY-310;
-    ttEl.style.left=tx+'px'; ttEl.style.top=ty+'px';
-    ttEl.classList.add('on'); document.body.style.cursor='crosshair';
+    ttEl.classList.add('on'); document.body.style.cursor='crosshair'; // panel fijo (arriba-izq), no tapa el modelo
   } else {
     ttEl.classList.remove('on'); hObj=null; document.body.style.cursor='grab';
   }

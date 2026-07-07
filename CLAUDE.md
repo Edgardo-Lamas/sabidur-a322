@@ -540,10 +540,19 @@ rock_wall              → suelo del atrio (ground)
 - [x] Escalera de caracol externa eliminada (quedaba "colgada")
 - [x] Optimización de rendimiento (ver Estado actual)
 
+### Hecho (2026-07-07) — cuerpo del edificio + portones de atrio
+- [x] **Muros del edificio engrosados de 1.4 → 5.0 codos** (hacia afuera; cara interior fija en x=±10). El interior sagrado sigue en 20 codos. Fiel a muros macizos (1 R 6:6; paralelo Ez 41:5 = 6 codos). Afecta Debir, Hekal y Ulam (muros laterales a ±12.5, cara externa ±15).
+- [x] **Cámaras Yatsía re-leídas como basamento escalonado**: abren contra la cara externa (x=15, z=-35), pisos 5/6/7 codos flarando hacia arriba. Huella externa: bloque **30 c**, con cámaras **~44 c** (antes 22.8 / 35). Todo lo dependiente reubicado: almenas (`battlements` a ±12.5), techos (Hekal 31, Ulam 30), fachada Ulam (30, vano 11c), ventanas clerestory (±15.1), escalones (Ulam 32).
+- [x] **Portones de bronce en ambos atrios** (`courtGate`) — 2 Cr 4:9. Ver Pendientes.
+- Nota de verificación: el ancho "angosto" original (20 c interior, 1 R 6:2) NO era un bug — el templo era alto y estrecho. El engrosado da presencia sin violar esa medida.
+
 ### Pendientes
-- [ ] **Portones de bronce en las entradas de los atrios** (2 Cr 4:9 — «cubrió de bronce las puertas»)
-- [ ] Muros de atrio un poco más altos/macizos para más presencia
-- [ ] Agrandar/aclarar más el Mar de Bronce
+- [x] **Portones de bronce en las entradas de los atrios** (2 Cr 4:9) — hecho: función `courtGate(cz,openW,wallH,hover)`, dos hojas de bronce con tachones + tirador de anillo. Interior en z=138 (vano 18c), gran atrio en z=200 (vano 28c). Bronce, no oro (el oro se reserva para la Casa).
+- [ ] **10 mesas de los panes (hay 1, faltan 9)** — 2 Cr 4:8 manda 10 mesas, 5 norte + 5 sur en el Hekal. El modelo tiene una sola (`tblGrp` en x=-8,z=10). El plano de estudio las muestra en plural.
+- [ ] Muros de atrio un poco más altos/macizos para más presencia (se nota en el render: bajos frente al edificio)
+- [x] **Mar de Bronce destacado** (2026-07-07): bronce bruñido dedicado (`M.seaBronze`/`seaBronzeD`, más claro/pulido), agua más viva (clearcoat + emissive), 12 bueyes rehechos con anatomía completa agrupados de tres en tres a cada punto cardinal con traseros al centro (1 R 7:25 — `makeOx()`). Se mantuvo Ø10×5 codos (1 R 7:23), no se sobredimensionó. Tres bugs corregidos: (a) labio era un torus vertical (falso "asa") → acostado plano `.rotation.x=π/2`; (b) el recipiente se apoyaba al nivel de los bueyes (empotrados) → se eleva con `SEA_LIFT=2.0` para descansar SOBRE sus ancas (1 R 7:25); (c) el Lathe era single-side y se transparentaba el piso mostrando los bueyes → material clonado con `side=DoubleSide` (interior opaco).
+- [ ] (Opcional) Escalones 7+8 del plano de estudio — provienen de Ezequiel 40, no de Salomón; decidir si adoptarlos
+- [ ] (Opcional) Debir como cubo 20³ con cámara superior de 10c encima (1 R 6:20); hoy es de 30 de alto macizo
 - [ ] Paneles de pared interiores con palmeras, querubines y rosetas más detallados
 - [ ] (Opcional) Renders fotorrealistas Blender como overlay "modo fotorrealista"
 - [ ] **Proyecto aparte siguiente: TEMPLO DE HERODES** (ahí SÍ van columnatas/pórticos). Luego: Tabernáculo, Templo de Ezequiel, Nueva Jerusalén.
