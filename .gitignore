@@ -25,3 +25,7 @@ dist-ssr
 .env
 .vercel
 public/Templo/*.png
+docs/templo-refs/
+.playwright-mcp/
+# Secreto de Google OAuth — nunca versionar
+client_secret_*.json

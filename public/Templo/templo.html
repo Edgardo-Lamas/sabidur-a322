@@ -124,7 +124,7 @@ window.__sceneReady = true; // módulo importado OK
 // ── RENDERER ──────────────────────────────────────────────────────────────────
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5)); // cap en pantallas Retina — gran ahorro de GPU
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -151,20 +151,17 @@ const scene = new THREE.Scene();
 scene.background = null; // Usaremos skydome
 
 const camera = new THREE.PerspectiveCamera(48, innerWidth/innerHeight, 0.1, 2000);
-camera.position.set(100, 80, 125);
+camera.position.set(155, 115, 205);
 
 const orbit = new OrbitControls(camera, renderer.domElement);
 orbit.enableDamping = true; orbit.dampingFactor = 0.06;
-orbit.target.set(0, 18, 5); orbit.minDistance = 4; orbit.maxDistance = 500;
+orbit.target.set(0, 15, 55); orbit.minDistance = 4; orbit.maxDistance = 600;
 orbit.maxPolarAngle = Math.PI * 0.88; orbit.update();
 
 // ── POST-PROCESSING (SSAO + Bloom) ────────────────────────────────────────────
 const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
-// SSAO — sombra de contacto entre superficies (profundidad arquitectónica)
-const ssaoPass = new SSAOPass(scene, camera, innerWidth, innerHeight);
-ssaoPass.kernelRadius = 16; ssaoPass.minDistance = 0.005; ssaoPass.maxDistance = 0.10;
-composer.addPass(ssaoPass);
+// SSAO desactivado por rendimiento (era el paso más costoso; poco perceptible con HDRI + sombras)
 // Bloom — halos en oro, llamas y candeleros (umbral sobre valores ya tone-mapped)
 const bloomPass = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 0.38, 0.5, 0.72);
 composer.addPass(bloomPass);
@@ -194,16 +191,16 @@ function pbr(name, color, roughness, metalness, rep = 4) {
 // ── MATERIALES ────────────────────────────────────────────────────────────────
 const M = {
   // PBR texturizados
-  stone:   pbr('large_sandstone_blocks', 0xD8C89A, 0.88, 0.02, 5),
-  marble:  pbr('white_sandstone_bricks',  0xEDE4CC, 0.72, 0.04, 4),
+  stone:   pbr('white_sandstone_bricks',  0xB4B0A6, 0.90, 0.02, 5),
+  marble:  pbr('white_sandstone_bricks',  0xD6D2C8, 0.75, 0.03, 4),
   cedar:   pbr('brown_planks_03',          0x8B5E3C, 0.92, 0.0,  3),
   cedarD:  pbr('brown_planks_03',          0x6B4424, 0.95, 0.0,  3),
   olive:   pbr('old_wood_floor',           0x5A4A30, 0.90, 0.0,  2),
   bronze:  pbr('metal_plate',              0xB87333, 0.38, 0.80, 2),
   bronzeD: pbr('metal_plate',              0x7A4A18, 0.50, 0.75, 2),
-  ground:  pbr('rock_wall',               0x7A6A50, 0.95, 0.0,  8),
-  // Pavimento atrio mejorado (Fase 1.7)
-  paving:  pbr('large_sandstone_blocks',   0xC0B090, 0.82, 0.03, 12),
+  ground:  pbr('rock_wall',               0x9C9070, 0.95, 0.0,  8),
+  // Pavimento del atrio — losa de piedra gris (como los renders de referencia)
+  paving:  pbr('white_sandstone_bricks',   0xADA99F, 0.85, 0.02, 16),
   // Procedurales
   gold:    new THREE.MeshStandardMaterial({ color:0xD4AF37, roughness:0.10, metalness:0.97, emissive:new THREE.Color(0x3A2200), emissiveIntensity:0.45 }),
   goldW:   new THREE.MeshStandardMaterial({ color:0xC8A030, roughness:0.14, metalness:0.94, emissive:new THREE.Color(0x2A1800), emissiveIntensity:0.6, side:THREE.DoubleSide }),
@@ -224,21 +221,21 @@ const M = {
 };
 
 // ── ILUMINACIÓN ───────────────────────────────────────────────────────────────
-// Sol desde el Este (Z+), luz de mañana
-const sun = new THREE.DirectionalLight(0xFFF8E8, 3.2);
-sun.position.set(0, 100, 160);
+// Sol de amanecer desde el Este (Z+), bajo en el horizonte → luz cálida rasante
+const sun = new THREE.DirectionalLight(0xFFE3B8, 3.0);
+sun.position.set(70, 55, 190);
 sun.castShadow = true;
-sun.shadow.mapSize.set(4096, 4096);
+sun.shadow.mapSize.set(2048, 2048); // reducido de 4096 por rendimiento
 sun.shadow.camera.near = 1; sun.shadow.camera.far = 700;
 sun.shadow.camera.left = -250; sun.shadow.camera.right = 250;
 sun.shadow.camera.top = 250; sun.shadow.camera.bottom = -250;
 sun.shadow.bias = -0.0003; sun.shadow.normalBias = 0.02; scene.add(sun);
-scene.add(new THREE.AmbientLight(0xD0C090, 0.30));
-const fill = new THREE.DirectionalLight(0x90A8C8, 0.35);
+scene.add(new THREE.AmbientLight(0xC8B79A, 0.38));
+const fill = new THREE.DirectionalLight(0x9CB2CC, 0.30);
 fill.position.set(-90, 50, -110); scene.add(fill);
-// Contra-luz cálida desde el oeste
-const backLight = new THREE.DirectionalLight(0xFFE0B0, 0.15);
-backLight.position.set(0, 60, -140); scene.add(backLight);
+// Contra-luz cálida (cielo de amanecer)
+const backLight = new THREE.DirectionalLight(0xFFD79A, 0.22);
+backLight.position.set(-40, 45, -140); scene.add(backLight);
 // Brillos interiores
 const glow1 = new THREE.PointLight(0xFFCC44, 6, 28, 2);
 glow1.position.set(0, 12, -20); scene.add(glow1);
@@ -292,20 +289,20 @@ const INFO = {
 // Z+ = Este (entrada), X+ = Sur
 
 // ══════════════════════════════════════════════════════════════════════════════
-// FASE 2.1 — SKYDOME (Cielo realista con gradiente nocturno)
+// FASE 2.1 — SKYDOME (Cielo de amanecer, según renders de referencia)
 // ══════════════════════════════════════════════════════════════════════════════
 const skyGeo = new THREE.SphereGeometry(900, 32, 20);
 const skyCanvas = document.createElement('canvas');
 skyCanvas.width = 512; skyCanvas.height = 512;
 const skyCtx = skyCanvas.getContext('2d');
 const skyGrad = skyCtx.createLinearGradient(0, 0, 0, 512);
-skyGrad.addColorStop(0, '#020108');    // zenith: negro azulado
-skyGrad.addColorStop(0.25, '#0a0520'); // azul muy oscuro
-skyGrad.addColorStop(0.5, '#0e0a22');  // azul profundo
-skyGrad.addColorStop(0.7, '#1a1428');  // transición
-skyGrad.addColorStop(0.85, '#2a1a18'); // horizonte marrón cálido
-skyGrad.addColorStop(0.95, '#3a2010'); // cálido en el horizonte
-skyGrad.addColorStop(1.0, '#1a0e05');  // base
+skyGrad.addColorStop(0, '#1e3a5c');    // zenith: azul amanecer
+skyGrad.addColorStop(0.3, '#3a5a7e');  // azul cielo
+skyGrad.addColorStop(0.55, '#8a8678'); // transición gris-cálida
+skyGrad.addColorStop(0.72, '#c9a878'); // banda dorada
+skyGrad.addColorStop(0.85, '#e8c48a'); // resplandor del sol naciente
+skyGrad.addColorStop(0.94, '#d9ad74'); // horizonte cálido
+skyGrad.addColorStop(1.0, '#9a8460');  // base neblinosa
 skyCtx.fillStyle = skyGrad;
 skyCtx.fillRect(0, 0, 512, 512);
 const skyTex = new THREE.CanvasTexture(skyCanvas);
@@ -316,7 +313,7 @@ scene.add(skyDome);
 // ══════════════════════════════════════════════════════════════════════════════
 // FASE 2.2 — ESTRELLAS MEJORADAS CON TITILEO
 // ══════════════════════════════════════════════════════════════════════════════
-const STAR_COUNT = 8000;
+const STAR_COUNT = 1200;
 const sG = new THREE.BufferGeometry();
 const sP = new Float32Array(STAR_COUNT * 3);
 const sSizes = new Float32Array(STAR_COUNT);
@@ -366,127 +363,109 @@ scene.add(starPoints);
 const gnd = new THREE.Mesh(new THREE.PlaneGeometry(800,800), M.ground);
 gnd.rotation.x = -Math.PI/2; gnd.receiveShadow = true; scene.add(gnd);
 
-// ── FASE 1.7 — PAVIMENTO MEJORADO DEL ATRIO ──────────────────────────────────
-const pavGeo = new THREE.PlaneGeometry(160, 200);
-const pav = new THREE.Mesh(pavGeo, M.paving);
-pav.rotation.x = -Math.PI/2; pav.position.set(0, 0.05, 30);
+// ── PAVIMENTO — losa de piedra del gran atrio ────────────────────────────────
+const pav = new THREE.Mesh(new THREE.PlaneGeometry(215, 350), M.paving);
+pav.rotation.x = -Math.PI/2; pav.position.set(0, 0.08, 55);
 pav.receiveShadow = true; scene.add(pav);
 
-// ── PLATAFORMA DEL MONTE MORÍAH ───────────────────────────────────────────────
-bx(80, 4, 120, M.marble, 0,-2, 5, INFO.MORIAH);
-bx(100,2, 145, M.stone,  0,-5, 5, null);
-// Escalones de acceso principal (este)
-for(let i=0;i<5;i++) bx(28, 0.6, 2, M.marble, 0, -4.7+i*0.6, 73-i*2, null);
+// ── PLATAFORMA DEL MONTE MORÍAH (podio del atrio interior) ───────────────────
+bx(96, 4, 190, M.marble, 0,-2, 40, INFO.MORIAH);
+bx(110,3, 205, M.stone,  0,-5.5, 40, null);
+// Escalones de acceso principal (este) — al frente del podio
+for(let i=0;i<5;i++) bx(30, 0.6, 2, M.marble, 0, -0.4-i*0.6, 137+i*2, null);
 
-// ── PARAPETO + CORNISA (reemplaza almenas medievales) ─────────────────────────
-// Terminación auténtica: templos israelitas s. X a.C. tenían parapeto sólido,
-// no merlones tipo fortaleza. Cornisa de mármol similar a la arquitectura fenicio-cananea.
-function battlements(cx, wallTopY, cz, len, axis) {
-  const pH = 1.6, pD = 1.3;
+// ── CORONACIÓN: friso + almenas escalonadas ──────────────────────────────────
+// Templo israelita/fenicio s. X a.C.: friso decorado bajo una hilera de
+// merlones escalonados. style='temple' → friso azul lapislázuli con filos de
+// oro y merlones azules coronados en oro. style='court' → piedra/mármol.
+function battlements(cx, wallTopY, cz, len, axis, style) {
+  const temple = style === 'temple';
+  const friezeMat = temple ? M.blue : M.stone;
+  const merlonMat = temple ? M.blue : M.marble;
+  const capMat    = temple ? M.gold : M.marble;
+  const fH = temple ? 2.2 : 1.5;   // alto del friso
+  const fD = 1.4;                  // grosor
+  // Piezas decorativas: sin sombras (rendimiento)
+  const d = (m) => { m.castShadow = false; m.receiveShadow = false; return m; };
+  // Friso sobre el borde del muro (+ filos dorados / cornisa)
   if (axis === 'x') {
-    bx(len,       pH,    pD,       M.stone,  cx, wallTopY + pH/2,  cz, null); // parapeto
-    bx(len + 0.7, 0.45,  pD + 0.7, M.marble, cx, wallTopY + 0.22,  cz, null); // cornisa
+    d(bx(len, fH, fD, friezeMat, cx, wallTopY + fH/2, cz, null));
+    if (temple) {
+      d(bx(len + 0.5, 0.35, fD + 0.5, M.gold,   cx, wallTopY + 0.18,      cz, null));
+      d(bx(len + 0.5, 0.35, fD + 0.5, M.gold,   cx, wallTopY + fH - 0.18, cz, null));
+    } else {
+      d(bx(len + 0.6, 0.45, fD + 0.6, M.marble, cx, wallTopY + 0.22,      cz, null));
+    }
   } else {
-    bx(pD,        pH,    len,      M.stone,  cx, wallTopY + pH/2,  cz, null);
-    bx(pD + 0.7,  0.45,  len + 0.7, M.marble, cx, wallTopY + 0.22, cz, null);
+    d(bx(fD, fH, len, friezeMat, cx, wallTopY + fH/2, cz, null));
+    if (temple) {
+      d(bx(fD + 0.5, 0.35, len + 0.5, M.gold,   cx, wallTopY + 0.18,      cz, null));
+      d(bx(fD + 0.5, 0.35, len + 0.5, M.gold,   cx, wallTopY + fH - 0.18, cz, null));
+    } else {
+      d(bx(fD + 0.6, 0.45, len + 0.6, M.marble, cx, wallTopY + 0.22,      cz, null));
+    }
+  }
+  // Hilera de merlones escalonados (base + escalón superior coronado)
+  const top = wallTopY + fH;
+  const step = temple ? 2.4 : 3.2;
+  const mW = 1.35, mH = 1.5, mD = 1.25;
+  const n = Math.max(1, Math.round(len / step));
+  for (let i = 0; i <= n; i++) {
+    const off = -len/2 + len * (i / n);
+    const x = axis === 'x' ? cx + off : cx;
+    const z = axis === 'x' ? cz : cz + off;
+    d(bx(mW, mH, mD, merlonMat, x, top + mH/2, z, null));
+    d(bx(mW*0.5, mH*0.55, mD*0.5, capMat, x, top + mH + mH*0.275, z, null));
   }
 }
-// Banda azul decorativa
-function blueBand(cx, y, cz, w, d) {
-  bx(w, 1.2, d, M.blue, cx, y, cz, null);
-}
 
-// ── COLUMNATA EXTERIOR ────────────────────────────────────────────────────────
-const COL_OUTER_N = -42, COL_OUTER_S = 42;
-const COL_OUTER_W = -50, COL_OUTER_E = 115;
-const colH = 12, colR = 0.8;
-function outerColRow(x1, x2, z, count) {
-  for(let i=0;i<=count;i++){
-    const t=i/count, cx=x1+(x2-x1)*t;
-    cy(colR,colR,colH,12, M.marble, cx, colH/2, z, i===Math.floor(count/2)?INFO.COLONNADE:null);
-    bx(1.8,0.6,1.8, M.marble, cx, colH+0.3, z, null);
-    bx(1.8,0.4,1.8, M.marble, cx, 0.2, z, null);
+// ── MUROS DE ATRIO (1 Reyes 6:36 / 7:12) ─────────────────────────────────────
+// «Tres hileras de piedra labrada y una hilera de vigas de cedro».
+// Muro de sillería con cornisa de cedro — SIN columnata (esa es herodiana, no salomónica).
+function courtWall(x1, z1, x2, z2, h, info) {
+  const cedarH = 1.6, stoneH = h - cedarH, th = 2.2;
+  const cx = (x1 + x2) / 2, cz = (z1 + z2) / 2;
+  const horizontal = Math.abs(x2 - x1) > Math.abs(z2 - z1);
+  const len = horizontal ? Math.abs(x2 - x1) : Math.abs(z2 - z1);
+  if (horizontal) {
+    bx(len, stoneH, th, M.stone, cx, stoneH/2, cz, info);
+    bx(len + 0.6, cedarH, th + 0.7, M.cedar, cx, stoneH + cedarH/2, cz, null); // hilada de cedro
+  } else {
+    bx(th, stoneH, len, M.stone, cx, stoneH/2, cz, info);
+    bx(th + 0.7, cedarH, len + 0.6, M.cedar, cx, stoneH + cedarH/2, cz, null);
   }
 }
-function outerColCol(z1, z2, x, count) {
-  for(let i=0;i<=count;i++){
-    const t=i/count, cz=z1+(z2-z1)*t;
-    cy(colR,colR,colH,12, M.marble, x, colH/2, cz, null);
-    bx(1.8,0.6,1.8, M.marble, x, colH+0.3, cz, null);
-    bx(1.8,0.4,1.8, M.marble, x, 0.2, cz, null);
-  }
-}
-outerColRow(COL_OUTER_W+3, COL_OUTER_E-3, COL_OUTER_N, 25);
-outerColRow(COL_OUTER_W+3, COL_OUTER_E-3, COL_OUTER_S, 25);
-outerColCol(COL_OUTER_N+3, COL_OUTER_E-3, COL_OUTER_W, 20);
-outerColCol(COL_OUTER_N+3, COL_OUTER_E-3, COL_OUTER_E, 20);
-// Linterna/viga encima
-bx(165, 0.8,1.2, M.marble, 30, colH+0.7, COL_OUTER_N, null);
-bx(165, 0.8,1.2, M.marble, 30, colH+0.7, COL_OUTER_S, null);
-bx(1.2, 0.8,100, M.marble, COL_OUTER_W, colH+0.7, 15, null);
-bx(1.2, 0.8,100, M.marble, COL_OUTER_E, colH+0.7, 15, null);
 
-// ── MUROS DEL ATRIO INTERIOR ──────────────────────────────────────────────────
-const cwM = new THREE.MeshStandardMaterial({color:0xC0A880, roughness:0.85});
-cwM.map = tex('white_sandstone_bricks','diff'); cwM.map.repeat.set(8,2);
-cwM.normalMap = tex('white_sandstone_bricks','nor_gl'); cwM.normalMap.repeat.set(8,2);
-bx(1.2,8,155, cwM, -32,4,8,  INFO.COURT);
-bx(1.2,8,155, cwM,  32,4,8,  null);
-bx(65,8,1.2,  cwM,  0,4,-43, null);
-bx(65,8,1.2,  cwM,  0,4,105, null);
-bx(1.2,2.5,155,M.cedarD,-32,9.25,8, null);
-bx(1.2,2.5,155,M.cedarD, 32,9.25,8, null);
-bx(65,2.5,1.2, M.cedarD,  0,9.25,-43,null);
-bx(65,2.5,1.2, M.cedarD,  0,9.25,105,null);
-// Almenas atrio interior
-battlements(0,11.5, -43, 64, 'x'); battlements(0,11.5,105,64,'x');
-battlements(-32,11.5, 8,154,'z'); battlements(32,11.5, 8,154,'z');
+// Atrio interior (de los sacerdotes) — encierra el templo, el altar, el mar y las fuentes
+const IC_N = -46, IC_S = 46, IC_W = -54, IC_E = 138, ICH = 9; // límites y altura
+courtWall(IC_N, IC_W, IC_S, IC_W, ICH, INFO.COURT);   // muro oeste (fondo)
+courtWall(IC_N, IC_W, IC_N, IC_E, ICH, null);         // muro norte
+courtWall(IC_S, IC_W, IC_S, IC_E, ICH, null);         // muro sur
+courtWall(IC_N, IC_E, -9, IC_E, ICH, null);           // frente este (con portón central)
+courtWall(9, IC_E, IC_S, IC_E, ICH, null);
 
-// ── CÁMARAS LATERALES YATSÍA ──────────────────────────────────────────────────
-bx(5,10,60, M.cedar, -13,5,0,  null);
-bx(5,10,60, M.cedar,  13,5,0,  null);
-bx(6,10,60, M.cedar, -13.5,15,0,null);
-bx(6,10,60, M.cedar,  13.5,15,0,null);
-bx(7,10,60, M.cedarD,-14,25,0, INFO.YATSIA);
-bx(7,10,60, M.cedarD, 14,25,0, null);
-bx(32,10,5, M.cedar,  0,5,-33, null);
-bx(32,10,5, M.cedar,  0,15,-33.5,null);
-bx(32,10,5, M.cedarD, 0,25,-34,null);
+// Gran atrio (exterior) — muro mayor que rodea todo (2 Cr 4:9)
+const GC_N = -80, GC_S = 80, GC_W = -95, GC_E = 200, GCH = 12;
+courtWall(GC_N, GC_W, GC_S, GC_W, GCH, null);         // oeste
+courtWall(GC_N, GC_W, GC_N, GC_E, GCH, null);         // norte
+courtWall(GC_S, GC_W, GC_S, GC_E, GCH, null);         // sur
+courtWall(GC_N, GC_E, -14, GC_E, GCH, null);          // frente este (con portón central)
+courtWall(14, GC_E, GC_S, GC_E, GCH, null);
 
-// ══════════════════════════════════════════════════════════════════════════════
-// FASE 1.6 — ESCALERA DE CARACOL (lado sur)
-// ══════════════════════════════════════════════════════════════════════════════
-const spiralGroup = new THREE.Group();
-const stairSteps = 36;
-const stairR = 2.5;
-const stairTotalH = 28;
-for (let i = 0; i < stairSteps; i++) {
-  const angle = (i / stairSteps) * Math.PI * 3; // 1.5 vueltas
-  const y = (i / stairSteps) * stairTotalH;
-  const step = new THREE.Mesh(
-    new THREE.BoxGeometry(3.0, 0.4, 1.0),
-    M.stone
-  );
-  step.position.set(
-    Math.cos(angle) * stairR * 0.5,
-    y,
-    Math.sin(angle) * stairR * 0.5
-  );
-  step.rotation.y = -angle;
-  step.castShadow = true;
-  spiralGroup.add(step);
-}
-// Columna central
-const spiralPole = new THREE.Mesh(
-  new THREE.CylinderGeometry(0.3, 0.3, stairTotalH, 8),
-  M.stone
-);
-spiralPole.position.y = stairTotalH / 2;
-spiralGroup.add(spiralPole);
-spiralGroup.position.set(16.5, 0, 5);
-spiralGroup.userData = INFO.STAIR;
-IXS.push(spiralGroup);
-scene.add(spiralGroup);
+// ── CÁMARAS LATERALES YATSÍA (envoltura exterior de piedra, 3 pisos) ─────────────
+bx(5,10,60, M.stone, -13,5,0,  null);
+bx(5,10,60, M.stone,  13,5,0,  null);
+bx(6,10,60, M.stone, -13.5,15,0,null);
+bx(6,10,60, M.stone,  13.5,15,0,null);
+bx(7,10,60, M.stone, -14,25,0, INFO.YATSIA);
+bx(7,10,60, M.stone,  14,25,0, null);
+bx(32,10,5, M.stone,  0,5,-33, null);
+bx(32,10,5, M.stone,  0,15,-33.5,null);
+bx(32,10,5, M.stone,  0,25,-34,null);
+
+// NOTA: La escalera de caracol externa (Fase 1.6) se eliminó — quedaba "colgada"
+// contra el muro sin torre ni cerramiento y no figura en los renders de referencia.
+// El caracol bíblico (1 R 6:8) era interno a las cámaras Yatsía; se documenta en su tooltip.
 
 // ── DEBIR — LUGAR SANTÍSIMO (20×20×20) ────────────────────────────────────────
 // Z: -30 a -10
@@ -501,10 +480,10 @@ bx(0.4,28.5,18.8, M.goldInt, 9.9,15,-20,null);
 bx(20,0.5,20, M.goldInt, 0,0.25,-20,null);
 bx(20,0.5,20, M.goldInt, 0,29.75,-20,null);
 hov(20,30,20, 0,15,-20, INFO.DEBIR);
-// Parapeto + cornisa Debir — perímetro correcto (bordes del techo)
-battlements(0, 30.5, -30.7, 22, 'x');    blueBand(0, 30, -30.7, 22, 1.6);    // pared oeste
-battlements(-10.7, 30.5, -20, 21, 'z');  blueBand(-10.7, 30, -20, 1.6, 21);  // pared norte
-battlements( 10.7, 30.5, -20, 21, 'z');  blueBand( 10.7, 30, -20, 1.6, 21);  // pared sur
+// Coronación azul-oro Debir — perímetro del techo
+battlements(0, 30.5, -30.7, 22, 'x', 'temple');    // pared oeste
+battlements(-10.7, 30.5, -20, 21, 'z', 'temple');  // pared norte
+battlements( 10.7, 30.5, -20, 21, 'z', 'temple');  // pared sur
 
 // ══════════════════════════════════════════════════════════════════════════════
 // FASE 1.5 — DECORACIONES EN RELIEVE (palmeras, flores en paredes doradas)
@@ -791,9 +770,9 @@ bx(23,1.2,42.5, M.cedarD, 0,30.6,10,null);
 });
 // Hover Hekal
 hov(20,30,40, 0,15,10, INFO.HEKAL);
-// Parapeto + cornisa Hekal — perímetro correcto
-battlements(-10.7, 30.5, 10, 40, 'z');  blueBand(-10.7, 30, 10, 1.6, 40);   // pared norte
-battlements( 10.7, 30.5, 10, 40, 'z');  blueBand( 10.7, 30, 10, 1.6, 40);   // pared sur
+// Coronación azul-oro Hekal — perímetro del techo
+battlements(-10.7, 30.5, 10, 40, 'z', 'temple');   // pared norte
+battlements( 10.7, 30.5, 10, 40, 'z', 'temple');   // pared sur
 
 // ══════════════════════════════════════════════════════════════════════════════
 // FASE 2.3 — GOD RAYS (conos de luz desde ventanas clerestory)
@@ -997,13 +976,39 @@ bx(5.5,UH,1.4, M.marble, 7.75,UH/2,40.7,null);
 bx(22,UH*0.45,1.4, M.marble, 0,UH-UH*0.45/2,40.7,null);
 // Techo Ulam
 bx(22,1.2,11.5, M.cedarD, 0,UH+0.6,35,null);
-// Parapeto + cornisa Ulam — perímetro correcto
-battlements(0, UH+1.2, 40.7, 22, 'x');      blueBand(0, UH, 40.7, 22, 1.6);       // fachada este
-battlements(-10.7, UH+1.2, 35, 10.5, 'z');  blueBand(-10.7, UH, 35, 1.6, 10.5);  // pared norte
-battlements( 10.7, UH+1.2, 35, 10.5, 'z');  blueBand( 10.7, UH, 35, 1.6, 10.5);  // pared sur
+// Coronación azul-oro Ulam — perímetro del techo
+battlements(0, UH+1.2, 40.7, 22, 'x', 'temple');      // fachada este
+battlements(-10.7, UH+1.2, 35, 10.5, 'z', 'temple');  // pared norte
+battlements( 10.7, UH+1.2, 35, 10.5, 'z', 'temple');  // pared sur
 hov(22,UH,10.5, 0,UH/2,35, INFO.ULAM);
 // Escalones de acceso al Ulam
 for(let i=0;i<6;i++) bx(24,0.7,1.8, M.marble, 0,-4+i*0.7, 44-i*1.8, null);
+
+// ── PORTÓN DE BRONCE — Entrada del Ulam (dos hojas labradas en oro) ────────────
+(function templeGate(){
+  const zF = 40.35;                 // plano de las hojas (recessed tras la fachada)
+  const openH = 16.5;               // alto del vano (hasta el dintel)
+  // Marco de bronce (jambas + dintel + umbral)
+  bx(0.8, openH+1.2, 1.4, M.bronzeD, -5.1, (openH+1.2)/2, 40.7, null);
+  bx(0.8, openH+1.2, 1.4, M.bronzeD,  5.1, (openH+1.2)/2, 40.7, null);
+  bx(11.4, 1.2, 1.4, M.bronzeD, 0, openH+0.6, 40.7, null);
+  bx(11, 0.5, 1.6, M.bronzeD, 0, 0.25, 40.7, null);
+  // Dos hojas con rejilla de paneles dorados en relieve
+  [-1, 1].forEach(side => {
+    const cx = side * 2.45;
+    bx(4.7, openH-0.4, 0.5, M.bronze, cx, (openH-0.4)/2, zF, null);
+    for(let r=0;r<3;r++){
+      const py = 2.6 + r*4.9;
+      bx(3.6, 0.25, 0.3, M.gold, cx, py-1.9, zF+0.28, null);
+      bx(3.6, 0.25, 0.3, M.gold, cx, py+1.9, zF+0.28, null);
+      bx(0.25, 4.0, 0.3, M.gold, cx-1.8, py, zF+0.28, null);
+      bx(0.25, 4.0, 0.3, M.gold, cx+1.8, py, zF+0.28, null);
+      mk(new THREE.CylinderGeometry(0.55,0.55,0.2,12), M.gold, cx, py, zF+0.32, null).rotation.x = Math.PI/2;
+    }
+    mk(new THREE.TorusGeometry(0.5,0.12,8,16), M.gold, side*0.6, 8.2, zF+0.3, null);
+  });
+  hov(11, openH, 1.6, 0, openH/2, 40.5, { title:'Portón del Templo — Bronce', body:'Las dos grandes hojas de la entrada, revestidas de bronce y talladas con querubines, palmeras y flores abiertas cubiertas de oro. Por aquí se accedía al Ulam (vestíbulo). Cristo es la Puerta: «Yo soy la puerta; el que por mí entrare, será salvo».', ref:'1 Reyes 6:34-35 · 2 Crónicas 4:9 · Juan 10:9'});
+})();
 
 // ── COLUMNAS JAQUÍN Y BOAZ ────────────────────────────────────────────────────
 const CR = 1.91;
@@ -1013,35 +1018,49 @@ const CR = 1.91;
   cy(2.8,CR,5,24, M.bronze, x,21.5,46, null);
   cy(3.15,2.85,0.9,24, M.bronzeD, x,18.9,46,null);
   cy(3.15,2.85,0.9,24, M.bronzeD, x,20.0,46,null);
-  // Granadas de bronce
-  for(let i=0;i<14;i++){
-    const a=(i/14)*Math.PI*2;
-    const px=x+Math.cos(a)*3.2, pz=46+Math.sin(a)*3.2;
-    mk(new THREE.SphereGeometry(0.3,6,6), M.bronzeD, px,19.3,pz,null);
+  // Granadas de bronce (2 hileras, 1 Reyes 7:20)
+  [19.3, 20.4].forEach(gy => {
+    for(let i=0;i<14;i++){
+      const a=(i/14)*Math.PI*2;
+      const px=x+Math.cos(a)*3.2, pz=46+Math.sin(a)*3.2;
+      const g = mk(new THREE.SphereGeometry(0.3,6,6), M.bronzeD, px,gy,pz,null);
+      g.castShadow = false;
+    }
+  });
+  // Remate bulboso del capitel
+  mk(new THREE.SphereGeometry(1.4,14,12), M.bronze, x,24.2,46,null).scale.set(1,0.85,1);
+  // Corona de lirio (pétalos abiertos hacia afuera)
+  for(let p=0;p<8;p++){
+    const pa=(p/8)*Math.PI*2;
+    const petal = mk(new THREE.ConeGeometry(0.55,3,6), M.bronze, x+Math.cos(pa)*1.5, 25.6, 46+Math.sin(pa)*1.5, null);
+    petal.rotation.z =  Math.cos(pa)*0.55;
+    petal.rotation.x = -Math.sin(pa)*0.55;
+    petal.castShadow = false;
   }
 });
 
-// ── ALTAR DE BRONCE (escalonado con rejilla) ──────────────────────────────────
-bx(24,1.5,24, M.stone,  0,0.75,68,null);
-bx(22,2.5,22, M.stone,  0,2.25,68,null);
-bx(20,3.0,20, M.stone,  0,4.0,68,null);
-bx(20,3.0,20, M.bronze, 0,6.5,68, INFO.ALT_B);
+// ── ALTAR DE BRONCE (escalonado con rejilla) — al fondo del atrio, separado ────
+const AZ = 98;
+bx(24,1.5,24, M.stone,  0,0.75,AZ,null);
+bx(22,2.5,22, M.stone,  0,2.25,AZ,null);
+bx(20,3.0,20, M.stone,  0,4.0,AZ,null);
+bx(20,3.0,20, M.bronze, 0,6.5,AZ, INFO.ALT_B);
 for(let i=-8;i<=8;i+=2){
-  bx(20,0.2,0.25, M.bronzeD, 0,8.15,68+i,null);
-  bx(0.25,0.2,20, M.bronzeD, i,8.15,68, null);
+  bx(20,0.2,0.25, M.bronzeD, 0,8.15,AZ+i,null);
+  bx(0.25,0.2,20, M.bronzeD, i,8.15,AZ, null);
 }
-bx(21,0.5,0.6, M.cedarD, 0,8.1,58,null);
-bx(21,0.5,0.6, M.cedarD, 0,8.1,78,null);
-bx(0.6,0.5,21, M.cedarD,-10.3,8.1,68,null);
-bx(0.6,0.5,21, M.cedarD, 10.3,8.1,68,null);
+bx(21,0.5,0.6, M.cedarD, 0,8.1,AZ-10,null);
+bx(21,0.5,0.6, M.cedarD, 0,8.1,AZ+10,null);
+bx(0.6,0.5,21, M.cedarD,-10.3,8.1,AZ,null);
+bx(0.6,0.5,21, M.cedarD, 10.3,8.1,AZ,null);
 [[9.5,9.5],[-9.5,9.5],[9.5,-9.5],[-9.5,-9.5]].forEach(([ax,az]) => {
-  cy(0.4,0.5,1.5,6, M.bronze, ax,9.3,68+az,null);
+  cy(0.4,0.5,1.5,6, M.bronze, ax,9.3,AZ+az,null);
 });
 
 // ══════════════════════════════════════════════════════════════════════════════
 // FASE 1.3 — MAR DE BRONCE MEJORADO (toros detallados + lirios)
 // ══════════════════════════════════════════════════════════════════════════════
-const SX=22, SZ=72;
+const SX=30, SZ=66;  // «al lado derecho de la casa, al oriente, hacia el sur» (2 Cr 4:10)
 
 // Recipiente con perfil mejorado
 const seaProfile = [
@@ -1168,10 +1187,11 @@ function waterCart(cx, cz, info) {
   if(info){ g.userData=info; IXS.push(g); }
   scene.add(g);
 }
+// Diez fuentes: cinco al norte y cinco al sur (2 Cr 4:6), en filas amplias a los lados
 for(let i=0;i<5;i++){
-  const z=50+i*10;
-  waterCart(-25, z, i===2 ? INFO.CARTS : null);
-  waterCart( 25, z, null);
+  const z=60+i*16;   // 60,76,92,108,124
+  waterCart(-40, z, i===2 ? INFO.CARTS : null);
+  waterCart( 40, z, null);
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -1222,12 +1242,12 @@ renderer.domElement.addEventListener('mouseleave',()=>{ttEl.classList.remove('on
 
 // ── PRESETS DE CÁMARA ─────────────────────────────────────────────────────────
 const CAMS={
-  ext: {p:[100,80,125], t:[0,18,5]},
-  top: {p:[0,220,5],    t:[0,0,5]},
+  ext: {p:[155,115,205], t:[0,16,55]},
+  top: {p:[0,340,55],    t:[0,0,55]},
   hek: {p:[0,15,50],    t:[0,12,5]},
   deb: {p:[0,12,14],    t:[0,12,-20]},
-  col: {p:[0,32,78],    t:[0,12,44]},
-  mar: {p:[40,28,95],   t:[SX,5,SZ]},
+  col: {p:[0,42,96],    t:[0,15,45]},
+  mar: {p:[62,26,102],  t:[SX,6,SZ]},
 };
 let camAnim=null;
 function goTo(k){
@@ -1260,6 +1280,7 @@ function ease(t){return t<.5?2*t*t:-1+(4-2*t)*t;}
 
 function animate(){
   requestAnimationFrame(animate);
+  if (document.hidden) return; // no renderizar en segundo plano (ahorra GPU)
   const t=clock.getElapsedTime();
 
   // Luces interiores pulsantes
@@ -1328,9 +1349,8 @@ window.addEventListener('resize',()=>{
   camera.aspect=innerWidth/innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(innerWidth,innerHeight);
-  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
   composer.setSize(innerWidth,innerHeight);
-  ssaoPass.setSize(innerWidth,innerHeight);
 });
 
 setTimeout(()=>{
