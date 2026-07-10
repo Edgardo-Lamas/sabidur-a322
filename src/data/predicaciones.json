@@ -1516,7 +1516,7 @@
     {
       "id": "genesis",
       "titulo": "Genesis",
-      "total": 62,
+      "total": 61,
       "episodios": [
         {
           "id": "genesis-11",
@@ -1725,14 +1725,6 @@
           "formato": "mp3",
           "tamano": 15817250,
           "url": "https://r2.sabiduriadelcorazon.com/audio/genesis-29_31-30_24-audio.mp3"
-        },
-        {
-          "id": "genesis-33_1-20-audio",
-          "titulo": "Genesis 33_1-20 - Audio",
-          "archivo": "Genesis 33_1-20 - Audio.mp3",
-          "formato": "mp3",
-          "tamano": 446898,
-          "url": "https://r2.sabiduriadelcorazon.com/audio/genesis-33_1-20-audio.mp3"
         },
         {
           "id": "genesis-34_1-31-audio",
@@ -2576,7 +2568,7 @@
     {
       "id": "familia",
       "titulo": "Familia",
-      "total": 43,
+      "total": 38,
       "episodios": [
         {
           "id": "reunión-de-matrimonios-septiembre-2017",
@@ -2847,51 +2839,6 @@
           "formato": "mp3",
           "tamano": 85975728,
           "url": "https://r2.sabiduriadelcorazon.com/audio/taller-3-matrimonios.mp3"
-        },
-        {
-          "id": "1-1",
-          "titulo": "1 (1)",
-          "subtema": "Campamento familiar/2011",
-          "archivo": "1 (1).mp3",
-          "formato": "mp3",
-          "tamano": 209785,
-          "url": "https://r2.sabiduriadelcorazon.com/audio/1-1.mp3"
-        },
-        {
-          "id": "1",
-          "titulo": "1",
-          "subtema": "Campamento familiar/2011",
-          "archivo": "1.mp3",
-          "formato": "mp3",
-          "tamano": 209785,
-          "url": "https://r2.sabiduriadelcorazon.com/audio/1.mp3"
-        },
-        {
-          "id": "2-1",
-          "titulo": "2 (1)",
-          "subtema": "Campamento familiar/2011",
-          "archivo": "2 (1).mp3",
-          "formato": "mp3",
-          "tamano": 82342,
-          "url": "https://r2.sabiduriadelcorazon.com/audio/2-1.mp3"
-        },
-        {
-          "id": "2",
-          "titulo": "2",
-          "subtema": "Campamento familiar/2011",
-          "archivo": "2.mp3",
-          "formato": "mp3",
-          "tamano": 82342,
-          "url": "https://r2.sabiduriadelcorazon.com/audio/2.mp3"
-        },
-        {
-          "id": "3",
-          "titulo": "3",
-          "subtema": "Campamento familiar/2011",
-          "archivo": "3.mp3",
-          "formato": "mp3",
-          "tamano": 658094,
-          "url": "https://r2.sabiduriadelcorazon.com/audio/3.mp3"
         },
         {
           "id": "3b",
