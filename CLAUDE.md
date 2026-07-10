@@ -456,7 +456,7 @@ VITE_SUPABASE_ANON_KEY   # Migrado a JSON locales
 
 ### Estado actual
 
-- **Archivo:** `public/Templo/templo.html` — integrado en el sitio, en producción en Vercel
+- **Archivo:** `public/templo/templo.html` (carpeta en minúscula — Vercel distingue mayúsculas; con `Templo` la URL `/templo/templo.html` caía al 404 del SPA) — integrado en el sitio, en producción en Vercel
 - **Ruta:** `/esquemas/templo-salomon` (wrapper React) + `/templo/templo.html` (pantalla completa)
 - **Versión:** v3 (2026-07-06, commit `893e685`) — **rediseño fiel al templo de Salomón**
 - **Tecnología:** Vanilla Three.js r160, ES modules con import map, single HTML file en `public/`
@@ -548,8 +548,9 @@ rock_wall              → suelo del atrio (ground)
 
 ### Pendientes
 - [x] **Portones de bronce en las entradas de los atrios** (2 Cr 4:9) — hecho: función `courtGate(cz,openW,wallH,hover)`, dos hojas de bronce con tachones + tirador de anillo. Interior en z=138 (vano 18c), gran atrio en z=200 (vano 28c). Bronce, no oro (el oro se reserva para la Casa).
-- [ ] **10 mesas de los panes (hay 1, faltan 9)** — 2 Cr 4:8 manda 10 mesas, 5 norte + 5 sur en el Hekal. El modelo tiene una sola (`tblGrp` en x=-8,z=10). El plano de estudio las muestra en plural.
-- [ ] Muros de atrio un poco más altos/macizos para más presencia (se nota en el render: bajos frente al edificio)
+- [x] **10 mesas de los panes** (2026-07-09) — 2 Cr 4:8: función `breadTable(x,z,addInfo)`, 5 al norte (x=-7.8) + 5 al sur (x=+7.8), intercaladas entre las menorás (z = -5.5, -0.5, 4.5, 9.5, 14.5). 12 panes por mesa (2 pilas de 6). Tooltip actualizado en INFO.BREAD.
+- [x] **Muros de atrio más altos/macizos** (2026-07-09) — atrio interior 9→12 codos, gran atrio 12→16, espesor 2.2→3.0, hilada de cedro 1.6→2.0. `courtGate` actualizado para acompañar (th y wallH).
+- [x] **Preset "Interior Hekal" corregido** (2026-07-09) — desde que existe el portón del Ulam quedaba mirando la puerta cerrada; ahora la cámara entra al Lugar Santo: `hek: {p:[0,13,28], t:[0,9,-6]}`.
 - [x] **Mar de Bronce destacado** (2026-07-07): bronce bruñido dedicado (`M.seaBronze`/`seaBronzeD`, más claro/pulido), agua más viva (clearcoat + emissive), 12 bueyes rehechos con anatomía completa agrupados de tres en tres a cada punto cardinal con traseros al centro (1 R 7:25 — `makeOx()`). Se mantuvo Ø10×5 codos (1 R 7:23), no se sobredimensionó. Tres bugs corregidos: (a) labio era un torus vertical (falso "asa") → acostado plano `.rotation.x=π/2`; (b) el recipiente se apoyaba al nivel de los bueyes (empotrados) → se eleva con `SEA_LIFT=2.0` para descansar SOBRE sus ancas (1 R 7:25); (c) el Lathe era single-side y se transparentaba el piso mostrando los bueyes → material clonado con `side=DoubleSide` (interior opaco).
 - [ ] (Opcional) Escalones 7+8 del plano de estudio — provienen de Ezequiel 40, no de Salomón; decidir si adoptarlos
 - [ ] (Opcional) Debir como cubo 20³ con cámara superior de 10c encima (1 R 6:20); hoy es de 30 de alto macizo
@@ -627,7 +628,7 @@ Fase C (3D MapLibre)          → paradas estrella seleccionadas
 
 ### Hecho en sesiones recientes
 
-- **Integración Templo de Salomón 3D:** visor Three.js movido a `public/Templo/templo.html`, ruta `/esquemas/templo-salomon`, tercer tab en Esquemas.jsx. Vite plugin `servePublicHtml()` para evitar conflicto con SPA fallback.
+- **Integración Templo de Salomón 3D:** visor Three.js movido a `public/templo/templo.html`, ruta `/esquemas/templo-salomon`, tercer tab en Esquemas.jsx. Vite plugin `servePublicHtml()` para evitar conflicto con SPA fallback.
 - **Templo v3 — rediseño fiel (2026-07-06, commit `893e685`, en producción):** piedra caliza gris, corona de almenas azul-oro, portón de bronce, capiteles de lirio, **muros bíblicos piedra+cedro** (atrio interior + gran atrio, se quitó la columnata herodiana), mobiliario reubicado según Escritura, escalera de caracol eliminada, cielo de amanecer y **optimizaciones de rendimiento**. Detalle completo en la sección "Proyecto: Templo de Salomón 3D".
 - **Mapas Bíblicos — Fase inmediata + A:** navegación manual (Anterior/Siguiente/Detener) y zoom cinematográfico (`flyZoom` 13, `flyDuration` 2.2) implementados en `useNarrativeMap.js`.
 - **Migración ChatSpurgeon a Claude:** `/api/spurgeon.js` usa `claude-sonnet-4-6` + RAG con Supabase pgvector (475 fragmentos indexados).

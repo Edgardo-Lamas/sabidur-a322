@@ -280,7 +280,7 @@ const INFO = {
   SEA:   { title:'El Mar de Bronce — Purificación Sacerdotal', body:'Diámetro: 10 codos. Altura: 5 codos. Circunferencia: 30 codos. La discrepancia con π se resuelve midiendo el interior (el borde tenía un palmo de espesor). 12 toros de bronce como soporte, 3 mirando a cada punto cardinal. Capacidad: 2000 batos (1 R. 7:26) o 3000 (2 Cr. 4:5) ≈ 40.000-60.000 litros. Los sacerdotes se purificaban aquí antes de ministrar. Tipología del bautismo y la purificación por la Palabra (Ef. 5:26).', ref:'1 Reyes 7:23-26 · 2 Crónicas 4:2-5 · Efesios 5:26'},
   YATSIA:{ title:'Cámaras Laterales (יָצִיעַ — Yatsía)', body:'Tres pisos de cámaras de cedro rodeaban el templo por el norte, sur y oeste. El muro del templo tenía rebajes progresivos (misgérot) para que las vigas descansaran sin penetrar la piedra sagrada. Piso 1: 5 codos; Piso 2: 6 codos; Piso 3: 7 codos. Se accedía por escalera de caracol en el flanco sur. Usadas para almacenar tesoros, vestiduras y utensilios del culto.', ref:'1 Reyes 6:5-8'},
   INC:   { title:'Altar del Incienso — Intercesión Perpetua', body:'Cedro cubierto de oro, ubicado frente a la cortina del Debir. El sacerdote quemaba la mezcla de cuatro especias (quetoret, Éx. 30:34) cada mañana y tarde. La columna de humo aromático llenaba el Hekal como símbolo de la oración ascendiendo a Dios. En Apocalipsis 8:3-4 el incienso ante el trono divino es identificado con las oraciones de los santos.', ref:'1 Reyes 6:20-22 · Éxodo 30:1-10 · Apocalipsis 8:3-4'},
-  BREAD: { title:'Mesa de los Panes de la Proposición', body:'Mesa de acacia cubierta de oro. Doce panes redondos (lechem happanim, "pan de la Presencia"), uno por tribu, renovados cada sábado. Cuando David y sus hombres comieron estos panes (1 Samuel 21), Jesús lo usó para enseñar que la misericordia precede al rito (Mateo 12:3-4). Él mismo declaró: "Yo soy el pan de vida" (Juan 6:35).', ref:'1 Reyes 7:48 · Levítico 24:5-9 · Juan 6:35 · Mateo 12:3-4'},
+  BREAD: { title:'Mesas de los Panes de la Proposición', body:'Diez mesas cubiertas de oro, cinco al norte y cinco al sur del Lugar Santo (2 Crónicas 4:8). Sobre ellas, los doce panes redondos (lechem happanim, "pan de la Presencia"), uno por tribu, renovados cada sábado. Cuando David y sus hombres comieron estos panes (1 Samuel 21), Jesús lo usó para enseñar que la misericordia precede al rito (Mateo 12:3-4). Él mismo declaró: "Yo soy el pan de vida" (Juan 6:35).', ref:'2 Crónicas 4:8 · 1 Reyes 7:48 · Levítico 24:5-9 · Juan 6:35'},
   LAMPS: { title:'Los Diez Candeleros (Menorot) de Oro', body:'Cinco al norte, cinco al sur del Hekal, de oro puro labrado. El Tabernáculo tenía solo uno (menorá de 7 brazos); Salomón multiplicó el número para reflejar la gloria expandida. Cada menorá tiene siete brazos (el número de la perfección divina) con llamas perpetuas. Cristo: "Yo soy la luz del mundo" (Juan 8:12). En Ap. 1 los siete candeleros representan las iglesias en presencia del Resucitado.', ref:'1 Reyes 7:49 · Juan 8:12 · Apocalipsis 1:12-20'},
   COURT: { title:'El Atrio Interior — De los Sacerdotes', body:'Delimitado por muros de tres hiladas de piedra labrada y una hilada de vigas de cedro (patrón arquitectónico hitita del período, también usado en palacios sirios contemporáneos). Solo los sacerdotes podían acceder. La distinción entre atrios prefiguraba los niveles de acceso a Dios bajo el Antiguo Pacto, plenamente abolidos en Cristo: "Él derribó la pared intermedia de separación" (Efesios 2:14).', ref:'1 Reyes 6:36 · Efesios 2:14 · Hebreos 10:19-20'},
   CARTS: { title:'Diez Bases de Bronce (מְכוֹנוֹת — Mekonot)', body:'Diez carros de bronce sobre ruedas, 5 norte y 5 sur. Base: 4×4 codos; alto: 3 codos. Paneles decorados en bajorrelieve con leones, bueyes y querubines. Sobre cada carro una fuente de 4 codos para lavar los sacrificios. Eran una maravilla de ingeniería del período, con ejes, travesaños y marcos de fundición de bronce.', ref:'1 Reyes 7:27-39'},
@@ -427,7 +427,7 @@ function battlements(cx, wallTopY, cz, len, axis, style) {
 // «Tres hileras de piedra labrada y una hilera de vigas de cedro».
 // Muro de sillería con cornisa de cedro — SIN columnata (esa es herodiana, no salomónica).
 function courtWall(x1, z1, x2, z2, h, info) {
-  const cedarH = 1.6, stoneH = h - cedarH, th = 2.2;
+  const cedarH = 2.0, stoneH = h - cedarH, th = 3.0;
   const cx = (x1 + x2) / 2, cz = (z1 + z2) / 2;
   const horizontal = Math.abs(x2 - x1) > Math.abs(z2 - z1);
   const len = horizontal ? Math.abs(x2 - x1) : Math.abs(z2 - z1);
@@ -441,7 +441,7 @@ function courtWall(x1, z1, x2, z2, h, info) {
 }
 
 // Atrio interior (de los sacerdotes) — encierra el templo, el altar, el mar y las fuentes
-const IC_N = -46, IC_S = 46, IC_W = -54, IC_E = 138, ICH = 9; // límites y altura
+const IC_N = -46, IC_S = 46, IC_W = -54, IC_E = 138, ICH = 12; // límites y altura
 courtWall(IC_N, IC_W, IC_S, IC_W, ICH, INFO.COURT);   // muro oeste (fondo)
 courtWall(IC_N, IC_W, IC_N, IC_E, ICH, null);         // muro norte
 courtWall(IC_S, IC_W, IC_S, IC_E, ICH, null);         // muro sur
@@ -449,7 +449,7 @@ courtWall(IC_N, IC_E, -9, IC_E, ICH, null);           // frente este (con portó
 courtWall(9, IC_E, IC_S, IC_E, ICH, null);
 
 // Gran atrio (exterior) — muro mayor que rodea todo (2 Cr 4:9)
-const GC_N = -80, GC_S = 80, GC_W = -95, GC_E = 200, GCH = 12;
+const GC_N = -80, GC_S = 80, GC_W = -95, GC_E = 200, GCH = 16;
 courtWall(GC_N, GC_W, GC_S, GC_W, GCH, null);         // oeste
 courtWall(GC_N, GC_W, GC_N, GC_E, GCH, null);         // norte
 courtWall(GC_S, GC_W, GC_S, GC_E, GCH, null);         // sur
@@ -824,23 +824,31 @@ for (let si = 0; si < 3; si++) {
 incGrp.position.set(0,0,-7.5);
 incGrp.userData = INFO.INC; IXS.push(incGrp); scene.add(incGrp);
 
-// ── MESA DE LOS PANES (panes redondos apilados) ───────────────────────────────
-const tblGrp = new THREE.Group();
-const tblTop = new THREE.Mesh(new THREE.BoxGeometry(3.2,0.22,1.8), M.gold);
-tblTop.position.y = 4; tblGrp.add(tblTop);
-[[-1.0,0],[0,0],[1.0,0]].forEach(([lx,lz]) => { // patas
-  const leg = new THREE.Mesh(new THREE.BoxGeometry(0.12,4,0.12), M.gold);
-  leg.position.set(lx,2,lz); tblGrp.add(leg);
+// ── 10 MESAS DE LOS PANES — 5 al norte y 5 al sur del Hekal (2 Cr 4:8) ────────
+function breadTable(x, z, addInfo){
+  const g = new THREE.Group();
+  const top = new THREE.Mesh(new THREE.BoxGeometry(3.2,0.22,1.8), M.gold);
+  top.position.y = 4; g.add(top);
+  [[-1.45,-0.75],[1.45,-0.75],[-1.45,0.75],[1.45,0.75]].forEach(([lx,lz]) => { // patas
+    const leg = new THREE.Mesh(new THREE.BoxGeometry(0.14,4,0.14), M.gold);
+    leg.position.set(lx,2,lz); g.add(leg);
+  });
+  // Panes redondos (2 pilas de 6 — 12 panes, uno por tribu)
+  [-0.65,0.65].forEach(px => {
+    for(let p=0;p<6;p++){
+      const pan = new THREE.Mesh(new THREE.CylinderGeometry(0.45,0.45,0.15,10), M.stone);
+      pan.position.set(px, 4.23+p*0.16, 0); g.add(pan);
+    }
+  });
+  g.position.set(x,0,z);
+  if (addInfo) { g.userData = INFO.BREAD; IXS.push(g); }
+  scene.add(g); return g;
+}
+const tZpos = [-5.5, -0.5, 4.5, 9.5, 14.5]; // intercaladas entre las menorás
+tZpos.forEach((z, i) => {
+  breadTable( 7.8, z, false);      // lado sur (X+)
+  breadTable(-7.8, z, i === 2);    // lado norte
 });
-// Panes redondos (2 pilas de 6)
-[-0.65,0.65].forEach(px => {
-  for(let p=0;p<5;p++){
-    const pan = new THREE.Mesh(new THREE.CylinderGeometry(0.45,0.45,0.15,10), M.stone);
-    pan.position.set(px, 4.23+p*0.16, 0); tblGrp.add(pan);
-  }
-});
-tblGrp.position.set(-8,0,10);
-tblGrp.userData = INFO.BREAD; IXS.push(tblGrp); scene.add(tblGrp);
 
 // ══════════════════════════════════════════════════════════════════════════════
 // FASE 1.4 — MENORAH MEJORADA (brazos curvos con CatmullRomCurve3)
@@ -1018,7 +1026,7 @@ for(let i=0;i<6;i++) bx(32,0.7,1.8, M.marble, 0,-4+i*0.7, 44-i*1.8, null);
 // Dos hojas de bronce macizo con tachones. Más sobrias que el portón dorado del
 // templo: la Escritura reserva el oro para la Casa y deja los atrios en bronce.
 function courtGate(cz, openW, wallH, hover){
-  const th = 2.2, zF = cz, half = openW/2, openH = wallH - 0.4;
+  const th = 3.0, zF = cz, half = openW/2, openH = wallH - 0.4;
   const d = (m) => { m.castShadow = false; m.receiveShadow = false; return m; };
   // Marco de bronce: jambas + dintel + umbral
   bx(1.0,       wallH, th+0.4, M.bronzeD, -half, wallH/2,   zF, null);
@@ -1040,8 +1048,8 @@ function courtGate(cz, openW, wallH, hover){
   });
   hov(openW, openH, th+0.8, 0, openH/2, zF, hover);
 }
-courtGate(138, 18, 9,  { title:'Portón del Atrio Interior — Bronce', body:'La entrada al atrio de los sacerdotes, cerrada por dos grandes hojas cubiertas de bronce. Solo los sacerdotes cruzaban este umbral para ministrar ante el altar y el Mar de Bronce. «Las puertas de ellas cubrió de bronce» (2 Cr 4:9).', ref:'2 Crónicas 4:9 · 1 Reyes 6:36' });
-courtGate(200, 28, 12, { title:'Portón del Gran Atrio — Bronce', body:'El acceso principal desde el exterior al gran atrio del pueblo, con hojas de bronce macizo. Aquí se congregaba Israel en las fiestas solemnes. Salomón «cubrió de bronce» las puertas de ambos atrios.', ref:'2 Crónicas 4:9 · 1 Reyes 7:12' });
+courtGate(138, 18, 12, { title:'Portón del Atrio Interior — Bronce', body:'La entrada al atrio de los sacerdotes, cerrada por dos grandes hojas cubiertas de bronce. Solo los sacerdotes cruzaban este umbral para ministrar ante el altar y el Mar de Bronce. «Las puertas de ellas cubrió de bronce» (2 Cr 4:9).', ref:'2 Crónicas 4:9 · 1 Reyes 6:36' });
+courtGate(200, 28, 16, { title:'Portón del Gran Atrio — Bronce', body:'El acceso principal desde el exterior al gran atrio del pueblo, con hojas de bronce macizo. Aquí se congregaba Israel en las fiestas solemnes. Salomón «cubrió de bronce» las puertas de ambos atrios.', ref:'2 Crónicas 4:9 · 1 Reyes 7:12' });
 
 // ── COLUMNAS JAQUÍN Y BOAZ ────────────────────────────────────────────────────
 const CR = 1.91;
@@ -1296,7 +1304,7 @@ renderer.domElement.addEventListener('mouseleave',()=>{ttEl.classList.remove('on
 const CAMS={
   ext: {p:[155,115,205], t:[0,16,55]},
   top: {p:[0,340,55],    t:[0,0,55]},
-  hek: {p:[0,15,50],    t:[0,12,5]},
+  hek: {p:[0,13,28],    t:[0,9,-6]},
   deb: {p:[0,12,14],    t:[0,12,-20]},
   col: {p:[0,42,96],    t:[0,15,45]},
   mar: {p:[62,26,102],  t:[SX,6,SZ]},
