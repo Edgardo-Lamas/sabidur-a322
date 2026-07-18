@@ -150,7 +150,7 @@ new RGBELoader().load(
 const scene = new THREE.Scene();
 scene.background = null; // Usaremos skydome
 
-const camera = new THREE.PerspectiveCamera(48, innerWidth/innerHeight, 0.1, 2000);
+const camera = new THREE.PerspectiveCamera(55, innerWidth/innerHeight, 0.1, 2000);
 camera.position.set(155, 115, 205);
 
 const orbit = new OrbitControls(camera, renderer.domElement);
@@ -163,7 +163,7 @@ const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
 // SSAO desactivado por rendimiento (era el paso más costoso; poco perceptible con HDRI + sombras)
 // Bloom — halos en oro, llamas y candeleros (umbral sobre valores ya tone-mapped)
-const bloomPass = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 0.38, 0.5, 0.72);
+const bloomPass = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 0.34, 0.5, 0.82);
 composer.addPass(bloomPass);
 
 // ── TEXTURAS PBR (Poly Haven — CC0) ──────────────────────────────────────────
@@ -204,16 +204,22 @@ const M = {
   // Procedurales
   gold:    new THREE.MeshStandardMaterial({ color:0xD4AF37, roughness:0.10, metalness:0.97, emissive:new THREE.Color(0x3A2200), emissiveIntensity:0.45 }),
   goldW:   new THREE.MeshStandardMaterial({ color:0xC8A030, roughness:0.14, metalness:0.94, emissive:new THREE.Color(0x2A1800), emissiveIntensity:0.6, side:THREE.DoubleSide }),
-  goldInt: new THREE.MeshStandardMaterial({ color:0xE0B840, roughness:0.08, metalness:0.98, emissive:new THREE.Color(0x4A2E00), emissiveIntensity:0.7 }),
+  // Oro laminado sobre cedro (interior): rugoso para que lea como PARED y no como
+  // espejo — con roughness bajo reflejaba el HDRI y las paredes parecían cielo.
+  goldInt: (() => {
+    const m = new THREE.MeshStandardMaterial({ color:0xC9A035, roughness:0.42, metalness:0.85, emissive:new THREE.Color(0x2A1A00), emissiveIntensity:0.25, envMapIntensity:0.35 });
+    m.normalMap = tex('brown_planks_03','nor_gl');
+    m.normalMap.repeat.set(3,3);
+    m.normalScale = new THREE.Vector2(0.4,0.4);
+    return m;
+  })(),
   goldChain: new THREE.MeshStandardMaterial({ color:0xD4AF37, roughness:0.15, metalness:0.95, emissive:new THREE.Color(0x4A2E00), emissiveIntensity:0.5 }),
   blue:    new THREE.MeshStandardMaterial({ color:0x1A3A70, roughness:0.8,  metalness:0.1  }),
   blueD:   new THREE.MeshStandardMaterial({ color:0x0F2550, roughness:0.8,  metalness:0.1  }),
   water:   new THREE.MeshPhysicalMaterial({ color:0x2E8BC8, transparent:true, opacity:0.62, roughness:0.02, metalness:0.1, transmission:0.55, ior:1.33, thickness:2, emissive:new THREE.Color(0x0E3A5A), emissiveIntensity:0.25, clearcoat:0.6, clearcoatRoughness:0.05 }),
-  smoke:   new THREE.MeshStandardMaterial({ color:0xE0D0A0, transparent:true, opacity:0.10, side:THREE.DoubleSide }),
-  flame:   new THREE.MeshStandardMaterial({ color:0xFFCC44, emissive:new THREE.Color(0xFFAA00), emissiveIntensity:1.5, transparent:true, opacity:0.8 }),
+  smoke:   new THREE.MeshStandardMaterial({ color:0xE0D0A0, transparent:true, opacity:0.06, side:THREE.DoubleSide }),
+  flame:   new THREE.MeshStandardMaterial({ color:0xFFCC44, emissive:new THREE.Color(0xFFAA00), emissiveIntensity:1.15, transparent:true, opacity:0.8 }),
   invis:   new THREE.MeshBasicMaterial({ transparent:true, opacity:0, side:THREE.DoubleSide }),
-  // God ray material
-  godray:  new THREE.MeshBasicMaterial({ color:0xFFEECC, transparent:true, opacity:0.04, side:THREE.DoubleSide, blending:THREE.AdditiveBlending, depthWrite:false }),
   // Fog plane material
   fogMat:  new THREE.MeshBasicMaterial({ color:0x1A150E, transparent:true, opacity:0.08, side:THREE.DoubleSide, depthWrite:false }),
   // Relief decoration
@@ -223,6 +229,236 @@ const M = {
 // más claro y pulido que el bronce común, para que destaque como pieza central.
 M.seaBronze  = pbr('metal_plate', 0xCFA35C, 0.20, 0.92, 2);
 M.seaBronzeD = pbr('metal_plate', 0x9E6E30, 0.32, 0.85, 2);
+// Oro del Arca — más rugoso y con emisivo para que se lea dentro del Debir
+// (el oro espejo M.gold refleja oscuridad en una sala cerrada y se ve negro)
+M.goldArk = new THREE.MeshStandardMaterial({ color:0xE8C24A, roughness:0.32, metalness:0.9, emissive:new THREE.Color(0x6B4A10), emissiveIntensity:0.45, envMapIntensity:0.8 });
+
+// Textura radial compartida para halos de llama — sin esto los halos se ven
+// como tarjetas cuadradas translúcidas en vez de resplandores
+const haloTex = (() => {
+  const cv = document.createElement('canvas'); cv.width = cv.height = 64;
+  const ctx = cv.getContext('2d');
+  const gd = ctx.createRadialGradient(32,32,2, 32,32,32);
+  gd.addColorStop(0, 'rgba(255,225,140,1)');
+  gd.addColorStop(0.4, 'rgba(255,190,80,0.45)');
+  gd.addColorStop(1, 'rgba(255,170,60,0)');
+  ctx.fillStyle = gd; ctx.fillRect(0,0,64,64);
+  return new THREE.CanvasTexture(cv);
+})();
+
+// ── TEXTURAS CANVAS DEL INTERIOR (según video de referencia) ──────────────────
+// Grabados dibujados a mano en canvas: mucho más liviano que modelarlos en 3D.
+function makeCanvas(w, h, draw) {
+  const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+  draw(cv.getContext('2d'), w, h);
+  const t = new THREE.CanvasTexture(cv);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  t.colorSpace = THREE.SRGBColorSpace;
+  return t;
+}
+
+// Banda guilloche (cadeneta entrelazada, corre bajo el registro superior)
+const texGuil = makeCanvas(256, 64, (c) => {
+  c.fillStyle = '#E5D5A0'; c.fillRect(0,0,256,64);
+  c.strokeStyle = '#8A6A28'; c.lineWidth = 6;
+  for (let x = 0; x <= 256; x += 32) {
+    c.beginPath(); c.arc(x, 32, 19, 0, Math.PI*2); c.stroke();
+  }
+  c.fillStyle = '#B5892F';
+  for (let x = 16; x <= 256; x += 32) {
+    c.beginPath(); c.arc(x, 32, 7, 0, Math.PI*2); c.fill();
+  }
+});
+
+// Panel de querubines alados enfrentados (grabado estilo sirio-fenicio, 1 R 6:29)
+// Formas LLENAS tono sobre tono (relieve), no líneas crudas.
+const texCherub = makeCanvas(1024, 768, (c) => {
+  const bg = c.createLinearGradient(0,0,0,768);
+  bg.addColorStop(0,'#D9AC52'); bg.addColorStop(1,'#C1922F');
+  c.fillStyle = bg; c.fillRect(0,0,1024,768);
+  function sphinx(cx, dir) {
+    c.save(); c.translate(cx, 430); c.scale(dir, 1);
+    const FILL = '#B9903A', HI = '#EDD48E', LO = '#7E5C1E';
+    c.lineJoin = c.lineCap = 'round';
+    // Ala llena barrida hacia atrás (detrás del cuerpo)
+    c.beginPath();
+    c.moveTo(-10, -40);
+    c.bezierCurveTo(30, -150, -40, -230, -150, -235);
+    c.bezierCurveTo(-230, -237, -280, -190, -285, -140);
+    c.bezierCurveTo(-230, -160, -120, -120, -30, -20);
+    c.closePath();
+    c.fillStyle = '#C29A40'; c.fill();
+    c.strokeStyle = LO; c.lineWidth = 4; c.stroke();
+    c.strokeStyle = '#8F6A24'; c.lineWidth = 3;
+    for (let f = 1; f <= 5; f++) {
+      c.beginPath();
+      c.moveTo(-20 - f*6, -45 - f*8);
+      c.bezierCurveTo(-80 - f*20, -95 - f*22, -170 - f*16, -140 - f*14, -278 + f*6, -148 - f*10);
+      c.stroke();
+    }
+    // Cuerpo de león (silueta llena: pecho → vientre → grupa → lomo)
+    c.beginPath();
+    c.moveTo(95, 10);
+    c.bezierCurveTo(100, 60, 90, 95, 75, 100);
+    c.lineTo(-140, 100);
+    c.bezierCurveTo(-215, 100, -240, 45, -225, 5);
+    c.bezierCurveTo(-180, -35, -60, -38, 40, -25);
+    c.closePath();
+    c.fillStyle = FILL; c.fill();
+    c.strokeStyle = LO; c.lineWidth = 4; c.stroke();
+    c.beginPath(); c.arc(-160, 40, 58, Math.PI*1.15, Math.PI*1.85);
+    c.strokeStyle = '#8F6A24'; c.lineWidth = 3; c.stroke(); // línea de grupa
+    // Patas con garras
+    [[55, 0],[15, 12],[-130, 12],[-185, 0]].forEach(([lx, off]) => {
+      c.fillStyle = FILL;
+      c.fillRect(lx, 90 - off, 26, 105 + off);
+      c.strokeStyle = LO; c.lineWidth = 3.5; c.strokeRect(lx, 90 - off, 26, 105 + off);
+      c.fillRect(lx - 4, 188, 36, 14); c.strokeRect(lx - 4, 188, 36, 14);
+    });
+    // Cola con rulo
+    c.beginPath(); c.moveTo(-222, 20);
+    c.bezierCurveTo(-275, -10, -290, -70, -258, -92);
+    c.strokeStyle = LO; c.lineWidth = 6; c.stroke();
+    c.beginPath(); c.arc(-250, -84, 12, 0, Math.PI*2); c.stroke();
+    // Cuello, tocado y cabeza
+    c.beginPath();
+    c.moveTo(60, -10); c.lineTo(75, -105); c.lineTo(122, -105); c.lineTo(112, -5);
+    c.closePath(); c.fillStyle = FILL; c.fill();
+    c.strokeStyle = LO; c.lineWidth = 4; c.stroke();
+    c.beginPath();
+    c.moveTo(70, -185); c.lineTo(52, -95); c.lineTo(78, -80); c.closePath();
+    c.fillStyle = '#A87F2E'; c.fill(); c.stroke(); // nemes
+    c.beginPath(); c.ellipse(100, -140, 30, 42, 0.06, 0, Math.PI*2);
+    c.fillStyle = FILL; c.fill(); c.stroke();
+    c.strokeStyle = '#6E4E16'; c.lineWidth = 3;
+    c.beginPath(); c.moveTo(76, -168); c.lineTo(128, -162); c.stroke(); // banda frontal
+    c.beginPath(); c.arc(112, -145, 3.5, 0, Math.PI*2); c.stroke();    // ojo
+    c.beginPath(); c.moveTo(126, -132); c.quadraticCurveTo(120, -122, 110, -124); c.stroke(); // boca
+    // Pechera de flecos
+    c.strokeStyle = '#8F6A24'; c.lineWidth = 3;
+    for (let t2 = 0; t2 < 5; t2++) {
+      c.beginPath(); c.moveTo(70 + t2*9, 15); c.lineTo(66 + t2*9, 88); c.stroke();
+    }
+    // Luz de relieve en el lomo
+    c.strokeStyle = HI; c.lineWidth = 2;
+    c.beginPath(); c.moveTo(35, -22); c.bezierCurveTo(-60, -34, -170, -32, -218, 2); c.stroke();
+    c.restore();
+  }
+  sphinx(300, 1); sphinx(724, -1);
+});
+
+// Techo artesonado: vigas de cedro + rosetas de oro en cada casetón
+const texCeiling = makeCanvas(512, 512, (c) => {
+  c.fillStyle = '#4E301B'; c.fillRect(0,0,512,512);
+  const B = 34; // media viga
+  [0, 256, 512].forEach(p => {
+    c.fillStyle = '#6B4426';
+    c.fillRect(p-B, 0, B*2, 512); c.fillRect(0, p-B, 512, B*2);
+    c.strokeStyle = '#3A2312'; c.lineWidth = 4;
+    c.strokeRect(p-B, 0, B*2, 512); c.strokeRect(0, p-B, 512, B*2);
+  });
+  [128, 384].forEach(cx => [128, 384].forEach(cy => {
+    // Casetón
+    const g2 = c.createLinearGradient(cx-90, cy-90, cx+90, cy+90);
+    g2.addColorStop(0,'#7E5330'); g2.addColorStop(1,'#5E3C22');
+    c.fillStyle = g2; c.fillRect(cx-88, cy-88, 176, 176);
+    // Roseta dorada
+    c.fillStyle = '#C79A3B'; c.strokeStyle = '#8F6A22'; c.lineWidth = 3;
+    for (let a = 0; a < 12; a++) {
+      const ang = a/12 * Math.PI*2;
+      c.beginPath();
+      c.ellipse(cx + Math.cos(ang)*30, cy + Math.sin(ang)*30, 20, 9, ang, 0, Math.PI*2);
+      c.fill(); c.stroke();
+    }
+    c.beginPath(); c.arc(cx, cy, 13, 0, Math.PI*2); c.fillStyle = '#E2BC5C'; c.fill(); c.stroke();
+  }));
+  // Tachones dorados en los cruces de vigas
+  [0, 256, 512].forEach(px => [0, 256, 512].forEach(py => {
+    c.beginPath(); c.arc(px, py, 12, 0, Math.PI*2);
+    c.fillStyle = '#C79A3B'; c.fill();
+  }));
+});
+
+// Piso: baldosas doradas claras con listones de madera embutidos
+const texFloor = makeCanvas(512, 512, (c) => {
+  const g2 = c.createLinearGradient(0,0,512,512);
+  g2.addColorStop(0,'#DDBC6E'); g2.addColorStop(0.5,'#D2AF5C'); g2.addColorStop(1,'#C8A24E');
+  c.fillStyle = g2; c.fillRect(0,0,512,512);
+  [0, 256, 512].forEach(p => {
+    c.strokeStyle = '#6E4A28'; c.lineWidth = 9;
+    c.beginPath(); c.moveTo(p,0); c.lineTo(p,512); c.stroke();
+    c.beginPath(); c.moveTo(0,p); c.lineTo(512,p); c.stroke();
+    c.strokeStyle = '#8A6236'; c.lineWidth = 3;
+    c.beginPath(); c.moveTo(p+14,0); c.lineTo(p+14,512); c.stroke();
+    c.beginPath(); c.moveTo(0,p+14); c.lineTo(512,p+14); c.stroke();
+  });
+});
+
+// Hojas de puerta artesonadas: grilla de casetones con roseta y palmera alternadas
+const texDoor = makeCanvas(512, 1024, (c) => {
+  c.fillStyle = '#E0C88E'; c.fillRect(0,0,512,1024);
+  const cols = 4, rows = 8, cw = 118, m = 20;
+  for (let r = 0; r < rows; r++) for (let q = 0; q < cols; q++) {
+    const x = m + q*cw + 6, y = m + r*cw + 6, s = cw - 24;
+    c.strokeStyle = '#7A5A22'; c.lineWidth = 5; c.strokeRect(x, y, s, s);
+    c.fillStyle = '#D2B672'; c.fillRect(x+8, y+8, s-16, s-16);
+    c.strokeStyle = '#F2DFA8'; c.lineWidth = 2; c.strokeRect(x+8, y+8, s-16, s-16);
+    const cx = x + s/2, cy = y + s/2;
+    c.strokeStyle = '#8A6524'; c.lineWidth = 4;
+    if ((r + q) % 2 === 0) {
+      // Roseta
+      for (let a = 0; a < 8; a++) {
+        const ang = a/8 * Math.PI*2;
+        c.beginPath(); c.moveTo(cx, cy);
+        c.lineTo(cx + Math.cos(ang)*26, cy + Math.sin(ang)*26); c.stroke();
+      }
+      c.beginPath(); c.arc(cx, cy, 10, 0, Math.PI*2); c.stroke();
+    } else {
+      // Palmera
+      c.beginPath(); c.moveTo(cx, cy+28); c.lineTo(cx, cy-8); c.stroke();
+      for (let a = 0; a < 3; a++) {
+        c.beginPath(); c.moveTo(cx, cy-8);
+        c.quadraticCurveTo(cx - 14 - a*8, cy - 26, cx - 20 - a*10, cy - 8 + a*4); c.stroke();
+        c.beginPath(); c.moveTo(cx, cy-8);
+        c.quadraticCurveTo(cx + 14 + a*8, cy - 26, cx + 20 + a*10, cy - 8 + a*4); c.stroke();
+      }
+    }
+  }
+});
+
+// Tira vertical de rosetas para el frente de las pilastras (como la referencia)
+const texRosStrip = makeCanvas(128, 512, (c) => {
+  c.fillStyle = '#E2D2A0'; c.fillRect(0,0,128,512);
+  for (let cy = 64; cy < 512; cy += 128) {
+    c.fillStyle = '#B58E36'; c.strokeStyle = '#7E5C1E'; c.lineWidth = 3;
+    for (let a = 0; a < 10; a++) {
+      const ang = a/10 * Math.PI*2;
+      c.beginPath();
+      c.ellipse(64 + Math.cos(ang)*26, cy + Math.sin(ang)*26, 17, 8, ang, 0, Math.PI*2);
+      c.fill(); c.stroke();
+    }
+    c.beginPath(); c.arc(64, cy, 11, 0, Math.PI*2);
+    c.fillStyle = '#D9B85C'; c.fill(); c.stroke();
+  }
+});
+
+// Materiales del interior de referencia
+M.band       = new THREE.MeshStandardMaterial({ map: texGuil, roughness: 0.55, metalness: 0.35, envMapIntensity: 0.25 });
+M.cherubPanel= new THREE.MeshStandardMaterial({ map: texCherub, roughness: 0.48, metalness: 0.5, envMapIntensity: 0.3 });
+M.ceil       = new THREE.MeshStandardMaterial({ map: texCeiling, roughness: 0.8, metalness: 0.15, envMapIntensity: 0.2 });
+M.ceil.map.repeat.set(2.5, 5.25);
+M.floorTiles = new THREE.MeshStandardMaterial({ map: texFloor, roughness: 0.35, metalness: 0.45, envMapIntensity: 0.45 });
+M.floorTiles.map.repeat.set(2.5, 5);
+M.doorPanel  = new THREE.MeshStandardMaterial({ map: texDoor, roughness: 0.5, metalness: 0.45, envMapIntensity: 0.3 });
+M.goldDoor   = new THREE.MeshStandardMaterial({ color: 0xDCC07C, roughness: 0.45, metalness: 0.6, envMapIntensity: 0.35 });
+M.rosStrip   = new THREE.MeshStandardMaterial({ map: texRosStrip, roughness: 0.55, metalness: 0.35, envMapIntensity: 0.25 });
+M.rosStrip.map.repeat.set(1, 6);
+M.band.map.repeat.set(14, 1);
+// Variante de piso con baldosas cuadradas para el Debir (20×20)
+M.floorTiles2 = M.floorTiles.clone();
+M.floorTiles2.map = texFloor.clone();
+M.floorTiles2.map.needsUpdate = true;
+M.floorTiles2.map.repeat.set(2.5, 2.5);
 
 // ── ILUMINACIÓN ───────────────────────────────────────────────────────────────
 // Sol de amanecer desde el Este (Z+), bajo en el horizonte → luz cálida rasante
@@ -240,13 +476,15 @@ fill.position.set(-90, 50, -110); scene.add(fill);
 // Contra-luz cálida (cielo de amanecer)
 const backLight = new THREE.DirectionalLight(0xFFD79A, 0.22);
 backLight.position.set(-40, 45, -140); scene.add(backLight);
-// Brillos interiores
-const glow1 = new THREE.PointLight(0xFFCC44, 6, 28, 2);
-glow1.position.set(0, 12, -20); scene.add(glow1);
-const glow2 = new THREE.PointLight(0xFFAA22, 3.5, 55, 2);
-glow2.position.set(0, 12, 8); scene.add(glow2);
-const glow3 = new THREE.PointLight(0xFFDD66, 2, 40, 2);
-glow3.position.set(0, 16, -5); scene.add(glow3);
+// Brillos interiores — SOLO 3 luces puntuales (cada PointLight extra encarece
+// TODO el render por píxel; con 8 luces la Mac se arrastraba)
+// glow1 = Shekinah sobre el Arca · glow2/glow3 = luz ámbar pareja del Hekal
+const glow1 = new THREE.PointLight(0xFFF4DC, 36, 25, 2);
+glow1.position.set(0, 13.5, -20); scene.add(glow1);
+const glow2 = new THREE.PointLight(0xFFE6C4, 16, 45, 2);
+glow2.position.set(0, 13, 18); scene.add(glow2);
+const glow3 = new THREE.PointLight(0xFFE6C4, 14, 45, 2);
+glow3.position.set(0, 14, 6); scene.add(glow3);
 
 // ── INTERACTIVOS ──────────────────────────────────────────────────────────────
 const IXS = [];
@@ -259,6 +497,8 @@ function mk(geo, mat, x, y, z, info, rotY = 0) {
   scene.add(m); return m;
 }
 function bx(w,h,d, mat, x,y,z, info) { return mk(new THREE.BoxGeometry(w,h,d), mat, x,y,z, info); }
+// Caja SIN sombras — para geometría interior (no aporta sombras del sol y ahorra GPU)
+function bxn(w,h,d, mat, x,y,z) { const m = bx(w,h,d, mat, x,y,z, null); m.castShadow = false; m.receiveShadow = false; return m; }
 function cy(rt,rb,h,seg, mat, x,y,z, info) { return mk(new THREE.CylinderGeometry(rt,rb,h,seg), mat, x,y,z, info); }
 function hov(w,h,d, x,y,z, info) {
   const m = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), M.invis);
@@ -481,8 +721,9 @@ bx(22,30,1.4, M.stone, 0,15,-9.3, null);
 bx(19.8,28.5,0.4, M.goldInt, 0,15,-29.9,null);
 bx(0.4,28.5,18.8, M.goldInt,-9.9,15,-20,null);
 bx(0.4,28.5,18.8, M.goldInt, 9.9,15,-20,null);
-bx(20,0.5,20, M.goldInt, 0,0.25,-20,null);
+bx(20,0.5,20, M.floorTiles2, 0,5.25,-20,null); // piso de baldosas doradas (Debir elevado 5 codos)
 bx(20,0.5,20, M.goldInt, 0,29.75,-20,null);
+bxn(19.8,28.5,0.3, M.goldInt, 0,15,-10.2); // cara este (interior Debir) — antes quedaba piedra a la vista
 hov(20,30,20, 0,15,-20, INFO.DEBIR);
 // Coronación azul-oro Debir — perímetro del techo
 battlements(0, 30.5, -32.5, 30, 'x', 'temple');    // pared oeste
@@ -492,7 +733,7 @@ battlements( 12.5, 30.5, -20, 21, 'z', 'temple');  // pared sur
 // ══════════════════════════════════════════════════════════════════════════════
 // FASE 1.5 — DECORACIONES EN RELIEVE (palmeras, flores en paredes doradas)
 // ══════════════════════════════════════════════════════════════════════════════
-function palmRelief(x, y, z, rotY = 0) {
+function palmRelief(x, y, z, rotY = 0, s = 1) {
   const g = new THREE.Group();
   // Tronco de palmera
   const trunk = new THREE.Mesh(
@@ -522,10 +763,11 @@ function palmRelief(x, y, z, rotY = 0) {
   }
   g.position.set(x, y, z);
   g.rotation.y = rotY;
+  g.scale.set(s, s, 0.22*s); // bajorrelieve: achatado contra la pared (con rotY ±90° el eje z local es el saliente)
   scene.add(g);
 }
 
-function flowerRelief(x, y, z, rotY = 0) {
+function flowerRelief(x, y, z, rotY = 0, s = 1) {
   const g = new THREE.Group();
   // Centro
   const center = new THREE.Mesh(
@@ -548,177 +790,162 @@ function flowerRelief(x, y, z, rotY = 0) {
   }
   g.position.set(x, y, z);
   g.rotation.y = rotY;
+  g.scale.set(s, s, 0.22*s); // bajorrelieve
   scene.add(g);
 }
 
-// Relieves en paredes del Debir (interior dorado)
-for (let z = -28; z <= -12; z += 4) {
-  palmRelief(-9.6, 8, z, Math.PI/2);
-  palmRelief(9.6, 8, z, -Math.PI/2);
-  flowerRelief(-9.6, 14, z, Math.PI/2);
-  flowerRelief(9.6, 14, z, -Math.PI/2);
-}
-// Relieves en paredes del Hekal
-for (let z = -8; z <= 28; z += 5) {
-  palmRelief(-9.6, 8, z, Math.PI/2);
-  palmRelief(9.6, 8, z, -Math.PI/2);
-  flowerRelief(-9.6, 16, z, Math.PI/2);
-  flowerRelief(9.6, 16, z, -Math.PI/2);
-}
+// Paredes del Debir — mismo sistema de la referencia (querubines + rosetones + palmeras)
+[-1, 1].forEach(sgn => {
+  const rot = sgn < 0 ? Math.PI/2 : -Math.PI/2;
+  [-25, -15].forEach(bz => {
+    const p = new THREE.Mesh(new THREE.PlaneGeometry(7, 10.5), M.cherubPanel);
+    p.position.set(sgn*9.65, 16, bz); p.rotation.y = rot; scene.add(p);
+    flowerRelief(sgn*9.68, 7.9, bz, rot, 2.2);
+    palmRelief(sgn*9.66, 23, bz, rot, 1.3);
+  });
+});
+// Pared oeste (fondo del Debir, detrás del Arca)
+[-5, 5].forEach(px => {
+  const p = new THREE.Mesh(new THREE.PlaneGeometry(7, 10.5), M.cherubPanel);
+  p.position.set(px, 16, -29.65); scene.add(p);
+  flowerRelief(px, 7.9, -29.55, 0, 2.2);
+  palmRelief(px, 23, -29.55, 0, 1.3);
+});
+// ── SISTEMA DE PARED DEL HEKAL (composición del video de referencia) ─────────
+// De abajo hacia arriba: zócalo cedro → dado con rosetones → repisa de piedra →
+// registro de querubines alados → banda guilloche → registro de palmeras → cornisa
+const HEK_BAYS = [[-5.3, 5.6], [2, 7], [10, 7], [18, 7], [26, 7]]; // [centro z, ancho panel]
+[-1, 1].forEach(sgn => {
+  const rot = sgn < 0 ? Math.PI/2 : -Math.PI/2;
+  HEK_BAYS.forEach(([bz, bw]) => {
+    // Panel grabado de querubines (registro principal)
+    const p = new THREE.Mesh(new THREE.PlaneGeometry(bw, 10.5), M.cherubPanel);
+    p.position.set(sgn*9.7, 11.5, bz); p.rotation.y = rot; scene.add(p);
+    // Rosetón del dado (pegado a la pared para no "flotar" en ángulos rasantes)
+    flowerRelief(sgn*9.72, 2.9, bz, rot, 2.2);
+    // Palmera del registro superior
+    palmRelief(sgn*9.7, 19.5, bz, rot, 1.8);
+  });
+  // Repisa de piedra sobre el dado + banda guilloche bajo el registro superior
+  bxn(0.8, 0.6, 38.8, M.marble, sgn*9.6, 5.5, 10.7);
+  const gb = new THREE.Mesh(new THREE.BoxGeometry(0.25, 1.4, 38.8), M.band);
+  gb.position.set(sgn*9.6, 17.7, 10.7); scene.add(gb);
+});
 
 // ══════════════════════════════════════════════════════════════════════════════
 // FASE 1.2 — QUERUBINES MEJORADOS (cuerpo orgánico de esfinge)
 // ══════════════════════════════════════════════════════════════════════════════
-function makeCherub(xPos) {
+function makeCherub(side) {
+  // Querubín de pie sobre sus pies, rostro hacia la casa (oriente, +z) — 2 Cr 3:13.
+  // Un ala toca la pared, la otra se junta con la del compañero sobre el Arca (1 R 6:27).
   const g = new THREE.Group();
-  const s = xPos < 0 ? -1 : 1;
+  const GA = M.goldArk;
+  const mesh = (geo, x, y, z) => { const m = new THREE.Mesh(geo, GA); m.position.set(x, y, z); g.add(m); return m; };
 
-  // Cuerpo de león (LatheGeometry para torso orgánico)
-  const bodyProfile = [
-    new THREE.Vector2(0, 0),
-    new THREE.Vector2(0.6, 0.3),
-    new THREE.Vector2(1.1, 1.0),
-    new THREE.Vector2(1.3, 2.0),
-    new THREE.Vector2(1.2, 3.0),
-    new THREE.Vector2(1.0, 3.8),
-    new THREE.Vector2(0.7, 4.2),
-    new THREE.Vector2(0, 4.5),
-  ];
-  const bodyGeo = new THREE.LatheGeometry(bodyProfile, 12);
-  const body = new THREE.Mesh(bodyGeo, M.gold);
-  body.scale.set(1.0, 1.0, 1.4);
-  body.position.set(0, 0, 0);
-  body.rotation.z = s * 0.3;
-  body.rotation.x = -0.1;
-  g.add(body);
-
-  // Patas delanteras (con articulación)
-  [-1, 1].forEach(pz => {
-    // Muslo
-    const thigh = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.38, 1.8, 8), M.gold);
-    thigh.position.set(s * 1.2, 1.8, pz * 0.9);
-    thigh.rotation.z = s * 0.3;
-    g.add(thigh);
-    // Pantorrilla
-    const shin = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.3, 1.5, 8), M.gold);
-    shin.position.set(s * 1.5, 0.7, pz * 0.9);
-    g.add(shin);
-    // Garra
-    const paw = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.25, 0.6), M.gold);
-    paw.position.set(s * 1.6, 0.1, pz * 0.9);
-    g.add(paw);
+  // ── Cuerpo de león de pie
+  const torso = mesh(new THREE.CapsuleGeometry(1.0, 2.4, 6, 12), 0, 3.55, -0.2);
+  torso.rotation.x = Math.PI/2;
+  torso.scale.set(1.0, 1.0, 0.92);
+  const chest = mesh(new THREE.SphereGeometry(1.06, 14, 12), 0, 3.85, 1.15);
+  chest.scale.set(0.95, 1.05, 0.9);
+  const rump = mesh(new THREE.SphereGeometry(0.95, 12, 10), 0, 3.45, -1.7);
+  rump.scale.set(0.95, 1.0, 0.85);
+  [-1, 1].forEach(s => {
+    const haunch = mesh(new THREE.SphereGeometry(0.78, 10, 10), s*0.62, 2.9, -1.75);
+    haunch.scale.set(0.55, 1.15, 1.05);
   });
 
-  // Patas traseras
-  [-1, 1].forEach(pz => {
-    const thigh = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.4, 2.0, 8), M.gold);
-    thigh.position.set(-s * 1.0, 2.0, pz * 0.9);
-    thigh.rotation.z = -s * 0.2;
-    g.add(thigh);
-    const shin = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.35, 1.6, 8), M.gold);
-    shin.position.set(-s * 1.3, 0.8, pz * 0.9);
-    g.add(shin);
-    const paw = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.25, 0.6), M.gold);
-    paw.position.set(-s * 1.3, 0.1, pz * 0.9);
-    g.add(paw);
+  // ── Patas con garras
+  [-1, 1].forEach(s => {
+    mesh(new THREE.CylinderGeometry(0.24, 0.3, 3.3, 8), s*0.62, 1.65, 1.35);
+    mesh(new THREE.BoxGeometry(0.55, 0.32, 0.85), s*0.62, 0.16, 1.5);
+    const thigh = mesh(new THREE.CylinderGeometry(0.3, 0.36, 1.6, 8), s*0.68, 2.0, -1.85);
+    thigh.rotation.x = 0.35;
+    mesh(new THREE.CylinderGeometry(0.2, 0.26, 1.4, 8), s*0.68, 0.7, -2.05);
+    mesh(new THREE.BoxGeometry(0.55, 0.32, 0.85), s*0.68, 0.16, -1.9);
   });
 
-  // Cuello (cilindro inclinado)
-  const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.75, 2.5, 10), M.gold);
-  neck.position.set(s * 1.2, 5.5, 0);
-  neck.rotation.z = -s * 0.3;
-  g.add(neck);
-
-  // Cabeza humana (esfera deformada)
-  const head = new THREE.Mesh(new THREE.SphereGeometry(0.9, 14, 14), M.gold);
-  head.position.set(s * 1.8, 7.2, 0);
-  head.scale.set(0.9, 1.15, 0.85);
-  g.add(head);
-
-  // Tocado real (nemes egipcio) — más elaborado
-  const nemes = new THREE.Mesh(new THREE.BoxGeometry(1.4, 2.5, 1.6), M.gold);
-  nemes.position.set(s * 1.7, 6.5, 0);
-  g.add(nemes);
-  // Ala del nemes (caida a los lados)
-  [-1, 1].forEach(sz => {
-    const nemesWing = new THREE.Mesh(new THREE.BoxGeometry(0.15, 2.0, 0.8), M.gold);
-    nemesWing.position.set(s * 1.7, 5.5, sz * 0.9);
-    g.add(nemesWing);
-  });
-
-  // Barba real
-  const beard = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.18, 1.0, 6), M.gold);
-  beard.position.set(s * 2.5, 6.2, 0);
-  beard.rotation.z = s * 0.2;
-  g.add(beard);
-
-  // Ojos (pequeñas esferas)
-  [-0.25, 0.25].forEach(ez => {
-    const eye = new THREE.Mesh(new THREE.SphereGeometry(0.12, 8, 8),
-      new THREE.MeshStandardMaterial({ color: 0x1A1000, roughness: 0.3, metalness: 0.9 }));
-    eye.position.set(s * 2.4, 7.4, ez);
-    g.add(eye);
-  });
-
-  // Cola (TubeGeometry con curva CatmullRom) — Fase 1.2
+  // ── Cola sobre el anca
   const tailPts = [
-    new THREE.Vector3(-s * 1.5, 3.8, 0),
-    new THREE.Vector3(-s * 2.5, 4.5, 0.5),
-    new THREE.Vector3(-s * 3.5, 5.5, 0.2),
-    new THREE.Vector3(-s * 3.8, 6.5, -0.3),
-    new THREE.Vector3(-s * 3.2, 7.0, -0.5),
+    new THREE.Vector3(0, 3.6, -2.6),
+    new THREE.Vector3(0.3, 4.3, -3.0),
+    new THREE.Vector3(0.5, 5.1, -2.7),
+    new THREE.Vector3(0.35, 5.6, -2.3),
   ];
-  const tailCurve = new THREE.CatmullRomCurve3(tailPts);
-  const tailGeo = new THREE.TubeGeometry(tailCurve, 20, 0.12, 6, false);
-  const tail = new THREE.Mesh(tailGeo, M.gold);
-  g.add(tail);
-  // Penacho de la cola
-  const tuft = new THREE.Mesh(new THREE.SphereGeometry(0.25, 6, 6), M.gold);
-  tuft.position.copy(tailPts[tailPts.length - 1]);
-  g.add(tuft);
+  g.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(tailPts), 12, 0.11, 6), GA));
 
-  // Alas (ShapeGeometry con forma curva — Fase 1.2)
-  [-1, 1].forEach(wside => {
-    // Ala interior o exterior
-    const wingShape = new THREE.Shape();
-    const wLen = 5.0;
-    wingShape.moveTo(0, 0);
-    wingShape.quadraticCurveTo(wLen * 0.3, 2.5, wLen, 1.5);
-    wingShape.quadraticCurveTo(wLen * 0.8, 0.8, wLen * 0.6, 0.3);
-    wingShape.quadraticCurveTo(wLen * 0.3, -0.2, 0, 0);
-
-    const wingGeo = new THREE.ShapeGeometry(wingShape, 8);
-    const wing = new THREE.Mesh(wingGeo, M.goldW);
-    wing.position.set(wside * 0.5, 7.5, 0);
-    wing.rotation.y = wside > 0 ? -Math.PI/2 + wside * 0.15 : Math.PI/2 - wside * 0.15;
-    wing.rotation.z = wside * -0.15;
-    wing.scale.set(wside > 0 ? 1 : -1, 1, 1);
-    g.add(wing);
-
-    // Plumas secundarias (detalle)
-    for (let f = 0; f < 4; f++) {
-      const feather = new THREE.Mesh(
-        new THREE.BoxGeometry(0.06, 0.03, 2.5 + f * 0.5),
-        M.goldW
-      );
-      feather.position.set(wside * (1.5 + f * 1.0), 8.0 - f * 0.2, 0);
-      feather.rotation.y = wside * 0.05;
-      g.add(feather);
-    }
+  // ── Cuello y cabeza serena (estatua de oro, sin rasgos duros)
+  const neck = mesh(new THREE.CylinderGeometry(0.34, 0.5, 1.7, 10), 0, 5.6, 1.32);
+  neck.rotation.x = -0.1;
+  // Cabeza con nemes CUADRADO tipo esfinge de Guiza (tapered, el rostro asoma
+  // al frente) — chico, que corone la cabeza sin tragarse el cuello
+  const nemes = mesh(new THREE.CylinderGeometry(0.42, 0.68, 1.1, 4), 0, 6.77, 1.18);
+  nemes.rotation.y = Math.PI/4;
+  nemes.scale.z = 0.7;
+  const head = mesh(new THREE.SphereGeometry(0.5, 16, 14), 0, 6.65, 1.48);
+  head.scale.set(0.8, 1.0, 0.85);
+  [-1, 1].forEach(s => {
+    const lappet = mesh(new THREE.BoxGeometry(0.24, 0.85, 0.15), s*0.44, 6.15, 1.48);
+    lappet.rotation.z = s*0.06;
   });
+  const beard = mesh(new THREE.CylinderGeometry(0.08, 0.13, 0.4, 6), 0, 6.15, 1.72);
+  beard.rotation.x = 0.15;
 
-  g.position.set(xPos, 0, -20);
+  // ── Alas extendidas en ±x, silueta con plumas festoneadas extruida
+  function wing(dirX) {
+    const sh = new THREE.Shape();
+    sh.moveTo(0, 0);
+    sh.quadraticCurveTo(1.2, 1.05, 2.6, 1.35);
+    sh.quadraticCurveTo(4.1, 1.6, 5.0, 2.15);
+    sh.quadraticCurveTo(4.55, 1.25, 4.15, 1.0);
+    sh.quadraticCurveTo(3.7, 0.15, 3.1, 0.28);
+    sh.quadraticCurveTo(2.6, -0.42, 1.95, -0.28);
+    sh.quadraticCurveTo(1.4, -0.85, 0.75, -0.6);
+    sh.quadraticCurveTo(0.3, -0.5, 0, -0.35);
+    sh.closePath();
+    const w = new THREE.Mesh(
+      new THREE.ExtrudeGeometry(sh, { depth: 0.16, bevelEnabled: true, bevelThickness: 0.04, bevelSize: 0.06, bevelSegments: 2 }), GA);
+    // Capa interior de plumas
+    const sh2 = new THREE.Shape();
+    sh2.moveTo(0.2, 0.15);
+    sh2.quadraticCurveTo(1.3, 0.9, 2.5, 1.05);
+    sh2.quadraticCurveTo(3.4, 1.15, 4.0, 1.3);
+    sh2.quadraticCurveTo(3.3, 0.45, 2.7, 0.5);
+    sh2.quadraticCurveTo(2.0, 0.0, 1.35, 0.12);
+    sh2.quadraticCurveTo(0.8, -0.25, 0.2, 0.15);
+    sh2.closePath();
+    const w2 = new THREE.Mesh(new THREE.ExtrudeGeometry(sh2, { depth: 0.1, bevelEnabled: false }), GA);
+    w2.position.z = 0.18;
+    const wg = new THREE.Group();
+    wg.add(w); wg.add(w2);
+    // Envergadura: 5 codos por ala (1 R 6:24). La escala se pasa por ala:
+    // la interior llega JUSTO al centro (se tocan sobre el Arca) y la exterior
+    // llega JUSTO a la pared (1 R 6:27).
+    return wg;
+  }
+  function placeWing(w, dirX, s) { w.scale.set(dirX < 0 ? -s : s, s, 1); return w; }
+  const shoulderY = 4.7;
+  const wOut = placeWing(wing(side), side, 0.62);   // hacia la pared
+  const wIn  = placeWing(wing(-side), -side, 0.70); // hacia el centro
+  wOut.position.set(side*0.55, shoulderY, 0.1);
+  wOut.rotation.set(0, -side*0.12, side*0.10);
+  wIn.position.set(-side*0.55, shoulderY, 0.1);
+  wIn.rotation.set(0, side*0.12, -side*0.10);
+  g.add(wOut); g.add(wIn);
+
+  g.scale.set(1.32, 1.32, 1.32);
   g.userData = INFO.CHERUB; IXS.push(g); scene.add(g);
   return g;
 }
-makeCherub(-4.5); makeCherub(4.5);
+makeCherub(-1).position.set(-5, 5, -20);
+makeCherub( 1).position.set( 5, 5, -20);
 
-// ── ARCA DEL PACTO ────────────────────────────────────────────────────────────
-bx(3.75,1.5,2.25, M.gold, 0,0.85,-20, INFO.ARK);
-bx(3.9,0.28,2.4,  M.gold, 0,1.74,-20, null); // propiciatorio
+// ── ARCA DEL PACTO (sobre el piso elevado del Debir) ──────────────────────────
+bx(3.75,1.5,2.25, M.goldArk, 0,5.85,-20, INFO.ARK);
+bx(3.9,0.28,2.4,  M.goldArk, 0,6.74,-20, null); // propiciatorio
 [-1.1,1.1].forEach(x => {
-  bx(0.55,1.0,0.55, M.gold, x,2.35,-20, null);
-  bx(1.5,0.08,0.8,  M.gold, x,2.82,-19.7,null);
+  bx(0.55,1.0,0.55, M.goldArk, x,7.35,-20, null);
+  bx(1.5,0.08,0.8,  M.goldArk, x,7.82,-19.7,null);
 });
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -759,12 +986,40 @@ bx(30,30,1.4, M.stone, 0,15,30.7,null);
 // Interior dorado
 bx(0.4,28.5,39.5, M.goldInt,-9.95,15,10,null);
 bx(0.4,28.5,39.5, M.goldInt, 9.95,15,10,null);
-// Pilar de cedro interno (divisores de paneles)
-[-4,4].forEach(x => bx(0.8,29,0.8,M.cedarD,x,15,-5,null));
-[-4,4].forEach(x => bx(0.8,29,0.8,M.cedarD,x,15,15,null));
+// Pared oeste (frente del Debir, lado Hekal) — paneles de oro alrededor de la puerta
+bxn(3.85,28.5,0.3, M.goldInt,-7.97,15,-8.45);
+bxn(3.85,28.5,0.3, M.goldInt, 7.97,15,-8.45);
+bxn(12.4,7.25,0.3, M.goldInt, 0,25.6,-8.45);
+// Pared este (fondo del Hekal) — paneles de oro alrededor de la puerta
+bxn(4.4,28.5,0.3, M.goldInt,-7.7,15,29.95);
+bxn(4.4,28.5,0.3, M.goldInt, 7.7,15,29.95);
+bxn(11.4,8.25,0.3, M.goldInt, 0,25.1,29.95);
+// Pilastras de cedro con base y capitel de piedra (ritmo de bahías de la referencia)
+[-2, 6, 14, 22].forEach(z => {
+  [-1, 1].forEach(sgn => {
+    bxn(1.0, 28.5, 1.1, M.cedarD, sgn*9.55, 15, z);
+    bxn(1.5, 1.6, 1.6, M.marble, sgn*9.45, 0.8, z);  // base de piedra
+    bxn(1.4, 0.9, 1.5, M.marble, sgn*9.5, 27.6, z);  // capitel
+    // Tira de rosetas al frente de la pilastra
+    const rs = new THREE.Mesh(new THREE.PlaneGeometry(0.8, 25), M.rosStrip);
+    rs.position.set(sgn*8.97, 14.2, z);
+    rs.rotation.y = sgn < 0 ? Math.PI/2 : -Math.PI/2;
+    scene.add(rs);
+  });
+});
+// Cornisa y zócalo de cedro a lo largo de ambas paredes
+[-9.6,9.6].forEach(x => {
+  bxn(0.6,1.1,38.8, M.cedarD, x,28.9,10.7);
+  bxn(0.7,1.0,38.8, M.cedarD, x,0.5,10.7);
+});
+// Techo artesonado (vigas de cedro + rosetas de oro, dibujado en textura)
+const hekCeil = new THREE.Mesh(new THREE.PlaneGeometry(20.4, 41.5), M.ceil);
+hekCeil.rotation.x = Math.PI/2;
+hekCeil.position.set(0, 29.8, 10);
+scene.add(hekCeil);
 // Piso ciprés + lámina de oro
 bx(20,0.35,40, M.olive, 0,0.175,10,null);
-bx(20,0.10,40, M.goldInt, 0,0.42,10,null);
+bx(20,0.10,40, M.floorTiles, 0,0.42,10,null); // baldosas doradas con listones de madera
 // Techo de cedro
 bx(31,1.2,42.5, M.cedarD, 0,30.6,10,null);
 // Ventanas de clerestory (altas y estrechas - abocinadas)
@@ -778,68 +1033,50 @@ hov(20,30,40, 0,15,10, INFO.HEKAL);
 battlements(-12.5, 30.5, 10, 40, 'z', 'temple');   // pared norte
 battlements( 12.5, 30.5, 10, 40, 'z', 'temple');   // pared sur
 
-// ══════════════════════════════════════════════════════════════════════════════
-// FASE 2.3 — GOD RAYS (conos de luz desde ventanas clerestory)
-// ══════════════════════════════════════════════════════════════════════════════
-const godRays = [];
-[-4, 0, 4].forEach(xw => {
-  // Rayos desde ventanas norte (entran oblicuos al interior)
-  const rayGeo = new THREE.ConeGeometry(4, 18, 8, 1, true);
-  const rayN = new THREE.Mesh(rayGeo, M.godray);
-  rayN.position.set(-5, 15, xw);
-  rayN.rotation.z = -Math.PI / 2 + 0.4;
-  rayN.rotation.y = 0.1;
-  scene.add(rayN);
-  godRays.push(rayN);
-
-  // Rayos desde ventanas sur
-  const rayS = new THREE.Mesh(rayGeo.clone(), M.godray);
-  rayS.position.set(5, 15, xw);
-  rayS.rotation.z = Math.PI / 2 - 0.4;
-  rayS.rotation.y = -0.1;
-  scene.add(rayS);
-  godRays.push(rayS);
-});
-
 // ── ALTAR DEL INCIENSO ────────────────────────────────────────────────────────
+// Medidas bíblicas: 1×1 codo de base y 2 de alto (Éx 30:2), al pie de la escalinata
 const incGrp = new THREE.Group();
-const incBody = new THREE.Mesh(new THREE.BoxGeometry(1.8,5,1.8), M.gold);
-incBody.position.y = 2.5; incGrp.add(incBody);
-const incTop = new THREE.Mesh(new THREE.BoxGeometry(2.0,0.4,2.0), M.gold);
-incTop.position.y = 5.3; incGrp.add(incTop);
+const incBody = new THREE.Mesh(new THREE.BoxGeometry(1,2,1), M.goldArk);
+incBody.position.y = 1; incGrp.add(incBody);
+const incTop = new THREE.Mesh(new THREE.BoxGeometry(1.15,0.22,1.15), M.goldArk);
+incTop.position.y = 2.1; incGrp.add(incTop);
 // Cuernos del altar
-[[0.8,0.8],[-0.8,0.8],[0.8,-0.8],[-0.8,-0.8]].forEach(([cx,cz]) => {
-  const horn = new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.18,0.6,6), M.gold);
-  horn.position.set(cx,5.8,cz); incGrp.add(horn);
+[[0.42,0.42],[-0.42,0.42],[0.42,-0.42],[-0.42,-0.42]].forEach(([cx,cz]) => {
+  const horn = new THREE.Mesh(new THREE.CylinderGeometry(0.07,0.1,0.35,6), M.goldArk);
+  horn.position.set(cx,2.35,cz); incGrp.add(horn);
 });
-// Humo mejorado (múltiples columnas ondulantes)
+// Humo (columnas finas ondulantes)
 for (let si = 0; si < 3; si++) {
   const smoke = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.1 + si * 0.08, 0.3 + si * 0.12, 6 + si * 2, 8),
+    new THREE.CylinderGeometry(0.05 + si * 0.04, 0.14 + si * 0.06, 3.5 + si * 1.2, 8),
     M.smoke
   );
-  smoke.position.set(si * 0.15 - 0.15, 8.5 + si * 1.5, si * 0.1 - 0.05);
+  smoke.position.set(si * 0.1 - 0.1, 4.2 + si * 1.2, si * 0.08 - 0.04);
   incGrp.add(smoke);
 }
-incGrp.position.set(0,0,-7.5);
+incGrp.position.set(0,0,2.0);
 incGrp.userData = INFO.INC; IXS.push(incGrp); scene.add(incGrp);
 
 // ── 10 MESAS DE LOS PANES — 5 al norte y 5 al sur del Hekal (2 Cr 4:8) ────────
 function breadTable(x, z, addInfo){
   const g = new THREE.Group();
-  const top = new THREE.Mesh(new THREE.BoxGeometry(3.2,0.22,1.8), M.gold);
-  top.position.y = 4; g.add(top);
-  [[-1.45,-0.75],[1.45,-0.75],[-1.45,0.75],[1.45,0.75]].forEach(([lx,lz]) => { // patas
-    const leg = new THREE.Mesh(new THREE.BoxGeometry(0.14,4,0.14), M.gold);
-    leg.position.set(lx,2,lz); g.add(leg);
+  // Medidas bíblicas: 2 codos de largo × 1 de ancho × 1.5 de alto (Éx 25:23)
+  const top = new THREE.Mesh(new THREE.BoxGeometry(2,0.18,1), M.gold);
+  top.position.y = 1.5; g.add(top);
+  [[-0.85,-0.38],[0.85,-0.38],[-0.85,0.38],[0.85,0.38]].forEach(([lx,lz]) => { // patas
+    const leg = new THREE.Mesh(new THREE.BoxGeometry(0.12,1.5,0.12), M.gold);
+    leg.position.set(lx,0.75,lz); g.add(leg);
   });
   // Panes redondos (2 pilas de 6 — 12 panes, uno por tribu)
-  [-0.65,0.65].forEach(px => {
+  [-0.45,0.45].forEach(px => {
     for(let p=0;p<6;p++){
-      const pan = new THREE.Mesh(new THREE.CylinderGeometry(0.45,0.45,0.15,10), M.stone);
-      pan.position.set(px, 4.23+p*0.16, 0); g.add(pan);
+      const pan = new THREE.Mesh(new THREE.CylinderGeometry(0.28,0.28,0.11,10), M.stone);
+      pan.position.set(px, 1.66+p*0.12, 0); g.add(pan);
     }
   });
+  // Jarra de oro (como la referencia)
+  const jar = new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.13,0.3,8), M.gold);
+  jar.position.set(0, 1.75, 0.3); g.add(jar);
   g.position.set(x,0,z);
   if (addInfo) { g.userData = INFO.BREAD; IXS.push(g); }
   scene.add(g); return g;
@@ -856,107 +1093,74 @@ tZpos.forEach((z, i) => {
 const flameSprites = []; // para animar halos
 
 function menorah(x, y, z, addInfo) {
+  // Menorá según Éxodo 25:31-40 (1 R 7:49: "conforme a su forma"): caña central
+  // + 6 brazos (3 por lado) en semicírculo, 7 lamparillas TODAS a la misma
+  // altura, manzanas (nudos) en caña y brazos. Brazos A LO LARGO de la pared.
   const g = new THREE.Group();
-  // Base trípode mejorada
-  const base = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1.2, 0.3, 16), M.gold);
-  g.add(base);
-  // Anillos decorativos en la base
-  const ring1 = new THREE.Mesh(new THREE.TorusGeometry(1.0, 0.06, 8, 24), M.gold);
-  ring1.rotation.x = Math.PI / 2; ring1.position.y = 0.05; g.add(ring1);
+  const gm = (geo, px, py, pz) => { const m = new THREE.Mesh(geo, M.gold); m.position.set(px, py, pz); g.add(m); return m; };
 
-  // Fuste central (con bulbos — cálices de almendra)
-  const stemPts = [
-    new THREE.Vector3(0, 0.3, 0),
-    new THREE.Vector3(0, 1.5, 0),
-    new THREE.Vector3(0, 3.0, 0),
-    new THREE.Vector3(0, 4.5, 0),
-    new THREE.Vector3(0, 5.2, 0),
-  ];
-  const stemCurve = new THREE.CatmullRomCurve3(stemPts);
-  const stemGeo = new THREE.TubeGeometry(stemCurve, 16, 0.12, 8, false);
-  const stem = new THREE.Mesh(stemGeo, M.gold);
-  g.add(stem);
+  // Pedestal escalonado cuadrado + pie tapered (como la referencia)
+  [[1.7,0.3,0.15],[1.25,0.32,0.46],[0.9,0.34,0.79]].forEach(([w,h,y2]) => {
+    gm(new THREE.BoxGeometry(w,h,w), 0, y2, 0);
+  });
+  const pied = gm(new THREE.CylinderGeometry(0.15,0.4,1.2,4), 0, 1.55, 0);
+  pied.rotation.y = Math.PI/4;
 
-  // Bulbos (cálices florales) en el fuste
-  [1.2, 2.5, 4.0].forEach(bh => {
-    const bulb = new THREE.Mesh(
-      new THREE.SphereGeometry(0.2, 8, 8),
-      M.gold
-    );
-    bulb.scale.set(1, 1.4, 1);
-    bulb.position.set(0, bh, 0);
-    g.add(bulb);
+  const T = 5.6;        // altura común de las 7 lamparillas
+  const R = [0.75, 1.35, 1.95]; // radios de los 3 pares de brazos
+
+  // Caña central
+  gm(new THREE.CylinderGeometry(0.1, 0.13, T - 1.95, 8), 0, (T + 2.05)/2 - 0.05, 0);
+  // Manzanas y flores de la caña (4 — Éx 25:34)
+  [2.6, 3.3, 4.0, 4.7].forEach(bh => {
+    const k = gm(new THREE.SphereGeometry(0.17, 8, 7), 0, bh, 0);
+    k.scale.set(1, 1.25, 1);
+    const fl2 = gm(new THREE.CylinderGeometry(0.2, 0.1, 0.08, 8), 0, bh + 0.16, 0);
   });
 
-  // 3 brazos curvos por lado (con CatmullRomCurve3)
-  const armData = [
-    { startH: 1.2, reach: 1.2 },
-    { startH: 2.2, reach: 2.2 },
-    { startH: 3.2, reach: 3.2 },
-  ];
-
-  armData.forEach(({ startH, reach }, i) => {
+  // 3 pares de brazos en U (semicírculo): el par más ancho nace más abajo,
+  // todas las puntas terminan en T
+  R.forEach(r => {
+    const c = T; // centro del semicírculo a la altura de las puntas: la U baja hasta la caña (T-r) y sube
+    const arm = new THREE.Mesh(new THREE.TorusGeometry(r, 0.075, 8, 18, Math.PI), M.gold);
+    arm.position.set(0, c, 0);
+    arm.rotation.z = Math.PI; // arco por abajo: toca la caña y sube a ambos lados
+    g.add(arm);
+    // Manzanas sobre cada brazo (Éx 25:33)
     [-1, 1].forEach(side => {
-      const endH = 5.2;
-      // Curva tipo menorá — sale horizontal, luego sube
-      const armPts = [
-        new THREE.Vector3(0, startH, 0),
-        new THREE.Vector3(side * reach * 0.3, startH - 0.2, 0),
-        new THREE.Vector3(side * reach * 0.7, startH + 0.3, 0),
-        new THREE.Vector3(side * reach, startH + (endH - startH) * 0.4, 0),
-        new THREE.Vector3(side * reach, endH, 0),
-      ];
-      const armCurve = new THREE.CatmullRomCurve3(armPts);
-      const armGeo = new THREE.TubeGeometry(armCurve, 16, 0.07, 6, false);
-      const arm = new THREE.Mesh(armGeo, M.gold);
-      g.add(arm);
-
-      // Cáliz en la punta
-      const calyx = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.15, 0.08, 0.3, 8),
-        M.gold
-      );
-      calyx.position.set(side * reach, endH - 0.1, 0);
-      g.add(calyx);
-
-      // Llama
-      const fl = new THREE.Mesh(new THREE.SphereGeometry(0.14, 8, 8), M.flame);
-      fl.position.set(side * reach, endH + 0.22, 0);
-      g.add(fl);
-
-      // FASE 2.4 — Halo dorado (sprite)
-      const haloGeo = new THREE.PlaneGeometry(1.2, 1.2);
-      const haloMat = new THREE.MeshBasicMaterial({
-        color: 0xFFCC44,
-        transparent: true,
-        opacity: 0.12,
-        side: THREE.DoubleSide,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false,
+      [0.7, 1.25].forEach(a => {
+        const k = gm(new THREE.SphereGeometry(0.11, 7, 6),
+          side * r * Math.sin(a), c - r * Math.cos(a), 0);
+        k.scale.set(1, 1.3, 1);
       });
-      const halo = new THREE.Mesh(haloGeo, haloMat);
-      halo.position.set(side * reach, endH + 0.22, 0);
-      halo.lookAt(camera.position);
-      g.add(halo);
-      flameSprites.push(halo);
     });
   });
 
-  // Llama central + halo
-  const cfl = new THREE.Mesh(new THREE.SphereGeometry(0.14, 8, 8), M.flame);
-  cfl.position.set(0, 5.45, 0); g.add(cfl);
-  const cHalo = new THREE.Mesh(
-    new THREE.PlaneGeometry(1.4, 1.4),
-    new THREE.MeshBasicMaterial({
-      color: 0xFFCC44, transparent: true, opacity: 0.15,
-      side: THREE.DoubleSide, blending: THREE.AdditiveBlending, depthWrite: false,
-    })
-  );
-  cHalo.position.set(0, 5.45, 0);
-  g.add(cHalo);
-  flameSprites.push(cHalo);
+  // 7 portavelas: centro + puntas de los 6 brazos
+  const tipsX = [0, R[0], -R[0], R[1], -R[1], R[2], -R[2]];
+  tipsX.forEach(tx => {
+    gm(new THREE.CylinderGeometry(0.085, 0.11, 0.35, 8), tx, T + 0.12, 0);
+    gm(new THREE.CylinderGeometry(0.17, 0.07, 0.26, 8), tx, T + 0.4, 0); // copa de almendro
+    // Llama alargada (gota)
+    const fl = new THREE.Mesh(new THREE.SphereGeometry(0.13, 8, 8), M.flame);
+    fl.scale.set(0.55, 1.6, 0.55);
+    fl.position.set(tx, T + 0.72, 0);
+    g.add(fl);
+    // Halo
+    const halo = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 1.1),
+      new THREE.MeshBasicMaterial({
+        map: haloTex, color: 0xFFD780, transparent: true, opacity: 0.12,
+        side: THREE.DoubleSide, blending: THREE.AdditiveBlending, depthWrite: false,
+      }));
+    halo.position.set(tx, T + 0.75, 0);
+    halo.lookAt(camera.position);
+    g.add(halo);
+    flameSprites.push(halo);
+  });
 
+  g.scale.set(0.6, 0.6, 0.6); // ~3.5 codos de alto: proporción humana, como la referencia
   g.position.set(x, y, z);
+  g.rotation.y = Math.PI/2; // brazos a lo largo de la pared (antes se enterraban en el muro)
   if (addInfo) { g.userData = INFO.LAMPS; IXS.push(g); }
   addToScene(g); return g;
 }
@@ -966,16 +1170,53 @@ mZpos.forEach((z, i) => {
   menorah(-9, 0, z, false);
 });
 
-// ── PUERTAS DEBIR (olivo) ─────────────────────────────────────────────────────
-bx(5.2,20,0.55, M.olive,-4.5,11,-9.6, null);
-bx(5.2,20,0.55, M.olive, 4.5,11,-9.6, null);
-bx(0.9,22,0.8, M.olive,-5.6,11,-9.6,null);
-bx(0.9,22,0.8, M.olive, 5.6,11,-9.6,null);
-hov(12,22,1, 0,11,-9.6, { title:'Puerta del Debir — Madera de Olivo', body:'Dos hojas de olivo (ets shemen) talladas con querubines, palmeras y flores abiertas, recubiertas de oro laminado. Esta es la puerta que el Sumo Sacerdote atravesaba una vez al año, con sangre expiatoria. El velo que Dios rasgó de arriba abajo al morir Jesús estaba aquí, señalando que el camino al Lugar Santísimo quedó abierto para siempre.', ref:'1 Reyes 6:31-32 · Mateo 27:51 · Hebreos 10:19-20'});
-// Puertas Hekal (ciprés)
-bx(5.5,20,0.55, M.olive,-4,11,30.8,null);
-bx(5.5,20,0.55, M.olive, 4,11,30.8,null);
-hov(12,22,1, 0,11,30.8, { title:'Puerta del Hekal — Madera de Ciprés', body:'Dos hojas de ciprés (berosh) plegadizas, con quicios de olivo. Decoradas con querubines, palmeras y flores en relieve dorado. Separaban el Ulam del lugar de servicio diario (Hekal).', ref:'1 Reyes 6:33-35'});
+// ── PORTADA DEL DEBIR ─────────────────────────────────────────────────────────
+// Marcos anidados escalonados (cedro → piedra → oro) + hojas de olivo recubiertas
+// de oro con casetones tallados (roseta/palmera alternadas), como la referencia.
+// El Debir está ELEVADO 5 codos: la puerta y sus marcos arrancan en y=5
+const DEB = 5;
+[[15.6, 24.2, 1.0, 0.55, -8.45, M.cedarD],
+ [13.8, 23.2, 0.8, 0.75, -8.30, M.marble],
+ [12.4, 22.2, 0.7, 0.95, -8.20, M.goldArk]].forEach(([w, h, m, d, zc, mat]) => {
+  bxn(m, h, d, mat, -(w-m)/2, DEB + h/2, zc);
+  bxn(m, h, d, mat,  (w-m)/2, DEB + h/2, zc);
+  bxn(w, m, d, mat, 0, DEB + h - m/2, zc);
+});
+[-1, 1].forEach(sgn => {
+  bxn(5.2, 20, 0.45, M.goldDoor, sgn*2.6, DEB + 10, -8.38);
+  const pl = new THREE.Mesh(new THREE.PlaneGeometry(5.0, 19.6), M.doorPanel);
+  pl.position.set(sgn*2.6, DEB + 10, -8.14); scene.add(pl);
+});
+
+// ── ESCALINATA AL DEBIR (madera de cedro, barandas macizas — como la referencia)
+(function debirStairs(){
+  const W = 12.5;
+  bxn(W, 5, 1.4, M.cedar, 0, 2.5, -7.9); // descanso superior
+  for (let k = 1; k <= 9; k++) {
+    const h = 5 - k*0.5;
+    bxn(W, h, 0.9, M.cedar, 0, h/2, -7.2 + (k-0.5)*0.9);
+  }
+  [-1, 1].forEach(sgn => {
+    const rail = bxn(0.7, 1.7, 10.6, M.cedarD, sgn*6.6, 3.5, -3.4);
+    rail.rotation.x = 0.507; // pendiente (atan 5/9)
+    bxn(0.9, 2.4, 0.9, M.cedarD, sgn*6.6, 1.2, 1.6);  // poste al pie
+    bxn(1.1, 0.35, 1.1, M.cedarD, sgn*6.6, 2.55, 1.6); // remate del poste
+  });
+})();
+hov(12,20,1, 0,15,-8.3, { title:'Puerta del Debir — Madera de Olivo', body:'Dos hojas de olivo (ets shemen) talladas con querubines, palmeras y flores abiertas, recubiertas de oro laminado. Esta es la puerta que el Sumo Sacerdote atravesaba una vez al año, con sangre expiatoria. El velo que Dios rasgó de arriba abajo al morir Jesús estaba aquí, señalando que el camino al Lugar Santísimo quedó abierto para siempre.', ref:'1 Reyes 6:31-32 · Mateo 27:51 · Hebreos 10:19-20'});
+// Puertas Hekal (ciprés recubierto de oro) — a ras de la cara interior del muro.
+// OJO: estas hojas SÍ proyectan sombra (bx, no bxn) — si no, el sol del este
+// las atraviesa y pinta un resplandor falso sobre la pared del Debir.
+[-1, 1].forEach(sgn => {
+  bx(5.5, 20, 0.55, M.goldDoor, sgn*2.75, 11, 29.85, null);
+  const pl = new THREE.Mesh(new THREE.PlaneGeometry(5.3, 19.6), M.doorPanel);
+  pl.position.set(sgn*2.75, 11, 29.55); pl.rotation.y = Math.PI; scene.add(pl);
+  // Hojas del lado del Ulam (la misma puerta vista desde el vestíbulo)
+  bx(5.5, 20, 0.55, M.goldDoor, sgn*2.75, 11, 31.55, null);
+  const pl2 = new THREE.Mesh(new THREE.PlaneGeometry(5.3, 19.6), M.doorPanel);
+  pl2.position.set(sgn*2.75, 11, 31.86); scene.add(pl2);
+});
+hov(12,22,1, 0,11,29.85, { title:'Puerta del Hekal — Madera de Ciprés', body:'Dos hojas de ciprés (berosh) plegadizas, con quicios de olivo. Decoradas con querubines, palmeras y flores en relieve dorado. Separaban el Ulam del lugar de servicio diario (Hekal).', ref:'1 Reyes 6:33-35'});
 
 // ── ULAM — VESTÍBULO (20×30×10) ──────────────────────────────────────────────
 const UH = 30;
@@ -1263,12 +1504,13 @@ for(let i=0;i<5;i++){
 // ══════════════════════════════════════════════════════════════════════════════
 const fogPlanes = [];
 for (let i = 0; i < 6; i++) {
-  const fogGeo = new THREE.PlaneGeometry(250 + i * 40, 250 + i * 40);
+  // Anillo con hueco central: la niebla rodea el edificio pero no entra al interior
+  const fogGeo = new THREE.RingGeometry(55, 170 + i * 20, 48);
   const fogMatI = M.fogMat.clone();
   fogMatI.opacity = 0.03 + i * 0.008;
   const fogMesh = new THREE.Mesh(fogGeo, fogMatI);
   fogMesh.rotation.x = -Math.PI / 2;
-  fogMesh.position.y = 0.3 + i * 0.6;
+  fogMesh.position.set(0, 0.3 + i * 0.6, 5);
   scene.add(fogMesh);
   fogPlanes.push(fogMesh);
 }
@@ -1305,7 +1547,7 @@ const CAMS={
   ext: {p:[155,115,205], t:[0,16,55]},
   top: {p:[0,340,55],    t:[0,0,55]},
   hek: {p:[0,13,28],    t:[0,9,-6]},
-  deb: {p:[0,12,14],    t:[0,12,-20]},
+  deb: {p:[7.8,16,-11], t:[-2,10,-22]},
   col: {p:[0,42,96],    t:[0,15,45]},
   mar: {p:[62,26,102],  t:[SX,6,SZ]},
 };
@@ -1344,28 +1586,23 @@ function animate(){
   const t=clock.getElapsedTime();
 
   // Luces interiores pulsantes
-  glow1.intensity=5.5+Math.sin(t*0.85)*1.0;
-  glow2.intensity=3.0+Math.sin(t*0.65+1)*0.6;
-  glow3.intensity=2.0+Math.sin(t*0.5+2)*0.4;
+  glow1.intensity=34+Math.sin(t*0.85)*3;
+  glow2.intensity=15+Math.sin(t*0.65+1)*1.5;
+  glow3.intensity=13+Math.sin(t*0.5+2)*1.5;
 
   // FASE 2.2 — Titileo de estrellas
   starMat.uniforms.time.value = t;
 
-  // FASE 2.3 — God rays pulsantes
-  godRays.forEach((ray, i) => {
-    ray.material.opacity = 0.025 + 0.02 * Math.sin(t * 0.4 + i * 0.7);
-  });
-
   // FASE 2.4 — Halos de llamas miran a la cámara
   flameSprites.forEach(h => {
     h.lookAt(camera.position);
-    h.material.opacity = 0.08 + 0.06 * Math.sin(t * 3 + h.position.x * 2);
+    h.material.opacity = 0.05 + 0.04 * Math.sin(t * 3 + h.position.x * 2);
   });
 
   // FASE 2.5 — Niebla ondulante
   fogPlanes.forEach((fp, i) => {
     fp.position.x = Math.sin(t * 0.15 + i) * 8;
-    fp.position.z = Math.cos(t * 0.12 + i * 0.5) * 6;
+    fp.position.z = 5 + Math.cos(t * 0.12 + i * 0.5) * 6;
     fp.material.opacity = 0.02 + 0.015 * Math.sin(t * 0.3 + i);
   });
 
