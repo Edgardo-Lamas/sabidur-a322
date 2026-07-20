@@ -75,8 +75,10 @@
   }
 
   function pieceCalzado() {
+    // Botas blindadas: bajadas hasta los pies (suelas ~y772) para que calcen a
+    // nivel del piso sobre las piernas del héroe, no flotando en las espinillas.
     return piece('calzado',
-      `<image href="${IMG}calzado.png" x="83" y="520" width="284" height="250"
+      `<image href="${IMG}calzado.png" x="87" y="543" width="274" height="274"
               preserveAspectRatio="xMidYMid meet"/>`
     );
   }
@@ -90,7 +92,7 @@
 
   function pieceYelmo() {
     return piece('yelmo',
-      `<image href="${IMG}yelmo.png" x="115" y="-15" width="210" height="185"
+      `<image href="${IMG}yelmo.png" x="120" y="-2" width="210" height="185"
               preserveAspectRatio="xMidYMid meet"/>`
     );
   }
