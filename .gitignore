@@ -29,3 +29,11 @@ docs/templo-refs/
 .playwright-mcp/
 # Secreto de Google OAuth — nunca versionar
 client_secret_*.json
+
+# Audios normalizados y reportes de calidad (no commitear)
+scripts/normalizados/
+scripts/reporte_calidad*.json
+
+# Bytecode de Python
+__pycache__/
+*.pyc
