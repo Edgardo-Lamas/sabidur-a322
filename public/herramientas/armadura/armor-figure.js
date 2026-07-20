@@ -73,14 +73,14 @@
 
   function pieceCalzado() {
     // El arte original (calzado.png) venía como un par de botas en perspectiva
-    // diagonal (foto de producto): imposible de calzar sobre dos pies rectos —
-    // flotaba en las canillas. Se separó en dos botas aladas ("el calzado del
-    // evangelio de la paz", Ef 6:15) y se coloca UNA sobre cada pie, a nivel del
-    // piso y en pose simétrica (la izquierda es el espejo de la derecha).
+    // diagonal (foto de producto): imposible de calzar sobre dos pies rectos.
+    // Se aisló UNA bota completa (con la puntera entera) del original y se la
+    // coloca sobre cada pie a nivel del piso, en pose simétrica: la izquierda es
+    // el espejo de la derecha (calzado-l.png = espejo de calzado-r.png).
     return piece('calzado',
-      `<image href="${IMG}calzado-l.png" x="88" y="588" width="88" height="162"
+      `<image href="${IMG}calzado-l.png" x="83.5" y="604" width="97" height="140"
               preserveAspectRatio="xMidYMid meet"/>` +
-      `<image href="${IMG}calzado-r.png" x="268" y="588" width="88" height="162"
+      `<image href="${IMG}calzado-r.png" x="263.5" y="604" width="97" height="140"
               preserveAspectRatio="xMidYMid meet"/>`
     );
   }
@@ -161,8 +161,8 @@
 
   /* El calzado son DOS botas (una por pie), no una sola pieza. */
   const CALZADO_CANVAS_POS = {
-    l: [0.280, 0.892, 0.220, 0.228],
-    r: [0.730, 0.892, 0.220, 0.228],
+    l: [0.280, 0.899, 0.243, 0.197],
+    r: [0.730, 0.899, 0.243, 0.197],
   };
 
   function loadImg(src) {
