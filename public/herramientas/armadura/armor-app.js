@@ -319,7 +319,7 @@
     const ctx = cv.getContext('2d', { alpha: false });
     const token = ++renderToken;
     window.ArmorFigure.renderFinal(ctx, cv.width, cv.height, {
-      bgPreset: state.bgPreset, face: state.face, t: 3
+      bgPreset: state.bgPreset, face: state.face, equipped: state.equipped, t: 3
     });
     return token;
   }
@@ -332,7 +332,7 @@
     const cv = document.createElement('canvas'); cv.width = a.w; cv.height = a.h;
     const ctx = cv.getContext('2d', { alpha: false });
     if (state.bgPreset) state.bgPreset.prepare(a.w, a.h);
-    await window.ArmorFigure.renderFinal(ctx, a.w, a.h, { bgPreset: state.bgPreset, face: state.face, t: 3 });
+    await window.ArmorFigure.renderFinal(ctx, a.w, a.h, { bgPreset: state.bgPreset, face: state.face, equipped: state.equipped, t: 3 });
     cv.toBlob((blob) => {
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');

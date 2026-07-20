@@ -21,9 +21,6 @@
       <clipPath id="clip-cinturon">
         <rect x="148" y="318" width="144" height="74" rx="4"/>
       </clipPath>
-      <clipPath id="clip-calzado">
-        <rect x="100" y="460" width="240" height="300" rx="3"/>
-      </clipPath>
     </defs>`;
   }
 
@@ -75,10 +72,15 @@
   }
 
   function pieceCalzado() {
-    // Botas blindadas: bajadas hasta los pies (suelas ~y772) para que calcen a
-    // nivel del piso sobre las piernas del héroe, no flotando en las espinillas.
+    // El arte original (calzado.png) venía como un par de botas en perspectiva
+    // diagonal (foto de producto): imposible de calzar sobre dos pies rectos —
+    // flotaba en las canillas. Se separó en dos botas aladas ("el calzado del
+    // evangelio de la paz", Ef 6:15) y se coloca UNA sobre cada pie, a nivel del
+    // piso y en pose simétrica (la izquierda es el espejo de la derecha).
     return piece('calzado',
-      `<image href="${IMG}calzado.png" x="87" y="543" width="274" height="274"
+      `<image href="${IMG}calzado-l.png" x="88" y="588" width="88" height="162"
+              preserveAspectRatio="xMidYMid meet"/>` +
+      `<image href="${IMG}calzado-r.png" x="268" y="588" width="88" height="162"
               preserveAspectRatio="xMidYMid meet"/>`
     );
   }
@@ -153,9 +155,14 @@
     yelmo:    [0.50,  0.09,  0.90,  0.22],
     coraza:   [0.50,  0.34,  1.15,  0.38],
     cinturon: [0.50,  0.49,  0.46,  0.11],
-    calzado:  [0.50,  0.88,  0.56,  0.30],
     escudo:   [-0.16, 0.44,  0.72,  0.72],
     espada:   [1.16,  0.40,  0.58,  0.68],
+  };
+
+  /* El calzado son DOS botas (una por pie), no una sola pieza. */
+  const CALZADO_CANVAS_POS = {
+    l: [0.280, 0.892, 0.220, 0.228],
+    r: [0.730, 0.892, 0.220, 0.228],
   };
 
   function loadImg(src) {
@@ -235,18 +242,23 @@
       : [...(state.equipped || [])];
 
     for (const id of equippedIds) {
-      const pos = PIECE_CANVAS_POS[id];
-      if (!pos) continue;
-      const [cx, cy, pw, ph] = pos;
-      const pImg = await loadImg(IMG + id + '.png');
-      if (!pImg) continue;
-      const pW = figW * pw, pH = figH * ph;
-      const pX = figX + figW * cx - pW / 2;
-      const pY = figY + figH * cy - pH / 2;
-      ctx.save();
-      ctx.shadowColor = 'rgba(233,201,138,0.4)'; ctx.shadowBlur = W * 0.03;
-      ctx.drawImage(pImg, pX, pY, pW, pH);
-      ctx.restore();
+      // El calzado se dibuja como dos botas separadas, una sobre cada pie
+      // (mismo criterio que la figura SVG), no como el par diagonal original.
+      const specs = id === 'calzado'
+        ? [['calzado-l', CALZADO_CANVAS_POS.l], ['calzado-r', CALZADO_CANVAS_POS.r]]
+        : (PIECE_CANVAS_POS[id] ? [[id, PIECE_CANVAS_POS[id]]] : []);
+      for (const [file, pos] of specs) {
+        const [cx, cy, pw, ph] = pos;
+        const pImg = await loadImg(IMG + file + '.png');
+        if (!pImg) continue;
+        const pW = figW * pw, pH = figH * ph;
+        const pX = figX + figW * cx - pW / 2;
+        const pY = figY + figH * cy - pH / 2;
+        ctx.save();
+        ctx.shadowColor = 'rgba(233,201,138,0.4)'; ctx.shadowBlur = W * 0.03;
+        ctx.drawImage(pImg, pX, pY, pW, pH);
+        ctx.restore();
+      }
     }
 
     // 6. Textos finales
