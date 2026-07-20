@@ -78,9 +78,9 @@
     // coloca sobre cada pie a nivel del piso, en pose simétrica: la izquierda es
     // el espejo de la derecha (calzado-l.png = espejo de calzado-r.png).
     return piece('calzado',
-      `<image href="${IMG}calzado-l.png" x="83.5" y="604" width="97" height="140"
+      `<image href="${IMG}calzado-l.png" x="73.4" y="576" width="119.1" height="172"
               preserveAspectRatio="xMidYMid meet"/>` +
-      `<image href="${IMG}calzado-r.png" x="263.5" y="604" width="97" height="140"
+      `<image href="${IMG}calzado-r.png" x="251.4" y="576" width="119.1" height="172"
               preserveAspectRatio="xMidYMid meet"/>`
     );
   }
@@ -161,8 +161,8 @@
 
   /* El calzado son DOS botas (una por pie), no una sola pieza. */
   const CALZADO_CANVAS_POS = {
-    l: [0.280, 0.899, 0.243, 0.197],
-    r: [0.730, 0.899, 0.243, 0.197],
+    l: [0.283, 0.883, 0.298, 0.242],
+    r: [0.728, 0.883, 0.298, 0.242],
   };
 
   function loadImg(src) {
