@@ -295,12 +295,12 @@
 
       const elapsed = now - (state.startedAt || (state.startedAt = now));
       // ritmo de aparición: se acelera suavemente
-      const curSpawn = Math.max(440, state.spawnEvery - elapsed / 70);
+      const curSpawn = Math.max(600, state.spawnEvery - elapsed / 120);
       if (now - state.lastSpawn > curSpawn) { spawn(); state.lastSpawn = now; }
 
       // velocidad de caída en FRACCIÓN POR SEGUNDO (sube lento con el tiempo)
-      const fallPerSec = 0.34 + elapsed / 90000;
-      const shieldYfrac = 0.80, shieldHalf = 0.085;
+      const fallPerSec = 0.22 + elapsed / 140000;
+      const shieldYfrac = 0.80, shieldHalf = 0.11;
 
       for (const d of state.darts) {
         if (d.__dead) continue;

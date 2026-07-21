@@ -192,34 +192,104 @@
 
   function equipWithReveal(a) {
     state.equipped.add(a.id);
+
+    // Show piece in side slot (NOT on the warrior yet)
+    const slot = document.querySelector(`.side-slot[data-slot="${a.id}"]`);
+    if (slot) slot.classList.add('won');
+
+    // Subtle pulse on the stage
     const stage = document.getElementById('figureStage');
-    // 1) explosión de forja (destello + onda + chispas)
-    spawnForgeBurst(stage, a);
-    // 2) sacudida + resplandor del escenario
-    stage.classList.add('pulse', 'reveal');
+    stage.classList.add('pulse');
     setTimeout(() => stage.classList.remove('pulse'), 600);
-    setTimeout(() => stage.classList.remove('reveal'), 2100);
-    // 3) la pieza entra sincronizada con el pico del destello
-    const g = svgEl.querySelector(`[data-piece="${a.id}"]`);
-    setTimeout(() => {
-      if (g) {
-        g.style.setProperty('--glow', a.glow || a.accent);
-        g.setAttribute('data-on', '1');
-        g.classList.remove('just-forged'); void g.getBBox; g.classList.add('just-forged');
-        setTimeout(() => g.classList.remove('just-forged'), 2200);
-      }
-    }, 320);
 
     showDetail(a);
     renderChips();
     renderProgress();
+
     const done = state.equipped.size;
-    document.getElementById('equipCount').textContent = done < 6
-      ? 'Te faltan ' + (6 - done) + ' piezas por conquistar'
-      : '¡Armadura completa!';
-    const fin = document.getElementById('btnFinish');
-    fin.disabled = done < 6;
-    if (done === 6) fin.classList.add('ready');
+    if (done < 6) {
+      document.getElementById('equipCount').textContent =
+        'Te faltan ' + (6 - done) + ' piezas por conquistar';
+    } else {
+      document.getElementById('equipCount').textContent = '¡Tenés todas las piezas!';
+      const btnAsm = document.getElementById('btnAssemble');
+      btnAsm.style.display = '';
+      btnAsm.classList.add('ready');
+    }
+  }
+
+  /* ===================== ENSAMBLAJE TRANSFORMER ===================== */
+  function assembleArmor() {
+    const sfx = document.getElementById('transformSfx');
+    const stage = document.getElementById('figureStage');
+
+    // 1. Play Transformers sound
+    sfx.currentTime = 0;
+    sfx.volume = 0.8;
+    sfx.play().catch(() => {});
+
+    // 2. Darken stage
+    stage.classList.add('assembling-mode');
+    document.getElementById('btnAssemble').style.display = 'none';
+    document.getElementById('equipCount').textContent = '';
+
+    // 3. Assembly sequence — each piece does whirlwind then mounts
+    const order = ['cinturon', 'coraza', 'calzado', 'escudo', 'yelmo', 'espada'];
+    const WHIRL_MS     = 1100;   // whirlwind animation duration (matches CSS)
+    const PIECE_DELAY  = 700;    // delay between each piece starting
+    const MOUNT_AT     = 0.55;   // fraction of whirlwind when SVG piece activates
+
+    order.forEach((id, i) => {
+      const delay = 400 + i * PIECE_DELAY;  // 400ms initial pause
+      const slot = document.querySelector(`.side-slot[data-slot="${id}"]`);
+      const g = svgEl ? svgEl.querySelector(`[data-piece="${id}"]`) : null;
+      const armorData = window.ARMOR.find(x => x.id === id);
+
+      // Start whirlwind on side slot
+      setTimeout(() => {
+        if (slot) slot.classList.add('assembling');
+      }, delay);
+
+      // Mount on warrior (activate SVG piece with flash)
+      setTimeout(() => {
+        if (g) {
+          g.style.setProperty('--glow', armorData ? armorData.glow || armorData.accent : '#fff');
+          g.setAttribute('data-on', '1');
+          g.classList.add('asm-flash');
+          setTimeout(() => g.classList.remove('asm-flash'), 1300);
+        }
+        // Forge burst effect on stage
+        if (armorData) spawnForgeBurst(stage, armorData);
+        // Stage shake
+        stage.classList.remove('pulse');
+        void stage.offsetWidth;
+        stage.classList.add('pulse');
+        setTimeout(() => stage.classList.remove('pulse'), 600);
+      }, delay + WHIRL_MS * MOUNT_AT);
+    });
+
+    // 4. Final explosion after all pieces assembled
+    const totalTime = 400 + order.length * PIECE_DELAY + WHIRL_MS;
+    setTimeout(() => {
+      // Golden burst flash
+      const burst = document.createElement('div');
+      burst.className = 'asm-final-burst';
+      document.body.appendChild(burst);
+      setTimeout(() => burst.remove(), 2200);
+
+      // Show "ARMADURA COMPLETA" text
+      const txt = document.getElementById('asmCompleteText');
+      if (txt) txt.classList.add('show');
+
+      // Remove assembling mode
+      stage.classList.remove('assembling-mode');
+    }, totalTime);
+
+    // 5. After celebration, show portrait button
+    setTimeout(() => {
+      document.getElementById('btnFinish').style.display = '';
+      document.getElementById('equipCount').textContent = '¡Armadura completa!';
+    }, totalTime + 2500);
   }
 
   /* Explosión de "forja": destello, dos ondas y chispas que salen disparadas. */
@@ -345,6 +415,7 @@
   // ---------------- wire ----------------
   function wire() {
     document.getElementById('btnStart').onclick = () => { show('screen-equip'); };
+    document.getElementById('btnAssemble').onclick = () => assembleArmor();
     document.getElementById('btnFinish').onclick = () => {
       show('screen-final');
       resolveBg(); applyPortraitAspect();

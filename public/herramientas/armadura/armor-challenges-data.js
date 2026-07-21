@@ -96,8 +96,8 @@ window.CHALLENGES = {
   escudo: {
     type: "action-shield",
     intro: "«Apagad todos los dardos de fuego del maligno». Movés el escudo y bloqueás los dardos. ¡No dejes que te impacten!",
-    targetBlocks: 12,        // bloqueos para superar la prueba
-    spawnEvery: 850,         // ms entre dardos (se acelera)
+    targetBlocks: 8,         // bloqueos para superar la prueba
+    spawnEvery: 1100,        // ms entre dardos (se acelera)
     darts: ["MIEDO", "DUDA", "CULPA", "ENVIDIA", "ORGULLO", "MENTIRA", "RENCOR", "ANSIEDAD"]
   },
 
