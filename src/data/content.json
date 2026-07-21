@@ -1170,7 +1170,7 @@
         "imagen": "img/series/reloj-profetico.jpg",
         "disponible": true,
         "primerArticulo": "/ensayos/reloj-profetico-introduccion",
-        "totalArticulos": 5,
+        "totalArticulos": 6,
         "articulos": [
           {
             "numero": "0",
@@ -1198,6 +1198,13 @@
             "titulo": "El quiebre y la disciplina",
             "subtitulo": "Del becerro de oro al exilio: la lógica de la disciplina pactual y la fidelidad inquebrantable de Dios",
             "href": "/ensayo/reloj-profetico-israel-2",
+            "disponible": true
+          },
+          {
+            "numero": "Gentiles I",
+            "titulo": "Las Naciones en el Propósito de Dios",
+            "subtitulo": "De Nimrod a los cuatro imperios de Daniel: el origen de las naciones bajo la soberanía de Dios",
+            "href": "/ensayo/reloj-profetico-gentiles-1",
             "disponible": true
           }
         ],
@@ -1258,7 +1265,15 @@
             "nombre": "Línea de los Gentiles",
             "descripcion": "El tiempo de los gentiles, los imperios del sueño de Nabucodonosor y el horizonte de las naciones.",
             "color": "earth",
-            "articulos": []
+            "articulos": [
+              {
+                "numero": "Gentiles I",
+                "titulo": "Las Naciones en el Propósito de Dios",
+                "subtitulo": "De Nimrod a los cuatro imperios de Daniel: el origen de las naciones bajo la soberanía de Dios",
+                "href": "/ensayo/reloj-profetico-gentiles-1",
+                "disponible": true
+              }
+            ]
           }
         ]
       },
