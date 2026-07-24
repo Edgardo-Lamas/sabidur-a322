@@ -60,6 +60,7 @@ const HistoriaSoledad = () => {
             <SEO
                 title="El Dios que Me Ve — Historias para Jóvenes"
                 description="Una historia sobre la soledad y ser visto. Hay un Dios que conoce tu nombre aunque te sientas invisible."
+                url="/adolescentes/historias/soledad"
             />
 
             <style>{STYLES}</style>

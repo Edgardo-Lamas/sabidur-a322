@@ -35,6 +35,7 @@ const HistoriaAnsiedad = () => {
             <SEO
                 title="El Ancla y la Tormenta — Historias para Jóvenes"
                 description="Una historia sobre la ansiedad y la fe. Cuando las olas de los pensamientos no te dejan dormir, hay una estrella que no se mueve."
+                url="/adolescentes/historias/ansiedad"
             />
 
             {/* ─── VIDEO BACKGROUND fijo ─── */}

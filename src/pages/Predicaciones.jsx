@@ -70,6 +70,7 @@ export default function Predicaciones() {
       <SEO
         title="Predicaciones y Enseñanzas — Sabiduría para el Corazón"
         description="Biblioteca de predicaciones expositivas, series por libro bíblico, Escuela Dominical y enseñanzas temáticas."
+        url="/predicaciones"
       />
 
       {/* Hero */}

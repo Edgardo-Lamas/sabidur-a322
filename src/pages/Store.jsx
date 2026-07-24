@@ -42,6 +42,7 @@ const Store = () => {
                 title="Tienda - Literatura Bíblica"
                 description="Descubre nuestra selección de Biblias, libros de teología, comentarios bíblicos y recursos ministeriales. Literatura cristiana de calidad para tu crecimiento espiritual."
                 keywords="tienda cristiana, biblias, libros cristianos, teología reformada, comentarios bíblicos"
+                url="/tienda"
             />
 
             <div className="min-h-screen bg-sabiduria-bg">

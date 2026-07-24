@@ -56,6 +56,7 @@ const ProductPage = () => {
                 title={`${product.title} - ${product.author}`}
                 description={product.description}
                 keywords={`${product.title}, ${product.author}, ${categoryName}, literatura cristiana`}
+                url={`/tienda/${product.slug}`}
             />
 
             <div className="min-h-screen bg-sabiduria-bg">

@@ -141,7 +141,7 @@ const Panel = () => {
 
     return (
         <main className="bg-sabiduria-bg min-h-screen">
-            <SEO title="Panel de métricas — Sabiduría para el Corazón" />
+            <SEO title="Panel de métricas — Sabiduría para el Corazón" noindex />
 
             {/* Header */}
             <div style={{ background: NAVY }} className="px-6 py-8">

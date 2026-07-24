@@ -5,7 +5,7 @@ import SEO from '../components/SEO';
 const NotFound = () => {
     return (
         <main className="min-h-[70vh] flex items-center justify-center bg-sabiduria-bg px-4">
-            <SEO title="Página no encontrada" />
+            <SEO title="Página no encontrada" noindex />
             <div className="max-w-xl w-full text-center">
                 <span className="text-sabiduria-gold text-xs font-bold uppercase tracking-[0.3em] mb-6 block">
                     Error 404

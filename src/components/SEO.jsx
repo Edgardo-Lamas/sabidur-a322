@@ -1,10 +1,10 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-const SEO = ({ title, description, image, url, type = 'website' }) => {
+const SEO = ({ title, description, image, url, type = 'website', noindex = false }) => {
     const siteTitle = 'Sabiduría para el Corazón';
     const siteDescription = 'Recursos de teología reformada, exégesis bíblica y bosquejos homiléticos para la edificación de la Iglesia de Cristo.';
-    const siteUrl = (import.meta.env.VITE_SITE_URL || 'https://sabiduriadelcorazon.vercel.app').replace(/\/$/, '') + '/';
+    const siteUrl = (import.meta.env.VITE_SITE_URL || 'https://sabiduriaparaelcorazon.com').replace(/\/$/, '') + '/';
     const defaultImage = '/img/og-default.jpg'; // Ensure this image exists in public/img
 
     const metaTitle = title ? `${title} | ${siteTitle}` : siteTitle;
@@ -18,6 +18,7 @@ const SEO = ({ title, description, image, url, type = 'website' }) => {
             {/* Standard Metadata */}
             <title>{metaTitle}</title>
             <meta name="description" content={metaDescription} />
+            <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
             <link rel="canonical" href={metaUrl} />
 
             {/* Open Graph / Facebook */}

@@ -73,6 +73,7 @@ const HistoriaIdentidad = () => {
             <SEO
                 title="¿Quién Soy? — Historias para Jóvenes"
                 description="Una historia sobre identidad. Antes de que alguien te dijera quién tenías que ser, fuiste hecho a imagen de Dios."
+                url="/adolescentes/historias/identidad"
             />
 
             <style>{STYLES}</style>

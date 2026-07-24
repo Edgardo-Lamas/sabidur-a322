@@ -379,6 +379,7 @@ const BibliotecaConsulta = () => {
             <SEO
                 title="Biblioteca de Consulta | Catálogo Completo"
                 description="Una selección curada de libros fundamentales para el estudio bíblico, teológico y la vida cristiana."
+                url="/biblioteca/consulta"
             />
 
             {/* ════════════════════════════════════════════════════════════════

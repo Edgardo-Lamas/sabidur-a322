@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://edgardo-lamas.github.io/sabidur-a322/sitemap.xml
+# Páginas internas, no son contenido público
+Disallow: /panel
+Disallow: /api/
+
+Sitemap: https://sabiduriaparaelcorazon.com/sitemap.xml

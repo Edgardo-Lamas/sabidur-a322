@@ -102,6 +102,7 @@ export default function PredicacionesSerie({ seccion }) {
       <SEO
         title={`${serie.titulo} — Predicaciones — Sabiduría para el Corazón`}
         description={`${serie.total} predicaciones de la serie ${serie.titulo}.`}
+        url={`/predicaciones/${seccion}/${id}`}
       />
 
       {/* Header */}

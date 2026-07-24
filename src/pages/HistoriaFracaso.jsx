@@ -35,6 +35,7 @@ const HistoriaFracaso = () => {
             <SEO
                 title="El Fracaso y la Segunda Oportunidad — Historias para Jóvenes"
                 description="Una historia sobre el fracaso y la restauración. Pedro negó a Jesús tres veces. Pero la historia no terminó ahí."
+                url="/adolescentes/historias/fracaso"
             />
 
             {/* ─── VIDEO BACKGROUND fijo ─── */}

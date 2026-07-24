@@ -56,7 +56,7 @@ const ArticlePage = () => {
         );
     }
 
-    const siteUrl = import.meta.env.VITE_SITE_URL || 'https://edgardo-lamas.github.io/sabidur-a322';
+    const siteUrl = import.meta.env.VITE_SITE_URL || 'https://sabiduriaparaelcorazon.com';
     const pageUrl = `${siteUrl}/articulo/${article.slug}`;
     const articleSchema = {
         "@context": "https://schema.org",

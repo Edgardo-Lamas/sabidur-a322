@@ -63,6 +63,9 @@ const BIOGRAPHIES = {
 
 export default function handler(req, res) {
   const urlPath = req.query.path || '/';
+  // embed=1 → lo sirve el middleware en la URL real (sin meta refresh, sería un bucle).
+  // Sin el flag, alguien entró directo a /api/og-preview y sí hay que mandarlo a la página.
+  const isEmbed = req.query.embed === '1';
   const proto = req.headers['x-forwarded-proto'] || 'https';
   const host  = req.headers['x-forwarded-host'] || req.headers.host || 'sabiduriadelcorazon.com';
   const BASE  = `${proto}://${host}`;
@@ -217,11 +220,11 @@ export default function handler(req, res) {
   <meta name="twitter:image"       content="${escHtml(image)}">
 
   <link rel="canonical" href="${escHtml(canonicalUrl)}">
-  <!-- Redirige a los usuarios que lleguen directamente a esta URL -->
-  <meta http-equiv="refresh" content="0;url=${escHtml(canonicalUrl)}">
+${isEmbed ? '' : `  <!-- Redirige a los usuarios que lleguen directamente a /api/og-preview -->
+  <meta http-equiv="refresh" content="0;url=${escHtml(canonicalUrl)}">`}
 </head>
 <body>
-  <p>Redirigiendo a <a href="${escHtml(canonicalUrl)}">${escHtml(title)}</a>…</p>
+  <p>${isEmbed ? escHtml(description) : `Redirigiendo a <a href="${escHtml(canonicalUrl)}">${escHtml(title)}</a>…`}</p>
 </body>
 </html>`;
 

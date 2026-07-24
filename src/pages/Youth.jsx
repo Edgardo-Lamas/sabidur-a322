@@ -68,6 +68,7 @@ const Youth = () => {
                 title="Sabiduría para la Juventud"
                 description="Textos y desafíos bíblicos para crecer en la fe. Recursos pensados para jóvenes."
                 keywords="juventud cristiana, jóvenes, fe, biblia, recursos juveniles, sabiduría"
+                url="/adolescentes"
             />
 
             <div className="min-h-screen bg-sabiduria-bg">

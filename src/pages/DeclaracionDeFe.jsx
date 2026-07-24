@@ -174,6 +174,7 @@ const DeclaracionDeFe = () => {
             <SEO
                 title="Declaración de Fe | Sabiduría para el Corazón"
                 description="Declaración de Fe basada en la doctrina histórica reformada. Los 14 puntos fundamentales que definen nuestra identidad doctrinal."
+                url="/declaracion-de-fe"
             />
 
             {/* Hero Institucional */}

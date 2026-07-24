@@ -219,6 +219,7 @@ const SeriesPage = () => {
                 title={`${serie.titulo} — Sabiduría para el Corazón`}
                 description={serie.descripcion}
                 image={serie.imagen || undefined}
+                url={`/biblioteca/series/${serie.slug}`}
             />
 
             <div className="min-h-screen bg-sabiduria-bg">

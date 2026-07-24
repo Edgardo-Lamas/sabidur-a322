@@ -55,7 +55,7 @@ const EstudioPage = () => {
     }
 
     // Generar URLs y datos para SEO
-    const siteUrl = import.meta.env.VITE_SITE_URL || 'https://edgardo-lamas.github.io/sabidur-a322';
+    const siteUrl = import.meta.env.VITE_SITE_URL || 'https://sabiduriaparaelcorazon.com';
     const pageUrl = `${siteUrl}/estudio/${estudio.slug}`;
     const ogImage = `https://img.youtube.com/vi/${estudio.youtube_id}/maxresdefault.jpg`;
     const videoUrl = `https://www.youtube.com/watch?v=${estudio.youtube_id}`;
