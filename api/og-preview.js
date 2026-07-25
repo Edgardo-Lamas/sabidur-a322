@@ -16,6 +16,15 @@ function resolveImage(img, base) {
   return `${base}/${img.replace(/^\//, '')}`;
 }
 
+// Imagen de la serie a la que pertenece un ensayo (respaldo cuando el ensayo
+// no define su propio campo `image`). Busca el href en biblioteca.series.
+function serieImageFor(slug, content) {
+  const series = content?.biblioteca?.series || [];
+  const href = `/ensayo/${slug}`;
+  const serie = series.find(s => (s.articulos || []).some(a => a.href === href));
+  return serie?.imagen || null;
+}
+
 // Datos estáticos de las series de biografías
 const SERIES_INDEX = {
   '/biografias': {
@@ -103,7 +112,9 @@ export default function handler(req, res) {
     if (found) {
       title       = `${found.title} | ${SITE_TITLE}`;
       description = found.excerpt || SITE_DESC;
-      image       = resolveImage(found.image, BASE);
+      // Si el ensayo no trae imagen propia, hereda la de su serie antes de
+      // caer en la genérica del sitio.
+      image       = resolveImage(found.image || serieImageFor(slug, content), BASE);
     }
   }
 
