@@ -147,17 +147,23 @@
       audioEncoder.configure({ codec: 'mp4a.40.2', sampleRate, numberOfChannels: numCh, bitrate: 128_000 });
     }
 
-    /* ---- Codificar audio en chunks de 4096 frames ---- */
-    if (audioEncoder && audioBuf) {
+    /* ---- Codificar audio en chunks de 4096 frames ----
+       El video se cicla al exportar (seekTo usa `t % dur`), así que el audio
+       tiene que ciclar igual: si el clip dura menos que la duración elegida
+       en el slider (4–10 s), se vuelve a empezar en vez de quedar en silencio. */
+    if (audioEncoder && audioBuf && audioBuf.length > 0) {
       const totalSamples = Math.ceil(dur * sampleRate);
+      const clipLen = audioBuf.length;
+      const chans = [];
+      for (let c = 0; c < numCh; c++) chans.push(audioBuf.getChannelData(c));
       const chunkSz = 4096;
       for (let off = 0; off < totalSamples; off += chunkSz) {
         const frames = Math.min(chunkSz, totalSamples - off);
         const interleaved = new Float32Array(frames * numCh);
         for (let i = 0; i < frames; i++) {
+          const src = (off + i) % clipLen;
           for (let c = 0; c < numCh; c++) {
-            const ch = audioBuf.getChannelData(c);
-            interleaved[i * numCh + c] = (off + i < ch.length) ? ch[off + i] : 0;
+            interleaved[i * numCh + c] = chans[c][src];
           }
         }
         const ad = new AudioData({
