@@ -11,6 +11,77 @@
   /* Ruta base de los assets del guerrero */
   const IMG = '/img/armadura/';
 
+  /* ===================== GEOMETRÍA — ÚNICA FUENTE DE VERDAD =====================
+     Caja de cada pieza en coordenadas del viewBox (440×780). De acá salen TANTO
+     los <image> del SVG COMO las posiciones del retrato en canvas: si se tocan
+     acá, las dos vistas se mueven juntas. Antes eran dos tablas separadas y se
+     desincronizaron (el retrato dibujaba el yelmo aplastado y el escudo afuera).
+
+     El héroe es un PNG 1080×1920 con la figura de la coronilla (py 56) a los pies
+     (py 1907); las cajas están calibradas contra ESA anatomía. Si se reemplaza el
+     arte del héroe hay que reencuadrarlo a ese mismo lienzo, no recalibrar las 7. */
+  const AR_HEROE = 1080 / 1920;
+  const AR_BOTA  = 408 / 589;   // calzado-l.png / calzado-r.png
+  const AR_CUAD  = 1;           // el resto de los assets son 1024×1024
+
+  const CAJA_HEROE = { x: 20, y: 0, w: 400, h: 780 };
+
+  const CAJA = {
+    coraza:   { x: 65,    y: 100,   w: 310,   h: 280   },
+    cinturon: { x: 75,    y: 282,   w: 290,   h: 132   },
+    // Escudo redondo embrazado: el disco ocupa el 70% del PNG, así que la caja va
+    // más grande que el escudo visible. Centrado sobre el antebrazo izquierdo.
+    escudo:   { x: 8.4,   y: 242,   w: 227.6, h: 227.6 },
+    // El arte del yelmo está en tres cuartos y el penacho vuela a la izquierda: la
+    // cúpula NO está centrada en su PNG (va de x=390 a x=700 de 1024). La caja se
+    // calcula para que esa cúpula tape la cabeza y el halo entre entero arriba.
+    yelmo:    { x: 72.4,  y: -38.3, w: 281,   h: 281   },
+    // La caja DEBE ser cuadrada: el PNG es 1:1 y con meet una caja rectangular
+    // (antes 110×310) encogía la espada al lado corto y la dejaba diminuta.
+    // La empuñadura cae al 78% del alto del arte → queda en la mano derecha.
+    espada:   { x: 130.4, y: 96.1,  w: 400,   h: 400   },
+    // Una bota por pie, la izquierda es el espejo de la derecha.
+    calzadoL: { x: 73.4,  y: 576,   w: 119.1, h: 172   },
+    calzadoR: { x: 251.4, y: 576,   w: 119.1, h: 172   },
+  };
+
+  /* El cinturón se dibuja con "slice" (llena la caja y desborda) y después se
+     recorta a esta ventana: así se ve la parte central del arte en grande, del
+     ancho de la cintura. Con "meet" saldría un cinturón chico y flotando. */
+  const RECORTE_CINTURON = { x: 148, y: 318, w: 144, h: 74 };
+
+  /* Dónde aterriza de verdad un <image> dentro de su caja según preserveAspectRatio:
+     "meet"  → se achica al lado que ajusta y queda centrada (sobra aire);
+     "slice" → se agranda hasta cubrir la caja y desborda (hay que recortar). */
+  function encajar(caja, ar, ajuste) {
+    const arCaja = caja.w / caja.h;
+    const porAncho = ajuste === 'slice' ? ar < arCaja : ar > arCaja;
+    const w = porAncho ? caja.w : caja.h * ar;
+    const h = porAncho ? caja.w / ar : caja.h;
+    return { x: caja.x + (caja.w - w) / 2, y: caja.y + (caja.h - h) / 2, w, h };
+  }
+
+  /* Rectángulo real que ocupa el héroe en el viewBox: x 20→420, y 34.4→745.6 */
+  const HEROE = encajar(CAJA_HEROE, AR_HEROE, 'meet');
+
+  /* Traduce una caja del viewBox a las fracciones que usa el retrato en canvas:
+     [cx, cy, ancho, alto] relativos al rectángulo del héroe. */
+  function aCanvas(caja, ar, ajuste) {
+    const r = encajar(caja, ar, ajuste || 'meet');
+    return [(r.x + r.w / 2 - HEROE.x) / HEROE.w,
+            (r.y + r.h / 2 - HEROE.y) / HEROE.h,
+            r.w / HEROE.w,
+            r.h / HEROE.h];
+  }
+
+  /* Igual que aCanvas pero devuelve la esquina, no el centro: para ventanas de recorte. */
+  function recorteACanvas(caja) {
+    return [(caja.x - HEROE.x) / HEROE.w, (caja.y - HEROE.y) / HEROE.h,
+            caja.w / HEROE.w, caja.h / HEROE.h];
+  }
+
+  const attrs = (caja) => `x="${caja.x}" y="${caja.y}" width="${caja.w}" height="${caja.h}"`;
+
   /* ---- defs: filtro de brillo para piezas ---- */
   function defs() {
     return `<defs>
@@ -19,15 +90,14 @@
         <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
       </filter>
       <clipPath id="clip-cinturon">
-        <rect x="148" y="318" width="144" height="74" rx="4"/>
+        <rect ${attrs(RECORTE_CINTURON)} rx="4"/>
       </clipPath>
     </defs>`;
   }
 
   /* ---- Hero base: PNG con fondo transparente ---- */
   function baseBody() {
-    return `<image href="${IMG}heroe.png"
-              x="20" y="0" width="400" height="780"
+    return `<image href="${IMG}heroe.png" ${attrs(CAJA_HEROE)}
               preserveAspectRatio="xMidYMid meet"/>`;
   }
 
@@ -59,14 +129,14 @@
 
   function pieceCinturon() {
     return piece('cinturon',
-      `<image href="${IMG}cinturon.png" x="75" y="282" width="290" height="132"
+      `<image href="${IMG}cinturon.png" ${attrs(CAJA.cinturon)}
               preserveAspectRatio="xMidYMid slice" clip-path="url(#clip-cinturon)"/>`
     );
   }
 
   function pieceCoraza() {
     return piece('coraza',
-      `<image href="${IMG}coraza.png" x="65" y="100" width="310" height="280"
+      `<image href="${IMG}coraza.png" ${attrs(CAJA.coraza)}
               preserveAspectRatio="xMidYMid meet"/>`
     );
   }
@@ -78,30 +148,30 @@
     // coloca sobre cada pie a nivel del piso, en pose simétrica: la izquierda es
     // el espejo de la derecha (calzado-l.png = espejo de calzado-r.png).
     return piece('calzado',
-      `<image href="${IMG}calzado-l.png" x="73.4" y="576" width="119.1" height="172"
+      `<image href="${IMG}calzado-l.png" ${attrs(CAJA.calzadoL)}
               preserveAspectRatio="xMidYMid meet"/>` +
-      `<image href="${IMG}calzado-r.png" x="251.4" y="576" width="119.1" height="172"
+      `<image href="${IMG}calzado-r.png" ${attrs(CAJA.calzadoR)}
               preserveAspectRatio="xMidYMid meet"/>`
     );
   }
 
   function pieceEscudo() {
     return piece('escudo',
-      `<image href="${IMG}escudo.png" x="-10" y="195" width="185" height="185"
+      `<image href="${IMG}escudo.png" ${attrs(CAJA.escudo)}
               preserveAspectRatio="xMidYMid meet"/>`
     );
   }
 
   function pieceYelmo() {
     return piece('yelmo',
-      `<image href="${IMG}yelmo.png" x="120" y="-2" width="210" height="185"
+      `<image href="${IMG}yelmo.png" ${attrs(CAJA.yelmo)}
               preserveAspectRatio="xMidYMid meet"/>`
     );
   }
 
   function pieceEspada() {
     return piece('espada',
-      `<image href="${IMG}espada.png" x="295" y="100" width="110" height="310"
+      `<image href="${IMG}espada.png" ${attrs(CAJA.espada)}
               preserveAspectRatio="xMidYMid meet"/>`
     );
   }
@@ -150,19 +220,26 @@
 
   /* Posiciones de cada pieza sobre el héroe:
      [cx como fracción de figW, cy como fracción de figH, ancho como fracción de figW, alto como fracción de figH]
-     cx/cy son el CENTRO de la pieza relativo a la esquina superior-izquierda del héroe. */
+     cx/cy son el CENTRO de la pieza relativo a la esquina superior-izquierda del héroe.
+     NO tocar a mano: salen de CAJA, la misma geometría con la que se arma el SVG. */
   const PIECE_CANVAS_POS = {
-    yelmo:    [0.50,  0.09,  0.90,  0.22],
-    coraza:   [0.50,  0.34,  1.15,  0.38],
-    cinturon: [0.50,  0.49,  0.46,  0.11],
-    escudo:   [-0.16, 0.44,  0.72,  0.72],
-    espada:   [1.16,  0.40,  0.58,  0.68],
+    yelmo:    aCanvas(CAJA.yelmo,    AR_CUAD),
+    coraza:   aCanvas(CAJA.coraza,   AR_CUAD),
+    cinturon: aCanvas(CAJA.cinturon, AR_CUAD, 'slice'),
+    escudo:   aCanvas(CAJA.escudo,   AR_CUAD),
+    espada:   aCanvas(CAJA.espada,   AR_CUAD),
+  };
+
+  /* Ventanas de recorte del retrato, en fracciones [x, y, ancho, alto] del héroe.
+     Equivalen a los <clipPath> del SVG. */
+  const PIECE_CANVAS_CLIP = {
+    cinturon: recorteACanvas(RECORTE_CINTURON),
   };
 
   /* El calzado son DOS botas (una por pie), no una sola pieza. */
   const CALZADO_CANVAS_POS = {
-    l: [0.283, 0.883, 0.298, 0.242],
-    r: [0.728, 0.883, 0.298, 0.242],
+    l: aCanvas(CAJA.calzadoL, AR_BOTA),
+    r: aCanvas(CAJA.calzadoR, AR_BOTA),
   };
 
   function loadImg(src) {
@@ -205,10 +282,13 @@
     if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
 
     // 5. Figura: héroe PNG + piezas PNG
-    const figH = H * 0.65;
-    const figW = figH * (1080 / 1920);  // proporción real del héroe (9:16)
+    // El halo del yelmo asoma por encima de la cabeza del héroe, así que la figura
+    // va un poco más abajo y más chica que el 0.65/0.14 original: si no, el halo
+    // se cruza con el título.
+    const figH = H * 0.625;
+    const figW = figH * AR_HEROE;  // proporción real del héroe (9:16)
     const figX = (W - figW) / 2;
-    const figY = H * 0.14;
+    const figY = H * 0.165;
 
     // Héroe base
     const heroImg = await loadImg(IMG + 'heroe.png');
@@ -255,6 +335,13 @@
         const pX = figX + figW * cx - pW / 2;
         const pY = figY + figH * cy - pH / 2;
         ctx.save();
+        // Mismo recorte que el <clipPath> del SVG (hoy solo el cinturón)
+        const rec = PIECE_CANVAS_CLIP[id];
+        if (rec) {
+          ctx.beginPath();
+          ctx.rect(figX + figW * rec[0], figY + figH * rec[1], figW * rec[2], figH * rec[3]);
+          ctx.clip();
+        }
         ctx.shadowColor = 'rgba(233,201,138,0.4)'; ctx.shadowBlur = W * 0.03;
         ctx.drawImage(pImg, pX, pY, pW, pH);
         ctx.restore();
