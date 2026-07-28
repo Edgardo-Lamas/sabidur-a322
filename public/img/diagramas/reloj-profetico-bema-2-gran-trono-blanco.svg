@@ -1,0 +1,67 @@
+<svg viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tabla comparativa entre el bema de Cristo y el juicio del Gran Trono Blanco" font-family="Georgia, 'Times New Roman', 'DejaVu Serif', serif">
+  <defs>
+    <style>
+      .title { font-size: 22px; fill: #1A252F; font-weight: bold; }
+      .subtitle { font-size: 14px; fill: #4A4A4A; font-style: italic; }
+      .colhead-dark { font-size: 16px; fill: #1A252F; font-weight: bold; }
+      .colhead-light { font-size: 16px; fill: #F9F9F7; font-weight: bold; }
+      .rowlabel { font-size: 13px; fill: #4A4A4A; font-style: italic; }
+      .cell { font-size: 14px; fill: #2C3E50; }
+      .foot { font-size: 13px; fill: #4A4A4A; font-style: italic; }
+    </style>
+  </defs>
+
+  <rect width="900" height="560" fill="#F9F9F7"/>
+
+  <text x="450" y="40" text-anchor="middle" class="title">Dos tribunales, dos destinos</text>
+  <text x="450" y="62" text-anchor="middle" class="subtitle">El βῆμα de Cristo y el Gran Trono Blanco no son el mismo evento</text>
+
+  <rect x="45" y="88" width="200" height="46" fill="#DEDEDD"/>
+  <rect x="255" y="88" width="295" height="46" fill="#C5A059"/>
+  <text x="402" y="118" text-anchor="middle" class="colhead-dark">βῆμα de Cristo</text>
+  <rect x="560" y="88" width="295" height="46" fill="#1A1D23"/>
+  <text x="707" y="118" text-anchor="middle" class="colhead-light">Gran Trono Blanco</text>
+
+  <g>
+    <rect x="45" y="134" width="200" height="62" fill="#ECECEA"/>
+    <text x="60" y="171" class="rowlabel">Texto base</text>
+    <rect x="255" y="134" width="295" height="62" fill="#F6F4EE"/>
+    <text x="270" y="171" class="cell">Ro 14:10 · 2 Co 5:10</text>
+    <rect x="560" y="134" width="295" height="62" fill="#F1F1EF"/>
+    <text x="575" y="171" class="cell">Apocalipsis 20:11–15</text>
+
+    <rect x="45" y="196" width="200" height="62" fill="#F1F1EF"/>
+    <text x="60" y="233" class="rowlabel">Sujetos</text>
+    <rect x="255" y="196" width="295" height="62" fill="#FCFAF4"/>
+    <text x="270" y="233" class="cell">La Iglesia arrebatada y glorificada</text>
+    <rect x="560" y="196" width="295" height="62" fill="#F9F9F7"/>
+    <text x="575" y="225" class="cell">Los muertos sin parte en la</text>
+    <text x="575" y="244" class="cell">resurrección de vida</text>
+
+    <rect x="45" y="258" width="200" height="62" fill="#ECECEA"/>
+    <text x="60" y="295" class="rowlabel">Objeto evaluado</text>
+    <rect x="255" y="258" width="295" height="62" fill="#F6F4EE"/>
+    <text x="270" y="295" class="cell">Obras hechas en el cuerpo</text>
+    <rect x="560" y="258" width="295" height="62" fill="#F1F1EF"/>
+    <text x="575" y="295" class="cell">Libros de obras y el Libro de la Vida</text>
+
+    <rect x="45" y="320" width="200" height="62" fill="#F1F1EF"/>
+    <text x="60" y="357" class="rowlabel">Resultado</text>
+    <rect x="255" y="320" width="295" height="62" fill="#FCFAF4"/>
+    <text x="270" y="357" class="cell">Recompensa o pérdida de recompensa</text>
+    <rect x="560" y="320" width="295" height="62" fill="#F9F9F7"/>
+    <text x="575" y="357" class="cell">Condenación, lago de fuego</text>
+
+    <rect x="45" y="382" width="200" height="62" fill="#ECECEA"/>
+    <text x="60" y="419" class="rowlabel">Momento</text>
+    <rect x="255" y="382" width="295" height="62" fill="#F6F4EE"/>
+    <text x="270" y="411" class="cell">Tras el arrebatamiento,</text>
+    <text x="270" y="430" class="cell">antes del Milenio</text>
+    <rect x="560" y="382" width="295" height="62" fill="#F1F1EF"/>
+    <text x="575" y="419" class="cell">Después del Milenio (Ap 20:7–15)</text>
+  </g>
+
+  <line x1="45" y1="470" x2="855" y2="470" stroke="#BDC3C7" stroke-width="1"/>
+  <text x="450" y="498" text-anchor="middle" class="foot">Walvoord, Pentecost y Ryrie: la distinción es estructural, no incidental,</text>
+  <text x="450" y="518" text-anchor="middle" class="foot">porque depende del arrebatamiento pretribulacional y de la separación entre Israel y la Iglesia</text>
+</svg>

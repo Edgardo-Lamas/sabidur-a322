@@ -215,10 +215,18 @@ La Biblioteca tiene cuatro secciones. Cada una tiene su propia fuente de datos e
   - El array `articulos[]` contiene la **lista de capítulos** con campos: `numero, titulo, subtitulo, href, disponible`
   - El `href` de cada artículo apunta a la ruta donde vive su contenido (normalmente `/ensayo/:slug` — **SIN 's', así está registrado en App.jsx**)
 - **Contenido del artículo:** vive en `textos.json → ensayos[]` (mismo formato que ensayos de la página Textos)
+- **⚠ Algunas series tienen además `lineas[]`** (ej. `reloj-profetico`): un agrupamiento por eje temático, cada uno con `id, nombre, descripcion, color, articulos[]`. **Cuando la serie tiene `lineas[]`, ese es el array que la página realmente renderiza** — `articulos[]` es el listado plano. Dar de alta en uno solo hace que el artículo exista pero no se vea, o que se vea sin estar en el índice.
 - **Para publicar un artículo nuevo en una serie:**
   1. Agregar el ensayo en `textos.json → ensayos[]` con su slug
   2. En `content.json → biblioteca.series[n].articulos[]`, marcar `disponible: true`, completar `href: "/ensayo/<slug>"` (**sin 's** — así está registrado en App.jsx) y actualizar `totalArticulos`
+  3. **Si la serie tiene `lineas[]`, agregarlo TAMBIÉN en la línea que le corresponde.** `totalArticulos` se calcula sobre `articulos[]`.
+  4. Verificar en el navegador que la tarjeta aparece en la página de la serie — es el único modo de detectar el alta a medias.
 - **Formato HTML del contenido:** igual al de Ensayos (ver sección "Formato HTML de ensayos")
+- **Rótulos de un artículo que pertenece a una serie** — se muestran al lector y deben ser uniformes dentro de la serie:
+  - `serie`: el título de la serie tal cual figura en `content.json`, más el eje si la serie tiene líneas → `"El Reloj Profético — Línea de la Iglesia"`. El artículo introductorio va sin eje, porque presenta la serie entera.
+  - `serieNumero`: `"<Eje> · <Unidad>"` → `"Israel · Artículo 2"`, `"Iglesia · Bloque II"`. Se agrega `· Artículo N` solo cuando esa unidad tiene más de un artículo.
+  - `image`: todos los artículos de una serie comparten la imagen hero de la serie.
+  - **El código resuelve la serie con `serie.startsWith(s.titulo)`** (`TextPage.jsx`, `PresentacionViewer.jsx`, `Esquemas.jsx`), nunca por igualdad. Por eso el sufijo del eje es seguro, pero **el `serie` debe empezar exactamente con el `titulo` de la serie** o se rompe el botón "Volver a la serie".
 
 #### Serie activa: Los Arquitectos del Pensamiento Judío (`arquitectos-pensamiento-judio`)
 
@@ -291,6 +299,48 @@ La Biblioteca tiene cuatro secciones. Cada una tiene su propia fuente de datos e
 
 > **CRÍTICO:** Todo ensayo nuevo que se agregue a `src/data/textos.json` DEBE seguir exactamente este formato. No inventar variantes ni usar etiquetas alternativas.
 
+### ⚠ El contenido pasa por un sanitizador — lo no permitido DESAPARECE EN SILENCIO
+
+Todo `content` se renderiza con `dangerouslySetInnerHTML={{ __html: sanitizeHTML(content) }}`. `src/lib/sanitize.js` corre DOMPurify con lista blanca. **Una etiqueta fuera de la lista no da error: se borra, y en producción queda un hueco.**
+
+- **Etiquetas permitidas:** `p br strong em b i u s h1-h6 ul ol li blockquote pre code a img table thead tbody tr th td div span section hr sup sub`
+- **Atributos permitidos:** `href src alt title class id target rel width height`
+- **NO están permitidos, entre otros:** `svg` y todos sus hijos (`g`, `rect`, `text`, `path`, `line`, `circle`, `defs`, `marker`…), `figure`, `figcaption`, `style`, `iframe`, `video`, y cualquier `data-*`.
+
+**Antes de subir HTML nuevo, contrastar sus etiquetas y atributos contra la lista de `src/lib/sanitize.js`.** No ampliar el sanitizador para acomodar un contenido puntual: abre superficie de XSS en todo el sitio.
+
+### Diagramas e ilustraciones dentro de un ensayo
+
+Como `svg` inline se borra, **un diagrama se sube como archivo y se referencia con `<img>`**:
+
+1. Guardar el SVG en `public/img/diagramas/<slug-del-ensayo>-<n>-<tema>.svg`
+2. Insertarlo en el `content` con esta estructura exacta:
+
+```html
+<div class='diagrama'><div class='diagrama-marco'><img src='/img/diagramas/archivo.svg' alt='Descripción de lo que muestra el diagrama' /></div><span class='diagrama-epigrafe'>Título del diagrama</span></div>
+```
+
+- La ruta del `src` es **absoluta desde la raíz** (`/img/...`). Una ruta relativa rompe: las rutas de ensayo están anidadas.
+- Las tres clases están definidas en `src/index.css` (bloque `.teologia-content`). `.diagrama-marco` da scroll horizontal y fija `min-width: 700px` a la imagen: **sin eso, un diagrama de 900px encogido a un móvil deja el texto ilegible.** No reemplazar por clases de Tailwind escritas en el JSON — Tailwind no escanea los `.json` y no las generaría.
+- El SVG lleva `viewBox` y **no** `width`/`height` fijos, para que escale.
+
+**Colores de un diagrama — usar la paleta del sitio** (`src/index.css` → `@theme`). **El sitio no tiene modo oscuro**, así que un fondo claro fijo es seguro.
+
+| Uso | Token | Hex |
+|---|---|---|
+| Fondo del diagrama | `--color-sabiduria-bg` | `#F9F9F7` |
+| Bloque/encabezado oscuro | `--color-sabiduria-navy` | `#1A1D23` |
+| Bloque/encabezado destacado | `--color-sabiduria-gold` | `#C5A059` |
+| Títulos | `--color-text-heading` | `#1A252F` |
+| Texto de datos | `--color-text-body` | `#2C3E50` |
+| Notas, itálicas, ejes | `--color-sabiduria-gray` | `#4A4A4A` |
+| Líneas divisorias | `--color-border-light` | `#BDC3C7` |
+| **Dorado como texto** | (el del `.biblical-inline`) | `#7A5C1E` |
+
+> El dorado `#C5A059` **no contrasta como texto** sobre fondo claro: sirve de fondo (con texto navy encima) o de trazo, y para texto dorado va `#7A5C1E`.
+
+Fuente del SVG: `Georgia, 'Times New Roman', 'DejaVu Serif', serif` — el último fallback es el que cubre el griego politónico (βῆμα, φανερόω). Antes de dar por bueno un diagrama, **verificar en el navegador que ningún texto se sale de su caja**: el SVG no reajusta, recorta.
+
 ### Estructura del campo `content`
 
 El campo `content` es HTML embebido en JSON (sin saltos de línea reales — todo en una sola cadena).
@@ -308,9 +358,11 @@ Solo el **primer párrafo** lleva esta clase. El resto son `<p>` simples.
 
 #### Encabezados de sección
 ```html
-<h2>Título de la Sección</h2>
+<h2>IV. Título de la Sección</h2>
 ```
 Se usan `<h2>` (no `<h3>`, no `<strong>`, no `<b>`).
+
+**Los capítulos van numerados con romanos y punto** (`I.`, `II.`, `III.` …), correlativos dentro del ensayo. **No** se numeran los encabezados de función: `Prólogo`, `Conclusión pastoral`, `Fuentes consultadas`. No usar la forma `"Capítulo 4 — Título"`. Si el texto de origen trae otra numeración, se convierte a esta al maquetarlo, y se ajustan las referencias cruzadas internas para que coincidan (*"como se vio en el capítulo III"*, no *"en el capítulo 3"*).
 
 #### Citas bíblicas en línea — OBLIGATORIO
 ```html
@@ -326,6 +378,19 @@ Se usan `<h2>` (no `<h3>`, no `<strong>`, no `<b>`).
 ```
 - Para pasajes largos citados completos (más de una oración)
 - Siempre incluir el `<footer>` con la referencia
+- **⚠ El `<footer>` afirma que la cita es literal de esa versión.** Si el texto de origen trae el pasaje parafraseado o resumido, **no** convertirlo en `blockquote`: dejarlo como `biblical-inline` y pedir el texto literal antes de atribuirle una versión. Nunca inventar ni "reconstruir de memoria" el versículo para completar el formato.
+
+#### Qué va en `biblical-inline` y qué no
+
+`biblical-inline` es **solo para palabras de la Escritura**. El resto de las comillas del ensayo van con angulares `«»` a secas:
+
+| Caso | Marcado |
+|---|---|
+| Cita bíblica | `<span class='biblical-inline'>«sea bueno o sea malo»</span>` |
+| Paráfrasis del autor, cita de un teólogo, término entrecomillado | `«las cinco coronas»` |
+| Término griego/latín/hebreo transliterado | `<em>phaûlos</em>` |
+
+Comillas angulares `«»` en todo el cuerpo del texto — nunca las rectas `"`.
 
 #### Énfasis y términos teológicos
 ```html
@@ -333,19 +398,33 @@ Se usan `<h2>` (no `<h3>`, no `<strong>`, no `<b>`).
 ```
 Para énfasis tipográfico o términos teológicos destacados.
 
+### Editar `textos.json` y `content.json` por script
+
+Los dos archivos hacen **round-trip exacto con `json.dump(data, f, ensure_ascii=False, indent=2)`**, así que se pueden editar con Python sin ensuciar el diff. Dos detalles que hay que respetar:
+
+- **`textos.json` NO termina en salto de línea; `content.json` SÍ.** Escribir el que no corresponde reformatea el archivo entero y vuelve el diff ilegible.
+- Antes de insertar, **abortar si el slug ya existe**. Después, `git diff --numstat` debe mostrar solo el bloque nuevo.
+
 ### Checklist al agregar un ensayo nuevo
 
 Antes de hacer push, verificar:
 - [ ] Primer párrafo tiene clase `first-letter:...`
 - [ ] Versículos cortos en `<span class='biblical-inline'>«...»</span>`
-- [ ] Pasajes largos en `<blockquote class='blockquote-gold'>` con `<footer>`
-- [ ] Secciones separadas por `<h2>`
+- [ ] Pasajes largos en `<blockquote class='blockquote-gold'>` con `<footer>` — y la cita es **literal**, no una paráfrasis
+- [ ] Secciones separadas por `<h2>`, capítulos con numeración romana (`I.`, `II.` …)
 - [ ] **Ningún versículo** envuelto en `<em>«...»</em>`
+- [ ] Ninguna comilla recta `"` en el cuerpo del texto
 - [ ] El `content` es una sola cadena sin saltos de línea reales
+- [ ] **Toda etiqueta y atributo usados están en la lista blanca de `src/lib/sanitize.js`** — nada de `svg`/`figure` inline
+- [ ] Campo `image` presente (OG); si es de una serie, `serie` y `serieNumero` siguen la convención de la serie
+- [ ] Si es de una serie: dado de alta en `articulos[]` **y** en `lineas[]` cuando la serie las tiene
+- [ ] `node scripts/generate-sitemap.js` ejecutado
+- [ ] **Abierto en el navegador** (`npm run dev`): el ensayo se ve entero, los diagramas cargan, "Volver a la serie" funciona y la consola no tira errores
 
 ### Referencia — ensayos modelo
 - *La Autoridad de la Escritura y su Lugar en la Vida Cristiana* — usa todos los patrones correctamente
 - *El Pecado: Su Realidad, Su Impacto y la Esperanza en Cristo* — buen uso de blockquotes y secciones
+- *El Tribunal de Cristo: el Bema en el Reloj Profético* (`reloj-profetico-bloque-iii`) — modelo de **ensayo de serie con diagramas**: rótulos, numeración romana y las tres figuras `.diagrama`
 
 ---
 
@@ -433,7 +512,7 @@ VITE_SUPABASE_ANON_KEY   # Migrado a JSON locales
 ## Notas importantes
 
 - Al agregar **artículos:** editar `src/data/content.json` → clave `articulos`.
-- Al agregar **ensayos:** editar `src/data/textos.json` → clave `ensayos`.
+- Al agregar **ensayos:** editar `src/data/textos.json` → clave `ensayos`. **Si el ensayo pertenece a una serie, no alcanza con eso** — seguir "Formato HTML de ensayos" y "Series y Colecciones" completas: hay reglas obligatorias de sanitizador, rótulos de serie, numeración de capítulos y alta en `lineas[]`.
 - Al agregar una nueva **ruta:** registrarla en `src/App.jsx` con `lazy()`.
 - **Al agregar cualquier contenido nuevo (artículo, ensayo, bosquejo, meditación):** regenerar el sitemap con:
   ```bash

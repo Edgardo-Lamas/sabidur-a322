@@ -637,6 +637,37 @@
     color: var(--color-sabiduria-navy);
   }
 
+  /* Diagramas ilustrativos dentro de un ensayo */
+  .teologia-content .diagrama {
+    margin: 2.5rem 0;
+  }
+
+  .teologia-content .diagrama-marco {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid rgba(197, 160, 89, 0.25);
+    border-radius: 6px;
+    background: #fff;
+  }
+
+  .teologia-content .diagrama-marco img {
+    display: block;
+    width: 100%;
+    /* En pantallas angostas el diagrama no se encoge hasta volverse
+       ilegible: el marco desplaza en horizontal. */
+    min-width: 700px;
+    height: auto;
+  }
+
+  .teologia-content .diagrama-epigrafe {
+    display: block;
+    margin-top: 0.75rem;
+    text-align: center;
+    font-size: 0.875rem;
+    font-style: italic;
+    color: var(--color-sabiduria-gray);
+  }
+
   /* ========================================
      MAPAS BÍBLICOS INTERACTIVOS
      ======================================== */
