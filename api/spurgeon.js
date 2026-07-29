@@ -3,11 +3,14 @@ dotenv.config();
 
 import OpenAI from 'openai';
 import Anthropic from '@anthropic-ai/sdk';
-import { readFileSync, readdirSync } from 'fs';
+import { readFileSync } from 'fs';
 import { join } from 'path';
 import { z } from 'zod';
+import { buscar, dimensionesIndice, filtrarEnlaces } from './rag-search.js';
 
 const ALLOWED_ORIGINS = [
+    'https://sabiduriaparaelcorazon.com',
+    'https://www.sabiduriaparaelcorazon.com',
     'https://sabiduriadelcorazon.vercel.app',
     'http://localhost:5173',
     'http://localhost:4173',
@@ -37,78 +40,27 @@ const questionSchema = z.object({
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
-function loadKnowledgeBase() {
-    const dir = join(process.cwd(), 'src/data/knowledge');
+// La Declaración de Fe es la norma doctrinal del sitio: va SIEMPRE en el prompt,
+// no solo cuando la búsqueda la trae por casualidad. Se lee una vez por instancia.
+let declaracionCache = null;
+function declaracionDeFe() {
+    if (declaracionCache !== null) return declaracionCache;
     try {
-        const files = readdirSync(dir).filter(f => f.endsWith('.json') && f !== 'index.json');
-
-        return files.map(file => {
-            try {
-                const data = JSON.parse(readFileSync(join(dir, file), 'utf8'));
-                const tema = data.tema || data.categoria || data.title || file.replace('.json', '');
-                const definicion = data.contenido?.definicion || data.content || data.body || '';
-                const refs = data.referencias_clave || data.biblicalReferences || '';
-                const slug = data.id || file.replace('.json', '');
-                return { tema, slug, definicion: String(definicion).substring(0, 450), refs: String(refs).substring(0, 150) };
-            } catch {
-                return null;
-            }
-        }).filter(k => k && k.definicion.length > 50);
+        const idx = JSON.parse(readFileSync(join(process.cwd(), 'src/data/rag-index.json'), 'utf8'));
+        declaracionCache = idx.fragmentos
+            .filter(f => f.u === '/declaracion-de-fe')
+            .map(f => f.c)
+            .join(' ')
+            .slice(0, 4000);
     } catch {
-        return [];
+        declaracionCache = '';
     }
-}
-
-function loadEssays() {
-    try {
-        const data = JSON.parse(readFileSync(join(process.cwd(), 'src/data/textos.json'), 'utf8'));
-        return (data.ensayos || []).slice(-15).map(e => ({
-            titulo: e.title || e.titulo || '',
-            slug: e.slug || '',
-            excerpt: String(e.excerpt || '').substring(0, 180),
-        }));
-    } catch {
-        return [];
-    }
-}
-
-function getKnowledgeUrl(slug) {
-    const KNOWLEDGE_TO_BASICA_MAP = {
-        'intro-teologia': '/teologia-basica/introduccion-teologia',
-        'revelacion': '/teologia-basica/la-biblia',
-        'bibliologia': '/teologia-basica/la-biblia',
-        'teologia-propia-atributos': '/teologia-basica/atributos-de-dios',
-        'trinidad': '/teologia-basica/atributos-de-dios',
-        'cristologia': '/teologia-basica/jesucristo',
-        'pneumatologia': '/teologia-basica/el-espiritu-santo',
-        'angelologia': '/teologia-basica/los-angeles',
-        'demonologia': '/teologia-basica/satanas-y-demonios',
-        'antropologia': '/teologia-basica/el-hombre',
-        'hamartiologia-pecado': '/teologia-basica/el-pecado',
-        'soteriologia-justificacion': '/teologia-basica/la-salvacion',
-        'soteriologia-santificacion': '/teologia-basica/la-salvacion',
-        'soteriologia-glorificacion': '/teologia-basica/la-salvacion',
-        'eclesiologia': '/teologia-basica/la-iglesia',
-        'escatologia': '/teologia-basica/las-ultimas-cosas'
-    };
-
-    if (KNOWLEDGE_TO_BASICA_MAP[slug]) {
-        return KNOWLEDGE_TO_BASICA_MAP[slug];
-    }
-    if (slug.startsWith('sitio-articulo-')) {
-        return `/articulo/${slug.replace('sitio-articulo-', '')}`;
-    }
-    if (slug.startsWith('sitio-ensayo-')) {
-        return `/ensayo/${slug.replace('sitio-ensayo-', '')}`;
-    }
-    if (slug.startsWith('sitio-meditacion-')) {
-        return `/meditacion/${slug.replace('sitio-meditacion-', '')}`;
-    }
-    return `/teologia-basica`;
+    return declaracionCache;
 }
 
 function buildSystemPrompt(context, suggestedLinks) {
     const linksList = suggestedLinks.map(l => `- "${l.title}" → ${l.url}`).join('\n');
+    const declaracion = declaracionDeFe();
 
     return `Eres el Agente Spurgeon, asistente teológico del sitio "Sabiduría para el Corazón" — plataforma de teología reformada en español. Tu nombre evoca a Charles Haddon Spurgeon, el Príncipe de los Predicadores.
 
@@ -118,9 +70,12 @@ CARÁCTER:
 - Citas la Escritura con precisión y reverencia, integrándola naturalmente en tu respuesta.
 - Eres accesible y nunca condescendiente; hablas a alguien que quiere crecer, no a un estudiante que debe aprobar.
 - Siempre recuerdas sutilmente que no reemplazas la guianza pastoral humana.
-
+${declaracion ? `
+DECLARACIÓN DE FE DEL SITIO (es la norma doctrinal de esta casa: tus respuestas no pueden contradecirla):
+${declaracion}
+` : ''}
 CONTEXTO DE NUESTRO SITIO WEB (Utiliza esta información para responder con exactitud):
-${context}
+${context || '(La búsqueda no encontró material propio para esta pregunta. Responde desde la doctrina reformada, sin citar recursos del sitio.)'}
 
 ENLACES RECOMENDADOS DEL SITIO (Si son relevantes para la pregunta, sugiérelos exactamente como están aquí):
 ${linksList || '- /teologia-basica (Curso de Teología Básica)'}
@@ -143,6 +98,7 @@ INSTRUCCIONES DE RESPUESTA:
 - Integra referencias bíblicas naturalmente en el texto.
 - Las preguntas sugeridas ("suggestedQuestions") deben profundizar el tema o abrir nuevos ángulos relacionados.
 - Solo sugiere links de "suggestedLinks" si están en la sección de ENLACES RECOMENDADOS o RUTAS GENERALES (máximo 2).
+- NUNCA inventes una ruta ni deduzcas una a partir del tema. Copia la URL EXACTA, carácter por carácter, de las listas de arriba. Si ninguna corresponde, devuelve "suggestedLinks": [] — es preferible no ofrecer lectura a mandar al lector a una página que no existe.
 - NO agregues texto antes ni después del JSON. Devuelve únicamente el objeto JSON.
 
 ESTRUCTURA JSON DE RESPUESTA:
@@ -156,17 +112,64 @@ ESTRUCTURA JSON DE RESPUESTA:
 }`;
 }
 
+/**
+ * Rescata el objeto JSON de la respuesta del modelo.
+ *
+ * Hace falta ser tolerante porque el modelo, de vez en cuando, devuelve un JSON
+ * que `JSON.parse` rechaza — normalmente por un salto de línea real dentro de una
+ * cadena. No es frecuente, pero cuando pasa el lector recibía el mensaje genérico
+ * de error en vez de una respuesta. Se intenta, en orden:
+ *   1. tal cual, sin las comillas de bloque
+ *   2. recortando desde la primera llave hasta la que la cierra
+ *   3. escapando los saltos de línea y tabulaciones que quedaron sueltos
+ *
+ * `claude-sonnet-4-6` no admite salida estructurada (la función de la API que
+ * garantizaría el JSON), así que esto es lo que hay sin migrar de modelo.
+ */
 function extractJSON(text) {
-    let cleanText = text.trim();
-    if (cleanText.startsWith('```json')) {
-        cleanText = cleanText.substring(7);
-    } else if (cleanText.startsWith('```')) {
-        cleanText = cleanText.substring(3);
+    let s = String(text || '').trim();
+
+    // Quitar el ```json … ``` que a veces envuelve la respuesta.
+    s = s.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
+
+    const intentos = [s];
+
+    // Desde la primera llave hasta la que la cierra, ignorando las que están
+    // dentro de una cadena.
+    const inicio = s.indexOf('{');
+    if (inicio !== -1) {
+        let nivel = 0, enCadena = false, escapado = false;
+        for (let i = inicio; i < s.length; i++) {
+            const c = s[i];
+            if (escapado) { escapado = false; continue; }
+            if (c === '\\') { escapado = true; continue; }
+            if (c === '"') { enCadena = !enCadena; continue; }
+            if (enCadena) continue;
+            if (c === '{') nivel++;
+            else if (c === '}' && --nivel === 0) { intentos.push(s.slice(inicio, i + 1)); break; }
+        }
     }
-    if (cleanText.endsWith('```')) {
-        cleanText = cleanText.substring(0, cleanText.length - 3);
+
+    for (const candidato of intentos) {
+        try { return JSON.parse(candidato); } catch { /* se prueba el siguiente */ }
+        // Último recurso: escapar los saltos de línea crudos que quedaron dentro
+        // de una cadena, que es la causa habitual del fallo.
+        try {
+            let enCadena = false, escapado = false, out = '';
+            for (const c of candidato) {
+                if (escapado) { out += c; escapado = false; continue; }
+                if (c === '\\') { out += c; escapado = true; continue; }
+                if (c === '"') { enCadena = !enCadena; out += c; continue; }
+                if (enCadena && c === '\n') { out += '\\n'; continue; }
+                if (enCadena && c === '\r') { continue; }
+                if (enCadena && c === '\t') { out += '\\t'; continue; }
+                out += c;
+            }
+            return JSON.parse(out);
+        } catch { /* se prueba el siguiente */ }
     }
-    return JSON.parse(cleanText.trim());
+
+    throw new Error('El modelo no devolvió un JSON interpretable');
 }
 
 export default async function handler(req, res) {
@@ -192,107 +195,40 @@ export default async function handler(req, res) {
     }
     const { question } = parsed.data;
 
+    // Búsqueda semántica sobre el índice local. Antes esto consultaba Supabase;
+    // ese proyecto se descartó y la búsqueda quedó muerta sin dar error: el agente
+    // respondía teología genérica y recomendaba páginas inventadas.
     let documents = [];
     try {
-        // 1. Generar el embedding de la pregunta con OpenAI
         const embeddingRes = await openai.embeddings.create({
             model: 'text-embedding-3-small',
             input: question,
+            dimensions: dimensionesIndice(),
         });
-        const queryEmbedding = embeddingRes.data[0].embedding;
-
-        // 2. Realizar la búsqueda semántica en Supabase vía REST RPC
-        const supabaseUrl = process.env.VITE_SUPABASE_URL;
-        const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
-
-        if (supabaseUrl && supabaseKey) {
-            const dbResponse = await fetch(`${supabaseUrl}/rest/v1/rpc/match_document_sections`, {
-                method: 'POST',
-                headers: {
-                    'apikey': supabaseKey,
-                    'Authorization': `Bearer ${supabaseKey}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    query_embedding: queryEmbedding,
-                    match_threshold: 0.35,
-                    match_count: 5
-                })
-            });
-
-            if (dbResponse.ok) {
-                documents = await dbResponse.json();
-            } else {
-                console.warn('[Spurgeon API RAG] Error consultando Supabase RPC:', dbResponse.status, await dbResponse.text());
-            }
-        }
+        documents = buscar(embeddingRes.data[0].embedding, { limite: 5 });
     } catch (err) {
-        console.error('[Spurgeon API RAG] Error en el flujo RAG:', err.message);
+        console.error('[Spurgeon RAG] Falló la búsqueda:', err.message);
     }
 
+    // El contexto y los enlaces salen de los mismos fragmentos encontrados. La URL
+    // de cada uno la calculó el indexador desde el slug real del archivo, así que
+    // apunta a algo que existe por construcción. Se arman ACÁ, fuera del try, para
+    // que si la llamada al modelo falla el lector reciba al menos estas lecturas
+    // en lugar de una respuesta vacía.
+    const enlacesDelContexto = filtrarEnlaces(
+        documents.filter(d => d.url).map(d => ({ title: d.title, url: d.url, type: d.source }))
+    );
+
     try {
-        let context = '';
-        const suggestedLinks = [];
+        const context = documents.map((doc, i) => [
+            `[Fragmento ${i + 1}]`,
+            `Título: ${doc.title}`,
+            `Tipo: ${doc.source}`,
+            doc.url ? `Enlace al recurso: ${doc.url}` : 'Sin página propia: NO lo enlaces.',
+            `Contenido: ${doc.content}`,
+        ].join('\n')).join('\n\n');
 
-        if (Array.isArray(documents) && documents.length > 0) {
-            context = documents.map((doc, index) => {
-                const meta = doc.metadata || {};
-                let url = '/teologia-basica';
-                let type = 'general';
-
-                if (meta.source === 'articulo') {
-                    url = `/articulo/${meta.slug}`;
-                    type = 'articulo';
-                } else if (meta.source === 'ensayo') {
-                    url = `/ensayo/${meta.slug}`;
-                    type = 'ensayo';
-                } else if (meta.source === 'teologia_basica') {
-                    url = `/teologia-basica/${meta.slug}`;
-                    type = 'teologia';
-                } else if (meta.source === 'estudio_biblico') {
-                    url = `/estudio/${meta.slug}`;
-                    type = 'estudio';
-                }
-
-                // Añadir a links sugeridos si tiene título y slug
-                if (meta.title && meta.slug && suggestedLinks.length < 2) {
-                    if (!suggestedLinks.some(l => l.url === url)) {
-                        suggestedLinks.push({
-                            title: meta.title,
-                            url: url,
-                            type: type,
-                            external: false
-                        });
-                    }
-                }
-
-                return `[Fragmento ${index + 1}]
-Título: ${meta.title || 'Recurso'}
-Fuente: ${meta.source || 'web'}
-Enlace al recurso: ${url}
-Contenido: ${doc.content}`;
-            }).join('\n\n');
-        } else {
-            // Fallback a archivos locales si no se encontraron documentos
-            const localKnowledge = loadKnowledgeBase();
-            const localEssays = loadEssays();
-
-            context = localKnowledge.map(k => {
-                const url = getKnowledgeUrl(k.slug);
-                return `### ${k.tema} (Enlace de lectura: ${url})\n${k.definicion}`;
-            }).join('\n\n');
-
-            localEssays.slice(0, 2).forEach(e => {
-                suggestedLinks.push({
-                    title: e.titulo,
-                    url: `/ensayo/${e.slug}`,
-                    type: 'ensayo',
-                    external: false
-                });
-            });
-        }
-
-        const systemPrompt = buildSystemPrompt(context, suggestedLinks);
+        const systemPrompt = buildSystemPrompt(context, enlacesDelContexto);
 
         // 3. Consultar a Claude (Anthropic)
         const response = await anthropic.messages.create({
@@ -308,31 +244,44 @@ Contenido: ${doc.content}`;
         const rawText = response.content[0].text;
         const data = extractJSON(rawText);
 
-        const sources = (documents || []).map(doc => ({
-            title: doc.metadata?.title || 'Recurso del sitio',
-            source: doc.metadata?.source || 'web'
-        }));
+        const sources = documents.map(doc => ({ title: doc.title, source: doc.source }));
+
+        // Los enlaces del modelo pasan por el validador SIEMPRE. Aunque el prompt
+        // le pida que use solo los recomendados, un enlace inventado no da 404 en
+        // esta SPA: da HTTP 200 y una pantalla de "no encontrado" al lector.
+        // Si no sobrevive ninguno, se usan los del propio contexto.
+        const enlacesValidados = filtrarEnlaces(data.suggestedLinks);
+        const descartados = (Array.isArray(data.suggestedLinks) ? data.suggestedLinks.length : 0) - enlacesValidados.length;
+        if (descartados > 0) {
+            console.warn(`[Spurgeon] ${descartados} enlace(s) inexistente(s) descartado(s):`,
+                data.suggestedLinks.filter(l => !enlacesValidados.some(v => v.url === l?.url)).map(l => l?.url).join(', '));
+        }
 
         return res.status(200).json({
             reply: data.reply || 'No pude generar una respuesta. Por favor intente nuevamente.',
             verse: data.verse || null,
             suggestedQuestions: Array.isArray(data.suggestedQuestions) ? data.suggestedQuestions.slice(0, 3) : [],
-            suggestedLinks: Array.isArray(data.suggestedLinks) ? data.suggestedLinks.slice(0, 2) : (data.suggestedLinks || []),
+            suggestedLinks: enlacesValidados.length ? enlacesValidados : enlacesDelContexto,
             sources: sources,
         });
 
     } catch (err) {
         console.error('[Spurgeon API Error]', err.message);
+        // Aunque falle la redacción, la búsqueda pudo haber encontrado material.
+        // Se ofrecen esas lecturas — ya validadas — en lugar de dejar al lector
+        // con un mensaje de error y nada para leer.
         return res.status(500).json({
-            reply: 'Disculpe, hubo un inconveniente al procesar su consulta. Por favor intente nuevamente en unos momentos.',
+            reply: enlacesDelContexto.length
+                ? 'Disculpe, no pude redactar la respuesta en este momento. Mientras tanto, en el sitio hay material sobre su consulta; le dejo los enlaces abajo.'
+                : 'Disculpe, hubo un inconveniente al procesar su consulta. Por favor intente nuevamente en unos momentos.',
             verse: null,
             suggestedQuestions: [
                 '¿Qué es la justificación por fe?',
                 '¿Qué enseña la Biblia sobre la gracia?',
                 '¿Quiénes fueron los Reformadores?'
             ],
-            suggestedLinks: [],
-            sources: [],
+            suggestedLinks: enlacesDelContexto,
+            sources: documents.map(doc => ({ title: doc.title, source: doc.source })),
         });
     }
 }

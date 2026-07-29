@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/build-rag-index.js && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "rag:index": "node scripts/build-rag-index.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.100.1",

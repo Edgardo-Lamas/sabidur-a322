@@ -6,7 +6,10 @@ import reactPlugin from 'eslint-plugin-react'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist', 'scripts']),
+  // `.vercel` guarda la salida de `vercel build`: son cientos de archivos
+  // generados. Sin ignorarla, un build local hace que `npm run lint` pase de
+  // ~90 problemas a ~700 y parezca que se rompió algo.
+  globalIgnores(['dist', 'scripts', '.vercel']),
   {
     files: ['**/*.{js,jsx}'],
     extends: [
