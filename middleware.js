@@ -7,7 +7,8 @@
 // redirección" (bucle a sí misma) — además de ser cloaking.
 const BOT_UA = /WhatsApp|facebookexternalhit|Facebot|Twitterbot|TelegramBot|LinkedInBot|Slackbot-LinkExpanding|Discordbot|Applebot/i;
 
-const OG_PATHS = /^\/(articulo|ensayo|biblioteca|biografias|reformadores|padres-de-la-iglesia|prerreformadores|estudios-libros|estudio)(\/|$)/;
+// La home entra explícita: es el enlace que más se comparte y quedaba afuera.
+const OG_PATHS = /^\/(articulo|ensayo|ensayos|articulos|bosquejos|biblioteca|biografias|reformadores|padres-de-la-iglesia|prerreformadores|estudios-libros|estudio|teologia-basica|predicaciones|esquemas|devocionales|adolescentes|grandes-temas|mapas-biblicos|ensenanzas|declaracion-de-fe|tienda|donaciones)(\/|$)|^\/$/;
 
 export default async function middleware(request) {
   const ua = request.headers.get('user-agent') || '';
@@ -38,8 +39,12 @@ export default async function middleware(request) {
 
 export const config = {
   matcher: [
+    '/',
     '/articulo/:slug*',
     '/ensayo/:slug*',
+    '/ensayos',
+    '/articulos',
+    '/bosquejos',
     '/biblioteca/:slug*',
     '/biografias',
     '/reformadores',
@@ -50,5 +55,17 @@ export const config = {
     '/prerreformadores/:slug*',
     '/estudios-libros/:slug*',
     '/estudio/:slug*',
+    '/teologia-basica',
+    '/teologia-basica/:slug*',
+    '/predicaciones/:slug*',
+    '/esquemas/:slug*',
+    '/devocionales/:slug*',
+    '/adolescentes/:slug*',
+    '/grandes-temas',
+    '/mapas-biblicos/:slug*',
+    '/ensenanzas',
+    '/declaracion-de-fe',
+    '/tienda/:slug*',
+    '/donaciones',
   ],
 };

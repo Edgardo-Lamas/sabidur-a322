@@ -49,6 +49,33 @@ const SERIES_INDEX = {
   },
 };
 
+// Páginas de índice de cada sección. Sin esto, todas comparten el texto
+// genérico del sitio y las vistas previas quedan indistinguibles entre sí.
+const SECTIONS = {
+  '/': {
+    title: 'Sabiduría para el Corazón - Teología Reformada',
+    desc: SITE_DESC,
+    image: 'img/og-default.jpg',
+    type: 'website',
+  },
+  '/ensayos':          { title: 'Ensayos',              desc: 'Ensayos teológicos sobre la Escritura, la doctrina y la vida cristiana.' },
+  '/articulos':        { title: 'Artículos',            desc: 'Artículos de teología, exégesis y vida cristiana para la edificación del creyente.' },
+  '/bosquejos':        { title: 'Bosquejos y Guías',    desc: 'Bosquejos homiléticos y guías de estudio para predicadores y maestros de la Palabra.' },
+  '/teologia-basica':  { title: 'Teología Básica',      desc: 'Curso completo de teología sistemática en doce capítulos: la Biblia, Dios, el hombre, el pecado, Cristo, el Espíritu Santo, la Iglesia y los eventos futuros.' },
+  '/estudios-libros':  { title: 'Estudios de Libros',   desc: 'Estudios expositivos libro por libro, siguiendo el desarrollo argumental del texto bíblico.' },
+  '/predicaciones':    { title: 'Predicaciones',        desc: 'Biblioteca de predicaciones expositivas en audio, organizadas por libro, tema y escuela bíblica.' },
+  '/esquemas':         { title: 'Esquemas Visuales',    desc: 'Mapas conceptuales, líneas de tiempo interactivas y arqueología bíblica en 3D.' },
+  '/devocionales':     { title: 'Devocionales',         desc: 'Devocionales diarios para alimentar el alma con la Palabra de Dios.' },
+  '/adolescentes':     { title: 'Juventud',             desc: 'Recursos, historias y juegos bíblicos para adolescentes.' },
+  '/grandes-temas':    { title: 'Grandes Temas',        desc: 'Los grandes temas de la fe cristiana, tratados con profundidad y claridad pastoral.' },
+  '/mapas-biblicos':   { title: 'Mapas Bíblicos',       desc: 'Recorridos bíblicos interactivos sobre mapas: los viajes de Abraham, el Éxodo y más.' },
+  '/ensenanzas':       { title: 'Enseñanzas',           desc: 'Enseñanzas bíblicas en audio para escuchar y compartir.' },
+  '/declaracion-de-fe':{ title: 'Declaración de Fe',    desc: 'La confesión doctrinal que sostiene todo el contenido de este sitio.' },
+  '/biblioteca':       { title: 'Biblioteca',           desc: 'Series, colecciones, libros sagrados de Israel y ebooks para descargar.' },
+  '/tienda':           { title: 'Tienda',               desc: 'Libros y recursos impresos para el estudio de la Palabra.' },
+  '/donaciones':       { title: 'Donaciones',           desc: 'Colaborá para que estos recursos sigan siendo gratuitos para toda la iglesia hispanohablante.' },
+};
+
 // Datos de biografías individuales
 const BIOGRAPHIES = {
   '/reformadores/lutero':   { title: 'Martín Lutero', desc: 'El Monje que Sacudió al Mundo', image: 'img/reformadores/lutero-hero.jpg' },
@@ -76,7 +103,9 @@ export default function handler(req, res) {
   // Sin el flag, alguien entró directo a /api/og-preview y sí hay que mandarlo a la página.
   const isEmbed = req.query.embed === '1';
   const proto = req.headers['x-forwarded-proto'] || 'https';
-  const host  = req.headers['x-forwarded-host'] || req.headers.host || 'sabiduriadelcorazon.com';
+  // Ojo: el dominio del sitio es sabiduriaparaelcorazon.com ("para el").
+  // sabiduriadelcorazon.com es de otro ministerio y redirige afuera.
+  const host  = req.headers['x-forwarded-host'] || req.headers.host || 'sabiduriaparaelcorazon.com';
   const BASE  = `${proto}://${host}`;
 
   // Leer datos JSON
@@ -90,6 +119,18 @@ export default function handler(req, res) {
   let title       = SITE_TITLE;
   let description = SITE_DESC;
   let image       = `${BASE}/img/og-default.jpg`;
+  let ogType      = 'article';
+
+  // Índices de sección (incluida la home). Va primero: las coincidencias más
+  // específicas de abajo exigen un slug, así que nunca lo pisan por accidente.
+  if (SECTIONS[urlPath]) {
+    const s = SECTIONS[urlPath];
+    // La home no lleva sufijo: su título ya nombra al sitio.
+    title       = urlPath === '/' ? s.title : `${s.title} | ${SITE_TITLE}`;
+    description = s.desc;
+    image       = resolveImage(s.image, BASE);
+    ogType      = s.type || 'website';
+  }
 
   // /articulo/:slug
   const artMatch = urlPath.match(/^\/articulo\/(.+)$/);
@@ -217,12 +258,15 @@ export default function handler(req, res) {
   <meta name="description" content="${escHtml(description)}">
 
   <!-- Open Graph -->
-  <meta property="og:type"        content="article">
+  <meta property="og:type"        content="${ogType}">
   <meta property="og:site_name"   content="${escHtml(SITE_TITLE)}">
+  <meta property="og:locale"      content="es_ES">
   <meta property="og:url"         content="${escHtml(canonicalUrl)}">
   <meta property="og:title"       content="${escHtml(title)}">
   <meta property="og:description" content="${escHtml(description)}">
   <meta property="og:image"       content="${escHtml(image)}">
+  <meta property="og:image:width"  content="1200">
+  <meta property="og:image:height" content="630">
 
   <!-- Twitter / X -->
   <meta name="twitter:card"        content="summary_large_image">
