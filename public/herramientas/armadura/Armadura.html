@@ -385,24 +385,33 @@
     transform:translateX(-50%) translateY(20px);z-index:8;
     width:min(92%,420px);padding:20px 24px;
   }
-  /* El cartel cae sobre las piernas del guerrero: sin este velo el dorado no se
-     lee contra la armadura. Degradado suave, sin caja ni borde. */
-  .asm-complete-text::before{
-    content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
-    background:radial-gradient(ellipse at center,
-      rgba(5,6,14,.94) 0%, rgba(5,6,14,.82) 40%, rgba(5,6,14,.45) 68%, rgba(5,6,14,0) 100%);
+  /* El cartel cae sobre las piernas del guerrero y el dorado necesita fondo para
+     leerse. NO va un velo detrás del texto: ese óvalo apagaba la pierna de medio
+     muslo para abajo y dejaba las botas iluminadas y sueltas, como despegadas del
+     cuerpo. En su lugar se oscurece TODO el piso del escenario de abajo hacia
+     arriba —figura y botas juntas—: el guerrero queda parado en penumbra, el
+     dorado se lee y no queda ninguna mancha con borde. */
+  .asm-floor-veil{
+    position:absolute; left:0; right:0; bottom:0; height:50%;
+    z-index:7; pointer-events:none; opacity:0; transition:opacity .9s ease;
+    background:linear-gradient(180deg,
+      rgba(5,6,14,0) 0%, rgba(5,6,14,.20) 30%, rgba(5,6,14,.58) 55%,
+      rgba(5,6,14,.72) 78%, rgba(5,6,14,.60) 100%);
   }
+  .asm-floor-veil.show{opacity:1;}
   .asm-complete-text.show{
     opacity:1;transform:translateX(-50%) translateY(0);
   }
   .asm-complete-text h3{
     font-family:var(--serif);font-size:clamp(22px,5vw,32px);font-weight:600;
     color:#E9C98A;margin:0 0 6px;letter-spacing:2px;
-    text-shadow:0 0 30px rgba(233,201,138,.6),0 2px 10px rgba(0,0,0,.8);
+    /* El contorno negro corto es lo que permite que el velo del piso sea suave:
+       sin él habría que oscurecer tanto que las botas desaparecerían. */
+    text-shadow:0 0 30px rgba(233,201,138,.6),0 2px 10px rgba(0,0,0,.9),0 0 6px rgba(0,0,0,.95);
   }
   .asm-complete-text p{
     font-family:var(--serif);font-style:italic;font-size:15px;color:#ded9cc;margin:0;
-    text-shadow:0 2px 8px rgba(0,0,0,.8);
+    text-shadow:0 2px 8px rgba(0,0,0,.95),0 0 5px rgba(0,0,0,.9);
   }
 
   .chip.locked .dot{border-style:dashed; opacity:.7;}
@@ -469,6 +478,7 @@
           <div class="side-slot" data-slot="espada" style="--slot-glow:#FFE39A"><img src="/img/armadura/espada.png" alt="Espada"></div>
           <div class="side-slot" data-slot="calzado" style="--slot-glow:#5FD6A6"><img src="/img/armadura/calzado-l.png" alt="Calzado"></div>
         </div>
+        <div class="asm-floor-veil" id="asmFloorVeil"></div>
         <div class="asm-complete-text" id="asmCompleteText">
           <h3>¡ARMADURA COMPLETA!</h3>
           <p>«Fortaleceos en el Señor, y en el poder de su fuerza.»</p>

@@ -40,9 +40,17 @@
     // (antes 110×310) encogía la espada al lado corto y la dejaba diminuta.
     // La empuñadura cae al 78% del alto del arte → queda en la mano derecha.
     espada:   { x: 130.4, y: 96.1,  w: 400,   h: 400   },
-    // Una bota por pie, la izquierda es el espejo de la derecha.
-    calzadoL: { x: 73.4,  y: 576,   w: 119.1, h: 172   },
-    calzadoR: { x: 251.4, y: 576,   w: 119.1, h: 172   },
+    // Una bota por pie, la izquierda es el espejo de la derecha. La caja se ancla
+    // por la SUELA, no por el centro: la base del arte (97,7% de su alto) tiene que
+    // caer en el piso del héroe (vy 744, sus pies llegan a vy 741,5). Antes la caja
+    // era de 119×172 y la bota salía ~2,4 veces más grande que el pie: sobresalía
+    // por todos lados y el pie descalzo asomaba por detrás del talón derecho, así que
+    // se leía como una calcomanía encima del guerrero y no como calzado puesto.
+    // El ancho 102 es el máximo que deja la pantorrilla cubierta sin que la suela se
+    // desborde del pie; la x de cada una está corrida hacia adentro respecto del eje
+    // de la caña porque el arte abre la punta más de lo que la abre el héroe.
+    calzadoL: { x: 100,   y: 597.8, w: 102,   h: 147.25 },
+    calzadoR: { x: 249,   y: 597.8, w: 102,   h: 147.25 },
   };
 
   /* El cinturón se dibuja con "slice" (llena la caja y desborda) y después se

@@ -277,7 +277,9 @@
       document.body.appendChild(burst);
       setTimeout(() => burst.remove(), 2200);
 
-      // Show "ARMADURA COMPLETA" text
+      // Show "ARMADURA COMPLETA" text sobre el piso en penumbra
+      const veil = document.getElementById('asmFloorVeil');
+      if (veil) veil.classList.add('show');
       const txt = document.getElementById('asmCompleteText');
       if (txt) txt.classList.add('show');
 
