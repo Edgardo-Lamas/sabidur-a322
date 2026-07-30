@@ -64,6 +64,15 @@
     @apply border-l-4 border-sabiduria-gold pl-6 py-4 my-8 italic text-sabiduria-navy bg-white/50;
   }
 
+  /* Referencia al pie de un pull quote. Va en <span class='blockquote-ref'>, NO en
+     <footer>: sanitize.js no admite footer y DOMPurify lo borra conservando el texto,
+     con lo que la referencia queda pegada a la cita y en cursiva, como si fuera parte
+     del versículo. La clase se define acá y no con utilidades de Tailwind escritas en
+     el JSON, porque Tailwind no escanea los .json y no las generaría. */
+  .blockquote-ref {
+    @apply block mt-2 not-italic text-sm text-sabiduria-gray;
+  }
+
   /* ========================================
      TEXT TEMPLATE STYLES
      ======================================== */

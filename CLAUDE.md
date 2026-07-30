@@ -189,7 +189,8 @@ Esta página agrupa tres tipos de texto distintos con formatos diferentes.
 #### 1. Artículos — `/articulos/:slug`
 - **Fuente:** `src/data/textos.json` → clave `articulos[]` (tiene prioridad); `src/data/content.json` → clave `articles[]` (complemento sin duplicados)
 - **Campos:** `id, category, title, excerpt, date, slug, content, image`
-- **Formato del `content`:** HTML libre con estilos propios dentro de un `<style>` tag al inicio del string. No sigue el estándar de ensayos — tiene su propia hoja de estilos inline. Ver cualquier artículo existente como referencia.
+- **Formato del `content`:** el mismo HTML que los ensayos, y pasa por el **mismo sanitizador**. Ver "Formato HTML de ensayos".
+- **⚠ NO existe la hoja de estilos propia por artículo.** Esta guía afirmaba que el `content` de un artículo lleva sus estilos en un `<style>` al inicio del string. Es falso: `style` no está en la lista blanca de `sanitize.js`, ni como etiqueta ni como atributo, así que DOMPurify borra el bloque `<style>` y **todos** los `style=` inline. Tres artículos quedaron escritos así y su diseño nunca se vio en producción — renderizan con el estilo por defecto del sitio: `la-hermeneutica-biblica` (27 `style=`), `fundamentos-crecimiento-espiritual` (15 `style=` + `<style>` + `<small>`) y `la-mujer-la-palabra-y-el-orden-del-hogar` (`<style>`). Pendiente reescribirlos al estándar; su paleta era azul (`#1F4E79`, `#2E75B6`), fuera de la identidad del sitio, así que restaurarla no es lo deseable.
 - **Ruta de imagen:** `img/<archivo>.jpg` (servida desde `public/`)
 
 #### 2. Ensayos — `/ensayos/:slug`
@@ -374,10 +375,11 @@ Se usan `<h2>` (no `<h3>`, no `<strong>`, no `<b>`).
 
 #### Citas bíblicas en bloque (pull quotes)
 ```html
-<blockquote class='blockquote-gold'>«Texto completo del pasaje bíblico.»<footer class='mt-2 text-sabiduria-gray'>— Referencia 0:0 (RVR1960)</footer></blockquote>
+<blockquote class='blockquote-gold'>«Texto completo del pasaje bíblico.»<span class='blockquote-ref'>— Referencia 0:0 (RVR1960)</span></blockquote>
 ```
 - Para pasajes largos citados completos (más de una oración)
-- Siempre incluir el `<footer>` con la referencia
+- Siempre incluir el `<span class='blockquote-ref'>` con la referencia
+- **⚠ NUNCA `<footer>`.** No está en la lista blanca de `sanitize.js`: DOMPurify lo borra y **conserva el texto**, así que la referencia queda pegada a la cita y hereda su cursiva, como si fuera parte del versículo. Lo mismo vale para las utilidades de Tailwind escritas en el JSON (`mt-2 text-sabiduria-gray`): Tailwind no escanea los `.json` y no las genera. La clase `.blockquote-ref` está definida en `src/index.css`. Este error estuvo publicado en 122 citas de 34 textos hasta que se corrigió.
 - **⚠ El `<footer>` afirma que la cita es literal de esa versión.** Si el texto de origen trae el pasaje parafraseado o resumido, **no** convertirlo en `blockquote`: dejarlo como `biblical-inline` y pedir el texto literal antes de atribuirle una versión. Nunca inventar ni "reconstruir de memoria" el versículo para completar el formato.
 
 #### Qué va en `biblical-inline` y qué no
@@ -410,7 +412,7 @@ Los dos archivos hacen **round-trip exacto con `json.dump(data, f, ensure_ascii=
 Antes de hacer push, verificar:
 - [ ] Primer párrafo tiene clase `first-letter:...`
 - [ ] Versículos cortos en `<span class='biblical-inline'>«...»</span>`
-- [ ] Pasajes largos en `<blockquote class='blockquote-gold'>` con `<footer>` — y la cita es **literal**, no una paráfrasis
+- [ ] Pasajes largos en `<blockquote class='blockquote-gold'>` con `<span class='blockquote-ref'>` (**nunca `<footer>`**) — y la cita es **literal**, no una paráfrasis
 - [ ] Secciones separadas por `<h2>`, capítulos con numeración romana (`I.`, `II.` …)
 - [ ] **Ningún versículo** envuelto en `<em>«...»</em>`
 - [ ] Ninguna comilla recta `"` en el cuerpo del texto
