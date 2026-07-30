@@ -1170,7 +1170,7 @@
         "imagen": "img/series/reloj-profetico.jpg",
         "disponible": true,
         "primerArticulo": "/ensayos/reloj-profetico-introduccion",
-        "totalArticulos": 7,
+        "totalArticulos": 8,
         "articulos": [
           {
             "numero": "0",
@@ -1194,7 +1194,7 @@
             "disponible": true
           },
           {
-            "numero": "III",
+            "numero": "III · 1",
             "titulo": "Bloque III — El Tribunal de Cristo",
             "subtitulo": "El bema, el estrado de Corinto y lo que se evalúa cuando la salvación ya está sellada",
             "href": "/ensayo/reloj-profetico-bloque-iii",
@@ -1219,6 +1219,13 @@
             "titulo": "Las Naciones en el Propósito de Dios",
             "subtitulo": "De Nimrod a los cuatro imperios de Daniel: el origen de las naciones bajo la soberanía de Dios",
             "href": "/ensayo/reloj-profetico-gentiles-1",
+            "disponible": true
+          },
+          {
+            "numero": "III · 2",
+            "titulo": "Bloque III — Las Bodas del Cordero",
+            "subtitulo": "El trasfondo nupcial judío, la Esposa vestida de lino y la cronología en discusión",
+            "href": "/ensayo/reloj-profetico-bodas-del-cordero",
             "disponible": true
           }
         ],
@@ -1251,10 +1258,17 @@
                 "disponible": true
               },
               {
-                "numero": "III",
+                "numero": "III · 1",
                 "titulo": "El Tribunal de Cristo",
                 "subtitulo": "El bema, el estrado de Corinto y lo que se evalúa cuando la salvación ya está sellada",
                 "href": "/ensayo/reloj-profetico-bloque-iii",
+                "disponible": true
+              },
+              {
+                "numero": "III · 2",
+                "titulo": "Las Bodas del Cordero",
+                "subtitulo": "El trasfondo nupcial judío, la Esposa vestida de lino y la cronología en discusión",
+                "href": "/ensayo/reloj-profetico-bodas-del-cordero",
                 "disponible": true
               }
             ]

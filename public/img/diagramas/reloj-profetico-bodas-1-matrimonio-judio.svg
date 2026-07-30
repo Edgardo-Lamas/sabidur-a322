@@ -1,0 +1,51 @@
+<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Línea de tiempo vertical con las cinco etapas del matrimonio judío del período del Segundo Templo" font-family="Georgia, 'Times New Roman', 'DejaVu Serif', serif">
+  <defs>
+    <style>
+      .title { font-size: 22px; fill: #1A252F; font-weight: bold; }
+      .subtitle { font-size: 14px; fill: #4A4A4A; font-style: italic; }
+      .stepnum { font-size: 16px; fill: #1A1D23; font-weight: bold; }
+      .stage { font-size: 17px; fill: #1A252F; font-weight: bold; }
+      .desc { font-size: 14px; fill: #2C3E50; }
+      .foot { font-size: 13px; fill: #4A4A4A; font-style: italic; }
+    </style>
+  </defs>
+
+  <rect width="900" height="600" fill="#F9F9F7"/>
+
+  <text x="450" y="40" text-anchor="middle" class="title">Las cinco etapas del matrimonio judío</text>
+  <text x="450" y="62" text-anchor="middle" class="subtitle">Período del Segundo Templo — el trasfondo que los oyentes de Jesús daban por conocido</text>
+
+  <rect x="45" y="95" width="810" height="410" fill="#FCFAF4"/>
+
+  <line x1="120" y1="130" x2="120" y2="470" stroke="#C5A059" stroke-width="3"/>
+
+  <g>
+    <circle cx="120" cy="130" r="17" fill="#C5A059"/>
+    <text x="120" y="136" text-anchor="middle" class="stepnum">1</text>
+    <text x="162" y="126" class="stage">Kiddushin</text>
+    <text x="162" y="148" class="desc">Desposorio con fuerza legal plena</text>
+
+    <circle cx="120" cy="215" r="17" fill="#C5A059"/>
+    <text x="120" y="221" text-anchor="middle" class="stepnum">2</text>
+    <text x="162" y="211" class="stage">Mohar y ketubá</text>
+    <text x="162" y="233" class="desc">Precio nupcial y contrato de protección</text>
+
+    <circle cx="120" cy="300" r="17" fill="#C5A059"/>
+    <text x="120" y="306" text-anchor="middle" class="stepnum">3</text>
+    <text x="162" y="296" class="stage">Período de separación</text>
+    <text x="162" y="318" class="desc">Aprox. un año; el novio prepara el hogar</text>
+
+    <circle cx="120" cy="385" r="17" fill="#C5A059"/>
+    <text x="120" y="391" text-anchor="middle" class="stepnum">4</text>
+    <text x="162" y="381" class="stage">Nissuin</text>
+    <text x="162" y="403" class="desc">El novio va a buscar a la novia</text>
+
+    <circle cx="120" cy="470" r="17" fill="#C5A059"/>
+    <text x="120" y="476" text-anchor="middle" class="stepnum">5</text>
+    <text x="162" y="466" class="stage">Mishteh</text>
+    <text x="162" y="488" class="desc">Banquete nupcial, hasta siete días</text>
+  </g>
+
+  <line x1="45" y1="535" x2="855" y2="535" stroke="#BDC3C7" stroke-width="1"/>
+  <text x="450" y="562" text-anchor="middle" class="foot">Jeremias, Jerusalem in the Time of Jesus · Satlow, Jewish Marriage in Antiquity</text>
+</svg>

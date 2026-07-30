@@ -1,0 +1,73 @@
+<svg viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dos líneas de tiempo paralelas que comparan la cronología de Pentecost y la de LaHaye, resaltando la distinta ubicación de la cena de las bodas" font-family="Georgia, 'Times New Roman', 'DejaVu Serif', serif">
+  <defs>
+    <style>
+      .title { font-size: 22px; fill: #1A252F; font-weight: bold; }
+      .subtitle { font-size: 14px; fill: #4A4A4A; font-style: italic; }
+      .rowauthor { font-size: 15px; fill: #1A252F; font-weight: bold; letter-spacing: 1px; }
+      .boxmain { font-size: 14px; fill: #2C3E50; }
+      .zone-heaven { font-size: 11px; fill: #7A5C1E; font-style: italic; }
+      .zone-earth { font-size: 11px; fill: #4A4A4A; font-style: italic; }
+      .note { font-size: 13px; fill: #2C3E50; font-style: italic; }
+      .foot { font-size: 12px; fill: #4A4A4A; font-style: italic; }
+    </style>
+    <marker id="bodas3-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#C5A059"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="500" fill="#F9F9F7"/>
+
+  <text x="450" y="38" text-anchor="middle" class="title">Cronología comparada: Pentecost y LaHaye</text>
+  <text x="450" y="60" text-anchor="middle" class="subtitle">Coinciden en el bema y en las bodas; difieren en dónde ubicar la cena</text>
+
+  <line x1="180" y1="168" x2="842" y2="168" stroke="#BDC3C7" stroke-width="2"/>
+  <line x1="180" y1="302" x2="842" y2="302" stroke="#BDC3C7" stroke-width="2"/>
+
+  <text x="52" y="174" class="rowauthor">PENTECOST</text>
+  <text x="52" y="308" class="rowauthor">LaHAYE</text>
+
+  <g>
+    <rect x="180" y="130" width="152" height="76" fill="#F6F4EE" stroke="#C5A059" stroke-width="1.5"/>
+    <text x="256" y="164" text-anchor="middle" class="boxmain">Bema</text>
+    <text x="256" y="188" text-anchor="middle" class="zone-heaven">cielo</text>
+
+    <rect x="350" y="130" width="152" height="76" fill="#F6F4EE" stroke="#C5A059" stroke-width="1.5"/>
+    <text x="426" y="164" text-anchor="middle" class="boxmain">Bodas</text>
+    <text x="426" y="188" text-anchor="middle" class="zone-heaven">cielo</text>
+
+    <rect x="520" y="130" width="152" height="76" fill="#ECECEA" stroke="#8A9096" stroke-width="1.5"/>
+    <text x="596" y="164" text-anchor="middle" class="boxmain">Segunda venida</text>
+    <text x="596" y="188" text-anchor="middle" class="zone-earth">tierra</text>
+
+    <rect x="690" y="130" width="152" height="76" fill="#ECECEA" stroke="#C5A059" stroke-width="3"/>
+    <text x="766" y="158" text-anchor="middle" class="boxmain">Cena,</text>
+    <text x="766" y="176" text-anchor="middle" class="boxmain">en el milenio</text>
+    <text x="766" y="196" text-anchor="middle" class="zone-earth">tierra</text>
+  </g>
+
+  <g>
+    <rect x="180" y="264" width="152" height="76" fill="#F6F4EE" stroke="#C5A059" stroke-width="1.5"/>
+    <text x="256" y="298" text-anchor="middle" class="boxmain">Bema</text>
+    <text x="256" y="322" text-anchor="middle" class="zone-heaven">cielo</text>
+
+    <rect x="350" y="264" width="152" height="76" fill="#F6F4EE" stroke="#C5A059" stroke-width="1.5"/>
+    <text x="426" y="298" text-anchor="middle" class="boxmain">Bodas</text>
+    <text x="426" y="322" text-anchor="middle" class="zone-heaven">cielo</text>
+
+    <rect x="520" y="264" width="152" height="76" fill="#F6F4EE" stroke="#C5A059" stroke-width="3"/>
+    <text x="596" y="298" text-anchor="middle" class="boxmain">Cena</text>
+    <text x="596" y="322" text-anchor="middle" class="zone-heaven">cielo</text>
+
+    <rect x="690" y="264" width="152" height="76" fill="#ECECEA" stroke="#8A9096" stroke-width="1.5"/>
+    <text x="766" y="292" text-anchor="middle" class="boxmain">Milenio,</text>
+    <text x="766" y="310" text-anchor="middle" class="boxmain">luna de miel</text>
+    <text x="766" y="330" text-anchor="middle" class="zone-earth">tierra</text>
+  </g>
+
+  <path d="M766,206 C766,240 596,228 596,260" fill="none" stroke="#C5A059" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#bodas3-arrow)"/>
+
+  <line x1="45" y1="386" x2="855" y2="386" stroke="#BDC3C7" stroke-width="1"/>
+  <text x="450" y="414" text-anchor="middle" class="note">La divergencia está en la cena: Pentecost la sitúa en la tierra, ya en el milenio;</text>
+  <text x="450" y="436" text-anchor="middle" class="note">LaHaye la ubica en el cielo, antes del descenso.</text>
+  <text x="450" y="464" text-anchor="middle" class="foot">Apocalipsis 19:7 (γάμος) · Apocalipsis 19:9 (δεῖπνον τοῦ γάμου)</text>
+</svg>

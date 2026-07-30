@@ -1,0 +1,45 @@
+<svg viewBox="0 0 900 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Comparación de las dos lecturas sobre la identidad de la Esposa en Apocalipsis 19" font-family="Georgia, 'Times New Roman', 'DejaVu Serif', serif">
+  <defs>
+    <style>
+      .title { font-size: 22px; fill: #1A252F; font-weight: bold; }
+      .subtitle { font-size: 14px; fill: #4A4A4A; font-style: italic; }
+      .colhead-dark { font-size: 16px; fill: #1A252F; font-weight: bold; }
+      .colhead-light { font-size: 16px; fill: #F9F9F7; font-weight: bold; }
+      .label { font-size: 14px; fill: #2C3E50; }
+      .foot { font-size: 13px; fill: #4A4A4A; font-style: italic; }
+    </style>
+  </defs>
+
+  <rect width="900" height="480" fill="#F9F9F7"/>
+
+  <text x="450" y="40" text-anchor="middle" class="title">La Esposa de Apocalipsis 19: dos lecturas</text>
+  <text x="450" y="62" text-anchor="middle" class="subtitle">El debate no es si la Iglesia es la Esposa, sino si la Esposa es solo la Iglesia</text>
+
+  <rect x="45" y="88" width="390" height="287" fill="#F6F4EE"/>
+  <rect x="465" y="88" width="390" height="287" fill="#ECECEA"/>
+
+  <rect x="45" y="88" width="390" height="46" fill="#C5A059"/>
+  <text x="240" y="118" text-anchor="middle" class="colhead-dark">La Esposa es la Iglesia</text>
+
+  <rect x="465" y="88" width="390" height="46" fill="#1A1D23"/>
+  <text x="660" y="118" text-anchor="middle" class="colhead-light">La Esposa es todo el pueblo redimido</text>
+
+  <g class="label">
+    <text x="63" y="178">Distinción Israel–Iglesia</text>
+    <text x="63" y="248">Walvoord, Pentecost, Ryrie,</text>
+    <text x="63" y="268">Robert L. Thomas</text>
+    <text x="63" y="330">Invitados: santos del AT</text>
+    <text x="63" y="350">y de la Tribulación</text>
+  </g>
+
+  <g class="label">
+    <text x="483" y="178">Continuidad del pueblo de Dios</text>
+    <text x="483" y="248">Ladd, Beale, Bauckham,</text>
+    <text x="483" y="268">Osborne, Koester</text>
+    <text x="483" y="330">La Nueva Jerusalén reúne</text>
+    <text x="483" y="350">tribus y apóstoles</text>
+  </g>
+
+  <line x1="45" y1="405" x2="855" y2="405" stroke="#BDC3C7" stroke-width="1"/>
+  <text x="450" y="432" text-anchor="middle" class="foot">Juan 3:29 · Apocalipsis 19:9 · Apocalipsis 21:9–14</text>
+</svg>
