@@ -207,13 +207,13 @@ const M = {
   // Oro laminado sobre cedro (interior): rugoso para que lea como PARED y no como
   // espejo — con roughness bajo reflejaba el HDRI y las paredes parecían cielo.
   goldInt: (() => {
-    const m = new THREE.MeshStandardMaterial({ color:0xC9A035, roughness:0.42, metalness:0.85, emissive:new THREE.Color(0x2A1A00), emissiveIntensity:0.25, envMapIntensity:0.35 });
+    const m = new THREE.MeshStandardMaterial({ color:0xA67E2C, roughness:0.46, metalness:0.85, emissive:new THREE.Color(0x241600), emissiveIntensity:0.25, envMapIntensity:0.3 });
     m.normalMap = tex('brown_planks_03','nor_gl');
     m.normalMap.repeat.set(3,3);
     m.normalScale = new THREE.Vector2(0.4,0.4);
     return m;
   })(),
-  goldChain: new THREE.MeshStandardMaterial({ color:0xD4AF37, roughness:0.15, metalness:0.95, emissive:new THREE.Color(0x4A2E00), emissiveIntensity:0.5 }),
+  goldChain: new THREE.MeshStandardMaterial({ color:0xC0943A, roughness:0.2, metalness:0.95, emissive:new THREE.Color(0x3E2600), emissiveIntensity:0.45 }),
   blue:    new THREE.MeshStandardMaterial({ color:0x1A3A70, roughness:0.8,  metalness:0.1  }),
   blueD:   new THREE.MeshStandardMaterial({ color:0x0F2550, roughness:0.8,  metalness:0.1  }),
   water:   new THREE.MeshPhysicalMaterial({ color:0x2E8BC8, transparent:true, opacity:0.62, roughness:0.02, metalness:0.1, transmission:0.55, ior:1.33, thickness:2, emissive:new THREE.Color(0x0E3A5A), emissiveIntensity:0.25, clearcoat:0.6, clearcoatRoughness:0.05 }),
@@ -223,7 +223,7 @@ const M = {
   // Fog plane material
   fogMat:  new THREE.MeshBasicMaterial({ color:0x1A150E, transparent:true, opacity:0.08, side:THREE.DoubleSide, depthWrite:false }),
   // Relief decoration
-  relief:  new THREE.MeshStandardMaterial({ color:0xD4AF37, roughness:0.25, metalness:0.9, emissive:new THREE.Color(0x3A2200), emissiveIntensity:0.3 }),
+  relief:  new THREE.MeshStandardMaterial({ color:0xB08A30, roughness:0.3, metalness:0.9, emissive:new THREE.Color(0x301E00), emissiveIntensity:0.28 }),
 };
 // Bronce bruñido especial del Mar de Bronce (obra maestra de Hiram, 1 R 7:23-26) —
 // más claro y pulido que el bronce común, para que destaque como pieza central.
@@ -231,7 +231,7 @@ M.seaBronze  = pbr('metal_plate', 0xCFA35C, 0.20, 0.92, 2);
 M.seaBronzeD = pbr('metal_plate', 0x9E6E30, 0.32, 0.85, 2);
 // Oro del Arca — más rugoso y con emisivo para que se lea dentro del Debir
 // (el oro espejo M.gold refleja oscuridad en una sala cerrada y se ve negro)
-M.goldArk = new THREE.MeshStandardMaterial({ color:0xE8C24A, roughness:0.32, metalness:0.9, emissive:new THREE.Color(0x6B4A10), emissiveIntensity:0.45, envMapIntensity:0.8 });
+M.goldArk = new THREE.MeshStandardMaterial({ color:0xC0943A, roughness:0.36, metalness:0.9, emissive:new THREE.Color(0x50380C), emissiveIntensity:0.4, envMapIntensity:0.7 });
 
 // Textura radial compartida para halos de llama — sin esto los halos se ven
 // como tarjetas cuadradas translúcidas en vez de resplandores
@@ -259,93 +259,198 @@ function makeCanvas(w, h, draw) {
 
 // Banda guilloche (cadeneta entrelazada, corre bajo el registro superior)
 const texGuil = makeCanvas(256, 64, (c) => {
-  c.fillStyle = '#E5D5A0'; c.fillRect(0,0,256,64);
-  c.strokeStyle = '#8A6A28'; c.lineWidth = 6;
+  c.fillStyle = '#A98240'; c.fillRect(0,0,256,64);
+  c.strokeStyle = '#5E4212'; c.lineWidth = 6;
   for (let x = 0; x <= 256; x += 32) {
     c.beginPath(); c.arc(x, 32, 19, 0, Math.PI*2); c.stroke();
   }
-  c.fillStyle = '#B5892F';
+  c.fillStyle = '#8A6524';
   for (let x = 16; x <= 256; x += 32) {
     c.beginPath(); c.arc(x, 32, 7, 0, Math.PI*2); c.fill();
   }
 });
 
-// Panel de querubines alados enfrentados (grabado estilo sirio-fenicio, 1 R 6:29)
-// Formas LLENAS tono sobre tono (relieve), no líneas crudas.
-const texCherub = makeCanvas(1024, 768, (c) => {
-  const bg = c.createLinearGradient(0,0,0,768);
-  bg.addColorStop(0,'#D9AC52'); bg.addColorStop(1,'#C1922F');
-  c.fillStyle = bg; c.fillRect(0,0,1024,768);
-  function sphinx(cx, dir) {
-    c.save(); c.translate(cx, 430); c.scale(dir, 1);
-    const FILL = '#B9903A', HI = '#EDD48E', LO = '#7E5C1E';
-    c.lineJoin = c.lineCap = 'round';
-    // Ala llena barrida hacia atrás (detrás del cuerpo)
+// ── SET DE PARED SEGÚN 1 R 6:29 (querubines, palmeras y flores abiertas) ─────
+// Técnica de repujado: cada forma se dibuja tres veces — sombra desplazada
+// abajo-derecha, cuerpo con gradiente, y filo de luz arriba-izquierda.
+// Paleta del oro bruñido OSCURO de la referencia (nada de amarillo brillante).
+const PW = { BG1:'#8A6226', BG2:'#9F7830', BG3:'#75521C', SH:'rgba(40,26,6,0.55)',
+             FILL:'#B98E38', MID:'#A67C2C', HI:'#EACB80', DK:'#5E4212' };
+
+function embossPath(c, path, fill, dx = 3, dy = 4) {
+  c.save(); c.translate(dx, dy); c.fillStyle = PW.SH; path(); c.fill(); c.restore();
+  c.fillStyle = fill; path(); c.fill();
+  c.save(); c.translate(-1.5, -2); c.strokeStyle = 'rgba(234,203,128,0.65)';
+  c.lineWidth = 2; path(); c.stroke(); c.restore();
+}
+function embossStroke(c, path, w, tone = PW.MID) {
+  c.lineCap = c.lineJoin = 'round';
+  c.save(); c.translate(2, 3); c.strokeStyle = PW.SH; c.lineWidth = w; path(); c.stroke(); c.restore();
+  c.strokeStyle = tone; c.lineWidth = w; path(); c.stroke();
+  c.save(); c.translate(-1, -1.5); c.strokeStyle = 'rgba(234,203,128,0.55)';
+  c.lineWidth = Math.max(1.2, w*0.35); path(); c.stroke(); c.restore();
+}
+
+// Panel de palmera datilera en relieve (registro principal de cada bahía)
+const texPalm = makeCanvas(512, 1280, (c) => {
+  const bg = c.createLinearGradient(0, 0, 0, 1280);
+  bg.addColorStop(0, PW.BG1); bg.addColorStop(0.55, PW.BG2); bg.addColorStop(1, PW.BG3);
+  c.fillStyle = bg; c.fillRect(0, 0, 512, 1280);
+  const vg = c.createLinearGradient(0, 0, 512, 0);
+  vg.addColorStop(0, 'rgba(36,22,4,0.4)'); vg.addColorStop(0.14, 'rgba(36,22,4,0)');
+  vg.addColorStop(0.86, 'rgba(36,22,4,0)'); vg.addColorStop(1, 'rgba(36,22,4,0.4)');
+  c.fillStyle = vg; c.fillRect(0, 0, 512, 1280);
+  const cx = 256, crownY = 430;
+  // Tronco: silueta cónica con celosía de rombos (como la referencia)
+  const trunk = () => {
     c.beginPath();
-    c.moveTo(-10, -40);
-    c.bezierCurveTo(30, -150, -40, -230, -150, -235);
-    c.bezierCurveTo(-230, -237, -280, -190, -285, -140);
-    c.bezierCurveTo(-230, -160, -120, -120, -30, -20);
-    c.closePath();
-    c.fillStyle = '#C29A40'; c.fill();
-    c.strokeStyle = LO; c.lineWidth = 4; c.stroke();
-    c.strokeStyle = '#8F6A24'; c.lineWidth = 3;
-    for (let f = 1; f <= 5; f++) {
-      c.beginPath();
-      c.moveTo(-20 - f*6, -45 - f*8);
-      c.bezierCurveTo(-80 - f*20, -95 - f*22, -170 - f*16, -140 - f*14, -278 + f*6, -148 - f*10);
-      c.stroke();
+    c.moveTo(cx - 34, 1240); c.lineTo(cx - 20, crownY + 30);
+    c.lineTo(cx + 20, crownY + 30); c.lineTo(cx + 34, 1240); c.closePath();
+  };
+  embossPath(c, trunk, PW.MID, 4, 5);
+  c.save(); trunk(); c.clip();
+  for (let i = -8; i < 16; i++) {
+    embossStroke(c, () => { c.beginPath();
+      c.moveTo(cx - 60, 1260 - i*52); c.lineTo(cx + 60, 1260 - i*52 - 110); }, 5, PW.DK);
+    embossStroke(c, () => { c.beginPath();
+      c.moveTo(cx + 60, 1260 - i*52); c.lineTo(cx - 60, 1260 - i*52 - 110); }, 5, PW.DK);
+  }
+  c.restore();
+  // Collar de brácteas en el arranque de la corona
+  [0, 1, 2].forEach(k => embossStroke(c, () => { c.beginPath();
+    c.moveTo(cx - 30 + k*6, crownY + 46 - k*14);
+    c.quadraticCurveTo(cx, crownY + 12 - k*14, cx + 30 - k*6, crownY + 46 - k*14);
+  }, 7, PW.FILL));
+  // Corona de frondas plumosas
+  function frond(angDeg, len) {
+    const a = angDeg * Math.PI / 180;
+    const tx = cx + Math.sin(a) * len, ty = crownY - Math.cos(a) * len;
+    // la punta cae (palmera llorona): control alto, punta más baja
+    const cpx = cx + Math.sin(a) * len * 0.62, cpy = crownY - Math.cos(a) * len * 0.95;
+    const ex = tx + Math.sin(a) * 26 + 14 * Math.sign(Math.sin(a) || 1);
+    const ey = ty + 66 + Math.abs(Math.sin(a)) * 40;
+    embossStroke(c, () => { c.beginPath();
+      c.moveTo(cx, crownY); c.quadraticCurveTo(cpx, cpy, ex, ey); }, 7, PW.FILL);
+    // foliolos a ambos lados del raquis
+    for (let t = 0.22; t <= 0.98; t += 0.075) {
+      const it = 1 - t;
+      const px2 = it*it*cx + 2*it*t*cpx + t*t*ex;
+      const py2 = it*it*crownY + 2*it*t*cpy + t*t*ey;
+      const dxr = 2*it*(cpx - cx) + 2*t*(ex - cpx);
+      const dyr = 2*it*(cpy - crownY) + 2*t*(ey - cpy);
+      const L = Math.hypot(dxr, dyr) || 1;
+      const nx = -dyr / L, ny = dxr / L;
+      const fl = 30 * (1 - t * 0.75);
+      [1, -1].forEach(sd => embossStroke(c, () => { c.beginPath();
+        c.moveTo(px2, py2);
+        c.lineTo(px2 + (nx*sd*0.82 + dxr/L*0.57) * fl, py2 + (ny*sd*0.82 + dyr/L*0.57) * fl);
+      }, 3.4, PW.FILL));
     }
-    // Cuerpo de león (silueta llena: pecho → vientre → grupa → lomo)
-    c.beginPath();
-    c.moveTo(95, 10);
-    c.bezierCurveTo(100, 60, 90, 95, 75, 100);
-    c.lineTo(-140, 100);
-    c.bezierCurveTo(-215, 100, -240, 45, -225, 5);
-    c.bezierCurveTo(-180, -35, -60, -38, 40, -25);
-    c.closePath();
-    c.fillStyle = FILL; c.fill();
-    c.strokeStyle = LO; c.lineWidth = 4; c.stroke();
-    c.beginPath(); c.arc(-160, 40, 58, Math.PI*1.15, Math.PI*1.85);
-    c.strokeStyle = '#8F6A24'; c.lineWidth = 3; c.stroke(); // línea de grupa
-    // Patas con garras
-    [[55, 0],[15, 12],[-130, 12],[-185, 0]].forEach(([lx, off]) => {
-      c.fillStyle = FILL;
-      c.fillRect(lx, 90 - off, 26, 105 + off);
-      c.strokeStyle = LO; c.lineWidth = 3.5; c.strokeRect(lx, 90 - off, 26, 105 + off);
-      c.fillRect(lx - 4, 188, 36, 14); c.strokeRect(lx - 4, 188, 36, 14);
+  }
+  [-96, -74, -52, -30, -10, 10, 30, 52, 74, 96].forEach(a2 => frond(a2, 205 + 40*Math.cos(a2*Math.PI/180)));
+  // Racimos de dátiles colgando de la corona
+  function dates(sx, sy, bx2, by2) {
+    embossStroke(c, () => { c.beginPath();
+      c.moveTo(sx, sy); c.quadraticCurveTo((sx+bx2)/2 - 14, (sy+by2)/2, bx2, by2); }, 5, PW.MID);
+    const rows = [3, 5, 6, 6, 5, 4, 3, 2];
+    rows.forEach((n, r) => { for (let i2 = 0; i2 < n; i2++) {
+      const px3 = bx2 + (i2 - (n-1)/2) * 17, py3 = by2 + 14 + r * 15;
+      embossPath(c, () => { c.beginPath(); c.arc(px3, py3, 8.6, 0, Math.PI*2); }, PW.FILL, 2, 3);
+    }});
+  }
+  dates(cx - 42, crownY + 26, cx - 118, crownY + 120);
+  dates(cx + 44, crownY + 22, cx + 116, crownY + 108);
+});
+
+// Friso corrido: querubín alado de perfil alternado con roseta (registro bajo)
+const texFrieze = makeCanvas(1024, 256, (c) => {
+  const bg = c.createLinearGradient(0, 0, 0, 256);
+  bg.addColorStop(0, PW.BG1); bg.addColorStop(1, PW.BG3);
+  c.fillStyle = bg; c.fillRect(0, 0, 1024, 256);
+  // Rieles de moldura arriba y abajo
+  [[8, 26], [230, 248]].forEach(([y1, y2]) => {
+    c.fillStyle = PW.DK; c.fillRect(0, y1, 1024, y2 - y1);
+    c.fillStyle = PW.HI; c.fillRect(0, y1, 1024, 3);
+    c.fillStyle = 'rgba(36,22,4,0.6)'; c.fillRect(0, y2 - 3, 1024, 3);
+  });
+  // Roseta de dos coronas de pétalos
+  function rosette(cx2) {
+    const cy = 128;
+    for (let a = 0; a < 12; a++) { const ang = a/12 * Math.PI*2;
+      embossPath(c, () => { c.beginPath();
+        c.ellipse(cx2 + Math.cos(ang)*54, cy + Math.sin(ang)*54, 30, 13, ang, 0, Math.PI*2);
+      }, PW.MID, 2.5, 3.5);
+    }
+    for (let a = 0; a < 8; a++) { const ang = a/8 * Math.PI*2 + 0.39;
+      embossPath(c, () => { c.beginPath();
+        c.ellipse(cx2 + Math.cos(ang)*30, cy + Math.sin(ang)*30, 20, 10, ang, 0, Math.PI*2);
+      }, PW.FILL, 2, 3);
+    }
+    embossPath(c, () => { c.beginPath(); c.arc(cx2, cy, 15, 0, Math.PI*2); }, PW.HI, 2, 3);
+  }
+  // Querubín alado de perfil, andante (grabado sirio-fenicio)
+  function sphinxRelief(cx2) {
+    const cy = 150;
+    c.save(); c.translate(cx2, cy);
+    // patas (detrás del cuerpo)
+    [[-62, 4], [-38, -2], [30, -2], [56, 4]].forEach(([lx, off]) => {
+      embossPath(c, () => { c.beginPath();
+        c.moveTo(lx - 7, -8 + off); c.lineTo(lx - 5, 52); c.lineTo(lx + 13, 52);
+        c.lineTo(lx + 9, -8 + off); c.closePath(); }, PW.MID, 2.5, 3);
+      embossPath(c, () => { c.beginPath();
+        c.moveTo(lx - 9, 52); c.lineTo(lx + 17, 52); c.lineTo(lx + 17, 62);
+        c.lineTo(lx - 9, 62); c.closePath(); }, PW.MID, 2, 2.5);
     });
-    // Cola con rulo
-    c.beginPath(); c.moveTo(-222, 20);
-    c.bezierCurveTo(-275, -10, -290, -70, -258, -92);
-    c.strokeStyle = LO; c.lineWidth = 6; c.stroke();
-    c.beginPath(); c.arc(-250, -84, 12, 0, Math.PI*2); c.stroke();
-    // Cuello, tocado y cabeza
-    c.beginPath();
-    c.moveTo(60, -10); c.lineTo(75, -105); c.lineTo(122, -105); c.lineTo(112, -5);
-    c.closePath(); c.fillStyle = FILL; c.fill();
-    c.strokeStyle = LO; c.lineWidth = 4; c.stroke();
-    c.beginPath();
-    c.moveTo(70, -185); c.lineTo(52, -95); c.lineTo(78, -80); c.closePath();
-    c.fillStyle = '#A87F2E'; c.fill(); c.stroke(); // nemes
-    c.beginPath(); c.ellipse(100, -140, 30, 42, 0.06, 0, Math.PI*2);
-    c.fillStyle = FILL; c.fill(); c.stroke();
-    c.strokeStyle = '#6E4E16'; c.lineWidth = 3;
-    c.beginPath(); c.moveTo(76, -168); c.lineTo(128, -162); c.stroke(); // banda frontal
-    c.beginPath(); c.arc(112, -145, 3.5, 0, Math.PI*2); c.stroke();    // ojo
-    c.beginPath(); c.moveTo(126, -132); c.quadraticCurveTo(120, -122, 110, -124); c.stroke(); // boca
-    // Pechera de flecos
-    c.strokeStyle = '#8F6A24'; c.lineWidth = 3;
-    for (let t2 = 0; t2 < 5; t2++) {
-      c.beginPath(); c.moveTo(70 + t2*9, 15); c.lineTo(66 + t2*9, 88); c.stroke();
-    }
-    // Luz de relieve en el lomo
-    c.strokeStyle = HI; c.lineWidth = 2;
-    c.beginPath(); c.moveTo(35, -22); c.bezierCurveTo(-60, -34, -170, -32, -218, 2); c.stroke();
+    // cola en S sobre el anca
+    embossStroke(c, () => { c.beginPath(); c.moveTo(-66, -10);
+      c.bezierCurveTo(-92, -26, -100, -58, -80, -70);
+      c.arc(-74, -64, 9, Math.PI, Math.PI*2.4); }, 5.5, PW.MID);
+    // cuerpo de león
+    embossPath(c, () => { c.beginPath();
+      c.moveTo(58, 0);
+      c.bezierCurveTo(62, -22, 58, -34, 46, -38);      // pecho a cruz
+      c.bezierCurveTo(10, -46, -40, -44, -62, -34);    // lomo
+      c.bezierCurveTo(-76, -26, -78, -2, -64, 6);      // anca
+      c.bezierCurveTo(-30, 16, 30, 14, 58, 0);         // vientre
+      c.closePath(); }, PW.FILL, 3.5, 4.5);
+    // ala barrida hacia atrás
+    embossPath(c, () => { c.beginPath();
+      c.moveTo(18, -36);
+      c.bezierCurveTo(6, -76, -30, -96, -86, -92);
+      c.bezierCurveTo(-64, -78, -52, -60, -20, -40);
+      c.closePath(); }, PW.MID, 3, 4);
+    [0.3, 0.55, 0.8].forEach(t => embossStroke(c, () => { c.beginPath();
+      c.moveTo(14 - t*22, -40 - t*20);
+      c.quadraticCurveTo(-20 - t*24, -66 - t*18, -80 - t*4, -88 + t*8); }, 2.6, PW.DK));
+    // cuello y cabeza humana con tocado
+    embossPath(c, () => { c.beginPath();
+      c.moveTo(44, -34); c.lineTo(52, -74); c.lineTo(72, -74); c.lineTo(70, -30);
+      c.closePath(); }, PW.FILL, 2.5, 3);
+    embossPath(c, () => { c.beginPath(); c.ellipse(64, -84, 13, 16, 0.05, 0, Math.PI*2); }, PW.FILL, 2.5, 3);
+    embossPath(c, () => { c.beginPath();                 // nemes por detrás
+      c.moveTo(50, -98); c.lineTo(44, -58); c.lineTo(56, -62); c.lineTo(58, -96);
+      c.closePath(); }, PW.MID, 2, 2.5);
+    c.fillStyle = PW.DK;
+    c.beginPath(); c.arc(68, -87, 2.2, 0, Math.PI*2); c.fill(); // ojo
+    embossStroke(c, () => { c.beginPath(); c.moveTo(52, -100); c.lineTo(74, -96); }, 3, PW.DK); // banda
     c.restore();
   }
-  sphinx(300, 1); sphinx(724, -1);
+  rosette(128); sphinxRelief(384); rosette(640); sphinxRelief(896);
 });
+
+// Cabellera de los querubines colosales: mechones ondulados grabados en el oro
+const texHair = makeCanvas(256, 256, (c) => {
+  c.fillStyle = '#8F6C26'; c.fillRect(0, 0, 256, 256);
+  for (let x = -20; x < 276; x += 22) {
+    c.strokeStyle = '#6B4E16'; c.lineWidth = 7;
+    c.beginPath(); c.moveTo(x, -10);
+    c.bezierCurveTo(x + 14, 70, x - 14, 170, x + 8, 266); c.stroke();
+    c.strokeStyle = '#B08A38'; c.lineWidth = 2.5;
+    c.beginPath(); c.moveTo(x + 5, -10);
+    c.bezierCurveTo(x + 19, 70, x - 9, 170, x + 13, 266); c.stroke();
+  }
+});
+
 
 // Techo artesonado: vigas de cedro + rosetas de oro en cada casetón
 const texCeiling = makeCanvas(512, 512, (c) => {
@@ -382,13 +487,13 @@ const texCeiling = makeCanvas(512, 512, (c) => {
 // Piso: baldosas doradas claras con listones de madera embutidos
 const texFloor = makeCanvas(512, 512, (c) => {
   const g2 = c.createLinearGradient(0,0,512,512);
-  g2.addColorStop(0,'#DDBC6E'); g2.addColorStop(0.5,'#D2AF5C'); g2.addColorStop(1,'#C8A24E');
+  g2.addColorStop(0,'#B7924A'); g2.addColorStop(0.5,'#A98543'); g2.addColorStop(1,'#997638');
   c.fillStyle = g2; c.fillRect(0,0,512,512);
   [0, 256, 512].forEach(p => {
-    c.strokeStyle = '#6E4A28'; c.lineWidth = 9;
+    c.strokeStyle = '#4E3411'; c.lineWidth = 9;
     c.beginPath(); c.moveTo(p,0); c.lineTo(p,512); c.stroke();
     c.beginPath(); c.moveTo(0,p); c.lineTo(512,p); c.stroke();
-    c.strokeStyle = '#8A6236'; c.lineWidth = 3;
+    c.strokeStyle = '#6B4B24'; c.lineWidth = 3;
     c.beginPath(); c.moveTo(p+14,0); c.lineTo(p+14,512); c.stroke();
     c.beginPath(); c.moveTo(0,p+14); c.lineTo(512,p+14); c.stroke();
   });
@@ -396,13 +501,13 @@ const texFloor = makeCanvas(512, 512, (c) => {
 
 // Hojas de puerta artesonadas: grilla de casetones con roseta y palmera alternadas
 const texDoor = makeCanvas(512, 1024, (c) => {
-  c.fillStyle = '#E0C88E'; c.fillRect(0,0,512,1024);
+  c.fillStyle = '#B79449'; c.fillRect(0,0,512,1024);
   const cols = 4, rows = 8, cw = 118, m = 20;
   for (let r = 0; r < rows; r++) for (let q = 0; q < cols; q++) {
     const x = m + q*cw + 6, y = m + r*cw + 6, s = cw - 24;
-    c.strokeStyle = '#7A5A22'; c.lineWidth = 5; c.strokeRect(x, y, s, s);
-    c.fillStyle = '#D2B672'; c.fillRect(x+8, y+8, s-16, s-16);
-    c.strokeStyle = '#F2DFA8'; c.lineWidth = 2; c.strokeRect(x+8, y+8, s-16, s-16);
+    c.strokeStyle = '#5E4212'; c.lineWidth = 5; c.strokeRect(x, y, s, s);
+    c.fillStyle = '#A9873E'; c.fillRect(x+8, y+8, s-16, s-16);
+    c.strokeStyle = '#D9BC74'; c.lineWidth = 2; c.strokeRect(x+8, y+8, s-16, s-16);
     const cx = x + s/2, cy = y + s/2;
     c.strokeStyle = '#8A6524'; c.lineWidth = 4;
     if ((r + q) % 2 === 0) {
@@ -428,9 +533,9 @@ const texDoor = makeCanvas(512, 1024, (c) => {
 
 // Tira vertical de rosetas para el frente de las pilastras (como la referencia)
 const texRosStrip = makeCanvas(128, 512, (c) => {
-  c.fillStyle = '#E2D2A0'; c.fillRect(0,0,128,512);
+  c.fillStyle = '#A98240'; c.fillRect(0,0,128,512);
   for (let cy = 64; cy < 512; cy += 128) {
-    c.fillStyle = '#B58E36'; c.strokeStyle = '#7E5C1E'; c.lineWidth = 3;
+    c.fillStyle = '#8F6C28'; c.strokeStyle = '#54390E'; c.lineWidth = 3;
     for (let a = 0; a < 10; a++) {
       const ang = a/10 * Math.PI*2;
       c.beginPath();
@@ -438,19 +543,26 @@ const texRosStrip = makeCanvas(128, 512, (c) => {
       c.fill(); c.stroke();
     }
     c.beginPath(); c.arc(64, cy, 11, 0, Math.PI*2);
-    c.fillStyle = '#D9B85C'; c.fill(); c.stroke();
+    c.fillStyle = '#B8964A'; c.fill(); c.stroke();
   }
 });
 
 // Materiales del interior de referencia
 M.band       = new THREE.MeshStandardMaterial({ map: texGuil, roughness: 0.55, metalness: 0.35, envMapIntensity: 0.25 });
-M.cherubPanel= new THREE.MeshStandardMaterial({ map: texCherub, roughness: 0.48, metalness: 0.5, envMapIntensity: 0.3 });
+M.palmPanel  = new THREE.MeshStandardMaterial({ map: texPalm, roughness: 0.5, metalness: 0.55, envMapIntensity: 0.3 });
+M.frieze2    = new THREE.MeshStandardMaterial({ map: texFrieze, roughness: 0.5, metalness: 0.55, envMapIntensity: 0.3 });
+M.frieze2.map.repeat.set(2, 1);
+M.frieze4    = M.frieze2.clone();
+M.frieze4.map = texFrieze.clone();
+M.frieze4.map.needsUpdate = true;
+M.frieze4.map.repeat.set(4, 1);
+M.goldHair   = new THREE.MeshStandardMaterial({ map: texHair, roughness: 0.58, metalness: 0.82, emissive: new THREE.Color(0x241600), emissiveIntensity: 0.3 });
 M.ceil       = new THREE.MeshStandardMaterial({ map: texCeiling, roughness: 0.8, metalness: 0.15, envMapIntensity: 0.2 });
 M.ceil.map.repeat.set(2.5, 5.25);
-M.floorTiles = new THREE.MeshStandardMaterial({ map: texFloor, roughness: 0.35, metalness: 0.45, envMapIntensity: 0.45 });
+M.floorTiles = new THREE.MeshStandardMaterial({ map: texFloor, roughness: 0.28, metalness: 0.5, envMapIntensity: 0.55 });
 M.floorTiles.map.repeat.set(2.5, 5);
-M.doorPanel  = new THREE.MeshStandardMaterial({ map: texDoor, roughness: 0.5, metalness: 0.45, envMapIntensity: 0.3 });
-M.goldDoor   = new THREE.MeshStandardMaterial({ color: 0xDCC07C, roughness: 0.45, metalness: 0.6, envMapIntensity: 0.35 });
+M.doorPanel  = new THREE.MeshStandardMaterial({ map: texDoor, color: 0xB09048, roughness: 0.52, metalness: 0.45, envMapIntensity: 0.28 });
+M.goldDoor   = new THREE.MeshStandardMaterial({ color: 0x9E7E3C, roughness: 0.5, metalness: 0.6, envMapIntensity: 0.28 });
 M.rosStrip   = new THREE.MeshStandardMaterial({ map: texRosStrip, roughness: 0.55, metalness: 0.35, envMapIntensity: 0.25 });
 M.rosStrip.map.repeat.set(1, 6);
 M.band.map.repeat.set(14, 1);
@@ -460,60 +572,89 @@ M.floorTiles2.map = texFloor.clone();
 M.floorTiles2.map.needsUpdate = true;
 M.floorTiles2.map.repeat.set(2.5, 2.5);
 
-// Rostro sereno de los querubines colosales — pintado sobre la esfera de la
-// cabeza como máscara funeraria dorada: rasgos tono sobre tono, párpados
-// entornados y sin pupilas (ojos duros + proporciones raras = efecto "alien").
+// Rostro sereno de los querubines colosales — v2 pintado con VOLUMEN, como
+// rostro esculpido y batido en oro (la v1 de líneas crudas parecía dibujo).
+// Todo se modela con sombras difusas (shadowBlur), sin trazos de contorno.
 // En la esfera de three.js, u=0.25 mira hacia +z (el frente del querubín).
 const texFace = makeCanvas(1024, 512, (c) => {
-  c.fillStyle = '#E8C24A'; c.fillRect(0, 0, 1024, 512); // tono base = M.goldArk
-  const cx = 256, LO = '#6E4E14', MID = '#B48C2E';
-  c.lineJoin = c.lineCap = 'round';
-  // Cejas y ojos almendrados entornados (mirada baja, serena)
+  const cx = 256;
+  c.fillStyle = '#B18434'; c.fillRect(0, 0, 1024, 512);
+  // volumen general del rostro: más luz al frente, penumbra a los lados
+  const rg = c.createRadialGradient(cx, 258, 26, cx, 268, 215);
+  rg.addColorStop(0, '#CDA249'); rg.addColorStop(0.55, '#BC9139'); rg.addColorStop(1, '#9C742C');
+  c.fillStyle = rg; c.fillRect(cx - 230, 30, 460, 460);
+  // forma difusa: se dibuja fuera del lienzo y solo se ve su sombra blureada
+  function soft(color, blur, path) {
+    c.save(); c.shadowColor = color; c.shadowBlur = blur;
+    c.shadowOffsetX = 2000; c.translate(-2000, 0);
+    path(); c.fill(); c.restore();
+  }
+  const DK = (a) => `rgba(74,50,12,${a})`, LT = (a) => `rgba(240,214,142,${a})`;
   [-1, 1].forEach(s => {
-    c.save(); c.translate(cx + s*64, 240); c.scale(s, 1);
-    const g = c.createRadialGradient(0, 0, 6, 0, 0, 40);
-    g.addColorStop(0, 'rgba(110,78,20,0.42)'); g.addColorStop(1, 'rgba(110,78,20,0)');
-    c.fillStyle = g; c.beginPath(); c.ellipse(0, 2, 44, 30, 0, 0, Math.PI*2); c.fill();
-    // almendra: se pinta el párpado caído, no el globo del ojo
-    c.fillStyle = MID;
-    c.beginPath();
-    c.moveTo(-36, 4);
-    c.quadraticCurveTo(-10, -16, 30, -6);
-    c.quadraticCurveTo(40, -2, 34, 4);
-    c.quadraticCurveTo(6, 16, -36, 4);
-    c.closePath(); c.fill();
-    // línea del párpado superior con rabillo suave
-    c.strokeStyle = LO; c.lineWidth = 6;
-    c.beginPath(); c.moveTo(-36, 4); c.quadraticCurveTo(-8, -17, 32, -6);
-    c.lineTo(48, -10); c.stroke();
-    // pestaña inferior fina
-    c.lineWidth = 2.5;
-    c.beginPath(); c.moveTo(-30, 8); c.quadraticCurveTo(4, 15, 34, 5); c.stroke();
-    // ceja
-    c.lineWidth = 8;
-    c.beginPath(); c.moveTo(-42, -26); c.quadraticCurveTo(-4, -44, 44, -22); c.stroke();
-    c.restore();
+    const ex = cx + s*63, ey = 240;
+    // cuenca del ojo (sombra amplia bajo el arco de la ceja)
+    soft(DK(0.5), 22, () => { c.beginPath(); c.ellipse(ex, ey + 2, 45, 28, 0, 0, Math.PI*2); });
+    // párpado superior carnoso que recibe la luz
+    soft(LT(0.6), 9, () => { c.beginPath();
+      c.ellipse(ex + s*2, ey - 6, 33, 12, s*0.12, 0, Math.PI*2); });
+    // ranura del ojo entornado (única línea firme, apenas blureada)
+    soft(DK(0.9), 3, () => { c.beginPath();
+      c.moveTo(ex - s*34, ey + 7);
+      c.quadraticCurveTo(ex, ey + 14, ex + s*36, ey + 2);
+      c.quadraticCurveTo(ex + s*44, ey - 1, ex + s*46, ey - 4); // rabillo
+      c.quadraticCurveTo(ex + s*44, ey + 3, ex + s*34, ey + 10);
+      c.quadraticCurveTo(ex, ey + 19, ex - s*34, ey + 10);
+      c.closePath(); });
+    // sombra de pestañas bajo la ranura
+    soft(DK(0.35), 6, () => { c.beginPath();
+      c.ellipse(ex + s*4, ey + 16, 28, 6, -s*0.08, 0, Math.PI*2); });
+    // ceja: cordón en relieve (sombra debajo + luz encima)
+    soft(DK(0.65), 7, () => { c.beginPath();
+      c.moveTo(ex - s*40, ey - 22);
+      c.quadraticCurveTo(ex + s*2, ey - 40, ex + s*46, ey - 18);
+      c.quadraticCurveTo(ex + s*2, ey - 32, ex - s*40, ey - 16);
+      c.closePath(); });
+    soft(LT(0.75), 5, () => { c.beginPath();
+      c.moveTo(ex - s*38, ey - 27);
+      c.quadraticCurveTo(ex + s*2, ey - 45, ex + s*44, ey - 23);
+      c.quadraticCurveTo(ex + s*2, ey - 38, ex - s*38, ey - 22);
+      c.closePath(); });
+    // pómulo iluminado
+    soft(LT(0.4), 26, () => { c.beginPath();
+      c.ellipse(ex + s*14, ey + 62, 34, 22, s*0.25, 0, Math.PI*2); });
+    // flanco de la nariz
+    soft(DK(0.4), 12, () => { c.beginPath();
+      c.moveTo(cx + s*12, 246); c.quadraticCurveTo(cx + s*15, 280, cx + s*21, 303);
+      c.quadraticCurveTo(cx + s*13, 302, cx + s*8, 296);
+      c.quadraticCurveTo(cx + s*6, 270, cx + s*7, 246); c.closePath(); });
+    // aleta de la nariz
+    soft(DK(0.65), 5, () => { c.beginPath();
+      c.ellipse(cx + s*17, 306, 8, 5.5, s*0.5, 0, Math.PI*2); });
   });
-  // Caballete y aletas de la nariz (la punta la da la geometría)
-  c.strokeStyle = MID; c.lineWidth = 5;
-  [-1, 1].forEach(s => {
-    c.beginPath(); c.moveTo(cx + s*11, 250);
-    c.quadraticCurveTo(cx + s*13, 285, cx + s*17, 302); c.stroke();
-  });
-  c.strokeStyle = LO; c.lineWidth = 4;
-  [-1, 1].forEach(s => {
-    c.beginPath();
-    c.arc(cx + s*19, 305, 8, s < 0 ? Math.PI*0.9 : Math.PI*1.6, s < 0 ? Math.PI*1.4 : Math.PI*2.1);
-    c.stroke();
-  });
-  // Boca serena (leve sonrisa arcaica: comisuras apenas más altas que el centro)
-  c.strokeStyle = LO; c.lineWidth = 6;
-  c.beginPath(); c.moveTo(cx - 30, 336); c.quadraticCurveTo(cx, 346, cx + 30, 336); c.stroke();
-  c.fillStyle = MID;
-  c.beginPath(); c.moveTo(cx - 30, 336); c.quadraticCurveTo(cx, 322, cx + 30, 336);
-  c.quadraticCurveTo(cx, 344, cx - 30, 336); c.closePath(); c.fill();
-  c.fillStyle = '#F1D67C';
-  c.beginPath(); c.ellipse(cx, 352, 20, 8, 0, 0, Math.PI*2); c.fill();
+  // caballete iluminado de la nariz
+  soft(LT(0.5), 8, () => { c.beginPath();
+    c.moveTo(cx - 5, 244); c.lineTo(cx + 5, 244);
+    c.lineTo(cx + 6, 300); c.lineTo(cx - 6, 300); c.closePath(); });
+  // surco nasolabial y filtrum
+  soft(DK(0.35), 5, () => { c.beginPath();
+    c.moveTo(cx - 4, 314); c.lineTo(cx + 4, 314);
+    c.lineTo(cx + 3, 328); c.lineTo(cx - 3, 328); c.closePath(); });
+  // boca: labio superior en sombra, comisuras suaves
+  soft(DK(0.75), 5, () => { c.beginPath();
+    c.moveTo(cx - 31, 336);
+    c.quadraticCurveTo(cx - 10, 330, cx, 333);
+    c.quadraticCurveTo(cx + 10, 330, cx + 31, 336);
+    c.quadraticCurveTo(cx, 347, cx - 31, 336); c.closePath(); });
+  [-1, 1].forEach(s => soft(DK(0.5), 5, () => { c.beginPath();
+    c.ellipse(cx + s*32, 337, 5, 4, 0, 0, Math.PI*2); }));
+  // labio inferior que recibe la luz + sombra del mentón
+  soft(LT(0.65), 8, () => { c.beginPath();
+    c.ellipse(cx, 352, 20, 8.5, 0, 0, Math.PI*2); });
+  soft(DK(0.4), 10, () => { c.beginPath();
+    c.ellipse(cx, 370, 22, 7, 0, 0, Math.PI*2); });
+  // mentón iluminado
+  soft(LT(0.35), 14, () => { c.beginPath();
+    c.ellipse(cx, 392, 26, 16, 0, 0, Math.PI*2); });
 });
 M.goldFace = M.goldArk.clone();
 M.goldFace.map = texFace;
@@ -544,11 +685,12 @@ backLight.position.set(-40, 45, -140); scene.add(backLight);
 // Brillos interiores — SOLO 3 luces puntuales (cada PointLight extra encarece
 // TODO el render por píxel; con 8 luces la Mac se arrastraba)
 // glow1 = Shekinah sobre el Arca · glow2/glow3 = luz ámbar pareja del Hekal
-const glow1 = new THREE.PointLight(0xFFF4DC, 36, 25, 2);
+// Tono ámbar profundo (bronce de la referencia, no amarillo claro)
+const glow1 = new THREE.PointLight(0xFFDCA0, 36, 25, 2);
 glow1.position.set(0, 13.5, -20); scene.add(glow1);
-const glow2 = new THREE.PointLight(0xFFE6C4, 16, 45, 2);
+const glow2 = new THREE.PointLight(0xFFCE8E, 16, 45, 2);
 glow2.position.set(0, 13, 18); scene.add(glow2);
-const glow3 = new THREE.PointLight(0xFFE6C4, 14, 45, 2);
+const glow3 = new THREE.PointLight(0xFFCE8E, 14, 45, 2);
 glow3.position.set(0, 14, 6); scene.add(glow3);
 
 // ── INTERACTIVOS ──────────────────────────────────────────────────────────────
@@ -578,7 +720,7 @@ const INFO = {
   HEKAL: { title:'El Lugar Santo (הֵיכָל — Hekal)', body:'Sala de 40×20×30 codos (≈18.4×9.2×13.8 m). Las paredes de cedro del Líbano estaban totalmente laminadas de oro de Parvaim (2 Crónicas 3:6), un oro de calidad excepcional cuya región de origen no se ha identificado con certeza. El piso de ciprés también cubría de oro. Aquí el sacerdote servía a diario: incienso cada mañana y tarde, panes renovados cada sábado, lámparas encendidas continuamente.', ref:'1 Reyes 6:17,21 · 2 Crónicas 3:5-6 · Hebreos 9:6'},
   ULAM:  { title:'El Vestíbulo (אוּלָם — Ulam)', body:'Pórtico de 20 codos de ancho y 10 de profundidad. La altura es el principal debate textual: 1 Reyes 6:3 no la especifica; 2 Crónicas 3:4 da 120 codos, pero manuscritos de la LXX y la Peshitta leen 20 codos. Josefo (Ant. VIII.3.2) confirma 120 codos, pero la mayoría de los comentaristas modernos prefieren 30 codos (igual que el edificio principal). Este modelo usa 30 codos, la interpretación más conservadora arquitectónicamente.', ref:'1 Reyes 6:3 · 2 Crónicas 3:4 · Josefo, Ant. VIII.3.2'},
   ARK:   { title:'El Arca del Pacto (אֲרוֹן הַבְּרִית)', body:'2.5×1.5×1.5 codos de madera de acacia recubierta de oro por dentro y por fuera. Contenía las dos tablas de la Ley, la vara de Aarón y una vasija de maná. El propiciatorio (kapporeth) con sus dos querubines de oro era el "trono de la misericordia" donde Dios se encontraba con Israel. Pablo usa el mismo término griego (ἱλαστήριον) para describir a Cristo en Romanos 3:25: Él es el nuevo propiciatorio.', ref:'Éxodo 25:10-22 · Hebreos 9:4-5 · Romanos 3:25'},
-  CHERUB:{ title:'Los Querubines Colosales — Estilo Fenicio-Cananeo', body:'Dos figuras de madera de olivo (ets shemen) de 10 codos de altura (≈4.6 m), recubiertas de oro. Conforme al arte del período (s. X a.C.), son esfingues: cuerpo de león, cabeza humana con tocado real, alas extendidas. Las alas externas (5 codos) tocaban las paredes laterales; las internas se unían en el centro sobre el Arca. El artesano fenicio Hiram de Tiro era experto en este estilo sírio-fenicio de querubín.', ref:'1 Reyes 6:23-28 · 2 Crónicas 3:10-13 · Ezequiel 1:5-14'},
+  CHERUB:{ title:'Los Querubines Colosales', body:'Dos figuras de madera de olivo (ets shemen) de 10 codos de altura (≈4.6 m), recubiertas de oro. La Escritura no describe su forma: da la medida, el material y las alas — estaban de pie sobre sus pies y sus rostros miraban hacia la casa (2 Cr 3:13). El ala externa (5 codos) tocaba la pared lateral; la interna se unía con la del compañero en el centro, sobre el Arca (1 R 6:27). Ezequiel, que contempló querubines, les atribuye rostro de hombre y de león (Ez 41:18-19). El cuerpo de león de esta reconstrucción sigue la iconografía del período; el rostro humano sereno, a Ezequiel.', ref:'1 Reyes 6:23-28 · 2 Crónicas 3:10-13 · Ezequiel 41:18-19'},
   JACHIN:{ title:'Columna Jaquín — יָכִין ("Él Establecerá")', body:'Columna sur, bronce hueco (4 dedos de espesor). Altura del fuste: 18 codos (≈8.3 m). Circunferencia: 12 codos → diámetro ≈ 3.82 codos. El capitel en forma de lirio medía 5 codos, decorado con 200 granadas de bronce. Fundida en el llano del Jordán por Hiram de Tiro. El nombre proclama la promesa de Dios: "Él establecerá el trono de David para siempre."', ref:'1 Reyes 7:15-22 · 2 Crónicas 3:15-17 · 2 Samuel 7:16'},
   BOAZ:  { title:'Columna Boaz — בֹּעַז ("En Él Hay Fortaleza")', body:'Columna norte, idéntica en construcción a Jaquín. Juntas proclamaban: "En Él hay fortaleza — Él establecerá." Ambas eran huecas, fundidas en una pieza. Algunos comentaristas las vinculan con los pilares de nube y fuego que acompañaron al pueblo en el desierto, columnas que hacían visible la presencia de Dios en el camino.', ref:'1 Reyes 7:21 · Éxodo 13:21 · Salmo 46:1 · Jeremías 52:21'},
   ALT_B: { title:'El Altar de Bronce — El Lugar del Sacrificio', body:'20×20×10 codos (≈9.2×9.2×4.6 m). Primer punto de contacto entre el adorador y Dios. Sin pasar por el altar no había acceso al templo. La rejilla de bronce sobre la superficie permitía que la sangre y la grasa de los holocaustos escurrieran. Toda la economía sacrificial del AT era tipo de la obra de Cristo: "Sin derramamiento de sangre no hay remisión" (He. 9:22). Juan lo reconoció: "El Cordero de Dios que quita el pecado del mundo."', ref:'2 Crónicas 4:1 · Levítico 1:3 · Hebreos 9:22 · Juan 1:29'},
@@ -859,42 +1001,38 @@ function flowerRelief(x, y, z, rotY = 0, s = 1) {
   scene.add(g);
 }
 
-// Paredes del Debir — mismo sistema de la referencia (querubines + rosetones + palmeras)
+// Paredes del Debir — palmeras datileras en relieve a toda altura + friso de
+// querubines alados y rosetas (1 R 6:29), composición de la referencia
 [-1, 1].forEach(sgn => {
   const rot = sgn < 0 ? Math.PI/2 : -Math.PI/2;
   [-25, -15].forEach(bz => {
-    const p = new THREE.Mesh(new THREE.PlaneGeometry(7, 10.5), M.cherubPanel);
-    p.position.set(sgn*9.65, 16, bz); p.rotation.y = rot; scene.add(p);
-    flowerRelief(sgn*9.68, 7.9, bz, rot, 2.2);
-    palmRelief(sgn*9.66, 23, bz, rot, 1.3);
+    const p = new THREE.Mesh(new THREE.PlaneGeometry(7, 16), M.palmPanel);
+    p.position.set(sgn*9.65, 17.4, bz); p.rotation.y = rot; scene.add(p);
   });
+  const f = new THREE.Mesh(new THREE.PlaneGeometry(19.4, 2.2), M.frieze2);
+  f.position.set(sgn*9.65, 8.1, -20); f.rotation.y = rot; scene.add(f);
 });
 // Pared oeste (fondo del Debir, detrás del Arca)
 [-5, 5].forEach(px => {
-  const p = new THREE.Mesh(new THREE.PlaneGeometry(7, 10.5), M.cherubPanel);
-  p.position.set(px, 16, -29.65); scene.add(p);
-  flowerRelief(px, 7.9, -29.55, 0, 2.2);
-  palmRelief(px, 23, -29.55, 0, 1.3);
+  const p = new THREE.Mesh(new THREE.PlaneGeometry(7, 16), M.palmPanel);
+  p.position.set(px, 17.4, -29.65); scene.add(p);
 });
+const debFriezeW = new THREE.Mesh(new THREE.PlaneGeometry(19.4, 2.2), M.frieze2);
+debFriezeW.position.set(0, 8.1, -29.65); scene.add(debFriezeW);
 // ── SISTEMA DE PARED DEL HEKAL (composición del video de referencia) ─────────
-// De abajo hacia arriba: zócalo cedro → dado con rosetones → repisa de piedra →
-// registro de querubines alados → banda guilloche → registro de palmeras → cornisa
+// De abajo hacia arriba: zócalo cedro → friso de querubines y rosetas →
+// repisa de piedra → palmera datilera a toda altura entre pilastras → cornisa
 const HEK_BAYS = [[-5.3, 5.6], [2, 7], [10, 7], [18, 7], [26, 7]]; // [centro z, ancho panel]
 [-1, 1].forEach(sgn => {
   const rot = sgn < 0 ? Math.PI/2 : -Math.PI/2;
   HEK_BAYS.forEach(([bz, bw]) => {
-    // Panel grabado de querubines (registro principal)
-    const p = new THREE.Mesh(new THREE.PlaneGeometry(bw, 10.5), M.cherubPanel);
-    p.position.set(sgn*9.7, 11.5, bz); p.rotation.y = rot; scene.add(p);
-    // Rosetón del dado (pegado a la pared para no "flotar" en ángulos rasantes)
-    flowerRelief(sgn*9.72, 2.9, bz, rot, 2.2);
-    // Palmera del registro superior
-    palmRelief(sgn*9.7, 19.5, bz, rot, 1.8);
+    const p = new THREE.Mesh(new THREE.PlaneGeometry(bw, 18), M.palmPanel);
+    p.position.set(sgn*9.7, 15.2, bz); p.rotation.y = rot; scene.add(p);
   });
-  // Repisa de piedra sobre el dado + banda guilloche bajo el registro superior
+  // Friso corrido bajo la repisa de piedra
+  const f = new THREE.Mesh(new THREE.PlaneGeometry(38.8, 2.4), M.frieze4);
+  f.position.set(sgn*9.7, 4.0, 10.7); f.rotation.y = rot; scene.add(f);
   bxn(0.8, 0.6, 38.8, M.marble, sgn*9.6, 5.5, 10.7);
-  const gb = new THREE.Mesh(new THREE.BoxGeometry(0.25, 1.4, 38.8), M.band);
-  gb.position.set(sgn*9.6, 17.7, 10.7); scene.add(gb);
 });
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -942,11 +1080,6 @@ function makeCherub(side) {
   // ── Cuello y cabeza serena (estatua de oro, sin rasgos duros)
   const neck = mesh(new THREE.CylinderGeometry(0.34, 0.5, 1.7, 10), 0, 5.6, 1.32);
   neck.rotation.x = -0.1;
-  // Cabeza con nemes CUADRADO tipo esfinge de Guiza (tapered, el rostro asoma
-  // al frente) — chico, que corone la cabeza sin tragarse el cuello
-  const nemes = mesh(new THREE.CylinderGeometry(0.42, 0.68, 1.1, 4), 0, 6.77, 1.18);
-  nemes.rotation.y = Math.PI/4;
-  nemes.scale.z = 0.7;
   // Cabeza con rostro pintado (texFace: u=0.25 de la esfera mira al frente +z)
   const head = new THREE.Mesh(new THREE.SphereGeometry(0.5, 24, 20), M.goldFace);
   head.position.set(0, 6.65, 1.48);
@@ -958,13 +1091,12 @@ function makeCherub(side) {
   nose.rotation.y = Math.PI/4;
   nose.rotation.x = -0.28; // la base se recuesta contra la esfera
   nose.scale.set(0.6, 1, 0.45);
-  [-1, 1].forEach(s => {
-    const lappet = mesh(new THREE.BoxGeometry(0.24, 0.85, 0.15), s*0.44, 6.15, 1.48);
-    lappet.rotation.z = s*0.06;
-  });
-  // Barba ceremonial: cuelga del mentón, separada de la boca pintada
-  const beard = mesh(new THREE.CylinderGeometry(0.07, 0.11, 0.34, 6), 0, 6.02, 1.6);
-  beard.rotation.x = 0.18;
+  // Cabellera sencilla que envuelve la cabeza y deja el óvalo del rostro a la
+  // vista (la Biblia no describe ningún tocado — el nemes egipcio se quitó)
+  const hair = new THREE.Mesh(new THREE.SphereGeometry(0.54, 20, 16), M.goldHair);
+  hair.position.set(0, 6.7, 1.36);
+  hair.scale.set(0.9, 1.0, 0.85);
+  g.add(hair);
 
   // ── Alas extendidas en ±x, silueta con plumas festoneadas extruida
   function wing(dirX) {
