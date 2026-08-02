@@ -95,7 +95,7 @@ const ArticuloCardLinea = ({ articulo, accent }) => {
     const s = LINEA_STYLES[accent] || LINEA_STYLES.gold;
     const inner = (
         <article className={`group bg-white border rounded-sm p-5 flex gap-4 transition-all ${articulo.disponible ? `border-sabiduria-gray/15 hover:${s.border} hover:shadow-md cursor-pointer` : 'border-sabiduria-gray/10 opacity-50 cursor-default'}`}>
-            <span className={`shrink-0 w-8 h-8 flex items-center justify-center rounded-full text-xs font-bold mt-0.5 ${articulo.disponible ? `${s.dot} text-white` : 'bg-sabiduria-gray/15 text-sabiduria-gray/40'}`}>
+            <span className={`shrink-0 min-w-8 h-8 px-2.5 whitespace-nowrap flex items-center justify-center rounded-full text-xs font-bold mt-0.5 ${articulo.disponible ? `${s.dot} text-white` : 'bg-sabiduria-gray/15 text-sabiduria-gray/40'}`}>
                 {articulo.numero}
             </span>
             <div className="flex-1 min-w-0">
