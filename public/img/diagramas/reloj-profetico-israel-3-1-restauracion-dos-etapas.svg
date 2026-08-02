@@ -1,0 +1,62 @@
+<svg viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="La visión del valle de los huesos secos en Ezequiel 37 dividida en dos etapas: primero la restauración física del cuerpo, que queda completo pero sin espíritu, y luego la restauración espiritual por la entrada del aliento" font-family="Georgia, 'Times New Roman', 'DejaVu Serif', serif">
+  <defs>
+    <style>
+      .title { font-size: 22px; fill: #1A252F; font-weight: bold; }
+      .subtitle { font-size: 14px; fill: #4A4A4A; font-style: italic; }
+      .phase-light { font-size: 16px; fill: #F9F9F7; font-weight: bold; }
+      .phase-dark { font-size: 16px; fill: #1A1D23; font-weight: bold; }
+      .step { font-size: 14px; fill: #2C3E50; }
+      .step-num { font-size: 13px; fill: #7A5C1E; font-weight: bold; }
+      .cut { font-size: 14px; fill: #1A252F; font-weight: bold; font-style: italic; }
+      .result { font-size: 15px; fill: #1A252F; font-weight: bold; }
+      .note { font-size: 12px; fill: #4A4A4A; font-style: italic; }
+    </style>
+    <marker id="israel3-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#C5A059"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="500" fill="#F9F9F7"/>
+
+  <text x="450" y="40" text-anchor="middle" class="title">La restauración en dos etapas</text>
+  <text x="450" y="62" text-anchor="middle" class="subtitle">Ezequiel 37: primero el cuerpo, luego el aliento</text>
+
+  <rect x="45" y="88" width="382" height="312" fill="#ECECEA"/>
+  <rect x="45" y="88" width="382" height="40" fill="#1A1D23"/>
+  <text x="236" y="115" text-anchor="middle" class="phase-light">Etapa 1 — Restauración física</text>
+
+  <text x="70" y="172" class="step-num">1</text>
+  <text x="92" y="172" class="step">Huesos que se juntan, cada uno con su hueso</text>
+  <text x="70" y="208" class="step-num">2</text>
+  <text x="92" y="208" class="step">Aparecen los tendones</text>
+  <text x="70" y="244" class="step-num">3</text>
+  <text x="92" y="244" class="step">Sube la carne</text>
+  <text x="70" y="280" class="step-num">4</text>
+  <text x="92" y="280" class="step">Se extiende la piel por encima</text>
+
+  <line x1="70" y1="306" x2="402" y2="306" stroke="#BDC3C7" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="236" y="334" text-anchor="middle" class="cut">«…pero no había en ellos espíritu»</text>
+  <text x="236" y="360" text-anchor="middle" class="note">El cuerpo está completo, pero permanece muerto.</text>
+  <text x="236" y="380" text-anchor="middle" class="note">Nación reunida, todavía en incredulidad.</text>
+
+  <line x1="435" y1="244" x2="465" y2="244" stroke="#C5A059" stroke-width="3" marker-end="url(#israel3-arrow)"/>
+
+  <rect x="473" y="88" width="382" height="312" fill="#F6F4EE"/>
+  <rect x="473" y="88" width="382" height="40" fill="#C5A059"/>
+  <text x="664" y="115" text-anchor="middle" class="phase-dark">Etapa 2 — Restauración espiritual</text>
+
+  <text x="498" y="176" class="step-num">5</text>
+  <text x="520" y="176" class="step">Profecía al <tspan font-style="italic">rúaj</tspan>: «Ven de los</text>
+  <text x="520" y="198" class="step">cuatro vientos, oh espíritu»</text>
+  <text x="498" y="240" class="step-num">6</text>
+  <text x="520" y="240" class="step">El aliento entra en los cuerpos</text>
+  <text x="498" y="282" class="step-num">7</text>
+  <text x="520" y="282" class="step">«Pondré mi Espíritu en vosotros»</text>
+
+  <line x1="498" y1="306" x2="830" y2="306" stroke="#BDC3C7" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="664" y="338" text-anchor="middle" class="result">Viven, se ponen de pie:</text>
+  <text x="664" y="362" text-anchor="middle" class="result">«un ejército grande en extremo»</text>
+
+  <text x="450" y="440" text-anchor="middle" class="note">Ezequiel 36 anuncia esta misma secuencia: primero el regreso a la tierra (v. 24), luego el corazón</text>
+  <text x="450" y="460" text-anchor="middle" class="note">nuevo y el Espíritu (vv. 25–27), en armonía con el nuevo pacto de Jeremías 31.</text>
+</svg>

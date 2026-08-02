@@ -1,0 +1,61 @@
+<svg viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Comparación entre el retorno histórico postexílico y la restauración escatológica que Ezequiel proyecta al futuro, en siete puntos" font-family="Georgia, 'Times New Roman', 'DejaVu Serif', serif">
+  <defs>
+    <style>
+      .title { font-size: 22px; fill: #1A252F; font-weight: bold; }
+      .subtitle { font-size: 14px; fill: #4A4A4A; font-style: italic; }
+      .colhead-dark { font-size: 17px; fill: #1A1D23; font-weight: bold; }
+      .colhead-light { font-size: 17px; fill: #F9F9F7; font-weight: bold; }
+      .colsub-dark { font-size: 12px; fill: #1A1D23; font-style: italic; }
+      .colsub-light { font-size: 12px; fill: #F9F9F7; font-style: italic; }
+      .label { font-size: 14px; fill: #2C3E50; }
+      .bandtext { font-size: 15px; fill: #1A1D23; font-weight: bold; }
+    </style>
+  </defs>
+
+  <rect width="900" height="560" fill="#F9F9F7"/>
+
+  <text x="450" y="40" text-anchor="middle" class="title">Dos retornos, una sola promesa</text>
+  <text x="450" y="62" text-anchor="middle" class="subtitle">Por qué el regreso postexílico no agotó la profecía de Ezequiel</text>
+
+  <rect x="45" y="88" width="390" height="366" fill="#ECECEA"/>
+  <rect x="465" y="88" width="390" height="366" fill="#F6F4EE"/>
+
+  <rect x="45" y="88" width="390" height="58" fill="#1A1D23"/>
+  <text x="240" y="112" text-anchor="middle" class="colhead-light">Retorno histórico</text>
+  <text x="240" y="132" text-anchor="middle" class="colsub-light">Ciro, Esdras, Nehemías — h. 538 a.C.</text>
+
+  <rect x="465" y="88" width="390" height="58" fill="#C5A059"/>
+  <text x="660" y="112" text-anchor="middle" class="colhead-dark">Restauración escatológica</text>
+  <text x="660" y="132" text-anchor="middle" class="colsub-dark">la que Ezequiel proyecta al futuro</text>
+
+  <g class="label">
+    <text x="63" y="181">Regreso principalmente desde Babilonia</text>
+    <text x="63" y="225">Retorno parcial de la población</text>
+    <text x="63" y="269">Reconstrucción de un templo modesto</text>
+    <text x="63" y="313">Sin rey davídico en el trono</text>
+    <text x="63" y="357">Renovación espiritual limitada</text>
+    <text x="63" y="401">Bajo dominio de imperios extranjeros</text>
+    <text x="63" y="445">Reinos aún divididos (Judá / Efraín)</text>
+  </g>
+
+  <g class="label">
+    <text x="483" y="181">Reunión desde todas las naciones</text>
+    <text x="483" y="225">Reunificación de «toda la casa de Israel»</text>
+    <text x="483" y="269">Presencia permanente de Dios en su pueblo</text>
+    <text x="483" y="313">Reinado del Mesías, el «siervo David»</text>
+    <text x="483" y="357">Regeneración nacional por el Espíritu</text>
+    <text x="483" y="401">Reino mesiánico de paz y justicia</text>
+    <text x="483" y="445">Una sola nación, nunca más dividida</text>
+  </g>
+
+  <line x1="45" y1="197" x2="855" y2="197" stroke="#BDC3C7" stroke-width="1"/>
+  <line x1="45" y1="241" x2="855" y2="241" stroke="#BDC3C7" stroke-width="1"/>
+  <line x1="45" y1="285" x2="855" y2="285" stroke="#BDC3C7" stroke-width="1"/>
+  <line x1="45" y1="329" x2="855" y2="329" stroke="#BDC3C7" stroke-width="1"/>
+  <line x1="45" y1="373" x2="855" y2="373" stroke="#BDC3C7" stroke-width="1"/>
+  <line x1="45" y1="417" x2="855" y2="417" stroke="#BDC3C7" stroke-width="1"/>
+
+  <rect x="45" y="482" width="810" height="52" fill="#C5A059"/>
+  <text x="450" y="503" text-anchor="middle" class="bandtext">El retorno postexílico es tipo o sombra:</text>
+  <text x="450" y="523" text-anchor="middle" class="bandtext">cumplimiento histórico real, pero no exhaustivo</text>
+</svg>

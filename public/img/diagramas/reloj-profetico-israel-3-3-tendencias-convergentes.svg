@@ -1,0 +1,62 @@
+<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cuatro tendencias que preparan el escenario profético: la Aliyah continua, la alineación de las naciones, la condición para el pacto y la preparación del Templo, convergiendo en un mismo escenario" font-family="Georgia, 'Times New Roman', 'DejaVu Serif', serif">
+  <defs>
+    <style>
+      .title { font-size: 22px; fill: #1A252F; font-weight: bold; }
+      .subtitle { font-size: 14px; fill: #4A4A4A; font-style: italic; }
+      .cardhead-dark { font-size: 16px; fill: #1A1D23; font-weight: bold; }
+      .cardhead-light { font-size: 16px; fill: #F9F9F7; font-weight: bold; }
+      .body { font-size: 13px; fill: #2C3E50; }
+      .badge { font-size: 14px; fill: #1A1D23; font-weight: bold; }
+      .note { font-size: 12px; fill: #4A4A4A; font-style: italic; }
+    </style>
+  </defs>
+
+  <rect width="900" height="600" fill="#F9F9F7"/>
+
+  <text x="450" y="40" text-anchor="middle" class="title">Cuatro tendencias que preparan el escenario</text>
+  <text x="450" y="62" text-anchor="middle" class="subtitle">Marco de observación dispensacionalista — preparación, no cumplimiento</text>
+
+  <rect x="45" y="92" width="360" height="146" fill="#F6F4EE"/>
+  <rect x="45" y="92" width="360" height="38" fill="#C5A059"/>
+  <text x="225" y="118" text-anchor="middle" class="cardhead-dark">1 · La Aliyah continua</text>
+  <g class="body">
+    <text x="63" y="157">Retorno del pueblo judío, no cerrado en 1948.</text>
+    <text x="63" y="184">Israel, hoy el mayor hogar judío del mundo.</text>
+    <text x="63" y="211">El «hueso con hueso» que sigue juntándose.</text>
+  </g>
+
+  <rect x="495" y="92" width="360" height="146" fill="#ECECEA"/>
+  <rect x="495" y="92" width="360" height="38" fill="#1A1D23"/>
+  <text x="675" y="118" text-anchor="middle" class="cardhead-light">2 · Alineación de las naciones</text>
+  <g class="body">
+    <text x="513" y="157">Israel en el centro del tablero internacional.</text>
+    <text x="513" y="184">Trasfondo de Ezequiel 38–39 y Zacarías 12–14.</text>
+    <text x="513" y="211">Tendencia geopolítica, sin mapa cerrado.</text>
+  </g>
+
+  <rect x="45" y="342" width="360" height="146" fill="#ECECEA"/>
+  <rect x="45" y="342" width="360" height="38" fill="#1A1D23"/>
+  <text x="225" y="368" text-anchor="middle" class="cardhead-light">3 · Condición para el pacto</text>
+  <g class="body">
+    <text x="63" y="407">Un Israel soberano hace posible el pacto</text>
+    <text x="63" y="434">de los siete años de Daniel 9:27.</text>
+    <text x="63" y="461">La condición existe; el acuerdo, aún no.</text>
+  </g>
+
+  <rect x="495" y="342" width="360" height="146" fill="#F6F4EE"/>
+  <rect x="495" y="342" width="360" height="38" fill="#C5A059"/>
+  <text x="675" y="368" text-anchor="middle" class="cardhead-dark">4 · Preparación del Templo</text>
+  <g class="body">
+    <text x="513" y="407">Interés y preparativos para restaurar el culto.</text>
+    <text x="513" y="434">Trasfondo de Ezequiel 40–48, 2 Ts 2 y Ap 11.</text>
+    <text x="513" y="461">Puerta hacia el Bloque III de esta línea.</text>
+  </g>
+
+  <circle cx="450" cy="290" r="48" fill="#C5A059"/>
+  <text x="450" y="286" text-anchor="middle" class="badge">Escenario</text>
+  <text x="450" y="304" text-anchor="middle" class="badge">convergente</text>
+
+  <text x="450" y="530" text-anchor="middle" class="note">Ninguna tendencia, por sí sola, es cumplimiento de una profecía. El discernimiento sobrio observa</text>
+  <text x="450" y="550" text-anchor="middle" class="note">la historia a la luz de la Escritura; el sensacionalismo fija fechas.</text>
+  <text x="450" y="570" text-anchor="middle" class="note">«Del día y la hora nadie sabe» (Mateo 24:36)</text>
+</svg>
