@@ -63,7 +63,7 @@ const ArticlePage = () => {
         "@type": "Article",
         "headline": article.title,
         "description": article.excerpt,
-        "image": article.image ? (article.image.startsWith('http') ? article.image : `${siteUrl}${article.image}`) : `${siteUrl}/img/og-default.jpg`,
+        "image": article.image ? (article.image.startsWith('http') ? article.image : `${siteUrl}${article.image}`) : `${siteUrl}/img/og-default-v2.jpg`,
         "author": {
             "@type": "Organization",
             "name": "Sabiduría para el Corazón"

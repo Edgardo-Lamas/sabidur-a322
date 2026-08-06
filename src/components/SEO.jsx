@@ -5,7 +5,7 @@ const SEO = ({ title, description, image, url, type = 'website', noindex = false
     const siteTitle = 'Sabiduría para el Corazón';
     const siteDescription = 'Recursos de teología reformada, exégesis bíblica y bosquejos homiléticos para la edificación de la Iglesia de Cristo.';
     const siteUrl = (import.meta.env.VITE_SITE_URL || 'https://sabiduriaparaelcorazon.com').replace(/\/$/, '') + '/';
-    const defaultImage = '/img/og-default.jpg'; // Ensure this image exists in public/img
+    const defaultImage = '/img/og-default-v2.jpg'; // Ensure this image exists in public/img
 
     const metaTitle = title ? `${title} | ${siteTitle}` : siteTitle;
     const metaDescription = description || siteDescription;

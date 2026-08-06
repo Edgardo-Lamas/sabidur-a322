@@ -11,7 +11,7 @@ function escHtml(str = '') {
 }
 
 function resolveImage(img, base) {
-  if (!img) return `${base}/img/og-default.jpg`;
+  if (!img) return `${base}/img/og-default-v2.jpg`;
   if (img.startsWith('http')) return img;
   return `${base}/${img.replace(/^\//, '')}`;
 }
@@ -55,7 +55,7 @@ const SECTIONS = {
   '/': {
     title: 'Sabiduría para el Corazón - Teología Reformada',
     desc: SITE_DESC,
-    image: 'img/og-default.jpg',
+    image: 'img/og-default-v2.jpg',
     type: 'website',
   },
   '/ensayos':          { title: 'Ensayos',              desc: 'Ensayos teológicos sobre la Escritura, la doctrina y la vida cristiana.' },
@@ -118,7 +118,7 @@ export default function handler(req, res) {
 
   let title       = SITE_TITLE;
   let description = SITE_DESC;
-  let image       = `${BASE}/img/og-default.jpg`;
+  let image       = `${BASE}/img/og-default-v2.jpg`;
   let ogType      = 'article';
 
   // Índices de sección (incluida la home). Va primero: las coincidencias más
@@ -221,8 +221,8 @@ export default function handler(req, res) {
   if (estudioMatch) {
     const slug = estudioMatch[1];
     const ESTUDIOS_ESPECIALES = {
-      'perfecciones-de-dios': { title: 'Las Perfecciones de Dios', desc: 'Un estudio profundo sobre los atributos divinos: la santidad, la soberanía, la misericordia y la justicia de Dios.', image: 'img/og-default.jpg' },
-      'hilo-del-tiempo':      { title: 'El Hilo del Tiempo', desc: 'Recorrido cronológico por la historia de la redención desde la creación hasta la consumación.', image: 'img/og-default.jpg' },
+      'perfecciones-de-dios': { title: 'Las Perfecciones de Dios', desc: 'Un estudio profundo sobre los atributos divinos: la santidad, la soberanía, la misericordia y la justicia de Dios.', image: 'img/og-default-v2.jpg' },
+      'hilo-del-tiempo':      { title: 'El Hilo del Tiempo', desc: 'Recorrido cronológico por la historia de la redención desde la creación hasta la consumación.', image: 'img/og-default-v2.jpg' },
     };
     if (ESTUDIOS_ESPECIALES[slug]) {
       const e = ESTUDIOS_ESPECIALES[slug];

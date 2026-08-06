@@ -148,7 +148,7 @@ public/
 │   ├── logo/
 │   │   ├── logo-navbar.svg   # Logo principal (navbar)
 │   │   └── favicon.svg       # Favicon "S" dorado
-│   └── og-default.jpg        # Imagen OG para redes sociales (1200×630)
+│   └── og-default-v2.jpg        # Imagen OG para redes sociales (1200×630)
 └── ...
 ```
 
@@ -286,8 +286,25 @@ La Biblioteca tiene cuatro secciones. Cada una tiene su propia fuente de datos e
 - **Dimensión ideal:** 1200×630 px — se muestra al compartir en WhatsApp, Facebook, Twitter
 - **Para series:** todos los artículos de la misma serie pueden compartir la misma imagen hero de la serie
 - **Ejemplo (ensayo de serie):** `"image": "img/arquitectos-judio-hero.jpg"`
-- **Si no se define:** el sitio usa `img/og-default.jpg` como fallback (genérico, sin identidad del artículo)
+- **Si no se define:** el sitio usa `img/og-default-v2.jpg` como fallback (genérico, sin identidad del artículo)
 - **Cómo generar:** con FLUX API (`/bfl-api`), dimensión `1200×630`, guardar en `public/img/`
+
+##### ⚠ Toda imagen OG tiene que ser JPEG **baseline**, nunca *progressive*
+
+WhatsApp arma la miniatura de la vista previa con su propio decodificador, no con el
+del navegador, y **con un JPEG progressive falla**: baja la imagen y muestra la
+tarjeta sin foto. En el navegador se ve perfecta, así que el error no se nota nunca
+en desarrollo. Le pasó a `og-default.jpg` (la de la home), que estuvo progressive
+desde que se creó y solo se descubrió el 2026-08-06.
+
+```bash
+file public/img/mi-og.jpg        # tiene que decir "baseline", no "progressive"
+ffmpeg -y -i entrada.jpg -q:v 2 public/img/mi-og.jpg   # regraba baseline
+```
+
+⚠ **Si se reemplaza una imagen OG ya publicada, cambiar el NOMBRE del archivo.**
+WhatsApp cachea la vista previa por URL: sobrescribir con el mismo nombre deja a
+todo el mundo viendo la versión vieja durante días, y en un `curl` no se nota.
 
 ---
 
