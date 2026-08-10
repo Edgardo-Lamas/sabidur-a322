@@ -375,12 +375,25 @@ Solo el **primer párrafo** lleva esta clase. El resto son `<p>` simples.
 ```
 
 #### Encabezados de sección
-```html
-<h2>IV. Título de la Sección</h2>
-```
-Se usan `<h2>` (no `<h3>`, no `<strong>`, no `<b>`).
 
-**Los capítulos van numerados con romanos y punto** (`I.`, `II.`, `III.` …), correlativos dentro del ensayo. **No** se numeran los encabezados de función: `Prólogo`, `Conclusión pastoral`, `Fuentes consultadas`. No usar la forma `"Capítulo 4 — Título"`. Si el texto de origen trae otra numeración, se convierte a esta al maquetarlo, y se ajustan las referencias cruzadas internas para que coincidan (*"como se vio en el capítulo III"*, no *"en el capítulo 3"*).
+Se usan `<h2>` (no `<h3>`, no `<strong>`, no `<b>`). **Cómo se numeran depende de si el ensayo pertenece a una serie o no** — son dos convenciones distintas y mezclarlas se nota:
+
+| | Ensayo **de serie** (tiene campo `serie`) | Ensayo **suelto** de `/ensayos` |
+|---|---|---|
+| Encabezados | Numerados con romano y punto | Temáticos, sin numerar |
+| Ejemplo | `<h2>IV. El juicio de las naciones</h2>` | `<h2>Corinto, la ciudad de la carrera</h2>` |
+| En el sitio hoy | 14 de 15 | 18 de 20 |
+
+```html
+<h2>IV. Título de la Sección</h2>     <!-- ensayo de serie -->
+<h2>Título de la Sección</h2>          <!-- ensayo suelto -->
+```
+
+**En los ensayos de serie, los capítulos van numerados con romanos y punto** (`I.`, `II.`, `III.` …), correlativos dentro del ensayo. **No** se numeran los encabezados de función: `Prólogo`, `Conclusión pastoral`, `Fuentes consultadas`. No usar la forma `"Capítulo 4 — Título"`. Si el texto de origen trae otra numeración, se convierte a esta al maquetarlo, y se ajustan las referencias cruzadas internas para que coincidan (*"como se vio en el capítulo III"*, no *"en el capítulo 3"*).
+
+**En los ensayos sueltos NO se numera**: los encabezados son temáticos y describen su sección (*"Una vara de medir que tardó 1.800 años en completarse"*, *"El problema del espacio y la solución de Dios"*). No convertirlos a romanos al maquetar.
+
+⚠ Las cuatro excepciones del sitio son explicables y no cambian la regla: `reloj-profetico-introduccion` va sin numerar porque **presenta** la serie entera; `baal-shem-tov-el-maestro-del-nombre` lleva romanos porque de hecho es el séptimo de *Los Arquitectos del Pensamiento Judío* aunque le falte el campo `serie`; `la-determinacion-del-corazon-en-la-obra-de-dios` es un suelto numerado de antes de que existiera la convención; y dos sueltos cortos no tienen `<h2>` en absoluto.
 
 #### Citas bíblicas en línea — OBLIGATORIO
 ```html
@@ -430,7 +443,7 @@ Antes de hacer push, verificar:
 - [ ] Primer párrafo tiene clase `first-letter:...`
 - [ ] Versículos cortos en `<span class='biblical-inline'>«...»</span>`
 - [ ] Pasajes largos en `<blockquote class='blockquote-gold'>` con `<span class='blockquote-ref'>` (**nunca `<footer>`**) — y la cita es **literal**, no una paráfrasis
-- [ ] Secciones separadas por `<h2>`, capítulos con numeración romana (`I.`, `II.` …)
+- [ ] Secciones separadas por `<h2>`, numeradas con romanos (`I.`, `II.` …) **solo si el ensayo es de una serie**; si es suelto, encabezados temáticos sin numerar
 - [ ] **Ningún versículo** envuelto en `<em>«...»</em>`
 - [ ] Ninguna comilla recta `"` en el cuerpo del texto
 - [ ] El `content` es una sola cadena sin saltos de línea reales
@@ -444,6 +457,7 @@ Antes de hacer push, verificar:
 - *La Autoridad de la Escritura y su Lugar en la Vida Cristiana* — usa todos los patrones correctamente
 - *El Pecado: Su Realidad, Su Impacto y la Esperanza en Cristo* — buen uso de blockquotes y secciones
 - *El Tribunal de Cristo: el Bema en el Reloj Profético* (`reloj-profetico-bloque-iii`) — modelo de **ensayo de serie con diagramas**: rótulos, numeración romana y las tres figuras `.diagrama`
+- *Corred de Tal Manera* (`corred-de-tal-manera`) — modelo de **ensayo suelto con diagrama**: encabezados temáticos sin numerar, sin campos de serie, y una figura `.diagrama`
 
 ---
 
