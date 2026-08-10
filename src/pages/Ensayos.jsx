@@ -17,7 +17,13 @@ const Ensayos = () => {
                 // Cargar desde JSON local
                 const ensayosData = data.ensayos || [];
                 validateInDev(EssaysArraySchema, ensayosData, 'Ensayos');
-                setEnsayos(ensayosData);
+                // Más recientes primero. Las fechas son ISO (AAAA-MM-DD), así que
+                // ordenan bien como texto. Se copia el array: `data.ensayos` es el
+                // módulo JSON compartido con TextPage y no debe mutarse.
+                const ordenados = [...ensayosData].sort((a, b) =>
+                    (b.date || '').localeCompare(a.date || '')
+                );
+                setEnsayos(ordenados);
             } catch {
                 // no-op
             } finally {
