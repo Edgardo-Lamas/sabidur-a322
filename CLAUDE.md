@@ -231,9 +231,9 @@ La Biblioteca tiene cuatro secciones. Cada una tiene su propia fuente de datos e
 
 #### Serie activa: Los Arquitectos del Pensamiento Judío (`arquitectos-pensamiento-judio`)
 
-- **Total planificado:** 8 artículos (publicados: 3 — Yojanán ben Zakkai, Akiva ben Yosef, Yehudá haNasí)
+- **Total planificado:** 8 artículos. **Publicados: 7** — Yojanán ben Zakkai, Akiva ben Yosef, Yehudá haNasí, Rashi, Ibn Ezra, Maimónides y el Baal Shem Tov (el 8.º del índice). **Falta el 7.º, Nahmánides**, que en `content.json` está con `disponible: false`.
 - **Imagen hero de serie:** `img/arquitectos-judio-hero.jpg` — se usa como OG image de cada artículo
-- **Presentaciones visuales (NotebookLM → PDF):** cada artículo tiene su presentación en `/esquemas/presentacion/<slug>`
+- **Presentaciones visuales (NotebookLM → PDF):** en `/esquemas/presentacion/<slug>`. Las tienen 6 de los 7 — **al Baal Shem Tov le falta**, porque los slides son contenido que hay que producir aparte.
   - Slides en `public/img/presentaciones/<slug>/slide-01.jpg` ... `slide-N.jpg`
   - PDF en `public/pdf/presentaciones/<slug>.pdf`
   - Campos en el ensayo: `"presentacionSlug"` y `"presentacionTotalSlides"`
@@ -382,7 +382,7 @@ Se usan `<h2>` (no `<h3>`, no `<strong>`, no `<b>`). **Cómo se numeran depende 
 |---|---|---|
 | Encabezados | Numerados con romano y punto | Temáticos, sin numerar |
 | Ejemplo | `<h2>IV. El juicio de las naciones</h2>` | `<h2>Corinto, la ciudad de la carrera</h2>` |
-| En el sitio hoy | 14 de 15 | 18 de 20 |
+| En el sitio hoy | 15 de 16 | 18 de 19 |
 
 ```html
 <h2>IV. Título de la Sección</h2>     <!-- ensayo de serie -->
@@ -393,7 +393,7 @@ Se usan `<h2>` (no `<h3>`, no `<strong>`, no `<b>`). **Cómo se numeran depende 
 
 **En los ensayos sueltos NO se numera**: los encabezados son temáticos y describen su sección (*"Una vara de medir que tardó 1.800 años en completarse"*, *"El problema del espacio y la solución de Dios"*). No convertirlos a romanos al maquetar.
 
-⚠ Las cuatro excepciones del sitio son explicables y no cambian la regla: `reloj-profetico-introduccion` va sin numerar porque **presenta** la serie entera; `baal-shem-tov-el-maestro-del-nombre` lleva romanos porque de hecho es el séptimo de *Los Arquitectos del Pensamiento Judío* aunque le falte el campo `serie`; `la-determinacion-del-corazon-en-la-obra-de-dios` es un suelto numerado de antes de que existiera la convención; y dos sueltos cortos no tienen `<h2>` en absoluto.
+⚠ Las tres excepciones del sitio son explicables y no cambian la regla: `reloj-profetico-introduccion` va sin numerar porque **presenta** la serie entera; `la-determinacion-del-corazon-en-la-obra-de-dios` es un suelto numerado de antes de que existiera la convención; y dos sueltos cortos no tienen `<h2>` en absoluto.
 
 #### Citas bíblicas en línea — OBLIGATORIO
 ```html
