@@ -1,0 +1,84 @@
+<svg viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Estructura de 1 Corintios 9:24: el movimiento de observación a contraste y exhortación, y el eje de acción, manera y propósito" font-family="Georgia, 'Times New Roman', 'DejaVu Serif', serif">
+  <defs>
+    <style>
+      .title { font-size: 22px; fill: #1A252F; font-weight: bold; }
+      .subtitle { font-size: 14px; fill: #4A4A4A; font-style: italic; }
+      .seccion { font-size: 13px; fill: #7A5C1E; letter-spacing: 2px; }
+      .cajahead { font-size: 16px; fill: #1A252F; font-weight: bold; }
+      .cajahead-dark { font-size: 14px; fill: #1A1D23; font-weight: bold; }
+      .label { font-size: 13px; fill: #2C3E50; }
+      .griego { font-size: 12px; fill: #7A5C1E; font-style: italic; }
+      .griego-dark { font-size: 12px; fill: #1A1D23; font-style: italic; }
+      .rol { font-size: 11px; fill: #4A4A4A; }
+      .rol-dark { font-size: 11px; fill: #1A1D23; }
+      .foot { font-size: 12.5px; fill: #4A4A4A; }
+      .firma { font-size: 11px; fill: #8A9096; font-style: italic; }
+    </style>
+    <marker id="corred1-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#C5A059"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="620" fill="#F9F9F7"/>
+
+  <text x="450" y="52" text-anchor="middle" class="title">La estructura de 1 Corintios 9:24</text>
+  <text x="450" y="80" text-anchor="middle" class="subtitle">«Corred de tal manera que lo obtengáis» — RVR1960</text>
+
+  <line x1="250" y1="98" x2="650" y2="98" stroke="#C5A059" stroke-width="1"/>
+
+  <text x="450" y="132" text-anchor="middle" class="seccion">EL MOVIMIENTO DEL VERSÍCULO</text>
+
+  <rect x="30" y="155" width="240" height="110" fill="#ECECEA" stroke="#BDC3C7" stroke-width="1.5"/>
+  <text x="150" y="184" text-anchor="middle" class="cajahead">OBSERVACIÓN</text>
+  <text x="150" y="210" text-anchor="middle" class="label">«Los que corren en el</text>
+  <text x="150" y="230" text-anchor="middle" class="label">estadio, todos a la</text>
+  <text x="150" y="250" text-anchor="middle" class="label">verdad corren»</text>
+
+  <line x1="272" y1="210" x2="322" y2="210" stroke="#C5A059" stroke-width="2" marker-end="url(#corred1-arrow)"/>
+
+  <rect x="330" y="155" width="240" height="110" fill="#ECECEA" stroke="#BDC3C7" stroke-width="1.5"/>
+  <text x="450" y="184" text-anchor="middle" class="cajahead">CONTRASTE</text>
+  <text x="450" y="212" text-anchor="middle" class="label">«…pero uno solo</text>
+  <text x="450" y="232" text-anchor="middle" class="label">se lleva el premio»</text>
+  <text x="450" y="254" text-anchor="middle" class="griego">to brabeíon — βραβεῖον</text>
+
+  <line x1="572" y1="210" x2="622" y2="210" stroke="#C5A059" stroke-width="2" marker-end="url(#corred1-arrow)"/>
+
+  <rect x="630" y="155" width="240" height="110" fill="#F6F4EE" stroke="#C5A059" stroke-width="2.5"/>
+  <text x="750" y="184" text-anchor="middle" class="cajahead">EXHORTACIÓN</text>
+  <text x="750" y="210" text-anchor="middle" class="label">«Corred de tal</text>
+  <text x="750" y="230" text-anchor="middle" class="label">manera que</text>
+  <text x="750" y="250" text-anchor="middle" class="label">lo obtengáis»</text>
+
+  <line x1="50" y1="300" x2="850" y2="300" stroke="#BDC3C7" stroke-width="1"/>
+
+  <text x="450" y="335" text-anchor="middle" class="seccion">EL EJE DE LA EXHORTACIÓN</text>
+
+  <circle cx="150" cy="420" r="62" fill="#ECECEA" stroke="#C5A059" stroke-width="2"/>
+  <text x="150" y="408" text-anchor="middle" class="cajahead-dark">CORRED</text>
+  <text x="150" y="428" text-anchor="middle" class="griego">trechete</text>
+  <text x="150" y="448" text-anchor="middle" class="rol">acción</text>
+
+  <line x1="214" y1="420" x2="272" y2="420" stroke="#C5A059" stroke-width="2" marker-end="url(#corred1-arrow)"/>
+
+  <circle cx="450" cy="420" r="62" fill="#C5A059" stroke="#7A5C1E" stroke-width="2"/>
+  <text x="450" y="400" text-anchor="middle" class="cajahead-dark">DE TAL</text>
+  <text x="450" y="418" text-anchor="middle" class="cajahead-dark">MANERA</text>
+  <text x="450" y="437" text-anchor="middle" class="griego-dark">houtōs</text>
+  <text x="450" y="455" text-anchor="middle" class="rol-dark">forma / cualidad</text>
+
+  <line x1="514" y1="420" x2="572" y2="420" stroke="#C5A059" stroke-width="2" marker-end="url(#corred1-arrow)"/>
+
+  <circle cx="750" cy="420" r="62" fill="#ECECEA" stroke="#C5A059" stroke-width="2"/>
+  <text x="750" y="402" text-anchor="middle" class="cajahead-dark">QUE LO</text>
+  <text x="750" y="420" text-anchor="middle" class="cajahead-dark">OBTENGÁIS</text>
+  <text x="750" y="439" text-anchor="middle" class="griego">katalábete</text>
+  <text x="750" y="457" text-anchor="middle" class="rol">propósito</text>
+
+  <line x1="50" y1="518" x2="850" y2="518" stroke="#BDC3C7" stroke-width="1"/>
+
+  <text x="450" y="550" text-anchor="middle" class="foot">La manera todavía no queda definida en el v. 24 — Pablo comienza a llenarla de</text>
+  <text x="450" y="572" text-anchor="middle" class="foot">contenido en los vv. 25–27, con la disciplina, el dominio propio y la dirección del atleta.</text>
+
+  <text x="450" y="605" text-anchor="middle" class="firma">Sabiduría para el Corazón</text>
+</svg>
