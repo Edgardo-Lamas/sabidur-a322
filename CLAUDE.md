@@ -440,6 +440,7 @@ Los dos archivos hacen **round-trip exacto con `json.dump(data, f, ensure_ascii=
 ### Checklist al agregar un ensayo nuevo
 
 Antes de hacer push, verificar:
+- [ ] **Los `<h2>` publicados son los mismos `##` del texto de origen, y ninguno perdió párrafos.** Maquetar un ensayo largo es reescribirlo de markdown a HTML, y ahí una sección entera puede quedar afuera sin que nada dé error: el ensayo se ve terminado, la consola está limpia y el hueco solo aparece leyéndolo. Le pasó a `corred-de-tal-manera`, que se publicó el 2026-08-10 sin su sección central *«De tal manera»* — ocho párrafos, comprimidos a uno — y se detectó recién el 15/8 porque Edgardo lo leyó. Contrastar la lista de encabezados y el largo del `content` contra el fuente **antes** de dar el ensayo por subido.
 - [ ] Primer párrafo tiene clase `first-letter:...`
 - [ ] Versículos cortos en `<span class='biblical-inline'>«...»</span>`
 - [ ] Pasajes largos en `<blockquote class='blockquote-gold'>` con `<span class='blockquote-ref'>` (**nunca `<footer>`**) — y la cita es **literal**, no una paráfrasis
