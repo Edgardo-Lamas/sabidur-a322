@@ -27,7 +27,10 @@ URL de producción: desplegada en **Vercel** (rama `main` → deploy automático
 > Antes de crear cualquier asset (imagen, audio, video), revisar esta lista para usar la herramienta correcta.
 
 #### 🖼️ FLUX API (BFL) — Generación de imágenes con IA
-- **Estado:** ✅ Configurado. `BFL_API_KEY` guardada en `~/.zprofile` (disponible en cada sesión).
+- **Estado:** ⚠ Clave configurada pero **CUENTA SIN SALDO** (verificado el 2026-08-26). La `BFL_API_KEY` está en `~/.zprofile` y es válida — la API responde **HTTP 402 `Insufficient credits`**, no un error de autenticación. **Antes de planificar una imagen con FLUX, confirmar que haya crédito**, o se pierde el trabajo de armar el prompt. Se carga en bfl.ai.
+- **Si no hay crédito, hay dos salidas y ninguna bloquea la publicación:**
+  1. **OG tipográfica** con `scripts/generate-og-tipografica.py` — Pillow, sin ninguna API, paleta del sitio (navy + dorado + Georgia), 1200×630. Sale on-brand. Primer uso: `img/todo-aquel-que-lucha-og.jpg`.
+  2. **Pedírsela a Edgardo**, que la genera en ChatGPT y la deja en `~/Downloads`. Salió muy bien para `img/todo-aquel-que-lucha-og-v2.jpg`: se le pasa el prompt en **inglés**, se le pide apaisada, y acá se recorta a 1200×630 y se regraba baseline. **Revisar las esquinas a resolución nativa antes de publicar** — estos modelos firman el cuadro cuando se les pide óleo.
 - **Skill:** `bfl-api` + `flux-best-practices` (cargados en sesión con `/bfl-api`). **SIEMPRE cargar antes de generar imágenes.**
 - **Modelo recomendado:** `FLUX.2 [pro]` — endpoint `/v1/flux-2-pro`, ~$0.03/imagen 1MP.
 - **Flujo:** POST → polling → descargar URL (expira en 10 min) → guardar en `public/img/` o `/tmp/`.
@@ -287,7 +290,7 @@ La Biblioteca tiene cuatro secciones. Cada una tiene su propia fuente de datos e
 - **Para series:** todos los artículos de la misma serie pueden compartir la misma imagen hero de la serie
 - **Ejemplo (ensayo de serie):** `"image": "img/arquitectos-judio-hero.jpg"`
 - **Si no se define:** el sitio usa `img/og-default-v2.jpg` como fallback (genérico, sin identidad del artículo)
-- **Cómo generar:** con FLUX API (`/bfl-api`), dimensión `1200×630`, guardar en `public/img/`
+- **Cómo generar:** con FLUX API (`/bfl-api`), dimensión `1200×630`, guardar en `public/img/`. ⚠ **La cuenta de FLUX puede estar sin saldo** — ver las dos alternativas en la sección FLUX de arriba; ninguna frena la publicación.
 
 ##### ⚠ Toda imagen OG tiene que ser JPEG **baseline**, nunca *progressive*
 
