@@ -193,7 +193,7 @@ Esta página agrupa tres tipos de texto distintos con formatos diferentes.
 - **⚠ NO existe la hoja de estilos propia por artículo.** Esta guía afirmaba que el `content` de un artículo lleva sus estilos en un `<style>` al inicio del string. Es falso: `style` no está en la lista blanca de `sanitize.js`, ni como etiqueta ni como atributo, así que DOMPurify borra el bloque `<style>` y **todos** los `style=` inline. **RESUELTO (2026-08-02):** los tres artículos que estaban escritos así (`la-hermeneutica-biblica`, `fundamentos-crecimiento-espiritual`, `la-mujer-la-palabra-y-el-orden-del-hogar`) quedaron limpios de código muerto. Lo único que realmente se veía roto eran **dos tablas sin bordes ni padding, con las celdas pegadas**, porque sus estilos iban inline y el sitio no definía reglas para tablas. Ahora esas reglas están en `src/index.css` (bloque `.teologia-content table/th/td`) y sirven para todo el contenido. **Hoy no queda ningún ensayo ni artículo del sitio con etiquetas o atributos que el sanitizador borre.**
 - **Ruta de imagen:** `img/<archivo>.jpg` (servida desde `public/`)
 
-#### 2. Ensayos — `/ensayos/:slug`
+#### 2. Ensayos — `/ensayo/:slug` (**SIN 's'**, así está registrado en `App.jsx`; `/ensayos` a secas es el listado)
 - **Fuente:** `src/data/textos.json` → clave `ensayos[]`
 - **Campos:** `id, title, slug, author, date, excerpt, content, biblicalReferences[], pdfUrl`
 - **Formato del `content`:** HTML estrictamente formateado — ver sección "Formato HTML de ensayos" más abajo.
