@@ -44,6 +44,9 @@ export const config = {
     '/ensayo/:slug*',
     '/ensayos',
     '/articulos',
+    // '/articulos' es exacto y NO cubre las subrutas: sin esta línea, la carátula
+    // de una serie de artículos se comparte con la vista previa genérica.
+    '/articulos/:path*',
     '/bosquejos',
     '/biblioteca/:slug*',
     '/biografias',
