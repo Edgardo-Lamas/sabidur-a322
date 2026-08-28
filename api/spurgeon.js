@@ -38,7 +38,18 @@ const questionSchema = z.object({
 });
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+// Las llamadas a Claude salen por el AI Gateway de Vercel, no contra
+// api.anthropic.com. Motivo: la compra de crédito directo en Anthropic no pasa
+// por el banco, y el Gateway se factura junto con el resto de Vercel. Es la MISMA
+// Messages API (POST /v1/messages), así que sólo cambian la URL base y el nombre
+// del modelo — el prompt, extractJSON y el RAG quedan intactos.
+// ⚠ En el Gateway el modelo lleva prefijo de proveedor y PUNTO en la versión:
+//   'anthropic/claude-sonnet-4.6', nunca 'claude-sonnet-4-6'.
+const MODELO = 'anthropic/claude-sonnet-4.6';
+const anthropic = new Anthropic({
+    apiKey: process.env.AI_GATEWAY_API_KEY,
+    baseURL: 'https://ai-gateway.vercel.sh',
+});
 
 // La Declaración de Fe es la norma doctrinal del sitio: va SIEMPRE en el prompt,
 // no solo cuando la búsqueda la trae por casualidad. Se lee una vez por instancia.
@@ -123,7 +134,7 @@ ESTRUCTURA JSON DE RESPUESTA:
  *   2. recortando desde la primera llave hasta la que la cierra
  *   3. escapando los saltos de línea y tabulaciones que quedaron sueltos
  *
- * `claude-sonnet-4-6` no admite salida estructurada (la función de la API que
+ * `claude-sonnet-4.6` no admite salida estructurada (la función de la API que
  * garantizaría el JSON), así que esto es lo que hay sin migrar de modelo.
  */
 function extractJSON(text) {
@@ -232,7 +243,7 @@ export default async function handler(req, res) {
 
         // 3. Consultar a Claude (Anthropic)
         const response = await anthropic.messages.create({
-            model: 'claude-sonnet-4-6',
+            model: MODELO,
             max_tokens: 1200,
             system: systemPrompt,
             messages: [

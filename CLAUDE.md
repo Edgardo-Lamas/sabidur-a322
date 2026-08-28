@@ -479,7 +479,8 @@ Antes de hacer push, verificar:
 
 ### Vercel (producción) — configurar en el dashboard de Vercel
 ```
-OPENAI_API_KEY           # ChatSpurgeon — solo servidor, sin prefijo VITE_
+AI_GATEWAY_API_KEY       # Agente Spurgeon — redacción con Claude vía AI Gateway
+OPENAI_API_KEY           # Agente Spurgeon — embeddings del RAG. Solo servidor, sin VITE_
 VITE_YOUTUBE_API_KEY     # Widget YouTube en Home
 VITE_N8N_WEBHOOK_URL     # Newsletter Footer (opcional, falla gracefully)
 ```
@@ -747,7 +748,8 @@ Fase C (3D MapLibre)          → paradas estrella seleccionadas
 - **Integración Templo de Salomón 3D:** visor Three.js movido a `public/templo/templo.html`, ruta `/esquemas/templo-salomon`, tercer tab en Esquemas.jsx. Vite plugin `servePublicHtml()` para evitar conflicto con SPA fallback.
 - **Templo v3 — rediseño fiel (2026-07-06, commit `893e685`, en producción):** piedra caliza gris, corona de almenas azul-oro, portón de bronce, capiteles de lirio, **muros bíblicos piedra+cedro** (atrio interior + gran atrio, se quitó la columnata herodiana), mobiliario reubicado según Escritura, escalera de caracol eliminada, cielo de amanecer y **optimizaciones de rendimiento**. Detalle completo en la sección "Proyecto: Templo de Salomón 3D".
 - **Mapas Bíblicos — Fase inmediata + A:** navegación manual (Anterior/Siguiente/Detener) y zoom cinematográfico (`flyZoom` 13, `flyDuration` 2.2) implementados en `useNarrativeMap.js`.
-- **Migración ChatSpurgeon a Claude:** `/api/spurgeon.js` usa `claude-sonnet-4-6` + RAG con Supabase pgvector (475 fragmentos indexados).
+- **Agente Spurgeon:** `/api/spurgeon.js` usa `anthropic/claude-sonnet-4.6` **a través del AI Gateway de Vercel** (`baseURL: https://ai-gateway.vercel.sh`, clave `AI_GATEWAY_API_KEY`), no contra `api.anthropic.com`. ⚠ En el Gateway el modelo lleva prefijo de proveedor y **punto** en la versión.
+- ⚠ **El RAG NO usa Supabase.** Esa base se descartó cuando el contenido migró a JSON. Hoy la búsqueda corre sobre `src/data/rag-index.json`, un índice pre-calculado y versionado en git que genera `scripts/build-rag-index.js` (enganchado a `npm run build`). Los scripts `generate_embeddings.js`, `prepare_index.js`, `check_tables.js` y `migrate.js` son **código muerto** que apunta a la Supabase que ya no existe: no correrlos.
 
 ### Próximos Pasos
 
