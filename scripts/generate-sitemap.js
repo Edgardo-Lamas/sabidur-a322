@@ -20,6 +20,10 @@ const slugsArticulos = new Set([
   ...(textos.articulos || []).map(a => a.slug),
 ])
 
+// Series que viven en la página Artículos (su carátula es /articulos/serie/:slug).
+// ⚠ Las series de la BIBLIOTECA siguen sin entrar al sitemap: es un hueco preexistente.
+const slugsSeriesArticulos = (content.seriesArticulos || []).filter(s => s.disponible).map(s => s.slug)
+
 const slugsEnsayos = (textos.ensayos || []).map(e => e.slug)
 const slugsBosquejos = (textos.bosquejos || []).map(b => b.slug)
 const slugsMeditaciones = (textos.meditaciones || []).map(m => m.slug)
@@ -49,6 +53,7 @@ ${urlBlock('/articulos', '0.9', 'weekly')}
 ${urlBlock('/ensayos', '0.9', 'weekly')}
 ${urlBlock('/bosquejos', '0.8', 'weekly')}
 ${urlBlock('/ensenanzas', '0.8', 'weekly')}
+${section('Series de artículos', slugsSeriesArticulos.map(s => urlBlock(`/articulos/serie/${s}`, '0.9')))}
 ${section('Artículos individuales', [...slugsArticulos].map(s => urlBlock(`/articulo/${s}`)))}
 ${section('Ensayos individuales', slugsEnsayos.map(s => urlBlock(`/ensayo/${s}`)))}
 ${section('Bosquejos individuales', slugsBosquejos.map(s => urlBlock(`/bosquejo/${s}`)))}

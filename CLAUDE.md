@@ -191,10 +191,28 @@ Esta página agrupa tres tipos de texto distintos con formatos diferentes.
 
 #### 1. Artículos — `/articulo/:slug` (**SIN 's'**, así está registrado en `App.jsx`; `/articulos` a secas es el listado)
 - **Fuente:** `src/data/textos.json` → clave `articulos[]` (tiene prioridad); `src/data/content.json` → clave `articles[]` (complemento sin duplicados)
-- **Campos:** `id, category, title, excerpt, date, slug, content, image`
+- **Campos:** `id, category, title, excerpt, date, slug, content, image` (+ `serie`, `serieNumero`, `author`, `biblicalReferences` si es de una serie)
+- **⚠ Un artículo NO lo renderiza `TextPage.jsx`.** `/articulo/:slug` está registrado en `App.jsx` con `ArticlePage.jsx`, que delega en `src/components/ReadingSection.jsx`; `TextPage.jsx` sólo atiende `/ensayo/:slug` y `/bosquejo/:slug`. Su config interna `textTypeConfig.articulo` es código que ninguna ruta usa. Por eso una capacidad presente en `TextPage` no está automáticamente en los artículos: la lógica de serie hubo que agregarla aparte en `ReadingSection.jsx` (2026-08-28).
 - **Formato del `content`:** el mismo HTML que los ensayos, y pasa por el **mismo sanitizador**. Ver "Formato HTML de ensayos".
 - **⚠ NO existe la hoja de estilos propia por artículo.** Esta guía afirmaba que el `content` de un artículo lleva sus estilos en un `<style>` al inicio del string. Es falso: `style` no está en la lista blanca de `sanitize.js`, ni como etiqueta ni como atributo, así que DOMPurify borra el bloque `<style>` y **todos** los `style=` inline. **RESUELTO (2026-08-02):** los tres artículos que estaban escritos así (`la-hermeneutica-biblica`, `fundamentos-crecimiento-espiritual`, `la-mujer-la-palabra-y-el-orden-del-hogar`) quedaron limpios de código muerto. Lo único que realmente se veía roto eran **dos tablas sin bordes ni padding, con las celdas pegadas**, porque sus estilos iban inline y el sitio no definía reglas para tablas. Ahora esas reglas están en `src/index.css` (bloque `.teologia-content table/th/td`) y sirven para todo el contenido. **Hoy no queda ningún ensayo ni artículo del sitio con etiquetas o atributos que el sanitizador borre.**
 - **Ruta de imagen:** `img/<archivo>.jpg` (servida desde `public/`)
+
+#### 1-bis. SERIES DE ARTÍCULOS — `/articulos/serie/:slug`
+
+Una serie cuyas entregas son **artículos** y cuya carátula vive en la página Artículos, no en la Biblioteca. Es un mecanismo **distinto y paralelo** al de `biblioteca.series[]`, creado el 2026-08-28 para *Permanezca el amor fraternal* (Hebreos 13, 9 entregas).
+
+- **Metadatos de la serie:** `content.json → seriesArticulos[]` (clave de primer nivel, **fuera** de `biblioteca`). Mismos campos que una serie de Biblioteca: `id, slug, titulo, categoria, descripcion, imagen, disponible, primerArticulo, totalArticulos, articulos[]`, más **`imagenCard`**.
+- **Dos imágenes, porque son dos formatos muy distintos:** `imagen` es la portada (1200×630) y se usa en tres lugares — el fondo de la carátula, la OG de la serie y la OG de cada entrega. `imagenCard` (≈900×400) es la de la tarjeta del listado, mucho más apaisada; si no está, la tarjeta recorta la portada. **Las dos van JPEG baseline** (`file` tiene que decir "baseline"): con progressive, WhatsApp muestra la tarjeta sin foto.
+- **⚠ La vista previa al compartir la sirve `api/og-preview.js`**, no las meta de Helmet — el HTML estático trae su propia `og:image` y los scrapers leen esa. **Toda ruta nueva hay que agregarla ahí** o la preview sale genérica; `/articulos/serie/:slug` ya está contemplada.
+- **Contenido de cada entrega:** `textos.json → articulos[]`, con `serie` y `serieNumero`. El `href` de cada entrega es `/articulo/:slug`.
+- **Página de la serie:** `src/pages/SerieArticulos.jsx` (no `SeriesPage.jsx`, que es la de Biblioteca).
+- **En el listado `/articulos`** la serie aparece como **una sola tarjeta oscura** con su portada, y **sus entregas NO se listan sueltas** — salvo cuando el lector escribe algo en el buscador, para que el buscador no las esconda. La lógica está en `Articles.jsx` (`buscando`, `series`).
+- **El `category` del artículo y el `categoria` de la serie deben coincidir**, o el filtro de categorías muestra dos etiquetas casi iguales.
+- **Para publicar una entrega nueva:**
+  1. Agregarla en `textos.json → articulos[]` con `serie`, `serieNumero` e `image` (la hero de la serie).
+  2. En `content.json → seriesArticulos[n].articulos[]`, poner `disponible: true` y completar el `href`.
+  3. ⚠ `/articulos` **no ordena por fecha**: la posición en el array es la que manda. La carátula va primero igual, pero los artículos sueltos quedan en el orden en que estén.
+  4. Verificar en el navegador que la carátula lista la entrega y que el artículo dice "Volver a la serie".
 
 #### 2. Ensayos — `/ensayo/:slug` (**SIN 's'**, así está registrado en `App.jsx`; `/ensayos` a secas es el listado)
 - **Fuente:** `src/data/textos.json` → clave `ensayos[]`
@@ -219,6 +237,7 @@ La Biblioteca tiene cuatro secciones. Cada una tiene su propia fuente de datos e
   - El array `articulos[]` contiene la **lista de capítulos** con campos: `numero, titulo, subtitulo, href, disponible`
   - El `href` de cada artículo apunta a la ruta donde vive su contenido (normalmente `/ensayo/:slug` — **SIN 's', así está registrado en App.jsx**)
 - **Contenido del artículo:** vive en `textos.json → ensayos[]` (mismo formato que ensayos de la página Textos)
+- **⚠ Esta sección es SÓLO para las series de la Biblioteca.** Hay un segundo tipo de serie, la que vive en la página Artículos, con su propia fuente de datos y su propia ruta: ver "SERIES DE ARTÍCULOS" más abajo. **No mezclarlas**: la Biblioteca quedó reservada para las series de ensayos (Reloj Profético, Arquitectos, Custodios, Libros Sagrados). Decisión de Edgardo, 2026-08-28.
 - **⚠ Algunas series tienen además `lineas[]`** (ej. `reloj-profetico`): un agrupamiento por eje temático, cada uno con `id, nombre, descripcion, color, articulos[]`. **Cuando la serie tiene `lineas[]`, ese es el array que la página realmente renderiza** — `articulos[]` es el listado plano. Dar de alta en uno solo hace que el artículo exista pero no se vea, o que se vea sin estar en el índice.
 - **Para publicar un artículo nuevo en una serie:**
   1. Agregar el ensayo en `textos.json → ensayos[]` con su slug
@@ -226,7 +245,7 @@ La Biblioteca tiene cuatro secciones. Cada una tiene su propia fuente de datos e
   3. **Si la serie tiene `lineas[]`, agregarlo TAMBIÉN en la línea que le corresponde.** `totalArticulos` se calcula sobre `articulos[]`.
   4. Verificar en el navegador que la tarjeta aparece en la página de la serie — es el único modo de detectar el alta a medias.
 - **Formato HTML del contenido:** igual al de Ensayos (ver sección "Formato HTML de ensayos")
-- **Rótulos de un artículo que pertenece a una serie** — se muestran al lector y deben ser uniformes dentro de la serie:
+- **Rótulos de un artículo que pertenece a una serie** — deben ser uniformes dentro de la serie. ⚠ **`serieNumero` se ve en los artículos pero NO en los ensayos:** `ReadingSection.jsx` lo muestra bajo el nombre de la serie (desde 2026-08-28), mientras que ni `EssayTemplate` ni `ArticleTemplate` leen esos campos — los 8 ensayos de serie tienen `serieNumero` escrito en el JSON y el lector no lo ve. En un ensayo, el único efecto visible de `serie` es que el botón cambia a "Volver a la serie". Los rótulos son:
   - `serie`: el título de la serie tal cual figura en `content.json`, más el eje si la serie tiene líneas → `"El Reloj Profético — Línea de la Iglesia"`. El artículo introductorio va sin eje, porque presenta la serie entera.
   - `serieNumero`: `"<Eje> · <Unidad>"` → `"Israel · Artículo 2"`, `"Iglesia · Bloque II"`. Se agrega `· Artículo N` solo cuando esa unidad tiene más de un artículo.
   - `image`: todos los artículos de una serie comparten la imagen hero de la serie.

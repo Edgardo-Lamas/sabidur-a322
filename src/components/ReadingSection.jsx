@@ -52,6 +52,14 @@ const ReadingSection = ({ article }) => {
     // Get related articles automatically
     const relatedArticles = article.relatedArticles || getRelatedArticles(article);
 
+    // Si el artículo pertenece a una serie, la navegación vuelve a la carátula de esa serie,
+    // que vive en Artículos (`seriesArticulos`), no en la Biblioteca.
+    // Mismo criterio de emparejado que TextPage.jsx: startsWith, nunca igualdad.
+    const serieMatch = article.serie
+        ? (content.seriesArticulos || []).find(s => article.serie.startsWith(s.titulo))
+        : null;
+    const backPath = serieMatch ? `/articulos/serie/${serieMatch.slug}` : '/articulos';
+    const backLabel = serieMatch ? 'Volver a la serie' : 'Volver a Artículos';
 
     return (
         <article className="bg-sabiduria-bg min-h-screen">
@@ -69,19 +77,24 @@ const ReadingSection = ({ article }) => {
                 {/* Back Button */}
                 <div className="mb-8">
                     <Link
-                        to="/articulos"
+                        to={backPath}
                         className="inline-flex items-center gap-2 text-sabiduria-navy hover:text-sabiduria-gold font-medium transition-colors"
                     >
                         <ArrowLeft size={18} />
-                        Volver a Artículos
+                        {backLabel}
                     </Link>
                 </div>
 
                 {/* Header */}
                 <header className="mb-12 text-center">
-                    <span className="text-sabiduria-gold uppercase tracking-widest text-sm font-bold mb-4 block">
-                        {article.category}
+                    <span className="text-sabiduria-gold uppercase tracking-widest text-sm font-bold mb-2 block">
+                        {article.serie || article.category}
                     </span>
+                    {article.serieNumero && (
+                        <span className="text-sabiduria-gray uppercase tracking-widest text-xs mb-4 block">
+                            {article.serieNumero}
+                        </span>
+                    )}
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-sabiduria-navy leading-tight mb-6">
                         {article.title}
                     </h1>
@@ -145,11 +158,11 @@ const ReadingSection = ({ article }) => {
                     {/* Bottom Back Button */}
                     <div className="mt-12 pt-8 border-t border-sabiduria-gray/10">
                         <Link
-                            to="/articulos"
+                            to={backPath}
                             className="inline-flex items-center gap-2 text-sabiduria-navy hover:text-sabiduria-gold font-medium transition-colors"
                         >
                             <ArrowLeft size={18} />
-                            Volver a Artículos
+                            {backLabel}
                         </Link>
                     </div>
                 </div>

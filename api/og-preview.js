@@ -159,6 +159,19 @@ export default function handler(req, res) {
     }
   }
 
+  // /articulos/serie/:slug — series que viven en la página Artículos.
+  // Son otra colección (`content.seriesArticulos`), no las de la Biblioteca.
+  const serieArtMatch = urlPath.match(/^\/articulos\/serie\/(.+)$/);
+  if (serieArtMatch) {
+    const slug  = serieArtMatch[1];
+    const found = (content.seriesArticulos || []).find(s => s.slug === slug);
+    if (found) {
+      title       = `${found.titulo} | ${SITE_TITLE}`;
+      description = found.descripcion || SITE_DESC;
+      image       = resolveImage(found.imagen, BASE);
+    }
+  }
+
   // /biblioteca/series/:slug — series de la biblioteca
   const seriesMatch = urlPath.match(/^\/biblioteca\/series\/(.+)$/);
   if (seriesMatch) {

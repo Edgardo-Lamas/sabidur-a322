@@ -42,14 +42,28 @@ const Articles = () => {
         fetchArticles();
     }, []);
 
+    // Las entregas de una serie no se listan sueltas: las representa la carátula de la serie.
+    // Sí se muestran cuando el lector está buscando, para que el buscador no las esconda.
+    const buscando = searchTerm.trim().length > 0;
+    const coincide = (texto) => (texto || '').toLowerCase().includes(searchTerm.toLowerCase());
+
     const filteredArticles = articles.filter((article) => {
-        const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            (article.excerpt || '').toLowerCase().includes(searchTerm.toLowerCase());
+        if (article.serie && !buscando) return false;
+        const matchesSearch = coincide(article.title) || coincide(article.excerpt);
         const matchesCategory = selectedCategory === 'Todos' || article.category === selectedCategory;
         return matchesSearch && matchesCategory;
     });
 
-    const categories = ['Todos', ...new Set(articles.map(a => a.category))];
+    const series = (content.seriesArticulos || []).filter((serie) => {
+        const matchesSearch = coincide(serie.titulo) || coincide(serie.descripcion);
+        const matchesCategory = selectedCategory === 'Todos' || serie.categoria === selectedCategory;
+        return serie.disponible && matchesSearch && matchesCategory;
+    });
+
+    const categories = ['Todos', ...new Set([
+        ...articles.filter(a => !a.serie).map(a => a.category),
+        ...(content.seriesArticulos || []).filter(s => s.disponible).map(s => s.categoria),
+    ])];
 
     return (
         <main className="bg-sabiduria-bg min-h-screen py-8 md:py-16">
@@ -120,8 +134,52 @@ const Articles = () => {
                     <div className="flex justify-center py-20">
                         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-sabiduria-gold"></div>
                     </div>
-                ) : filteredArticles.length > 0 ? (
+                ) : filteredArticles.length + series.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                        {/* Carátulas de serie: van primero y llevan al índice de la serie */}
+                        {series.map((serie) => {
+                            const disponibles = (serie.articulos || []).filter(a => a.disponible).length;
+                            return (
+                                <article key={serie.slug} className="group flex flex-col h-full bg-sabiduria-navy border border-sabiduria-navy hover:border-sabiduria-gold transition-all shadow-sm overflow-hidden">
+                                    <Link to={`/articulos/serie/${serie.slug}`} className="block">
+                                        <div className="relative h-44 bg-sabiduria-navy overflow-hidden">
+                                            {/* La card es mucho más apaisada que la portada: si la serie
+                                                trae `imagenCard`, se usa esa; si no, se recorta la portada. */}
+                                            {(serie.imagenCard || serie.imagen) && (
+                                                <img
+                                                    src={`${import.meta.env.BASE_URL}${serie.imagenCard || serie.imagen}`}
+                                                    alt={serie.titulo}
+                                                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                                                    className="w-full h-full object-cover opacity-70 group-hover:opacity-85 group-hover:scale-105 transition-all duration-500"
+                                                />
+                                            )}
+                                            <span className="absolute top-4 left-4 text-xs uppercase tracking-widest text-sabiduria-gold font-bold">
+                                                Serie
+                                            </span>
+                                        </div>
+                                    </Link>
+                                    <div className="flex flex-col flex-grow p-8">
+                                        <h2 className="text-2xl font-serif text-white group-hover:text-sabiduria-gold transition-colors leading-tight mb-4">
+                                            <Link to={`/articulos/serie/${serie.slug}`}>{serie.titulo}</Link>
+                                        </h2>
+                                        <p className="text-white/60 mb-8 flex-grow leading-relaxed line-clamp-5">
+                                            {serie.descripcion}
+                                        </p>
+                                        <div className="pt-6 border-t border-white/15 flex justify-between items-center">
+                                            <span className="text-sm font-medium text-white/50 italic">
+                                                {disponibles} de {serie.totalArticulos} publicados
+                                            </span>
+                                            <Link
+                                                to={`/articulos/serie/${serie.slug}`}
+                                                className="text-sabiduria-gold font-bold text-sm uppercase tracking-widest flex items-center gap-1 group-hover:gap-2 transition-all"
+                                            >
+                                                Ver serie <ChevronRight size={16} />
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </article>
+                            );
+                        })}
                         {filteredArticles.map((article) => (
                             <article key={article.id} className="group flex flex-col h-full bg-white p-8 border border-sabiduria-gray/5 hover:border-sabiduria-gold/20 transition-all shadow-sm">
                                 <span className="text-xs uppercase tracking-widest text-sabiduria-gold font-bold mb-4">

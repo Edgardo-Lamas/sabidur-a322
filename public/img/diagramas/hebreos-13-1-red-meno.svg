@@ -1,0 +1,57 @@
+<svg viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Las seis apariciones del verbo ménō en Hebreos: 7:3 el sacerdocio que permanece, 7:24 Cristo permanece para siempre, 10:34 la posesión que permanece, 12:27 lo inconmovible permanece, 13:1 permanezca el amor fraternal —la única en imperativo— y 13:14 la ciudad que no permanece" font-family="Georgia, 'Times New Roman', 'DejaVu Serif', serif">
+  <defs>
+    <style>
+      .title { font-size: 22px; fill: #1A252F; }
+      .subtitle { font-size: 14px; fill: #4A4A4A; font-style: italic; }
+      .ref { font-size: 15px; fill: #1A252F; font-weight: bold; }
+      .dato { font-size: 14px; fill: #2C3E50; }
+      .nota { font-size: 13px; fill: #4A4A4A; }
+      .ref-destacada { font-size: 16px; fill: #7A5C1E; font-weight: bold; }
+      .dato-destacado { font-size: 15px; fill: #1A252F; }
+      .pie { font-size: 13px; fill: #4A4A4A; font-style: italic; }
+    </style>
+  </defs>
+
+  <rect width="900" height="620" fill="#F9F9F7"/>
+
+  <g transform="translate(20,0)">
+    <text x="430" y="46" text-anchor="middle" class="title">La red de <tspan font-style="italic">ménō</tspan> en la Epístola a los Hebreos</text>
+    <text x="430" y="72" text-anchor="middle" class="subtitle">Seis apariciones de una misma raíz que enmarcan la exhortación de 13:1</text>
+
+    <line x1="150" y1="110" x2="150" y2="540" stroke="#BDC3C7" stroke-width="2"/>
+
+    <circle cx="150" cy="140" r="7" fill="#C5A059"/>
+    <text x="176" y="134" class="ref">Hebreos 7:3</text>
+    <text x="176" y="156" class="dato"><tspan font-style="italic">ménei hiereús</tspan> — el sacerdocio que permanece</text>
+    <text x="176" y="176" class="nota">Melquisedec permanece sacerdote para siempre.</text>
+
+    <circle cx="150" cy="215" r="7" fill="#C5A059"/>
+    <text x="176" y="209" class="ref">Hebreos 7:24</text>
+    <text x="176" y="231" class="dato"><tspan font-style="italic">ménein</tspan> — Cristo permanece para siempre</text>
+    <text x="176" y="251" class="nota">Por eso tiene un sacerdocio inmutable.</text>
+
+    <circle cx="150" cy="290" r="7" fill="#C5A059"/>
+    <text x="176" y="284" class="ref">Hebreos 10:34</text>
+    <text x="176" y="306" class="dato"><tspan font-style="italic">ménousan hýparxin</tspan> — la posesión que permanece</text>
+    <text x="176" y="326" class="nota">Frente a los bienes que les fueron arrebatados.</text>
+
+    <circle cx="150" cy="365" r="7" fill="#C5A059"/>
+    <text x="176" y="359" class="ref">Hebreos 12:27</text>
+    <text x="176" y="381" class="dato"><tspan font-style="italic">meínē</tspan> — lo inconmovible permanece</text>
+    <text x="176" y="401" class="nota">Lo removible es quitado para que permanezca lo que no se mueve.</text>
+
+    <rect x="128" y="418" width="700" height="62" rx="4" fill="#F6F4EE" stroke="#C5A059" stroke-width="1.5"/>
+    <circle cx="150" cy="440" r="9" fill="#1A1D23"/>
+    <text x="176" y="440" class="ref-destacada">Hebreos 13:1</text>
+    <text x="300" y="440" class="dato-destacado"><tspan font-style="italic">hē philadelphía menétō</tspan></text>
+    <text x="176" y="466" class="nota">«Permanezca el amor fraternal.» La única aparición en imperativo.</text>
+
+    <circle cx="150" cy="510" r="7" fill="#C5A059"/>
+    <text x="176" y="504" class="ref">Hebreos 13:14</text>
+    <text x="176" y="526" class="dato"><tspan font-style="italic">ménousan pólin</tspan> — la ciudad que <tspan font-weight="bold">no</tspan> permanece</text>
+    <text x="176" y="546" class="nota">No tenemos aquí ciudad permanente; buscamos la por venir.</text>
+
+    <line x1="60" y1="575" x2="800" y2="575" stroke="#BDC3C7" stroke-width="1"/>
+    <text x="430" y="598" text-anchor="middle" class="pie">Lo que no permanece es la ciudad; lo que debe permanecer es el amor; el que permanece es Cristo.</text>
+  </g>
+</svg>

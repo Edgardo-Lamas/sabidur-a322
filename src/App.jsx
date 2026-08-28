@@ -14,6 +14,7 @@ import PersistentPlayer from './components/audio/PersistentPlayer';
 const NotFound            = lazy(() => import('./pages/NotFound'));
 const Home                = lazy(() => import('./pages/Home'));
 const ArticlePage         = lazy(() => import('./pages/ArticlePage'));
+const SerieArticulos      = lazy(() => import('./pages/SerieArticulos'));
 const Articles            = lazy(() => import('./pages/Articles'));
 const Donations           = lazy(() => import('./pages/Donations'));
 const Store               = lazy(() => import('./pages/Store'));
@@ -153,6 +154,9 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/articulos" element={<Articles />} />
+                {/* Serie de artículos: va ANTES de /articulo/:slug por claridad; son rutas distintas
+                    (/articulos/serie/… contra /articulo/…), no se pisan. */}
+                <Route path="/articulos/serie/:slug" element={<SerieArticulos />} />
                 <Route path="/articulo/:slug" element={<ArticlePage />} />
                 <Route path="/ensayos" element={<Ensayos />} />
                 <Route path="/ensayo/:slug" element={<TextPage textType="ensayo" />} />
