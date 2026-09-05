@@ -463,6 +463,8 @@ Los dos archivos hacen **round-trip exacto con `json.dump(data, f, ensure_ascii=
 
 Antes de hacer push, verificar:
 - [ ] **Los `<h2>` publicados son los mismos `##` del texto de origen, y ninguno perdió párrafos.** Maquetar un ensayo largo es reescribirlo de markdown a HTML, y ahí una sección entera puede quedar afuera sin que nada dé error: el ensayo se ve terminado, la consola está limpia y el hueco solo aparece leyéndolo. Le pasó a `corred-de-tal-manera`, que se publicó el 2026-08-10 sin su sección central *«De tal manera»* — ocho párrafos, comprimidos a uno — y se detectó recién el 15/8 porque Edgardo lo leyó. Contrastar la lista de encabezados y el largo del `content` contra el fuente **antes** de dar el ensayo por subido.
+
+  **La forma segura de verificarlo es un diff palabra por palabra, no una lectura.** Se guarda el texto de origen en un archivo, se le quitan las etiquetas al `content`, y se comparan las dos listas de palabras con `difflib`. Lo único que debe aparecer como diferencia son los encabezados numerados, el epígrafe de un diagrama y la referencia que se movió al `blockquote-ref`; cualquier otra cosa es texto perdido o agregado. Así se maquetaron los estudios 1 y 2 de la serie de Hebreos 13 el 2026-09-05, y en los dos casos el conteo cerró exacto (1.703 y 1.881 palabras). Una lectura atenta no atrapa un párrafo faltante en 1.900 palabras; el diff sí.
 - [ ] Primer párrafo tiene clase `first-letter:...`
 - [ ] Versículos cortos en `<span class='biblical-inline'>«...»</span>`
 - [ ] Pasajes largos en `<blockquote class='blockquote-gold'>` con `<span class='blockquote-ref'>` (**nunca `<footer>`**) — y la cita es **literal**, no una paráfrasis
@@ -474,6 +476,7 @@ Antes de hacer push, verificar:
 - [ ] Campo `image` presente (OG); si es de una serie, `serie` y `serieNumero` siguen la convención de la serie
 - [ ] Si es de una serie: dado de alta en `articulos[]` **y** en `lineas[]` cuando la serie las tiene
 - [ ] `node scripts/generate-sitemap.js` ejecutado
+- [ ] **Si cambió cualquier texto, `npm run rag:index`** — el índice del Agente Spurgeon está versionado en git, así que si no se regenera acá, el archivo del repo queda citando el texto viejo aunque producción esté bien (el `npm run build` de Vercel lo rehace en el deploy). Reindexa el sitio entero, unos dos minutos, y necesita la `OPENAI_API_KEY` del `.env`.
 - [ ] **Abierto en el navegador** (`npm run dev`): el ensayo se ve entero, los diagramas cargan, "Volver a la serie" funciona y la consola no tira errores
 
 ### Referencia — ensayos modelo
