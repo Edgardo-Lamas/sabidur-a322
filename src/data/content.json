@@ -1430,10 +1430,10 @@
         },
         {
           "numero": 2,
-          "titulo": "La hospitalidad y los ángeles no reconocidos",
-          "subtitulo": "Hebreos 13:2",
-          "href": "",
-          "disponible": false
+          "titulo": "No os olvidéis de la hospitalidad",
+          "subtitulo": "Hebreos 13:2 y el hermano que usted no reconoce",
+          "href": "/articulo/no-os-olvideis-de-la-hospitalidad",
+          "disponible": true
         },
         {
           "numero": 3,
