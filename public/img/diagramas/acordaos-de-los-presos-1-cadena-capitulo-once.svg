@@ -1,0 +1,62 @@
+<svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hebreos 13:3 repite, en el mismo orden, el par de términos que cierra la galería de la fe: prisiones y maltratados en Hebreos 11:36-37 reaparecen como los presos y los maltratados en Hebreos 13:3, y el compuesto de Hebreos 11:25 dice que Moisés escogió ser maltratado junto con el pueblo de Dios" font-family="Georgia, 'Times New Roman', 'DejaVu Serif', serif">
+  <defs>
+    <style>
+      .title { font-size: 23px; fill: #1A252F; }
+      .subtitle { font-size: 14px; fill: #4A4A4A; }
+      .col-ref { font-size: 17px; font-weight: bold; fill: #7A5C1E; }
+      .col-sub { font-size: 13px; fill: #4A4A4A; }
+      .term { font-size: 15px; font-weight: bold; fill: #1A252F; }
+      .griego { font-size: 14px; fill: #2C3E50; font-style: italic; }
+      .nota { font-size: 13px; fill: #4A4A4A; }
+      .pie { font-size: 13px; fill: #4A4A4A; font-style: italic; }
+    </style>
+  </defs>
+
+  <rect width="900" height="520" fill="#F9F9F7"/>
+
+  <g transform="translate(20,0)">
+    <text x="430" y="48" text-anchor="middle" class="title">La galería de la fe llega hasta la puerta de la iglesia</text>
+    <text x="430" y="74" text-anchor="middle" class="subtitle">Hebreos 13:3 repite, en el mismo orden, el par que cierra el capítulo 11</text>
+
+    <!-- Columna izquierda: Hebreos 11 -->
+    <rect x="60" y="110" width="330" height="250" rx="6" fill="#ECECEA" stroke="#BDC3C7" stroke-width="1.5"/>
+    <text x="225" y="142" text-anchor="middle" class="col-ref">Hebreos 11:36-37</text>
+    <text x="225" y="164" text-anchor="middle" class="col-sub">Los testigos que murieron sin recibir lo prometido</text>
+
+    <text x="90" y="206" class="term">prisiones y cárceles</text>
+    <text x="90" y="228" class="griego">desmôn kaì phylakês</text>
+
+    <text x="90" y="276" class="term">maltratados</text>
+    <text x="90" y="298" class="griego">kakouchoúmenoi</text>
+
+    <text x="90" y="336" class="nota">«de los cuales el mundo no era digno»</text>
+
+    <!-- Flechas -->
+    <line x1="400" y1="218" x2="460" y2="218" stroke="#C5A059" stroke-width="2"/>
+    <polygon points="460,218 450,213 450,223" fill="#C5A059"/>
+    <line x1="400" y1="288" x2="460" y2="288" stroke="#C5A059" stroke-width="2"/>
+    <polygon points="460,288 450,283 450,293" fill="#C5A059"/>
+
+    <!-- Columna derecha: Hebreos 13 -->
+    <rect x="470" y="110" width="330" height="250" rx="6" fill="#FCFAF4" stroke="#C5A059" stroke-width="1.5"/>
+    <text x="635" y="142" text-anchor="middle" class="col-ref">Hebreos 13:3</text>
+    <text x="635" y="164" text-anchor="middle" class="col-sub">Los hermanos de la propia congregación</text>
+
+    <text x="500" y="206" class="term">los presos</text>
+    <text x="500" y="228" class="griego">tôn desmíōn</text>
+
+    <text x="500" y="276" class="term">los maltratados</text>
+    <text x="500" y="298" class="griego">tôn kakouchouménōn</text>
+
+    <text x="500" y="336" class="nota">«acordaos… como si estuvierais presos con ellos»</text>
+
+    <!-- Moisés -->
+    <line x1="60" y1="396" x2="800" y2="396" stroke="#BDC3C7" stroke-width="1"/>
+    <circle cx="90" cy="428" r="7" fill="#C5A059"/>
+    <text x="112" y="422" class="term">Hebreos 11:25</text>
+    <text x="112" y="444" class="griego">synkakoucheîsthai<tspan font-style="normal" fill="#2C3E50" dx="5">— escogió ser maltratado</tspan><tspan font-style="normal" font-weight="bold" fill="#1A252F" dx="5">junto con</tspan><tspan font-style="normal" fill="#2C3E50" dx="5">el pueblo de Dios</tspan></text>
+    <text x="112" y="466" class="nota">Moisés no eligió solamente a Dios: eligió con quién quería sufrir.</text>
+
+    <text x="430" y="502" text-anchor="middle" class="pie">La iglesia no contempla la galería de la fe: está dentro de ella.</text>
+  </g>
+</svg>
