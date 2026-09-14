@@ -798,10 +798,10 @@ Fase C (3D MapLibre)          → paradas estrella seleccionadas
 1. **Templo de Salomón — pulido final:** portones de bronce en los atrios (2 Cr 4:9), muros más altos, agrandar/aclarar el Mar de Bronce, relieves interiores. Ver "Pendientes" en la sección Templo. **Después: proyecto Templo de Herodes** (ahí sí van columnatas).
 2. **Mapas — Fase B (capa satelital):** ESRI World Imagery activada al superar zoom 12. Implementar después de revisar resolución por parada.
 3. **Mapas — Fase 2 (audio):** requiere guion narrativo del Viaje de Abraham primero. Pipeline: Voicebox → R2 → GeoJSON `audioUrl`.
-4. **Dashboard `/panel`:** conectado a Google Analytics y a Search Console; la pestaña
-   Audiencia muestra datos reales, incluido de dónde llega la gente a cada página.
-   Queda sacar lo que todavía es proyección: el bloque "Historias para Jóvenes"
-   (`HISTORIAS_DATA`, rotulado como proyección) y el de "Deployments recientes",
-   que es código muerto — el endpoint dejó de devolver `recentDeploys` al pasar de
-   Vercel Analytics a GA4.
+4. **Dashboard `/panel`:** conectado a Google Analytics y a Search Console. **Ya no
+   queda ningún dato inventado en la pestaña Audiencia** (14/9/2026): el día a día,
+   las secciones más vistas, el origen del tráfico y las Historias para Jóvenes salen
+   todos de GA4. Lo único que sobra es el bloque "Deployments recientes", **código
+   muerto**: el endpoint dejó de devolver `recentDeploys` al pasar de Vercel Analytics
+   a GA4, así que su condición nunca se cumple y no se muestra nunca.
 5. **Esquemas visuales:** siguiente mapa conceptual en `/esquemas` (ej: *Las 12 Tribus de Israel*).
