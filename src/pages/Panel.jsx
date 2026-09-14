@@ -400,25 +400,6 @@ const Panel = () => {
                             </div>
                         )}
 
-                        {/* Deployments recientes */}
-                        {analytics?.live && analytics.recentDeploys?.length > 0 && (
-                            <div className="bg-white rounded-xl border border-sabiduria-gray/10 p-6 shadow-sm">
-                                <SectionHeader title="Deployments recientes" sub="Últimas publicaciones en producción" />
-                                <div className="space-y-2">
-                                    {analytics.recentDeploys.map((d, i) => (
-                                        <div key={i} className="flex items-start justify-between gap-4 py-2.5 border-b border-sabiduria-gray/8 last:border-0">
-                                            <div className="flex items-center gap-2.5 min-w-0">
-                                                <span className="w-2 h-2 rounded-full flex-shrink-0"
-                                                    style={{ background: d.state === 'READY' ? '#10b981' : d.state === 'ERROR' ? '#ef4444' : GOLD }} />
-                                                <p className="font-serif text-sm text-sabiduria-navy truncate">{d.commit || d.url}</p>
-                                            </div>
-                                            <span className="font-heading text-xs text-sabiduria-gray flex-shrink-0">{d.fecha}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
                         {/* Día a día */}
                         <div className="bg-white rounded-xl border border-sabiduria-gray/10 p-6 shadow-sm">
                             <SectionHeader

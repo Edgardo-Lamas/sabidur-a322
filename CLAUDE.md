@@ -801,7 +801,9 @@ Fase C (3D MapLibre)          → paradas estrella seleccionadas
 4. **Dashboard `/panel`:** conectado a Google Analytics y a Search Console. **Ya no
    queda ningún dato inventado en la pestaña Audiencia** (14/9/2026): el día a día,
    las secciones más vistas, el origen del tráfico y las Historias para Jóvenes salen
-   todos de GA4. Lo único que sobra es el bloque "Deployments recientes", **código
-   muerto**: el endpoint dejó de devolver `recentDeploys` al pasar de Vercel Analytics
-   a GA4, así que su condición nunca se cumple y no se muestra nunca.
+   todos de GA4. El bloque "Deployments recientes" se eliminó: era código
+   muerto desde que el endpoint dejó de devolver `recentDeploys` al pasar de Vercel
+   Analytics a GA4. ⚠ Lo que todavía queda de esa época son `TRAFFIC_DATA` y
+   `PAGES_DATA`, dos constantes inventadas que se muestran **solo si GA4 no responde**,
+   rotuladas "(proyección)".
 5. **Esquemas visuales:** siguiente mapa conceptual en `/esquemas` (ej: *Las 12 Tribus de Israel*).
