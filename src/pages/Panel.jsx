@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
     AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell,
     XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
@@ -113,12 +113,32 @@ const SectionHeader = ({ title, sub }) => (
     </div>
 );
 
+// ─── BARRA DE ORIGEN ─────────────────────────────────────────────────────────
+const BarraOrigen = ({ nombre, valor, maximo, detalle, color }) => (
+    <div className="flex items-center gap-4">
+        <div className="w-44 flex-shrink-0">
+            <p className="font-serif text-sm text-sabiduria-navy truncate" title={nombre}>{nombre}</p>
+            {detalle && <p className="font-serif text-xs text-sabiduria-gray/60 truncate">{detalle}</p>}
+        </div>
+        <div className="flex-1 bg-sabiduria-gray/8 rounded-full h-5 overflow-hidden">
+            <div
+                className="h-full rounded-full flex items-center justify-end pr-2 min-w-[2rem] transition-all"
+                style={{ width: `${maximo > 0 ? Math.max((valor / maximo) * 100, 8) : 8}%`, background: color }}
+            >
+                <span className="font-heading text-xs font-bold text-white">{valor}</span>
+            </div>
+        </div>
+    </div>
+);
+
 // ─── COMPONENT ───────────────────────────────────────────────────────────────
 const Panel = () => {
     const [tab, setTab] = useState('overview');
     const [analytics, setAnalytics] = useState(null); // null = loading, obj = loaded
     const [ytStats, setYtStats] = useState(null);
     const [gscData, setGscData] = useState(null);
+    const [paginaElegida, setPaginaElegida] = useState(null);  // ruta que se mira en detalle
+    const [detalle, setDetalle]             = useState(null);  // null | 'cargando' | datos
 
     useEffect(() => {
         fetch('/api/analytics')
@@ -134,6 +154,21 @@ const Panel = () => {
             .then(setGscData)
             .catch(() => setGscData({ live: false }));
     }, []);
+
+    // De dónde llegaron a una página concreta. El contador descarta respuestas
+    // viejas si se toca una página nueva antes de que conteste la anterior.
+    const pedido = useRef(0);
+
+    const verPagina = (ruta) => {
+        if (paginaElegida === ruta) { setPaginaElegida(null); setDetalle(null); return; }
+        const id = ++pedido.current;
+        setPaginaElegida(ruta);
+        setDetalle('cargando');
+        fetch(`/api/analytics?page=${encodeURIComponent(ruta)}`)
+            .then(r => r.json())
+            .then(d  => { if (pedido.current === id) setDetalle(d); })
+            .catch(() => { if (pedido.current === id) setDetalle({ live: false, error: 'No se pudo conectar' }); });
+    };
 
     const totalContent =
         SITE_STATS.articulos + SITE_STATS.ensayos + SITE_STATS.lecturas +
@@ -325,14 +360,17 @@ const Panel = () => {
                                 <Zap size={18} className="text-emerald-600 flex-shrink-0 mt-0.5" />
                                 <div>
                                     <p className="font-heading text-sm font-semibold text-emerald-800">
-                                        Conectado a Vercel — {analytics.projectName ?? 'proyecto'}
+                                        Conectado a Google Analytics
                                     </p>
                                     <p className="font-serif text-xs text-emerald-700 mt-0.5">
-                                        {analytics.totals?.visitas > 0
-                                            ? <>{analytics.totals.visitas.toLocaleString()} páginas vistas en los últimos 30 días. El gráfico de secciones usa datos reales.</>
-                                            : analytics.analyticsNote
-                                                ? <>Web Analytics aún sin datos suficientes — el gráfico usa proyecciones de referencia.</>
-                                                : <>Datos de proyecto cargados. Web Analytics activo.</>
+                                        {analytics.totals?.pageviews > 0
+                                            ? <>
+                                                {analytics.totals.pageviews.toLocaleString()} páginas vistas
+                                                {' · '}{analytics.totals.users.toLocaleString()} personas
+                                                {' · '}{analytics.totals.sessions.toLocaleString()} visitas
+                                                {' '}en los últimos {analytics.period ?? '28 días'}. Todos los números de abajo son reales.
+                                              </>
+                                            : <>Conectado, pero sin visitas registradas en el período.</>
                                         }
                                     </p>
                                 </div>
@@ -342,12 +380,12 @@ const Panel = () => {
                                 <Zap size={18} className="text-amber-600 flex-shrink-0 mt-0.5" />
                                 <div>
                                     <p className="font-heading text-sm font-semibold text-amber-800">
-                                        {analytics === null ? 'Cargando métricas…' : 'Vercel Analytics — pendiente de configuración'}
+                                        {analytics === null ? 'Cargando métricas…' : 'Google Analytics — pendiente de configuración'}
                                     </p>
                                     <p className="font-serif text-xs text-amber-700 mt-0.5">
                                         {analytics?.error
-                                            ? <><strong>{analytics.error}</strong>. Crear token en <strong>vercel.com → Settings → Tokens</strong> y guardarlo como <code>VERCEL_TOKEN</code> en las variables de entorno del proyecto.</>
-                                            : <>Los gráficos muestran proyecciones de referencia. Para datos reales, configurar <code>VERCEL_TOKEN</code> en Vercel → Project Settings → Environment Variables.</>
+                                            ? <><strong>{analytics.error}</strong>. Las credenciales viven en Vercel → Project Settings → Environment Variables: <code>GOOGLE_CLIENT_ID</code>, <code>GOOGLE_CLIENT_SECRET</code>, <code>GOOGLE_REFRESH_TOKEN</code> y <code>GA4_PROPERTY_ID</code>.</>
+                                            : <>Sin conexión a Google Analytics no hay números para mostrar.</>
                                         }
                                     </p>
                                 </div>
@@ -373,11 +411,19 @@ const Panel = () => {
                             </div>
                         )}
 
-                        {/* Tráfico mensual */}
+                        {/* Día a día */}
                         <div className="bg-white rounded-xl border border-sabiduria-gray/10 p-6 shadow-sm">
-                            <SectionHeader title="Tráfico mensual" sub="Visitas y usuarios únicos (proyección)" />
+                            <SectionHeader
+                                title={analytics?.live ? 'Día a día' : 'Tráfico mensual'}
+                                sub={analytics?.live
+                                    ? `Personas y visitas — últimos ${analytics.period ?? '28 días'}`
+                                    : 'Visitas y usuarios únicos (proyección)'}
+                            />
                             <ResponsiveContainer width="100%" height={260}>
-                                <AreaChart data={TRAFFIC_DATA} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
+                                <AreaChart
+                                    data={analytics?.live ? analytics.daily : TRAFFIC_DATA}
+                                    margin={{ top: 5, right: 10, left: -10, bottom: 0 }}
+                                >
                                     <defs>
                                         <linearGradient id="gradVisitas" x1="0" y1="0" x2="0" y2="1">
                                             <stop offset="5%"  stopColor={GOLD}  stopOpacity={0.25} />
@@ -389,12 +435,20 @@ const Panel = () => {
                                         </linearGradient>
                                     </defs>
                                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                                    <XAxis dataKey="mes" tick={{ fontSize: 12, fontFamily: 'var(--font-sans)' }} />
-                                    <YAxis tick={{ fontSize: 12 }} />
+                                    <XAxis
+                                        dataKey={analytics?.live ? 'date' : 'mes'}
+                                        tick={{ fontSize: 11, fontFamily: 'var(--font-sans)' }}
+                                        tickFormatter={v => (analytics?.live && typeof v === 'string' && v.length === 10)
+                                            ? `${v.slice(8, 10)}/${v.slice(5, 7)}`
+                                            : v}
+                                    />
+                                    <YAxis tick={{ fontSize: 12 }} allowDecimals={false} />
                                     <Tooltip content={<CustomTooltip />} />
                                     <Legend />
-                                    <Area type="monotone" dataKey="visitas"  name="Visitas"  stroke={GOLD} fill="url(#gradVisitas)"  strokeWidth={2} />
-                                    <Area type="monotone" dataKey="usuarios" name="Usuarios" stroke={NAVY} fill="url(#gradUsuarios)" strokeWidth={2} />
+                                    <Area type="monotone" dataKey={analytics?.live ? 'sessions' : 'visitas'}
+                                          name="Visitas"  stroke={GOLD} fill="url(#gradVisitas)"  strokeWidth={2} />
+                                    <Area type="monotone" dataKey={analytics?.live ? 'users' : 'usuarios'}
+                                          name="Personas" stroke={NAVY} fill="url(#gradUsuarios)" strokeWidth={2} />
                                 </AreaChart>
                             </ResponsiveContainer>
                         </div>
@@ -409,12 +463,185 @@ const Panel = () => {
                                 <BarChart data={analytics?.live ? analytics.pages : PAGES_DATA} layout="vertical" margin={{ left: 20, right: 20 }}>
                                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" horizontal={false} />
                                     <XAxis type="number" tick={{ fontSize: 11 }} />
-                                    <YAxis type="category" dataKey="page" tick={{ fontSize: 12, fontFamily: 'var(--font-sans)' }} width={80} />
+                                    <YAxis type="category" dataKey="page" tick={{ fontSize: 11, fontFamily: 'var(--font-sans)' }} width={190}
+                                        tickFormatter={v => (typeof v === 'string' && v.length > 28) ? v.slice(0, 27) + '…' : v} />
                                     <Tooltip content={<CustomTooltip />} />
-                                    <Bar dataKey="visitas" name="Visitas" fill={GOLD} radius={[0, 4, 4, 0]} />
+                                    <Bar dataKey={analytics?.live ? 'pageviews' : 'visitas'} name="Vistas" fill={GOLD} radius={[0, 4, 4, 0]} />
                                 </BarChart>
                             </ResponsiveContainer>
                         </div>
+
+                        {/* De dónde llega la gente */}
+                        {analytics?.live && (
+                            <div className="bg-white rounded-xl border border-sabiduria-gray/10 p-6 shadow-sm">
+                                <SectionHeader
+                                    title="Por dónde llegaron"
+                                    sub={`Cómo entró la gente al sitio — últimos ${analytics.period ?? '28 días'}`}
+                                />
+
+                                {analytics.channels?.length > 0 ? (
+                                    <div className="space-y-3">
+                                        {analytics.channels.map((c, i) => (
+                                            <BarraOrigen
+                                                key={i}
+                                                nombre={c.nombre}
+                                                valor={c.sessions}
+                                                maximo={analytics.channels[0].sessions}
+                                                color={i === 0 ? NAVY : GOLD}
+                                            />
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <p className="font-serif text-sm text-sabiduria-gray">Sin datos de origen en el período.</p>
+                                )}
+
+                                {analytics.sources?.length > 0 && (
+                                    <div className="mt-8 pt-6 border-t border-sabiduria-gray/10">
+                                        <p className="font-heading text-sm font-semibold text-sabiduria-navy mb-4">
+                                            El detalle, sitio por sitio
+                                        </p>
+                                        <div className="space-y-3">
+                                            {analytics.sources.slice(0, 8).map((f, i) => (
+                                                <BarraOrigen
+                                                    key={i}
+                                                    nombre={f.nombre}
+                                                    detalle={f.medium && f.medium !== '(none)' ? f.medium : null}
+                                                    valor={f.sessions}
+                                                    maximo={analytics.sources[0].sessions}
+                                                    color={GOLD}
+                                                />
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
+                        {/* De dónde entraron a UNA página */}
+                        {analytics?.live && analytics.pages?.length > 0 && (
+                            <div className="bg-white rounded-xl border border-sabiduria-gray/10 p-6 shadow-sm">
+                                <SectionHeader
+                                    title="De dónde entraron a cada página"
+                                    sub="Elegí una página y mirá por dónde llegó la gente a esa página en particular"
+                                />
+
+                                <div className="flex flex-wrap gap-2 mb-6">
+                                    {analytics.pages.map((p, i) => (
+                                        <button
+                                            key={i}
+                                            onClick={() => verPagina(p.page)}
+                                            className="font-heading text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all max-w-full truncate"
+                                            style={{
+                                                background:  paginaElegida === p.page ? NAVY : 'transparent',
+                                                color:       paginaElegida === p.page ? '#fff' : '#64748b',
+                                                borderColor: paginaElegida === p.page ? NAVY : 'rgba(100,116,139,0.25)',
+                                            }}
+                                            title={p.page}
+                                        >
+                                            {p.page === '/' ? 'Portada' : p.page}
+                                            <span className="ml-1.5 opacity-60">{p.pageviews}</span>
+                                        </button>
+                                    ))}
+                                </div>
+
+                                {detalle === 'cargando' && (
+                                    <p className="font-serif text-sm text-sabiduria-gray">Preguntándole a Google Analytics…</p>
+                                )}
+
+                                {detalle && detalle !== 'cargando' && !detalle.live && (
+                                    <p className="font-serif text-sm text-amber-700">
+                                        No se pudo leer: {detalle.error ?? 'error desconocido'}
+                                    </p>
+                                )}
+
+                                {detalle && detalle !== 'cargando' && detalle.live && (
+                                    <div className="space-y-6">
+                                        <div className="flex flex-wrap gap-6">
+                                            {[
+                                                { n: detalle.totals.pageviews, l: 'vistas' },
+                                                { n: detalle.totals.users,     l: 'personas' },
+                                                { n: detalle.totals.sessions,  l: 'visitas' },
+                                            ].map((x, i) => (
+                                                <div key={i}>
+                                                    <p className="font-heading text-2xl font-bold text-sabiduria-navy">{x.n}</p>
+                                                    <p className="font-heading text-xs font-semibold text-sabiduria-gray uppercase tracking-wider">{x.l}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        {detalle.totals.pageviews === 0 ? (
+                                            <p className="font-serif text-sm text-sabiduria-gray">
+                                                Esta página no registró visitas en los últimos 28 días.
+                                            </p>
+                                        ) : (
+                                            <>
+                                                <div>
+                                                    <p className="font-heading text-sm font-semibold text-sabiduria-navy mb-4">Por dónde llegaron</p>
+                                                    <div className="space-y-3">
+                                                        {detalle.channels.map((c, i) => (
+                                                            <BarraOrigen
+                                                                key={i}
+                                                                nombre={c.nombre}
+                                                                valor={c.pageviews}
+                                                                maximo={detalle.channels[0].pageviews}
+                                                                color={i === 0 ? NAVY : GOLD}
+                                                            />
+                                                        ))}
+                                                    </div>
+                                                </div>
+
+                                                {detalle.sources?.length > 0 && (
+                                                    <div className="pt-6 border-t border-sabiduria-gray/10">
+                                                        <p className="font-heading text-sm font-semibold text-sabiduria-navy mb-4">El sitio exacto</p>
+                                                        <div className="space-y-3">
+                                                            {detalle.sources.map((f, i) => (
+                                                                <BarraOrigen
+                                                                    key={i}
+                                                                    nombre={f.nombre}
+                                                                    detalle={f.medium && f.medium !== '(none)' ? f.medium : null}
+                                                                    valor={f.pageviews}
+                                                                    maximo={detalle.sources[0].pageviews}
+                                                                    color={GOLD}
+                                                                />
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                )}
+
+                                                {detalle.referrers?.filter(r => r.referrer !== '(sin referente)').length > 0 && (
+                                                    <div className="pt-6 border-t border-sabiduria-gray/10">
+                                                        <p className="font-heading text-sm font-semibold text-sabiduria-navy mb-3">Enlace desde el que hicieron clic</p>
+                                                        <div className="space-y-2">
+                                                            {detalle.referrers
+                                                                .filter(r => r.referrer !== '(sin referente)')
+                                                                .map((r, i) => (
+                                                                    <div key={i} className="flex items-start justify-between gap-4 py-2 border-b border-sabiduria-gray/8 last:border-0">
+                                                                        <p className="font-serif text-sm text-sabiduria-navy break-all">{r.referrer}</p>
+                                                                        <span className="font-heading text-xs font-semibold text-sabiduria-gray flex-shrink-0">{r.pageviews}</span>
+                                                                    </div>
+                                                                ))}
+                                                        </div>
+                                                    </div>
+                                                )}
+
+                                                {detalle.countries?.length > 0 && (
+                                                    <div className="pt-6 border-t border-sabiduria-gray/10">
+                                                        <p className="font-heading text-sm font-semibold text-sabiduria-navy mb-3">Desde qué país la leyeron</p>
+                                                        <div className="flex flex-wrap gap-x-6 gap-y-2">
+                                                            {detalle.countries.map((c, i) => (
+                                                                <p key={i} className="font-serif text-sm text-sabiduria-gray">
+                                                                    {c.country} <span className="font-heading font-bold text-sabiduria-navy">{c.pageviews}</span>
+                                                                </p>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                        )}
 
                         {/* Historias para jóvenes */}
                         <div className="bg-white rounded-xl border border-sabiduria-gray/10 p-6 shadow-sm">
