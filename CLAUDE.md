@@ -803,7 +803,13 @@ Fase C (3D MapLibre)          → paradas estrella seleccionadas
    las secciones más vistas, el origen del tráfico y las Historias para Jóvenes salen
    todos de GA4. El bloque "Deployments recientes" se eliminó: era código
    muerto desde que el endpoint dejó de devolver `recentDeploys` al pasar de Vercel
-   Analytics a GA4. ⚠ Lo que todavía queda de esa época son `TRAFFIC_DATA` y
-   `PAGES_DATA`, dos constantes inventadas que se muestran **solo si GA4 no responde**,
-   rotuladas "(proyección)".
+   Analytics a GA4. `TRAFFIC_DATA` y `PAGES_DATA` —las dos constantes
+   inventadas que se dibujaban si GA4 no respondía— también se eliminaron: ahora, sin
+   datos, los bloques lo dicen con el componente `SinDatos` en lugar de rellenar el
+   hueco. **En la pestaña Audiencia no queda un solo número que no venga de GA4.**
+   ⚠ Fuera de esa pestaña sí queda uno: `YT_GEO` (pestaña YouTube, "Audiencia por
+   país"), cuatro porcentajes escritos a mano y rotulados **"datos del canal"**. La
+   geografía del canal no está en la YouTube Data API que usa `/api/youtube-stats`:
+   vive en la **YouTube Analytics API**, que necesita un scope de OAuth que las
+   credenciales actuales no tienen.
 5. **Esquemas visuales:** siguiente mapa conceptual en `/esquemas` (ej: *Las 12 Tribus de Israel*).

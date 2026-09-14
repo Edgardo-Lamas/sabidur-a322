@@ -28,28 +28,6 @@ const SITE_STATS = {
 };
 
 // ─── DATOS DEMO para Vercel Analytics (se reemplazarán con API real) ─────────
-const TRAFFIC_DATA = [
-    { mes: 'Ene', visitas: 210, usuarios: 175 },
-    { mes: 'Feb', visitas: 280, usuarios: 230 },
-    { mes: 'Mar', visitas: 340, usuarios: 290 },
-    { mes: 'Abr', visitas: 410, usuarios: 355 },
-    { mes: 'May', visitas: 520, usuarios: 440 },
-    { mes: 'Jun', visitas: 490, usuarios: 420 },
-];
-
-const PAGES_DATA = [
-    { page: 'Inicio',           visitas: 520 },
-    { page: 'Historias',        visitas: 390 },
-    { page: 'Artículos',        visitas: 310 },
-    { page: 'Perfecciones',     visitas: 275 },
-    { page: 'Biógrafías',       visitas: 220 },
-    { page: 'Ensayos',          visitas: 185 },
-    { page: 'Mapas',            visitas: 160 },
-    { page: 'Biblioteca',       visitas: 140 },
-];
-
-// Las cuatro historias de /adolescentes, con la ruta real por la que se las lee.
-// Los títulos salen de Youth.jsx; las visitas, de Google Analytics.
 const HISTORIAS = [
     { ruta: '/adolescentes/historias/ansiedad',  nombre: 'El Ancla y la Tormenta',          color: '#5B7FA6' },
     { ruta: '/adolescentes/historias/soledad',   nombre: 'El Dios que Me Ve',               color: '#6A5B9E' },
@@ -113,6 +91,20 @@ const SectionHeader = ({ title, sub }) => (
     <div className="mb-6">
         <h2 className="font-heading font-bold text-sabiduria-navy text-xl">{title}</h2>
         {sub && <p className="font-serif text-sabiduria-gray text-sm mt-0.5">{sub}</p>}
+    </div>
+);
+
+// ─── SIN DATOS ───────────────────────────────────────────────────────────────
+// Un panel de métricas que inventa números es peor que uno vacío: el hueco se
+// explica, el número falso se cree.
+const SinDatos = ({ cargando, error, children }) => (
+    <div className="rounded-lg bg-sabiduria-gray/5 px-5 py-4">
+        <p className="font-serif text-sm text-sabiduria-navy">
+            {cargando ? 'Cargando…' : children}
+        </p>
+        {!cargando && error && (
+            <p className="font-serif text-xs text-sabiduria-gray mt-1.5">{error}</p>
+        )}
     </div>
 );
 
@@ -403,14 +395,20 @@ const Panel = () => {
                         {/* Día a día */}
                         <div className="bg-white rounded-xl border border-sabiduria-gray/10 p-6 shadow-sm">
                             <SectionHeader
-                                title={analytics?.live ? 'Día a día' : 'Tráfico mensual'}
-                                sub={analytics?.live
-                                    ? `Personas y visitas — últimos ${analytics.period ?? '28 días'}`
-                                    : 'Visitas y usuarios únicos (proyección)'}
+                                title="Día a día"
+                                sub={`Personas y visitas — últimos ${analytics?.period ?? '28 días'}`}
                             />
+                            {!analytics?.live || !analytics.daily?.length ? (
+                                <SinDatos
+                                    cargando={analytics === null}
+                                    error={analytics?.error}
+                                >
+                                    Sin datos de Google Analytics para este período.
+                                </SinDatos>
+                            ) : (
                             <ResponsiveContainer width="100%" height={260}>
                                 <AreaChart
-                                    data={analytics?.live ? analytics.daily : TRAFFIC_DATA}
+                                    data={analytics.daily}
                                     margin={{ top: 5, right: 10, left: -10, bottom: 0 }}
                                 >
                                     <defs>
@@ -425,39 +423,46 @@ const Panel = () => {
                                     </defs>
                                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                                     <XAxis
-                                        dataKey={analytics?.live ? 'date' : 'mes'}
+                                        dataKey="date"
                                         tick={{ fontSize: 11, fontFamily: 'var(--font-sans)' }}
-                                        tickFormatter={v => (analytics?.live && typeof v === 'string' && v.length === 10)
+                                        tickFormatter={v => (typeof v === 'string' && v.length === 10)
                                             ? `${v.slice(8, 10)}/${v.slice(5, 7)}`
                                             : v}
                                     />
                                     <YAxis tick={{ fontSize: 12 }} allowDecimals={false} />
                                     <Tooltip content={<CustomTooltip />} />
                                     <Legend />
-                                    <Area type="monotone" dataKey={analytics?.live ? 'sessions' : 'visitas'}
+                                    <Area type="monotone" dataKey="sessions"
                                           name="Visitas"  stroke={GOLD} fill="url(#gradVisitas)"  strokeWidth={2} />
-                                    <Area type="monotone" dataKey={analytics?.live ? 'users' : 'usuarios'}
+                                    <Area type="monotone" dataKey="users"
                                           name="Personas" stroke={NAVY} fill="url(#gradUsuarios)" strokeWidth={2} />
                                 </AreaChart>
                             </ResponsiveContainer>
+                            )}
                         </div>
 
                         {/* Páginas más visitadas */}
                         <div className="bg-white rounded-xl border border-sabiduria-gray/10 p-6 shadow-sm">
                             <SectionHeader
                                 title="Secciones más visitadas"
-                                sub={analytics?.live ? `Vistas reales — últimos ${analytics.period ?? '28 días'}` : 'Vistas por sección (proyección)'}
+                                sub={`Vistas reales — últimos ${analytics?.period ?? '28 días'}`}
                             />
+                            {!analytics?.live || !analytics.pages?.length ? (
+                                <SinDatos cargando={analytics === null} error={analytics?.error}>
+                                    Sin datos de Google Analytics para este período.
+                                </SinDatos>
+                            ) : (
                             <ResponsiveContainer width="100%" height={280}>
-                                <BarChart data={analytics?.live ? analytics.pages : PAGES_DATA} layout="vertical" margin={{ left: 20, right: 20 }}>
+                                <BarChart data={analytics.pages} layout="vertical" margin={{ left: 20, right: 20 }}>
                                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" horizontal={false} />
                                     <XAxis type="number" tick={{ fontSize: 11 }} />
                                     <YAxis type="category" dataKey="page" tick={{ fontSize: 11, fontFamily: 'var(--font-sans)' }} width={190}
                                         tickFormatter={v => (typeof v === 'string' && v.length > 28) ? v.slice(0, 27) + '…' : v} />
                                     <Tooltip content={<CustomTooltip />} />
-                                    <Bar dataKey={analytics?.live ? 'pageviews' : 'visitas'} name="Vistas" fill={GOLD} radius={[0, 4, 4, 0]} />
+                                    <Bar dataKey="pageviews" name="Vistas" fill={GOLD} radius={[0, 4, 4, 0]} />
                                 </BarChart>
                             </ResponsiveContainer>
+                            )}
                         </div>
 
                         {/* De dónde llega la gente */}
