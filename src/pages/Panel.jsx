@@ -457,7 +457,7 @@ const Panel = () => {
                         <div className="bg-white rounded-xl border border-sabiduria-gray/10 p-6 shadow-sm">
                             <SectionHeader
                                 title="Secciones más visitadas"
-                                sub={analytics?.live ? 'Pageviews reales — últimos 30 días' : 'Pageviews por sección (proyección)'}
+                                sub={analytics?.live ? `Vistas reales — últimos ${analytics.period ?? '28 días'}` : 'Vistas por sección (proyección)'}
                             />
                             <ResponsiveContainer width="100%" height={280}>
                                 <BarChart data={analytics?.live ? analytics.pages : PAGES_DATA} layout="vertical" margin={{ left: 20, right: 20 }}>
