@@ -123,7 +123,7 @@ export default async function handler(req, res) {
       };
       const rango = [{ startDate: '28daysAgo', endDate: 'today' }];
 
-      const [totals, fuentes, canales, referentes, diario, paises] = await Promise.all([
+      const [totals, fuentes, canales, referentes, diario, paises, desglose] = await Promise.all([
         report({
           dateRanges: rango, dimensionFilter: filtro,
           metrics: [{ name: 'screenPageViews' }, { name: 'activeUsers' }, { name: 'sessions' }],
@@ -163,6 +163,15 @@ export default async function handler(req, res) {
           orderBys:   [{ metric: { metricName: 'screenPageViews' }, desc: true }],
           limit: 5,
         }),
+        // Qué páginas concretas cayeron bajo el filtro. Con un slug exacto devuelve
+        // una sola; con un prefijo ('adolescentes/historias') devuelve la familia.
+        report({
+          dateRanges: rango, dimensionFilter: filtro,
+          dimensions: [{ name: 'pagePath' }],
+          metrics:    [{ name: 'screenPageViews' }, { name: 'activeUsers' }],
+          orderBys:   [{ metric: { metricName: 'screenPageViews' }, desc: true }],
+          limit: 25,
+        }),
       ]);
 
       const t = totals.rows?.[0];
@@ -190,6 +199,11 @@ export default async function handler(req, res) {
           .map(r => ({ referrer: dim(r, 0) || '(sin referente)', pageviews: num(r, 0) })),
         countries: (paises.rows ?? [])
           .map(r => ({ country: dim(r, 0) || '?', pageviews: num(r, 0) })),
+        pages: (desglose.rows ?? []).map(r => ({
+          page:      dim(r, 0) || '/',
+          pageviews: num(r, 0),
+          users:     num(r, 1),
+        })),
         daily: (diario.rows ?? []).map(r => ({
           date:      fechaLegible(dim(r, 0)),
           pageviews: num(r, 0),

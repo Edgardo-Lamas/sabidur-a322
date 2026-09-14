@@ -48,12 +48,15 @@ const PAGES_DATA = [
     { page: 'Biblioteca',       visitas: 140 },
 ];
 
-const HISTORIAS_DATA = [
-    { name: 'El Ancla',          value: 185, fill: '#5B7FA6' },
-    { name: 'El Dios que Me Ve', value: 142, fill: '#6A5B9E' },
-    { name: '¿Quién Soy?',       value: 128, fill: '#C5A059' },
-    { name: 'El Fracaso',        value: 97,  fill: '#B05A20' },
+// Las cuatro historias de /adolescentes, con la ruta real por la que se las lee.
+// Los títulos salen de Youth.jsx; las visitas, de Google Analytics.
+const HISTORIAS = [
+    { ruta: '/adolescentes/historias/ansiedad',  nombre: 'El Ancla y la Tormenta',          color: '#5B7FA6' },
+    { ruta: '/adolescentes/historias/soledad',   nombre: 'El Dios que Me Ve',               color: '#6A5B9E' },
+    { ruta: '/adolescentes/historias/identidad', nombre: '¿Quién Soy Yo?',                  color: '#C5A059' },
+    { ruta: '/adolescentes/historias/fracaso',   nombre: 'El Fracaso y la 2ª Oportunidad',  color: '#B05A20' },
 ];
+
 
 const CONTENT_PIE = [
     { name: 'Lecturas diarias', value: SITE_STATS.lecturas,   fill: '#C5A059' },
@@ -139,6 +142,7 @@ const Panel = () => {
     const [gscData, setGscData] = useState(null);
     const [paginaElegida, setPaginaElegida] = useState(null);  // ruta que se mira en detalle
     const [detalle, setDetalle]             = useState(null);  // null | 'cargando' | datos
+    const [historias, setHistorias]         = useState(null);  // vistas reales de /adolescentes/historias
 
     useEffect(() => {
         fetch('/api/analytics')
@@ -153,6 +157,10 @@ const Panel = () => {
             .then(r => r.json())
             .then(setGscData)
             .catch(() => setGscData({ live: false }));
+        fetch('/api/analytics?page=adolescentes/historias')
+            .then(r => r.json())
+            .then(setHistorias)
+            .catch(() => setHistorias({ live: false }));
     }, []);
 
     // De dónde llegaron a una página concreta. El contador descarta respuestas
@@ -645,25 +653,62 @@ const Panel = () => {
 
                         {/* Historias para jóvenes */}
                         <div className="bg-white rounded-xl border border-sabiduria-gray/10 p-6 shadow-sm">
-                            <SectionHeader title="Historias para Jóvenes" sub="Lecturas por historia (proyección)" />
-                            <div className="space-y-3">
-                                {HISTORIAS_DATA.map((h, i) => (
-                                    <div key={i} className="flex items-center gap-4">
-                                        <p className="font-serif text-sm text-sabiduria-gray w-40 flex-shrink-0">{h.name}</p>
-                                        <div className="flex-1 bg-sabiduria-gray/8 rounded-full h-5 overflow-hidden">
-                                            <div
-                                                className="h-full rounded-full flex items-center justify-end pr-2 transition-all"
-                                                style={{
-                                                    width: `${(h.value / HISTORIAS_DATA[0].value) * 100}%`,
-                                                    background: h.fill,
-                                                }}
-                                            >
-                                                <span className="font-heading text-xs font-bold text-white">{h.value}</span>
-                                            </div>
+                            <SectionHeader
+                                title="Historias para Jóvenes"
+                                sub={historias?.live
+                                    ? `Lecturas reales — últimos ${historias.period ?? '28 días'}`
+                                    : 'Lecturas por historia'}
+                            />
+
+                            {historias === null && (
+                                <p className="font-serif text-sm text-sabiduria-gray">Cargando…</p>
+                            )}
+
+                            {historias && !historias.live && (
+                                <p className="font-serif text-sm text-amber-700">
+                                    No se pudo leer Google Analytics{historias.error ? `: ${historias.error}` : ''}.
+                                </p>
+                            )}
+
+                            {historias?.live && (() => {
+                                const vistas = Object.fromEntries(
+                                    (historias.pages ?? []).map(p => [p.page.replace(/\/$/, ''), p.pageviews])
+                                );
+                                const filas = HISTORIAS.map(h => ({
+                                    ...h,
+                                    valor: vistas[h.ruta] ?? 0,
+                                }));
+                                const maximo = Math.max(...filas.map(f => f.valor));
+
+                                if (maximo === 0) {
+                                    return (
+                                        <div className="rounded-lg bg-sabiduria-gray/5 px-5 py-4">
+                                            <p className="font-serif text-sm text-sabiduria-navy">
+                                                Ninguna de las cuatro historias tuvo lecturas en los últimos{' '}
+                                                {historias.period ?? '28 días'}.
+                                            </p>
+                                            <p className="font-serif text-xs text-sabiduria-gray mt-1.5">
+                                                Están publicadas y se leen desde <code>/adolescentes</code>. Acá van a
+                                                aparecer las lecturas en cuanto alguien entre.
+                                            </p>
                                         </div>
+                                    );
+                                }
+
+                                return (
+                                    <div className="space-y-3">
+                                        {filas.map((f, i) => (
+                                            <BarraOrigen
+                                                key={i}
+                                                nombre={f.nombre}
+                                                valor={f.valor}
+                                                maximo={maximo}
+                                                color={f.color}
+                                            />
+                                        ))}
                                     </div>
-                                ))}
-                            </div>
+                                );
+                            })()}
                         </div>
 
                     </div>
