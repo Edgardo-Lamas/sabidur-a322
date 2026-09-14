@@ -511,7 +511,7 @@ Antes de hacer push, verificar:
 
 ### Vercel (producción) — configurar en el dashboard de Vercel
 ```
-AI_GATEWAY_API_KEY       # Agente Spurgeon — redacción con Claude vía AI Gateway
+ANTHROPIC_API_KEY        # Agente Spurgeon — redacción con Claude, DIRECTO a api.anthropic.com
 OPENAI_API_KEY           # Agente Spurgeon — embeddings del RAG. Solo servidor, sin VITE_
 VITE_YOUTUBE_API_KEY     # Widget YouTube en Home
 VITE_N8N_WEBHOOK_URL     # Newsletter Footer (opcional, falla gracefully)
@@ -790,7 +790,7 @@ Fase C (3D MapLibre)          → paradas estrella seleccionadas
 - **Integración Templo de Salomón 3D:** visor Three.js movido a `public/templo/templo.html`, ruta `/esquemas/templo-salomon`, tercer tab en Esquemas.jsx. Vite plugin `servePublicHtml()` para evitar conflicto con SPA fallback.
 - **Templo v3 — rediseño fiel (2026-07-06, commit `893e685`, en producción):** piedra caliza gris, corona de almenas azul-oro, portón de bronce, capiteles de lirio, **muros bíblicos piedra+cedro** (atrio interior + gran atrio, se quitó la columnata herodiana), mobiliario reubicado según Escritura, escalera de caracol eliminada, cielo de amanecer y **optimizaciones de rendimiento**. Detalle completo en la sección "Proyecto: Templo de Salomón 3D".
 - **Mapas Bíblicos — Fase inmediata + A:** navegación manual (Anterior/Siguiente/Detener) y zoom cinematográfico (`flyZoom` 13, `flyDuration` 2.2) implementados en `useNarrativeMap.js`.
-- **Agente Spurgeon:** `/api/spurgeon.js` usa `anthropic/claude-sonnet-4.6` **a través del AI Gateway de Vercel** (`baseURL: https://ai-gateway.vercel.sh`, clave `AI_GATEWAY_API_KEY`), no contra `api.anthropic.com`. ⚠ En el Gateway el modelo lleva prefijo de proveedor y **punto** en la versión.
+- **Agente Spurgeon:** `/api/spurgeon.js` usa `claude-sonnet-4-6` **directo contra `api.anthropic.com`** con la clave `ANTHROPIC_API_KEY` (14/9/2026). Antes salía por el AI Gateway de Vercel; se cambió porque el Gateway devolvía **403 `Free tier users do not have access to this model`** —su saldo era el crédito gratuito, que no habilita Sonnet— y el crédito pago ya estaba cargado en Anthropic. Pagar dos veces el mismo modelo no tenía sentido. ⚠ Sin Gateway el modelo va **sin prefijo y con guiones**: `claude-sonnet-4-6`. ⚠ La llamada manda `temperature: 0.7`: **Sonnet 5 rechaza `temperature` con 400**, así que un cambio de modelo exige sacarlo. Lo que se pierde al salir del Gateway: el tope de gasto por clave y los reintentos entre proveedores.
 - ⚠ **El RAG NO usa Supabase.** Esa base se descartó cuando el contenido migró a JSON. Hoy la búsqueda corre sobre `src/data/rag-index.json`, un índice pre-calculado y versionado en git que genera `scripts/build-rag-index.js` (enganchado a `npm run build`). Los scripts `generate_embeddings.js`, `prepare_index.js`, `check_tables.js` y `migrate.js` son **código muerto** que apunta a la Supabase que ya no existe: no correrlos.
 
 ### Próximos Pasos

@@ -38,17 +38,19 @@ const questionSchema = z.object({
 });
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-// Las llamadas a Claude salen por el AI Gateway de Vercel, no contra
-// api.anthropic.com. Motivo: la compra de crédito directo en Anthropic no pasa
-// por el banco, y el Gateway se factura junto con el resto de Vercel. Es la MISMA
-// Messages API (POST /v1/messages), así que sólo cambian la URL base y el nombre
-// del modelo — el prompt, extractJSON y el RAG quedan intactos.
-// ⚠ En el Gateway el modelo lleva prefijo de proveedor y PUNTO en la versión:
-//   'anthropic/claude-sonnet-4.6', nunca 'claude-sonnet-4-6'.
-const MODELO = 'anthropic/claude-sonnet-4.6';
+// Las llamadas a Claude van DIRECTO a api.anthropic.com (14/9/2026).
+// Antes salían por el AI Gateway de Vercel, porque la compra de crédito directo
+// en Anthropic no pasaba por el banco. Ya pasó: hay crédito cargado en Anthropic,
+// y el Gateway rechazaba el pedido igual —403 'Free tier users do not have access
+// to this model'— porque su propio saldo era el crédito gratuito, que no habilita
+// Sonnet. Pagar dos veces por el mismo modelo no tenía sentido.
+// ⚠ Sin el Gateway el modelo va SIN prefijo de proveedor y con GUIONES en la
+//   versión: 'claude-sonnet-4-6', nunca 'anthropic/claude-sonnet-4.6'.
+// ⚠ Si algún día se pasa a Sonnet 5, hay que sacar el `temperature` de la llamada:
+//   ese modelo lo rechaza con 400.
+const MODELO = 'claude-sonnet-4-6';
 const anthropic = new Anthropic({
-    apiKey: process.env.AI_GATEWAY_API_KEY,
-    baseURL: 'https://ai-gateway.vercel.sh',
+    apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
 // La Declaración de Fe es la norma doctrinal del sitio: va SIEMPRE en el prompt,
