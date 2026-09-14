@@ -19,6 +19,15 @@ URL de producción: desplegada en **Vercel** (rama `main` → deploy automático
 
 ### Backend / APIs
 - **Vercel Serverless Functions** (`/api/*.js`) — lógica de servidor, ES Modules
+- **Métricas del panel `/panel`** — tres endpoints, todos con caché de 30 min y todos
+  contestan `200` con `{ live: false, error }` si algo falta (nunca rompen el panel):
+  - `/api/analytics` — Google Analytics 4: totales, páginas más vistas, países,
+    día a día, y **canal y fuente de las visitas** (de dónde llega la gente).
+  - `/api/analytics?page=<ruta>` — lo mismo para **una sola página**: canal, sitio de
+    origen, el enlace exacto del clic (`pageReferrer`) y país. El filtro es `CONTAINS`,
+    así que alcanza con el slug: `?page=acordaos-de-los-presos`.
+  - `/api/search-console` — Google Search Console: clics, impresiones, consultas, posición.
+  - `/api/youtube-stats` — canal de YouTube: suscriptores, vistas, videos.
 - **OpenAI API** (`gpt-4o-mini`) — ChatSpurgeon, agente teológico
 - **N8N webhook** — solo formulario de newsletter en Footer (falla gracefully, no es crítico)
 
@@ -506,7 +515,17 @@ AI_GATEWAY_API_KEY       # Agente Spurgeon — redacción con Claude vía AI Gat
 OPENAI_API_KEY           # Agente Spurgeon — embeddings del RAG. Solo servidor, sin VITE_
 VITE_YOUTUBE_API_KEY     # Widget YouTube en Home
 VITE_N8N_WEBHOOK_URL     # Newsletter Footer (opcional, falla gracefully)
+GOOGLE_CLIENT_ID         # Panel /panel — OAuth de Google (Analytics + Search Console)
+GOOGLE_CLIENT_SECRET     # ídem
+GOOGLE_REFRESH_TOKEN     # ídem
+GA4_PROPERTY_ID          # Panel /panel — ID numérico de la propiedad GA4
+VITE_GA4_MEASUREMENT_ID  # Etiqueta de GA4 en el navegador
 ```
+
+⚠ **Las cuatro de Google están marcadas `Sensitive` en Vercel: `vercel env pull` NO baja
+su valor**, escribe un relleno de 11 caracteres y la consulta falla con
+`invalid_client`. Cualquier prueba contra la API de Google tiene que correr desplegada
+(preview alcanza), no en local.
 
 ### Locales en `~/.zprofile` — uso en sesiones de Claude Code
 ```
@@ -779,5 +798,10 @@ Fase C (3D MapLibre)          → paradas estrella seleccionadas
 1. **Templo de Salomón — pulido final:** portones de bronce en los atrios (2 Cr 4:9), muros más altos, agrandar/aclarar el Mar de Bronce, relieves interiores. Ver "Pendientes" en la sección Templo. **Después: proyecto Templo de Herodes** (ahí sí van columnatas).
 2. **Mapas — Fase B (capa satelital):** ESRI World Imagery activada al superar zoom 12. Implementar después de revisar resolución por parada.
 3. **Mapas — Fase 2 (audio):** requiere guion narrativo del Viaje de Abraham primero. Pipeline: Voicebox → R2 → GeoJSON `audioUrl`.
-4. **Dashboard `/panel`:** conectar Vercel Analytics o Google Search Console para métricas reales.
+4. **Dashboard `/panel`:** conectado a Google Analytics y a Search Console; la pestaña
+   Audiencia muestra datos reales, incluido de dónde llega la gente a cada página.
+   Queda sacar lo que todavía es proyección: el bloque "Historias para Jóvenes"
+   (`HISTORIAS_DATA`, rotulado como proyección) y el de "Deployments recientes",
+   que es código muerto — el endpoint dejó de devolver `recentDeploys` al pasar de
+   Vercel Analytics a GA4.
 5. **Esquemas visuales:** siguiente mapa conceptual en `/esquemas` (ej: *Las 12 Tribus de Israel*).
