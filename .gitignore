@@ -37,3 +37,4 @@ scripts/reporte_calidad*.json
 # Bytecode de Python
 __pycache__/
 *.pyc
+.env*
