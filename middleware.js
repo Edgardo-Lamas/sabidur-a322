@@ -10,7 +10,37 @@ const BOT_UA = /WhatsApp|facebookexternalhit|Facebot|Twitterbot|TelegramBot|Link
 // La home entra explícita: es el enlace que más se comparte y quedaba afuera.
 const OG_PATHS = /^\/(articulo|ensayo|ensayos|articulos|bosquejos|biblioteca|biografias|reformadores|padres-de-la-iglesia|prerreformadores|estudios-libros|estudio|teologia-basica|predicaciones|esquemas|devocionales|adolescentes|grandes-temas|mapas-biblicos|ensenanzas|declaracion-de-fe|tienda|donaciones)(\/|$)|^\/$/;
 
+// El panel de métricas y las APIs que lo alimentan van detrás de una clave
+// (Basic Auth). La clave vive en Vercel → env PANEL_PASSWORD. Si la env falta,
+// se cierra: mejor un panel inaccesible que métricas públicas.
+const PRIVATE_PATHS = /^\/(panel|api\/(analytics|youtube-stats|search-console|youtube-geo))(\/|$)/;
+
+function panelAutorizado(request) {
+  const clave = process.env.PANEL_PASSWORD;
+  if (!clave) return false;
+  const header = request.headers.get('authorization') || '';
+  if (!header.startsWith('Basic ')) return false;
+  try {
+    const [, pass] = atob(header.slice(6)).split(/:(.*)/s);
+    return pass === clave;
+  } catch {
+    return false;
+  }
+}
+
 export default async function middleware(request) {
+  const url0 = new URL(request.url);
+  if (PRIVATE_PATHS.test(url0.pathname)) {
+    if (panelAutorizado(request)) return; // pasa al SPA / a la función
+    return new Response('Acceso restringido', {
+      status: 401,
+      headers: {
+        'WWW-Authenticate': 'Basic realm="Panel SPC", charset="UTF-8"',
+        'Cache-Control': 'no-store',
+      },
+    });
+  }
+
   const ua = request.headers.get('user-agent') || '';
   if (!BOT_UA.test(ua)) return; // Usuarios normales: pasa al SPA
 
@@ -39,6 +69,11 @@ export default async function middleware(request) {
 
 export const config = {
   matcher: [
+    '/panel',
+    '/api/analytics',
+    '/api/youtube-stats',
+    '/api/search-console',
+    '/api/youtube-geo',
     '/',
     '/articulo/:slug*',
     '/ensayo/:slug*',
