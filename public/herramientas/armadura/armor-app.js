@@ -43,6 +43,9 @@
   }
 
   // ---------------- figura ----------------
+  const precargaArmado = new Image();
+  precargaArmado.src = '/img/armadura/heroe-armado.png';
+
   function buildFigure() {
     const host = document.getElementById('figureHost');
     host.innerHTML = window.ArmorFigure.buildSVGString({ equipped: new Set(), face: state.face });
@@ -271,6 +274,10 @@
     // 4. Final explosion after all pieces assembled
     const totalTime = 400 + order.length * PIECE_DELAY + WHIRL_MS;
     setTimeout(() => {
+      // El destello dorado tapa el cambio: las piezas sueltas dejan paso a la
+      // imagen del guerrero armado (cara visible, espada en la mano, botas puestas).
+      if (svgEl) svgEl.classList.add('armado-on');
+
       // Golden burst flash
       const burst = document.createElement('div');
       burst.className = 'asm-final-burst';
@@ -291,6 +298,12 @@
     setTimeout(() => {
       document.getElementById('btnFinish').style.display = '';
       document.getElementById('equipCount').textContent = '¡Armadura completa!';
+      // El cartel tapaba piernas y botas: después de la celebración se retira
+      // junto con el velo del piso y el guerrero queda a la vista completo.
+      const veil2 = document.getElementById('asmFloorVeil');
+      const txt2 = document.getElementById('asmCompleteText');
+      if (veil2) veil2.classList.remove('show');
+      if (txt2) txt2.classList.remove('show');
     }, totalTime + 2500);
   }
 

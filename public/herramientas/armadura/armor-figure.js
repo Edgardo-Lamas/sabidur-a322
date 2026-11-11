@@ -105,7 +105,18 @@
 
   /* ---- Hero base: PNG con fondo transparente ---- */
   function baseBody() {
-    return `<image href="${IMG}heroe.png" ${attrs(CAJA_HEROE)}
+    return `<image class="base" href="${IMG}heroe.png" ${attrs(CAJA_HEROE)}
+              preserveAspectRatio="xMidYMid meet"/>`;
+  }
+
+  /* ---- Guerrero ARMADO: una sola imagen coherente (Flow, nov 2026) ----
+     Las piezas sueltas se montan durante el ensamblaje (animación), pero el
+     estado final es esta imagen: cara visible, espada empuñada, botas calzadas.
+     Mismo lienzo 1080×1920 y mismo encuadre que heroe.png (pies alineados), así
+     que usa CAJA_HEROE tal cual. */
+  const ARMADO = 'heroe-armado.png';
+  function armadoBody() {
+    return `<image id="armado" href="${IMG}${ARMADO}" ${attrs(CAJA_HEROE)}
               preserveAspectRatio="xMidYMid meet"/>`;
   }
 
@@ -195,6 +206,10 @@
       .piece{opacity:0;transform:scale(.84);transform-box:fill-box;transform-origin:center;
              transition:opacity .55s ease, transform .65s cubic-bezier(.2,.85,.25,1);}
       .piece[data-on="1"]{opacity:1;transform:scale(1);}
+      #armado{opacity:0;transition:opacity .9s ease;}
+      .base{transition:opacity .9s ease;}
+      svg.armado-on #armado{opacity:1;}
+      svg.armado-on .base, svg.armado-on .piece{opacity:0 !important;}
     </style>`;
   }
 
@@ -209,6 +224,7 @@
     // Solo superpone foto si el usuario subió una en el retrato final
     if (face && face.type === 'photo' && face.src) svg += faceGroup(face);
     svg += allPieces();
+    svg += armadoBody();
     svg = setEquippedInString(svg, equipped);
     svg += '</svg>';
     return svg;
@@ -298,8 +314,13 @@
     const figX = (W - figW) / 2;
     const figY = H * 0.165;
 
-    // Héroe base
-    const heroImg = await loadImg(IMG + 'heroe.png');
+    const equippedIds = state.equipped === 'all'
+      ? ['cinturon','coraza','calzado','escudo','yelmo','espada']
+      : [...(state.equipped || [])];
+    const completo = equippedIds.length === 6;
+
+    // Héroe base (o el guerrero armado completo)
+    const heroImg = await loadImg(IMG + (completo ? ARMADO : 'heroe.png'));
     if (heroImg) {
       ctx.save();
       ctx.shadowColor = 'rgba(233,201,138,0.35)'; ctx.shadowBlur = W * 0.05;
@@ -324,12 +345,8 @@
       }
     }
 
-    // Piezas equipadas
-    const equippedIds = state.equipped === 'all'
-      ? ['cinturon','coraza','calzado','escudo','yelmo','espada']
-      : [...(state.equipped || [])];
-
-    for (const id of equippedIds) {
+    // Piezas equipadas (solo si la armadura está incompleta: la completa ya viene puesta)
+    for (const id of (completo ? [] : equippedIds)) {
       // El calzado se dibuja como dos botas separadas, una sobre cada pie
       // (mismo criterio que la figura SVG), no como el par diagonal original.
       const specs = id === 'calzado'
@@ -356,18 +373,21 @@
       }
     }
 
-    // 6. Textos finales
-    const by = H * 0.83;
+    // 6. Textos finales — se apilan según cuántas líneas ocupe la cita, para que
+    // la referencia nunca pise "SABIDURÍA PARA EL CORAZÓN" al pie.
+    const by = H * 0.815;
     ctx.fillStyle = '#F6F3EA';
     ctx.font = `600 ${W * 0.058}px 'Cormorant Garamond', serif`;
     ctx.fillText('✦ ' + window.ARMOR_FINAL.badge + ' ✦', W / 2, by);
     ctx.fillStyle = 'rgba(246,243,234,0.92)';
     ctx.font = `italic 500 ${W * 0.038}px 'Cormorant Garamond', serif`;
-    wrapText(ctx, '«' + window.ARMOR_FINAL.verse + '»', W / 2, by + H * 0.05, W * 0.78, W * 0.05);
+    const lhVerso = W * 0.05;
+    const yVerso = by + H * 0.045;
+    const nVerso = wrapText(ctx, '«' + window.ARMOR_FINAL.verse + '»', W / 2, yVerso, W * 0.78, lhVerso, true);
     ctx.fillStyle = '#E9C98A';
     ctx.font = `500 ${W * 0.03}px 'Jost', sans-serif`;
     if ('letterSpacing' in ctx) ctx.letterSpacing = `${W * 0.006}px`;
-    ctx.fillText(window.ARMOR_FINAL.ref.toUpperCase(), W / 2, by + H * 0.115);
+    ctx.fillText(window.ARMOR_FINAL.ref.toUpperCase(), W / 2, yVerso + (nVerso - 1) * lhVerso + H * 0.04);
     if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
     ctx.fillStyle = 'rgba(233,201,138,0.8)';
     ctx.font = `400 ${W * 0.026}px 'Jost', sans-serif`;
@@ -376,15 +396,16 @@
     if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
   }
 
-  function wrapText(ctx, text, x, y, maxW, lh) {
+  function wrapText(ctx, text, x, y, maxW, lh, desdeArriba) {
     const words = text.split(' '); let line = ''; const lines = [];
     for (const w of words) {
       const t = line ? line + ' ' + w : w;
       if (ctx.measureText(t).width > maxW && line) { lines.push(line); line = w; } else line = t;
     }
     if (line) lines.push(line);
-    const startY = y - (lines.length - 1) * lh / 2;
+    const startY = desdeArriba ? y : y - (lines.length - 1) * lh / 2;
     lines.forEach((l, i) => ctx.fillText(l, x, startY + i * lh));
+    return lines.length;
   }
 
   window.ArmorFigure = { buildSVGString, faceMarkup, faceGroup, renderFinal, VB_W, VB_H };
