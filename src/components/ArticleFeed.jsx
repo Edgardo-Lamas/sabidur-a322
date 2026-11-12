@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import contentData from '../data/content.json';
 import textos from '../data/textos.json';
 import { ArticlesArraySchema, validateInDev } from '../data/schemas';
+import { formatearFecha } from '../lib/fecha';
 
 const ArticleFeed = () => {
     const [selectedCategory, setSelectedCategory] = React.useState('Todos');
@@ -97,7 +98,7 @@ const ArticleFeed = () => {
                                     <div className="flex items-center gap-3 text-xs uppercase tracking-widest text-sabiduria-gray/80 mb-4 font-sans">
                                         <span className="font-bold text-sabiduria-gold">{article.category}</span>
                                         <span className="w-1 h-1 bg-sabiduria-gray/30 rounded-full"></span>
-                                        <span>{new Date(article.date).toLocaleDateString('es-ES', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                                        <span>{formatearFecha(article.date, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                                     </div>
 
                                     <h3 className="text-2xl md:text-3xl font-serif text-sabiduria-navy leading-[1.15] mb-4 group-hover:text-sabiduria-gold transition-colors">

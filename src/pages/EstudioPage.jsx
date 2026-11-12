@@ -8,6 +8,7 @@ import ShareButtons from '../components/ShareButtons';
 import NewsletterForm from '../components/NewsletterForm';
 import contentData from '../data/content.json';
 import { sanitizeHTML } from '../lib/sanitize';
+import { formatearFecha } from '../lib/fecha';
 
 /**
  * EstudioPage - Página dinámica para estudios con video de YouTube
@@ -144,7 +145,7 @@ const EstudioPage = () => {
                         <p className="text-sabiduria-gray text-sm mb-6">
                             {estudio.author && <span>{estudio.author}</span>}
                             {estudio.author && estudio.date && <span className="mx-2">•</span>}
-                            {estudio.date && <span>{new Date(estudio.date).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}</span>}
+                            {estudio.date && <span>{formatearFecha(estudio.date, { day: 'numeric', month: 'long', year: 'numeric' })}</span>}
                         </p>
                     )}
                     <ShareButtons

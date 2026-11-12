@@ -6,6 +6,7 @@ import Breadcrumbs from '../components/Breadcrumbs';
 import content from '../data/content.json';
 import textos from '../data/textos.json';
 import { ArticlesArraySchema, validateInDev } from '../data/schemas';
+import { formatearFecha } from '../lib/fecha';
 
 const Articles = () => {
     const [searchTerm, setSearchTerm] = React.useState('');
@@ -193,7 +194,7 @@ const Articles = () => {
                                 </p>
                                 <div className="pt-6 border-t border-sabiduria-gray/10 flex justify-between items-center">
                                     <span className="text-sm font-medium text-sabiduria-gray italic">
-                                        {new Date(article.date).toLocaleDateString('es-ES', { month: 'short', year: 'numeric' })}
+                                        {formatearFecha(article.date, { month: 'short', year: 'numeric' })}
                                     </span>
                                     <div className="flex items-center gap-4">
                                         {article.pdf_url && (

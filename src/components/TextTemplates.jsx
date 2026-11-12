@@ -4,6 +4,7 @@ import { useLocation, Link } from 'react-router-dom';
 import ShareButtons from './ShareButtons';
 import { sanitizeHTML } from '../lib/sanitize';
 import { RecommendedReadings } from './ui/Card';
+import { formatearFecha } from '../lib/fecha';
 
 /**
  * AuthorshipFooter - Sección de autoría estilo Ligonier
@@ -32,7 +33,7 @@ export const ArticleTemplate = ({ text }) => {
                     {author && <span>Por {author}</span>}
                     {date && (
                         <span className="italic">
-                            {new Date(date).toLocaleDateString('es-ES', {
+                            {formatearFecha(date, {
                                 month: 'long',
                                 day: 'numeric',
                                 year: 'numeric'
@@ -115,7 +116,7 @@ export const EssayTemplate = ({ text }) => {
                     {author && date && <span className="mx-2">·</span>}
                     {date && (
                         <span className="italic">
-                            {new Date(date).toLocaleDateString('es-ES', {
+                            {formatearFecha(date, {
                                 month: 'long',
                                 year: 'numeric'
                             })}

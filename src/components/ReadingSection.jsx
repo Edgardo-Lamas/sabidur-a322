@@ -5,6 +5,7 @@ import content from '../data/content.json';
 import textos from '../data/textos.json';
 import { sanitizeHTML } from '../lib/sanitize';
 import { RecommendedReadings } from './ui/Card';
+import { formatearFecha } from '../lib/fecha';
 
 /**
  * AuthorshipFooter - Sección de autoría estilo Ligonier
@@ -99,7 +100,7 @@ const ReadingSection = ({ article }) => {
                         {article.title}
                     </h1>
                     <div className="text-sabiduria-gray text-lg italic">
-                        Publicado el {new Date(article.date).toLocaleDateString('es-ES', { month: 'long', day: 'numeric', year: 'numeric' })}
+                        Publicado el {formatearFecha(article.date, { month: 'long', day: 'numeric', year: 'numeric' })}
                     </div>
                 </header>
 
