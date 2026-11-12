@@ -84,7 +84,7 @@ const ArticleFeed = () => {
                         ))
                     ) : filteredArticles.length > 0 ? (
                         filteredArticles.slice(0, 3).map((article) => (
-                            <article key={article.id} className="group flex flex-col items-start animate-fade-in-up">
+                            <article key={article.slug} className="group flex flex-col items-start animate-fade-in-up">
                                 {/* Decorative line for first item or specific style could go here, but keeping it clean */}
                                 <div className="w-full mb-6 overflow-hidden">
                                     {article.image ? (

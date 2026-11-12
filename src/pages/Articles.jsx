@@ -182,7 +182,7 @@ const Articles = () => {
                             );
                         })}
                         {filteredArticles.map((article) => (
-                            <article key={article.id} className="group flex flex-col h-full bg-white p-8 border border-sabiduria-gray/5 hover:border-sabiduria-gold/20 transition-all shadow-sm">
+                            <article key={article.slug} className="group flex flex-col h-full bg-white p-8 border border-sabiduria-gray/5 hover:border-sabiduria-gold/20 transition-all shadow-sm">
                                 <span className="text-xs uppercase tracking-widest text-sabiduria-gold font-bold mb-4">
                                     {article.category}
                                 </span>
