@@ -4,6 +4,7 @@ dotenv.config();
 import OpenAI from 'openai';
 import Anthropic from '@anthropic-ai/sdk';
 import { readFileSync } from 'fs';
+import { createHash } from 'crypto';
 import { join } from 'path';
 import { z } from 'zod';
 import { buscar, dimensionesIndice, filtrarEnlaces } from './rag-search.js';
@@ -31,6 +32,43 @@ function checkRateLimit(ip) {
     if (entry.count >= RATE_LIMIT) return false;
     entry.count++;
     return true;
+}
+
+// ── Tope diario por persona (12/11/2026) ────────────────────────────────────
+// 6 preguntas por día por persona (por IP), contadas en Upstash Redis — cuenta
+// de Upstash de edgardolamas2000@gmail.com, base `spurgeon-limite`, us-east-1.
+// El limitador de arriba vive en memoria y cada instancia cuenta por su lado:
+// no frena nada a lo largo de un día. Este sí.
+// - El día se corta a la medianoche de Argentina, no de Londres.
+// - La IP no se guarda: se guarda su huella (sha256), que no permite recuperarla.
+// - Si Upstash no responde, se deja pasar la pregunta (falla abierta): el tope
+//   de gasto mensual de Anthropic sigue frenando por arriba.
+const LIMITE_DIARIO = 6;
+
+async function contarPreguntaDelDia(ip) {
+    const url = process.env.UPSTASH_REDIS_REST_URL;
+    const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+    if (!url || !token) return null;
+
+    const dia = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Argentina/Buenos_Aires' });
+    const persona = createHash('sha256').update(ip).digest('hex').slice(0, 32);
+    const clave = `spurgeon:${dia}:${persona}`;
+    try {
+        const r = await fetch(`${url.replace(/\/+$/, '')}/pipeline`, {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+            // Dos días de vida: alcanza para cubrir el día entero en cualquier huso.
+            body: JSON.stringify([['INCR', clave], ['EXPIRE', clave, '172800']]),
+            signal: AbortSignal.timeout(3000),
+        });
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        const [incr] = await r.json();
+        const n = Number(incr?.result);
+        return Number.isFinite(n) ? n : null;
+    } catch (err) {
+        console.error('[Spurgeon límite] No se pudo contar la pregunta:', err.message);
+        return null;
+    }
 }
 
 const questionSchema = z.object({
@@ -210,6 +248,21 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'La pregunta debe tener entre 3 y 500 caracteres.' });
     }
     const { question } = parsed.data;
+
+    const usadas = await contarPreguntaDelDia(ip);
+    if (usadas !== null && usadas > LIMITE_DIARIO) {
+        return res.status(429).json({
+            reply: `Por hoy ya conversamos ${LIMITE_DIARIO} veces, que es lo que puedo responderle a cada persona en un día. Mañana con gusto seguimos. Mientras tanto, en el sitio tiene ensayos y un curso completo de teología para seguir leyendo con calma.`,
+            limiteDiario: true,
+            verse: null,
+            suggestedQuestions: [],
+            suggestedLinks: filtrarEnlaces([
+                { title: 'Ensayos teológicos', url: '/ensayos', type: 'ensayo' },
+                { title: 'Curso de Teología Básica', url: '/teologia-basica', type: 'estudio' },
+            ]),
+            sources: [],
+        });
+    }
 
     // Búsqueda semántica sobre el índice local. Antes esto consultaba Supabase;
     // ese proyecto se descartó y la búsqueda quedó muerta sin dar error: el agente

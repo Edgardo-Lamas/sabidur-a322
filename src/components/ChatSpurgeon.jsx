@@ -32,92 +32,55 @@ const ChatSpurgeon = () => {
         }
     }, [messages, isTyping]);
 
-    const handleSend = async (e) => {
-        if (e) e.preventDefault();
-        if (!input.trim()) return;
-
-        const question = input.trim();
-        const userMessage = { role: 'user', content: question, timestamp: new Date() };
-        setMessages(prev => [...prev, userMessage]);
-        setInput('');
+    // Una sola función para las dos formas de preguntar (escribir o tocar una
+    // sugerencia). El servidor puede contestar con código de error Y un mensaje
+    // útil —el tope diario (429) o las lecturas del sitio cuando falla la
+    // redacción (500)—: si trae `reply`, se muestra eso en lugar del aviso genérico.
+    const preguntar = async (question) => {
+        setMessages(prev => [...prev, { role: 'user', content: question, timestamp: new Date() }]);
         setIsTyping(true);
-
         try {
             const response = await fetch(SPURGEON_API_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ question })
             });
+            let data = null;
+            try { data = await response.json(); } catch { /* respuesta sin JSON */ }
+            if (!data?.reply) throw new Error(`Error del servidor: ${response.status}`);
 
-            if (!response.ok) {
-                throw new Error(`Error del servidor: ${response.status}`);
-            }
-
-            const data = await response.json();
-
-            const assistantMessage = {
+            setMessages(prev => [...prev, {
                 role: 'assistant',
-                content: data.reply || 'No pude encontrar una respuesta relevante. Intente reformular su pregunta.',
+                content: data.reply,
                 sources: data.sources || [],
                 suggestedLinks: data.suggestedLinks || [],
                 suggestedQuestions: data.suggestedQuestions || [],
                 verse: data.verse || null,
                 timestamp: new Date()
-            };
-            setMessages(prev => [...prev, assistantMessage]);
+            }]);
         } catch {
-            // error silenciado en producción
-            const errorMessage = {
+            setMessages(prev => [...prev, {
                 role: 'assistant',
                 content: 'Disculpe, hubo un inconveniente al procesar su consulta. Por favor, intente nuevamente en unos momentos.',
                 timestamp: new Date(),
                 suggestedQuestions: INITIAL_SUGGESTIONS
-            };
-            setMessages(prev => [...prev, errorMessage]);
+            }]);
         } finally {
             setIsTyping(false);
         }
     };
 
-    const handleSuggestionClick = (question) => {
-        setInput(question);
-        setTimeout(() => {
-            setInput('');
-            const userMessage = { role: 'user', content: question, timestamp: new Date() };
-            setMessages(prev => [...prev, userMessage]);
-            setIsTyping(true);
+    const handleSend = (e) => {
+        if (e) e.preventDefault();
+        if (!input.trim()) return;
+        const question = input.trim();
+        setInput('');
+        preguntar(question);
+    };
 
-            fetch(SPURGEON_API_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ question })
-            })
-                .then(res => {
-                    if (!res.ok) throw new Error(`Error ${res.status}`);
-                    return res.json();
-                })
-                .then(data => {
-                    const assistantMessage = {
-                        role: 'assistant',
-                        content: data.reply || 'No pude encontrar una respuesta relevante.',
-                        sources: data.sources || [],
-                        suggestedLinks: data.suggestedLinks || [],
-                        suggestedQuestions: data.suggestedQuestions || [],
-                        verse: data.verse || null,
-                        timestamp: new Date()
-                    };
-                    setMessages(prev => [...prev, assistantMessage]);
-                })
-                .catch(() => {
-                    setMessages(prev => [...prev, {
-                        role: 'assistant',
-                        content: 'Disculpe, hubo un inconveniente. Intente nuevamente.',
-                        timestamp: new Date(),
-                        suggestedQuestions: INITIAL_SUGGESTIONS
-                    }]);
-                })
-                .finally(() => setIsTyping(false));
-        }, 50);
+    const handleSuggestionClick = (question) => {
+        setInput('');
+        preguntar(question);
     };
 
     const getLinkIcon = (type) => {
