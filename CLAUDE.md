@@ -504,6 +504,7 @@ Antes de hacer push, verificar:
 - **SEO por página:** `SEO.jsx` con `react-helmet-async`.
 - **React StrictMode desactivado** — react-leaflet no es compatible con el doble efecto.
 - **Serverless Functions:** lógica sensible (API keys) va en `/api/*.js`, nunca en el cliente.
+- **Fechas del contenido (`"date": "AAAA-MM-DD"`): mostrarlas SIEMPRE con `formatearFecha()` de `src/lib/fecha.js`.** `new Date('2026-09-05')` es medianoche UTC y en Argentina (UTC−3) se muestra como el día anterior: todo el sitio tuvo las fechas corridas un día hasta el 12/11/2026.
 
 ---
 
