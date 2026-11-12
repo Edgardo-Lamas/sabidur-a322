@@ -45,10 +45,13 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 // to this model'— porque su propio saldo era el crédito gratuito, que no habilita
 // Sonnet. Pagar dos veces por el mismo modelo no tenía sentido.
 // ⚠ Sin el Gateway el modelo va SIN prefijo de proveedor y con GUIONES en la
-//   versión: 'claude-sonnet-4-6', nunca 'anthropic/claude-sonnet-4.6'.
-// ⚠ Si algún día se pasa a Sonnet 5, hay que sacar el `temperature` de la llamada:
-//   ese modelo lo rechaza con 400.
-const MODELO = 'claude-sonnet-4-6';
+//   versión: 'claude-sonnet-5-5', nunca 'anthropic/claude-sonnet-5.5'.
+// 12/11/2026: pasó a Claude Sonnet 5.5 — un tercio más barato que Sonnet 4.6
+// ($2/$10 contra $3/$15 por millón de tokens). Este modelo NO acepta `temperature`
+// (400) ni `thinking: {type: 'disabled'}` (400): sin razonamiento extendido se
+// pide con `between_tools`, que acá — sin herramientas — significa «no piensa,
+// contesta», y así cada consulta cuesta lo que se ve.
+const MODELO = 'claude-sonnet-5-5';
 const anthropic = new Anthropic({
     apiKey: process.env.ANTHROPIC_API_KEY,
 });
@@ -244,17 +247,28 @@ export default async function handler(req, res) {
         const systemPrompt = buildSystemPrompt(context, enlacesDelContexto);
 
         // 3. Consultar a Claude (Anthropic)
-        const response = await anthropic.messages.create({
+        // `fallbacks: 'default'`: si el filtro de seguridad del modelo rechaza una
+        // pregunta legítima (pasa con temas como el suicidio o la violencia en la
+        // Biblia), Anthropic la vuelve a correr en otro modelo dentro de la misma
+        // llamada en lugar de devolver nada.
+        const response = await anthropic.beta.messages.create({
             model: MODELO,
             max_tokens: 1200,
             system: systemPrompt,
             messages: [
                 { role: 'user', content: question }
             ],
-            temperature: 0.7,
+            thinking: { type: 'between_tools' },
+            output_config: { effort: 'medium' },
+            betas: ['server-side-fallback-2026-07-01'],
+            fallbacks: 'default',
         });
 
-        const rawText = response.content[0].text;
+        if (response.stop_reason === 'refusal') {
+            throw new Error(`rechazo del modelo (${response.stop_details?.category || 'sin categoría'})`);
+        }
+        // El texto se busca por TIPO: la respuesta puede traer otros bloques antes.
+        const rawText = response.content.filter(b => b.type === 'text').map(b => b.text).join('');
         const data = extractJSON(rawText);
 
         const sources = documents.map(doc => ({ title: doc.title, source: doc.source }));
