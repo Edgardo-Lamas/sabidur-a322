@@ -45,30 +45,74 @@ function checkRateLimit(ip) {
 //   de gasto mensual de Anthropic sigue frenando por arriba.
 const LIMITE_DIARIO = 6;
 
-async function contarPreguntaDelDia(ip) {
+// ── Tope de gasto mensual: 5 dólares (12/11/2026) ───────────────────────────
+// Lo pidió Edgardo en lugar de configurarlo en la consola de Anthropic. Después
+// de cada respuesta se suma su costo REAL (los tokens que informa Anthropic por
+// el precio del modelo) en Upstash; cuando el mes llega a 5 dólares, Spurgeon
+// deja de llamar al modelo hasta el 1.º del mes siguiente (hora de Argentina).
+// Se guarda en millonésimas de dólar para sumar enteros.
+// No incluye las búsquedas en OpenAI (embeddings): son centésimas de centavo.
+const TOPE_MENSUAL_USD = 5;
+const PRECIOS_POR_MILLON = [            // [entrada, salida] en dólares
+    [/opus/, [4, 20]],
+    [/fable|mythos/, [8, 40]],
+    [/haiku/, [0.1, 0.5]],
+    [/./, [2, 10]],                      // Sonnet 5.5 y cualquier otro
+];
+
+function fechaAR() {
+    return new Date().toLocaleDateString('en-CA', { timeZone: 'America/Argentina/Buenos_Aires' });
+}
+
+async function upstash(comandos) {
     const url = process.env.UPSTASH_REDIS_REST_URL;
     const token = process.env.UPSTASH_REDIS_REST_TOKEN;
     if (!url || !token) return null;
-
-    const dia = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Argentina/Buenos_Aires' });
-    const persona = createHash('sha256').update(ip).digest('hex').slice(0, 32);
-    const clave = `spurgeon:${dia}:${persona}`;
     try {
         const r = await fetch(`${url.replace(/\/+$/, '')}/pipeline`, {
             method: 'POST',
             headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-            // Dos días de vida: alcanza para cubrir el día entero en cualquier huso.
-            body: JSON.stringify([['INCR', clave], ['EXPIRE', clave, '172800']]),
+            body: JSON.stringify(comandos),
             signal: AbortSignal.timeout(3000),
         });
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        const [incr] = await r.json();
-        const n = Number(incr?.result);
-        return Number.isFinite(n) ? n : null;
+        return (await r.json()).map(x => x?.result);
     } catch (err) {
-        console.error('[Spurgeon límite] No se pudo contar la pregunta:', err.message);
+        console.error('[Spurgeon límite] Upstash no respondió:', err.message);
         return null;
     }
+}
+
+/** Cuenta la pregunta del día y trae lo gastado en el mes, en un solo viaje. */
+async function controlarTopes(ip) {
+    const dia = fechaAR();
+    const persona = createHash('sha256').update(ip).digest('hex').slice(0, 32);
+    const claveDia = `spurgeon:${dia}:${persona}`;
+    const r = await upstash([
+        ['INCR', claveDia],
+        // Dos días de vida: alcanza para cubrir el día entero en cualquier huso.
+        ['EXPIRE', claveDia, '172800'],
+        ['GET', `spurgeon:gasto:${dia.slice(0, 7)}`],
+    ]);
+    if (!r) return { usadas: null, gastoUsd: null };
+    const usadas = Number(r[0]);
+    return {
+        usadas: Number.isFinite(usadas) ? usadas : null,
+        gastoUsd: (Number(r[2]) || 0) / 1e6,
+    };
+}
+
+/** Suma el costo real de una respuesta al gasto del mes. */
+async function sumarGasto(response) {
+    const u = response?.usage;
+    if (!u) return;
+    const modelo = String(response.model || MODELO);
+    const [entrada, salida] = PRECIOS_POR_MILLON.find(([re]) => re.test(modelo))[1];
+    const tokensEntrada = (u.input_tokens || 0) + (u.cache_creation_input_tokens || 0) + (u.cache_read_input_tokens || 0);
+    const micro = Math.ceil(tokensEntrada * entrada + (u.output_tokens || 0) * salida);
+    const clave = `spurgeon:gasto:${fechaAR().slice(0, 7)}`;
+    const r = await upstash([['INCRBY', clave, String(micro)], ['EXPIRE', clave, String(40 * 86400)]]);
+    console.log(`[Spurgeon gasto] ${modelo}: USD ${(micro / 1e6).toFixed(4)} · mes: USD ${r ? (Number(r[0]) / 1e6).toFixed(2) : '?'} de ${TOPE_MENSUAL_USD}`);
 }
 
 const questionSchema = z.object({
@@ -249,17 +293,29 @@ export default async function handler(req, res) {
     }
     const { question } = parsed.data;
 
-    const usadas = await contarPreguntaDelDia(ip);
+    const { usadas, gastoUsd } = await controlarTopes(ip);
+    const lecturas = filtrarEnlaces([
+        { title: 'Ensayos teológicos', url: '/ensayos', type: 'ensayo' },
+        { title: 'Curso de Teología Básica', url: '/teologia-basica', type: 'estudio' },
+    ]);
+    if (gastoUsd !== null && gastoUsd >= TOPE_MENSUAL_USD) {
+        console.warn(`[Spurgeon] Tope mensual alcanzado: USD ${gastoUsd.toFixed(2)}`);
+        return res.status(429).json({
+            reply: 'Este mes ya respondí todas las consultas que podía, y vuelvo a estar disponible el 1.º del mes próximo. Mientras tanto, en el sitio tiene ensayos y un curso completo de teología para seguir leyendo con calma.',
+            limiteMensual: true,
+            verse: null,
+            suggestedQuestions: [],
+            suggestedLinks: lecturas,
+            sources: [],
+        });
+    }
     if (usadas !== null && usadas > LIMITE_DIARIO) {
         return res.status(429).json({
             reply: `Por hoy ya conversamos ${LIMITE_DIARIO} veces, que es lo que puedo responderle a cada persona en un día. Mañana con gusto seguimos. Mientras tanto, en el sitio tiene ensayos y un curso completo de teología para seguir leyendo con calma.`,
             limiteDiario: true,
             verse: null,
             suggestedQuestions: [],
-            suggestedLinks: filtrarEnlaces([
-                { title: 'Ensayos teológicos', url: '/ensayos', type: 'ensayo' },
-                { title: 'Curso de Teología Básica', url: '/teologia-basica', type: 'estudio' },
-            ]),
+            suggestedLinks: lecturas,
             sources: [],
         });
     }
@@ -317,6 +373,9 @@ export default async function handler(req, res) {
             fallbacks: 'default',
         });
 
+        // Se suma aunque después falle el armado: el modelo ya cobró.
+        await sumarGasto(response);
+
         if (response.stop_reason === 'refusal') {
             throw new Error(`rechazo del modelo (${response.stop_details?.category || 'sin categoría'})`);
         }
@@ -365,3 +424,6 @@ export default async function handler(req, res) {
         });
     }
 }
+
+// Sólo para las pruebas locales de los topes (no las usa el sitio).
+export const _paraPruebas = { controlarTopes, sumarGasto };
