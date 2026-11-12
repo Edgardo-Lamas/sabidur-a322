@@ -328,21 +328,9 @@
       ctx.restore();
     }
 
-    // Overlay de foto si existe
-    if (state.face && state.face.type === 'photo' && state.face.src) {
-      const faceImg = await loadImg(state.face.src);
-      if (faceImg) {
-        // posición aproximada del rostro: centro-superior del héroe
-        const fw = figW * 0.42, fh = fw;
-        const fx = figX + (figW - fw) / 2;
-        const fy = figY + figH * 0.01;
-        ctx.save();
-        ctx.beginPath();
-        ctx.ellipse(fx + fw / 2, fy + fh * 0.52, fw * 0.45, fh * 0.52, 0, 0, Math.PI * 2);
-        ctx.clip();
-        ctx.drawImage(faceImg, fx, fy, fw, fh);
-        ctx.restore();
-      }
+    // La cara del jugador, dentro del yelmo
+    if (state.face && state.face.type === 'photo' && state.face.img && state.face.ajuste) {
+      dibujarRostro(ctx, state.face, figX, figY, figW / 1080);
     }
 
     // Piezas equipadas (solo si la armadura está incompleta: la completa ya viene puesta)
@@ -396,6 +384,98 @@
     if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
   }
 
+  /* ===================== ROSTRO DEL JUGADOR =====================
+     Medido sobre heroe-armado.png (1080×1920, en sus píxeles): la cara está de
+     frente, entre el ala del yelmo (arriba, y≈200) y las carrilleras (x≈485 y
+     x≈620). La foto se alinea por los OJOS y la BOCA: así la escala sale de la
+     distancia ojos→boca y el mentón también calza (si se escalara por la
+     distancia entre ojos, la cara saldría grande: los ojos del dibujo están más
+     separados que en una cara real). */
+  const CARA = {
+    ojos: { x: 550, y: 236.5 },   // punto medio entre las pupilas (513,237)·(587,236)
+    boca: { x: 550, y: 305 },
+    // ventana visible: un óvalo que no toca ni el ala ni las carrilleras
+    cx: 551, cy: 280, rx: 57, ry: 72,
+  };
+
+  /* Cómo pasar la foto al lienzo del héroe. `puntos` viene del detector
+     ({ojoA, ojoB, boca} en px de la foto); sin detección, se supone una foto
+     tipo selfi con la cara al centro y el jugador la acomoda a mano. */
+  function ajusteRostro(img, puntos) {
+    const W = img.naturalWidth, H = img.naturalHeight;
+    let ojos, boca;
+    if (puntos) {
+      ojos = { x: (puntos.ojoA.x + puntos.ojoB.x) / 2, y: (puntos.ojoA.y + puntos.ojoB.y) / 2 };
+      boca = puntos.boca;
+    } else {
+      ojos = { x: W / 2, y: H * 0.42 };
+      boca = { x: W / 2, y: H * 0.42 + Math.min(W, H) * 0.17 };
+    }
+    const vx = boca.x - ojos.x, vy = boca.y - ojos.y;
+    const largo = Math.hypot(vx, vy) || 1;
+    return {
+      ojos,
+      s: (CARA.boca.y - CARA.ojos.y) / largo,
+      ang: Math.PI / 2 - Math.atan2(vy, vx),   // endereza la cara si la foto está inclinada
+    };
+  }
+
+  /* Píxeles de lienzo por píxel del héroe (misma cuenta que renderFinal). */
+  function escalaHeroe(W, H) { return (H * 0.625 * AR_HEROE) / 1080; }
+
+  function dibujarRostro(ctx, face, figX, figY, k) {
+    const a = face.ajuste, z = face.zoom || 1;
+    const pad = 4;
+    const ox = figX + (CARA.cx - CARA.rx - pad) * k;
+    const oy = figY + (CARA.cy - CARA.ry - pad) * k;
+    const bw = Math.ceil((CARA.rx + pad) * 2 * k), bh = Math.ceil((CARA.ry + pad) * 2 * k);
+    const c = document.createElement('canvas'); c.width = bw; c.height = bh;
+    const g = c.getContext('2d');
+
+    // 1. La foto, alineada: ojos de la foto → ojos del dibujo, enderezada y a escala.
+    g.save();
+    g.translate(figX + (CARA.ojos.x + (face.dx || 0)) * k - ox, figY + (CARA.ojos.y + (face.dy || 0)) * k - oy);
+    g.rotate(a.ang);
+    g.scale(a.s * z * k, a.s * z * k);
+    // Un toque cálido y de contraste para acercarla a la paleta del dibujo.
+    if ('filter' in g) g.filter = 'sepia(0.14) saturate(1.08) contrast(1.06)';
+    g.drawImage(face.img, -a.ojos.x, -a.ojos.y);
+    g.restore();
+
+    // 2. Se recorta al óvalo de la cara con borde difuminado (no un círculo pegado).
+    // centro del óvalo dentro de este lienzo chico (que arranca en cx-rx-pad, cy-ry-pad)
+    const ccx = (CARA.rx + pad) * k, ccy = (CARA.ry + pad) * k;
+    g.save();
+    g.globalCompositeOperation = 'destination-in';
+    g.translate(ccx, ccy);
+    g.scale(1, CARA.ry / CARA.rx);
+    const rad = g.createRadialGradient(0, 0, 0, 0, 0, CARA.rx * k);
+    rad.addColorStop(0, 'rgba(0,0,0,1)');
+    rad.addColorStop(0.72, 'rgba(0,0,0,1)');
+    rad.addColorStop(1, 'rgba(0,0,0,0)');
+    g.fillStyle = rad;
+    g.beginPath(); g.arc(0, 0, CARA.rx * k, 0, Math.PI * 2); g.fill();
+    g.restore();
+
+    // 3. La sombra que proyecta el ala del yelmo sobre la frente, y algo en los costados:
+    // es lo que hace que la cara se lea ADENTRO del yelmo.
+    g.save();
+    g.globalCompositeOperation = 'source-atop';
+    const sombra = g.createLinearGradient(0, 0, 0, bh);
+    sombra.addColorStop(0, 'rgba(25,14,8,0.55)');
+    sombra.addColorStop(0.28, 'rgba(25,14,8,0)');
+    g.fillStyle = sombra; g.fillRect(0, 0, bw, bh);
+    const lados = g.createLinearGradient(0, 0, bw, 0);
+    lados.addColorStop(0, 'rgba(25,14,8,0.35)');
+    lados.addColorStop(0.2, 'rgba(25,14,8,0)');
+    lados.addColorStop(0.8, 'rgba(25,14,8,0)');
+    lados.addColorStop(1, 'rgba(25,14,8,0.35)');
+    g.fillStyle = lados; g.fillRect(0, 0, bw, bh);
+    g.restore();
+
+    ctx.drawImage(c, ox, oy);
+  }
+
   function wrapText(ctx, text, x, y, maxW, lh, desdeArriba) {
     const words = text.split(' '); let line = ''; const lines = [];
     for (const w of words) {
@@ -408,5 +488,5 @@
     return lines.length;
   }
 
-  window.ArmorFigure = { buildSVGString, faceMarkup, faceGroup, renderFinal, VB_W, VB_H };
+  window.ArmorFigure = { buildSVGString, faceMarkup, faceGroup, renderFinal, ajusteRostro, escalaHeroe, VB_W, VB_H };
 })();

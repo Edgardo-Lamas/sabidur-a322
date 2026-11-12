@@ -5,14 +5,6 @@
 (function () {
   'use strict';
 
-  const SKINS = ['#F2D2B6', '#E7C29B', '#C99A6E', '#A06A43', '#6E4524'];
-  const HAIRS = [
-    { id: 'short-dark', color: '#2E2438', style: 'short', label: '▴' },
-    { id: 'short-brown', color: '#5a3b28', style: 'short', label: '▴' },
-    { id: 'long-dark', color: '#241c30', style: 'long', label: '▾' },
-    { id: 'long-brown', color: '#4a3320', style: 'long', label: '▾' }
-  ];
-
   const ASPECTS = [
     { id: '9-16', name: '9:16', w: 1080, h: 1920 },
     { id: '4-5', name: '4:5', w: 1080, h: 1350 }
@@ -21,7 +13,10 @@
   const state = {
     equipped: new Set(),
     selected: null,
-    face: { type: 'avatar', skin: SKINS[1], hair: HAIRS[0].color, hairStyle: HAIRS[0].style },
+    // Rostro del jugador: 'none' o 'photo'. Con foto: { img, ajuste (de la
+    // detección automática), zoom, dx, dy (ajuste a mano, en px del héroe) }.
+    face: { type: 'none' },
+    fotoCara: null,   // la foto elegida se conserva aunque se pase a "Sin foto"
     bgId: 'vialactea', bgPreset: null,
     aspect: '9-16'
   };
@@ -350,7 +345,10 @@
   function renderBgGrid() {
     const grid = document.getElementById('bgGrid');
     grid.innerHTML = '';
-    window.SEED_BACKGROUNDS.forEach(b => {
+    // La lista sale de los presets de backgrounds.js. Antes leía
+    // window.SEED_BACKGROUNDS, que solo existe en el creador de flayers: acá daba
+    // error y cortaba la pantalla del retrato entera (lienzo negro, sin opciones).
+    Object.values(window.Backgrounds.presets).forEach(b => {
       const el = document.createElement('div');
       el.className = 'bg-thumb' + (b.id === state.bgId ? ' sel' : '');
       el.appendChild(thumbCanvas(b.id));
@@ -361,23 +359,90 @@
   function resolveBg() { state.bgPreset = window.Backgrounds.get(state.bgId); }
 
   // ---------------- final: rostro ----------------
-  function renderFaceOpts() {
-    const sk = document.getElementById('skinOpts'); sk.innerHTML = '';
-    SKINS.forEach(c => {
-      const o = document.createElement('div');
-      o.className = 'opt' + (state.face.skin === c ? ' sel' : '');
-      o.style.background = c;
-      o.onclick = () => { state.face.skin = c; updateFace(); renderFaceOpts(); renderFinal(); };
-      sk.appendChild(o);
+  /* Detector de caras de MediaPipe: corre en el navegador del jugador (la foto
+     no sale del dispositivo). El modelo se sirve desde el sitio; la librería, de
+     jsDelivr. Se carga recién cuando alguien elige una foto. Si algo falla, la
+     foto se coloca centrada y el jugador la acomoda a mano. */
+  const MP_VER = '0.10.14';
+  const MP_URL = `https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${MP_VER}`;
+  let detectorPromesa = null;
+  function cargarDetector() {
+    if (!detectorPromesa) {
+      detectorPromesa = (async () => {
+        const vision = await import(`${MP_URL}/vision_bundle.mjs`);
+        const files = await vision.FilesetResolver.forVisionTasks(`${MP_URL}/wasm`);
+        return vision.FaceDetector.createFromOptions(files, {
+          baseOptions: { modelAssetPath: '/herramientas/armadura/detector-rostro.tflite' },
+          runningMode: 'IMAGE',
+          minDetectionConfidence: 0.5
+        });
+      })().catch(err => { console.warn('[armadura] detector de caras no disponible', err); detectorPromesa = null; return null; });
+    }
+    return detectorPromesa;
+  }
+
+  /* Ojos y boca de la cara más grande de la foto, en píxeles de la foto. */
+  async function detectarCara(img) {
+    const det = await cargarDetector();
+    if (!det) return null;
+    let res;
+    try { res = det.detect(img); } catch (e) { return null; }
+    const caras = (res && res.detections) || [];
+    if (!caras.length) return null;
+    caras.sort((a, b) => (b.boundingBox.width * b.boundingBox.height) - (a.boundingBox.width * a.boundingBox.height));
+    const kp = caras[0].keypoints;   // 0 ojo der., 1 ojo izq., 2 nariz, 3 boca
+    if (!kp || kp.length < 4) return null;
+    const W = img.naturalWidth, H = img.naturalHeight;
+    const p = i => ({ x: kp[i].x * W, y: kp[i].y * H });
+    return { ojoA: p(0), ojoB: p(1), boca: p(3) };
+  }
+
+  function mostrarAjuste(visible) {
+    document.getElementById('faceAdjust').classList.toggle('hidden', !visible);
+    document.getElementById('portrait').classList.toggle('arrastrable', visible);
+  }
+  function estadoFoto(txt) { document.getElementById('faceStatus').textContent = txt || ''; }
+
+  async function usarFoto(src) {
+    const img = new Image();
+    img.src = src;
+    try { await img.decode(); } catch (e) { estadoFoto('No pudimos abrir esa imagen. Probá con otra foto.'); return; }
+    estadoFoto('Buscando tu cara en la foto…');
+    const puntos = await detectarCara(img);
+    const ajuste = window.ArmorFigure.ajusteRostro(img, puntos);
+    state.fotoCara = { type: 'photo', src, img, ajuste, zoom: 1, dx: 0, dy: 0 };
+    state.face = state.fotoCara;
+    document.getElementById('faceZoom').value = 1;
+    estadoFoto(puntos
+      ? 'Listo: tu cara quedó dentro del yelmo.'
+      : 'No encontramos una cara en la foto: la pusimos al centro. Acomodala arrastrándola y con el tamaño.');
+    mostrarAjuste(true);
+    updateFace(); renderFinal();
+  }
+
+  /* Arrastrar la cara sobre el retrato. El desplazamiento se guarda en píxeles
+     del héroe (1080×1920), así vale igual para la vista previa y la descarga. */
+  function wireArrastre() {
+    const cv = document.getElementById('finalCanvas');
+    const portrait = document.getElementById('portrait');
+    let ini = null;
+    cv.addEventListener('pointerdown', e => {
+      if (state.face.type !== 'photo') return;
+      ini = { x: e.clientX, y: e.clientY, dx: state.face.dx, dy: state.face.dy };
+      cv.setPointerCapture(e.pointerId);
+      portrait.classList.add('arrastrando');
     });
-    const hr = document.getElementById('hairOpts'); hr.innerHTML = '';
-    HAIRS.forEach(h => {
-      const o = document.createElement('div');
-      o.className = 'opt hair' + (state.face.hair === h.color && state.face.hairStyle === h.style ? ' sel' : '');
-      o.style.color = h.color; o.style.background = h.color; o.title = h.style;
-      o.onclick = () => { state.face.hair = h.color; state.face.hairStyle = h.style; updateFace(); renderFaceOpts(); renderFinal(); };
-      hr.appendChild(o);
+    cv.addEventListener('pointermove', e => {
+      if (!ini) return;
+      const r = cv.getBoundingClientRect();
+      const k = window.ArmorFigure.escalaHeroe(cv.width, cv.height) * (r.width / cv.width);
+      state.face.dx = ini.dx + (e.clientX - ini.x) / k;
+      state.face.dy = ini.dy + (e.clientY - ini.y) / k;
+      renderFinal();
     });
+    const fin = () => { ini = null; portrait.classList.remove('arrastrando'); };
+    cv.addEventListener('pointerup', fin);
+    cv.addEventListener('pointercancel', fin);
   }
 
   // ---------------- final: aspecto ----------------
@@ -399,14 +464,21 @@
 
   // ---------------- render final preview ----------------
   let renderToken = 0;
+  // Se pinta en un lienzo aparte y se copia solo si sigue siendo el último pedido:
+  // al arrastrar la cara llegan muchos pedidos seguidos y, como cada uno espera
+  // imágenes, sin esto se mezclaban y quedaba la cara vieja asomando.
   function renderFinal() {
     const cv = document.getElementById('finalCanvas');
-    const ctx = cv.getContext('2d', { alpha: false });
     const token = ++renderToken;
-    window.ArmorFigure.renderFinal(ctx, cv.width, cv.height, {
+    const off = document.createElement('canvas');
+    off.width = cv.width; off.height = cv.height;
+    const octx = off.getContext('2d', { alpha: false });
+    return window.ArmorFigure.renderFinal(octx, off.width, off.height, {
       bgPreset: state.bgPreset, face: state.face, equipped: state.equipped, t: 3
+    }).then(() => {
+      if (token !== renderToken) return;
+      cv.getContext('2d', { alpha: false }).drawImage(off, 0, 0);
     });
-    return token;
   }
 
   // ---------------- descarga ----------------
@@ -434,7 +506,7 @@
     document.getElementById('btnFinish').onclick = () => {
       show('screen-final');
       resolveBg(); applyPortraitAspect();
-      renderBgGrid(); renderFaceOpts(); renderAspectSeg(); updateFace();
+      renderBgGrid(); renderAspectSeg(); updateFace();
       // pequeño respiro para que el canvas tenga tamaño antes de pintar
       setTimeout(renderFinal, 60);
     };
@@ -452,12 +524,14 @@
       b.onclick = () => {
         document.getElementById('faceMode').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
         const mode = b.dataset.mode;
-        document.getElementById('avatarOpts').classList.toggle('hidden', mode !== 'avatar');
         document.getElementById('photoOpts').classList.toggle('hidden', mode !== 'photo');
-        if (mode === 'avatar') {
-          state.face = Object.assign({ type: 'avatar' }, { skin: state.face.skin || SKINS[1], hair: state.face.hair || HAIRS[0].color, hairStyle: state.face.hairStyle || 'short' });
+        if (mode === 'photo') {
+          if (state.fotoCara) { state.face = state.fotoCara; mostrarAjuste(true); }
+          else document.getElementById('photoInput').click();
+          cargarDetector();   // se adelanta la descarga mientras elige la foto
         } else {
-          state.face = Object.assign({}, state.face, { type: 'photo' });
+          state.face = { type: 'none' };
+          mostrarAjuste(false);
         }
         updateFace(); renderFinal();
       };
@@ -467,13 +541,22 @@
     document.getElementById('photoInput').onchange = (e) => {
       const f = e.target.files[0]; if (!f) return;
       const r = new FileReader();
-      r.onload = () => {
-        state.face = { type: 'photo', src: r.result };
-        updateFace(); renderFinal();
-      };
+      r.onload = () => usarFoto(r.result);
       r.readAsDataURL(f);
       e.target.value = '';
     };
+    document.getElementById('faceZoom').oninput = (e) => {
+      if (state.face.type !== 'photo') return;
+      state.face.zoom = parseFloat(e.target.value);
+      renderFinal();
+    };
+    document.getElementById('btnFaceReset').onclick = () => {
+      if (state.face.type !== 'photo') return;
+      state.face.zoom = 1; state.face.dx = 0; state.face.dy = 0;
+      document.getElementById('faceZoom').value = 1;
+      renderFinal();
+    };
+    wireArrastre();
   }
 
   async function init() {
