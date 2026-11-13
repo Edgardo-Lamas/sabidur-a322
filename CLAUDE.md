@@ -588,7 +588,7 @@ VITE_SUPABASE_ANON_KEY   # Migrado a JSON locales
 | `/predicaciones/varios/:id` | PredicacionesSerie.jsx | ✅ |
 | `/tienda` | Store.jsx | ✅ |
 | `/panel` | Panel.jsx | ✅ dashboard métricas |
-| `/donaciones` | Donations.jsx | ✅ |
+| `/donaciones` | Donations.jsx — alias de Banco Nación y Mercado Pago (titular Edgardo Lamas), en la constante `CUENTAS`; sin PayPal ni tarjeta | ✅ |
 
 ---
 
