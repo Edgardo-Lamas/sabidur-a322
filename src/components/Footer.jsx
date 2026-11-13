@@ -53,7 +53,7 @@ const Footer = () => {
                         <ul className="space-y-4 text-sabiduria-gray brightness-125">
                             <li><Link to="/articulos" className="hover:text-sabiduria-gold transition-colors">Artículos Teológicos</Link></li>
                             <li><Link to="/bosquejos" className="hover:text-sabiduria-gold transition-colors">Bosquejos de Sermones</Link></li>
-                            <li><Link to="/ebooks" className="hover:text-sabiduria-gold transition-colors">E-books Gratuitos</Link></li>
+                            <li><Link to="/ebooks" className="hover:text-sabiduria-gold transition-colors">E-books para compartir</Link></li>
                             <li><Link to="/acerca-de" className="hover:text-sabiduria-gold transition-colors">Nuestra Confesión</Link></li>
                         </ul>
                     </div>

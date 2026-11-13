@@ -298,6 +298,8 @@ export default async function handler(req, res) {
         { title: 'Ensayos teológicos', url: '/ensayos', type: 'ensayo' },
         { title: 'Curso de Teología Básica', url: '/teologia-basica', type: 'estudio' },
     ]);
+    // Fijo, fuera del validador: /donaciones no sale del índice del RAG.
+    const conApoyo = [...lecturas, { title: 'Sostener este ministerio', url: '/donaciones', type: 'pagina', external: false }];
     if (gastoUsd !== null && gastoUsd >= TOPE_MENSUAL_USD) {
         console.warn(`[Spurgeon] Tope mensual alcanzado: USD ${gastoUsd.toFixed(2)}`);
         return res.status(429).json({
@@ -305,7 +307,7 @@ export default async function handler(req, res) {
             limiteMensual: true,
             verse: null,
             suggestedQuestions: [],
-            suggestedLinks: lecturas,
+            suggestedLinks: conApoyo,
             sources: [],
         });
     }
@@ -315,7 +317,7 @@ export default async function handler(req, res) {
             limiteDiario: true,
             verse: null,
             suggestedQuestions: [],
-            suggestedLinks: lecturas,
+            suggestedLinks: conApoyo,
             sources: [],
         });
     }

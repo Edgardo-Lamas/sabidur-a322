@@ -47,10 +47,10 @@ const Home = () => {
                 <div className="max-w-4xl mx-auto px-4 text-center">
                     <h2 className="text-4xl font-serif font-bold mb-8">Apoye la Difusión de las Verdades Eternas</h2>
                     <p className="text-sabiduria-gray brightness-150 text-xl mb-12 leading-relaxed">
-                        Sabiduría para el Corazon es un ministerio que se sostiene gracias a las donaciones voluntarias de sus lectores. Su apoyo nos permite seguir creando recursos teológicos de alta calidad y acceso gratuito.
+                        Sabiduría para el Corazon es un ministerio que se sostiene gracias a las donaciones voluntarias de sus lectores. Su apoyo nos permite seguir creando recursos teológicos de alta calidad y ponerlos al alcance de todos.
                     </p>
-                    <AnimatedButton variant="gold" className="px-12 py-5 text-lg">
-                        Realizar una Donación (PayPal)
+                    <AnimatedButton as="link" to="/donaciones" variant="gold" className="px-12 py-5 text-lg">
+                        Sostener el ministerio
                     </AnimatedButton>
                 </div>
             </section>
