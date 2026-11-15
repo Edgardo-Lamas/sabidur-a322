@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Segundo Templo (Herodes) — Sabiduría para el Corazón</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#050301;font-family:Georgia,serif;overflow:hidden;user-select:none}
+canvas{display:block}
+
+#header{position:fixed;top:12px;left:12px;padding:12px 16px;z-index:20;pointer-events:none;background:rgba(5,3,1,.55);border-radius:4px}
+#header h1{font-size:19px;color:#D4AF37;letter-spacing:3px;text-transform:uppercase;font-weight:normal;text-shadow:0 0 30px rgba(5,3,1,.9),0 0 8px rgba(5,3,1,.8)}
+#header .sub{font-size:11px;color:#c8b078;letter-spacing:2px;margin-top:4px}
+#header .brand{font-size:10px;color:#8a7440;letter-spacing:1px;margin-top:2px}
+
+#tooltip{position:fixed;left:12px;top:96px;width:310px;max-height:76vh;overflow:hidden;background:rgba(5,3,1,.9);border:1px solid rgba(212,175,55,.35);border-left:3px solid #D4AF37;border-radius:4px;padding:16px 18px;pointer-events:none;opacity:0;transition:opacity .25s;z-index:30;backdrop-filter:blur(8px)}
+#tooltip h3{font-size:12px;color:#D4AF37;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:9px;font-weight:normal}
+#tooltip p{font-size:12.5px;line-height:1.75;color:#b8a070}
+#tooltip .ref{font-size:10.5px;color:#8a7440;margin-top:10px;font-style:italic;border-top:1px solid rgba(212,175,55,.12);padding-top:8px}
+#tooltip.on{opacity:1}
+
+#controls{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:20;flex-wrap:wrap;justify-content:center}
+.btn{background:rgba(5,3,1,.62);border:1px solid rgba(212,175,55,.4);color:#D4AF37;font-family:inherit;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:7px 13px;cursor:pointer;border-radius:3px;transition:background .2s,border-color .2s}
+.btn:hover{background:rgba(5,3,1,.85);border-color:rgba(212,175,55,.8)}
+.btn.active{background:rgba(60,44,10,.9);border-color:#D4AF37}
+
+#legend{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:20;background:rgba(5,3,1,.55);padding:12px 12px 4px;border-radius:4px}
+.li{display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.ls{width:13px;height:13px;border-radius:2px;flex-shrink:0}
+.ll{font-size:9.5px;color:#c8b078;letter-spacing:.4px}
+
+#hint{position:fixed;top:12px;right:18px;font-size:9.5px;color:#c8b078;letter-spacing:.8px;z-index:20;background:rgba(5,3,1,.55);padding:7px 10px;border-radius:4px;max-width:46vw;text-align:right}
+
+#loading{position:fixed;inset:0;background:#050301;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:100;transition:opacity .9s}
+#loading h2{color:#D4AF37;font-size:20px;letter-spacing:4px;text-transform:uppercase;font-weight:normal}
+#loading p{color:#6a5a30;font-size:10px;letter-spacing:2px;margin-top:10px}
+.lbar{width:200px;height:1px;background:rgba(212,175,55,.1);margin-top:24px;overflow:hidden}
+.lbar::after{content:'';display:block;height:100%;background:#D4AF37;animation:ld 2.2s ease-in-out forwards}
+@keyframes ld{from{width:0}to{width:100%}}
+</style>
+</head>
+<body>
+<div id="errdsp" style="position:fixed;top:10px;left:10px;background:rgba(200,0,0,.9);color:#fff;padding:12px;z-index:9999;max-width:600px;display:none;font-family:monospace;font-size:11px;border-radius:4px;white-space:pre-wrap"></div>
+<script>
+window.onerror=function(m,s,l,c,e){
+  var d=document.getElementById('errdsp');
+  d.style.display='block';
+  d.textContent='ERROR: '+m+' (linea '+l+', col '+c+')';
+  return false;
+};
+window.addEventListener('unhandledrejection',function(e){
+  var d=document.getElementById('errdsp');
+  d.style.display='block';
+  d.textContent='PROMISE ERROR: '+(e.reason && e.reason.message ? e.reason.message : e.reason);
+});
+setTimeout(function(){
+  var ld=document.getElementById('loading');
+  if(ld && ld.parentNode){
+    ld.style.opacity='0';
+    setTimeout(function(){if(ld.parentNode)ld.parentNode.removeChild(ld);},900);
+    if(!window.__sceneReady){
+      var d=document.getElementById('errdsp');
+      d.style.display='block';
+      d.textContent='Three.js tardó demasiado o falló al cargar.\nAbrí DevTools (F12 → Console) para ver el error exacto.';
+    }
+  }
+},15000);
+</script>
+
+<div id="loading">
+  <h2>El Segundo Templo</h2>
+  <p>Sabiduría para el Corazón · Jerusalén · S. I d.C.</p>
+  <div class="lbar"></div>
+</div>
+
+<div id="header">
+  <h1>El Segundo Templo</h1>
+  <div class="sub">Reconstrucción de Herodes · Jerusalén · S. I d.C.</div>
+  <div class="brand">Sabiduría para el Corazón</div>
+</div>
+
+<div id="tooltip">
+  <h3 id="tt-t"></h3>
+  <p id="tt-b"></p>
+  <div class="ref" id="tt-r"></div>
+</div>
+
+<div id="legend">
+  <div class="li"><div class="ls" style="background:#D4AF37"></div><span class="ll">Oro</span></div>
+  <div class="li"><div class="ls" style="background:#F2EEE4"></div><span class="ll">Mármol blanco</span></div>
+  <div class="li"><div class="ls" style="background:#D6C4A0"></div><span class="ll">Piedra de Jerusalén</span></div>
+  <div class="li"><div class="ls" style="background:#B87333"></div><span class="ll">Bronce</span></div>
+</div>
+
+<div id="controls">
+  <button class="btn" id="b-ext">El Monte</button>
+  <button class="btn" id="b-top">Vista Aérea</button>
+  <button class="btn" id="b-san">El Santuario</button>
+  <button class="btn" id="b-alt">El Altar</button>
+  <button class="btn" id="b-muj">Atrio de las Mujeres</button>
+  <button class="btn" id="b-sor">El Soreg</button>
+  <button class="btn" id="b-sto">Stoa Real</button>
+  <button class="btn" id="b-sol">Pórtico de Salomón</button>
+  <button class="btn" id="b-ant">La Antonia</button>
+  <button class="btn" id="b-sur">Escalinata Sur</button>
+  <button class="btn" id="b-mur">Los Muros</button>
+  <button class="btn" id="b-drone">▶ Vuelo Dron</button>
+</div>
+
+<div id="hint">Pasa el cursor sobre los elementos · Arrastrar para rotar · Scroll para zoom</div>
+
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+window.__sceneReady = true;
+
+// ══════════════════════════════════════════════════════════════════════════════
+// SEGUNDO TEMPLO — FASE HERODIANA (20/19 a.C. – 70 d.C.)
+// ESCALA: 1 unidad = 1 codo ≈ 0.46 m  ·  Z+ = Este (entrada)  ·  X+ = Sur (ver QUIRALIDAD)
+// ORIGEN: centro del Lugar Santísimo, a nivel del Atrio de los Gentiles (y=0)
+// Fuentes: Mishná Middot (santuario y atrios) · Josefo, Guerra V.5 y Ant. XV.11
+//          (explanada y pórticos) · reconstrucción de L. Ritmeyer (planta general)
+// ══════════════════════════════════════════════════════════════════════════════
+
+// ── RENDERER ──────────────────────────────────────────────────────────────────
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5)); // cap Retina: gran ahorro de GPU
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.74;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+document.body.prepend(renderer.domElement);
+const MAX_ANISO = renderer.capabilities.getMaxAnisotropy();
+
+const scene = new THREE.Scene();
+scene.fog = new THREE.Fog(0xDDD3BE, 2400, 6400);
+// QUIRALIDAD: el código usa X+ = Sur y Z+ = Este (la misma convención que el
+// Templo de Salomón). Con Y arriba eso es un sistema ZURDO, y Three.js es diestro:
+// dibujado tal cual, el monte sale en espejo (el sur a la derecha de quien mira la
+// fachada). Todo lo construido cuelga de `world`, que invierte X; solo la cámara
+// y sus presets viven en coordenadas de Three.js (x = -X del código).
+const world = new THREE.Group(); world.scale.x = -1; scene.add(world);
+
+// HDRI: solo reflexiones PBR (el fondo es el skydome)
+const pmremGen = new THREE.PMREMGenerator(renderer);
+pmremGen.compileEquirectangularShader();
+new RGBELoader().load(
+  'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/kloofendal_43d_clear_puresky_1k.hdr',
+  (hdr) => { scene.environment = pmremGen.fromEquirectangular(hdr).texture; hdr.dispose(); pmremGen.dispose(); },
+  undefined, () => {}
+);
+
+const camera = new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 1, 9000);
+camera.position.set(-720, 400, 780);
+
+const orbit = new OrbitControls(camera, renderer.domElement);
+orbit.enableDamping = true; orbit.dampingFactor = 0.06;
+orbit.target.set(-90, 0, 60); orbit.minDistance = 8; orbit.maxDistance = 2600;
+orbit.maxPolarAngle = Math.PI * 0.52; orbit.update();
+
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+const bloomPass = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 0.22, 0.5, 1.5); // umbral en HDR lineal: solo brillan el oro al sol y el fuego
+composer.addPass(bloomPass);
+composer.addPass(new OutputPass());
+
+// ── TEXTURAS PROCEDURALES DE SILLERÍA ────────────────────────────────────────
+// Se dibujan en canvas para controlar la ESCALA real de los bloques: cada
+// textura representa `tile` codos, y las cajas reescalan sus UV por dimensión,
+// así un sillar mide lo mismo en un muro de 1.000 codos que en uno de 20.
+function rng(seed){ return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+function ashlar(o) {
+  const W = o.W || 1024, H = o.H || 512, R = rng(o.seed || 7);
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+  const bv = document.createElement('canvas'); bv.width = W; bv.height = H;
+  const c = cv.getContext('2d'), b = bv.getContext('2d');
+  const sx = W / o.tile[0];
+  const rows = Math.round(o.tile[1] / o.course), rh = H / rows;
+  const [br, bg, bb] = o.base;
+  for (let r = 0; r < rows; r++) {
+    const y = r * rh;
+    let x = o.grid ? 0 : -R() * o.maxL * sx;
+    while (x < W) {
+      const len = (o.minL + R() * (o.maxL - o.minL)) * sx;
+      const v = 1 + (R() - 0.5) * o.vary;
+      c.fillStyle = `rgb(${br*v|0},${bg*v|0},${bb*v|0})`;
+      c.fillRect(x, y, len + 1, rh + 1);
+      b.fillStyle = '#a0a0a0'; b.fillRect(x, y, len + 1, rh + 1);
+      if (o.margin) { // margen rebajado herodiano: marco hundido + almohadilla en relieve
+        const m = o.margin;
+        c.strokeStyle = 'rgba(70,50,20,.16)'; c.lineWidth = m; c.strokeRect(x + m/2, y + m/2, len - m, rh - m);
+        c.strokeStyle = 'rgba(255,250,235,.22)'; c.lineWidth = 1; c.strokeRect(x + m + .5, y + m + .5, len - 2*m, rh - 2*m);
+        b.strokeStyle = '#6a6a6a'; b.lineWidth = m; b.strokeRect(x + m/2, y + m/2, len - m, rh - m);
+      }
+      c.strokeStyle = `rgba(50,38,22,${o.joint})`; c.lineWidth = o.jw || 1.5; c.strokeRect(x, y, len, rh);
+      b.strokeStyle = '#1c1c1c'; b.lineWidth = o.jw || 1.5; b.strokeRect(x, y, len, rh);
+      x += len;
+    }
+  }
+  for (let i = 0; i < 9000; i++) { // grano de la piedra
+    c.fillStyle = R() > .5 ? 'rgba(255,255,255,.035)' : 'rgba(60,40,10,.04)';
+    c.fillRect(R() * W, R() * H, 2, 2);
+  }
+  const map = new THREE.CanvasTexture(cv), bump = new THREE.CanvasTexture(bv);
+  for (const t of [map, bump]) { t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = MAX_ANISO; }
+  map.colorSpace = THREE.SRGBColorSpace;
+  const mat = new THREE.MeshStandardMaterial({ map, bumpMap: bump, bumpScale: o.bump ?? 1, roughness: o.rough ?? 0.9, metalness: 0 });
+  mat.envMapIntensity = 0.45;
+  mat.userData.tile = o.tile;
+  return mat;
+}
+
+// ── MATERIALES ────────────────────────────────────────────────────────────────
+const M = {
+  // Muro de contención: grandes sillares de caliza con margen rebajado
+  herod:  ashlar({ W:2048, H:1024, tile:[120,60], course:2.5, minL:3, maxL:14, base:[214,196,160], vary:.16, joint:.55, jw:2, margin:3, bump:1.4, seed:11 }),
+  // Mármol blanco del santuario: sillería fina, juntas apenas marcadas
+  marble: ashlar({ tile:[40,20], course:2.5, minL:4, maxL:8, base:[236,231,220], vary:.09, joint:.3, jw:1.2, bump:.5, rough:.55, seed:23 }),
+  // Pavimento de la explanada (losas de caliza) y de los atrios (losas claras)
+  paving: ashlar({ W:1024, H:1024, tile:[40,40], course:5, minL:5, maxL:5, grid:true, base:[222,211,186], vary:.12, joint:.4, bump:.5, seed:31 }),
+  pavW:   ashlar({ W:1024, H:1024, tile:[24,24], course:3, minL:3, maxL:3, grid:true, base:[233,227,214], vary:.07, joint:.25, bump:.3, rough:.7, seed:41 }),
+  marbleS: new THREE.MeshStandardMaterial({ color:0xDDD8CC, envMapIntensity:0.45, roughness:0.45, metalness:0.02 }),
+  plaster: new THREE.MeshStandardMaterial({ color:0xD6D0C2, envMapIntensity:0.4, roughness:0.97, metalness:0 }), // altar encalado
+  gold:    new THREE.MeshStandardMaterial({ color:0xD4AF37, roughness:0.16, metalness:0.97, emissive:new THREE.Color(0x3A2200), emissiveIntensity:0.4 }),
+  // Oro en planchas (superficies grandes): más rugoso, para que lea como metal y no como espejo del cielo
+  goldPl:  new THREE.MeshStandardMaterial({ color:0xE2BC4A, roughness:0.34, metalness:0.9, emissive:new THREE.Color(0x241800), emissiveIntensity:0.2, envMapIntensity:0.8 }),
+  oak:     new THREE.MeshStandardMaterial({ color:0x8A6A3A, roughness:0.7, metalness:0.15 }),
+  bronze:  new THREE.MeshStandardMaterial({ color:0xB87333, roughness:0.35, metalness:0.85 }),
+  dark:    new THREE.MeshStandardMaterial({ color:0x1A140C, roughness:1 }),
+  wood:    new THREE.MeshStandardMaterial({ color:0x3A2A1A, roughness:1 }),
+  water:   new THREE.MeshStandardMaterial({ color:0x3E8FC0, roughness:0.05, metalness:0.2, transparent:true, opacity:0.8 }),
+  flame:   new THREE.MeshStandardMaterial({ color:0xFFCC44, emissive:new THREE.Color(0xFF9A00), emissiveIntensity:1.6, transparent:true, opacity:0.85 }),
+  ground:  new THREE.MeshStandardMaterial({ color:0xB3A482, roughness:1 }),
+  rock:    new THREE.MeshStandardMaterial({ color:0x9C8F74, roughness:1 }),
+  tile:    new THREE.MeshStandardMaterial({ color:0x9C5E44, roughness:0.85, envMapIntensity:0.3 }), // tejado
+};
+
+// ── ILUMINACIÓN — sol de la mañana desde el sudeste: la fachada mira al este ──
+const sun = new THREE.DirectionalLight(0xFFE8C4, 2.3);
+sun.position.set(760, 600, 700);
+sun.target.position.set(110, 0, 60); world.add(sun.target);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.camera.near = 100; sun.shadow.camera.far = 2600;
+sun.shadow.camera.left = -700; sun.shadow.camera.right = 700;
+sun.shadow.camera.top = 620; sun.shadow.camera.bottom = -620;
+sun.shadow.bias = -0.0006; sun.shadow.normalBias = 0.6;
+world.add(sun);
+world.add(new THREE.AmbientLight(0xCDBFA6, 0.45));
+const fill = new THREE.DirectionalLight(0xA4B8D0, 0.4);
+fill.position.set(-300, 250, -500); world.add(fill);
+
+// ── CONSTRUCTORES ─────────────────────────────────────────────────────────────
+const IXS = [];
+// Caja con UV reescaladas a codos reales cuando el material trae `tile`
+function boxGeo(w, h, d, mat) {
+  const g = new THREE.BoxGeometry(w, h, d);
+  const t = mat.userData.tile;
+  if (t) {
+    const uv = g.attributes.uv, dims = [[d,h],[d,h],[w,d],[w,d],[w,h],[w,h]];
+    for (let f = 0; f < 6; f++) for (let i = 0; i < 4; i++) {
+      const k = f*4 + i;
+      uv.setXY(k, uv.getX(k) * dims[f][0] / t[0], uv.getY(k) * dims[f][1] / t[1]);
+    }
+  }
+  return g;
+}
+function mk(geo, mat, x, y, z, info, shadow = true) {
+  const m = new THREE.Mesh(geo, mat);
+  m.position.set(x, y, z);
+  m.castShadow = shadow; m.receiveShadow = true;
+  if (info) { m.userData = info; IXS.push(m); }
+  world.add(m); return m;
+}
+function bx(w,h,d, mat, x,y,z, info) { return mk(boxGeo(w,h,d,mat), mat, x,y,z, info); }
+// Caja sin sombra propia: molduras y detalles finos (ahorra GPU en el mapa de sombras)
+function bxn(w,h,d, mat, x,y,z, info) { return mk(boxGeo(w,h,d,mat), mat, x,y,z, info, false); }
+function cy(rt,rb,h,seg, mat, x,y,z, info) { return mk(new THREE.CylinderGeometry(rt,rb,h,seg), mat, x,y,z, info); }
+// Piso: plano horizontal entre dos esquinas, con UV en codos
+function floor(x1, z1, x2, z2, y, mat, info) {
+  const w = x2 - x1, d = z2 - z1, g = new THREE.PlaneGeometry(w, d), t = mat.userData.tile;
+  const uv = g.attributes.uv;
+  for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * w / t[0], uv.getY(i) * d / t[1]);
+  const m = mk(g, mat, (x1+x2)/2, y, (z1+z2)/2, info, false);
+  m.rotation.x = -Math.PI/2; return m;
+}
+// Anillo: cuatro cajas sobre el perímetro de un rectángulo (molduras, frisos, pretiles)
+function ring(x1, z1, x2, z2, yb, h, th, mat, info) {
+  const y = yb + h/2, w = x2 - x1, d = z2 - z1;
+  bxn(w + th, h, th, mat, (x1+x2)/2, y, z1, info);
+  bxn(w + th, h, th, mat, (x1+x2)/2, y, z2, info);
+  bxn(th, h, d - th, mat, x1, y, (z1+z2)/2, info);
+  bxn(th, h, d - th, mat, x2, y, (z1+z2)/2, info);
+}
+// Muro entre dos puntos cualesquiera de la planta (la explanada es un trapecio)
+function wallSeg(x1, z1, x2, z2, yb, yt, th, mat, info) {
+  const dx = x2 - x1, dz = z2 - z1, L = Math.hypot(dx, dz);
+  const m = bx(L + th, yt - yb, th, mat, (x1+x2)/2, (yb+yt)/2, (z1+z2)/2, info);
+  m.rotation.y = Math.atan2(-dz, dx); return m;
+}
+
+// ── TOOLTIPS ──────────────────────────────────────────────────────────────────
+const INFO = {
+  MOUNT: { title:'La Explanada — Atrio de los Gentiles', body:'Herodes duplicó la superficie del monte hasta unas 14 hectáreas, uno de los mayores recintos sagrados del mundo antiguo. No es un rectángulo sino un trapecio: unos 488 m al oeste, 470 al este, 315 al norte y 280 al sur. Todo este patio exterior estaba abierto a cualquier persona, judía o no; por eso se lo llama Atrio de los Gentiles. Aquí Jesús volcó las mesas de los cambistas y recordó para qué existía ese espacio: «Mi casa será llamada casa de oración para todas las naciones».', ref:'Josefo, Antigüedades XV.11.3 · Guerra V.5.1-2 · Marcos 11:15-17 · Isaías 56:7' },
+  WALL:  { title:'Los Muros de Contención', body:'Para ampliar la explanada Herodes encerró el monte entre cuatro muros colosales y rellenó o abovedó el desnivel. Los sillares van asentados en seco, sin mortero, cada uno con su margen rebajado y el centro en relieve. El mayor que se conoce, en el muro occidental, supera los 13 m de largo y pesa cientos de toneladas. Al verlos, un discípulo exclamó: «Maestro, mira qué piedras, y qué edificios». Jesús respondió: «No quedará piedra sobre piedra, que no sea derribada». En el año 70 los edificios de la explanada fueron arrasados; lo que hoy se conoce como Muro de los Lamentos es un tramo de este muro de contención, no del santuario.', ref:'Marcos 13:1-2 · Lucas 19:43-44 · Josefo, Guerra V.5.1' },
+  SANCT: { title:'El Santuario', body:'La fachada medía 100 codos de ancho por 100 de alto (unos 46 m); detrás, el cuerpo se angostaba a 70 codos: «angosto por detrás y ancho por delante, como un león», dice la Mishná. Era de mármol blanco con planchas de oro: Josefo cuenta que al salir el sol devolvía un resplandor que obligaba a apartar la vista, y que de lejos parecía un monte cubierto de nieve. Sobre el techo había púas de oro para que no se posaran las aves. Herodes comenzó la obra hacia el 20/19 a.C. y los trabajos del conjunto siguieron por décadas: «En cuarenta y seis años fue edificado este templo». Las cuatro columnas de la fachada siguen las monedas de Bar Kojba y la reconstrucción de Avi-Yonah; ni Josefo ni la Mishná las describen.', ref:'Mishná, Middot 4:6-7 · Josefo, Guerra V.5.4-6 · Juan 2:20' },
+  PORTAL:{ title:'La Entrada del Pórtico (Ulam)', body:'Un vano de 40 codos de alto por 20 de ancho, sin puertas (Middot 3:7); Josefo da medidas aún mayores, 70 por 25, y explica que quedaba abierto para mostrar el cielo, visible desde todas partes. Sobre el dintel se apilaban cinco vigas de roble labradas, cada una un codo más larga por lado que la de abajo. Al fondo se veían las puertas doradas del Lugar Santo y, delante de ellas, un tapiz babilónico bordado en azul, lino fino, escarlata y púrpura.', ref:'Mishná, Middot 3:7 · Josefo, Guerra V.5.4' },
+  VINE:  { title:'La Vid de Oro', body:'Sobre la puerta del Lugar Santo colgaba una vid de oro, tendida sobre varas, con racimos que según Josefo tenían la altura de un hombre. La Mishná cuenta que quien ofrendaba una hoja, un grano o un racimo de oro lo colgaba de ella. La vid era el emblema de Israel, la viña que el Señor plantó y de la que esperó fruto. Con ese trasfondo cobran toda su fuerza las palabras de Jesús: «Yo soy la vid verdadera, y mi Padre es el labrador».', ref:'Mishná, Middot 3:8 · Josefo, Antigüedades XV.11.3 · Salmo 80:8 · Isaías 5:1-7 · Juan 15:1' },
+  STEPS: { title:'Las Doce Gradas del Santuario', body:'Entre el altar y el pórtico había 22 codos, ocupados por las doce gradas de medio codo que subían al santuario. Desde ellas los sacerdotes pronunciaban la bendición sobre el pueblo (Números 6:24-26). Es el lugar que nombra Joel —«entre la entrada y el altar lloren los sacerdotes»— y el que señala Jesús al recordar la sangre de Zacarías, muerto «entre el templo y el altar».', ref:'Mishná, Middot 3:6 · Joel 2:17 · Mateo 23:35' },
+  ALTAR: { title:'El Altar del Holocausto', body:'Base de 32 por 32 codos, que se retranquea en dos escalones hasta la plataforma del fuego; 10 codos de alto contando los cuernos de las esquinas. El de Salomón era de bronce; este era de piedras enteras, sin labrar, traídas del valle de Bet Kérem: ningún hierro podía tocarlas (Éxodo 20:25). Se lo blanqueaba con cal dos veces al año. El fuego no debía apagarse nunca (Levítico 6:13). Aquí se ofrecía cada mañana y cada tarde el sacrificio continuo, que la carta a los Hebreos contrasta con la ofrenda de Cristo, hecha una sola vez y para siempre.', ref:'Mishná, Middot 3:1-4 · Éxodo 20:25 · Levítico 6:13 · Hebreos 10:11-12' },
+  RAMP:  { title:'La Rampa del Altar', body:'Al altar se subía por el sur, por una rampa de 32 codos de largo y 16 de ancho. Rampa y no escalera, por mandato expreso: «No subirás por gradas a mi altar». Se la espolvoreaba con sal para que los sacerdotes, que ministraban descalzos, no resbalaran.', ref:'Mishná, Middot 3:3 · Éxodo 20:26' },
+  LAVER: { title:'La Fuente de Bronce (Kiyor)', body:'Entre el pórtico y el altar, corrida hacia el sur. Los sacerdotes se lavaban en ella las manos y los pies antes de ministrar (Éxodo 30:17-21). Ya no existía el Mar de Bronce de Salomón con sus doce bueyes: el Segundo Templo tenía una sola fuente, a la que el sumo sacerdote Ben Katín le hizo doce grifos para que varios sacerdotes pudieran lavarse a la vez.', ref:'Mishná, Middot 3:6 · Yomá 3:10 · Éxodo 30:17-21' },
+  HEL:   { title:'El Jel — Terraza de los Atrios', body:'Los atrios interiores no estaban al nivel de la explanada: se alzaban sobre una terraza a la que se subía por doce gradas de medio codo (Josefo cuenta catorce). Arriba corría el Jel, una franja de 10 codos que rodeaba los muros. A partir de aquí ya no podía pasar quien no fuera israelita. La mitad oriental de la terraza es el Atrio de las Mujeres, un cuadrado de 135 codos de lado.', ref:'Mishná, Middot 2:3, 2:5 · Josefo, Guerra V.5.2' },
+  AZARA: { title:'El Atrio Interior (Azará)', body:'187 codos de este a oeste por 135 de norte a sur. La Mishná reparte ese largo así, de este a oeste: 11 codos el Atrio de Israel, 11 el Atrio de los Sacerdotes, 32 el altar, 22 entre el altar y el pórtico, 100 el santuario y 11 detrás de él. El Atrio de Israel era apenas una franja desde la que los hombres presenciaban el sacrificio; el de los Sacerdotes quedaba dos codos y medio más alto.', ref:'Mishná, Middot 2:6, 5:1' },
+  GATES: { title:'Las Puertas del Atrio', body:'Siete puertas daban acceso al atrio interior: tres al norte, tres al sur y una al este. Al sur, de oeste a este: la de la Leña, la de los Primogénitos y la del Agua. Al norte: la de la Chispa, la de la Ofrenda y la de la Casa del Hogar, donde dormían los sacerdotes de turno. Cada vano medía 20 codos de alto por 10 de ancho, y sus hojas estaban recubiertas de oro. Josefo las describe como torres, con cámaras a los lados.', ref:'Mishná, Middot 1:4-5, 2:3 · Josefo, Guerra V.5.3' },
+  NICANOR:{ title:'La Puerta de Nicanor', body:'La puerta oriental del atrio interior, entre el Atrio de las Mujeres y el de Israel. Todas las demás fueron recubiertas de oro; esta conservó su bronce, que según la Mishná brillaba como el oro. A sus lados tenía dos puertas pequeñas. Se subía a ella por quince gradas en semicírculo, «no rectas, sino redondas como media era»: sobre ellas los levitas cantaban los quince Cánticos Graduales (Salmos 120-134). Aquí se presentaba la mujer que venía a purificarse después del parto, como hizo María (Lucas 2:22-24).', ref:'Mishná, Middot 2:3, 2:5-6 · Salmos 120-134 · Lucas 2:22-24' },
+  WOMEN: { title:'El Atrio de las Mujeres', body:'Un cuadrado de 135 codos de lado. El nombre no significa que fuera solo para ellas: era el atrio hasta donde podía llegar todo israelita, hombre o mujer, y por eso el más concurrido. Aquí pudieron estar juntos José y María con el niño, y aquí lo encontraron Simeón y la profetisa Ana, que «no se apartaba del templo». Aquí enseñó Jesús en la fiesta de los Tabernáculos, cuando en este atrio se encendían cuatro grandes candelabros: «Yo soy la luz del mundo».', ref:'Mishná, Middot 2:5 · Sucá 5:2-4 · Lucas 2:25-38 · Juan 8:12, 20' },
+  CH_SE: { title:'Cámara de los Nazareos', body:'En cada esquina del Atrio de las Mujeres había una cámara de 40 codos de lado, sin techo. En la del sudeste los nazareos cocían su ofrenda de paz, se cortaban el cabello al cumplir su voto y lo echaban al fuego (Números 6:18). Pablo acompañó al templo a cuatro hombres que tenían un voto así y pagó sus gastos (Hechos 21:23-26).', ref:'Mishná, Middot 2:5 · Números 6:13-20 · Hechos 21:23-26' },
+  CH_NE: { title:'Cámara de la Leña', body:'En la esquina nordeste. Aquí los sacerdotes que tenían algún defecto físico, y por eso no podían ministrar en el altar, revisaban la leña: todo tronco con gusanos quedaba descartado para el fuego del altar.', ref:'Mishná, Middot 2:5 · Levítico 21:17-23' },
+  CH_NW: { title:'Cámara de los Leprosos', body:'En la esquina noroeste. Quien había sanado de lepra se bañaba aquí al octavo día, antes de presentarse en la Puerta de Nicanor con su ofrenda. Es lo que Jesús le mandó al leproso que limpió: «Ve, muéstrate al sacerdote, y ofrece por tu purificación lo que Moisés mandó».', ref:'Mishná, Middot 2:5 · Levítico 14:8-11 · Marcos 1:44' },
+  CH_SW: { title:'Cámara del Aceite', body:'En la esquina sudoeste. Aquí se guardaban el aceite y el vino para las ofrendas y para las lámparas del candelabro.', ref:'Mishná, Middot 2:5' },
+  TREAS: { title:'Las Arcas del Tesoro', body:'En el templo había trece arcas para las ofrendas, llamadas «trompetas» por la forma de su boca, angosta arriba y ancha abajo. Cada una tenía su destino: los siclos del año, la leña, el incienso, las ofrendas voluntarias. Sentado frente a ellas, Jesús vio a los ricos echar mucho y a una viuda pobre echar dos blancas, y dijo que ella había dado más que todos, «porque todos han echado de lo que les sobra; pero ésta, de su pobreza echó todo lo que tenía».', ref:'Mishná, Shekalim 6:5 · Marcos 12:41-44 · Juan 8:20' },
+  BEAUT: { title:'La Puerta Oriental — ¿la Hermosa?', body:'La entrada principal al Atrio de las Mujeres desde la explanada. Josefo habla de una puerta de bronce de Corinto, fuera del santuario, que superaba en valor a las recubiertas de plata y oro. Muchos la identifican con la puerta «que se llama la Hermosa», donde Pedro y Juan encontraron al cojo de nacimiento: «No tengo plata ni oro, pero lo que tengo te doy; en el nombre de Jesucristo de Nazaret, levántate y anda». Otros ubican la Hermosa en la Puerta de Nicanor.', ref:'Josefo, Guerra V.5.3 · Hechos 3:1-10' },
+  SOREG: { title:'El Soreg — La Pared Intermedia', body:'Una balaustrada de piedra calada, de unos diez palmos de alto, rodeaba los atrios. Hasta ella podía llegar cualquier persona; más allá, solo los israelitas. En cada paso había lápidas en griego y en latín. Dos se han encontrado, y dicen: «Ningún extranjero entre dentro de la balaustrada y del recinto que rodea el santuario. El que sea sorprendido será él mismo responsable de la muerte que le sobrevendrá». A Pablo casi lo matan aquí, acusado de haber metido a un griego en el templo. Y desde la cárcel escribió que Cristo, «de ambos pueblos hizo uno, derribando la pared intermedia de separación».', ref:'Mishná, Middot 2:3 · Josefo, Guerra V.5.2 · Hechos 21:27-31 · Efesios 2:14' },
+  DUCHAN:{ title:'El Estrado de los Levitas (Dujan)', body:'Entre el Atrio de Israel y el de los Sacerdotes había un escalón de un codo y, sobre él, un estrado de tres gradas de medio codo. Allí se paraban los levitas con sus instrumentos para cantar el salmo del día mientras se ofrecía el sacrificio continuo. El Atrio de Israel, detrás, era una franja de apenas 11 codos desde donde los hombres presenciaban el culto.', ref:'Mishná, Middot 2:6 · Tamid 7:3-4 · 1 Crónicas 23:30' },
+  PORT:  { title:'Los Pórticos', body:'Toda la explanada estaba rodeada de pórticos dobles, de 30 codos de ancho. Josefo dice que las columnas medían 25 codos, cada una de un solo bloque de mármol blanco, y que los techos eran de cedro artesonado. A su sombra enseñaban los maestros de la ley y se sentaban los discípulos. Probablemente fue en uno de ellos donde José y María hallaron a Jesús, a los doce años, «sentado en medio de los doctores de la ley, oyéndoles y preguntándoles». Años después, él mismo enseñaba aquí cada día.', ref:'Josefo, Guerra V.5.2 · Lucas 2:46 · Lucas 19:47 · Juan 7:14' },
+  SOLP:  { title:'El Pórtico de Salomón', body:'El pórtico oriental, sobre el valle del Cedrón. Se lo atribuía a Salomón porque el muro que lo sostenía era anterior a Herodes. Era invierno, la fiesta de la Dedicación, «y Jesús andaba en el templo por el pórtico de Salomón» cuando le rodearon para preguntarle si era el Cristo. Aquí predicó Pedro después de sanar al cojo, y aquí se reunía la primera iglesia de Jerusalén: «estaban todos unánimes en el pórtico de Salomón».', ref:'Juan 10:22-24 · Hechos 3:11 · Hechos 5:12 · Josefo, Antigüedades XX.9.7' },
+  STOA:  { title:'La Stoa Real', body:'El pórtico del sur, la obra más admirada de Herodes: Josefo dice que merecía mención más que cualquier otra bajo el sol. Tenía 162 columnas corintias en cuatro hileras, que formaban tres naves; la central era más ancha y del doble de alto. Cada columna era tan gruesa que hacían falta tres hombres con los brazos extendidos para rodearla. Era el gran espacio público del monte, y muchos ubican aquí a los cambistas y vendedores de palomas. Según el Talmud, cuarenta años antes de la destrucción el Sanedrín dejó su sala y pasó a sesionar en este sector.', ref:'Josefo, Antigüedades XV.11.5 · Marcos 11:15-17 · Talmud, Shabat 15a' },
+  PINN:  { title:'El Pináculo del Templo', body:'La esquina sudeste, la más alta sobre el valle del Cedrón. Josefo dice que quien miraba desde el techo de la Stoa hacia el fondo del valle sentía vértigo, porque la vista no alcanzaba a medir semejante profundidad. La tradición ubica aquí el «pináculo del templo», adonde el diablo llevó a Jesús: «Si eres Hijo de Dios, échate abajo». Jesús respondió con la Escritura: «No tentarás al Señor tu Dios».', ref:'Mateo 4:5-7 · Lucas 4:9-12 · Josefo, Antigüedades XV.11.5' },
+  TRUMP: { title:'El Lugar del Toque de Trompeta', body:'Al pie de la esquina sudoeste se encontró una piedra caída desde lo alto con una inscripción hebrea: «Al lugar del toque de trompeta para…». Coincide con lo que cuenta Josefo: desde lo alto de una torre un sacerdote tocaba la trompeta la tarde del viernes, para anunciar que comenzaba el sábado, y otra vez a la tarde siguiente, para anunciar que terminaba.', ref:'Josefo, Guerra IV.9.12' },
+  ANTON: { title:'La Fortaleza Antonia', body:'Herodes la levantó sobre una roca en la esquina noroeste y le puso el nombre de su protector, Marco Antonio. Tenía una torre en cada esquina; la del sudeste, de 70 codos, dominaba todo el templo. Allí se acuartelaba la cohorte romana, que en las fiestas vigilaba al pueblo desde los techos de los pórticos, y unas escaleras bajaban directamente a la explanada. Por ellas descendió el tribuno con sus soldados para arrancar a Pablo de la multitud que lo estaba matando. Y desde ellas, Pablo, «estando en pie en las gradas, hizo señal con la mano al pueblo» y dio su testimonio.', ref:'Josefo, Guerra V.5.8 · Hechos 21:31-40 · Hechos 22:24 · Hechos 23:10' },
+  HULDA: { title:'Las Puertas de Hulda y la Escalinata Sur', body:'La entrada del pueblo. Dos puertas en el muro sur —hoy llamadas Doble y Triple— daban a túneles en rampa que subían hasta la explanada. Se entraba por la derecha y se salía por la izquierda, salvo quien estaba de duelo, que caminaba al revés para que le preguntaran y lo consolaran. La escalinata, tallada en parte en la roca, alterna escalones anchos y angostos, lo que obliga a subir despacio. Por aquí subieron Jesús y sus discípulos. Alrededor se excavaron decenas de baños rituales; se ha sugerido que en ellos fueron bautizados los tres mil de Pentecostés.', ref:'Mishná, Middot 1:3, 2:2 · Hechos 2:41' },
+  ROB:   { title:'El Arco de Robinson', body:'Una escalinata monumental, sostenida por arcos, subía desde la calle del valle del Tiropeón hasta la Stoa Real. El arranque del arco todavía sobresale del muro; lo identificó Edward Robinson en 1838. A sus pies se excavó la calle enlosada del siglo I, con los sillares que los soldados romanos arrojaron desde lo alto en el año 70 todavía donde cayeron.', ref:'Josefo, Antigüedades XV.11.5 · Marcos 13:2' },
+  WILS:  { title:'El Puente a la Ciudad Alta', body:'Un puente sobre arcos cruzaba el valle del Tiropeón y unía la explanada con la Ciudad Alta, el barrio de las familias sacerdotales y del palacio de Herodes. Su primer arco, hoy llamado Arco de Wilson, está junto al Muro Occidental. Josefo lo menciona varias veces; desde su extremo habló Tito a los rebeldes atrincherados en la Ciudad Alta.', ref:'Josefo, Guerra II.16.3 · Guerra VI.6.2' },
+  WGATE: { title:'Las Puertas Occidentales', body:'Josefo cuenta cuatro puertas en el lado oeste: dos a la altura de la explanada, por el puente y por la escalinata, y dos a nivel de la calle, que subían por túneles. Estas últimas se conservan y hoy llevan el nombre de sus exploradores, Barclay y Warren. La Mishná nombra una sola puerta al oeste, la de Kiponus.', ref:'Josefo, Antigüedades XV.11.5 · Mishná, Middot 1:3' },
+  SHUSH: { title:'La Puerta de Susa', body:'La puerta oriental del monte. Sobre ella estaba representada la ciudadela de Susa, la capital persa, en memoria del imperio que permitió reconstruir el templo. Por ella salían hacia el Monte de los Olivos el sacerdote que quemaba la vaca alazana y todos sus ayudantes. La actual Puerta Dorada, tapiada, es posterior y se alza aproximadamente en el mismo lugar.', ref:'Mishná, Middot 1:3 · Pará 3:6 · Números 19:1-10' },
+};
+
+// ── CIELO ─────────────────────────────────────────────────────────────────────
+{
+  const cv = document.createElement('canvas'); cv.width = 16; cv.height = 512;
+  const c = cv.getContext('2d'), g = c.createLinearGradient(0, 0, 0, 512);
+  g.addColorStop(0, '#2c5c94'); g.addColorStop(0.28, '#5c8cbc'); g.addColorStop(0.42, '#a8c0d4');
+  g.addColorStop(0.495, '#e8e0cc'); g.addColorStop(0.52, '#ddd3be'); g.addColorStop(1, '#c4b698');
+  c.fillStyle = g; c.fillRect(0, 0, 16, 512);
+  const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace;
+  world.add(new THREE.Mesh(new THREE.SphereGeometry(7000, 32, 20), new THREE.MeshBasicMaterial({ map:t, side:THREE.BackSide, fog:false })));
+}
+
+// ── TERRENO — esquemático: valle del Tiropeón y Ciudad Alta al oeste, valle del
+// Cedrón y Monte de los Olivos al este, terreno alto al norte, Ciudad de David al sur
+const G = -50; // nivel de la calle al pie de los muros
+const sstep = (a, b, v) => { const t = Math.min(1, Math.max(0, (v - a)/(b - a))); return t*t*(3 - 2*t); };
+function terrainH(x, z) {
+  let h = G + sstep(-340, -560, z)*60 - sstep(360, 480, z)*45 + sstep(520, 1300, z)*245 - sstep(700, 1300, x)*40;
+  const n = sstep(-300, -430, x) * (1 - sstep(300, 420, z));
+  return h + (Math.max(h, -6) - h)*n;
+}
+{
+  const g = new THREE.PlaneGeometry(14000, 14000, 180, 180); g.rotateX(-Math.PI/2);
+  const pos = g.attributes.position;
+  for (let i = 0; i < pos.count; i++) pos.setY(i, terrainH(pos.getX(i), pos.getZ(i)));
+  g.computeVertexNormals();
+  const m = new THREE.Mesh(g, M.ground); m.receiveShadow = true; world.add(m);
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// LA EXPLANADA — trapecio: O 488 m · E 470 m · N 315 m · S 280 m
+// El santuario queda al norte del centro y corrido al oeste (bajo la actual
+// Cúpula de la Roca): ~190 m del muro norte, ~130 m del muro oeste.
+// ══════════════════════════════════════════════════════════════════════════════
+const MT = { SW:[630,-283], SE:[630,326], NE:[-413,402], NW:[-413,-283] };
+{
+  // Pavimento: ShapeGeometry en (x, -z) y girada al piso; UV en codos
+  const s = new THREE.Shape();
+  const P = [MT.SW, MT.SE, MT.NE, MT.NW];
+  s.moveTo(P[0][0], -P[0][1]); for (let i = 1; i < 4; i++) s.lineTo(P[i][0], -P[i][1]);
+  const g = new THREE.ShapeGeometry(s), uv = g.attributes.uv, t = M.paving.userData.tile;
+  for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) / t[0], uv.getY(i) / t[1]);
+  const m = new THREE.Mesh(g, M.paving);
+  m.rotation.x = -Math.PI/2; m.position.y = 0.05; m.receiveShadow = true; world.add(m);
+  m.userData = INFO.MOUNT; IXS.push(m);
+
+  // Muros de contención (sobre ellos van los pórticos: ver FASE 3)
+  const E = [[MT.SW, MT.SE], [MT.SE, MT.NE], [MT.NE, MT.NW], [MT.NW, MT.SW]];
+  for (const [a, b] of E) {
+    wallSeg(a[0], a[1], b[0], b[1], G, 0, 10, M.herod, INFO.WALL);
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// TERRAZAS DE LOS ATRIOS — niveles según Middot
+//   explanada 0 → Jel y Atrio de las Mujeres +6 (12 gradas) → Atrio de Israel
+//   +13,5 (15 gradas) → Atrio de los Sacerdotes +16 → piso del santuario +22
+// Medidas interiores: Azará x ±67,5 · z -38..149 · Atrio de las Mujeres z 156..291
+// (muros y puertas: ver FASE 2 más abajo)
+// ══════════════════════════════════════════════════════════════════════════════
+const Y_W = 6, Y_I = 13.5, Y_P = 16, Y_S = 22;
+// Terraza del Jel con sus doce gradas perimetrales
+bx(172, Y_W, 365, M.marble, 0, Y_W/2, 126.5, INFO.HEL);
+for (let i = 1; i <= 11; i++) { const h = Y_W - 0.5*i; bxn(172 + 2*i, h, 365 + 2*i, M.marble, 0, h/2, 126.5, INFO.HEL); }
+floor(-86, -56, 86, 309, Y_W + 0.04, M.pavW, INFO.HEL);
+// Atrio de Israel y Atrio de los Sacerdotes
+bx(149, Y_I - Y_W, 201, M.marble, 0, (Y_W + Y_I)/2, 55.5, INFO.AZARA);
+floor(-74.5, 138, 74.5, 156, Y_I + 0.04, M.pavW, INFO.AZARA);
+bx(149, Y_P - Y_I, 183, M.marble, 0, (Y_I + Y_P)/2, 46.5, INFO.AZARA);
+floor(-74.5, -45, 74.5, 138, Y_P + 0.04, M.pavW, INFO.AZARA);
+
+// ══════════════════════════════════════════════════════════════════════════════
+// EL SANTUARIO — 100 codos de largo, fachada 100×100, cuerpo de 70 de ancho
+// Planta en T («como un león», Middot 4:7): pórtico z 51..73 · cuerpo z -27..51
+// ══════════════════════════════════════════════════════════════════════════════
+const S_TOP = Y_S + 100; // 122
+// Zócalo y las doce gradas del frente
+bx(74, Y_S - Y_P, 80, M.marble, 0, (Y_P + Y_S)/2, 11, INFO.SANCT);
+bx(104, Y_S - Y_P, 25, M.marble, 0, (Y_P + Y_S)/2, 63.5, INFO.SANCT);
+for (let i = 1; i <= 11; i++) { const h = 6 - 0.5*i; bxn(104, h, 1.5*i, M.marble, 0, Y_P + h/2, 76 + 0.75*i, INFO.STEPS); }
+
+// Cuerpo (Lugar Santo + Lugar Santísimo, con sus celdas dentro del mismo volumen)
+bx(70, 100, 78, M.marble, 0, Y_S + 50, 12, INFO.SANCT);
+// Pórtico: dos machones + dintel, dejando el vano de 20×40 abierto
+bx(40, 100, 22, M.marble, -30, Y_S + 50, 62, INFO.SANCT);
+bx(40, 100, 22, M.marble,  30, Y_S + 50, 62, INFO.SANCT);
+bx(20, 60, 22, M.marble, 0, Y_S + 70, 62, INFO.SANCT);
+
+// Molduras: zócalo, hilada de oro a media altura, friso de oro y pretil
+const RECT = [[-50, 51, 50, 73], [-35, -27, 35, 51]]; // pórtico, cuerpo
+for (const [x1, z1, x2, z2] of RECT) {
+  ring(x1, z1, x2, z2, Y_S, 3.5, 1.4, M.marbleS, INFO.SANCT);
+  ring(x1, z1, x2, z2, Y_S + 61, 1.4, 0.7, M.goldPl, INFO.SANCT);
+  ring(x1, z1, x2, z2, S_TOP - 10, 4.5, 0.9, M.goldPl, INFO.SANCT);
+  ring(x1, z1, x2, z2, S_TOP - 2.2, 2.2, 2.2, M.marbleS, INFO.SANCT);   // cornisa
+  ring(x1 + .6, z1 + .6, x2 - .6, z2 - .6, S_TOP, 3, 1.2, M.goldPl, INFO.SANCT); // pretil de 3 codos
+}
+// Pilastras del cuerpo (costados y fondo)
+for (let z = -22; z <= 46; z += 13.6) for (const sx of [-1, 1]) bxn(1.2, 87, 3.2, M.marbleS, sx*35.3, Y_S + 47, z, INFO.SANCT);
+for (let x = -27; x <= 27; x += 13.5) bxn(3.2, 87, 1.2, M.marbleS, x, Y_S + 47, -27.3, INFO.SANCT);
+
+// Púas de oro del techo («espanta cuervos», Middot 4:6) — un solo InstancedMesh
+{
+  const pts = [];
+  for (let x = -47; x <= 47; x += 4.7) for (let z = 54; z <= 70; z += 4) pts.push([x, z]);
+  for (let x = -32; x <= 32; x += 4.6) for (let z = -24; z <= 48; z += 4.5) pts.push([x, z]);
+  const im = new THREE.InstancedMesh(new THREE.ConeGeometry(0.28, 2.2, 5), M.gold, pts.length);
+  const mt = new THREE.Matrix4();
+  pts.forEach(([x, z], i) => { mt.makeTranslation(x, S_TOP + 1.1, z); im.setMatrixAt(i, mt); });
+  im.userData = INFO.SANCT; IXS.push(im); world.add(im);
+}
+
+// ── FACHADA ───────────────────────────────────────────────────────────────────
+const ZF = 73; // plano de la fachada
+// Marco de oro del vano y las cinco vigas de roble (Middot 3:7)
+for (const sx of [-1, 1]) bxn(1.8, 40, 0.9, M.goldPl, sx*10.9, Y_S + 20, ZF + .3, INFO.PORTAL);
+bxn(23.6, 1.8, 0.9, M.goldPl, 0, Y_S + 40.9, ZF + .3, INFO.PORTAL);
+for (let i = 0; i < 5; i++) bxn(22 + 2*i, 1.2, 0.9, M.oak, 0, Y_S + 43.6 + i*2.5, ZF + .3, INFO.PORTAL);
+// Cuatro columnas adosadas con capiteles de oro, y el entablamento que sostienen
+for (const x of [-41, -21, 21, 41]) {
+  bx(7.4, 6, 3.4, M.marbleS, x, Y_S + 3, ZF + 1.3, INFO.SANCT);
+  cy(3.1, 3.3, 1.2, 24, M.goldPl, x, Y_S + 6.6, ZF + .4, INFO.SANCT);
+  cy(2.6, 2.9, 64, 24, M.marbleS, x, Y_S + 39.2, ZF + .4, INFO.SANCT);
+  cy(3.9, 2.7, 5.2, 24, M.goldPl, x, Y_S + 73.8, ZF + .4, INFO.SANCT);
+  bxn(8.4, 1.2, 4.6, M.goldPl, x, Y_S + 77, ZF + .8, INFO.SANCT);
+}
+bxn(100.8, 5, 2.6, M.goldPl, 0, Y_S + 80.1, ZF + .9, INFO.SANCT);
+
+// ── INTERIOR DEL PÓRTICO, visible por el vano ─────────────────────────────────
+const ZB = 57.5; // muro oriental del Lugar Santo
+bxn(20, 40, 0.8, M.goldPl, 0, Y_S + 20, ZB, INFO.PORTAL);
+bxn(13, 22, 0.5, M.gold, 0, Y_S + 11, ZB + .55, INFO.PORTAL); // marco de las puertas (10×20)
+{ // Tapiz babilónico delante de las puertas
+  const cv = document.createElement('canvas'); cv.width = 256; cv.height = 512;
+  const c = cv.getContext('2d'), R = rng(5);
+  const g = c.createLinearGradient(0, 0, 256, 0);
+  g.addColorStop(0, '#7A1420'); g.addColorStop(.12, '#4A1A6E'); g.addColorStop(.5, '#1E3A8A'); g.addColorStop(.88, '#4A1A6E'); g.addColorStop(1, '#7A1420');
+  c.fillStyle = g; c.fillRect(0, 0, 256, 512);
+  for (let x = 12; x < 256; x += 22) { c.fillStyle = 'rgba(0,0,0,.2)'; c.fillRect(x, 0, 5, 512); c.fillStyle = 'rgba(255,255,255,.07)'; c.fillRect(x + 8, 0, 4, 512); } // pliegues
+  c.fillStyle = '#E8E0CC'; c.fillRect(0, 0, 256, 10); c.fillRect(0, 502, 256, 10);
+  for (let i = 0; i < 90; i++) { c.fillStyle = 'rgba(230,200,110,.85)'; c.beginPath(); c.arc(R()*256, 20 + R()*470, 1 + R()*1.6, 0, 7); c.fill(); } // «el panorama de los cielos» (Josefo)
+  const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace;
+  const m = mk(new THREE.PlaneGeometry(10.4, 20.4), new THREE.MeshStandardMaterial({ map:t, roughness:.95 }), 0, Y_S + 10.2, ZB + .9, INFO.PORTAL, false);
+}
+{ // Vid de oro sobre la puerta
+  const vine = new THREE.Group(); vine.userData = INFO.VINE;
+  const pts = []; for (let i = 0; i <= 16; i++) { const u = i/16; pts.push(new THREE.Vector3(-8.6 + 17.2*u, 31 + Math.sin(u*Math.PI)*3.2 + Math.sin(u*Math.PI*5)*.7, 0)); }
+  vine.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 64, 0.28, 6), M.gold));
+  const grapes = [], leafG = new THREE.CircleGeometry(1.25, 5);
+  [[-6.6,5],[-3.4,6],[0,7],[3.4,6],[6.6,5]].forEach(([x, rows], k) => {
+    const y0 = 31 + Math.sin((x + 8.6)/17.2*Math.PI)*3.2 - 0.6;
+    for (let r = 0; r < rows; r++) { const n = rows - r; for (let j = 0; j < n; j++) grapes.push([x + (j - (n-1)/2)*0.74, y0 - r*0.68, 0.25]); }
+    for (const sx of [-1, 1]) { const lf = new THREE.Mesh(leafG, M.goldPl); lf.position.set(x + sx*1.7, y0 + 1.5, .1); lf.rotation.z = sx*.5 + k; vine.add(lf); }
+  });
+  const im = new THREE.InstancedMesh(new THREE.SphereGeometry(0.4, 8, 6), M.gold, grapes.length), mt = new THREE.Matrix4();
+  grapes.forEach((p, i) => { mt.makeTranslation(...p); im.setMatrixAt(i, mt); });
+  vine.add(im);
+  vine.position.set(0, Y_S - 4.5, ZB + .7); // racimos «de la altura de un hombre» (Josefo)
+  world.add(vine); IXS.push(vine);
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// EL ALTAR DEL HOLOCAUSTO (Middot 3:1-4) — piedra sin labrar, encalada
+// Corrido 3,5 codos al norte del eje: «rampa y altar, 62 codos» + 25 hasta el muro sur
+// ══════════════════════════════════════════════════════════════════════════════
+const AX = -3.5, AZ = 111;
+bx(32, 1, 32, M.plaster, AX, Y_P + 0.5, AZ, INFO.ALTAR);   // yesod (base)
+bx(30, 5, 30, M.plaster, AX, Y_P + 3.5, AZ, INFO.ALTAR);   // hasta el sovev (cornisa)
+bx(28, 3, 28, M.plaster, AX, Y_P + 7.5, AZ, INFO.ALTAR);   // plataforma del fuego
+for (const sx of [-1, 1]) for (const sz of [-1, 1]) bx(1, 1, 1, M.plaster, AX + sx*13.5, Y_P + 9.5, AZ + sz*13.5, INFO.ALTAR); // cuernos
+{ // Rampa (kevesh): 32 de largo × 16 de ancho, sube desde el sur
+  const s = new THREE.Shape(); s.moveTo(10.5, Y_P); s.lineTo(42.5, Y_P); s.lineTo(10.5, Y_P + 9); s.closePath();
+  mk(new THREE.ExtrudeGeometry(s, { depth:16, bevelEnabled:false }), M.plaster, 0, 0, AZ - 8, INFO.RAMP);
+}
+// Leña, fuego perpetuo y humo
+const flames = [], smoke = [];
+const haloTex = (() => {
+  const cv = document.createElement('canvas'); cv.width = cv.height = 64;
+  const c = cv.getContext('2d'), g = c.createRadialGradient(32,32,2, 32,32,32);
+  g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(0.4, 'rgba(255,255,255,.4)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+  c.fillStyle = g; c.fillRect(0,0,64,64); return new THREE.CanvasTexture(cv);
+})();
+{
+  const R = rng(3), FY = Y_P + 9;
+  for (let i = 0; i < 7; i++) { const l = mk(new THREE.CylinderGeometry(.45, .45, 9, 6), M.wood, AX + (R()-.5)*4, FY + .5 + (i%2)*.8, AZ + (i - 3)*1.1, null, false); l.rotation.z = Math.PI/2; l.rotation.y = (R()-.5)*.8; }
+  for (let i = 0; i < 9; i++) { const f = mk(new THREE.ConeGeometry(.9 + R()*.8, 3 + R()*3, 6), M.flame, AX + (R()-.5)*7, FY + 2.6, AZ + (R()-.5)*7, null, false); f.userData.ph = R()*6; flames.push(f); }
+  const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map:haloTex, color:0xFFB050, transparent:true, opacity:.55, depthWrite:false, blending:THREE.AdditiveBlending }));
+  glow.position.set(AX, FY + 3.5, AZ); glow.scale.set(26, 22, 1); world.add(glow);
+  for (let i = 0; i < 10; i++) {
+    const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map:haloTex, color:0x9A948A, transparent:true, opacity:.2, depthWrite:false }));
+    sp.userData = { ph: i/10, dx: (R()-.5)*10 }; world.add(sp); smoke.push(sp);
+  }
+  const fl = new THREE.PointLight(0xFF9A40, 500, 90, 2); fl.position.set(AX, FY + 6, AZ); world.add(fl);
+}
+
+// ── LA FUENTE DE BRONCE (kiyor) — entre el pórtico y el altar, hacia el sur ──
+{
+  const LX = 24, LZ = 97.5;
+  cy(1.5, 2, 1.2, 20, M.bronze, LX, Y_P + .6, LZ, INFO.LAVER);
+  cy(.8, 1, 2.2, 16, M.bronze, LX, Y_P + 2.3, LZ, INFO.LAVER);
+  cy(2.9, 1.3, 2.2, 28, M.bronze, LX, Y_P + 4.5, LZ, INFO.LAVER);
+  const w = mk(new THREE.CircleGeometry(2.6, 28), M.water, LX, Y_P + 5.62, LZ, null, false); w.rotation.x = -Math.PI/2;
+  for (let i = 0; i < 12; i++) { // los doce grifos de Ben Katín
+    const a = i/12 * Math.PI*2, s = mk(new THREE.CylinderGeometry(.11, .11, .9, 6), M.bronze, LX + Math.cos(a)*2.5, Y_P + 4.1, LZ + Math.sin(a)*2.5, null, false);
+    s.rotation.z = Math.PI/2; s.rotation.y = -a;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// FASE 2 — MUROS Y PUERTAS DE LOS ATRIOS
+// ══════════════════════════════════════════════════════════════════════════════
+M.bronzeG = new THREE.MeshStandardMaterial({ color:0xD9A050, roughness:0.28, metalness:0.92, emissive:new THREE.Color(0x2A1400), emissiveIntensity:0.2 }); // bronce de Corinto
+
+// Coloca una caja en un muro que corre a lo largo de X (axis 'x', z fijo) o de Z (axis 'z', x fijo)
+function put(axis, al, h, ac, mat, along, y, across, info, shadow = true) {
+  return axis === 'x' ? mk(boxGeo(al, h, ac, mat), mat, along, y, across, info, shadow)
+                      : mk(boxGeo(ac, h, al, mat), mat, across, y, along, info, shadow);
+}
+// Muro con puertas-torre. gates: [{c, w, h, yf, top, info, door, inS, yOut}]
+//   c centro · w,h vano · yf umbral · top coronación de la torre · inS lado hacia
+//   el que abren las hojas (+1/-1 en el eje transversal) · yOut nivel exterior
+//   (si es menor que yf se agrega la escalinata por fuera)
+function gateWall(axis, fixed, a, b, yb, yt, th, info, gates = []) {
+  const PIER = 6;
+  const seg = (p, q) => { if (q - p < 0.1) return;
+    put(axis, q - p, yt - yb, th, M.marble, (p+q)/2, (yb+yt)/2, fixed, info);
+    put(axis, q - p, 1.6, th + 1.6, M.marbleS, (p+q)/2, yt + .8, fixed, info, false); };
+  let cur = a;
+  for (const g of [...gates].sort((m, n) => m.c - n.c)) {
+    const l = g.c - g.w/2, r = g.c + g.w/2, T = th + 3;
+    seg(cur, l - PIER); cur = r + PIER;
+    for (const pc of [l - PIER/2, r + PIER/2]) put(axis, PIER, g.top - yb, T, M.marble, pc, (yb + g.top)/2, fixed, g.info);
+    put(axis, g.w, g.top - (g.yf + g.h), T, M.marble, g.c, (g.yf + g.h + g.top)/2, fixed, g.info);          // dintel
+    if (g.yf > yb) put(axis, g.w, g.yf - yb, T, M.marble, g.c, (yb + g.yf)/2, fixed, g.info);                // umbral
+    put(axis, g.w + 2*PIER + 1.8, 2, T + 1.8, M.marbleS, g.c, g.top + 1, fixed, g.info, false);             // cornisa
+    put(axis, g.w + 3, 1.4, T + .5, M.goldPl, g.c, g.yf + g.h + 1.6, fixed, g.info, false);                 // banda de oro
+    for (const sd of [-1, 1])                                                                                 // hojas abiertas
+      put(axis, .6, g.h, g.w/2, g.door, g.c + sd*(g.w/2 - .3), g.yf + g.h/2, fixed + g.inS*(T/2 + g.w/4), g.info);
+    if (g.yOut !== undefined && g.yOut < g.yf) {                                                              // escalinata exterior
+      const n = Math.round(g.yf - g.yOut), rise = (g.yf - g.yOut)/n, face = fixed - g.inS*T/2;
+      for (let i = 0; i < n - 1; i++) { const h = (g.yf - g.yOut) - rise*(i + 1), d = i + 1;
+        put(axis, g.w + 4, h, d, M.marble, g.c, g.yOut + h/2, face - g.inS*d/2, g.info, false); }
+    }
+  }
+  seg(cur, b);
+}
+
+// ── ATRIO INTERIOR (Azará): muros norte, sur y oeste — seis puertas laterales ─
+const sideGates = (inS) => [5, 65, 125].map(c => ({ c, w:10, h:20, yf:Y_P, top:50, info:INFO.GATES, door:M.goldPl, inS, yOut:Y_W }));
+gateWall('z',  71.1, -45, 156, Y_I, 42, 7.2, INFO.AZARA, sideGates(-1)); // sur
+gateWall('z', -71.1, -45, 156, Y_I, 42, 7.2, INFO.AZARA, sideGates(+1)); // norte
+gateWall('x', -41.6, -74.7, 74.7, Y_I, 42, 7.2, INFO.AZARA);             // oeste, ciego
+
+// ── PUERTA DE NICANOR + sus dos postigos y las quince gradas en semicírculo ──
+gateWall('x', 152.5, -67.5, 67.5, Y_I, 42, 7, INFO.NICANOR, [
+  { c:0,   w:12, h:22, yf:Y_I, top:54, info:INFO.NICANOR, door:M.bronzeG, inS:-1 },
+  { c:-26, w:4,  h:9,  yf:Y_I, top:42, info:INFO.NICANOR, door:M.bronzeG, inS:-1 },
+  { c:26,  w:4,  h:9,  yf:Y_I, top:42, info:INFO.NICANOR, door:M.bronzeG, inS:-1 },
+]);
+for (let i = 0; i < 15; i++) { // 15 contrahuellas de medio codo: de +6 a +13,5
+  const h = (Y_I - Y_W) - 0.5*i, r = 9 + 1.1*i;
+  mk(new THREE.CylinderGeometry(r, r, h, 56, 1, false, -Math.PI/2, Math.PI), M.marbleS, 0, Y_W + h/2, 156, INFO.NICANOR, false);
+}
+
+// ── EL DUJAN: escalón de un codo + tres gradas de medio codo (Middot 2:6) ────
+[[1, 3.6], [1.5, 2.4], [2, 1.2]].forEach(([h, d]) => bxn(135, h, d, M.marbleS, 0, Y_I + h/2, 138 + d/2, INFO.DUCHAN));
+
+// ── ATRIO DE LAS MUJERES — 135 × 135 codos ───────────────────────────────────
+const wSide = (inS) => [{ c:223.5, w:10, h:20, yf:Y_W, top:42, info:INFO.WOMEN, door:M.goldPl, inS }];
+gateWall('z',  71.1, 156, 298, Y_W, 34, 7.2, INFO.WOMEN, wSide(-1));
+gateWall('z', -71.1, 156, 298, Y_W, 34, 7.2, INFO.WOMEN, wSide(+1));
+gateWall('x', 294.5, -74.7, 74.7, Y_W, 34, 7, INFO.WOMEN, [{ c:0, w:14, h:24, yf:Y_W, top:48, info:INFO.BEAUT, door:M.bronzeG, inS:-1 }]);
+floor(-67.5, 156, 67.5, 291, Y_W + 0.08, M.pavW, INFO.WOMEN);
+
+// Las cuatro cámaras de las esquinas: 40 × 40 codos, sin techo (Middot 2:5)
+[[ 1, 251, INFO.CH_SE], [-1, 251, INFO.CH_NE], [-1, 156, INFO.CH_NW], [ 1, 156, INFO.CH_SW]].forEach(([sx, z0, inf]) => {
+  const CH = 14, east = z0 > 200, zIn = east ? z0 : z0 + 40; // muro que mira al centro del atrio
+  // muro paralelo a Z (cara al eje del atrio), con su puerta
+  for (const [p, q] of [[z0, z0 + 16], [z0 + 24, z0 + 40]]) bx(2, CH, q - p, M.marble, sx*27.5, Y_W + CH/2, (p+q)/2, inf);
+  bx(2, CH - 9, 8, M.marble, sx*27.5, Y_W + 9 + (CH - 9)/2, z0 + 20, inf);
+  // muro paralelo a X
+  bx(41, CH, 2, M.marble, sx*47, Y_W + CH/2, zIn, inf);
+  bxn(2.8, 1, 41, M.marbleS, sx*27.5, Y_W + CH + .5, z0 + 20, inf);
+  bxn(41.8, 1, 2.8, M.marbleS, sx*47, Y_W + CH + .5, zIn, inf);
+});
+
+// Las trece arcas del tesoro («trompetas», Shekalim 6:5) contra los muros norte y sur
+{
+  const chest = new THREE.BoxGeometry(1.7, 2, 1.7), horn = new THREE.CylinderGeometry(.22, .75, 1.7, 12);
+  const put13 = (x, z) => { mk(chest, M.oak, x, Y_W + 1, z, INFO.TREAS, false); mk(horn, M.bronzeG, x, Y_W + 2.85, z, INFO.TREAS, false); };
+  for (let i = 0; i < 7; i++) put13(-65.6, 201.5 + i*7.3);
+  for (let i = 0; i < 6; i++) put13( 65.6, 205 + i*7.4);
+}
+
+// ── EL SOREG — balaustrada calada al pie de las gradas, con sus lápidas ──────
+{
+  const lat = (() => { // celosía de piedra en rombos, con transparencia
+    const cv = document.createElement('canvas'); cv.width = cv.height = 64; const c = cv.getContext('2d');
+    c.strokeStyle = '#E4DDCC'; c.lineWidth = 9; c.lineCap = 'square';
+    for (const [x1, y1, x2, y2] of [[0,0,64,64],[64,0,0,64],[-32,32,32,96],[32,-32,96,32],[32,96,96,32],[-32,32,32,-32]]) { c.beginPath(); c.moveTo(x1,y1); c.lineTo(x2,y2); c.stroke(); }
+    const t = new THREE.CanvasTexture(cv); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = MAX_ANISO;
+    const m = new THREE.MeshStandardMaterial({ map:t, alphaTest:.5, side:THREE.DoubleSide, roughness:.7 }); m.userData.tile = [1.6, 1.6]; return m;
+  })();
+  const slab = (() => { // lápida de advertencia: griego grabado y pintado de rojo
+    const cv = document.createElement('canvas'); cv.width = 256; cv.height = 176; const c = cv.getContext('2d');
+    c.fillStyle = '#E9E3D3'; c.fillRect(0, 0, 256, 176);
+    c.fillStyle = '#8E2A1C'; c.font = 'bold 19px Georgia, serif'; c.textAlign = 'center';
+    ['ΜΗΘΕΝΑ ΑΛΛΟΓΕΝΗ','ΕΙΣΠΟΡΕΥΕΣΘΑΙ ΕΝΤΟΣ','ΤΟΥ ΠΕΡΙ ΤΟ ΙΕΡΟΝ','ΤΡΥΦΑΚΤΟΥ ΚΑΙ','ΠΕΡΙΒΟΛΟΥ · ΟΣ Δ ΑΝ','ΛΗΦΘΗ ΕΑΥΤΩΙ ΑΙΤΙΟΣ','ΕΣΤΑΙ … ΘΑΝΑΤΟΝ'].forEach((l, i) => c.fillText(l, 128, 28 + i*23));
+    const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = MAX_ANISO;
+    t.wrapS = THREE.RepeatWrapping; t.repeat.x = -1; // compensa el espejo de `world`: el texto se lee al derecho
+    return new THREE.MeshStandardMaterial({ map:t, roughness:.8 });
+  })();
+  const SH = 2; // ≈ diez palmos
+  function soregSide(axis, fixed, a, b, gaps, out) {
+    let cur = a;
+    const seg = (p, q) => { if (q - p < .1) return;
+      put(axis, q - p, SH - .5, .25, lat, (p+q)/2, .25 + (SH - .5)/2, fixed, INFO.SOREG, false);
+      put(axis, q - p, .25, .7, M.marbleS, (p+q)/2, .125, fixed, INFO.SOREG, false);
+      put(axis, q - p, .3, .7, M.marbleS, (p+q)/2, SH - .1, fixed, INFO.SOREG, false); };
+    for (const [c, w] of gaps) {
+      seg(cur, c - w/2); cur = c + w/2;
+      for (const sd of [-1, 1]) { // pilar + lápida a cada lado del paso
+        const al = c + sd*(w/2 + .5);
+        put(axis, 1, 3.6, 1, M.marbleS, al, 1.8, fixed, INFO.SOREG);
+        const pl = put(axis, 2.4, 1.65, .12, slab, al + sd*1.9, 2.6, fixed + out*.25, INFO.SOREG, false);
+        if ((axis === 'x' && out < 0) || (axis === 'z' && out > 0)) pl.rotation.y += Math.PI; // el texto mira hacia afuera
+      }
+    }
+    seg(cur, b);
+  }
+  const side = [[5, 12], [65, 12], [125, 12], [223.5, 12]];
+  soregSide('z',  105, -75, 328, side, +1);
+  soregSide('z', -105, -75, 328, side, -1);
+  soregSide('x',  328, -105, 105, [[0, 18]], +1);
+  soregSide('x',  -75, -105, 105, [], -1);
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// FASE 3 — EL RECINTO EXTERIOR: pórticos, Stoa Real, Antonia, puertas y accesos
+// ══════════════════════════════════════════════════════════════════════════════
+// Cada lado de la explanada se arma en un Group con X local a lo largo del muro
+// y Z local SIEMPRE hacia adentro, así el lado oblicuo (este) no necesita trato aparte.
+function edgeGroup(A, B) {
+  let [x1, z1] = A, [x2, z2] = B;
+  const calc = () => { const dx = x2 - x1, dz = z2 - z1, th = Math.atan2(-dz, dx); return { L: Math.hypot(dx, dz), th }; };
+  let e = calc();
+  if (Math.sin(e.th)*(108 - (x1+x2)/2) + Math.cos(e.th)*(60 - (z1+z2)/2) < 0) { [x1, z1, x2, z2] = [x2, z2, x1, z1]; e = calc(); }
+  const g = new THREE.Group(); g.position.set(x1, 0, z1); g.rotation.y = e.th; world.add(g);
+  return { g, L: e.L, at: (px, pz) => Math.hypot(px - x1, pz - z1) };
+}
+function lbox(g, w, h, d, mat, x, y, z, info, shadow = true) {
+  const m = new THREE.Mesh(boxGeo(w, h, d, mat), mat); m.position.set(x, y, z);
+  m.castShadow = shadow; m.receiveShadow = true;
+  if (info) { m.userData = info; IXS.push(m); }
+  g.add(m); return m;
+}
+function inst(g, geo, mat, pts, info, shadow = false) {
+  const im = new THREE.InstancedMesh(geo, mat, pts.length), mt = new THREE.Matrix4();
+  pts.forEach((p, i) => { mt.makeTranslation(p[0], p[1], p[2]); im.setMatrixAt(i, mt); });
+  im.castShadow = shadow; im.receiveShadow = true;
+  if (info) { im.userData = info; IXS.push(im); }
+  g.add(im); return im;
+}
+// Columnata: fustes, basas y capiteles en tres InstancedMesh (cientos de columnas, 3 draw calls)
+function colonnade(g, xz, h, r, info) {
+  inst(g, new THREE.CylinderGeometry(r*.86, r, h, 14), M.marbleS, xz.map(([x, z]) => [x, h/2, z]), info, true);
+  inst(g, new THREE.CylinderGeometry(r*1.25, r*1.4, 1, 14), M.marbleS, xz.map(([x, z]) => [x, .5, z]), info);
+  inst(g, new THREE.CylinderGeometry(r*1.55, r*.9, 2.4, 14), M.marbleS, xz.map(([x, z]) => [x, h - 1.2, z]), info);
+}
+const TRIM = 44, WALL_H = 32;
+// Muro exterior sobre la explanada, con pilastras por fuera (como en Hebrón)
+function outerWall(e, h, info) {
+  lbox(e.g, e.L, h, 5, M.herod, e.L/2, h/2, 2.5, info);
+  lbox(e.g, e.L, 1.6, 6.4, M.marbleS, e.L/2, h + .8, 2.5, info, false);
+  const pts = []; for (let x = 6; x < e.L - 4; x += 9) pts.push([x, h/2 + 3, -.5]);
+  inst(e.g, new THREE.BoxGeometry(3.4, h - 6, 1.2), M.herod, pts, info);
+}
+// Pórtico doble: 30 codos de ancho, columnas de 25 (Josefo, Guerra V.5.2)
+function portico(A, B, info) {
+  const e = edgeGroup(A, B), xz = [];
+  outerWall(e, WALL_H, info);
+  for (const z of [17, 32]) {
+    for (let x = TRIM; x <= e.L - TRIM; x += 14.5) xz.push([x, z]);
+    lbox(e.g, e.L - 2*TRIM + 8, 2.6, 3.4, M.marbleS, e.L/2, 26.3, z, info, false);
+  }
+  colonnade(e.g, xz, 25, 1.9, info);
+  lbox(e.g, e.L - 60, 2.2, 33, M.tile, e.L/2, 28.7, 19, info);
+  return e;
+}
+const P_W = portico(MT.NW, MT.SW, INFO.PORT);
+const P_N = portico(MT.NE, MT.NW, INFO.PORT);
+const P_E = portico(MT.SE, MT.NE, INFO.SOLP);
+
+// ── LA STOA REAL (Josefo, Ant. XV.11.5): 4 hileras, 3 naves, la central doble ──
+{
+  const e = edgeGroup(MT.SW, MT.SE), ROWS = [7.5, 27, 57, 77], xz = [], x0 = TRIM + 4, n = 40, step = (e.L - 2*x0)/(n - 1);
+  outerWall(e, 36, INFO.STOA);
+  for (const z of ROWS) {
+    for (let i = 0; i < n; i++) xz.push([x0 + i*step, z]); // 160 columnas (+2 de los extremos = 162)
+    lbox(e.g, e.L - 2*TRIM + 4, 2.8, 4, M.marbleS, e.L/2, 28.4, z, INFO.STOA, false);
+  }
+  colonnade(e.g, xz, 27, 2.2, INFO.STOA);
+  const LR = e.L - 2*TRIM + 6;
+  lbox(e.g, LR, 2.2, 24, M.tile, e.L/2, 31, 16.5, INFO.STOA);   // nave sur
+  lbox(e.g, LR, 2.2, 24, M.tile, e.L/2, 31, 68, INFO.STOA);     // nave norte
+  for (const z of [27, 57]) lbox(e.g, LR, 30, 2.6, M.marble, e.L/2, 45, z, INFO.STOA); // claristorio
+  { // columnas altas del claristorio, hacia la explanada
+    const up = []; for (let i = 0; i < n; i++) up.push([x0 + i*step, 45, 58.6]);
+    inst(e.g, new THREE.CylinderGeometry(1.2, 1.4, 27, 10), M.marbleS, up, INFO.STOA);
+  }
+  lbox(e.g, LR + 2, 2.6, 37, M.tile, e.L/2, 61.3, 42, INFO.STOA); // nave central
+  for (const x of [TRIM - 2, e.L - TRIM + 2]) { lbox(e.g, 3, 60, 34, M.marble, x, 30, 42, INFO.STOA); lbox(e.g, 3, 30, 40, M.marble, x, 15, 60, INFO.STOA); }
+  // Salidas de los túneles de Hulda, al norte de la Stoa
+  for (const [z, w] of [[0, 22], [141, 30]]) {
+    const cx = 528;
+    bxn(26, .2, w, M.dark, cx, .2, z, INFO.HULDA);
+    bxn(27.4, 2.2, .8, M.marbleS, cx, 1.1, z - w/2, INFO.HULDA); bxn(27.4, 2.2, .8, M.marbleS, cx, 1.1, z + w/2, INFO.HULDA);
+    bxn(.8, 2.2, w, M.marbleS, cx + 13.3, 1.1, z, INFO.HULDA);
+    for (let i = 0; i < 6; i++) bxn(3, .15, w - 1, M.marble, cx + 11 - i*3.6, .1 - i*.02 + .12, z, INFO.HULDA); // primeros peldaños
+  }
+}
+
+// ── TORRES DE ESQUINA ─────────────────────────────────────────────────────────
+[[612, 308, 58, INFO.PINN], [612, -265, 58, INFO.TRUMP], [-395, 384, 44, INFO.PORT], [-395, -265, 44, INFO.ANTON]].forEach(([x, z, h, inf]) => {
+  bx(42, h, 42, M.herod, x, h/2, z, inf);
+  ring(x - 21, z - 21, x + 21, z + 21, h, 2.4, 2.4, M.marbleS, inf);
+  bxn(40, 1.6, 40, M.tile, x, h + .8, z, inf);
+});
+
+// ── PUERTA DE SUSA (muro oriental, frente al Monte de los Olivos) ────────────
+{
+  const lx = P_E.at(-44, 375);
+  lbox(P_E.g, 44, 46, 16, M.herod, lx, 23, 4, INFO.SHUSH);
+  lbox(P_E.g, 46.4, 2, 18.4, M.marbleS, lx, 47, 4, INFO.SHUSH, false);
+  for (const z of [-4.2, 12.2]) { lbox(P_E.g, 14, 24, .5, M.dark, lx, 12, z, INFO.SHUSH, false); lbox(P_E.g, 17, 1.6, .9, M.goldPl, lx, 25.4, z, INFO.SHUSH, false); }
+}
+
+// ── FORTALEZA ANTONIA (Josefo, Guerra V.5.8) — sobre la roca, esquina noroeste ──
+{
+  const X0 = -521, X1 = -415, Z0 = -283, Z1 = -23, RY = 12, BODY = 40;
+  bx(X1 - X0 + 16, RY - G, Z1 - Z0 + 16, M.rock, (X0+X1)/2 - 2, (G + RY)/2, (Z0+Z1)/2, INFO.ANTON);        // la roca
+  bx(X1 - X0, BODY, Z1 - Z0, M.herod, (X0+X1)/2, RY + BODY/2, (Z0+Z1)/2, INFO.ANTON);
+  ring(X0, Z0, X1, Z1, RY + BODY, 3, 2.6, M.herod, INFO.ANTON);
+  bxn(X1 - X0 - 50, .4, Z1 - Z0 - 50, M.paving, (X0+X1)/2, RY + BODY + .2, (Z0+Z1)/2, INFO.ANTON);
+  for (const [x, z, h] of [[X0 + 17, Z0 + 17, 50], [X0 + 17, Z1 - 17, 50], [X1 - 17, Z0 + 17, 50], [X1 - 17, Z1 - 17, 70]]) { // la del sudeste, 70 codos
+    bx(34, h, 34, M.herod, x, RY + h/2, z, INFO.ANTON);
+    ring(x - 17, z - 17, x + 17, z + 17, RY + h, 3, 2.4, M.herod, INFO.ANTON);
+  }
+  // «Las gradas» (Hch 21:35, 40): del techo del pórtico norte a la explanada
+  for (let i = 0; i < 15; i++) bxn(2, 28 - 2*i + .7, 16, M.marble, -376 + 2*i, (28 - 2*i + .7)/2, -150, INFO.ANTON);
+}
+
+// ── MURO SUR: puertas de Hulda, plaza y escalinata ───────────────────────────
+{
+  const YG = -26, XF = 635; // umbral de las puertas, 12 m bajo la explanada
+  bx(34, YG - G, 360, M.paving, XF + 17, (G + YG)/2, 50, INFO.HULDA);
+  const door = (z, w) => { bxn(.8, 20, w, M.dark, XF + .3, YG + 10, z, INFO.HULDA); };
+  for (const z of [-7, 7]) door(z, 11);                    // Puerta Doble
+  for (const z of [130.5, 141, 151.5]) door(z, 8.5);       // Puerta Triple
+  bxn(1.4, 2.4, 29, M.marbleS, XF + .5, YG + 21.4, 0, INFO.HULDA); bxn(1.4, 2.4, 35, M.marbleS, XF + .5, YG + 21.4, 141, INFO.HULDA);
+  const stair = (z, w) => { for (let i = 0; i < 15; i++) { const h = (YG - G) - 1.5*(i + 1); bxn(i % 2 ? 2 : 5, h, w, M.paving, 0, G + h/2, z, INFO.HULDA).position.x = stairX[i]; } };
+  const stairX = []; { let x = XF + 34; for (let i = 0; i < 15; i++) { const d = i % 2 ? 2 : 5; stairX.push(x + d/2); x += d; } } // peldaños anchos y angostos alternados
+  stair(0, 150); stair(141, 50);
+}
+
+// ── MURO OESTE: Arco de Robinson, puente (Arco de Wilson) y puertas de la calle ──
+{
+  const ZF = -288;
+  // Robinson: tablero sobre el arco + machón + escalinata que baja hacia el sur
+  bx(34, 5, 30, M.herod, 587, -2.5, ZF - 15, INFO.ROB);
+  bx(34, -5 - G, 9, M.herod, 587, (G - 5)/2, ZF - 34.5, INFO.ROB);
+  bx(34, 5, 9, M.herod, 587, -2.5, ZF - 34.5, INFO.ROB);
+  for (let i = 0; i < 24; i++) { const h = -G - 2*(i + 1); bxn(4, h, 14, M.herod, 606 + 4*i, G + h/2, ZF - 32, INFO.ROB); }
+  // Puente a la Ciudad Alta
+  bx(28, 5, 222, M.herod, 240, -2.5, ZF - 111, INFO.WILS);
+  for (const sd of [-1, 1]) bxn(1.4, 3, 222, M.herod, 240 + sd*13.3, 1.5, ZF - 111, INFO.WILS);
+  for (let z = ZF - 34; z > ZF - 200; z -= 38) bx(28, -5 - G, 13, M.herod, 240, (G - 5)/2, z, INFO.WILS);
+  // Puertas a nivel de la calle (Barclay y Warren)
+  for (const x of [455, 150]) { bxn(10, 20, .8, M.dark, x, G + 10, ZF - .3, INFO.WGATE); bxn(15, 3.4, 1.4, M.marbleS, x, G + 21.7, ZF - .5, INFO.WGATE); }
+}
+
+// ── RAYCASTING / HOVER ────────────────────────────────────────────────────────
+const ray = new THREE.Raycaster(), mouse = new THREE.Vector2();
+const ttEl = document.getElementById('tooltip');
+const ttT = document.getElementById('tt-t'), ttB = document.getElementById('tt-b'), ttR = document.getElementById('tt-r');
+let hObj = null;
+renderer.domElement.addEventListener('mousemove', e => {
+  mouse.x = (e.clientX/innerWidth)*2 - 1;
+  mouse.y = -(e.clientY/innerHeight)*2 + 1;
+  ray.setFromCamera(mouse, camera);
+  const hits = ray.intersectObjects(IXS, true);
+  let found = null;
+  for (const h of hits) { let o = h.object; while (o) { if (o.userData?.title) { found = o; break; } o = o.parent; } if (found) break; }
+  if (found) {
+    if (found !== hObj) { hObj = found; ttT.textContent = found.userData.title; ttB.textContent = found.userData.body; ttR.textContent = found.userData.ref || ''; }
+    ttEl.classList.add('on'); document.body.style.cursor = 'crosshair';
+  } else { ttEl.classList.remove('on'); hObj = null; document.body.style.cursor = 'grab'; }
+});
+renderer.domElement.addEventListener('mouseleave', () => { ttEl.classList.remove('on'); hObj = null; });
+
+// ── PRESETS DE CÁMARA ─────────────────────────────────────────────────────────
+// (coordenadas de Three.js: x = -X del código)
+const CAMS = {
+  ext: { p:[-720,400,780],  t:[-90,0,60] },
+  top: { p:[-108,1500,62],  t:[-108,0,60] },
+  san: { p:[-120,120,400],  t:[-0,52,60] },
+  alt: { p:[-54,58,146],    t:[3,18,104] },
+  muj: { p:[-30,42,284],    t:[-0,16,160] },
+  sor: { p:[-13,6,341],     t:[-10,2.4,328] },
+  mur: { p:[-860,40,-500],  t:[-480,-5,-200] },
+  sto: { p:[-330,120,230],  t:[-600,20,20] },
+  sol: { p:[-170,48,215],   t:[-70,12,368] },
+  ant: { p:[210,130,60],  t:[440,30,-150] },
+  sur: { p:[-1010,70,250],  t:[-640,-15,50] },
+};
+let camAnim = null, droneActive = false, droneT = 0;
+const bDrone = document.getElementById('b-drone');
+function stopDrone() { droneActive = false; orbit.enabled = true; bDrone.classList.remove('active'); bDrone.textContent = '▶ Vuelo Dron'; }
+function goTo(k) {
+  const c = CAMS[k];
+  camAnim = { sp:camera.position.clone(), st:orbit.target.clone(), ep:new THREE.Vector3(...c.p), et:new THREE.Vector3(...c.t), k:0, dur:100 };
+  stopDrone();
+}
+for (const k of Object.keys(CAMS)) document.getElementById('b-' + k).onclick = () => goTo(k);
+bDrone.addEventListener('click', () => {
+  if (droneActive) return stopDrone();
+  droneActive = true; droneT = 0; camAnim = null; orbit.enabled = false;
+  bDrone.classList.add('active'); bDrone.textContent = '■ Detener Dron';
+});
+
+// ── LOOP ──────────────────────────────────────────────────────────────────────
+const clock = new THREE.Clock();
+const ease = t => t < .5 ? 2*t*t : -1 + (4 - 2*t)*t;
+function animate() {
+  requestAnimationFrame(animate);
+  if (document.hidden) return; // no renderizar en segundo plano
+  const t = clock.getElapsedTime();
+
+  flames.forEach(f => { const s = 1 + Math.sin(t*7 + f.userData.ph)*.22; f.scale.set(1, s, 1); f.position.y = Y_P + 9 + 2.6*s; });
+  smoke.forEach(s => { // columna de humo que sube y se abre
+    const u = (t*0.035 + s.userData.ph) % 1;
+    s.position.set(AX + s.userData.dx*u + Math.sin(t*.3 + s.userData.ph*9)*4*u, Y_P + 14 + u*150, AZ - u*30);
+    const sc = 10 + u*55; s.scale.set(sc, sc, 1);
+    s.material.opacity = 0.22 * Math.sin(u*Math.PI);
+  });
+
+  if (camAnim) {
+    camAnim.k = Math.min(camAnim.k + 1, camAnim.dur);
+    const a = ease(camAnim.k/camAnim.dur);
+    camera.position.lerpVectors(camAnim.sp, camAnim.ep, a);
+    orbit.target.lerpVectors(camAnim.st, camAnim.et, a);
+    if (camAnim.k >= camAnim.dur) camAnim = null;
+  }
+  if (droneActive) {
+    droneT += 0.0016;
+    const ang = droneT*Math.PI*2 + 0.8, r = 760 - Math.sin(droneT*Math.PI)*330, ht = 330 - Math.sin(droneT*Math.PI)*150;
+    camera.position.set(-60 + Math.cos(ang)*r, ht, 70 + Math.sin(ang)*r);
+    orbit.target.set(-40, 40, 70); camera.lookAt(orbit.target);
+    if (droneT >= 1) stopDrone();
+  }
+  orbit.update();
+  composer.render();
+}
+animate();
+
+window.addEventListener('resize', () => {
+  camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+  composer.setSize(innerWidth, innerHeight);
+});
+
+setTimeout(() => {
+  const ld = document.getElementById('loading');
+  if (ld) { ld.style.opacity = '0'; setTimeout(() => { if (ld && ld.parentNode) ld.parentNode.removeChild(ld); }, 900); }
+}, 2400);
+</script>
+</body>
+</html>
