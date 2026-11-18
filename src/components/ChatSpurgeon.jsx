@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, X, Send, Sparkles, User, Info, BookOpen, ExternalLink, Youtube, FileText, ChevronRight } from 'lucide-react';
+import { MessageSquare, X, Send, Sparkles, User, Info, BookOpen, ExternalLink, Youtube, FileText, ChevronRight, Download, Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const SPURGEON_API_URL = '/api/spurgeon';
@@ -12,25 +12,59 @@ const INITIAL_SUGGESTIONS = [
     '¿Cuál es la Declaración de Fe?'
 ];
 
+const BIENVENIDA = {
+    role: 'assistant',
+    content: 'Bienvenido, soy el Agente Spurgeon, estoy aquí para acompañar su estudio teológico. ¿Qué tema o pasaje desea profundizar?',
+    timestamp: new Date(),
+    suggestedQuestions: INITIAL_SUGGESTIONS
+};
+
+// La conversación del día se guarda en el teléfono de la persona, para que no la
+// pierda si recarga la página antes de bajarse el PDF. Dura lo mismo que el tope
+// diario del servidor: el día de Argentina. Si el navegador no deja guardar
+// (modo privado, almacenamiento bloqueado), el chat anda igual, sin recordar.
+const CLAVE_ESTUDIO = 'spurgeon-estudio';
+const diaAR = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Argentina/Buenos_Aires' }).format(new Date());
+const leerEstudio = () => {
+    try {
+        const guardado = JSON.parse(localStorage.getItem(CLAVE_ESTUDIO) || 'null');
+        if (guardado?.dia === diaAR() && Array.isArray(guardado.messages) && guardado.messages.length) return guardado.messages;
+    } catch { /* sin almacenamiento */ }
+    return [BIENVENIDA];
+};
+
 const ChatSpurgeon = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [messages, setMessages] = useState([
-        {
-            role: 'assistant',
-            content: 'Bienvenido, soy el Agente Spurgeon, estoy aquí para acompañar su estudio teológico. ¿Qué tema o pasaje desea profundizar?',
-            timestamp: new Date(),
-            suggestedQuestions: INITIAL_SUGGESTIONS
-        }
-    ]);
+    const [messages, setMessages] = useState(leerEstudio);
     const [input, setInput] = useState('');
     const [isTyping, setIsTyping] = useState(false);
+    const [descargando, setDescargando] = useState(false);
     const scrollRef = useRef(null);
+    const nRespuestas = messages.filter(m => m.respuesta).length;
+
+    useEffect(() => {
+        try {
+            if (messages.length > 1) localStorage.setItem(CLAVE_ESTUDIO, JSON.stringify({ dia: diaAR(), messages }));
+        } catch { /* sin almacenamiento */ }
+    }, [messages]);
+
+    const descargarPdf = async () => {
+        setDescargando(true);
+        try {
+            const { descargarEstudioPdf } = await import('../lib/estudioPdf');
+            await descargarEstudioPdf(messages);
+        } catch (e) {
+            console.error('[Spurgeon] No se pudo armar el PDF:', e);
+        } finally {
+            setDescargando(false);
+        }
+    };
 
     useEffect(() => {
         if (scrollRef.current) {
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
         }
-    }, [messages, isTyping]);
+    }, [messages, isTyping, isOpen]); // isOpen: al abrir, un estudio guardado arranca desde el final
 
     // Una sola función para las dos formas de preguntar (escribir o tocar una
     // sugerencia). El servidor puede contestar con código de error Y un mensaje
@@ -56,6 +90,10 @@ const ChatSpurgeon = () => {
                 suggestedLinks: data.suggestedLinks || [],
                 suggestedQuestions: data.suggestedQuestions || [],
                 verse: data.verse || null,
+                // `respuesta`: sólo lo que de verdad contestó Spurgeon entra en el PDF
+                // (no los avisos de tope ni el de falla de redacción).
+                respuesta: response.ok && !data.limiteDiario && !data.limiteMensual,
+                limite: data.limiteDiario ? 'diario' : data.limiteMensual ? 'mensual' : null,
                 timestamp: new Date()
             }]);
         } catch {
@@ -256,6 +294,31 @@ const ChatSpurgeon = () => {
                                         </div>
                                     </div>
 
+                                    {/* Al llegar al tope: llevarse el estudio y, como invitación, el aporte */}
+                                    {msg.limite && nRespuestas > 0 && (
+                                        <div className="mt-3 ml-10 p-3 rounded-sm border border-sabiduria-gold/40 bg-sabiduria-gold/5">
+                                            <p className="text-[13px] font-serif text-sabiduria-navy leading-snug mb-2">
+                                                Hoy estudió {nRespuestas} {nRespuestas === 1 ? 'pregunta' : 'preguntas'} con Spurgeon. Puede llevarse todo el estudio en PDF.
+                                            </p>
+                                            <button
+                                                onClick={descargarPdf}
+                                                disabled={descargando}
+                                                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-sm bg-sabiduria-navy text-white text-xs font-bold uppercase tracking-wider hover:bg-sabiduria-navy/90 disabled:opacity-60 transition-colors"
+                                            >
+                                                <Download size={14} className="text-sabiduria-gold" />
+                                                {descargando ? 'Preparando el PDF…' : 'Descargar mi estudio'}
+                                            </button>
+                                            <Link
+                                                to="/donaciones"
+                                                onClick={() => setIsOpen(false)}
+                                                className="mt-2.5 flex items-center justify-center gap-1.5 text-[11px] text-sabiduria-navy/60 hover:text-sabiduria-gold transition-colors"
+                                            >
+                                                <Heart size={11} />
+                                                Si este estudio le sirvió, puede ayudar a sostenerlo
+                                            </Link>
+                                        </div>
+                                    )}
+
                                     {/* Preguntas sugeridas */}
                                     {msg.role === 'assistant' && msg.suggestedQuestions && msg.suggestedQuestions.length > 0 && (
                                         <div className="mt-3 ml-11 flex flex-wrap gap-1.5">
@@ -292,7 +355,18 @@ const ChatSpurgeon = () => {
                         </div>
 
                         {/* Input Area */}
-                        <form onSubmit={handleSend} className="p-4 bg-white border-t border-sabiduria-navy/5">
+                        <form onSubmit={handleSend} className={`px-4 pb-4 ${nRespuestas > 0 ? 'pt-2' : 'pt-4'} bg-white border-t border-sabiduria-navy/5`}>
+                            {nRespuestas > 0 && (
+                                <button
+                                    type="button"
+                                    onClick={descargarPdf}
+                                    disabled={descargando}
+                                    className="mb-2 w-full flex items-center justify-center gap-1.5 text-[11px] text-sabiduria-navy/60 hover:text-sabiduria-gold disabled:opacity-60 transition-colors"
+                                >
+                                    <Download size={12} />
+                                    {descargando ? 'Preparando el PDF…' : `Descargar este estudio en PDF (${nRespuestas} ${nRespuestas === 1 ? 'pregunta' : 'preguntas'})`}
+                                </button>
+                            )}
                             <div className="relative">
                                 <input
                                     type="text"
