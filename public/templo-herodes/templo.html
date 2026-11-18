@@ -116,11 +116,13 @@ setTimeout(function(){
 <script type="module">
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { GTAOPass } from 'three/addons/postprocessing/GTAOPass.js';
+import { Sky } from 'three/addons/objects/Sky.js';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 window.__sceneReady = true;
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -138,13 +140,14 @@ renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5)); // cap Retina: gran aho
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 0.74;
+renderer.toneMappingExposure = 0.62;
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 document.body.prepend(renderer.domElement);
 const MAX_ANISO = renderer.capabilities.getMaxAnisotropy();
 
 const scene = new THREE.Scene();
-scene.fog = new THREE.Fog(0xDDD3BE, 2400, 6400);
+// Bruma azulada: lo lejano se aclara y se enfría (perspectiva aérea), como en una foto real
+scene.fog = new THREE.FogExp2(0xC6D2DC, 0.00019);
 // QUIRALIDAD: el código usa X+ = Sur y Z+ = Este (la misma convención que el
 // Templo de Salomón). Con Y arriba eso es un sistema ZURDO, y Three.js es diestro:
 // dibujado tal cual, el monte sale en espejo (el sur a la derecha de quien mira la
@@ -152,14 +155,23 @@ scene.fog = new THREE.Fog(0xDDD3BE, 2400, 6400);
 // y sus presets viven en coordenadas de Three.js (x = -X del código).
 const world = new THREE.Group(); world.scale.x = -1; scene.add(world);
 
-// HDRI: solo reflexiones PBR (el fondo es el skydome)
-const pmremGen = new THREE.PMREMGenerator(renderer);
-pmremGen.compileEquirectangularShader();
-new RGBELoader().load(
-  'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/kloofendal_43d_clear_puresky_1k.hdr',
-  (hdr) => { scene.environment = pmremGen.fromEquirectangular(hdr).texture; hdr.dispose(); pmremGen.dispose(); },
-  undefined, () => {}
-);
+// CIELO FÍSICO (dispersión atmosférica) y su reflejo en los materiales.
+// El sol de la mañana viene del sudeste; en coordenadas de Three.js x = -X del código.
+const SUN_DIR = new THREE.Vector3(-760, 600, 700).normalize();
+{
+  const mkSky = () => {
+    const s = new Sky(); s.scale.setScalar(8000);
+    const u = s.material.uniforms;
+    u.turbidity.value = 3.2; u.rayleigh.value = 1.1; u.mieCoefficient.value = 0.004; u.mieDirectionalG.value = 0.82;
+    u.sunPosition.value.copy(SUN_DIR); return s;
+  };
+  scene.add(mkSky());
+  // El entorno de reflejos sale del mismo cielo: el oro y el mármol reflejan lo que se ve
+  const envScene = new THREE.Scene(); envScene.add(mkSky());
+  const pmremGen = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmremGen.fromScene(envScene, 0, 1, 20000).texture;
+  pmremGen.dispose();
+}
 
 const camera = new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 1, 9000);
 camera.position.set(-720, 400, 780);
@@ -171,6 +183,22 @@ orbit.maxPolarAngle = Math.PI * 0.52; orbit.update();
 
 const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
+// Sombreado de rincones (GTAO): oscurece donde dos superficies se juntan — el pie de
+// cada columna, el ángulo de los muros, el interior de los pórticos. Es lo que más
+// separa una maqueta de una foto. Si la máquina no da abasto, se apaga solo (ver LOOP).
+const aoPass = new GTAOPass(scene, camera, innerWidth, innerHeight);
+aoPass.updateGtaoMaterial({ radius: 6, distanceExponent: 1.4, thickness: 6, scale: 1.1, samples: 12, distanceFallOff: 1, screenSpaceRadius: false });
+aoPass.updatePdMaterial({ lumaPhi: 10, depthPhi: 2, normalPhi: 3, radius: 6, rings: 2, samples: 12 });
+aoPass.blendIntensity = 0.85;
+// El pase de AO solo esconde puntos y líneas: el humo, el resplandor y el fuego (sprites
+// y materiales transparentes) le quedaban como rectángulos opacos que proyectaban sombra.
+let NO_AO = null;
+aoPass.overrideVisibility = function () {
+  GTAOPass.prototype.overrideVisibility.call(this);
+  if (!NO_AO) { NO_AO = []; scene.traverse(o => { if (o.isSprite || o.material?.transparent) NO_AO.push(o); }); }
+  for (const o of NO_AO) o.visible = false;
+};
+composer.addPass(aoPass);
 const bloomPass = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 0.22, 0.5, 1.5); // umbral en HDR lineal: solo brillan el oro al sol y el fuego
 composer.addPass(bloomPass);
 composer.addPass(new OutputPass());
@@ -213,6 +241,12 @@ function ashlar(o) {
     c.fillStyle = R() > .5 ? 'rgba(255,255,255,.035)' : 'rgba(60,40,10,.04)';
     c.fillRect(R() * W, R() * H, 2, 2);
   }
+  for (let i = 0; i < (o.patina ?? 0); i++) { // pátina: manchas grandes y suaves de intemperie
+    const x = R()*W, y = R()*H, r = (0.08 + R()*0.22)*W, g = c.createRadialGradient(x, y, 0, x, y, r);
+    const dark = R() > .45, a = 0.05 + R()*0.07;
+    g.addColorStop(0, dark ? `rgba(90,62,30,${a})` : `rgba(255,246,225,${a})`); g.addColorStop(1, 'rgba(0,0,0,0)');
+    c.fillStyle = g; c.fillRect(x - r, y - r, 2*r, 2*r);
+  }
   const map = new THREE.CanvasTexture(cv), bump = new THREE.CanvasTexture(bv);
   for (const t of [map, bump]) { t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = MAX_ANISO; }
   map.colorSpace = THREE.SRGBColorSpace;
@@ -222,16 +256,64 @@ function ashlar(o) {
   return mat;
 }
 
+// ── TEXTURAS DIBUJADAS: relieves en REPUJADO ─────────────────────────────────
+// Toda forma en relieve se pinta en tres pasadas, como en el visor de Salomón:
+// sombra corrida abajo-derecha, cuerpo con gradiente y filo de luz arriba-izquierda.
+// El mismo trazo va al bumpMap, para que la luz real también lo levante.
+function canvas2(W, H) { const cv = document.createElement('canvas'); cv.width = W; cv.height = H; return [cv, cv.getContext('2d')]; }
+function texOf(cv, srgb = true, rep = true) {
+  const t = new THREE.CanvasTexture(cv); t.anisotropy = MAX_ANISO;
+  if (srgb) t.colorSpace = THREE.SRGBColorSpace;
+  if (rep) t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  return t;
+}
+function emboss(c, b, path, fill, d = 3) {
+  c.save(); c.translate(d, d); path(c); c.fillStyle = 'rgba(30,18,4,.45)'; c.fill(); c.restore();
+  path(c); c.fillStyle = fill; c.fill();
+  c.save(); c.translate(-d*.5, -d*.5); path(c); c.lineWidth = d*.6; c.strokeStyle = 'rgba(255,248,220,.5)'; c.stroke(); c.restore();
+  if (b) { path(b); b.fillStyle = '#e0e0e0'; b.fill(); }
+}
+// Roseta de seis pétalos — el adorno más común del arte judío de la época (osarios, frisos)
+function rosettePath(cx, cy, r) {
+  return (c) => { c.beginPath();
+    for (let k = 0; k < 6; k++) { const a = k*Math.PI/3; c.moveTo(cx, cy);
+      c.quadraticCurveTo(cx + Math.cos(a - .5)*r*.75, cy + Math.sin(a - .5)*r*.75, cx + Math.cos(a)*r, cy + Math.sin(a)*r);
+      c.quadraticCurveTo(cx + Math.cos(a + .5)*r*.75, cy + Math.sin(a + .5)*r*.75, cx, cy); }
+    c.moveTo(cx + r*1.15, cy); c.arc(cx, cy, r*1.15, 0, Math.PI*2); };
+}
+// Hoja de puerta artesonada: casetones con moldura y una roseta en el centro de cada uno
+function doorMat(base, hi, lo, metal, rough) {
+  const W = 256, H = 640, [cv, c] = canvas2(W, H), [bv, b] = canvas2(W, H);
+  const g = c.createLinearGradient(0, 0, W, H); g.addColorStop(0, hi); g.addColorStop(.5, base); g.addColorStop(1, lo);
+  c.fillStyle = g; c.fillRect(0, 0, W, H); b.fillStyle = '#808080'; b.fillRect(0, 0, W, H);
+  const cols = 2, rows = 5, m = 16, pw = (W - m*(cols + 1))/cols, ph = (H - m*(rows + 1))/rows;
+  for (let i = 0; i < cols; i++) for (let j = 0; j < rows; j++) {
+    const x = m + i*(pw + m), y = m + j*(ph + m);
+    c.fillStyle = 'rgba(25,14,2,.35)'; c.fillRect(x, y, pw, ph);                       // fondo hundido del casetón
+    c.strokeStyle = 'rgba(255,245,210,.45)'; c.lineWidth = 3; c.strokeRect(x + 6, y + 6, pw - 12, ph - 12); // moldura
+    c.strokeStyle = 'rgba(20,10,0,.5)'; c.lineWidth = 2; c.strokeRect(x + 1, y + 1, pw - 2, ph - 2);
+    b.fillStyle = '#404040'; b.fillRect(x, y, pw, ph); b.strokeStyle = '#c0c0c0'; b.lineWidth = 4; b.strokeRect(x + 6, y + 6, pw - 12, ph - 12);
+    emboss(c, b, rosettePath(x + pw/2, y + ph/2, Math.min(pw, ph)*.26), base, 3);
+  }
+  for (let y = m/2; y < H; y += (ph + m)) for (let x = m/2; x < W; x += (pw + m)) { // tachones en los cruces
+    emboss(c, b, (k) => { k.beginPath(); k.arc(x, y, 4.5, 0, 7); }, hi, 2);
+  }
+  return new THREE.MeshStandardMaterial({ map: texOf(cv, true, false), bumpMap: texOf(b.canvas, false, false), bumpScale: 2, metalness: metal, roughness: rough, envMapIntensity: 1 });
+}
+
 // ── MATERIALES ────────────────────────────────────────────────────────────────
 const M = {
   // Muro de contención: grandes sillares de caliza con margen rebajado
-  herod:  ashlar({ W:2048, H:1024, tile:[120,60], course:2.5, minL:3, maxL:14, base:[214,196,160], vary:.16, joint:.55, jw:2, margin:3, bump:1.4, seed:11 }),
+  herod:  ashlar({ W:2048, H:1024, tile:[120,60], course:2.5, minL:3, maxL:14, base:[222,194,146], vary:.14, joint:.55, jw:2, margin:3, bump:1.4, seed:11, patina:60 }),
+  // Caliza de Jerusalén (meleke) para los atrios, sus puertas y las cámaras: dorada y mate
+  lime:   ashlar({ tile:[40,20], course:2.5, minL:3, maxL:9, base:[226,201,156], vary:.11, joint:.42, jw:1.4, margin:1.5, bump:.9, seed:17, patina:40 }),
   // Mármol blanco del santuario: sillería fina, juntas apenas marcadas
-  marble: ashlar({ tile:[40,20], course:2.5, minL:4, maxL:8, base:[236,231,220], vary:.09, joint:.3, jw:1.2, bump:.5, rough:.55, seed:23 }),
+  marble: ashlar({ tile:[40,20], course:2.5, minL:4, maxL:8, base:[238,233,222], vary:.07, joint:.28, jw:1.2, bump:.5, rough:.5, seed:23, patina:18 }),
   // Pavimento de la explanada (losas de caliza) y de los atrios (losas claras)
-  paving: ashlar({ W:1024, H:1024, tile:[40,40], course:5, minL:5, maxL:5, grid:true, base:[222,211,186], vary:.12, joint:.4, bump:.5, seed:31 }),
-  pavW:   ashlar({ W:1024, H:1024, tile:[24,24], course:3, minL:3, maxL:3, grid:true, base:[233,227,214], vary:.07, joint:.25, bump:.3, rough:.7, seed:41 }),
-  marbleS: new THREE.MeshStandardMaterial({ color:0xDDD8CC, envMapIntensity:0.45, roughness:0.45, metalness:0.02 }),
+  paving: ashlar({ W:1024, H:1024, tile:[40,40], course:5, minL:5, maxL:5, grid:true, base:[214,192,152], vary:.13, joint:.45, bump:.5, seed:31, patina:30 }),
+  pavW:   ashlar({ W:1024, H:1024, tile:[24,24], course:3, minL:3, maxL:3, grid:true, base:[228,212,180], vary:.08, joint:.3, bump:.3, rough:.75, seed:41, patina:20 }),
+  marbleS: new THREE.MeshStandardMaterial({ color:0xE6E1D6, envMapIntensity:0.5, roughness:0.42, metalness:0.02 }),
+  limeS:   new THREE.MeshStandardMaterial({ color:0xD9BF92, envMapIntensity:0.35, roughness:0.85, metalness:0 }), // molduras de caliza
   plaster: new THREE.MeshStandardMaterial({ color:0xD6D0C2, envMapIntensity:0.4, roughness:0.97, metalness:0 }), // altar encalado
   gold:    new THREE.MeshStandardMaterial({ color:0xD4AF37, roughness:0.16, metalness:0.97, emissive:new THREE.Color(0x3A2200), emissiveIntensity:0.4 }),
   // Oro en planchas (superficies grandes): más rugoso, para que lea como metal y no como espejo del cielo
@@ -242,13 +324,88 @@ const M = {
   wood:    new THREE.MeshStandardMaterial({ color:0x3A2A1A, roughness:1 }),
   water:   new THREE.MeshStandardMaterial({ color:0x3E8FC0, roughness:0.05, metalness:0.2, transparent:true, opacity:0.8 }),
   flame:   new THREE.MeshStandardMaterial({ color:0xFFCC44, emissive:new THREE.Color(0xFF9A00), emissiveIntensity:1.6, transparent:true, opacity:0.85 }),
-  ground:  new THREE.MeshStandardMaterial({ color:0xB3A482, roughness:1 }),
+  ground:  null, // ver groundMat() más abajo
   rock:    new THREE.MeshStandardMaterial({ color:0x9C8F74, roughness:1 }),
-  tile:    new THREE.MeshStandardMaterial({ color:0x9C5E44, roughness:0.85, envMapIntensity:0.3 }), // tejado
+  // Techos planos: torta de cal sobre vigas, como en todo el Levante. Si se prefiere
+  // la teja, cambiar ROOF_TILE a true (decisión pendiente de Edgardo)
+  tile:    new THREE.MeshStandardMaterial({ color:0xCDB58C, roughness:0.95, envMapIntensity:0.3 }),
 };
+const ROOF_TILE = false;
+if (ROOF_TILE) M.tile.color.set(0x9C5E44);
+M.house = new THREE.MeshStandardMaterial({ color:0xFFFFFF, roughness:0.95, envMapIntensity:0.3 }); // el tono va por instancia
+
+// Puertas: hojas artesonadas de oro (las del atrio) y de bronce de Corinto (Nicanor, la oriental)
+M.doorGold   = doorMat('#C9A040', '#F2D47A', '#7A5A18', 0.85, 0.32);
+M.doorBronze = doorMat('#B07A3A', '#E0B070', '#5A3812', 0.85, 0.36);
+
+// Planchas de oro de la fachada (Josefo, Guerra V.5.6): placas rectangulares con sus clavos
+M.goldFacade = (() => {
+  const W = 512, H = 512, [cv, c] = canvas2(W, H), [bv, b] = canvas2(W, H), R = rng(77);
+  b.fillStyle = '#808080'; b.fillRect(0, 0, W, H);
+  const pw = 128, ph = 64; // cada textura = 8 × 8 codos: placas de 2 × 1
+  for (let y = 0; y < H; y += ph) for (let x = (y/ph % 2) * pw/2 - pw; x < W; x += pw) {
+    const v = .96 + R()*.08, g = c.createLinearGradient(x, y, x + pw, y + ph);
+    g.addColorStop(0, `rgb(${232*v|0},${190*v|0},${96*v|0})`); g.addColorStop(1, `rgb(${212*v|0},${166*v|0},${72*v|0})`);
+    c.fillStyle = g; c.fillRect(x, y, pw, ph);
+    c.strokeStyle = 'rgba(70,40,0,.28)'; c.lineWidth = 1.5; c.strokeRect(x + 1, y + 1, pw - 2, ph - 2);
+    b.strokeStyle = '#303030'; b.lineWidth = 3; b.strokeRect(x + 1, y + 1, pw - 2, ph - 2);
+    for (const [cx, cy] of [[x + 7, y + 7], [x + pw - 7, y + 7], [x + 7, y + ph - 7], [x + pw - 7, y + ph - 7]]) emboss(c, b, (k) => { k.beginPath(); k.arc(cx, cy, 2.6, 0, 7); }, '#F6D886', 1.5);
+  }
+  const m = new THREE.MeshStandardMaterial({ map: texOf(cv), bumpMap: texOf(bv, false), bumpScale: 1.5, metalness: 0.92, roughness: 0.3, color: 0xFFFFFF, envMapIntensity: 0.9, emissive: new THREE.Color(0x2A1A00), emissiveIntensity: 0.25 });
+  m.userData.tile = [8, 8]; return m;
+})();
+
+// Friso del entablamento: mármol con rosetas de oro alternadas con tríglifos lisos
+M.frieze = (() => {
+  const W = 1024, H = 64, [cv, c] = canvas2(W, H), [bv, b] = canvas2(W, H);
+  c.fillStyle = '#E8E2D4'; c.fillRect(0, 0, W, H); b.fillStyle = '#808080'; b.fillRect(0, 0, W, H);
+  for (let x = 32; x < W; x += 64) emboss(c, b, rosettePath(x, 32, 15), '#D9AE48', 2.5);
+  for (let x = 0; x < W; x += 64) { c.fillStyle = 'rgba(80,60,30,.12)'; c.fillRect(x - 3, 6, 6, 52); }
+  const m = new THREE.MeshStandardMaterial({ map: texOf(cv), bumpMap: texOf(bv, false), bumpScale: 1.2, roughness: .5, metalness: .25, envMapIntensity: .6 });
+  m.userData.tile = [32, 2]; return m;
+})();
+
+// Cielorraso de los pórticos: artesonado de cedro (Josefo, Guerra V.5.2), con rosetas
+M.coffer = (() => {
+  const W = 256, H = 256, [cv, c] = canvas2(W, H);
+  c.fillStyle = '#3A2414'; c.fillRect(0, 0, W, H);
+  c.fillStyle = '#5A3A20'; c.fillRect(0, 0, W, 22); c.fillRect(0, 0, 22, H);                   // vigas
+  c.fillStyle = '#2A180C'; c.fillRect(30, 30, W - 38, H - 38);                                    // fondo del casetón
+  c.strokeStyle = '#6E4A28'; c.lineWidth = 6; c.strokeRect(38, 38, W - 54, H - 54);               // moldura
+  emboss(c, null, rosettePath(W/2 + 11, H/2 + 11, 34), '#B8892E', 3);
+  const m = new THREE.MeshStandardMaterial({ map: texOf(cv), roughness: .8 });
+  m.userData.tile = [8, 8]; return m;
+})();
+
+// Hojas de acanto para los capiteles corintios: dos coronas de hojas en repujado
+function acanthusTex(base, leaf) {
+  const W = 512, H = 128, [cv, c] = canvas2(W, H), [bv, b] = canvas2(W, H);
+  c.fillStyle = base; c.fillRect(0, 0, W, H); b.fillStyle = '#808080'; b.fillRect(0, 0, W, H);
+  const leafPath = (cx, top, w) => (k) => { k.beginPath(); k.moveTo(cx - w/2, H);
+    k.bezierCurveTo(cx - w*.7, H*.6, cx - w*.35, top + 12, cx, top); k.bezierCurveTo(cx + w*.35, top + 12, cx + w*.7, H*.6, cx + w/2, H); k.closePath(); };
+  for (let x = 32; x < W + 32; x += 64) emboss(c, b, leafPath(x, 8, 56), leaf, 3);          // corona alta
+  for (let x = 0; x < W + 32; x += 64) emboss(c, b, leafPath(x, 54, 60), leaf, 3);          // corona baja
+  for (let x = 32; x < W; x += 64) { c.strokeStyle = 'rgba(40,25,5,.35)'; c.lineWidth = 2; c.beginPath(); c.moveTo(x, 18); c.lineTo(x, H); c.stroke(); } // nervios
+  const t = texOf(cv), bt = texOf(bv, false); t.wrapT = bt.wrapT = THREE.ClampToEdgeWrapping;
+  return [t, bt];
+}
+{
+  const [tm, bm] = acanthusTex('#DCD5C6', '#ECE6D8');
+  M.capMarble = new THREE.MeshStandardMaterial({ map: tm, bumpMap: bm, bumpScale: 2, roughness: .5, envMapIntensity: .5 });
+  const [tg, bg] = acanthusTex('#A88430', '#E8C35C');
+  M.capGold = new THREE.MeshStandardMaterial({ map: tg, bumpMap: bg, bumpScale: 2, roughness: .3, metalness: .9, envMapIntensity: .9, emissive: new THREE.Color(0x2A1A00), emissiveIntensity: .25 });
+}
+// Capitel corintio: campana con sus dos coronas de acanto, cuatro volutas y un ábaco
+// de lados cóncavos (aproximado con un prisma de 8 caras). Geometrías compartidas.
+function capitalGeos(r, h) {
+  const bell = new THREE.CylinderGeometry(r*1.32, r*.92, h*.78, 20, 1, true);
+  const abacus = new THREE.CylinderGeometry(r*1.75, r*1.5, h*.22, 8);
+  const volute = new THREE.SphereGeometry(r*.28, 8, 6);
+  return { bell, abacus, volute };
+}
 
 // ── ILUMINACIÓN — sol de la mañana desde el sudeste: la fachada mira al este ──
-const sun = new THREE.DirectionalLight(0xFFE8C4, 2.3);
+const sun = new THREE.DirectionalLight(0xFFE2B8, 3.4);
 sun.position.set(760, 600, 700);
 sun.target.position.set(110, 0, 60); world.add(sun.target);
 sun.castShadow = true;
@@ -258,8 +415,10 @@ sun.shadow.camera.left = -700; sun.shadow.camera.right = 700;
 sun.shadow.camera.top = 620; sun.shadow.camera.bottom = -620;
 sun.shadow.bias = -0.0006; sun.shadow.normalBias = 0.6;
 world.add(sun);
-world.add(new THREE.AmbientLight(0xCDBFA6, 0.45));
-const fill = new THREE.DirectionalLight(0xA4B8D0, 0.4);
+// Luz de cielo (azul, desde arriba) y rebote del suelo (cálido, desde abajo): las
+// caras en sombra no quedan grises sino azuladas, y los aleros reciben el ocre del piso
+world.add(new THREE.HemisphereLight(0xC4CEDA, 0xB08E5E, 0.72));
+const fill = new THREE.DirectionalLight(0x9DB4D4, 0.25);
 fill.position.set(-300, 250, -500); world.add(fill);
 
 // ── CONSTRUCTORES ─────────────────────────────────────────────────────────────
@@ -333,6 +492,7 @@ const INFO = {
   CH_SW: { title:'Cámara del Aceite', body:'En la esquina sudoeste. Aquí se guardaban el aceite y el vino para las ofrendas y para las lámparas del candelabro.', ref:'Mishná, Middot 2:5' },
   TREAS: { title:'Las Arcas del Tesoro', body:'En el templo había trece arcas para las ofrendas, llamadas «trompetas» por la forma de su boca, angosta arriba y ancha abajo. Cada una tenía su destino: los siclos del año, la leña, el incienso, las ofrendas voluntarias. Sentado frente a ellas, Jesús vio a los ricos echar mucho y a una viuda pobre echar dos blancas, y dijo que ella había dado más que todos, «porque todos han echado de lo que les sobra; pero ésta, de su pobreza echó todo lo que tenía».', ref:'Mishná, Shekalim 6:5 · Marcos 12:41-44 · Juan 8:20' },
   BEAUT: { title:'La Puerta Oriental — ¿la Hermosa?', body:'La entrada principal al Atrio de las Mujeres desde la explanada. Josefo habla de una puerta de bronce de Corinto, fuera del santuario, que superaba en valor a las recubiertas de plata y oro. Muchos la identifican con la puerta «que se llama la Hermosa», donde Pedro y Juan encontraron al cojo de nacimiento: «No tengo plata ni oro, pero lo que tengo te doy; en el nombre de Jesucristo de Nazaret, levántate y anda». Otros ubican la Hermosa en la Puerta de Nicanor.', ref:'Josefo, Guerra V.5.3 · Hechos 3:1-10' },
+  LAMP:  { title:'Los Candelabros de la Fiesta', body:'En la fiesta de los Tabernáculos se levantaban en este atrio cuatro candelabros de oro, cada uno con cuatro cuencos arriba y cuatro escaleras; el Talmud les da cincuenta codos de alto. Jóvenes de familias sacerdotales subían con cántaros de aceite y encendían mechas hechas con las vestiduras gastadas de los sacerdotes. Dice la Mishná que no había patio en Jerusalén que no se iluminara con su luz, y que los piadosos danzaban delante con antorchas mientras los levitas tocaban sobre las quince gradas. Al terminar esa fiesta, Jesús dijo en este mismo atrio: «Yo soy la luz del mundo; el que me sigue, no andará en tinieblas».', ref:'Mishná, Sucá 5:2-4 · Talmud, Sucá 52b · Juan 8:12, 20' },
   SOREG: { title:'El Soreg — La Pared Intermedia', body:'Una balaustrada de piedra calada, de unos diez palmos de alto, rodeaba los atrios. Hasta ella podía llegar cualquier persona; más allá, solo los israelitas. En cada paso había lápidas en griego y en latín. Dos se han encontrado, y dicen: «Ningún extranjero entre dentro de la balaustrada y del recinto que rodea el santuario. El que sea sorprendido será él mismo responsable de la muerte que le sobrevendrá». A Pablo casi lo matan aquí, acusado de haber metido a un griego en el templo. Y desde la cárcel escribió que Cristo, «de ambos pueblos hizo uno, derribando la pared intermedia de separación».', ref:'Mishná, Middot 2:3 · Josefo, Guerra V.5.2 · Hechos 21:27-31 · Efesios 2:14' },
   DUCHAN:{ title:'El Estrado de los Levitas (Dujan)', body:'Entre el Atrio de Israel y el de los Sacerdotes había un escalón de un codo y, sobre él, un estrado de tres gradas de medio codo. Allí se paraban los levitas con sus instrumentos para cantar el salmo del día mientras se ofrecía el sacrificio continuo. El Atrio de Israel, detrás, era una franja de apenas 11 codos desde donde los hombres presenciaban el culto.', ref:'Mishná, Middot 2:6 · Tamid 7:3-4 · 1 Crónicas 23:30' },
   PORT:  { title:'Los Pórticos', body:'Toda la explanada estaba rodeada de pórticos dobles, de 30 codos de ancho. Josefo dice que las columnas medían 25 codos, cada una de un solo bloque de mármol blanco, y que los techos eran de cedro artesonado. A su sombra enseñaban los maestros de la ley y se sentaban los discípulos. Probablemente fue en uno de ellos donde José y María hallaron a Jesús, a los doce años, «sentado en medio de los doctores de la ley, oyéndoles y preguntándoles». Años después, él mismo enseñaba aquí cada día.', ref:'Josefo, Guerra V.5.2 · Lucas 2:46 · Lucas 19:47 · Juan 7:14' },
@@ -348,17 +508,6 @@ const INFO = {
   SHUSH: { title:'La Puerta de Susa', body:'La puerta oriental del monte. Sobre ella estaba representada la ciudadela de Susa, la capital persa, en memoria del imperio que permitió reconstruir el templo. Por ella salían hacia el Monte de los Olivos el sacerdote que quemaba la vaca alazana y todos sus ayudantes. La actual Puerta Dorada, tapiada, es posterior y se alza aproximadamente en el mismo lugar.', ref:'Mishná, Middot 1:3 · Pará 3:6 · Números 19:1-10' },
 };
 
-// ── CIELO ─────────────────────────────────────────────────────────────────────
-{
-  const cv = document.createElement('canvas'); cv.width = 16; cv.height = 512;
-  const c = cv.getContext('2d'), g = c.createLinearGradient(0, 0, 0, 512);
-  g.addColorStop(0, '#2c5c94'); g.addColorStop(0.28, '#5c8cbc'); g.addColorStop(0.42, '#a8c0d4');
-  g.addColorStop(0.495, '#e8e0cc'); g.addColorStop(0.52, '#ddd3be'); g.addColorStop(1, '#c4b698');
-  c.fillStyle = g; c.fillRect(0, 0, 16, 512);
-  const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace;
-  world.add(new THREE.Mesh(new THREE.SphereGeometry(7000, 32, 20), new THREE.MeshBasicMaterial({ map:t, side:THREE.BackSide, fog:false })));
-}
-
 // ── TERRENO — esquemático: valle del Tiropeón y Ciudad Alta al oeste, valle del
 // Cedrón y Monte de los Olivos al este, terreno alto al norte, Ciudad de David al sur
 const G = -50; // nivel de la calle al pie de los muros
@@ -366,14 +515,110 @@ const sstep = (a, b, v) => { const t = Math.min(1, Math.max(0, (v - a)/(b - a)))
 function terrainH(x, z) {
   let h = G + sstep(-340, -560, z)*60 - sstep(360, 480, z)*45 + sstep(520, 1300, z)*245 - sstep(700, 1300, x)*40;
   const n = sstep(-300, -430, x) * (1 - sstep(300, 420, z));
-  return h + (Math.max(h, -6) - h)*n;
+  h += (Math.max(h, -6) - h)*n;
+  // Ondulación suave del terreno natural, nula junto a los muros del monte
+  const out = Math.max(x - 700, -480 - x, z - 440, -360 - z, 0);
+  return h + sstep(0, 300, out) * (Math.sin(x*.0041 + 1.3)*Math.cos(z*.0037)*14 + Math.sin(x*.011 - z*.008)*5);
 }
+// Suelo: tierra ocre con manchones de pasto seco, roca aflorando y piedras sueltas
+M.ground = (() => {
+  const W = 1024, [cv, c] = canvas2(W, W), R = rng(91);
+  c.fillStyle = '#B49A6E'; c.fillRect(0, 0, W, W);
+  const blob = (col, n, rmin, rmax) => { for (let i = 0; i < n; i++) {
+    const x = R()*W, y = R()*W, r = rmin + R()*(rmax - rmin);
+    for (const [ox, oy] of [[0,0],[W,0],[-W,0],[0,W],[0,-W]]) { // que la textura empalme sin costura
+      const g = c.createRadialGradient(x + ox, y + oy, 0, x + ox, y + oy, r);
+      g.addColorStop(0, col); g.addColorStop(1, 'rgba(0,0,0,0)'); c.fillStyle = g; c.fillRect(x + ox - r, y + oy - r, 2*r, 2*r); }
+  } };
+  blob('rgba(150,140,80,.55)', 70, 40, 140);   // pasto seco
+  blob('rgba(118,118,70,.45)', 50, 20, 70);    // matorral
+  blob('rgba(212,198,170,.55)', 40, 30, 110);  // roca caliza aflorando
+  blob('rgba(120,92,58,.35)', 50, 30, 90);     // tierra más oscura
+  for (let i = 0; i < 6000; i++) { const v = R(); c.fillStyle = v > .5 ? 'rgba(235,225,200,.5)' : 'rgba(70,55,35,.35)'; c.fillRect(R()*W, R()*W, 1 + R()*2.5, 1 + R()*2.5); }
+  const t = texOf(cv); t.repeat.set(14000/120, 14000/120);
+  return new THREE.MeshStandardMaterial({ map: t, roughness: 1, envMapIntensity: .25 });
+})();
 {
-  const g = new THREE.PlaneGeometry(14000, 14000, 180, 180); g.rotateX(-Math.PI/2);
+  const g = new THREE.PlaneGeometry(14000, 14000, 240, 240); g.rotateX(-Math.PI/2);
   const pos = g.attributes.position;
   for (let i = 0; i < pos.count; i++) pos.setY(i, terrainH(pos.getX(i), pos.getZ(i)));
   g.computeVertexNormals();
   const m = new THREE.Mesh(g, M.ground); m.receiveShadow = true; world.add(m);
+}
+
+// ── LA CIUDAD Y LOS ÁRBOLES ──────────────────────────────────────────────────
+// Jerusalén rodeaba el monte por el oeste (Ciudad Alta), el sur (Ciudad de David y
+// el Ofel) y el norte (Bezeta). Al este, el Cedrón y el Monte de los Olivos, con sus
+// olivares. Casas de piedra de techo plano, cientos en un solo InstancedMesh.
+{
+  const R = rng(2024), houses = [], olives = [], cypresses = [];
+  const free = (x, z) => {
+    if (x > -600 && x < 830 && z > -400 && z < 480) return false;           // el monte, sus plazas y escalinatas
+    if (Math.abs(x - 240) < 36 && z > -580 && z < -280) return false;         // el puente a la Ciudad Alta
+    if (x > 520 && x < 900 && z > -470 && z < -280) return false;              // la calle al pie del Arco de Robinson
+    if (x > -540 && x < -400 && z > -300 && z < 0) return false;               // la Antonia
+    return true;
+  };
+  const zone = (x0, x1, z0, z1, step, p) => {
+    for (let x = x0; x < x1; x += step) for (let z = z0; z < z1; z += step) {
+      if (R() > p) continue;
+      const hx = x + (R() - .5)*step*.6, hz = z + (R() - .5)*step*.6;
+      if (free(hx, hz)) houses.push([hx, hz, 9 + R()*14, 9 + R()*14, 8 + R()*12 + (R() > .93 ? 14 : 0), R()]);
+    }
+  };
+  zone(-560, 1500, -1700, -330, 26, .82);  // Ciudad Alta y Tiropeón
+  zone(740, 1700, -330, 330, 26, .78);     // Ciudad de David y Ofel
+  zone(-1500, -560, -400, 300, 30, .6);    // Bezeta, al norte
+  // Olivares en las laderas del Cedrón y el Monte de los Olivos; cipreses sueltos y en hileras
+  for (let i = 0; i < 2600; i++) {
+    const x = -1400 + R()*3000, z = 480 + R()*1500;
+    if (R() < .86) olives.push([x, z, 5 + R()*4]); else cypresses.push([x, z, 14 + R()*10]);
+  }
+  for (let i = 0; i < 260; i++) { // jardines dentro de la ciudad
+    const x = -1200 + R()*2800, z = -1600 + R()*1300;
+    if (free(x, z)) (R() < .5 ? cypresses : olives).push([x, z, R() < .5 ? 16 + R()*8 : 5 + R()*3]);
+  }
+  for (let x = -500; x < 700; x += 22) { // a lo largo del camino del Cedrón, al pie del muro oriental
+    if (R() < .7) cypresses.push([x + R()*6, 500 + R()*30, 15 + R()*9]);
+  }
+
+  const mt = new THREE.Matrix4(), q = new THREE.Quaternion(), s = new THREE.Vector3(), p = new THREE.Vector3(), col = new THREE.Color();
+  const hGeo = new THREE.BoxGeometry(1, 1, 1); hGeo.translate(0, .5, 0);
+  const H = new THREE.InstancedMesh(hGeo, M.house, houses.length);
+  houses.forEach(([x, z, w, d, h, v], i) => {
+    p.set(x, terrainH(x, z) - 2, z); s.set(w, h + 2, d); q.setFromAxisAngle(new THREE.Vector3(0, 1, 0), (v - .5)*.25);
+    mt.compose(p, q, s); H.setMatrixAt(i, mt);
+    col.setRGB(.82 + v*.1, .7 + v*.08, .52 + v*.06, THREE.SRGBColorSpace); H.setColorAt(i, col); // caliza más o menos expuesta
+  });
+  H.receiveShadow = true; world.add(H);
+  const Rf = new THREE.InstancedMesh(hGeo, M.tile, houses.length);
+  houses.forEach(([x, z, w, d, h, v], i) => {
+    p.set(x, terrainH(x, z) + h, z); s.set(w + .8, .7, d + .8); q.setFromAxisAngle(new THREE.Vector3(0, 1, 0), (v - .5)*.25);
+    mt.compose(p, q, s); Rf.setMatrixAt(i, mt);
+  });
+  Rf.receiveShadow = true; world.add(Rf);
+  // Ventanitas y puertas oscuras: un segundo InstancedMesh apenas más chico que la casa
+  // no sirve (taparía); se dibujan como franjas oscuras en una caja angosta al frente
+  const wGeo = new THREE.BoxGeometry(1, 1, 1);
+  const Wn = new THREE.InstancedMesh(wGeo, M.dark, houses.length);
+  houses.forEach(([x, z, w, d, h, v], i) => {
+    p.set(x + w*.15, terrainH(x, z) + h*.55, z + d/2 + .05); s.set(w*.18, h*.22, .3); q.setFromAxisAngle(new THREE.Vector3(0, 1, 0), (v - .5)*.25);
+    mt.compose(p, q, s); Wn.setMatrixAt(i, mt);
+  });
+  world.add(Wn);
+
+  const olGeo = new THREE.IcosahedronGeometry(1, 1); olGeo.scale(1.2, .8, 1.2); olGeo.translate(0, 1.1, 0);
+  const cyGeo = new THREE.ConeGeometry(.22, 1, 7); cyGeo.translate(0, .5, 0);
+  const olMat = new THREE.MeshStandardMaterial({ color: 0x667248, roughness: 1, flatShading: true, envMapIntensity: .2 });
+  const cyMat = new THREE.MeshStandardMaterial({ color: 0x31452A, roughness: 1, flatShading: true, envMapIntensity: .2 });
+  const trees = (geo, mat, list, tall) => {
+    const im = new THREE.InstancedMesh(geo, mat, list.length);
+    list.forEach(([x, z, sc], i) => { p.set(x, terrainH(x, z) - .5, z); s.set(tall ? sc*.95 : sc, sc, tall ? sc*.95 : sc); mt.compose(p, q.identity(), s); im.setMatrixAt(i, mt);
+      const v = .8 + R()*.4; col.setRGB(v, v, v); im.setColorAt(i, col); });
+    im.receiveShadow = true; world.add(im);
+  };
+  trees(olGeo, olMat, olives, false);
+  trees(cyGeo, cyMat, cypresses, true);
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -409,13 +654,13 @@ const MT = { SW:[630,-283], SE:[630,326], NE:[-413,402], NW:[-413,-283] };
 // ══════════════════════════════════════════════════════════════════════════════
 const Y_W = 6, Y_I = 13.5, Y_P = 16, Y_S = 22;
 // Terraza del Jel con sus doce gradas perimetrales
-bx(172, Y_W, 365, M.marble, 0, Y_W/2, 126.5, INFO.HEL);
-for (let i = 1; i <= 11; i++) { const h = Y_W - 0.5*i; bxn(172 + 2*i, h, 365 + 2*i, M.marble, 0, h/2, 126.5, INFO.HEL); }
+bx(172, Y_W, 365, M.lime, 0, Y_W/2, 126.5, INFO.HEL);
+for (let i = 1; i <= 11; i++) { const h = Y_W - 0.5*i; bxn(172 + 2*i, h, 365 + 2*i, M.lime, 0, h/2, 126.5, INFO.HEL); }
 floor(-86, -56, 86, 309, Y_W + 0.04, M.pavW, INFO.HEL);
 // Atrio de Israel y Atrio de los Sacerdotes
-bx(149, Y_I - Y_W, 201, M.marble, 0, (Y_W + Y_I)/2, 55.5, INFO.AZARA);
+bx(149, Y_I - Y_W, 201, M.lime, 0, (Y_W + Y_I)/2, 55.5, INFO.AZARA);
 floor(-74.5, 138, 74.5, 156, Y_I + 0.04, M.pavW, INFO.AZARA);
-bx(149, Y_P - Y_I, 183, M.marble, 0, (Y_I + Y_P)/2, 46.5, INFO.AZARA);
+bx(149, Y_P - Y_I, 183, M.lime, 0, (Y_I + Y_P)/2, 46.5, INFO.AZARA);
 floor(-74.5, -45, 74.5, 138, Y_P + 0.04, M.pavW, INFO.AZARA);
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -470,10 +715,21 @@ for (const x of [-41, -21, 21, 41]) {
   bx(7.4, 6, 3.4, M.marbleS, x, Y_S + 3, ZF + 1.3, INFO.SANCT);
   cy(3.1, 3.3, 1.2, 24, M.goldPl, x, Y_S + 6.6, ZF + .4, INFO.SANCT);
   cy(2.6, 2.9, 64, 24, M.marbleS, x, Y_S + 39.2, ZF + .4, INFO.SANCT);
-  cy(3.9, 2.7, 5.2, 24, M.goldPl, x, Y_S + 73.8, ZF + .4, INFO.SANCT);
-  bxn(8.4, 1.2, 4.6, M.goldPl, x, Y_S + 77, ZF + .8, INFO.SANCT);
+  // capitel corintio de oro: campana de acanto, cuatro volutas y ábaco
+  const cg = capitalGeos(2.9, 6.4);
+  mk(cg.bell, M.capGold, x, Y_S + 74, ZF + .4, INFO.SANCT, false);
+  for (const sx of [-1, 1]) mk(cg.volute, M.capGold, x + sx*3.4, Y_S + 76.3, ZF + 2.4, INFO.SANCT, false);
+  bxn(8.4, 1.4, 4.6, M.goldPl, x, Y_S + 77.9, ZF + .8, INFO.SANCT);
 }
-bxn(100.8, 5, 2.6, M.goldPl, 0, Y_S + 80.1, ZF + .9, INFO.SANCT);
+// Entablamento: arquitrabe y cornisa de mármol, y en medio el friso de rosetas de oro
+bxn(100.8, 1.6, 2.4, M.marbleS, 0, Y_S + 79.4, ZF + .9, INFO.SANCT);
+M.frieze.userData.tile = [80, 5];
+bxn(100.8, 4, 2.6, M.frieze, 0, Y_S + 82.2, ZF + .9, INFO.SANCT);
+bxn(102, 1.2, 3.6, M.marbleS, 0, Y_S + 84.8, ZF + 1.2, INFO.SANCT);
+// Planchas de oro sobre todo el frente, salvo el vano (Josefo, Guerra V.5.4 y V.5.6)
+bxn(40, 100, .25, M.goldFacade, -30, Y_S + 50, ZF + .12, INFO.SANCT);
+bxn(40, 100, .25, M.goldFacade,  30, Y_S + 50, ZF + .12, INFO.SANCT);
+bxn(20, 60, .25, M.goldFacade, 0, Y_S + 70, ZF + .12, INFO.SANCT);
 
 // ── INTERIOR DEL PÓRTICO, visible por el vano ─────────────────────────────────
 const ZB = 57.5; // muro oriental del Lugar Santo
@@ -572,65 +828,65 @@ function put(axis, al, h, ac, mat, along, y, across, info, shadow = true) {
 function gateWall(axis, fixed, a, b, yb, yt, th, info, gates = []) {
   const PIER = 6;
   const seg = (p, q) => { if (q - p < 0.1) return;
-    put(axis, q - p, yt - yb, th, M.marble, (p+q)/2, (yb+yt)/2, fixed, info);
-    put(axis, q - p, 1.6, th + 1.6, M.marbleS, (p+q)/2, yt + .8, fixed, info, false); };
+    put(axis, q - p, yt - yb, th, M.lime, (p+q)/2, (yb+yt)/2, fixed, info);
+    put(axis, q - p, 1.6, th + 1.6, M.limeS, (p+q)/2, yt + .8, fixed, info, false); };
   let cur = a;
   for (const g of [...gates].sort((m, n) => m.c - n.c)) {
     const l = g.c - g.w/2, r = g.c + g.w/2, T = th + 3;
     seg(cur, l - PIER); cur = r + PIER;
-    for (const pc of [l - PIER/2, r + PIER/2]) put(axis, PIER, g.top - yb, T, M.marble, pc, (yb + g.top)/2, fixed, g.info);
-    put(axis, g.w, g.top - (g.yf + g.h), T, M.marble, g.c, (g.yf + g.h + g.top)/2, fixed, g.info);          // dintel
-    if (g.yf > yb) put(axis, g.w, g.yf - yb, T, M.marble, g.c, (yb + g.yf)/2, fixed, g.info);                // umbral
-    put(axis, g.w + 2*PIER + 1.8, 2, T + 1.8, M.marbleS, g.c, g.top + 1, fixed, g.info, false);             // cornisa
+    for (const pc of [l - PIER/2, r + PIER/2]) put(axis, PIER, g.top - yb, T, M.lime, pc, (yb + g.top)/2, fixed, g.info);
+    put(axis, g.w, g.top - (g.yf + g.h), T, M.lime, g.c, (g.yf + g.h + g.top)/2, fixed, g.info);          // dintel
+    if (g.yf > yb) put(axis, g.w, g.yf - yb, T, M.lime, g.c, (yb + g.yf)/2, fixed, g.info);                // umbral
+    put(axis, g.w + 2*PIER + 1.8, 2, T + 1.8, M.limeS, g.c, g.top + 1, fixed, g.info, false);             // cornisa
     put(axis, g.w + 3, 1.4, T + .5, M.goldPl, g.c, g.yf + g.h + 1.6, fixed, g.info, false);                 // banda de oro
     for (const sd of [-1, 1])                                                                                 // hojas abiertas
       put(axis, .6, g.h, g.w/2, g.door, g.c + sd*(g.w/2 - .3), g.yf + g.h/2, fixed + g.inS*(T/2 + g.w/4), g.info);
     if (g.yOut !== undefined && g.yOut < g.yf) {                                                              // escalinata exterior
       const n = Math.round(g.yf - g.yOut), rise = (g.yf - g.yOut)/n, face = fixed - g.inS*T/2;
       for (let i = 0; i < n - 1; i++) { const h = (g.yf - g.yOut) - rise*(i + 1), d = i + 1;
-        put(axis, g.w + 4, h, d, M.marble, g.c, g.yOut + h/2, face - g.inS*d/2, g.info, false); }
+        put(axis, g.w + 4, h, d, M.lime, g.c, g.yOut + h/2, face - g.inS*d/2, g.info, false); }
     }
   }
   seg(cur, b);
 }
 
 // ── ATRIO INTERIOR (Azará): muros norte, sur y oeste — seis puertas laterales ─
-const sideGates = (inS) => [5, 65, 125].map(c => ({ c, w:10, h:20, yf:Y_P, top:50, info:INFO.GATES, door:M.goldPl, inS, yOut:Y_W }));
+const sideGates = (inS) => [5, 65, 125].map(c => ({ c, w:10, h:20, yf:Y_P, top:50, info:INFO.GATES, door:M.doorGold, inS, yOut:Y_W }));
 gateWall('z',  71.1, -45, 156, Y_I, 42, 7.2, INFO.AZARA, sideGates(-1)); // sur
 gateWall('z', -71.1, -45, 156, Y_I, 42, 7.2, INFO.AZARA, sideGates(+1)); // norte
 gateWall('x', -41.6, -74.7, 74.7, Y_I, 42, 7.2, INFO.AZARA);             // oeste, ciego
 
 // ── PUERTA DE NICANOR + sus dos postigos y las quince gradas en semicírculo ──
 gateWall('x', 152.5, -67.5, 67.5, Y_I, 42, 7, INFO.NICANOR, [
-  { c:0,   w:12, h:22, yf:Y_I, top:54, info:INFO.NICANOR, door:M.bronzeG, inS:-1 },
-  { c:-26, w:4,  h:9,  yf:Y_I, top:42, info:INFO.NICANOR, door:M.bronzeG, inS:-1 },
-  { c:26,  w:4,  h:9,  yf:Y_I, top:42, info:INFO.NICANOR, door:M.bronzeG, inS:-1 },
+  { c:0,   w:12, h:22, yf:Y_I, top:54, info:INFO.NICANOR, door:M.doorBronze, inS:-1 },
+  { c:-26, w:4,  h:9,  yf:Y_I, top:42, info:INFO.NICANOR, door:M.doorBronze, inS:-1 },
+  { c:26,  w:4,  h:9,  yf:Y_I, top:42, info:INFO.NICANOR, door:M.doorBronze, inS:-1 },
 ]);
 for (let i = 0; i < 15; i++) { // 15 contrahuellas de medio codo: de +6 a +13,5
   const h = (Y_I - Y_W) - 0.5*i, r = 9 + 1.1*i;
-  mk(new THREE.CylinderGeometry(r, r, h, 56, 1, false, -Math.PI/2, Math.PI), M.marbleS, 0, Y_W + h/2, 156, INFO.NICANOR, false);
+  mk(new THREE.CylinderGeometry(r, r, h, 56, 1, false, -Math.PI/2, Math.PI), M.limeS, 0, Y_W + h/2, 156, INFO.NICANOR, false);
 }
 
 // ── EL DUJAN: escalón de un codo + tres gradas de medio codo (Middot 2:6) ────
-[[1, 3.6], [1.5, 2.4], [2, 1.2]].forEach(([h, d]) => bxn(135, h, d, M.marbleS, 0, Y_I + h/2, 138 + d/2, INFO.DUCHAN));
+[[1, 3.6], [1.5, 2.4], [2, 1.2]].forEach(([h, d]) => bxn(135, h, d, M.limeS, 0, Y_I + h/2, 138 + d/2, INFO.DUCHAN));
 
 // ── ATRIO DE LAS MUJERES — 135 × 135 codos ───────────────────────────────────
-const wSide = (inS) => [{ c:223.5, w:10, h:20, yf:Y_W, top:42, info:INFO.WOMEN, door:M.goldPl, inS }];
+const wSide = (inS) => [{ c:223.5, w:10, h:20, yf:Y_W, top:42, info:INFO.WOMEN, door:M.doorGold, inS }];
 gateWall('z',  71.1, 156, 298, Y_W, 34, 7.2, INFO.WOMEN, wSide(-1));
 gateWall('z', -71.1, 156, 298, Y_W, 34, 7.2, INFO.WOMEN, wSide(+1));
-gateWall('x', 294.5, -74.7, 74.7, Y_W, 34, 7, INFO.WOMEN, [{ c:0, w:14, h:24, yf:Y_W, top:48, info:INFO.BEAUT, door:M.bronzeG, inS:-1 }]);
+gateWall('x', 294.5, -74.7, 74.7, Y_W, 34, 7, INFO.WOMEN, [{ c:0, w:14, h:24, yf:Y_W, top:48, info:INFO.BEAUT, door:M.doorBronze, inS:-1 }]);
 floor(-67.5, 156, 67.5, 291, Y_W + 0.08, M.pavW, INFO.WOMEN);
 
 // Las cuatro cámaras de las esquinas: 40 × 40 codos, sin techo (Middot 2:5)
 [[ 1, 251, INFO.CH_SE], [-1, 251, INFO.CH_NE], [-1, 156, INFO.CH_NW], [ 1, 156, INFO.CH_SW]].forEach(([sx, z0, inf]) => {
   const CH = 14, east = z0 > 200, zIn = east ? z0 : z0 + 40; // muro que mira al centro del atrio
   // muro paralelo a Z (cara al eje del atrio), con su puerta
-  for (const [p, q] of [[z0, z0 + 16], [z0 + 24, z0 + 40]]) bx(2, CH, q - p, M.marble, sx*27.5, Y_W + CH/2, (p+q)/2, inf);
-  bx(2, CH - 9, 8, M.marble, sx*27.5, Y_W + 9 + (CH - 9)/2, z0 + 20, inf);
+  for (const [p, q] of [[z0, z0 + 16], [z0 + 24, z0 + 40]]) bx(2, CH, q - p, M.lime, sx*27.5, Y_W + CH/2, (p+q)/2, inf);
+  bx(2, CH - 9, 8, M.lime, sx*27.5, Y_W + 9 + (CH - 9)/2, z0 + 20, inf);
   // muro paralelo a X
-  bx(41, CH, 2, M.marble, sx*47, Y_W + CH/2, zIn, inf);
-  bxn(2.8, 1, 41, M.marbleS, sx*27.5, Y_W + CH + .5, z0 + 20, inf);
-  bxn(41.8, 1, 2.8, M.marbleS, sx*47, Y_W + CH + .5, zIn, inf);
+  bx(41, CH, 2, M.lime, sx*47, Y_W + CH/2, zIn, inf);
+  bxn(2.8, 1, 41, M.limeS, sx*27.5, Y_W + CH + .5, z0 + 20, inf);
+  bxn(41.8, 1, 2.8, M.limeS, sx*47, Y_W + CH + .5, zIn, inf);
 });
 
 // Las trece arcas del tesoro («trompetas», Shekalim 6:5) contra los muros norte y sur
@@ -639,6 +895,34 @@ floor(-67.5, 156, 67.5, 291, Y_W + 0.08, M.pavW, INFO.WOMEN);
   const put13 = (x, z) => { mk(chest, M.oak, x, Y_W + 1, z, INFO.TREAS, false); mk(horn, M.bronzeG, x, Y_W + 2.85, z, INFO.TREAS, false); };
   for (let i = 0; i < 7; i++) put13(-65.6, 201.5 + i*7.3);
   for (let i = 0; i < 6; i++) put13( 65.6, 205 + i*7.4);
+}
+
+// ── LOS CUATRO CANDELABROS DE LA FIESTA (Sucá 5:2-4) ─────────────────────────
+// Cuatro cuencos de oro arriba y cuatro escaleras, una por cuenco, para que los
+// jóvenes sacerdotes subieran a llenarlos de aceite (Mishná). La altura, cincuenta
+// codos, la da el Talmud (Sucá 52b).
+{
+  const LH = 50;
+  // Una escalera = una sola geometría (dos largueros + peldaños): 16 piezas en vez de 500
+  const ladderGeo = (() => { const parts = [];
+    for (const sx of [-1, 1]) { const g = new THREE.BoxGeometry(.22, LH, .22); g.translate(sx*.8, LH/2, 0); parts.push(g); }
+    for (let y = 1.6; y < LH; y += 1.6) { const g = new THREE.BoxGeometry(1.6, .16, .16); g.translate(0, y, 0); parts.push(g); }
+    return mergeGeometries(parts); })();
+  const stand = (x, z) => {
+    bx(4, 2.4, 4, M.limeS, x, Y_W + 1.2, z, INFO.LAMP);
+    cy(.55, .8, LH, 12, M.gold, x, Y_W + 2.4 + LH/2, z, INFO.LAMP);
+    const top = Y_W + 2.4 + LH;
+    for (const [dx, dz] of [[1,0],[-1,0],[0,1],[0,-1]]) {
+      const arm = bxn(dx ? 4.4 : .4, .4, dz ? 4.4 : .4, M.gold, x + dx*2.2, top - .3, z + dz*2.2, INFO.LAMP);
+      cy(1.1, .55, .9, 12, M.gold, x + dx*4.2, top + .2, z + dz*4.2, INFO.LAMP);
+    }
+    for (let k = 0; k < 4; k++) { // cuatro escaleras, una por cuenco, apoyadas contra el fuste
+      const L = new THREE.Group(); L.position.set(x, Y_W + 2.4, z); L.rotation.y = k*Math.PI/2; world.add(L);
+      const lad = new THREE.Mesh(ladderGeo, M.oak); lad.position.z = 1.2; lad.rotation.x = -.035;
+      lad.userData = INFO.LAMP; IXS.push(lad); L.add(lad);
+    }
+  };
+  for (const [x, z] of [[-20, 212], [20, 212], [-20, 236], [20, 236]]) stand(x, z);
 }
 
 // ── EL SOREG — balaustrada calada al pie de las gradas, con sus lápidas ──────
@@ -714,15 +998,22 @@ function inst(g, geo, mat, pts, info, shadow = false) {
 function colonnade(g, xz, h, r, info) {
   inst(g, new THREE.CylinderGeometry(r*.86, r, h, 14), M.marbleS, xz.map(([x, z]) => [x, h/2, z]), info, true);
   inst(g, new THREE.CylinderGeometry(r*1.25, r*1.4, 1, 14), M.marbleS, xz.map(([x, z]) => [x, .5, z]), info);
-  inst(g, new THREE.CylinderGeometry(r*1.55, r*.9, 2.4, 14), M.marbleS, xz.map(([x, z]) => [x, h - 1.2, z]), info);
+  const tor = new THREE.TorusGeometry(r*1.12, r*.2, 6, 16); tor.rotateX(Math.PI/2);       // toro de la basa ática
+  inst(g, tor, M.marbleS, xz.map(([x, z]) => [x, 1.15, z]), info);
+  inst(g, new THREE.CylinderGeometry(r*1.42, r*.9, 2.2, 16, 1, true), M.capMarble, xz.map(([x, z]) => [x, h - 1.85, z]), info); // campana de acanto
+  inst(g, new THREE.BoxGeometry(r*3.1, .75, r*3.1), M.marbleS, xz.map(([x, z]) => [x, h - .37, z]), info);                       // ábaco
 }
 const TRIM = 44, WALL_H = 32;
 // Muro exterior sobre la explanada, con pilastras por fuera (como en Hebrón)
-function outerWall(e, h, info) {
+function outerWall(e, h, info, win = false) {
   lbox(e.g, e.L, h, 5, M.herod, e.L/2, h/2, 2.5, info);
-  lbox(e.g, e.L, 1.6, 6.4, M.marbleS, e.L/2, h + .8, 2.5, info, false);
+  lbox(e.g, e.L, 1.6, 6.4, M.limeS, e.L/2, h + .8, 2.5, info, false);
   const pts = []; for (let x = 6; x < e.L - 4; x += 9) pts.push([x, h/2 + 3, -.5]);
   inst(e.g, new THREE.BoxGeometry(3.4, h - 6, 1.2), M.herod, pts, info);
+  if (win) { // ventanas altas entre pilastras, como en la Stoa del video y en Hebrón
+    const w = []; for (let x = 10.5; x < e.L - 8; x += 9) w.push([x, h - 9, -.05]);
+    inst(e.g, new THREE.BoxGeometry(2.2, 5, .3), M.dark, w, info);
+  }
 }
 // Pórtico doble: 30 codos de ancho, columnas de 25 (Josefo, Guerra V.5.2)
 function portico(A, B, info) {
@@ -734,6 +1025,7 @@ function portico(A, B, info) {
   }
   colonnade(e.g, xz, 25, 1.9, info);
   lbox(e.g, e.L - 60, 2.2, 33, M.tile, e.L/2, 28.7, 19, info);
+  lbox(e.g, e.L - 60, .1, 33, M.coffer, e.L/2, 27.55, 19, info, false); // artesonado de cedro
   return e;
 }
 const P_W = portico(MT.NW, MT.SW, INFO.PORT);
@@ -743,7 +1035,7 @@ const P_E = portico(MT.SE, MT.NE, INFO.SOLP);
 // ── LA STOA REAL (Josefo, Ant. XV.11.5): 4 hileras, 3 naves, la central doble ──
 {
   const e = edgeGroup(MT.SW, MT.SE), ROWS = [7.5, 27, 57, 77], xz = [], x0 = TRIM + 4, n = 40, step = (e.L - 2*x0)/(n - 1);
-  outerWall(e, 36, INFO.STOA);
+  outerWall(e, 36, INFO.STOA, true);
   for (const z of ROWS) {
     for (let i = 0; i < n; i++) xz.push([x0 + i*step, z]); // 160 columnas (+2 de los extremos = 162)
     lbox(e.g, e.L - 2*TRIM + 4, 2.8, 4, M.marbleS, e.L/2, 28.4, z, INFO.STOA, false);
@@ -752,27 +1044,33 @@ const P_E = portico(MT.SE, MT.NE, INFO.SOLP);
   const LR = e.L - 2*TRIM + 6;
   lbox(e.g, LR, 2.2, 24, M.tile, e.L/2, 31, 16.5, INFO.STOA);   // nave sur
   lbox(e.g, LR, 2.2, 24, M.tile, e.L/2, 31, 68, INFO.STOA);     // nave norte
-  for (const z of [27, 57]) lbox(e.g, LR, 30, 2.6, M.marble, e.L/2, 45, z, INFO.STOA); // claristorio
+  for (const z of [16.5, 68]) lbox(e.g, LR, .1, 24, M.coffer, e.L/2, 29.85, z, INFO.STOA, false);
+  for (const z of [27, 57]) lbox(e.g, LR, 30, 2.6, M.lime, e.L/2, 45, z, INFO.STOA); // claristorio
   { // columnas altas del claristorio, hacia la explanada
     const up = []; for (let i = 0; i < n; i++) up.push([x0 + i*step, 45, 58.6]);
     inst(e.g, new THREE.CylinderGeometry(1.2, 1.4, 27, 10), M.marbleS, up, INFO.STOA);
   }
   lbox(e.g, LR + 2, 2.6, 37, M.tile, e.L/2, 61.3, 42, INFO.STOA); // nave central
-  for (const x of [TRIM - 2, e.L - TRIM + 2]) { lbox(e.g, 3, 60, 34, M.marble, x, 30, 42, INFO.STOA); lbox(e.g, 3, 30, 40, M.marble, x, 15, 60, INFO.STOA); }
+  lbox(e.g, LR, .1, 30, M.coffer, e.L/2, 59.95, 42, INFO.STOA, false);
+  { // ventanas del claristorio, que dan luz a la nave central
+    const w = []; for (let i = 0; i < n - 1; i++) for (const z of [27, 57]) w.push([x0 + (i + .5)*step, 51, z]);
+    inst(e.g, new THREE.BoxGeometry(3, 6, 2.9), M.dark, w, INFO.STOA);
+  }
+  for (const x of [TRIM - 2, e.L - TRIM + 2]) { lbox(e.g, 3, 60, 34, M.lime, x, 30, 42, INFO.STOA); lbox(e.g, 3, 30, 40, M.lime, x, 15, 60, INFO.STOA); }
   // Salidas de los túneles de Hulda, al norte de la Stoa
   for (const [z, w] of [[0, 22], [141, 30]]) {
     const cx = 528;
     bxn(26, .2, w, M.dark, cx, .2, z, INFO.HULDA);
-    bxn(27.4, 2.2, .8, M.marbleS, cx, 1.1, z - w/2, INFO.HULDA); bxn(27.4, 2.2, .8, M.marbleS, cx, 1.1, z + w/2, INFO.HULDA);
-    bxn(.8, 2.2, w, M.marbleS, cx + 13.3, 1.1, z, INFO.HULDA);
-    for (let i = 0; i < 6; i++) bxn(3, .15, w - 1, M.marble, cx + 11 - i*3.6, .1 - i*.02 + .12, z, INFO.HULDA); // primeros peldaños
+    bxn(27.4, 2.2, .8, M.limeS, cx, 1.1, z - w/2, INFO.HULDA); bxn(27.4, 2.2, .8, M.limeS, cx, 1.1, z + w/2, INFO.HULDA);
+    bxn(.8, 2.2, w, M.limeS, cx + 13.3, 1.1, z, INFO.HULDA);
+    for (let i = 0; i < 6; i++) bxn(3, .15, w - 1, M.lime, cx + 11 - i*3.6, .1 - i*.02 + .12, z, INFO.HULDA); // primeros peldaños
   }
 }
 
 // ── TORRES DE ESQUINA ─────────────────────────────────────────────────────────
 [[612, 308, 58, INFO.PINN], [612, -265, 58, INFO.TRUMP], [-395, 384, 44, INFO.PORT], [-395, -265, 44, INFO.ANTON]].forEach(([x, z, h, inf]) => {
   bx(42, h, 42, M.herod, x, h/2, z, inf);
-  ring(x - 21, z - 21, x + 21, z + 21, h, 2.4, 2.4, M.marbleS, inf);
+  ring(x - 21, z - 21, x + 21, z + 21, h, 2.4, 2.4, M.limeS, inf);
   bxn(40, 1.6, 40, M.tile, x, h + .8, z, inf);
 });
 
@@ -780,7 +1078,7 @@ const P_E = portico(MT.SE, MT.NE, INFO.SOLP);
 {
   const lx = P_E.at(-44, 375);
   lbox(P_E.g, 44, 46, 16, M.herod, lx, 23, 4, INFO.SHUSH);
-  lbox(P_E.g, 46.4, 2, 18.4, M.marbleS, lx, 47, 4, INFO.SHUSH, false);
+  lbox(P_E.g, 46.4, 2, 18.4, M.limeS, lx, 47, 4, INFO.SHUSH, false);
   for (const z of [-4.2, 12.2]) { lbox(P_E.g, 14, 24, .5, M.dark, lx, 12, z, INFO.SHUSH, false); lbox(P_E.g, 17, 1.6, .9, M.goldPl, lx, 25.4, z, INFO.SHUSH, false); }
 }
 
@@ -795,8 +1093,19 @@ const P_E = portico(MT.SE, MT.NE, INFO.SOLP);
     bx(34, h, 34, M.herod, x, RY + h/2, z, INFO.ANTON);
     ring(x - 17, z - 17, x + 17, z + 17, RY + h, 3, 2.4, M.herod, INFO.ANTON);
   }
+  { // ventanas: dos hileras en el cuerpo, tres en cada torre
+    const pts = [], add = (cx, cz, w, d, ys) => { for (const y of ys) {
+      for (let a = -w/2 + 6; a <= w/2 - 6; a += 8) { pts.push([cx + a, y, cz - d/2 - .1, 0]); pts.push([cx + a, y, cz + d/2 + .1, 0]); }
+      for (let a = -d/2 + 6; a <= d/2 - 6; a += 8) { pts.push([cx - w/2 - .1, y, cz + a, 1]); pts.push([cx + w/2 + .1, y, cz + a, 1]); } } };
+    add((X0+X1)/2, (Z0+Z1)/2, X1 - X0, Z1 - Z0, [RY + 22, RY + 32]);
+    for (const [x, z, h] of [[X0 + 17, Z0 + 17, 50], [X0 + 17, Z1 - 17, 50], [X1 - 17, Z0 + 17, 50], [X1 - 17, Z1 - 17, 70]])
+      add(x, z, 34, 34, [RY + h - 20, RY + h - 11, ...(h > 60 ? [RY + h - 29, RY + h - 38] : [])]);
+    const im = new THREE.InstancedMesh(new THREE.BoxGeometry(1, 1, 1), M.dark, pts.length), mt = new THREE.Matrix4();
+    pts.forEach(([x, y, z, rot], i) => { mt.makeScale(rot ? .4 : 2.2, 3.6, rot ? 2.2 : .4); mt.setPosition(x, y, z); im.setMatrixAt(i, mt); });
+    world.add(im);
+  }
   // «Las gradas» (Hch 21:35, 40): del techo del pórtico norte a la explanada
-  for (let i = 0; i < 15; i++) bxn(2, 28 - 2*i + .7, 16, M.marble, -376 + 2*i, (28 - 2*i + .7)/2, -150, INFO.ANTON);
+  for (let i = 0; i < 15; i++) bxn(2, 28 - 2*i + .7, 16, M.lime, -376 + 2*i, (28 - 2*i + .7)/2, -150, INFO.ANTON);
 }
 
 // ── MURO SUR: puertas de Hulda, plaza y escalinata ───────────────────────────
@@ -806,7 +1115,7 @@ const P_E = portico(MT.SE, MT.NE, INFO.SOLP);
   const door = (z, w) => { bxn(.8, 20, w, M.dark, XF + .3, YG + 10, z, INFO.HULDA); };
   for (const z of [-7, 7]) door(z, 11);                    // Puerta Doble
   for (const z of [130.5, 141, 151.5]) door(z, 8.5);       // Puerta Triple
-  bxn(1.4, 2.4, 29, M.marbleS, XF + .5, YG + 21.4, 0, INFO.HULDA); bxn(1.4, 2.4, 35, M.marbleS, XF + .5, YG + 21.4, 141, INFO.HULDA);
+  bxn(1.4, 2.4, 29, M.limeS, XF + .5, YG + 21.4, 0, INFO.HULDA); bxn(1.4, 2.4, 35, M.limeS, XF + .5, YG + 21.4, 141, INFO.HULDA);
   const stair = (z, w) => { for (let i = 0; i < 15; i++) { const h = (YG - G) - 1.5*(i + 1); bxn(i % 2 ? 2 : 5, h, w, M.paving, 0, G + h/2, z, INFO.HULDA).position.x = stairX[i]; } };
   const stairX = []; { let x = XF + 34; for (let i = 0; i < 15; i++) { const d = i % 2 ? 2 : 5; stairX.push(x + d/2); x += d; } } // peldaños anchos y angostos alternados
   stair(0, 150); stair(141, 50);
@@ -825,7 +1134,7 @@ const P_E = portico(MT.SE, MT.NE, INFO.SOLP);
   for (const sd of [-1, 1]) bxn(1.4, 3, 222, M.herod, 240 + sd*13.3, 1.5, ZF - 111, INFO.WILS);
   for (let z = ZF - 34; z > ZF - 200; z -= 38) bx(28, -5 - G, 13, M.herod, 240, (G - 5)/2, z, INFO.WILS);
   // Puertas a nivel de la calle (Barclay y Warren)
-  for (const x of [455, 150]) { bxn(10, 20, .8, M.dark, x, G + 10, ZF - .3, INFO.WGATE); bxn(15, 3.4, 1.4, M.marbleS, x, G + 21.7, ZF - .5, INFO.WGATE); }
+  for (const x of [455, 150]) { bxn(10, 20, .8, M.dark, x, G + 10, ZF - .3, INFO.WGATE); bxn(15, 3.4, 1.4, M.limeS, x, G + 21.7, ZF - .5, INFO.WGATE); }
 }
 
 // ── RAYCASTING / HOVER ────────────────────────────────────────────────────────
@@ -871,6 +1180,11 @@ function goTo(k) {
   stopDrone();
 }
 for (const k of Object.keys(CAMS)) document.getElementById('b-' + k).onclick = () => goTo(k);
+{ // #san, #sto… abre el visor directo en esa cámara (enlaces y capturas)
+  const h = location.hash.slice(1), v = h.split(',').map(Number);
+  const c = CAMS[h] || (v.length === 6 && v.every(isFinite) ? { p: v.slice(0, 3), t: v.slice(3) } : null); // #x,y,z,tx,ty,tz
+  if (c) { camera.position.set(...c.p); orbit.target.set(...c.t); orbit.update(); }
+}
 bDrone.addEventListener('click', () => {
   if (droneActive) return stopDrone();
   droneActive = true; droneT = 0; camAnim = null; orbit.enabled = false;
@@ -879,6 +1193,8 @@ bDrone.addEventListener('click', () => {
 
 // ── LOOP ──────────────────────────────────────────────────────────────────────
 const clock = new THREE.Clock();
+const perf = { n: 0, sum: 0, last: 0 };
+if (/[?&]ao=0/.test(location.search)) aoPass.enabled = false;
 const ease = t => t < .5 ? 2*t*t : -1 + (4 - 2*t)*t;
 function animate() {
   requestAnimationFrame(animate);
@@ -909,6 +1225,10 @@ function animate() {
   }
   orbit.update();
   composer.render();
+  if (perf.n < 120) { // los primeros 120 cuadros miden la máquina
+    const now = performance.now(); if (perf.last) perf.sum += now - perf.last; perf.last = now;
+    if (++perf.n === 120 && perf.sum/119 > 34) { aoPass.enabled = false; console.log('[templo] AO apagado: ' + (perf.sum/119).toFixed(1) + ' ms por cuadro'); }
+  }
 }
 animate();
 
