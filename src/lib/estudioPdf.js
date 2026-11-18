@@ -55,7 +55,48 @@ export function paresDelEstudio(messages) {
     return pares;
 }
 
-function sintesis(pares) {
+// Spurgeon muchas veces cita sin el libro cuando viene hablando de uno:
+// «(3:24)», «(3:8; 6:1)». Esas citas toman el libro de la conversación: el que
+// nombra la pregunta y, si la pregunta no nombra ninguno, el libro que más
+// aparece en la respuesta (citas completas, versículo destacado y menciones).
+// No se usa «la última cita con libro»: una cita al pasar («como enseña Tito
+// 2:11-12») le robaría a ese libro las citas siguientes, que siguen siendo del
+// libro que se está estudiando.
+const RE_LIBRO = new RegExp(`(?<![\\wÁÉÍÓÚáéíóúñ])(${[...LIBROS].sort((a, b) => b.length - a.length).join('|')})(?![\\wÁÉÍÓÚáéíóúñ])`, 'g');
+const RE_SIN_LIBRO = /^\d{1,3}:\d{1,3}(?:\s?[-–]\s?\d{1,3})?(?:,\s?\d{1,3})*$/;
+const canonico = (libro) => (libro === 'Salmo' ? 'Salmos' : libro);
+
+function libroDeContexto(pregunta, p) {
+    const enPregunta = String(pregunta).match(RE_LIBRO);
+    if (enPregunta) return canonico(enPregunta[0]);
+    const cuenta = new Map();
+    const sumar = (l) => cuenta.set(canonico(l), (cuenta.get(canonico(l)) || 0) + 1);
+    for (const m of String(p.content).matchAll(RE_LIBRO)) sumar(m[1]);
+    const delVersiculo = String(p.verse?.reference || '').match(RE_LIBRO);
+    if (delVersiculo) sumar(delVersiculo[0]);
+    let mejor = null;
+    for (const [l, n] of cuenta) if (!mejor || n > cuenta.get(mejor)) mejor = l;
+    return mejor;
+}
+
+export function citasSinLibro(pregunta, p) {
+    const libro = libroDeContexto(pregunta, p);
+    if (!libro) return [];
+    const citas = [];
+    for (const [, adentro] of String(p.content).matchAll(/\(([^()]*)\)/g)) {
+        // dentro de un mismo paréntesis, «(Romanos 3:23; 6:23)»: el 6:23 es de Romanos
+        let local = null;
+        for (const parte of adentro.split(';')) {
+            const t = parte.trim();
+            const nombrado = t.match(RE_LIBRO);
+            if (nombrado) local = canonico(nombrado[0]);
+            else if (RE_SIN_LIBRO.test(t)) citas.push(`${local || libro} ${t}`);
+        }
+    }
+    return citas;
+}
+
+export function sintesis(pares) {
     const versiculos = new Map(); // ref normalizada → { ref, texto }
     const agregar = (ref, texto) => {
         const k = normalizarRef(ref);
@@ -65,7 +106,8 @@ function sintesis(pares) {
     };
     const lecturas = new Map();
     for (const p of pares) {
-        for (const m of String(p.content).matchAll(RE_CITA)) agregar(`${m[1]} ${m[2]}:${m[3]}`);
+        for (const m of String(p.content).matchAll(RE_CITA)) agregar(`${canonico(m[1])} ${m[2]}:${m[3]}`);
+        for (const c of citasSinLibro(p.pregunta, p)) agregar(c);
         if (p.verse?.reference) agregar(p.verse.reference, p.verse.text);
         for (const l of p.suggestedLinks || []) {
             if (!l?.url || l.url === '/donaciones' || lecturas.has(l.url)) continue;
