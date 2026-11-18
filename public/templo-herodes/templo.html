@@ -503,6 +503,7 @@ const INFO = {
   INCENSE:{ title:'El Altar del Incienso', body:'Un codo por uno y dos de alto, recubierto de oro, con sus cuatro cuernos y su corona. Estaba delante del velo, en el medio. Mañana y tarde un sacerdote quemaba aquí el incienso; Josefo dice que llevaba trece especias. Mientras tanto, el pueblo oraba afuera, en los atrios. El Apocalipsis retoma esa imagen: «de la mano del ángel subió a la presencia de Dios el humo del incienso con las oraciones de los santos».', ref:'Éxodo 30:1-10 · Lucas 1:9-10 · Josefo, Guerra V.5.5 · Apocalipsis 8:3-4' },
   DEBIR: { title:'El Lugar Santísimo', body:'Un cubo de veinte codos. En el templo de Salomón estaba aquí el Arca del Pacto; en el de Herodes, en cambio, «no había nada en absoluto», escribe Josefo. Tácito cuenta que, cuando el general romano Pompeyo entró en el año 63 a.C., lo encontró vacío. Solo el sumo sacerdote entraba, una vez al año, el Día de la Expiación, y «no sin sangre». La carta a los Hebreos ve en ese acceso restringido una figura de lo que Cristo abrió: él entró «una vez para siempre en el Lugar Santísimo», no por sangre de animales, «sino por su propia sangre».', ref:'Josefo, Guerra V.5.5 · Tácito, Historias V.9 · Hebreos 9:7, 9:11-12' },
   STONE: { title:'La Piedra de la Fundación', body:'Después de que el Arca desapareció, dice la Mishná, quedó en su lugar una piedra que sobresalía tres dedos del piso, llamada «shetiyá», y sobre ella el sumo sacerdote apoyaba el incensario el Día de la Expiación. Muchos la identifican con la roca que hoy está bajo la Cúpula de la Roca.', ref:'Mishná, Yomá 5:2' },
+  MOAT:  { title:'El Foso de la Antonia', body:'Al norte, la roca de la fortaleza caía a pique sobre un foso. Josefo explica que la colina de Bezeta, la ciudad nueva, quedaba enfrente, «pero separada por un valle profundo, cavado a propósito», para que nadie pudiera acercarse a los cimientos de la Antonia, «y por eso la profundidad del foso hacía más notable la altura de las torres». Desde el fondo hasta la cima de la roca hay cincuenta codos. Allí estaba el estanque de Strutio: en el año 70, durante el asedio, una legión de Tito levantó un terraplén en medio de él para atacar la fortaleza.', ref:'Josefo, Guerra V.4.2 · V.5.8 · V.11.4' },
   LAMP:  { title:'Los Candelabros de la Fiesta', body:'En la fiesta de los Tabernáculos se levantaban en este atrio cuatro candelabros de oro, cada uno con cuatro cuencos arriba y cuatro escaleras; el Talmud les da cincuenta codos de alto. Jóvenes de familias sacerdotales subían con cántaros de aceite y encendían mechas hechas con las vestiduras gastadas de los sacerdotes. Dice la Mishná que no había patio en Jerusalén que no se iluminara con su luz, y que los piadosos danzaban delante con antorchas mientras los levitas tocaban sobre las quince gradas. Al terminar esa fiesta, Jesús dijo en este mismo atrio: «Yo soy la luz del mundo; el que me sigue, no andará en tinieblas».', ref:'Mishná, Sucá 5:2-4 · Talmud, Sucá 52b · Juan 8:12, 20' },
   SOREG: { title:'El Soreg — La Pared Intermedia', body:'Una balaustrada de piedra calada, de unos diez palmos de alto, rodeaba los atrios. Hasta ella podía llegar cualquier persona; más allá, solo los israelitas. En cada paso había lápidas en griego y en latín. Dos se han encontrado, y dicen: «Ningún extranjero entre dentro de la balaustrada y del recinto que rodea el santuario. El que sea sorprendido será él mismo responsable de la muerte que le sobrevendrá». A Pablo casi lo matan aquí, acusado de haber metido a un griego en el templo. Y desde la cárcel escribió que Cristo, «de ambos pueblos hizo uno, derribando la pared intermedia de separación».', ref:'Mishná, Middot 2:3 · Josefo, Guerra V.5.2 · Hechos 21:27-31 · Efesios 2:14' },
   DUCHAN:{ title:'El Estrado de los Levitas (Dujan)', body:'Entre el Atrio de Israel y el de los Sacerdotes había un escalón de un codo y, sobre él, un estrado de tres gradas de medio codo. Allí se paraban los levitas con sus instrumentos para cantar el salmo del día mientras se ofrecía el sacrificio continuo. El Atrio de Israel, detrás, era una franja de apenas 11 codos desde donde los hombres presenciaban el culto.', ref:'Mishná, Middot 2:6 · Tamid 7:3-4 · 1 Crónicas 23:30' },
@@ -524,6 +525,9 @@ const INFO = {
 const G = -50; // nivel de la calle al pie de los muros
 const sstep = (a, b, v) => { const t = Math.min(1, Math.max(0, (v - a)/(b - a))); return t*t*(3 - 2*t); };
 function terrainH(x, z) {
+  // El foso cavado entre la Antonia y Bezeta (Josefo, Guerra V.4.2): el fondo queda
+  // 50 codos por debajo de la roca de la fortaleza. Las paredes son cajas (ver FORTALEZA ANTONIA).
+  if (x > -640 && x < -400 && z > -300 && z < 10) return -24;
   let h = G + sstep(-340, -560, z)*60 - sstep(360, 480, z)*45 + sstep(520, 1300, z)*245 - sstep(700, 1300, x)*40;
   const n = sstep(-300, -430, x) * (1 - sstep(300, 420, z));
   h += (Math.max(h, -6) - h)*n;
@@ -567,7 +571,7 @@ M.ground = (() => {
     if (x > -600 && x < 830 && z > -400 && z < 480) return false;           // el monte, sus plazas y escalinatas
     if (Math.abs(x - 240) < 36 && z > -580 && z < -280) return false;         // el puente a la Ciudad Alta
     if (x > 520 && x < 900 && z > -470 && z < -280) return false;              // la calle al pie del Arco de Robinson
-    if (x > -540 && x < -400 && z > -300 && z < 0) return false;               // la Antonia
+    if (x > -730 && x < -400 && z > -370 && z < 80) return false;              // la Antonia y su foso
     return true;
   };
   const zone = (x0, x1, z0, z1, step, p) => {
@@ -1241,6 +1245,18 @@ const P_E = portico(MT.SE, MT.NE, INFO.SOLP);
   // La roca, revestida de losas lisas desde el pie «para que nadie pudiera trepar» (Josefo)
   M.glacis = ashlar({ tile:[40,20], course:2, minL:4, maxL:9, base:[220,200,160], vary:.05, joint:.22, jw:1, bump:.25, rough:.5, seed:61, patina:25 });
   bx(X1 - X0 + 16, RY - G, Z1 - Z0 + 16, M.glacis, (X0+X1)/2 - 2, (G + RY)/2, (Z0+Z1)/2, INFO.ANTON);
+  // EL FOSO: «un valle profundo, cavado a propósito» para separar la roca de la colina de
+  // Bezeta (Guerra V.4.2). Fondo a -24: de ahí a la cima de la roca hay 50 codos, la altura
+  // que da Josefo. Enfrente, la pared de roca del lado de Bezeta.
+  { // la pared de roca del lado de Bezeta: cara cortada a pico, arriba el mismo suelo que la rodea
+    const cut = new THREE.MeshStandardMaterial({ color: 0xB09A76, roughness: 1 });
+    const tt = M.ground.map.clone(); tt.repeat.set(44/120, 408/120); tt.needsUpdate = true; // el mismo suelo, a la misma escala
+    const top = new THREE.MeshStandardMaterial({ map: tt, roughness: 1, envMapIntensity: .25 });
+    const m = mk(new THREE.BoxGeometry(44, 18, 408), [cut, cut, top, cut, cut, cut], -621, -15, -146, INFO.MOAT);
+  }
+  // El estanque de Strutio, al fondo del foso (Guerra V.11.4)
+  bxn(40, .6, 110, M.water, -566, -23.2, -170, INFO.MOAT);
+  ring(-586, -225, -546, -115, -24, 1.4, 1.2, M.limeS, INFO.MOAT);
   bx(X1 - X0, BODY, Z1 - Z0, M.herod, (X0+X1)/2, RY + BODY/2, (Z0+Z1)/2, INFO.ANTON);
   ring(X0, Z0, X1, Z1, RY + BODY, 3, 2.6, M.herod, INFO.ANTON);
   bxn(X1 - X0 - 50, .4, Z1 - Z0 - 50, M.paving, (X0+X1)/2, RY + BODY + .2, (Z0+Z1)/2, INFO.ANTON);
