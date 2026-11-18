@@ -97,6 +97,8 @@ setTimeout(function(){
   <button class="btn" id="b-ext">El Monte</button>
   <button class="btn" id="b-top">Vista Aérea</button>
   <button class="btn" id="b-san">El Santuario</button>
+  <button class="btn" id="b-hek">El Lugar Santo</button>
+  <button class="btn" id="b-deb">Lugar Santísimo</button>
   <button class="btn" id="b-alt">El Altar</button>
   <button class="btn" id="b-muj">Atrio de las Mujeres</button>
   <button class="btn" id="b-sor">El Soreg</button>
@@ -492,6 +494,15 @@ const INFO = {
   CH_SW: { title:'Cámara del Aceite', body:'En la esquina sudoeste. Aquí se guardaban el aceite y el vino para las ofrendas y para las lámparas del candelabro.', ref:'Mishná, Middot 2:5' },
   TREAS: { title:'Las Arcas del Tesoro', body:'En el templo había trece arcas para las ofrendas, llamadas «trompetas» por la forma de su boca, angosta arriba y ancha abajo. Cada una tenía su destino: los siclos del año, la leña, el incienso, las ofrendas voluntarias. Sentado frente a ellas, Jesús vio a los ricos echar mucho y a una viuda pobre echar dos blancas, y dijo que ella había dado más que todos, «porque todos han echado de lo que les sobra; pero ésta, de su pobreza echó todo lo que tenía».', ref:'Mishná, Shekalim 6:5 · Marcos 12:41-44 · Juan 8:20' },
   BEAUT: { title:'La Puerta Oriental — ¿la Hermosa?', body:'La entrada principal al Atrio de las Mujeres desde la explanada. Josefo habla de una puerta de bronce de Corinto, fuera del santuario, que superaba en valor a las recubiertas de plata y oro. Muchos la identifican con la puerta «que se llama la Hermosa», donde Pedro y Juan encontraron al cojo de nacimiento: «No tengo plata ni oro, pero lo que tengo te doy; en el nombre de Jesucristo de Nazaret, levántate y anda». Otros ubican la Hermosa en la Puerta de Nicanor.', ref:'Josefo, Guerra V.5.3 · Hechos 3:1-10' },
+  HEKAL: { title:'El Lugar Santo', body:'Cuarenta codos de largo, veinte de ancho y cuarenta de alto según la Mishná (Josefo da sesenta de alto). Todo recubierto de oro, salvo la pared que quedaba detrás de las puertas abiertas. Solo los sacerdotes entraban aquí, dos veces al día: a la mañana y a la tarde, para quemar el incienso y atender las lámparas. Así entró Zacarías, el padre de Juan el Bautista, cuando «le tocó en suerte ofrecer el incienso, entrando en el santuario del Señor», y allí se le apareció el ángel.', ref:'Mishná, Middot 4:1, 4:6-7 · Josefo, Guerra V.5.5 · Lucas 1:8-11' },
+  DOORS: { title:'Las Puertas del Lugar Santo', body:'Un vano de veinte codos de alto por diez de ancho, con cuatro hojas de oro: dos se abrían hacia adentro del vano y cubrían el espesor del muro, y las otras dos se abrían hacia el Lugar Santo y quedaban contra la pared. La única pared del interior que no tenía oro era la que tapaban esas hojas abiertas. Josefo da para estas puertas una medida mucho mayor: cincuenta y cinco codos por dieciséis.', ref:'Mishná, Middot 4:1 · Josefo, Guerra V.5.4' },
+  VEIL:  { title:'El Velo Babilónico', body:'Delante de las puertas de oro colgaba un velo del mismo tamaño: «un tapiz babilónico bordado de azul, lino fino, escarlata y púrpura, de una hechura admirable». Josefo explica que era una imagen del universo: la escarlata, el fuego; el lino, la tierra; el azul, el aire; la púrpura, el mar. Tenía bordado «todo lo que hay de misterioso en los cielos», pero sin los signos del zodíaco, que representaban seres vivos. Por eso aquí se ven estrellas y ninguna figura.', ref:'Josefo, Guerra V.5.4' },
+  VEIL_IN:{ title:'El Velo — Las Dos Cortinas', body:'Entre el Lugar Santo y el Santísimo no había muro, sino un codo de separación cerrado por dos cortinas de cuarenta codos por veinte, gruesas como un palmo. La de afuera quedaba recogida al sur y la de adentro al norte: el Día de la Expiación, el sumo sacerdote entraba por el sur, caminaba entre las dos hasta el norte y pasaba al Lugar Santísimo. Josefo habla de un solo velo, igual que el rabino Yosé en la Mishná. Las fuentes no le atribuyen figuras, y aquí no lleva ninguna. Cuando Jesús murió, «el velo del templo se rasgó en dos, de arriba abajo». Desde entonces tenemos «libertad para entrar en el Lugar Santísimo por la sangre de Jesucristo, por el camino nuevo y vivo que él nos abrió a través del velo, esto es, de su carne».', ref:'Mishná, Yomá 5:1 · Shekalim 8:5 · Josefo, Guerra V.5.5 · Mateo 27:51 · Hebreos 10:19-20' },
+  MENORAH:{ title:'El Candelabro de Oro', body:'Siete lámparas sobre un solo fuste de oro, con sus brazos adornados de copas, manzanas y flores. Los sacerdotes las limpiaban y encendían cada día, y ardían de la tarde a la mañana. Josefo vio en las siete lámparas una imagen de los siete astros que se mueven en el cielo. Cuando Tito destruyó el templo, el candelabro fue llevado a Roma y desfiló en su triunfo; todavía puede verse tallado en el Arco de Tito. La base de esa talla es discutida, por eso aquí lleva una base sencilla.', ref:'Éxodo 25:31-40 · Levítico 24:1-4 · Josefo, Guerra V.5.5; VII.5.5' },
+  TABLE: { title:'La Mesa de los Panes de la Proposición', body:'Doce panes en dos hileras de seis, que se renovaban cada sábado, con incienso puro junto a cada hilera. La Mishná le da doce palmos por seis (unos dos codos por uno). Para Josefo, los doce panes figuraban los meses del año. Doce panes por las doce tribus, siempre «delante de Jehová». Jesús dijo: «Yo soy el pan de vida; el que a mí viene, nunca tendrá hambre».', ref:'Levítico 24:5-9 · Mishná, Menajot 11:5 · Josefo, Guerra V.5.5 · Juan 6:35' },
+  INCENSE:{ title:'El Altar del Incienso', body:'Un codo por uno y dos de alto, recubierto de oro, con sus cuatro cuernos y su corona. Estaba delante del velo, en el medio. Mañana y tarde un sacerdote quemaba aquí el incienso; Josefo dice que llevaba trece especias. Mientras tanto, el pueblo oraba afuera, en los atrios. El Apocalipsis retoma esa imagen: «de la mano del ángel subió a la presencia de Dios el humo del incienso con las oraciones de los santos».', ref:'Éxodo 30:1-10 · Lucas 1:9-10 · Josefo, Guerra V.5.5 · Apocalipsis 8:3-4' },
+  DEBIR: { title:'El Lugar Santísimo', body:'Un cubo de veinte codos. En el templo de Salomón estaba aquí el Arca del Pacto; en el de Herodes, en cambio, «no había nada en absoluto», escribe Josefo. Tácito cuenta que, cuando el general romano Pompeyo entró en el año 63 a.C., lo encontró vacío. Solo el sumo sacerdote entraba, una vez al año, el Día de la Expiación, y «no sin sangre». La carta a los Hebreos ve en ese acceso restringido una figura de lo que Cristo abrió: él entró «una vez para siempre en el Lugar Santísimo», no por sangre de animales, «sino por su propia sangre».', ref:'Josefo, Guerra V.5.5 · Tácito, Historias V.9 · Hebreos 9:7, 9:11-12' },
+  STONE: { title:'La Piedra de la Fundación', body:'Después de que el Arca desapareció, dice la Mishná, quedó en su lugar una piedra que sobresalía tres dedos del piso, llamada «shetiyá», y sobre ella el sumo sacerdote apoyaba el incensario el Día de la Expiación. Muchos la identifican con la roca que hoy está bajo la Cúpula de la Roca.', ref:'Mishná, Yomá 5:2' },
   LAMP:  { title:'Los Candelabros de la Fiesta', body:'En la fiesta de los Tabernáculos se levantaban en este atrio cuatro candelabros de oro, cada uno con cuatro cuencos arriba y cuatro escaleras; el Talmud les da cincuenta codos de alto. Jóvenes de familias sacerdotales subían con cántaros de aceite y encendían mechas hechas con las vestiduras gastadas de los sacerdotes. Dice la Mishná que no había patio en Jerusalén que no se iluminara con su luz, y que los piadosos danzaban delante con antorchas mientras los levitas tocaban sobre las quince gradas. Al terminar esa fiesta, Jesús dijo en este mismo atrio: «Yo soy la luz del mundo; el que me sigue, no andará en tinieblas».', ref:'Mishná, Sucá 5:2-4 · Talmud, Sucá 52b · Juan 8:12, 20' },
   SOREG: { title:'El Soreg — La Pared Intermedia', body:'Una balaustrada de piedra calada, de unos diez palmos de alto, rodeaba los atrios. Hasta ella podía llegar cualquier persona; más allá, solo los israelitas. En cada paso había lápidas en griego y en latín. Dos se han encontrado, y dicen: «Ningún extranjero entre dentro de la balaustrada y del recinto que rodea el santuario. El que sea sorprendido será él mismo responsable de la muerte que le sobrevendrá». A Pablo casi lo matan aquí, acusado de haber metido a un griego en el templo. Y desde la cárcel escribió que Cristo, «de ambos pueblos hizo uno, derribando la pared intermedia de separación».', ref:'Mishná, Middot 2:3 · Josefo, Guerra V.5.2 · Hechos 21:27-31 · Efesios 2:14' },
   DUCHAN:{ title:'El Estrado de los Levitas (Dujan)', body:'Entre el Atrio de Israel y el de los Sacerdotes había un escalón de un codo y, sobre él, un estrado de tres gradas de medio codo. Allí se paraban los levitas con sus instrumentos para cantar el salmo del día mientras se ofrecía el sacrificio continuo. El Atrio de Israel, detrás, era una franja de apenas 11 codos desde donde los hombres presenciaban el culto.', ref:'Mishná, Middot 2:6 · Tamid 7:3-4 · 1 Crónicas 23:30' },
@@ -673,8 +684,18 @@ bx(74, Y_S - Y_P, 80, M.marble, 0, (Y_P + Y_S)/2, 11, INFO.SANCT);
 bx(104, Y_S - Y_P, 25, M.marble, 0, (Y_P + Y_S)/2, 63.5, INFO.SANCT);
 for (let i = 1; i <= 11; i++) { const h = 6 - 0.5*i; bxn(104, h, 1.5*i, M.marble, 0, Y_P + h/2, 76 + 0.75*i, INFO.STEPS); }
 
-// Cuerpo (Lugar Santo + Lugar Santísimo, con sus celdas dentro del mismo volumen)
-bx(70, 100, 78, M.marble, 0, Y_S + 50, 12, INFO.SANCT);
+// Cuerpo HUECO (Middot 4:6-7): por dentro, 20 codos de ancho y 40 de alto; de este a
+// oeste, el muro de 6 (z 51..57), el Lugar Santo de 40 (z 11..51), un codo entre las dos
+// cortinas (z 10..11) y el Lugar Santísimo de 20 (z -10..10). Alrededor, muros y celdas.
+const Y_C = Y_S + 40; // cielorraso interior; encima, la cámara alta (aliyá)
+bx(25, 100, 78, M.marble, -22.5, Y_S + 50, 12, INFO.SANCT);
+bx(25, 100, 78, M.marble,  22.5, Y_S + 50, 12, INFO.SANCT);
+bx(20, 100, 17, M.marble, 0, Y_S + 50, -18.5, INFO.SANCT);
+bx(20, 60, 61, M.marble, 0, Y_C + 30, 20.5, INFO.SANCT);
+// Muro oriental del Lugar Santo, con la puerta de 10 × 20 (Middot 4:1)
+bx(5, 40, 6.5, M.marble, -7.5, Y_S + 20, 54.25, INFO.SANCT);
+bx(5, 40, 6.5, M.marble,  7.5, Y_S + 20, 54.25, INFO.SANCT);
+bx(10, 20, 6.5, M.marble, 0, Y_S + 30, 54.25, INFO.SANCT);
 // Pórtico: dos machones + dintel, dejando el vano de 20×40 abierto
 bx(40, 100, 22, M.marble, -30, Y_S + 50, 62, INFO.SANCT);
 bx(40, 100, 22, M.marble,  30, Y_S + 50, 62, INFO.SANCT);
@@ -682,8 +703,10 @@ bx(20, 60, 22, M.marble, 0, Y_S + 70, 62, INFO.SANCT);
 
 // Molduras: zócalo, hilada de oro a media altura, friso de oro y pretil
 const RECT = [[-50, 51, 50, 73], [-35, -27, 35, 51]]; // pórtico, cuerpo
+// Zócalo: por fuera, sin cruzar la entrada del pórtico ni la puerta del Lugar Santo
+for (const [w, x, z] of [[41.4, -30, 73], [41.4, 30, 73], [16.4, -42.5, 51], [16.4, 42.5, 51], [71.4, 0, -27]]) bxn(w, 3.5, 1.4, M.marbleS, x, Y_S + 1.75, z, INFO.SANCT);
+for (const [x, z1, z2] of [[-50, 51, 73], [50, 51, 73], [-35, -27, 51], [35, -27, 51]]) bxn(1.4, 3.5, z2 - z1, M.marbleS, x, Y_S + 1.75, (z1 + z2)/2, INFO.SANCT);
 for (const [x1, z1, x2, z2] of RECT) {
-  ring(x1, z1, x2, z2, Y_S, 3.5, 1.4, M.marbleS, INFO.SANCT);
   ring(x1, z1, x2, z2, Y_S + 61, 1.4, 0.7, M.goldPl, INFO.SANCT);
   ring(x1, z1, x2, z2, S_TOP - 10, 4.5, 0.9, M.goldPl, INFO.SANCT);
   ring(x1, z1, x2, z2, S_TOP - 2.2, 2.2, 2.2, M.marbleS, INFO.SANCT);   // cornisa
@@ -733,20 +756,155 @@ bxn(20, 60, .25, M.goldFacade, 0, Y_S + 70, ZF + .12, INFO.SANCT);
 
 // ── INTERIOR DEL PÓRTICO, visible por el vano ─────────────────────────────────
 const ZB = 57.5; // muro oriental del Lugar Santo
-bxn(20, 40, 0.8, M.goldPl, 0, Y_S + 20, ZB, INFO.PORTAL);
-bxn(13, 22, 0.5, M.gold, 0, Y_S + 11, ZB + .55, INFO.PORTAL); // marco de las puertas (10×20)
-{ // Tapiz babilónico delante de las puertas
-  const cv = document.createElement('canvas'); cv.width = 256; cv.height = 512;
-  const c = cv.getContext('2d'), R = rng(5);
-  const g = c.createLinearGradient(0, 0, 256, 0);
-  g.addColorStop(0, '#7A1420'); g.addColorStop(.12, '#4A1A6E'); g.addColorStop(.5, '#1E3A8A'); g.addColorStop(.88, '#4A1A6E'); g.addColorStop(1, '#7A1420');
-  c.fillStyle = g; c.fillRect(0, 0, 256, 512);
-  for (let x = 12; x < 256; x += 22) { c.fillStyle = 'rgba(0,0,0,.2)'; c.fillRect(x, 0, 5, 512); c.fillStyle = 'rgba(255,255,255,.07)'; c.fillRect(x + 8, 0, 4, 512); } // pliegues
-  c.fillStyle = '#E8E0CC'; c.fillRect(0, 0, 256, 10); c.fillRect(0, 502, 256, 10);
-  for (let i = 0; i < 90; i++) { c.fillStyle = 'rgba(230,200,110,.85)'; c.beginPath(); c.arc(R()*256, 20 + R()*470, 1 + R()*1.6, 0, 7); c.fill(); } // «el panorama de los cielos» (Josefo)
-  const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace;
-  const m = mk(new THREE.PlaneGeometry(10.4, 20.4), new THREE.MeshStandardMaterial({ map:t, roughness:.95 }), 0, Y_S + 10.2, ZB + .9, INFO.PORTAL, false);
+for (const sx of [-1, 1]) bxn(5, 40, 0.8, M.goldPl, sx*7.5, Y_S + 20, ZB, INFO.PORTAL);   // «toda la pared alrededor», de oro (Josefo)
+bxn(10, 20, 0.8, M.goldPl, 0, Y_S + 30, ZB, INFO.PORTAL);
+for (const sx of [-1, 1]) bxn(1.5, 21.5, .5, M.gold, sx*5.75, Y_S + 10.75, ZB + .55, INFO.DOORS); // marco de la puerta
+bxn(13, 1.5, .5, M.gold, 0, Y_S + 20.75, ZB + .55, INFO.DOORS);
+// Fuego, humo y resplandor (los usan el altar, el candelabro y el altar del incienso)
+const flames = [], smoke = [], incense = [];
+const haloTex = (() => {
+  const cv = document.createElement('canvas'); cv.width = cv.height = 64;
+  const c = cv.getContext('2d'), g = c.createRadialGradient(32,32,2, 32,32,32);
+  g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(0.4, 'rgba(255,255,255,.4)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+  c.fillStyle = g; c.fillRect(0,0,64,64); return new THREE.CanvasTexture(cv);
+})();
+
+// ══════════════════════════════════════════════════════════════════════════════
+// FASE 4 — EL INTERIOR DEL SANTUARIO
+// ══════════════════════════════════════════════════════════════════════════════
+// Tela tejida: urdimbre y trama a la vista, en los cuatro colores del velo
+// (azul, púrpura, escarlata y lino). `stars` agrega «el panorama de los cielos»
+// que Josefo describe en el velo de la entrada: estrellas, sin ninguna figura viva.
+function veilMat(seed, stars) {
+  const W = 512, H = 1024, [cv, c] = canvas2(W, H), [bv, b] = canvas2(W, H), R = rng(seed);
+  if (stars) {
+    const bands = [['#7E1A22', .07], ['#4A1E6A', .06], ['#E6DCC4', .025], ['#1C3378', .69], ['#E6DCC4', .025], ['#4A1E6A', .06], ['#7E1A22', .07]];
+    let x = 0;
+    for (const [col, f] of bands) { c.fillStyle = col; c.fillRect(x, 0, f*W + 1, H); x += f*W; }
+  } else { // velos interiores: los cuatro hilos mezclados en el tejido, sin franjas ni dibujos
+    c.fillStyle = '#2A2560'; c.fillRect(0, 0, W, H);
+    const cols = ['rgba(40,66,150,.28)', 'rgba(96,40,130,.28)', 'rgba(150,34,44,.22)', 'rgba(235,225,200,.14)'];
+    for (let i = 0; i < 9000; i++) { c.fillStyle = cols[i % 4];
+      if (R() < .5) c.fillRect(R()*W, 0, 1, H); else c.fillRect(0, R()*H, W, 1); }
+    for (let x = 0; x < W; x += 64) { const g = c.createLinearGradient(x, 0, x + 64, 0); // brillo del paño grueso
+      g.addColorStop(0, 'rgba(0,0,0,.18)'); g.addColorStop(.5, 'rgba(255,255,255,.06)'); g.addColorStop(1, 'rgba(0,0,0,.18)'); c.fillStyle = g; c.fillRect(x, 0, 64, H); }
+  }
+  for (let y = 0; y < H; y += 3) { c.fillStyle = 'rgba(0,0,0,.10)'; c.fillRect(0, y, W, 1); }           // trama
+  for (let x2 = 0; x2 < W; x2 += 3) { c.fillStyle = 'rgba(255,255,255,.05)'; c.fillRect(x2, 0, 1, H); }  // urdimbre
+  if (stars) for (let i = 0; i < 260; i++) {
+    const sx = W*.21 + R()*W*.58, sy = 30 + R()*(H - 60), r = R() < .08 ? 3 + R()*2 : .8 + R()*1.6;
+    const g = c.createRadialGradient(sx, sy, 0, sx, sy, r*3); g.addColorStop(0, 'rgba(255,236,170,.95)'); g.addColorStop(.35, 'rgba(230,190,90,.55)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+    c.fillStyle = g; c.fillRect(sx - r*3, sy - r*3, r*6, r*6);
+  }
+  c.fillStyle = '#C9A040'; c.fillRect(0, 0, W, 12); c.fillRect(0, H - 12, W, 12);                    // orillos con hilo de oro
+  b.fillStyle = '#808080'; b.fillRect(0, 0, W, H);
+  for (let y = 0; y < H; y += 3) { b.fillStyle = '#6a6a6a'; b.fillRect(0, y, W, 1); }
+  const t = texOf(cv, true, false), bt = texOf(bv, false, false);
+  return new THREE.MeshStandardMaterial({ map: t, bumpMap: bt, bumpScale: .6, roughness: .92, side: THREE.DoubleSide, envMapIntensity: .2 });
 }
+// Cortina con pliegues: un plano subdividido, ondulado en profundidad
+function curtain(w, h, mat, x, y, z, info, folds = 9, depth = .35) {
+  const g = new THREE.PlaneGeometry(w, h, folds*8, 1), pos = g.attributes.position;
+  for (let i = 0; i < pos.count; i++) { const u = (pos.getX(i) + w/2)/w; pos.setZ(i, Math.sin(u*Math.PI*2*folds)*depth); }
+  g.computeVertexNormals();
+  return mk(g, mat, x, y, z, info, false);
+}
+// El velo babilónico, del tamaño de las puertas, colgado delante de ellas (Josefo, Guerra V.5.4)
+curtain(10.4, 20.4, veilMat(5, true), 0, Y_S + 10.2, ZB + 1, INFO.VEIL, 7, .22);
+
+// Las cuatro hojas de la puerta (Middot 4:1): las de afuera se abren dentro del vano y
+// cubren el espesor del muro; las de adentro, contra la pared del Lugar Santo
+for (const sx of [-1, 1]) {
+  bx(.3, 20, 5, M.doorGold, sx*4.8, Y_S + 10, 55, INFO.DOORS);
+  bx(5, 20, .3, M.doorGold, sx*7.45, Y_S + 10, 50.75, INFO.DOORS);
+}
+
+// Todo el interior recubierto de oro, «salvo detrás de las puertas» (Middot 4:1)
+M.goldIn = M.goldFacade.clone(); M.goldIn.envMapIntensity = .3; M.goldIn.roughness = .4; M.goldIn.emissiveIntensity = .12;
+M.goldIn.userData.tile = [16, 16]; // placas más grandes adentro: de cerca, las de 2 × 1 parecían ladrillos
+M.pavIn = M.pavW.clone(); M.pavIn.color.set(0xBCA680); // piso interior: la misma losa, en penumbra
+for (const sx of [-1, 1]) {
+  bxn(.2, 40, 41, M.goldIn, sx*9.9, Y_S + 20, 31, INFO.HEKAL);
+  bxn(.2, 40, 20, M.goldIn, sx*9.9, Y_S + 20, 0, INFO.DEBIR);
+  bxn(5, 40, .2, M.goldIn, sx*7.5, Y_S + 20, 50.9, INFO.HEKAL);
+}
+bxn(10, 20, .2, M.goldIn, 0, Y_S + 30, 50.9, INFO.HEKAL);
+bxn(20, 40, .2, M.goldIn, 0, Y_S + 20, -9.9, INFO.DEBIR);
+bxn(20, .2, 61, M.goldIn, 0, Y_C - .1, 20.5, INFO.HEKAL);
+floor(-10, 10, 10, 51, Y_S + .03, M.pavIn, INFO.HEKAL);
+floor(-10, -10, 10, 10, Y_S + .03, M.pavIn, INFO.DEBIR);
+
+// Las dos cortinas entre el Lugar Santo y el Santísimo, a un codo una de otra (Yomá 5:1),
+// de 40 × 20 codos (Shekalim 8:5). La de afuera quedaba recogida al sur y la de adentro
+// al norte: el sumo sacerdote entraba por el sur y caminaba entre ellas hasta el norte.
+{
+  const vm = veilMat(13, false);
+  curtain(18.4, 40, vm, -.8, Y_S + 20, 10.9, INFO.VEIL_IN, 14, .25);   // exterior, abierta al sur (X+)
+  cy(.55, .75, 40, 10, vm, 8.95, Y_S + 20, 10.85, INFO.VEIL_IN);         // el paño recogido
+  curtain(18.4, 40, vm, .8, Y_S + 20, 10.1, INFO.VEIL_IN, 14, .25);    // interior, abierta al norte (X-)
+  cy(.55, .75, 40, 10, vm, -8.95, Y_S + 20, 10.15, INFO.VEIL_IN);
+}
+
+// ── EL LUGAR SANTO: el candelabro, la mesa y el altar del incienso (Josefo, Guerra V.5.5) ─
+// Ubicación según Éxodo 40:22-26: la mesa al norte, el candelabro al sur, frente a ella,
+// y el altar del incienso en el medio, delante del velo.
+const lampFlames = [];
+{ // EL CANDELABRO — siete brazos, unos tres codos de alto; los brazos corren de este a oeste
+  const g = new THREE.Group(); g.position.set(5.2, Y_S, 31); g.userData = INFO.MENORAH; IXS.push(g); world.add(g);
+  const add = (geo, x, y, z, rz = 0, mat = M.gold) => { const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.rotation.z = rz; m.castShadow = true; g.add(m); return m; };
+  add(new THREE.CylinderGeometry(.55, .7, .25, 24), 0, .125, 0);
+  add(new THREE.CylinderGeometry(.35, .5, .3, 24), 0, .4, 0);
+  const TOP = 3.1;
+  add(new THREE.CylinderGeometry(.07, .09, TOP - .55, 12), 0, .55 + (TOP - .55)/2, 0);
+  const arms = new THREE.Group(); arms.rotation.y = Math.PI/2; g.add(arms);       // plano de los brazos: este-oeste
+  for (const r of [.42, .84, 1.26]) {
+    const t = new THREE.Mesh(new THREE.TorusGeometry(r, .055, 8, 32, Math.PI), M.gold);
+    t.position.y = TOP; t.rotation.z = Math.PI; arms.add(t);
+    for (const k of [0, .25, .5, .75, 1]) { // nudos y flores a lo largo del brazo (Éx 25:33)
+      const a = Math.PI + k*Math.PI, kn = new THREE.Mesh(new THREE.SphereGeometry(.085, 8, 6), M.gold);
+      kn.position.set(Math.cos(a)*r, TOP + Math.sin(a)*r, 0); arms.add(kn);
+    }
+  }
+  for (const xx of [-1.26, -.84, -.42, 0, .42, .84, 1.26]) {
+    const cup = new THREE.Mesh(new THREE.CylinderGeometry(.13, .06, .14, 12), M.gold); cup.position.set(xx, TOP + .07, 0); arms.add(cup);
+    const f = new THREE.Mesh(new THREE.ConeGeometry(.05, .2, 8), M.flame); f.position.set(xx, TOP + .25, 0); f.userData.ph = xx*7; arms.add(f); lampFlames.push(f);
+  }
+  const pl = new THREE.PointLight(0xFFB868, 14, 60, 1.3); pl.position.set(0, TOP + 1, 0); g.add(pl);
+  const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: haloTex, color: 0xFFC070, transparent: true, opacity: .35, depthWrite: false, blending: THREE.AdditiveBlending }));
+  glow.position.set(0, TOP + .3, 0); glow.scale.set(4.5, 2, 1); g.add(glow);
+}
+{ // LA MESA DE LOS PANES — dos codos por uno, codo y medio de alto (Menajot 11:5; Éx 25:23)
+  const g = new THREE.Group(); g.position.set(-5.2, Y_S, 31); g.userData = INFO.TABLE; IXS.push(g); world.add(g);
+  const add = (geo, mat, x, y, z) => { const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.castShadow = true; g.add(m); return m; };
+  add(new THREE.BoxGeometry(1.1, .1, 2.1), M.gold, 0, 1.5, 0);
+  add(new THREE.BoxGeometry(1.14, .16, 2.14), M.gold, 0, 1.36, 0);                                   // moldura
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) add(new THREE.CylinderGeometry(.05, .045, 1.4, 10), M.gold, sx*.48, .7, sz*.98);
+  const bread = new THREE.MeshStandardMaterial({ color: 0xC89A5E, roughness: .9 });
+  for (const sz of [-.5, .5]) for (let i = 0; i < 6; i++) add(new THREE.BoxGeometry(.8, .1, .38), bread, 0, 1.6 + i*.11, sz); // dos hileras de seis (Lv 24:6)
+  for (const sz of [-.5, .5]) add(new THREE.CylinderGeometry(.09, .07, .08, 12), M.gold, 0, 2.3, sz);  // los dos cuencos de incienso
+}
+{ // EL ALTAR DEL INCIENSO — un codo por uno, dos de alto, con sus cuernos (Éx 30:1-3)
+  const g = new THREE.Group(); g.position.set(0, Y_S, 22); g.userData = INFO.INCENSE; IXS.push(g); world.add(g);
+  const add = (geo, mat, x, y, z) => { const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.castShadow = true; g.add(m); return m; };
+  add(new THREE.BoxGeometry(1, 1.9, 1), M.gold, 0, .95, 0);
+  add(new THREE.BoxGeometry(1.12, .1, 1.12), M.gold, 0, 1.75, 0);                                     // la corona (Éx 30:3)
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) add(new THREE.BoxGeometry(.14, .2, .14), M.gold, sx*.43, 2, sz*.43);
+  const ember = add(new THREE.CylinderGeometry(.3, .3, .05, 16), M.flame, 0, 1.93, 0);
+  for (let i = 0; i < 5; i++) { // el humo del incienso
+    const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: haloTex, color: 0xD8D2C4, transparent: true, opacity: .15, depthWrite: false }));
+    sp.userData = { ph: i/5, base: [0, Y_S + 2, 22] }; world.add(sp); incense.push(sp);
+  }
+}
+
+// ── EL LUGAR SANTÍSIMO: vacío. Sólo la roca del monte asomando del piso (Yomá 5:2) ──
+{
+  const g = new THREE.SphereGeometry(1, 40, 16), pos = g.attributes.position, v = new THREE.Vector3();
+  for (let i = 0; i < pos.count; i++) { v.fromBufferAttribute(pos, i); // roca irregular: el radio varía con el ángulo
+    const a = Math.atan2(v.z, v.x), k = 1 + Math.sin(a*3 + 1)*.16 + Math.sin(a*7)*.07 + Math.sin(v.y*9)*.03; pos.setXYZ(i, v.x*k, v.y, v.z*k); }
+  g.computeVertexNormals();
+  const m = mk(g, new THREE.MeshStandardMaterial({ color: 0xB49C76, roughness: 1 }), 0, Y_S - .55, -1, INFO.STONE); m.scale.set(6.5, .7, 5.2);
+}
+
 { // Vid de oro sobre la puerta
   const vine = new THREE.Group(); vine.userData = INFO.VINE;
   const pts = []; for (let i = 0; i <= 16; i++) { const u = i/16; pts.push(new THREE.Vector3(-8.6 + 17.2*u, 31 + Math.sin(u*Math.PI)*3.2 + Math.sin(u*Math.PI*5)*.7, 0)); }
@@ -778,13 +936,6 @@ for (const sx of [-1, 1]) for (const sz of [-1, 1]) bx(1, 1, 1, M.plaster, AX + 
   mk(new THREE.ExtrudeGeometry(s, { depth:16, bevelEnabled:false }), M.plaster, 0, 0, AZ - 8, INFO.RAMP);
 }
 // Leña, fuego perpetuo y humo
-const flames = [], smoke = [];
-const haloTex = (() => {
-  const cv = document.createElement('canvas'); cv.width = cv.height = 64;
-  const c = cv.getContext('2d'), g = c.createRadialGradient(32,32,2, 32,32,32);
-  g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(0.4, 'rgba(255,255,255,.4)'); g.addColorStop(1, 'rgba(255,255,255,0)');
-  c.fillStyle = g; c.fillRect(0,0,64,64); return new THREE.CanvasTexture(cv);
-})();
 {
   const R = rng(3), FY = Y_P + 9;
   for (let i = 0; i < 7; i++) { const l = mk(new THREE.CylinderGeometry(.45, .45, 9, 6), M.wood, AX + (R()-.5)*4, FY + .5 + (i%2)*.8, AZ + (i - 3)*1.1, null, false); l.rotation.z = Math.PI/2; l.rotation.y = (R()-.5)*.8; }
@@ -1162,6 +1313,8 @@ const CAMS = {
   ext: { p:[-720,400,780],  t:[-90,0,60] },
   top: { p:[-108,1500,62],  t:[-108,0,60] },
   san: { p:[-120,120,400],  t:[-0,52,60] },
+  hek: { p:[0,30,49],       t:[0,27,12] },
+  deb: { p:[-2,50,8],       t:[0,22,-5] },
   alt: { p:[-54,58,146],    t:[3,18,104] },
   muj: { p:[-30,42,284],    t:[-0,16,160] },
   sor: { p:[-13,6,341],     t:[-10,2.4,328] },
@@ -1201,6 +1354,9 @@ function animate() {
   if (document.hidden) return; // no renderizar en segundo plano
   const t = clock.getElapsedTime();
 
+  lampFlames.forEach(f => { const s = 1 + Math.sin(t*9 + f.userData.ph)*.18; f.scale.set(1, s, 1); });
+  incense.forEach(sp => { const u = (t*.06 + sp.userData.ph) % 1, [bx0, by, bz] = sp.userData.base;
+    sp.position.set(bx0 + Math.sin(t*.7 + sp.userData.ph*9)*.4*u, by + u*9, bz); const sc = .6 + u*3; sp.scale.set(sc, sc, 1); sp.material.opacity = .16*Math.sin(u*Math.PI); });
   flames.forEach(f => { const s = 1 + Math.sin(t*7 + f.userData.ph)*.22; f.scale.set(1, s, 1); f.position.y = Y_P + 9 + 2.6*s; });
   smoke.forEach(s => { // columna de humo que sube y se abre
     const u = (t*0.035 + s.userData.ph) % 1;
