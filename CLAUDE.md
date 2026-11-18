@@ -718,7 +718,7 @@ rock_wall              → suelo del atrio (ground)
 - [ ] (Opcional) Debir como cubo 20³ con cámara superior de 10c encima (1 R 6:20); hoy es de 30 de alto macizo
 - [ ] Paneles de pared interiores con palmeras, querubines y rosetas más detallados
 - [ ] (Opcional) Renders fotorrealistas Blender como overlay "modo fotorrealista"
-- [ ] **Proyecto aparte siguiente: TEMPLO DE HERODES** (ahí SÍ van columnatas/pórticos). Luego: Tabernáculo, Templo de Ezequiel, Nueva Jerusalén.
+- [ ] **Templo de Herodes: en curso**, ver la sección «Proyecto: Segundo Templo (Herodes) 3D». Luego: Tabernáculo, Templo de Ezequiel, Nueva Jerusalén.
 
 ### Lecciones técnicas aprendidas
 - **Import map es OBLIGATORIO** — OrbitControls.js internamente importa `from 'three'`; sin import map falla
@@ -728,6 +728,25 @@ rock_wall              → suelo del atrio (ground)
 - **Rendimiento:** el mayor costo era `pixelRatio` 2 en Retina + SSAO. Bajar pixelRatio y quitar SSAO fue el gran salto. Las almenas (cientos de cajas) deben ir SIN sombras.
 - **Unicode minus (U+2212) rompe JS** — usar guión ASCII `-` en números
 - **Hard refresh (Cmd+Shift+R)** — para limpiar caché al iterar
+
+---
+
+## Proyecto: Segundo Templo (Herodes) 3D — EN CURSO
+
+- **Archivo:** `public/templo-herodes/templo.html` — mismo stack que el de Salomón (Three.js r160, un solo HTML). **Todavía no tiene ruta ni card en el sitio**: se abre directo en `/templo-herodes/templo.html`.
+- **Estado (2026-11-15):** fases 1, 2 y 3 hechas y verificadas en el navegador. **Falta la fase 4.**
+  1. ✅ Explanada en trapecio, muros de contención, terrazas, santuario, altar con rampa, fuente.
+  2. ✅ Muros y siete puertas del atrio interior, Puerta de Nicanor con las 15 gradas, Atrio de las Mujeres (cuatro cámaras, trece arcas), soreg con lápidas.
+  3. ✅ Terreno (Cedrón, Olivos, Ciudad Alta), pórticos, Stoa Real, Antonia, puertas de Hulda y escalinata sur, Arco de Robinson, puente, Puerta de Susa, torres de esquina.
+  4. ⬜ Interior del santuario (Lugar Santo con una menorá, una mesa y el altar del incienso; velo; Lugar Santísimo vacío), agrupar los once botones de cámara como recorrido por el NT, wrapper React + ruta `/esquemas/templo-herodes` + card en `Esquemas.jsx`, sitemap.
+- **Fuentes:** Mishná *Middot* para santuario y atrios; Josefo (*Guerra* V.5, *Ant.* XV.11) para explanada y pórticos; Ritmeyer para la planta. Donde discrepan, el tooltip lo dice.
+- **Coordenadas:** 1 unidad = 1 codo. Origen en el centro del Lugar Santísimo, y=0 en la explanada. Niveles: Atrio de las Mujeres +6, Israel +13,5, Sacerdotes +16, piso del santuario +22.
+- **⚠ QUIRALIDAD — leer antes de tocar coordenadas.** El código usa X+ = Sur y Z+ = Este, que con Y arriba es un sistema **zurdo**; Three.js es diestro, y dibujado tal cual el monte sale en espejo. Por eso toda la geometría y las luces cuelgan de `world` (`scale.x = -1`) y **nunca de `scene`**. Solo la cámara, `orbit.target`, los presets `CAMS` y el dron están en coordenadas de Three.js (x = −X del código). Una textura con texto necesita `repeat.x = -1` para leerse al derecho. **El visor de Salomón usa la misma convención sin la corrección**: por deducción del código está espejado (el Mar de Bronce quedaría al norte); está pendiente verificarlo y corregirlo.
+- **Sillería a escala real:** las texturas de piedra se dibujan en canvas (`ashlar()`) y representan `tile` codos; `boxGeo()` reescala las UV por dimensión. Usar siempre `bx`/`bxn`/`lbox`/`put`, no `new THREE.BoxGeometry` a mano, o los bloques se estiran.
+- **Columnas:** siempre con `colonnade()` (InstancedMesh). Son unas 600; como mallas sueltas la Mac se arrastra.
+- **Bloom:** el umbral (1.5) está en HDR lineal porque hay `OutputPass`. Con el umbral de Salomón (0.82) todo el mármol al sol brilla y la escena se ve lechosa.
+- **Decisiones que Edgardo todavía no confirmó:** las cuatro columnas de la fachada (monedas de Bar Kojba, no Josefo ni la Mishná), la Puerta Hermosa ubicada en la puerta oriental del Atrio de las Mujeres, los techos de teja rojiza, y el tooltip de la explanada que aparece sobre todo el pavimento.
+- **Vista previa:** `.claude/launch.json` levanta Vite en el puerto 5183; abrir con `http://127.0.0.1:5183/...` (con `localhost` falla).
 
 ---
 
