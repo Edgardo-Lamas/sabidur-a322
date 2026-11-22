@@ -1411,6 +1411,34 @@
   },
   "seriesArticulos": [
     {
+      "id": 2,
+      "slug": "estudio-de-la-musica",
+      "titulo": "Estudio de la música",
+      "categoria": "Teología Práctica",
+      "descripcion": "Una serie sobre la música según la Escritura. Antes de preguntar qué hace la música con el alma, hay que saber de quién es la música: de Dios, a quien alabaron las estrellas del alba antes de que hubiera pecado en la creación, y del Cordero, a quien se le canta el cántico nuevo.",
+      "imagen": "img/series/estudio-de-la-musica.jpg",
+      "disponible": true,
+      "primerArticulo": "/articulo/satanas-lo-que-la-escritura-revela-y-lo-que-calla",
+      "totalArticulos": 6,
+      "articulos": [
+        {
+          "numero": 1,
+          "titulo": "Satanás: lo que la Escritura revela y lo que calla",
+          "subtitulo": "Ezequiel 28, Isaías 14 y la leyenda del director de la música del cielo",
+          "href": "/articulo/satanas-lo-que-la-escritura-revela-y-lo-que-calla",
+          "disponible": true
+        },
+        {
+          "numero": 2,
+          "titulo": "El arpa de David ante Saúl",
+          "subtitulo": "1 Samuel 16:23",
+          "href": "",
+          "disponible": false
+        }
+      ],
+      "imagenCard": "img/series/estudio-de-la-musica-card.jpg"
+    },
+    {
       "id": 1,
       "slug": "permanezca-el-amor-fraternal",
       "titulo": "Permanezca el amor fraternal",
